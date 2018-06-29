@@ -5,14 +5,19 @@
   
 
   
-  <title>Tag: linux | A Humble Programmer</title>
+  <title>mysql知识点 | A Humble Programmer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="A Humble Programmer">
-<meta property="og:url" content="https://hezhigang.github.io/tags/linux/index.html">
+  <meta name="description" content="limitLIMIT row_count is equivalent to LIMIT 0, row_count LIMIT {[offset,] row_count  limit row_count offset offset With two arguments, the first argument specifies the offset of the first row to retur">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql知识点">
+<meta property="og:url" content="https://hezhigang.github.io/2018/06/29/mysql-points/index.html">
 <meta property="og:site_name" content="A Humble Programmer">
+<meta property="og:description" content="limitLIMIT row_count is equivalent to LIMIT 0, row_count LIMIT {[offset,] row_count  limit row_count offset offset With two arguments, the first argument specifies the offset of the first row to retur">
+<meta property="og:updated_time" content="2018-06-29T15:21:19.938Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A Humble Programmer">
+<meta name="twitter:title" content="mysql知识点">
+<meta name="twitter:description" content="limitLIMIT row_count is equivalent to LIMIT 0, row_count LIMIT {[offset,] row_count  limit row_count offset offset With two arguments, the first argument specifies the offset of the first row to retur">
   
     <link rel="alternate" href="/atom.xml" title="A Humble Programmer" type="application/atom+xml">
   
@@ -63,39 +68,74 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/05/19/memo1st/" class="archive-article-date">
-  <time datetime="2018-05-19T07:14:27.000Z" itemprop="datePublished">May 19</time>
+        <section id="main"><article id="post-mysql-points" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/29/mysql-points/" class="article-date">
+  <time datetime="2018-06-29T14:33:40.000Z" itemprop="datePublished">2018-06-29</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/19/memo1st/">memo1st</a>
+    <h1 class="article-title" itemprop="name">
+      mysql知识点
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="limit"><a href="#limit" class="headerlink" title="limit"></a>limit</h1><p><code>LIMIT row_count</code> is equivalent to <code>LIMIT 0, row_count</code></p>
+<p><code>LIMIT {[offset,] row_count</code> </p>
+<p><code>limit row_count offset offset</code></p>
+<p>With two arguments, the first argument specifies the offset of the first row to return, and the second specifies the maximum number of rows to return. <strong>The offset of the initial row is 0 (not 1)</strong></p>
+<h1 id="GROUP-CONCAT"><a href="#GROUP-CONCAT" class="headerlink" title="GROUP_CONCAT"></a>GROUP_CONCAT</h1><p> This function returns a string result with the concatenated non-NULL values from a group. It returns NULL if there are no non-NULL values. The full syntax is as follows:</p>
+<pre><code>GROUP_CONCAT([DISTINCT] expr [,expr ...]
+         [ORDER BY {unsigned_integer | col_name | expr}
+             [ASC | DESC] [,col_name ...]]
+         [SEPARATOR str_val])
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SELECT student_name, </div><div class="line">GROUP_CONCAT(DISTINCT test_score ORDER BY test_score DESC SEPARATOR &apos; &apos;) </div><div class="line">FROM student </div><div class="line">GROUP BY student_name;</div></pre></td></tr></table></figure>
+<h1 id="MySQL-Emulate-row-number"><a href="#MySQL-Emulate-row-number" class="headerlink" title="MySQL Emulate row_number"></a>MySQL Emulate row_number</h1><pre><code>select a.Score,b.`Rank` from Scores a,
+(
+select t.Score,(@row_number:=@row_number+1) as `Rank` from 
+(
+select distinct Score from Scores order by Score desc
+) t,(SELECT @row_number:=0) t2
+) b
+where a.Score=b.Score 
+order by a.Score desc;
+</code></pre><h1 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h1><p>The ALL and DISTINCT options specify whether duplicate rows should be returned. ALL (the default) specifies that all matching rows should be returned, including duplicates. DISTINCT specifies removal of duplicate rows from the result set. It is an error to specify both options. DISTINCTROW is a synonym for DISTINCT.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/06/29/mysql-points/" data-id="cjj04bzlb001ph8twol1m7vsq" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/06/18/db-ppt-digest-ljchen-pku/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数据库概论（陈立军, 北大）</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
 </section>
