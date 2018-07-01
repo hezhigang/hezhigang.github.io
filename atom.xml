@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2018-06-30T13:14:32.040Z</updated>
+  <updated>2018-07-01T12:54:28.551Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -20,11 +20,13 @@
     <link href="https://hezhigang.github.io/2018/06/30/LeetCode-Solve-Diary/"/>
     <id>https://hezhigang.github.io/2018/06/30/LeetCode-Solve-Diary/</id>
     <published>2018-06-30T11:20:59.000Z</published>
-    <updated>2018-06-30T13:14:32.040Z</updated>
+    <updated>2018-07-01T12:54:28.551Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Algorithms"><a href="#Algorithms" class="headerlink" title="Algorithms"></a>Algorithms</h1><h2 id="2-Add-Two-Numbers"><a href="#2-Add-Two-Numbers" class="headerlink" title="2. Add Two Numbers"></a>2. Add Two Numbers</h2><p>用链表模拟十进制加法运算，linked list有点犯晕，在Eclipse IDE上调试了半天才跑通了，只会瞎用框架和库的人算法方面果然是菜鸟。</p>
 <hr>
-<h1 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h1><h2 id="185-Department-Top-Three-Salaries"><a href="#185-Department-Top-Three-Salaries" class="headerlink" title="185. Department Top Three Salaries"></a>185. Department Top Three Salaries</h2><p>琢磨了好几天也没思路，问题的难度标为hard，难道用select无法实现？难道要用到cursor与临时表？最后google -> mysql top 3 per group在<a href="https://stackoverflow.com/" target="_blank" rel="external">Stack Overflow</a>找到<a href="https://stackoverflow.com/questions/12113699/get-top-n-records-for-each-group-of-grouped-results" target="_blank" rel="external">Get top n records for each group of grouped results</a>，思路顿开，原来还是要用到查询结果序号的计算列，T-SQL与PL/SQL都有Rank()函数，mysql可以用变量模拟实现，在<a href="https://leetcode.com/problems/rank-scores/description/" target="_blank" rel="external">178. Rank Scores</a>中已经用到，只是本题需要用到两个列，需要用两个@变量。</p>
+<h1 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h1><h2 id="180-Consecutive-Numbers"><a href="#180-Consecutive-Numbers" class="headerlink" title="180. Consecutive Numbers"></a>180. Consecutive Numbers</h2><p>被卡了好几天，百思不得其解，又开始怀疑是不是select还不足以，难道要用到游标与临时表之类，再琢磨下去也是浪费时间，遇到什么问题，就去问google，尤其是这种自己不会别人会的技术问题，搜 mysql consecutive queries 定位到 <a href="https://dba.stackexchange.com/questions/189013/mysql-query-for-3-consecutive-integers-between-records" target="_blank" rel="external">MySQL query for 3 consecutive integers between records</a>，冥思苦想就是想不对路，一看到人家的解就恍然大悟，自己怎么会想不到这一点，看来自己的sql还是需要外部启发，没有点拨，自己就迷失在思维定势里了。</p>
+<p>不过这题有点让人犯糊涂，如果id不连续呢？那是不是还得用计算列row_num?反正题意是id连续</p>
+<h2 id="185-Department-Top-Three-Salaries"><a href="#185-Department-Top-Three-Salaries" class="headerlink" title="185. Department Top Three Salaries"></a>185. Department Top Three Salaries</h2><p>琢磨了好几天也没思路，问题的难度标为hard，难道用select无法实现？难道要用到cursor与临时表？最后google -> mysql top 3 per group在<a href="https://stackoverflow.com/" target="_blank" rel="external">Stack Overflow</a>找到<a href="https://stackoverflow.com/questions/12113699/get-top-n-records-for-each-group-of-grouped-results" target="_blank" rel="external">Get top n records for each group of grouped results</a>，思路顿开，原来还是要用到查询结果序号的计算列，T-SQL与PL/SQL都有Rank()函数，mysql可以用变量模拟实现，在<a href="https://leetcode.com/problems/rank-scores/description/" target="_blank" rel="external">178. Rank Scores</a>中已经用到，只是本题需要用到两个列，需要用两个@变量。</p>
 <h2 id="184-Department-Highest-Salary"><a href="#184-Department-Highest-Salary" class="headerlink" title="184. Department Highest Salary"></a>184. Department Highest Salary</h2><p>也蒙了几天，group by得到部门max salary是显然的，怎么得到员工姓名？发现用部门id与salary同时作为join的条件就ok了，用using连接从句显得更自然。</p>
 ]]></content>
     
@@ -44,11 +46,12 @@
     <link href="https://hezhigang.github.io/2018/06/29/mysql-points/"/>
     <id>https://hezhigang.github.io/2018/06/29/mysql-points/</id>
     <published>2018-06-29T14:33:40.000Z</published>
-    <updated>2018-06-30T11:12:07.174Z</updated>
+    <updated>2018-07-01T12:06:19.643Z</updated>
     
     <content type="html"><![CDATA[<h1 id="limit"><a href="#limit" class="headerlink" title="limit"></a>limit</h1><p><code>LIMIT row_count</code> is equivalent to <code>LIMIT 0, row_count</code></p>
-<p><code>LIMIT {[offset,] row_count</code> </p>
+<p><code>LIMIT {[offset,] row_count</code></p>
 <p><code>limit row_count offset offset</code></p>
+<p>For compatibility with <strong>PostgreSQL</strong>, MySQL also supports the <code>LIMIT row_count OFFSET offset</code> syntax.</p>
 <p>With two arguments, the first argument specifies the offset of the first row to return, and the second specifies the maximum number of rows to return. <strong>The offset of the initial row is 0 (not 1)</strong></p>
 <h1 id="GROUP-CONCAT"><a href="#GROUP-CONCAT" class="headerlink" title="GROUP_CONCAT"></a>GROUP_CONCAT</h1><p> This function returns a string result with the concatenated non-NULL values from a group. It returns NULL if there are no non-NULL values. The full syntax is as follows:</p>
 <pre><code>GROUP_CONCAT([DISTINCT] expr [,expr ...]
@@ -78,7 +81,36 @@ order by t.DepartmentId,t.Salary desc;
 </code></pre><p>is equivalent to:</p>
 <pre><code>SELECT * FROM t1 LEFT JOIN (t2 CROSS JOIN t3 CROSS JOIN t4)
              ON (t2.a=t1.a AND t3.b=t1.b AND t4.c=t1.c)
-</code></pre><h1 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h1><p>The ALL and DISTINCT options specify whether duplicate rows should be returned. ALL (the default) specifies that all matching rows should be returned, including duplicates. DISTINCT specifies removal of duplicate rows from the result set. It is an error to specify both options. DISTINCTROW is a synonym for DISTINCT.</p>
+</code></pre><h1 id="User-Defined-Variables"><a href="#User-Defined-Variables" class="headerlink" title="User-Defined Variables"></a>User-Defined Variables</h1><p> You can store a value in a user-defined variable in one statement and then refer to it later in another statement. This enables you to pass values from one statement to another. User-defined variables are session-specific. That is, a user variable defined by one client cannot be seen or used by other clients. All variables for a given client session are automatically freed when that client exits.</p>
+<p>User variables are written as @var_name, where the variable name var<em>name consists of alphanumeric characters, “.”, “</em>”, and “$”. A user variable name can contain other characters if you quote it as a string or identifier (for example, @’my-var’, @”my-var”, or @<code>my-var</code>).</p>
+<p>User variable names are not case sensitive.</p>
+<p>One way to set a user-defined variable is by issuing a SET statement:</p>
+<p>SET @var_name = expr [, @var_name = expr] …</p>
+<p>For SET, either = or := can be used as the assignment operator.</p>
+<p><strong>You can also assign a value to a user variable in statements other than SET. In this case, the assignment operator must be := and not = because the latter is treated as the comparison operator = in non-SET statements</strong>:</p>
+<pre><code>SET @t1=1, @t2=2, @t3:=4;
+SELECT @t1, @t2, @t3, @t4 := @t1+@t2+@t3;
+</code></pre><table>
+<thead>
+<tr>
+<th>@t1</th>
+<th>@t2</th>
+<th>@t3</th>
+<th>@t4 := @t1+@t2+@t3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+<pre><code>SELECT (@aa:=id) AS a, (@aa+3) AS b FROM tbl_name HAVING b=5;
+</code></pre><p>The reference to b in the HAVING clause refers to an alias for an expression in the select list that uses @aa. This does not work as expected: @aa contains the value of id from the previous selected row, not from the current row. </p>
+<h1 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h1><p>The ALL and DISTINCT options specify whether duplicate rows should be returned. ALL (the default) specifies that all matching rows should be returned, including duplicates. DISTINCT specifies removal of duplicate rows from the result set. It is an error to specify both options. DISTINCTROW is a synonym for DISTINCT.</p>
 ]]></content>
     
     <summary type="html">
