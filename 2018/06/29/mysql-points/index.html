@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://hezhigang.github.io/2018/06/29/mysql-points/index.html">
 <meta property="og:site_name" content="A Humble Programmer">
 <meta property="og:description" content="limitLIMIT row_count is equivalent to LIMIT 0, row_count LIMIT {[offset,] row_count limit row_count offset offset For compatibility with PostgreSQL, MySQL also supports the LIMIT row_count OFFSET offs">
-<meta property="og:updated_time" content="2018-07-01T12:06:19.643Z">
+<meta property="og:updated_time" content="2018-07-02T15:00:29.670Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql知识点">
 <meta name="twitter:description" content="limitLIMIT row_count is equivalent to LIMIT 0, row_count LIMIT {[offset,] row_count limit row_count offset offset For compatibility with PostgreSQL, MySQL also supports the LIMIT row_count OFFSET offs">
@@ -124,7 +124,7 @@ order by t.DepartmentId,t.Salary desc;
 <pre><code>SELECT * FROM t1 LEFT JOIN (t2 CROSS JOIN t3 CROSS JOIN t4)
              ON (t2.a=t1.a AND t3.b=t1.b AND t4.c=t1.c)
 </code></pre><h1 id="User-Defined-Variables"><a href="#User-Defined-Variables" class="headerlink" title="User-Defined Variables"></a>User-Defined Variables</h1><p> You can store a value in a user-defined variable in one statement and then refer to it later in another statement. This enables you to pass values from one statement to another. User-defined variables are session-specific. That is, a user variable defined by one client cannot be seen or used by other clients. All variables for a given client session are automatically freed when that client exits.</p>
-<p>User variables are written as @var_name, where the variable name var<em>name consists of alphanumeric characters, “.”, “</em>”, and “$”. A user variable name can contain other characters if you quote it as a string or identifier (for example, @’my-var’, @”my-var”, or @<code>my-var</code>).</p>
+<p>User variables are written as @var_name, where the variable name var<em>name consists of alphanumeric characters, “.”, “</em>”, and “$”. A user variable name can contain other characters if you quote it as a string or identifier (for example, @’my-var’, @”my-var”, or @`my-var`).</p>
 <p>User variable names are not case sensitive.</p>
 <p>One way to set a user-defined variable is by issuing a SET statement:</p>
 <p>SET @var_name = expr [, @var_name = expr] …</p>
@@ -151,8 +151,32 @@ SELECT @t1, @t2, @t3, @t4 := @t1+@t2+@t3;
 </tbody>
 </table>
 <pre><code>SELECT (@aa:=id) AS a, (@aa+3) AS b FROM tbl_name HAVING b=5;
-</code></pre><p>The reference to b in the HAVING clause refers to an alias for an expression in the select list that uses @aa. This does not work as expected: @aa contains the value of id from the previous selected row, not from the current row. </p>
-<h1 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h1><p>The ALL and DISTINCT options specify whether duplicate rows should be returned. ALL (the default) specifies that all matching rows should be returned, including duplicates. DISTINCT specifies removal of duplicate rows from the result set. It is an error to specify both options. DISTINCTROW is a synonym for DISTINCT.</p>
+</code></pre><p>The reference to b in the HAVING clause refers to an alias for an expression in the select list that uses @aa. This does not work as expected: @aa contains the value of id from the previous selected row, not from the current row.</p>
+<h1 id="Multi-Table-Deletes"><a href="#Multi-Table-Deletes" class="headerlink" title="Multi-Table Deletes"></a>Multi-Table Deletes</h1><p>You can specify multiple tables in a DELETE statement to delete rows from one or more tables depending on the condition in the WHERE clause.</p>
+<p>For the first multiple-table syntax, only matching rows from the tables listed before the FROM clause are deleted. For the second multiple-table syntax, only matching rows from the tables listed in the FROM clause (before the USING clause) are deleted. The effect is that you can delete rows from many tables at the same time and have additional tables that are used only for searching:</p>
+<pre><code>DELETE t1, t2 FROM t1 INNER JOIN t2 INNER JOIN t3
+WHERE t1.id=t2.id AND t2.id=t3.id;
+</code></pre><p>Or:</p>
+<pre><code>DELETE FROM t1, t2 USING t1 INNER JOIN t2 INNER JOIN t3
+WHERE t1.id=t2.id AND t2.id=t3.id;
+</code></pre><p>These statements use all three tables when searching for rows to delete, but delete matching rows only from tables t1 and t2. </p>
+<blockquote>
+<p> If you declare an alias for a table, you must use the alias when referring to the table:<br> <code>DELETE t1 FROM test AS t1, test2 WHERE ...</code></p>
+</blockquote>
+<p> Table aliases in a multiple-table DELETE should be declared only in the table_references part of the statement. Elsewhere, alias references are permitted but not alias declarations.</p>
+<p>Correct:</p>
+<pre><code>DELETE a1, a2 FROM t1 AS a1 INNER JOIN t2 AS a2
+WHERE a1.id=a2.id;
+
+DELETE FROM a1, a2 USING t1 AS a1 INNER JOIN t2 AS a2
+WHERE a1.id=a2.id;
+</code></pre><p>Incorrect:</p>
+<pre><code>DELETE t1 AS a1, t2 AS a2 FROM t1 INNER JOIN t2
+WHERE a1.id=a2.id;
+
+DELETE FROM t1 AS a1, t2 AS a2 USING t1 INNER JOIN t2
+WHERE a1.id=a2.id;
+</code></pre><h1 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h1><p>The ALL and DISTINCT options specify whether duplicate rows should be returned. ALL (the default) specifies that all matching rows should be returned, including duplicates. DISTINCT specifies removal of duplicate rows from the result set. It is an error to specify both options. DISTINCTROW is a synonym for DISTINCT.</p>
 
       
     </div>
