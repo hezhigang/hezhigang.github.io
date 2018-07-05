@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://hezhigang.github.io/2018/06/29/mysql-points/index.html">
 <meta property="og:site_name" content="A Humble Programmer">
 <meta property="og:description" content="limitLIMIT row_count is equivalent to LIMIT 0, row_count LIMIT {[offset,] row_count limit row_count offset offset For compatibility with PostgreSQL, MySQL also supports the LIMIT row_count OFFSET offs">
-<meta property="og:updated_time" content="2018-07-02T15:00:29.670Z">
+<meta property="og:updated_time" content="2018-07-05T11:35:52.468Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql知识点">
 <meta name="twitter:description" content="limitLIMIT row_count is equivalent to LIMIT 0, row_count LIMIT {[offset,] row_count limit row_count offset offset For compatibility with PostgreSQL, MySQL also supports the LIMIT row_count OFFSET offs">
@@ -116,14 +116,15 @@ select distinct DepartmentId,Salary from Employee
 ) t 
 CROSS JOIN (select @num:=0, @deptId:=null) c  
 order by t.DepartmentId,t.Salary desc;
-</code></pre><h1 id="JOIN"><a href="#JOIN" class="headerlink" title="JOIN"></a>JOIN</h1><p>In MySQL, <code>JOIN</code>, <code>CROSS JOIN</code>, and <code>INNER JOIN</code> are syntactic equivalents (they can replace each other). In standard SQL, they are not equivalent. <code>INNER JOIN</code> is used with an ON clause, <code>CROSS JOIN</code> is used otherwise.</p>
+</code></pre><h1 id="JOIN"><a href="#JOIN" class="headerlink" title="JOIN"></a>JOIN</h1><h2 id="INNER-JOIN-vs-CROSS-JOIN"><a href="#INNER-JOIN-vs-CROSS-JOIN" class="headerlink" title="INNER JOIN vs. CROSS JOIN"></a>INNER JOIN vs. CROSS JOIN</h2><p>In MySQL, <code>JOIN</code>, <code>CROSS JOIN</code>, and <code>INNER JOIN</code> are syntactic equivalents (they can replace each other). In standard SQL, they are not equivalent. <code>INNER JOIN</code> is used with an ON clause, <code>CROSS JOIN</code> is used otherwise.</p>
 <p>In MySQL, For example:</p>
 <pre><code>SELECT * FROM t1 LEFT JOIN (t2, t3, t4)
              ON (t2.a=t1.a AND t3.b=t1.b AND t4.c=t1.c)
 </code></pre><p>is equivalent to:</p>
 <pre><code>SELECT * FROM t1 LEFT JOIN (t2 CROSS JOIN t3 CROSS JOIN t4)
              ON (t2.a=t1.a AND t3.b=t1.b AND t4.c=t1.c)
-</code></pre><h1 id="User-Defined-Variables"><a href="#User-Defined-Variables" class="headerlink" title="User-Defined Variables"></a>User-Defined Variables</h1><p> You can store a value in a user-defined variable in one statement and then refer to it later in another statement. This enables you to pass values from one statement to another. User-defined variables are session-specific. That is, a user variable defined by one client cannot be seen or used by other clients. All variables for a given client session are automatically freed when that client exits.</p>
+</code></pre><h2 id="LEFT-JOIN-vs-RIGHT-JOIN"><a href="#LEFT-JOIN-vs-RIGHT-JOIN" class="headerlink" title="LEFT JOIN vs. RIGHT JOIN"></a>LEFT JOIN vs. RIGHT JOIN</h2><p>RIGHT JOIN works analogously to LEFT JOIN. To keep code portable across databases, it is recommended that you use LEFT JOIN instead of RIGHT JOIN.</p>
+<h1 id="User-Defined-Variables"><a href="#User-Defined-Variables" class="headerlink" title="User-Defined Variables"></a>User-Defined Variables</h1><p> You can store a value in a user-defined variable in one statement and then refer to it later in another statement. This enables you to pass values from one statement to another. User-defined variables are session-specific. That is, a user variable defined by one client cannot be seen or used by other clients. All variables for a given client session are automatically freed when that client exits.</p>
 <p>User variables are written as @var_name, where the variable name var<em>name consists of alphanumeric characters, “.”, “</em>”, and “$”. A user variable name can contain other characters if you quote it as a string or identifier (for example, @’my-var’, @”my-var”, or @`my-var`).</p>
 <p>User variable names are not case sensitive.</p>
 <p>One way to set a user-defined variable is by issuing a SET statement:</p>
@@ -175,7 +176,7 @@ WHERE a1.id=a2.id;
 WHERE a1.id=a2.id;
 
 DELETE FROM t1 AS a1, t2 AS a2 USING t1 INNER JOIN t2
-WHERE a1.id=a2.id;
+WHERE a1.id=a2.id; 
 </code></pre><h1 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h1><p>The ALL and DISTINCT options specify whether duplicate rows should be returned. ALL (the default) specifies that all matching rows should be returned, including duplicates. DISTINCT specifies removal of duplicate rows from the result set. It is an error to specify both options. DISTINCTROW is a synonym for DISTINCT.</p>
 
       
