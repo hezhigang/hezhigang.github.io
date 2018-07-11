@@ -160,6 +160,12 @@ USING table_references
 <h2 id="262-Trips-and-Users"><a href="#262-Trips-and-Users" class="headerlink" title="262. Trips and Users"></a>262. Trips and Users</h2><p>这题又耗了两天，一开始没看懂题意，虽然不能迅速做不出，倒也没怎么被卡住，不过免不了又要在纸上比划一下，还有在mysql上一遍遍执行验证想法，也没啥可以google的，提交Leetcode第一遍就通过了，没想到。自己对left outer join与right outer join的理解似乎有误，这两者是有区别的，自己之前似乎以为这两者是对称的。</p>
 <h2 id="595-Big-Countries"><a href="#595-Big-Countries" class="headerlink" title="595. Big Countries"></a>595. Big Countries</h2><p>这题确实Easy，or条件或用据说性能更好的 union (Set operations)</p>
 <h2 id="596-Classes-More-Than-5-Students"><a href="#596-Classes-More-Than-5-Students" class="headerlink" title="596. Classes More Than 5 Students"></a>596. Classes More Than 5 Students</h2><p>这题也Easy，group by + having子句</p>
+<h2 id="601-Human-Traffic-of-Stadium"><a href="#601-Human-Traffic-of-Stadium" class="headerlink" title="601. Human Traffic of Stadium"></a>601. Human Traffic of Stadium</h2><p>这题又被卡了好几天，google也没搜到什么直接的线索，PL/SQL与T-SQL有分析函数ROW_NUMBER(), RANK(), and DENSE_RANK()，还以为需要mysql模拟这种功能。</p>
+<p>卡在这一步里</p>
+<pre><code>select s.* from stadium s where s.people&gt;=100 
+and exists(select 1 from stadium t2 where t2.people&gt;=100 and t2.`date`=DATE_SUB(s.`date`,INTERVAL 1 DAY)) 
+and exists(select 1 from stadium t3 where t3.people&gt;=100 and t3.`date`=DATE_ADD(s.`date`,INTERVAL 1 DAY));
+</code></pre><p>最后发现用 join + union就好了，显示执行效率不高，可能还有更好的写法</p>
 
       
     </div>
