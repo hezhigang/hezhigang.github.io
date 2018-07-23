@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2018-07-18T11:29:18.975Z</updated>
+  <updated>2018-07-23T01:33:34.700Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode - Algorithms - 3. Longest Substring Without Repeating Characters</title>
+    <link href="https://hezhigang.github.io/2018/07/22/LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters/"/>
+    <id>https://hezhigang.github.io/2018/07/22/LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters/</id>
+    <published>2018-07-22T16:05:46.000Z</published>
+    <updated>2018-07-23T01:33:34.700Z</updated>
+    
+    <content type="html"><![CDATA[<p>一个多月以前就开始看这个题，先是澄清了下 Substring 与 Subsequence的区别。算法是自己的短板与软肋呀，知之甚少的地方，你再思考也还是只有迷惘，只好上网搜罗，google关键字longest unique substring java搜到：</p>
+<ul>
+<li><a href="https://www.quora.com/In-a-string-find-the-longest-substring-with-all-unique-characters" target="_blank" rel="external">In a string find the longest substring with all unique characters?</a></li>
+<li><a href="https://stackoverflow.com/questions/9734474/find-longest-substring-without-repeating-characters" target="_blank" rel="external">Find longest substring without repeating characters</a></li>
+<li><a href="https://www.geeksforgeeks.org/length-of-the-longest-substring-without-repeating-characters/" target="_blank" rel="external">Length of the longest substring without repeating characters</a></li>
+<li><a href="https://www.programcreek.com/2013/02/leetcode-longest-substring-without-repeating-characters-java/" target="_blank" rel="external">LeetCode – Longest Substring Without Repeating Characters (Java)</a></li>
+<li><a href="https://leetcode.com/articles/longest-substring-without-repeating-characters/" target="_blank" rel="external">3. Longest Substring Without Repeating Characters</a></li>
+<li><a href="https://codereview.stackexchange.com/questions/66461/finding-the-longest-unique-sub-string-in-a-string" target="_blank" rel="external">Finding the longest unique sub-string in a string</a></li>
+<li><a href="https://soulmachine.gitbooks.io/algorithm-essentials/java/greedy/longest-substring-without-repeating-characters.html" target="_blank" rel="external">Longest Substring Without Repeating Characters</a></li>
+</ul>
+<p>看了还是不理解，人家的代码实现也看了，也没看明白。</p>
+<p>又 google 关键字 longest unique substring in a string，搜到 <a href="https://javaconceptoftheday.com/find-longest-substring-without-repeating-characters-java/" target="_blank" rel="external">How To Find Longest Substring Without Repeating Characters In Java?</a>，这个终于看懂了，用到了个LinkedHashMap数据结构来存储无重复字符的substring，从左往右扫描字符数组，一旦字符与HashMap里的字符有重复，就把循环变量i置为那个重复字符在原字符串中的位置，HashMap清空，如果字符不重复，就继续往右扫，如果HashMap的size大于最大无重复子串长度，就更新最大无重复子串长度这个int变量，直到字符串末尾为止。会者不难，难者不会，其实也就这么简单。思路是人家的，自己不过照着人家的解决方案写的，最后写下来代码倒也没几行，LeetCode运行通过了。基本理解了，但要达到了然于胸的程度，还得继续慢慢消化理解。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int lengthOfLongestSubstring(String s) &#123;</div><div class="line">    	int maxUniqSubstrLen = 0;</div><div class="line">    	if (!s.isEmpty()) &#123;</div><div class="line">        	LinkedHashMap&lt;Character,Integer&gt; map = new LinkedHashMap&lt;Character,Integer&gt;();</div><div class="line">        	int len = s.length();</div><div class="line">        	for(int i=0;i&lt;len;i++) &#123;</div><div class="line">        		char ch = s.charAt(i);</div><div class="line">        		if (!map.containsKey(ch)) &#123;</div><div class="line">        			map.put(ch, i);</div><div class="line">        		&#125;</div><div class="line">        		else &#123;</div><div class="line">        			i = map.get(ch);</div><div class="line">        			map.clear();</div><div class="line">        		&#125;</div><div class="line">        		if (map.size()&gt;maxUniqSubstrLen)</div><div class="line">                    maxUniqSubstrLen = map.size();</div><div class="line">        	&#125;    		</div><div class="line">    	&#125;</div><div class="line">        return maxUniqSubstrLen;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码性能倒不怎么样，LeetCode执行结果显示：</p>
+<blockquote>
+<p>You are here!<br>Your runtime beats 10.69 % of java submissions.</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一个多月以前就开始看这个题，先是澄清了下 Substring 与 Subsequence的区别。算法是自己的短板与软肋呀，知之甚少的地方，你再思考也还是只有迷惘，只好上网搜罗，google关键字longest unique substring java搜到：&lt;/p&gt;
+&lt;ul
+    
+    </summary>
+    
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+  </entry>
   
   <entry>
     <title>新概念英语</title>
@@ -132,7 +172,7 @@
 <p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a href="https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application" target="_blank" rel="external">https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application</a></p>
 <p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a href="https://github.com/didinj/spring-boot-mongodb-react-java-crud" target="_blank" rel="external">https://github.com/didinj/spring-boot-mongodb-react-java-crud</a></p>
 <hr>
-<p>How to Setup Spring-Boot with ReactJS and Webpack<br><a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#x6f;&#58;&#104;&#116;&#x74;&#x70;&#115;&#58;&#x2f;&#47;&#109;&#101;&#x64;&#105;&#x75;&#x6d;&#46;&#x63;&#x6f;&#x6d;&#x2f;&#64;&#98;&#101;&#x6e;&#106;&#97;&#x6d;&#x69;&#x6e;&#x6c;&#x69;&#117;&#95;&#52;&#x32;&#52;&#x37;&#x34;&#x2f;&#x68;&#x6f;&#119;&#x2d;&#x74;&#111;&#x2d;&#x73;&#x65;&#116;&#117;&#112;&#45;&#115;&#112;&#114;&#105;&#110;&#103;&#45;&#98;&#x6f;&#x6f;&#x74;&#45;&#x77;&#105;&#x74;&#x68;&#x2d;&#114;&#101;&#x61;&#x63;&#116;&#x6a;&#115;&#x2d;&#x61;&#110;&#100;&#45;&#x77;&#x65;&#98;&#112;&#97;&#x63;&#x6b;&#45;&#x39;&#x62;&#49;&#x39;&#48;&#x65;&#x64;&#x65;&#x62;&#48;&#99;&#56;">&#104;&#116;&#x74;&#x70;&#115;&#58;&#x2f;&#47;&#109;&#101;&#x64;&#105;&#x75;&#x6d;&#46;&#x63;&#x6f;&#x6d;&#x2f;&#64;&#98;&#101;&#x6e;&#106;&#97;&#x6d;&#x69;&#x6e;&#x6c;&#x69;&#117;&#95;&#52;&#x32;&#52;&#x37;&#x34;&#x2f;&#x68;&#x6f;&#119;&#x2d;&#x74;&#111;&#x2d;&#x73;&#x65;&#116;&#117;&#112;&#45;&#115;&#112;&#114;&#105;&#110;&#103;&#45;&#98;&#x6f;&#x6f;&#x74;&#45;&#x77;&#105;&#x74;&#x68;&#x2d;&#114;&#101;&#x61;&#x63;&#116;&#x6a;&#115;&#x2d;&#x61;&#110;&#100;&#45;&#x77;&#x65;&#98;&#112;&#97;&#x63;&#x6b;&#45;&#x39;&#x62;&#49;&#x39;&#48;&#x65;&#x64;&#x65;&#x62;&#48;&#99;&#56;</a></p>
+<p>How to Setup Spring-Boot with ReactJS and Webpack<br><a href="&#x6d;&#97;&#105;&#108;&#116;&#111;&#x3a;&#104;&#116;&#116;&#x70;&#x73;&#x3a;&#x2f;&#47;&#109;&#101;&#100;&#105;&#x75;&#109;&#46;&#99;&#x6f;&#x6d;&#x2f;&#64;&#x62;&#101;&#110;&#106;&#97;&#109;&#x69;&#x6e;&#108;&#x69;&#117;&#95;&#x34;&#50;&#52;&#x37;&#x34;&#47;&#x68;&#x6f;&#x77;&#x2d;&#116;&#111;&#x2d;&#x73;&#x65;&#116;&#x75;&#x70;&#45;&#x73;&#x70;&#x72;&#x69;&#110;&#x67;&#x2d;&#x62;&#111;&#111;&#116;&#45;&#119;&#x69;&#116;&#104;&#x2d;&#x72;&#101;&#x61;&#x63;&#x74;&#106;&#115;&#45;&#x61;&#x6e;&#x64;&#x2d;&#119;&#101;&#x62;&#112;&#97;&#99;&#x6b;&#45;&#x39;&#98;&#49;&#57;&#48;&#x65;&#x64;&#101;&#98;&#x30;&#x63;&#56;">&#104;&#116;&#116;&#x70;&#x73;&#x3a;&#x2f;&#47;&#109;&#101;&#100;&#105;&#x75;&#109;&#46;&#99;&#x6f;&#x6d;&#x2f;&#64;&#x62;&#101;&#110;&#106;&#97;&#109;&#x69;&#x6e;&#108;&#x69;&#117;&#95;&#x34;&#50;&#52;&#x37;&#x34;&#47;&#x68;&#x6f;&#x77;&#x2d;&#116;&#111;&#x2d;&#x73;&#x65;&#116;&#x75;&#x70;&#45;&#x73;&#x70;&#x72;&#x69;&#110;&#x67;&#x2d;&#x62;&#111;&#111;&#116;&#45;&#119;&#x69;&#116;&#104;&#x2d;&#x72;&#101;&#x61;&#x63;&#x74;&#106;&#115;&#45;&#x61;&#x6e;&#x64;&#x2d;&#119;&#101;&#x62;&#112;&#97;&#99;&#x6b;&#45;&#x39;&#98;&#49;&#57;&#48;&#x65;&#x64;&#101;&#98;&#x30;&#x63;&#56;</a></p>
 <p>Spring Boot with ReactJS using WebPack and Yarn.<br><a href="https://github.com/liuben10/spring-boot-react-js-example" target="_blank" rel="external">https://github.com/liuben10/spring-boot-react-js-example</a></p>
 ]]></content>
     
@@ -1104,92 +1144,6 @@ WHERE a1.id=a2.id;
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>Linux常用知识点</title>
-    <link href="https://hezhigang.github.io/2018/06/09/linux-cmd-notes/"/>
-    <id>https://hezhigang.github.io/2018/06/09/linux-cmd-notes/</id>
-    <published>2018-06-09T21:17:32.000Z</published>
-    <updated>2018-07-16T14:58:27.413Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><h2 id="最常用"><a href="#最常用" class="headerlink" title="最常用"></a>最常用</h2><p>man  帮助（按q退出man）<br>ls<br>pwd  输出工作目录<br>cd<br>mkdir<br>find 和 locate<br>cp<br>mv 改名、移动<br>more<br>kill  使用ps进程ID，kill进程<br>sudo<br>passwd  更改密码</p>
-<p>sudo su</p>
-<p>查看日志：tail -n 100 catalina.out</p>
-<p>复制文件：<br>sudo cp kaopurServer.war /opt/apache-tomcat-8.0.24/webapps/</p>
-<p>查看目录<br>ll</p>
-<p>cat /etc/passwd</p>
-<p>cat -n song.txt</p>
-<p>给sh脚本增加执行权限：chmod +x yourshfile.sh</p>
-<p>mkdir kaopurServer</p>
-<p>cd kaopurServer</p>
-<p>tar -zxvf ../kaopurServer.tar.gz</p>
-<p>sudo \cp -rf kaopurServer/* /opt/apache-tomcat-8.0.24/webapps/kaopurServer</p>
-<p>rm -f index.jsp</p>
-<p>rm -rf WEB-INF/</p>
-<p>如此才会覆盖：<br>sudo \cp -rf kaopurServer/* /opt/apache-tomcat-8.0.24/webapps/kaopurServer</p>
-<p>sudo tar -zxf /home/hl/apache-activemq-5.9.1-bin.tar.gz</p>
-<p>cat activemq.xml</p>
-<p>linux下载文件：<br>curl -O <a href="http://mirrors.hust.edu.cn/apache/tomcat/tomcat-8/v8.0.28/bin/apache-tomcat-8.0.28.tar.gz" target="_blank" rel="external">http://mirrors.hust.edu.cn/apache/tomcat/tomcat-8/v8.0.28/bin/apache-tomcat-8.0.28.tar.gz</a></p>
-<p>curl -O -L <a href="http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.27.tar.gz" target="_blank" rel="external">http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.27.tar.gz</a></p>
-<p>xshell中文乱码：修改Terminal的字符集</p>
-<p>$ ps -ef|grep tfs</p>
-<p>curl -o emqttd-centos64-0.13.0-beta-20151108.zip -L <a href="http://emqtt.io/downloads/centos" target="_blank" rel="external">http://emqtt.io/downloads/centos</a></p>
-<p>cat /etc/redhat-release</p>
-<p>linux常用命令<br>在 Linux 中用的是正斜杠 (/)，而不是您所熟悉的反斜杠 ()。反斜杠也用到了，但只是用来说明命令需要换行继续，这样可以提高比较长的命令的可读性。 </p>
-<p>ls -l 以长格式列出文件，包括文件大小、日期和时间、属性<br>ls -t 对文件以时间排序<br>ls -S 对文件以大小排序<br>ls -r 与一个排序开关组合起来使用，逆序排列。 ls -t 将最新的文件显示在列表的顶部。 ls -t 将最新的文件显示在底部。<br>ls -h 易读格式。使用 k、M、G 等来标识文件的大小，而不是以字节为单位。<br>ls -a 显示目录中所有的文件，包括隐藏文件</p>
-<p>cp -R 递归地复制文件；当需要复制整个目录时会用到<br>cp -f 强制复制并覆盖已有的文件，不询问用户<br>cp -l 链接文件，而不是复制</p>
-<p>使用 mv 命令来移动和重命名文件。这个命令的工作方式基本上与 DOS 中的 move 命令一样，不过它可以移动整个目录结构及所有文件。</p>
-<p>cat<br>使用 cat 命令来查看文件的内容。它相当于 DOS 中的 type 命令。它将把文件的内容转储到另一个文件、屏幕或者其他命令。 cat 是concatenate 的简写，还可以将一系列的文件合并为一个大文件。</p>
-<p>more<br>使用命令 more 可以以分页的方式查看文件。它基本上与 DOS 中的 more 命令相同。</p>
-<p>less<br>less 命令也是用来查看文件，但是它支持上下滚屏以及在文档中进行文本搜索。 </p>
-<p>man<br>使用 man 命令来查看命令的文档。man 是 manual 的缩写。几乎每一个命令都有相应的文档。要深入了解 man ，请输入以下命令：</p>
-<p>man man </p>
-<p>info<br>info 命令与 man 命令类似，不过它提供了超链接文本，可以更方便地浏览文档。</p>
-<p>curl -O -L <a href="http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.27.tar.gz" target="_blank" rel="external">http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.27.tar.gz</a></p>
-<p>md5sum mysql-5.6.27.tar.gz </p>
-<p>md5sum apache-tomcat-8.0.28.tar.gz</p>
-<p>sudo tar -zxvf ~/apache-tomcat-8.0.28.tar.gz</p>
-<p>sudo rm -r apache-tomcat-8.0.28/</p>
-<p>/usr/apache-tomcat-8.0.28/webapps&gt;sudo rm -r examples/</p>
-<p>/usr&gt;sudo rm -fr emqttd/</p>
-<p>/home/hzg&gt;sudo unzip emqttd-centos64-0.13.0-beta-20151108.zip -d /usr/</p>
-<p>/usr/emqttd/bin&gt;sudo ./emqttd console</p>
-<p>/usr/emqttd/bin&gt;./emqttd_ctl status</p>
-<p>/opt/apache-tomcat-8.0.28/bin&gt;ps -ef | grep tomcat</p>
-<p>停止tomcat：<br>kill -9 2250</p>
-<p>查看tomcat日志<br>/opt/apache-tomcat-8.0.28/logs&gt;tail -n 50 catalina.out </p>
-<p>curl -O -L <a href="http://download.redis.io/releases/redis-3.0.5.tar.gz" target="_blank" rel="external">http://download.redis.io/releases/redis-3.0.5.tar.gz</a></p>
-<p>/home/hzg&gt;sudo tar zxf redis-3.0.5.tar.gz -C /opt/</p>
-<p>redis的java client<br>Jedis<br>lettuce<br>Redisson</p>
-<p>/home/hzg&gt;netstat -tnl | grep 3306</p>
-<p>[root@instance-dqg4v0wr-3 ~]# du -sh<br>36K    .</p>
-<p>more /etc/passwd</p>
-<p>lscpu</p>
-<p>free -m</p>
-<p>使用 su 或者 sudo -s 命令变为另一个用户<br>可以使用 whoami 命令来检查您当前有效的 id<br>可以使用 groups 命令找出您在什么组中</p>
-<p>Linux 中的所有用户都存放于 /etc/passwd 文件中。您可以使用 more 命令来分页查看这个文件：<br>more /etc/passwd</p>
-<p>who<br>功能：列出当前系统注册的用户<br>$who am i 列出当前系统使用者身份</p>
-<p>ps<br>功能：显示后台进程的有关信息。单独使用ps将显示由<br>当前终端启动的后台进程的PID、终端号、进程已执行时间以及启动该进程的命令<br>语法：ps -options<br>参数说明：<br>    -e：显示系统内当前运行的所有后台进程<br>    -f：除ps所提供的信息外，还显示用户名、PPID（父进程ID）及启动时间<br>    -l：除ps所提供的信息外，还显示 User ID, PPID 和进程优先级</p>
-<p>kill<br>功能：杀死后台进程<br>语法：kill -num PID</p>
-<p>find<br>功能：在一个或多个目录中查找符合指定条件的文件，<br>显示文件名或对这些文件进行特定的操作<br>语法：find path expression</p>
-<p>find . –name ‘unix’ –print<br>find . –name ‘m*’ –exec ls –l  {} \;<br>find . -perm 644 -mtime +4 –print</p>
-<p>grep<br>功能：在文件或标准输入中搜索与指定格式相匹配的行<br>语法：grep [options] pattern [file1 file 2..]<br>grep –v mail .profile<br>grep “^a[0-9]z$” filename<br>grep a websm.log</p>
-<h1 id="vi"><a href="#vi" class="headerlink" title="vi"></a>vi</h1><p>：w ：保存当前文件<br>：x：保存当前文件并退出<br>：q：退出vi<br>:q! 放弃所做修改直接退出到shell<br>:q 不退出<br>ZZ / :x 如果需要保存则保存，之后退出到shell<br>:w newfile / :w!<br>:wq 先保存文件，再退出到shell<br>回车后进行命令模式<br>在命令模式按a（光标之后）/ A（光标所在行的最后） / i（光标处）/I（光标所在行的开头） / o / O ，进入文本输入模式<br>在文本输入模式下，按Esc，回到命令模式<br>末行模式，Ex转义模式： 在命令模式下按:进行末行模式，末行命令执行后自动回到命令模式</p>
-<h2 id="插入文本类命令"><a href="#插入文本类命令" class="headerlink" title="插入文本类命令"></a>插入文本类命令</h2><p>i ：在光标前<br>I ：在当前行首<br>a：光标后<br>r：替换当前字符</p>
-<h2 id="删除命令"><a href="#删除命令" class="headerlink" title="删除命令"></a>删除命令</h2><p>x或X：删除一个字符，x删除光标后的，而X删除光标前的<br>ndd：删除当前行及其后n-1行<br>dd 删除当前行</p>
-<h2 id="搜索及替换命令"><a href="#搜索及替换命令" class="headerlink" title="搜索及替换命令"></a>搜索及替换命令</h2><p>/pattern：从光标开始处向文件尾搜索pattern<br>?pattern：从光标开始处向文件首搜索pattern<br>:g/p1/s//p2/g：将文件中所有p1均用p2替换</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;命令&quot;&gt;&lt;a href=&quot;#命令&quot; class=&quot;headerlink&quot; title=&quot;命令&quot;&gt;&lt;/a&gt;命令&lt;/h1&gt;&lt;h2 id=&quot;最常用&quot;&gt;&lt;a href=&quot;#最常用&quot; class=&quot;headerlink&quot; title=&quot;最常用&quot;&gt;&lt;/a&gt;最常用&lt;/h2&gt;&lt;p
-    
-    </summary>
-    
-    
-      <category term="linux" scheme="https://hezhigang.github.io/tags/linux/"/>
     
   </entry>
   
