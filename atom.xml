@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2018-07-23T11:52:31.238Z</updated>
+  <updated>2018-07-24T20:41:06.708Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -14,6 +14,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode - Algorithms - 7. Reverse Integer</title>
+    <link href="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Reverse-Integer/"/>
+    <id>https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Reverse-Integer/</id>
+    <published>2018-07-23T15:50:25.000Z</published>
+    <updated>2018-07-24T20:41:06.708Z</updated>
+    
+    <content type="html"><![CDATA[<p>自己做出来的naive solution，直接把整数转换成字符串，然后逆转字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int reverse(int x) &#123;</div><div class="line">    	int r = 0;</div><div class="line">    	if (x&gt;Integer.MAX_VALUE || x&lt;Integer.MIN_VALUE) &#123;</div><div class="line">    		return r;</div><div class="line">    	&#125;</div><div class="line">    	String s = Integer.toString(x);</div><div class="line">    	if (s!=null &amp;&amp; !s.isEmpty()) &#123;</div><div class="line">    		String ss = &quot;&quot;;</div><div class="line">    		char c = 0;</div><div class="line">    		if (x&lt;0) </div><div class="line">    			s = s.substring(1);</div><div class="line">    		for(int i=s.length()-1;i&gt;=0;i--) &#123;</div><div class="line">    			c = s.charAt(i);</div><div class="line">    			ss += c;</div><div class="line">    		&#125;</div><div class="line">    		if (x&lt;0)</div><div class="line">    			ss = &apos;-&apos;+ss;</div><div class="line">    		System.out.println(&quot;ss=&quot;+ss);</div><div class="line">    		try &#123;</div><div class="line">    		    r = Integer.parseInt(ss);</div><div class="line">    		&#125; catch (NumberFormatException ex) &#123;</div><div class="line">    			r = 0;</div><div class="line">    		&#125;</div><div class="line">    	&#125;    		</div><div class="line">        return r;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>做 <a href="https://leetcode.com/problems/palindrome-number/description/" target="_blank" rel="external">9. Palindrome Number</a> ，提示Coud you solve it without converting the integer to a string? 发现人家的方法更直接利落，温故而知新，重新实现下，结果被卡在 java int out of range 的问题里，1534236469 逆序数超过Integer.MAX_VALUE 返回 1056389759，题目里就提示了 Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows. 最后想到不如把逆序数变量定义为 long类型，再判断是否超过2147483647(0x7fffffff, 2^31-1)，再把long 安全地转换为int返回，java的long安全转换为int的小问题，google关键字 <code>java long to int</code> 参考了下 <a href="https://stackoverflow.com/questions/1590831/safely-casting-long-to-int-in-java" target="_blank" rel="external">Safely casting long to int in Java</a> 这样就ok了，在leetcode上运行通过。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int reverse(int x) &#123;</div><div class="line">    	if (x&gt;Integer.MAX_VALUE || x&lt;Integer.MIN_VALUE) &#123;</div><div class="line">    		return 0;</div><div class="line">    	&#125;</div><div class="line">    	if (x==0) return 0;</div><div class="line">    	int r = 0;</div><div class="line">    	int remainder = 0;</div><div class="line">    	long reverseNumber = 0L;</div><div class="line">    	for(int t = x&gt;0?x:-x; t&gt;0; t/=10) &#123;</div><div class="line">    		remainder = t%10;</div><div class="line">    		reverseNumber *= 10;</div><div class="line">    		reverseNumber += remainder;</div><div class="line">    	&#125;</div><div class="line">    	if (reverseNumber&gt;Integer.MAX_VALUE)</div><div class="line">    		r = 0;</div><div class="line">    	else </div><div class="line">    		r = Long.valueOf(reverseNumber).intValue();</div><div class="line">    	if (x&lt;0)</div><div class="line">    		r *= -1;    	</div><div class="line">        return r;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>性能还不错，leetcode运行显示</p>
+<blockquote>
+<p>1032 / 1032 test cases passed.<br>Runtime: 21 ms<br>Your runtime beats 97.62 % of java submissions.</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;自己做出来的naive solution，直接把整数转换成字符串，然后逆转字符串&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;
+    
+    </summary>
+    
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode - Algorithms - 9. Palindrome Number</title>
@@ -206,7 +237,7 @@
 <p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a href="https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application" target="_blank" rel="external">https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application</a></p>
 <p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a href="https://github.com/didinj/spring-boot-mongodb-react-java-crud" target="_blank" rel="external">https://github.com/didinj/spring-boot-mongodb-react-java-crud</a></p>
 <hr>
-<p>How to Setup Spring-Boot with ReactJS and Webpack<br><a href="&#109;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#x68;&#116;&#x74;&#112;&#x73;&#x3a;&#x2f;&#47;&#x6d;&#101;&#x64;&#105;&#117;&#x6d;&#46;&#99;&#x6f;&#109;&#47;&#64;&#98;&#x65;&#x6e;&#106;&#x61;&#x6d;&#x69;&#110;&#108;&#105;&#117;&#95;&#52;&#50;&#x34;&#55;&#52;&#47;&#104;&#111;&#119;&#x2d;&#116;&#111;&#x2d;&#x73;&#x65;&#116;&#117;&#112;&#45;&#x73;&#112;&#114;&#x69;&#x6e;&#103;&#x2d;&#x62;&#x6f;&#111;&#116;&#45;&#119;&#105;&#x74;&#104;&#x2d;&#x72;&#x65;&#97;&#99;&#116;&#x6a;&#115;&#45;&#97;&#110;&#100;&#45;&#119;&#101;&#x62;&#112;&#97;&#99;&#107;&#45;&#57;&#98;&#49;&#x39;&#48;&#x65;&#100;&#x65;&#98;&#x30;&#x63;&#56;">&#x68;&#116;&#x74;&#112;&#x73;&#x3a;&#x2f;&#47;&#x6d;&#101;&#x64;&#105;&#117;&#x6d;&#46;&#99;&#x6f;&#109;&#47;&#64;&#98;&#x65;&#x6e;&#106;&#x61;&#x6d;&#x69;&#110;&#108;&#105;&#117;&#95;&#52;&#50;&#x34;&#55;&#52;&#47;&#104;&#111;&#119;&#x2d;&#116;&#111;&#x2d;&#x73;&#x65;&#116;&#117;&#112;&#45;&#x73;&#112;&#114;&#x69;&#x6e;&#103;&#x2d;&#x62;&#x6f;&#111;&#116;&#45;&#119;&#105;&#x74;&#104;&#x2d;&#x72;&#x65;&#97;&#99;&#116;&#x6a;&#115;&#45;&#97;&#110;&#100;&#45;&#119;&#101;&#x62;&#112;&#97;&#99;&#107;&#45;&#57;&#98;&#49;&#x39;&#48;&#x65;&#100;&#x65;&#98;&#x30;&#x63;&#56;</a></p>
+<p>How to Setup Spring-Boot with ReactJS and Webpack<br><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#x3a;&#x68;&#116;&#116;&#112;&#115;&#x3a;&#47;&#47;&#109;&#101;&#x64;&#x69;&#117;&#109;&#x2e;&#x63;&#111;&#109;&#x2f;&#x40;&#x62;&#x65;&#110;&#x6a;&#97;&#x6d;&#105;&#x6e;&#x6c;&#105;&#117;&#x5f;&#x34;&#50;&#52;&#55;&#52;&#47;&#x68;&#x6f;&#119;&#45;&#116;&#x6f;&#45;&#115;&#101;&#x74;&#x75;&#x70;&#x2d;&#115;&#x70;&#114;&#x69;&#x6e;&#x67;&#x2d;&#x62;&#111;&#111;&#x74;&#x2d;&#x77;&#105;&#x74;&#x68;&#45;&#114;&#101;&#x61;&#x63;&#116;&#106;&#115;&#x2d;&#97;&#110;&#100;&#45;&#119;&#x65;&#98;&#112;&#97;&#99;&#107;&#x2d;&#57;&#98;&#49;&#x39;&#x30;&#101;&#100;&#x65;&#98;&#48;&#99;&#x38;">&#x68;&#116;&#116;&#112;&#115;&#x3a;&#47;&#47;&#109;&#101;&#x64;&#x69;&#117;&#109;&#x2e;&#x63;&#111;&#109;&#x2f;&#x40;&#x62;&#x65;&#110;&#x6a;&#97;&#x6d;&#105;&#x6e;&#x6c;&#105;&#117;&#x5f;&#x34;&#50;&#52;&#55;&#52;&#47;&#x68;&#x6f;&#119;&#45;&#116;&#x6f;&#45;&#115;&#101;&#x74;&#x75;&#x70;&#x2d;&#115;&#x70;&#114;&#x69;&#x6e;&#x67;&#x2d;&#x62;&#111;&#111;&#x74;&#x2d;&#x77;&#105;&#x74;&#x68;&#45;&#114;&#101;&#x61;&#x63;&#116;&#106;&#115;&#x2d;&#97;&#110;&#100;&#45;&#119;&#x65;&#98;&#112;&#97;&#99;&#107;&#x2d;&#57;&#98;&#49;&#x39;&#x30;&#101;&#100;&#x65;&#98;&#48;&#99;&#x38;</a></p>
 <p>Spring Boot with ReactJS using WebPack and Yarn.<br><a href="https://github.com/liuben10/spring-boot-react-js-example" target="_blank" rel="external">https://github.com/liuben10/spring-boot-react-js-example</a></p>
 ]]></content>
     
@@ -1108,55 +1139,6 @@ WHERE a1.id=a2.id;
     <summary type="html">
     
       &lt;h1 id=&quot;算法&quot;&gt;&lt;a href=&quot;#算法&quot; class=&quot;headerlink&quot; title=&quot;算法&quot;&gt;&lt;/a&gt;算法&lt;/h1&gt;&lt;h2 id=&quot;随机数生成器&quot;&gt;&lt;a href=&quot;#随机数生成器&quot; class=&quot;headerlink&quot; title=&quot;随机数生成器&quot;&gt;&lt;/a&gt;随
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>quotes</title>
-    <link href="https://hezhigang.github.io/2018/06/10/en-quotes/"/>
-    <id>https://hezhigang.github.io/2018/06/10/en-quotes/</id>
-    <published>2018-06-10T11:36:35.000Z</published>
-    <updated>2018-06-16T19:23:23.845Z</updated>
-    
-    <content type="html"><![CDATA[<p>The gap between the best software engineering practice and the average practice is very wide—perhaps wider than in any other engineering discipline. A tool that disseminates good practice would be important. — Fred Brooks</p>
-<p>The laws of nature are but the mathematical thoughts of God. — Euclid</p>
-<p>“Stop being so negative, Steven!”, “Why do you always assume the worst?”, “You’re such a ‘glass half empty’ person, Steven.”</p>
-<p>我能召唤遥远的精灵。<br>那又怎么样，我也可以，谁都可以，问题是你真的召唤的时候，它们会来吗？ - 莎士比亚，《亨利四世》，第一部分</p>
-<p>I can call spirits from the vasty deep.<br>Why, so can I, or so can any man; but will they come when you do call for them? - SHAKESPEARE, KING HENRY IV, Part I</p>
-<p>GLENDOWER: I can call spirits from the vasty deep.<br>HOTSPUR: Why, so can I, or so can any man; But will they come when you do call for them?</p>
-<p>William Shakespeare, King Henry IV, Part 1</p>
-<p>他过去所做的许诺，是非凡的；<br>而他今天的执行，则什么也不是。<br>莎士比亚，《亨利八世》</p>
-<p>只能根据过去判断将来。 - 帕特里克·亨利<br>然而永远无法根据过去规划将来。 - 埃德蒙·伯克<br>I know no way of judging the future but by the past. - PATRICK HENRY<br>You can never plan the future by the past. - EDMUND BURKE</p>
-<p>普遍的做法是，选择一种方法，试试看；如果失败了，没关系，再试试别的。不管怎么样，重要的是先去尝试。 - 富兰克林 D. 罗斯福<br>It is common sense to take a method and try it. If it fails, admit it frankly and try another. But above all, try something. - FRANKLIN D. ROOSEVELT</p>
-<p>Donald Knuth 曾经指出，“提前优化是万恶之源”。<br>“premature optimization is the root of all evil,” as Donald Knuth once put it</p>
-<p>Cliff Click expressed the same sentiment this way:<br>Premature optimization is the root of all evil is more true today than ever before.</p>
-<p>Hope for the best and prepare for the worst</p>
-<p>Fear not the future ,Weep not for the past</p>
-<p>Men are judged by what they do</p>
-<p>There is no time like the present</p>
-<p>We are all slaves of opinion</p>
-<p>Practice is the best master</p>
-<p>The language of truth is simple</p>
-<p>A man must take the consequence of his own deeds</p>
-<p>Great hopes makes great men</p>
-<p>Life is short and time is swift</p>
-<p>Example is better than precept</p>
-<p>Practice what you preach</p>
-<p>Practice makes perfect</p>
-<p>Easier said than done</p>
-<p>It is never too late to mend</p>
-<p>Look not too high, lest something fall into your eye.</p>
-<p>Plain living and high thinking</p>
-<p>A good heart conquers ill fortune</p>
-<p>A little body often harbors a great soul</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;The gap between the best software engineering practice and the average practice is very wide—perhaps wider than in any other engineering 
     
     </summary>
     
