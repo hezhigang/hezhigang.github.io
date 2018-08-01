@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2018-07-27T15:50:18.950Z</updated>
+  <updated>2018-08-01T15:31:51.055Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -14,6 +14,56 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode - Algorithms - 146. LRU Cache</title>
+    <link href="https://hezhigang.github.io/2018/08/01/LeetCode-Algorithms-LRU-Cache/"/>
+    <id>https://hezhigang.github.io/2018/08/01/LeetCode-Algorithms-LRU-Cache/</id>
+    <published>2018-08-01T14:09:53.000Z</published>
+    <updated>2018-08-01T15:31:51.055Z</updated>
+    
+    <content type="html"><![CDATA[<p>这题是 <a href="https://leetcode.com/problemset/top-interview-questions/" target="_blank" rel="external">Top Interview Questions</a> 及 <a href="https://leetcode.com/problemset/top-100-liked-questions/" target="_blank" rel="external">Top 100 Liked Questions</a>之一，前后又花了一个星期。</p>
+<p>先是了解了下 <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies" target="_blank" rel="external">Cache replacement policies</a>，其中提及 General implementations of Least recently used (LRU) require keeping “age bits” for cache-lines and track the “Least Recently Used” cache-line based on age-bits.</p>
+<p>题目里提示 Could you do both operations in O(1) time complexity? ，又了解了下<a href="https://en.wikipedia.org/wiki/Time_complexity" target="_blank" rel="external">Time complexity</a>。又在kindle上翻了下《算法图解》，了解了下散列表、链表等数据结构，也算加强了下对哈希表的认识。</p>
+<blockquote>
+<p>在平均情况下， 散列表执行各种操作的时间都为O(1)。 O(1)被称为常量时间。你以前没有见过 常量时间，它并不意味着马上，而是说不管散列表多大，所需的时间都相同。</p>
+<p>实际上，你以前见过常量时间——从数组中获取一个元素所需的时间就是固定的：不管数组多大，从中获取一个元素所需的时间都是相同的。</p>
+<p>填装因子(load factor)度量的是散列表中有多少位置是空的。填装因子越低，发生冲突的可能性越小，散列表的性能越高。一个不错的经验规则是：一旦填装因子大于0.7，就调整散列表的长度。</p>
+</blockquote>
+<p>自己琢磨也是徒劳，不如上网找点提示信息，在quora上找到几条信息</p>
+<ul>
+<li><a href="https://www.quora.com/What-is-the-best-way-to-Implement-an-LRU-Cache" target="_blank" rel="external">What is the best way to Implement an LRU Cache?</a></li>
+<li><a href="https://www.quora.com/How-are-linked-lists-good-for-LRU-caches" target="_blank" rel="external">How are linked lists good for LRU caches?</a></li>
+<li><a href="https://www.quora.com/Why-is-doubly-linked-list-used-in-LRU-Least-Recently-Used-implementation-as-in-this-link-Implement-LRU-Cache-GeeksforGeeks" target="_blank" rel="external">Why is doubly linked list used in LRU(Least Recently Used) implementation as in this link (Implement LRU Cache - GeeksforGeeks)?</a></li>
+</ul>
+<blockquote>
+<p>Typically LRU cache is implemented using a doubly linked list and a hash map.</p>
+<p>An LRU Cache should support fast lookup. Apparently, in order to achieve fast lookup, we need to use Hashtable or HashMap.Also, an LRU Cache requires that insert and delete operations should be in O(1) time. The obvious choice for this requirement is Linked List. Linked List support insert/delete operations in O(1) time if we have the reference of element. While building an LRU cache requires that you think in terms of these two data structures. The reality is that these two data structures actually work coherently to achieve the design.So, we are finalizing on these data structures: HashMap and Doubly Linked List. HashMap holds the keys and values as reference of the nodes (entries) of Doubly Linked List.Doubly Linked List is used to store list of nodes (entries) with most recently used node at the head of the list. So, as more nodes are added to the list, least recently used nodes are moved to the end of the list with node at tail being the least recently used in the list.</p>
+</blockquote>
+<p>自己对java集合类库还是不够熟悉，看到<a href="https://stackoverflow.com/questions/31365998/is-there-any-doubly-linked-list-implementation-in-java" target="_blank" rel="external">Is there any doubly linked list implementation in Java?</a>才明白原来java.util.LinkedList本来就可以当双向链表使用，</p>
+<blockquote>
+<p>Doubly-linked list implementation of the List and Deque interfaces. Implements all optional list operations, and permits all elements (including null).All of the operations perform as could be expected for a doubly-linked list. Operations that index into the list will traverse the list from the beginning or the end, whichever is closer to the specified index. </p>
+</blockquote>
+<p>在leetcode上提交了两次，终于运行通过，如果自己来实现双向链表是不是更能提高性能? 做了这些题，感觉leetcode的算法题不是那种难得要死的题，不会做说明你的数据结构和算法知识还比较欠缺。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">class LRUCache &#123;</div><div class="line">	private LinkedList&lt;DualLinkNode&gt; list;</div><div class="line">	private Map&lt;Integer,DualLinkNode&gt; map;</div><div class="line">	private final int cacheSize;</div><div class="line">	</div><div class="line">    public LRUCache(int capacity) &#123;</div><div class="line">    	list = new LinkedList&lt;DualLinkNode&gt;();</div><div class="line">    	map = new HashMap&lt;Integer,DualLinkNode&gt;();</div><div class="line">    	this.cacheSize = capacity;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public int get(int key) &#123;</div><div class="line">    	if (map.containsKey(key)) &#123;</div><div class="line">    		DualLinkNode node = map.get(key);</div><div class="line">    		list.remove(node);</div><div class="line">    		list.addFirst(node);</div><div class="line">    		return node.val;</div><div class="line">    	&#125;</div><div class="line">    	else &#123;</div><div class="line">    		return -1;</div><div class="line">    	&#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public void put(int key, int value) &#123;</div><div class="line">    	if (map.containsKey(key)) &#123;</div><div class="line">    		DualLinkNode node = map.get(key);</div><div class="line">    		list.remove(node);</div><div class="line">    		node.val=value;</div><div class="line">    		list.addFirst(node);</div><div class="line">    	&#125;</div><div class="line">    	else &#123;</div><div class="line">			if (list.size()==cacheSize) &#123;</div><div class="line">				DualLinkNode node = list.pollLast();</div><div class="line">				map.remove(node.key);</div><div class="line">			&#125;</div><div class="line">			DualLinkNode node = new DualLinkNode(key,value);</div><div class="line">			list.addFirst(node);</div><div class="line">			map.put(key, node);</div><div class="line">    	&#125;</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">	private class DualLinkNode &#123;</div><div class="line">		public int key;</div><div class="line">		public int val;</div><div class="line"></div><div class="line">		public DualLinkNode(int key, int val) &#123;</div><div class="line">			super();</div><div class="line">			this.key = key;</div><div class="line">			this.val = val;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>性能倒不行，leetcode执行显示</p>
+<blockquote>
+<p>18 / 18 test cases passed.<br>Runtime: 227 ms<br>You are here!<br>Your runtime beats 7.69 % of java submissions.</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这题是 &lt;a href=&quot;https://leetcode.com/problemset/top-interview-questions/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Top Interview Questions&lt;/a&gt; 及 &lt;a hr
+    
+    </summary>
+    
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+  </entry>
   
   <entry>
     <title>AWS Certified Solutions Architect</title>
@@ -268,7 +318,7 @@
 <p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a href="https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application" target="_blank" rel="external">https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application</a></p>
 <p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a href="https://github.com/didinj/spring-boot-mongodb-react-java-crud" target="_blank" rel="external">https://github.com/didinj/spring-boot-mongodb-react-java-crud</a></p>
 <hr>
-<p>How to Setup Spring-Boot with ReactJS and Webpack<br><a href="&#109;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#104;&#116;&#x74;&#x70;&#115;&#58;&#47;&#47;&#109;&#101;&#100;&#x69;&#x75;&#109;&#46;&#x63;&#x6f;&#x6d;&#47;&#x40;&#x62;&#x65;&#110;&#x6a;&#97;&#x6d;&#x69;&#x6e;&#x6c;&#105;&#117;&#95;&#x34;&#x32;&#52;&#55;&#52;&#x2f;&#104;&#111;&#119;&#45;&#116;&#111;&#45;&#x73;&#101;&#116;&#117;&#112;&#x2d;&#x73;&#112;&#114;&#105;&#x6e;&#103;&#x2d;&#x62;&#111;&#111;&#116;&#x2d;&#x77;&#105;&#x74;&#104;&#45;&#114;&#101;&#x61;&#99;&#116;&#106;&#x73;&#45;&#x61;&#110;&#100;&#x2d;&#119;&#x65;&#98;&#112;&#x61;&#99;&#107;&#x2d;&#57;&#98;&#x31;&#57;&#48;&#x65;&#100;&#x65;&#98;&#x30;&#99;&#56;">&#104;&#116;&#x74;&#x70;&#115;&#58;&#47;&#47;&#109;&#101;&#100;&#x69;&#x75;&#109;&#46;&#x63;&#x6f;&#x6d;&#47;&#x40;&#x62;&#x65;&#110;&#x6a;&#97;&#x6d;&#x69;&#x6e;&#x6c;&#105;&#117;&#95;&#x34;&#x32;&#52;&#55;&#52;&#x2f;&#104;&#111;&#119;&#45;&#116;&#111;&#45;&#x73;&#101;&#116;&#117;&#112;&#x2d;&#x73;&#112;&#114;&#105;&#x6e;&#103;&#x2d;&#x62;&#111;&#111;&#116;&#x2d;&#x77;&#105;&#x74;&#104;&#45;&#114;&#101;&#x61;&#99;&#116;&#106;&#x73;&#45;&#x61;&#110;&#100;&#x2d;&#119;&#x65;&#98;&#112;&#x61;&#99;&#107;&#x2d;&#57;&#98;&#x31;&#57;&#48;&#x65;&#100;&#x65;&#98;&#x30;&#99;&#56;</a></p>
+<p>How to Setup Spring-Boot with ReactJS and Webpack<br><a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#111;&#58;&#x68;&#x74;&#x74;&#x70;&#115;&#58;&#x2f;&#47;&#x6d;&#101;&#100;&#105;&#117;&#109;&#46;&#99;&#x6f;&#109;&#47;&#64;&#x62;&#101;&#110;&#x6a;&#x61;&#x6d;&#x69;&#x6e;&#108;&#x69;&#117;&#95;&#52;&#x32;&#x34;&#55;&#52;&#x2f;&#x68;&#x6f;&#x77;&#45;&#116;&#x6f;&#x2d;&#115;&#101;&#116;&#117;&#x70;&#45;&#115;&#x70;&#114;&#105;&#x6e;&#103;&#x2d;&#x62;&#x6f;&#x6f;&#116;&#45;&#119;&#105;&#116;&#104;&#45;&#114;&#101;&#x61;&#99;&#x74;&#x6a;&#115;&#x2d;&#x61;&#110;&#100;&#45;&#119;&#x65;&#x62;&#x70;&#x61;&#99;&#107;&#45;&#x39;&#98;&#x31;&#x39;&#48;&#101;&#x64;&#101;&#98;&#x30;&#x63;&#x38;">&#x68;&#x74;&#x74;&#x70;&#115;&#58;&#x2f;&#47;&#x6d;&#101;&#100;&#105;&#117;&#109;&#46;&#99;&#x6f;&#109;&#47;&#64;&#x62;&#101;&#110;&#x6a;&#x61;&#x6d;&#x69;&#x6e;&#108;&#x69;&#117;&#95;&#52;&#x32;&#x34;&#55;&#52;&#x2f;&#x68;&#x6f;&#x77;&#45;&#116;&#x6f;&#x2d;&#115;&#101;&#116;&#117;&#x70;&#45;&#115;&#x70;&#114;&#105;&#x6e;&#103;&#x2d;&#x62;&#x6f;&#x6f;&#116;&#45;&#119;&#105;&#116;&#104;&#45;&#114;&#101;&#x61;&#99;&#x74;&#x6a;&#115;&#x2d;&#x61;&#110;&#100;&#45;&#119;&#x65;&#x62;&#x70;&#x61;&#99;&#107;&#45;&#x39;&#98;&#x31;&#x39;&#48;&#101;&#x64;&#101;&#98;&#x30;&#x63;&#x38;</a></p>
 <p>Spring Boot with ReactJS using WebPack and Yarn.<br><a href="https://github.com/liuben10/spring-boot-react-js-example" target="_blank" rel="external">https://github.com/liuben10/spring-boot-react-js-example</a></p>
 ]]></content>
     
@@ -279,9 +329,9 @@
     </summary>
     
     
-      <category term="Spring Boot" scheme="https://hezhigang.github.io/tags/Spring-Boot/"/>
-    
       <category term="React.js" scheme="https://hezhigang.github.io/tags/React-js/"/>
+    
+      <category term="Spring Boot" scheme="https://hezhigang.github.io/tags/Spring-Boot/"/>
     
   </entry>
   
@@ -959,63 +1009,6 @@ WHERE a1.id=a2.id;
     
     
       <category term="Joel" scheme="https://hezhigang.github.io/tags/Joel/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java点点</title>
-    <link href="https://hezhigang.github.io/2018/06/10/java-tips/"/>
-    <id>https://hezhigang.github.io/2018/06/10/java-tips/</id>
-    <published>2018-06-10T12:49:40.000Z</published>
-    <updated>2018-07-25T10:28:41.131Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Java语法"><a href="#Java语法" class="headerlink" title="Java语法"></a>Java语法</h1><ul>
-<li><p>final域<br>final域一旦赋值后将永远不变，因此非常适合用来定义常量。值得注意的是：如果final域是一个基本类型，那么表明改域的值是不能改变的。若final域是一个对象的引用，则仅仅表明改引用不能被改变，也就是永远指向同一个对象，但是被引用的对象自身却是可以改变的。这跟c++中的常量指针很像（不是指向常量的指针）。初始化final域有着特殊的要求：非静态final域要求在构造函数执行后必须被明确赋值，而静态final域在类初始化完成后必须要被明确赋值。</p>
-</li>
-<li><p>JAR地狱（JAR hell）：JAR文件不同版本或路径带来的问题，通常是由于不懂类加载模型导致的。指类路径里JAR包太多这个问题。另外一个“JAR地狱”的解释是“反模式”中的一个概念。DLL地狱（DLL hell）：不同版本带来的问题，DLL可见性和多版本问题，在微软的Windows上尤为突出</p>
-</li>
-<li><p>ThreadLocal<br>A ThreadLocal can be used to avoid the creation of a new SimpleDateFormat for each call.<br>It is needed in a multithread context since the SimpleDateFormat is not thread safe</p>
-</li>
-</ul>
-<h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="Jackson-Annotations"><a href="#Jackson-Annotations" class="headerlink" title="Jackson Annotations"></a>Jackson Annotations</h2><ul>
-<li>@JsonIgnoreProperties one of the most common annotations in Jackson – is used to mark a property or a list of properties to be ignored at the class level.如果是代理类，由于无法标记在属性或方法上，所以，可以标记在类声明上；也作用于反序列化时的字段解析。作用在类上，用来说明有些属性在序列化/反序列化时需要忽略掉，可以将它看做是@JsonIgnore的批量操作，但它的功能比@JsonIgnore要强，比如一个类是代理类，我们无法将将@JsonIgnore标记在属性或方法上，此时便可用。标注在类声明上，它还有一个重要的功能是作用在反序列化时解析字段时过滤一些未知的属性，否则通常情况下解析到我们定义的类不认识的属性便会抛出异常。</li>
-<li>@JsonIgnore The @JsonIgnore annotation is used to mark a property to be ignored at the field level.一般标记在属性或方法上；作用于序列化与反序列化。作用在字段或方法上，用来完全忽略被注解的字段和方法对应的属性，即便这个字段或方法可以被自动检测到或者还有其他的注解</li>
-<li>@JsonPropertyOrder，注释在类声明中</li>
-<li>@JsonAutoDetect 看上面自动检测，不再重复</li>
-<li>@JsonProperty 作用在字段或方法上，用来对属性的序列化/反序列化，可以用来避免遗漏属性，同时提供对属性名称重命名，比如在很多场景下Java对象的属性是按照规范的驼峰书写，但是实际展示的却是类似C-style或C++/Microsolft style</li>
-<li>@JsonUnwrapped 作用在属性字段或方法上，用来将子JSON对象的属性添加到封闭的JSON对象</li>
-<li>@JsonIdentityInfo 2.0+版本新注解，作用于类或属性上，被用来在序列化/反序列化时为该对象或字段添加一个对象识别码，通常是用来解决循环嵌套的问题，比如数据库中的多对多关系，通过配置属性generator来确定识别码生成的方式，有简单的，配置属性property来确定识别码的名称，识别码名称没有限制。</li>
-<li>@JsonNaming jackson 2.1+版本的注解，作用于类或方法，注意这个注解是在jackson-databind包中而不是在jackson-annotations包里，它可以让你定制属性命名策略，作用和前面提到的@JsonProperty的重命名属性名称相同。</li>
-</ul>
-<h3 id="多态类型处理"><a href="#多态类型处理" class="headerlink" title="多态类型处理"></a>多态类型处理</h3><p>jackson允许配置多态类型处理，当进行反序列话时，JSON数据匹配的对象可能有多个子类型，为了正确的读取对象的类型，我们需要添加一些类型信息。可以通过下面几个注解来实现：</p>
-<ul>
-<li>@JsonTypeInfo 作用于类/接口，被用来开启多态类型处理，对基类/接口和子类/实现类都有效</li>
-</ul>
-<h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><p>9 tools to help you with Java Performance Tuning<br><a href="http://blog.idrsolutions.com/2014/06/java-performance-tuning-tools/" target="_blank" rel="external">http://blog.idrsolutions.com/2014/06/java-performance-tuning-tools/</a></p>
-<h1 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h1><p>JWT是 Json Web Token 的缩写。它是基于 RFC 7519 标准定义的一种可以安全传输的 小巧 和 自包含 的JSON对象。由于数据是使用数字签名的，所以是可信任的和安全的。JWT可以使用HMAC算法对secret进行加密或者使用RSA的公钥私钥对来进行签名。</p>
-<p>JWT是由三段组成的，按官方的叫法分别是header（头）、payload（负载）和signature（签名）：</p>
-<p>header.payload.signature</p>
-<p>一个比较成熟的JWT类库，叫 jjwt ( <a href="https://github.com/jwtk/jjwt" target="_blank" rel="external">https://github.com/jwtk/jjwt</a> )。这个类库可以用于Java和Android的JWT token的生成和验证。</p>
-<p>Java JWT: JSON Web Token for Java and Android<br><a href="https://github.com/jwtk/jjwt" target="_blank" rel="external">https://github.com/jwtk/jjwt</a></p>
-<p>JWTs are incredibly cool for authentication because they let us implement reliable Single Sign-On (SSO) with low overhead on any platform (native, web, VR, whatever…) and across domains. JWTs are a strong alternative to pure cookie or session based auth with simple tokens or SAML, which can fail miserably in native app implementations. We can even use cookies with JWTs if we really want.</p>
-<p>For our purposes, we just need to know how to use JWTs within our authentication workflow. When a user logs into our app, the server will check their email and password against the database. If the user exists, we’ll take their {email: <your-email>, password: <your-pw>} combination, turn it into a lovely JWT, and send it back to the client. The client can store the JWT forever or until we set it to expire.</your-pw></your-email></p>
-<p>Whenever the client wants to ask the server for data, it’ll pass the JWT in the request’s Authorization Header (Authorization: Bearer <token>). The server will decode the Authorization Header before executing every request, and the decoded JWT should contain {email: <your-email>, password: <your-pw>}. With that data, the server can retrieve the user again via the database or a cache to determine whether the user is allowed to execute the request.</your-pw></your-email></token></p>
-<p>The Expired Password Problem<br>We still have one last thing that needs modifying in our authorization setup. When a user changes their password, we issue a new JWT, but the old JWT will still pass verification! This can become a serious problem if a hacker gets ahold of a user’s password. To close the loop on this issue, we can make a clever little adjustment to our UserModel database model to include a version parameter, which will be a counter that increments with each new password for the user. We’ll incorporate version into our JWT so only the newest JWT will pass our security. </p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Java语法&quot;&gt;&lt;a href=&quot;#Java语法&quot; class=&quot;headerlink&quot; title=&quot;Java语法&quot;&gt;&lt;/a&gt;Java语法&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;final域&lt;br&gt;final域一旦赋值后将永远不变，因此非常适合用来定义常量。值得注意的
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="https://hezhigang.github.io/tags/Java/"/>
-    
-      <category term="Spring" scheme="https://hezhigang.github.io/tags/Spring/"/>
-    
-      <category term="JWT" scheme="https://hezhigang.github.io/tags/JWT/"/>
     
   </entry>
   
