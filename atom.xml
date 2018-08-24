@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2018-08-22T20:21:15.191Z</updated>
+  <updated>2018-08-24T16:17:05.697Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -14,6 +14,52 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode - Algorithms - 204. Count Primes</title>
+    <link href="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/"/>
+    <id>https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/</id>
+    <published>2018-08-24T15:37:36.000Z</published>
+    <updated>2018-08-24T16:17:05.697Z</updated>
+    
+    <content type="html"><![CDATA[<p>虽然Difficulty标为Easy，但对自己来说不算简单呀，犯了各种错误。</p>
+<p>参考网上的各种代码，才终于跑通了。 算法其实就是经典的 <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes" target="_blank" rel="external">Sieve of Eratosthenes</a>，复杂度 O(NloglogN)</p>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="http://www.algolist.net/Algorithms/Number_theoretic/Sieve_of_Eratosthenes" target="_blank" rel="external">Sieve of Eratosthenes</a></li>
+<li><a href="https://www.craigrodrigues.com/blog/the-sieve-of-eratosthenes-in-javascript" target="_blank" rel="external">The Sieve of Eratosthenes in JavaScript</a></li>
+<li><a href="https://introcs.cs.princeton.edu/java/14array/PrimeSieve.java.html" target="_blank" rel="external">PrimeSieve.java</a></li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int countPrimes(int n) &#123;</div><div class="line">    	if (n&lt;=2) return 0;</div><div class="line">        int x = 0;</div><div class="line">        int sqrt = (int) Math.sqrt(n);</div><div class="line">        boolean[] b = new boolean[n];</div><div class="line">        b[0]=b[1]=false;</div><div class="line">        for(int i=2;i&lt;n;i++)</div><div class="line">        	b[i]=true;</div><div class="line">        for(int i=2;i&lt;=sqrt;i++) &#123;</div><div class="line">        	if (b[i]) &#123;</div><div class="line">            	for(int j=i*i;j&lt;n;j+=i) &#123;</div><div class="line">            		b[j]=false;</div><div class="line">            	&#125;        		</div><div class="line">        	&#125;</div><div class="line">        &#125;</div><div class="line">        for(int i=0;i&lt;b.length;i++) &#123;</div><div class="line">        	if (b[i])</div><div class="line">        		x++;</div><div class="line">        &#125;</div><div class="line">        return x;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>20 / 20 test cases passed.<br>Runtime: 17 ms<br>Your runtime beats 50.14 % of java submissions.</p>
+</blockquote>
+<p>这道题好像很适合用Java 8 Streams：</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/43760641/java-8-streams-and-the-sieve-of-eratosthenes" target="_blank" rel="external">Java 8: streams and the Sieve of Eratosthenes</a></li>
+<li><a href="https://codereview.stackexchange.com/questions/176912/sieve-of-eratosthenes-using-java-8-streams" target="_blank" rel="external">Sieve of Eratosthenes using Java 8 streams</a></li>
+<li><a href="https://www.baeldung.com/java-generate-prime-numbers" target="_blank" rel="external">Generating Prime Numbers in Java</a></li>
+</ul>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; n</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var countPrimes = function(n) &#123;</div><div class="line">	if (n&lt;=2) return 0;</div><div class="line">	var sqrt = Math.floor(Math.sqrt(n));</div><div class="line">	var b = new Array(n);</div><div class="line">	b[0]=false;</div><div class="line">	b[1]=false;</div><div class="line">	for(var i=2;i&lt;n;i++) b[i]=true;</div><div class="line">	for(var i=2;i&lt;=sqrt;i++) &#123;</div><div class="line">		if (b[i]) &#123;</div><div class="line">			for(var j=i*i;j&lt;n;j+=i) &#123;</div><div class="line">				b[j]=false;</div><div class="line">			&#125;		</div><div class="line">		&#125;	</div><div class="line">	&#125;</div><div class="line">	var x=0;</div><div class="line">	for(var i=0;i&lt;n;i++) &#123;</div><div class="line">		if (b[i]) x++;</div><div class="line">	&#125;</div><div class="line">	return x;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行显示：</p>
+<blockquote>
+<p>20 / 20 test cases passed.<br>Runtime: 92 ms<br>Your runtime beats 97.65 % of javascript submissions.</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;虽然Difficulty标为Easy，但对自己来说不算简单呀，犯了各种错误。&lt;/p&gt;
+&lt;p&gt;参考网上的各种代码，才终于跑通了。 算法其实就是经典的 &lt;a href=&quot;https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes&quot; t
+    
+    </summary>
+    
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+  </entry>
   
   <entry>
     <title>Java 8 用法</title>
@@ -640,7 +686,7 @@
 <p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a href="https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application" target="_blank" rel="external">https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application</a></p>
 <p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a href="https://github.com/didinj/spring-boot-mongodb-react-java-crud" target="_blank" rel="external">https://github.com/didinj/spring-boot-mongodb-react-java-crud</a></p>
 <hr>
-<p>How to Setup Spring-Boot with ReactJS and Webpack<br><a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#x68;&#116;&#116;&#112;&#115;&#x3a;&#x2f;&#47;&#109;&#101;&#100;&#105;&#x75;&#x6d;&#46;&#99;&#x6f;&#109;&#47;&#x40;&#x62;&#x65;&#110;&#106;&#97;&#109;&#x69;&#x6e;&#108;&#105;&#117;&#x5f;&#52;&#50;&#52;&#55;&#52;&#47;&#x68;&#111;&#119;&#x2d;&#116;&#x6f;&#x2d;&#x73;&#101;&#116;&#x75;&#x70;&#x2d;&#115;&#x70;&#x72;&#x69;&#110;&#103;&#45;&#x62;&#x6f;&#111;&#x74;&#45;&#x77;&#105;&#116;&#x68;&#45;&#114;&#101;&#x61;&#x63;&#116;&#106;&#x73;&#45;&#97;&#110;&#100;&#45;&#119;&#101;&#x62;&#x70;&#97;&#99;&#107;&#x2d;&#57;&#98;&#x31;&#x39;&#48;&#101;&#x64;&#x65;&#x62;&#x30;&#x63;&#56;">&#x68;&#116;&#116;&#112;&#115;&#x3a;&#x2f;&#47;&#109;&#101;&#100;&#105;&#x75;&#x6d;&#46;&#99;&#x6f;&#109;&#47;&#x40;&#x62;&#x65;&#110;&#106;&#97;&#109;&#x69;&#x6e;&#108;&#105;&#117;&#x5f;&#52;&#50;&#52;&#55;&#52;&#47;&#x68;&#111;&#119;&#x2d;&#116;&#x6f;&#x2d;&#x73;&#101;&#116;&#x75;&#x70;&#x2d;&#115;&#x70;&#x72;&#x69;&#110;&#103;&#45;&#x62;&#x6f;&#111;&#x74;&#45;&#x77;&#105;&#116;&#x68;&#45;&#114;&#101;&#x61;&#x63;&#116;&#106;&#x73;&#45;&#97;&#110;&#100;&#45;&#119;&#101;&#x62;&#x70;&#97;&#99;&#107;&#x2d;&#57;&#98;&#x31;&#x39;&#48;&#101;&#x64;&#x65;&#x62;&#x30;&#x63;&#56;</a></p>
+<p>How to Setup Spring-Boot with ReactJS and Webpack<br><a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#104;&#x74;&#116;&#x70;&#115;&#58;&#47;&#47;&#x6d;&#101;&#x64;&#x69;&#x75;&#109;&#46;&#99;&#x6f;&#x6d;&#x2f;&#x40;&#x62;&#101;&#110;&#106;&#97;&#109;&#x69;&#110;&#108;&#x69;&#x75;&#x5f;&#52;&#50;&#52;&#55;&#x34;&#x2f;&#x68;&#x6f;&#x77;&#x2d;&#116;&#111;&#x2d;&#115;&#x65;&#116;&#x75;&#112;&#45;&#115;&#112;&#114;&#105;&#x6e;&#103;&#x2d;&#x62;&#x6f;&#111;&#x74;&#x2d;&#x77;&#x69;&#x74;&#x68;&#45;&#x72;&#x65;&#x61;&#99;&#116;&#x6a;&#x73;&#x2d;&#x61;&#110;&#x64;&#45;&#119;&#101;&#x62;&#112;&#x61;&#x63;&#107;&#45;&#x39;&#98;&#x31;&#57;&#x30;&#101;&#x64;&#101;&#98;&#x30;&#99;&#56;">&#104;&#x74;&#116;&#x70;&#115;&#58;&#47;&#47;&#x6d;&#101;&#x64;&#x69;&#x75;&#109;&#46;&#99;&#x6f;&#x6d;&#x2f;&#x40;&#x62;&#101;&#110;&#106;&#97;&#109;&#x69;&#110;&#108;&#x69;&#x75;&#x5f;&#52;&#50;&#52;&#55;&#x34;&#x2f;&#x68;&#x6f;&#x77;&#x2d;&#116;&#111;&#x2d;&#115;&#x65;&#116;&#x75;&#112;&#45;&#115;&#112;&#114;&#105;&#x6e;&#103;&#x2d;&#x62;&#x6f;&#111;&#x74;&#x2d;&#x77;&#x69;&#x74;&#x68;&#45;&#x72;&#x65;&#x61;&#99;&#116;&#x6a;&#x73;&#x2d;&#x61;&#110;&#x64;&#45;&#119;&#101;&#x62;&#112;&#x61;&#x63;&#107;&#45;&#x39;&#98;&#x31;&#57;&#x30;&#101;&#x64;&#101;&#98;&#x30;&#99;&#56;</a></p>
 <p>Spring Boot with ReactJS using WebPack and Yarn.<br><a href="https://github.com/liuben10/spring-boot-react-js-example" target="_blank" rel="external">https://github.com/liuben10/spring-boot-react-js-example</a></p>
 ]]></content>
     
@@ -862,36 +908,6 @@ WHERE a1.id=a2.id;
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>Football Joke</title>
-    <link href="https://hezhigang.github.io/2018/06/17/football-joke/"/>
-    <id>https://hezhigang.github.io/2018/06/17/football-joke/</id>
-    <published>2018-06-17T21:21:41.000Z</published>
-    <updated>2018-07-25T10:24:45.341Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://en.wikipedia.org/wiki/Bud_Wilkinson" target="_blank" rel="external">Bud Wilkinson</a>, former football coach at the University of Oklahoma, was in Dallas for a series of lectures on physical fitness. A TV reporter interviewed him about the President’s physical fitness program and asked: “Mr Wilkinson, what would you say is the contribution of modern football to physical fitness?” The reporter expected a lengthy speech.</p>
-<p>As if he had been waiting 30 years for this question, he said, “Absolutely nothing.”</p>
-<p>The young reporter stared and squirmed and finally stuttered, “Would you care to elaborate on that?”</p>
-<p>Wilkinson said, “Certainly. <strong> I define football as 22 men on the field who desperately need rest and 50,000 people in the stands who desperately need exercise. </strong>”</p>
-<p>记者问俄克拉荷马大学足球教练布得·W，足球对体育锻炼有何贡献？</p>
-<p>“绝对没有”，布得立即回答。</p>
-<p>“绝对没有？”吃惊的记者问，“你能说得详细一点吗？”</p>
-<p>“当然”，布得说，“ <strong> 我认为足球是二十二个需要休息的人在场上拼命地跑，而五万个需要运动的人却坐在那里看。 </strong>”</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Bud_Wilkinson&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Bud Wilkinson&lt;/a&gt;, former football coach at the Univ
-    
-    </summary>
-    
-    
-      <category term="english" scheme="https://hezhigang.github.io/tags/english/"/>
-    
-      <category term="英语" scheme="https://hezhigang.github.io/tags/%E8%8B%B1%E8%AF%AD/"/>
     
   </entry>
   
