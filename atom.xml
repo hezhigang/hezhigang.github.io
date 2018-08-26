@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2018-08-24T16:17:05.697Z</updated>
+  <updated>2018-08-26T01:09:37.445Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -14,6 +14,68 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode - Algorithms - 371. Sum of Two Integers</title>
+    <link href="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/"/>
+    <id>https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/</id>
+    <published>2018-08-25T02:56:17.000Z</published>
+    <updated>2018-08-26T01:09:37.445Z</updated>
+    
+    <content type="html"><![CDATA[<p>这题不Easy呀，像智力题，像脑筋急转弯。<br>代码是人家的，我可想不出来。真是“会者不难，难者不会”。</p>
+<ul>
+<li><a href="https://www.quora.com/How-do-I-add-two-numbers-without-using-any-operator-C-C++" target="_blank" rel="external">How do I add two numbers without using any operator C/C++?</a></li>
+<li><a href="https://stackoverflow.com/questions/365522/what-is-the-best-way-to-add-two-numbers-without-using-the-operator" target="_blank" rel="external">What is the best way to add two numbers without using the + operator?</a></li>
+<li><a href="https://www.geeksforgeeks.org/add-two-numbers-without-using-arithmetic-operators/" target="_blank" rel="external">Add two numbers without using arithmetic operators</a></li>
+</ul>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><h2 id="自增自减运算符"><a href="#自增自减运算符" class="headerlink" title="自增自减运算符"></a>自增自减运算符</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; a</div><div class="line"> * @param &#123;number&#125; b</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var getSum = function(a, b) &#123;</div><div class="line">    if (a&gt;0) &#123;</div><div class="line">        while(a&gt;0) &#123;</div><div class="line">            a--;</div><div class="line">            b++</div><div class="line">        &#125;        </div><div class="line">    &#125;</div><div class="line">    if (a&lt;0) &#123;</div><div class="line">        while(a&lt;0) &#123;</div><div class="line">            a++;</div><div class="line">            b--;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return b;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行显示：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 2096 ms<br>Your runtime beats 3.38 % of javascript submissions.</p>
+</blockquote>
+<h2 id="位运算-递归"><a href="#位运算-递归" class="headerlink" title="位运算+递归"></a>位运算+递归</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; a</div><div class="line"> * @param &#123;number&#125; b</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var getSum = function(a, b) &#123;</div><div class="line">	  var sum,carry;</div><div class="line">	  if (b==0) return a;</div><div class="line">	  sum = a^b;</div><div class="line">	  carry = (a&amp;b)&lt;&lt;1;</div><div class="line">	  return getSum(sum,carry);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 52 ms<br>Your runtime beats 69.57 % of javascript submissions</p>
+</blockquote>
+<h2 id="消除递归的位运算"><a href="#消除递归的位运算" class="headerlink" title="消除递归的位运算"></a>消除递归的位运算</h2><p>知其然而不知其所以然，居然可以这么做，觉得很神奇</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; a</div><div class="line"> * @param &#123;number&#125; b</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var getSum = function(a, b) &#123;</div><div class="line">	  while(b!=0) &#123;</div><div class="line">		  var carry=a&amp;b;</div><div class="line">		  a = a^b;</div><div class="line">		  b = carry&lt;&lt;1;</div><div class="line">	  &#125;</div><div class="line">	  return a;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 48 ms<br>Your runtime beats 100.00 % of javascript submissions.</p>
+</blockquote>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="消除递归的位运算-1"><a href="#消除递归的位运算-1" class="headerlink" title="消除递归的位运算"></a>消除递归的位运算</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int getSum(int a, int b) &#123;</div><div class="line">    	while (b!=0) &#123;</div><div class="line">    		int carry = a&amp;b;</div><div class="line">    		a = a^b;</div><div class="line">    		b = carry&lt;&lt;1;</div><div class="line">    	&#125;</div><div class="line">        return a;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行显示：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 0 ms<br>Your runtime beats 100.00 % of java submissions.</p>
+</blockquote>
+<h2 id="递归-位运算"><a href="#递归-位运算" class="headerlink" title="递归+位运算"></a>递归+位运算</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int getSum(int a, int b) &#123;</div><div class="line">    	int sum,carry;</div><div class="line">    	if (b==0) return a;</div><div class="line">    	sum = a ^ b;</div><div class="line">        carry = (a &amp; b) &lt;&lt; 1;</div><div class="line">        return getSum(sum,carry);  </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 0 ms<br>Your runtime beats 100.00 % of java submissions.</p>
+</blockquote>
+<h2 id="自增自减运算符-1"><a href="#自增自减运算符-1" class="headerlink" title="自增自减运算符"></a>自增自减运算符</h2><p>这个解很像脑筋急转弯，不难，但让人想不到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int getSum(int a, int b) &#123;</div><div class="line">    	if (a&gt;0) &#123;</div><div class="line">    		while(a&gt;0) &#123;</div><div class="line">    			a--;</div><div class="line">    			b++;</div><div class="line">    		&#125;</div><div class="line">    	&#125;</div><div class="line">    	if (a&lt;0) &#123;</div><div class="line">    		while(a&lt;0) &#123;</div><div class="line">    			a++;</div><div class="line">    			b--;</div><div class="line">    		&#125;</div><div class="line">    	&#125;</div><div class="line">    	return b;  </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果如下：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 1 ms<br>Your runtime beats 3.44 % of java submissions.</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这题不Easy呀，像智力题，像脑筋急转弯。&lt;br&gt;代码是人家的，我可想不出来。真是“会者不难，难者不会”。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.quora.com/How-do-I-add-two-numbers-without-using-
+    
+    </summary>
+    
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode - Algorithms - 204. Count Primes</title>
@@ -686,7 +748,7 @@
 <p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a href="https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application" target="_blank" rel="external">https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application</a></p>
 <p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a href="https://github.com/didinj/spring-boot-mongodb-react-java-crud" target="_blank" rel="external">https://github.com/didinj/spring-boot-mongodb-react-java-crud</a></p>
 <hr>
-<p>How to Setup Spring-Boot with ReactJS and Webpack<br><a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#104;&#x74;&#116;&#x70;&#115;&#58;&#47;&#47;&#x6d;&#101;&#x64;&#x69;&#x75;&#109;&#46;&#99;&#x6f;&#x6d;&#x2f;&#x40;&#x62;&#101;&#110;&#106;&#97;&#109;&#x69;&#110;&#108;&#x69;&#x75;&#x5f;&#52;&#50;&#52;&#55;&#x34;&#x2f;&#x68;&#x6f;&#x77;&#x2d;&#116;&#111;&#x2d;&#115;&#x65;&#116;&#x75;&#112;&#45;&#115;&#112;&#114;&#105;&#x6e;&#103;&#x2d;&#x62;&#x6f;&#111;&#x74;&#x2d;&#x77;&#x69;&#x74;&#x68;&#45;&#x72;&#x65;&#x61;&#99;&#116;&#x6a;&#x73;&#x2d;&#x61;&#110;&#x64;&#45;&#119;&#101;&#x62;&#112;&#x61;&#x63;&#107;&#45;&#x39;&#98;&#x31;&#57;&#x30;&#101;&#x64;&#101;&#98;&#x30;&#99;&#56;">&#104;&#x74;&#116;&#x70;&#115;&#58;&#47;&#47;&#x6d;&#101;&#x64;&#x69;&#x75;&#109;&#46;&#99;&#x6f;&#x6d;&#x2f;&#x40;&#x62;&#101;&#110;&#106;&#97;&#109;&#x69;&#110;&#108;&#x69;&#x75;&#x5f;&#52;&#50;&#52;&#55;&#x34;&#x2f;&#x68;&#x6f;&#x77;&#x2d;&#116;&#111;&#x2d;&#115;&#x65;&#116;&#x75;&#112;&#45;&#115;&#112;&#114;&#105;&#x6e;&#103;&#x2d;&#x62;&#x6f;&#111;&#x74;&#x2d;&#x77;&#x69;&#x74;&#x68;&#45;&#x72;&#x65;&#x61;&#99;&#116;&#x6a;&#x73;&#x2d;&#x61;&#110;&#x64;&#45;&#119;&#101;&#x62;&#112;&#x61;&#x63;&#107;&#45;&#x39;&#98;&#x31;&#57;&#x30;&#101;&#x64;&#101;&#98;&#x30;&#99;&#56;</a></p>
+<p>How to Setup Spring-Boot with ReactJS and Webpack<br><a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#104;&#116;&#116;&#112;&#x73;&#58;&#47;&#47;&#109;&#101;&#100;&#x69;&#117;&#x6d;&#46;&#x63;&#111;&#x6d;&#x2f;&#64;&#x62;&#x65;&#110;&#106;&#97;&#x6d;&#x69;&#110;&#108;&#105;&#x75;&#95;&#52;&#50;&#x34;&#55;&#x34;&#47;&#x68;&#x6f;&#x77;&#45;&#116;&#111;&#45;&#115;&#x65;&#x74;&#x75;&#112;&#45;&#x73;&#x70;&#114;&#x69;&#110;&#103;&#45;&#98;&#111;&#x6f;&#x74;&#x2d;&#119;&#105;&#x74;&#x68;&#x2d;&#x72;&#x65;&#x61;&#99;&#x74;&#x6a;&#115;&#45;&#x61;&#110;&#100;&#x2d;&#x77;&#101;&#x62;&#x70;&#97;&#99;&#107;&#x2d;&#57;&#x62;&#49;&#x39;&#48;&#x65;&#100;&#x65;&#98;&#48;&#99;&#x38;">&#104;&#116;&#116;&#112;&#x73;&#58;&#47;&#47;&#109;&#101;&#100;&#x69;&#117;&#x6d;&#46;&#x63;&#111;&#x6d;&#x2f;&#64;&#x62;&#x65;&#110;&#106;&#97;&#x6d;&#x69;&#110;&#108;&#105;&#x75;&#95;&#52;&#50;&#x34;&#55;&#x34;&#47;&#x68;&#x6f;&#x77;&#45;&#116;&#111;&#45;&#115;&#x65;&#x74;&#x75;&#112;&#45;&#x73;&#x70;&#114;&#x69;&#110;&#103;&#45;&#98;&#111;&#x6f;&#x74;&#x2d;&#119;&#105;&#x74;&#x68;&#x2d;&#x72;&#x65;&#x61;&#99;&#x74;&#x6a;&#115;&#45;&#x61;&#110;&#100;&#x2d;&#x77;&#101;&#x62;&#x70;&#97;&#99;&#107;&#x2d;&#57;&#x62;&#49;&#x39;&#48;&#x65;&#100;&#x65;&#98;&#48;&#99;&#x38;</a></p>
 <p>Spring Boot with ReactJS using WebPack and Yarn.<br><a href="https://github.com/liuben10/spring-boot-react-js-example" target="_blank" rel="external">https://github.com/liuben10/spring-boot-react-js-example</a></p>
 ]]></content>
     
@@ -875,39 +937,6 @@ WHERE a1.id=a2.id;
     
     
       <category term="mysql" scheme="https://hezhigang.github.io/tags/mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据库概论（陈立军, 北大）</title>
-    <link href="https://hezhigang.github.io/2018/06/18/db-ppt-digest-ljchen-pku/"/>
-    <id>https://hezhigang.github.io/2018/06/18/db-ppt-digest-ljchen-pku/</id>
-    <published>2018-06-18T11:56:38.000Z</published>
-    <updated>2018-06-18T12:05:16.863Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="成功的七项习惯"><a href="#成功的七项习惯" class="headerlink" title="成功的七项习惯"></a>成功的七项习惯</h1><p>第一项习惯：积极主动<br>第二项习惯：一开始就想到最后的目标<br>第三项习惯：重要的事首先做<br>第四项习惯：双赢<br>第五项习惯：先了解别人，再让别人理解自己<br>第六项习惯：合作协调<br>第七项习惯：磨刀不误砍柴功</p>
-<h1 id="名言"><a href="#名言" class="headerlink" title="名言"></a>名言</h1><blockquote>
-<p>科学根源于交谈，在不同的人的合作之下，可能孕育出极为重要的科学成果。 —— 海森堡</p>
-<p>由于搭便车行为的存在，理性、自利的个人一般不会为争取集体利益作贡献 —— 奥尔森，《集体行动的逻辑》</p>
-<p>不同文化的社会中都存在一些利他主义者，一个群体或社会中如果有百分之三的利他主义者，整个社会的风气和行为规范就会出现可喜的变化</p>
-</blockquote>
-<h1 id="格言"><a href="#格言" class="headerlink" title="格言"></a>格言</h1><ul>
-<li>戴手套的猫逮不着老鼠</li>
-<li>倒塌的灯塔比暗礁更危险</li>
-<li>对青少年火一样的激情，岁月是最好的灭火器</li>
-<li>不掷色子，就永远别想得到六点</li>
-<li>统计数字就像超短裙，掩盖起来的部分才是关键</li>
-<li>老鼠夹上总会有免费蛋糕</li>
-</ul>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>Jim Gray Summary Home Page<br><a href="http://jimgray.azurewebsites.net/" target="_blank" rel="external">http://jimgray.azurewebsites.net/</a><br>His primary research interests are in databases and transaction processing systems – with particular focus on using computers to make scientists more productive. </p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;成功的七项习惯&quot;&gt;&lt;a href=&quot;#成功的七项习惯&quot; class=&quot;headerlink&quot; title=&quot;成功的七项习惯&quot;&gt;&lt;/a&gt;成功的七项习惯&lt;/h1&gt;&lt;p&gt;第一项习惯：积极主动&lt;br&gt;第二项习惯：一开始就想到最后的目标&lt;br&gt;第三项习惯：重要的事首先做&lt;b
-    
-    </summary>
-    
     
   </entry>
   

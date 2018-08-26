@@ -65,6 +65,74 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-LRU-Cache" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/01/LeetCode-Algorithms-LRU-Cache/" class="article-date">
+  <time datetime="2018-08-01T14:09:53.000Z" itemprop="datePublished">2018-08-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/01/LeetCode-Algorithms-LRU-Cache/">LeetCode - Algorithms - 146. LRU Cache</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这题是 <a href="https://leetcode.com/problemset/top-interview-questions/" target="_blank" rel="external">Top Interview Questions</a> 及 <a href="https://leetcode.com/problemset/top-100-liked-questions/" target="_blank" rel="external">Top 100 Liked Questions</a>之一，前后又花了一个星期。</p>
+<p>先是了解了下 <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies" target="_blank" rel="external">Cache replacement policies</a>，其中提及 General implementations of Least recently used (LRU) require keeping “age bits” for cache-lines and track the “Least Recently Used” cache-line based on age-bits.</p>
+<p>题目里提示 Could you do both operations in O(1) time complexity? ，又了解了下<a href="https://en.wikipedia.org/wiki/Time_complexity" target="_blank" rel="external">Time complexity</a>。又在kindle上翻了下《算法图解》，了解了下散列表、链表等数据结构，也算加强了下对哈希表的认识。</p>
+<blockquote>
+<p>在平均情况下， 散列表执行各种操作的时间都为O(1)。 O(1)被称为常量时间。你以前没有见过 常量时间，它并不意味着马上，而是说不管散列表多大，所需的时间都相同。</p>
+<p>实际上，你以前见过常量时间——从数组中获取一个元素所需的时间就是固定的：不管数组多大，从中获取一个元素所需的时间都是相同的。</p>
+<p>填装因子(load factor)度量的是散列表中有多少位置是空的。填装因子越低，发生冲突的可能性越小，散列表的性能越高。一个不错的经验规则是：一旦填装因子大于0.7，就调整散列表的长度。</p>
+</blockquote>
+<p>自己琢磨也是徒劳，不如上网找点提示信息，在quora上找到几条信息</p>
+<ul>
+<li><a href="https://www.quora.com/What-is-the-best-way-to-Implement-an-LRU-Cache" target="_blank" rel="external">What is the best way to Implement an LRU Cache?</a></li>
+<li><a href="https://www.quora.com/How-are-linked-lists-good-for-LRU-caches" target="_blank" rel="external">How are linked lists good for LRU caches?</a></li>
+<li><a href="https://www.quora.com/Why-is-doubly-linked-list-used-in-LRU-Least-Recently-Used-implementation-as-in-this-link-Implement-LRU-Cache-GeeksforGeeks" target="_blank" rel="external">Why is doubly linked list used in LRU(Least Recently Used) implementation as in this link (Implement LRU Cache - GeeksforGeeks)?</a></li>
+</ul>
+<blockquote>
+<p>Typically LRU cache is implemented using a doubly linked list and a hash map.</p>
+<p>An LRU Cache should support fast lookup. Apparently, in order to achieve fast lookup, we need to use Hashtable or HashMap.Also, an LRU Cache requires that insert and delete operations should be in O(1) time. The obvious choice for this requirement is Linked List. Linked List support insert/delete operations in O(1) time if we have the reference of element. While building an LRU cache requires that you think in terms of these two data structures. The reality is that these two data structures actually work coherently to achieve the design.So, we are finalizing on these data structures: HashMap and Doubly Linked List. HashMap holds the keys and values as reference of the nodes (entries) of Doubly Linked List.Doubly Linked List is used to store list of nodes (entries) with most recently used node at the head of the list. So, as more nodes are added to the list, least recently used nodes are moved to the end of the list with node at tail being the least recently used in the list.</p>
+</blockquote>
+<p>自己对java集合类库还是不够熟悉，看到<a href="https://stackoverflow.com/questions/31365998/is-there-any-doubly-linked-list-implementation-in-java" target="_blank" rel="external">Is there any doubly linked list implementation in Java?</a>才明白原来java.util.LinkedList本来就可以当双向链表使用，</p>
+<blockquote>
+<p>Doubly-linked list implementation of the List and Deque interfaces. Implements all optional list operations, and permits all elements (including null).All of the operations perform as could be expected for a doubly-linked list. Operations that index into the list will traverse the list from the beginning or the end, whichever is closer to the specified index. </p>
+</blockquote>
+<p>在leetcode上提交了两次，终于运行通过，如果自己来实现双向链表是不是更能提高性能? 做了这些题，感觉leetcode的算法题不是那种难得要死的题，不会做说明你的数据结构和算法知识还比较欠缺。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">class LRUCache &#123;</div><div class="line">	private LinkedList&lt;DualLinkNode&gt; list;</div><div class="line">	private Map&lt;Integer,DualLinkNode&gt; map;</div><div class="line">	private final int cacheSize;</div><div class="line">	</div><div class="line">    public LRUCache(int capacity) &#123;</div><div class="line">    	list = new LinkedList&lt;DualLinkNode&gt;();</div><div class="line">    	map = new HashMap&lt;Integer,DualLinkNode&gt;();</div><div class="line">    	this.cacheSize = capacity;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public int get(int key) &#123;</div><div class="line">    	if (map.containsKey(key)) &#123;</div><div class="line">    		DualLinkNode node = map.get(key);</div><div class="line">    		list.remove(node);</div><div class="line">    		list.addFirst(node);</div><div class="line">    		return node.val;</div><div class="line">    	&#125;</div><div class="line">    	else &#123;</div><div class="line">    		return -1;</div><div class="line">    	&#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public void put(int key, int value) &#123;</div><div class="line">    	if (map.containsKey(key)) &#123;</div><div class="line">    		DualLinkNode node = map.get(key);</div><div class="line">    		list.remove(node);</div><div class="line">    		node.val=value;</div><div class="line">    		list.addFirst(node);</div><div class="line">    	&#125;</div><div class="line">    	else &#123;</div><div class="line">			if (list.size()==cacheSize) &#123;</div><div class="line">				DualLinkNode node = list.pollLast();</div><div class="line">				map.remove(node.key);</div><div class="line">			&#125;</div><div class="line">			DualLinkNode node = new DualLinkNode(key,value);</div><div class="line">			list.addFirst(node);</div><div class="line">			map.put(key, node);</div><div class="line">    	&#125;</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">	private class DualLinkNode &#123;</div><div class="line">		public int key;</div><div class="line">		public int val;</div><div class="line"></div><div class="line">		public DualLinkNode(int key, int val) &#123;</div><div class="line">			super();</div><div class="line">			this.key = key;</div><div class="line">			this.val = val;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>性能倒不行，leetcode执行显示</p>
+<blockquote>
+<p>18 / 18 test cases passed.<br>Runtime: 227 ms<br>You are here!<br>Your runtime beats 7.69 % of java submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/08/01/LeetCode-Algorithms-LRU-Cache/" data-id="cjl9pscw1000co0tw0jniec2s" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-AWS-Certified-Solutions-Architect" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/07/27/AWS-Certified-Solutions-Architect/" class="article-date">
@@ -102,7 +170,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/27/AWS-Certified-Solutions-Architect/" data-id="cjl87a44j0000cwtwzgb1i4jk" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/27/AWS-Certified-Solutions-Architect/" data-id="cjl9pscsw0000o0twove3fbva" class="article-share-link">Share</a>
       
       
       
@@ -150,7 +218,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Reverse-Integer/" data-id="cjl87a45v000tcwtw4hinyhq3" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Reverse-Integer/" data-id="cjl9pscwb000lo0twyl4c327i" class="article-share-link">Share</a>
       
       
       
@@ -202,7 +270,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Palindrome-Number/" data-id="cjl87a45r000ocwtwmhjirtq5" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Palindrome-Number/" data-id="cjl9pscw9000ko0twqxxy5fwj" class="article-share-link">Share</a>
       
       
       
@@ -259,7 +327,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/22/LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters/" data-id="cjl87a45n000kcwtwuxd2gt7x" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/22/LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters/" data-id="cjl9pscw8000jo0twimpik19c" class="article-share-link">Share</a>
       
       
       
@@ -338,7 +406,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/18/New-Concept-English/" data-id="cjl87a45y000wcwtwz82o8p9p" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/18/New-Concept-English/" data-id="cjl9pscwk000wo0twpnlne419" class="article-share-link">Share</a>
       
       
       
@@ -396,7 +464,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/13/bash-shell/" data-id="cjl87a46m001icwtw4dzxib3z" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/13/bash-shell/" data-id="cjl9pscxa001ko0twl7c450bt" class="article-share-link">Share</a>
       
       
       
@@ -441,13 +509,13 @@
 <p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a href="https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application" target="_blank" rel="external">https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application</a></p>
 <p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a href="https://github.com/didinj/spring-boot-mongodb-react-java-crud" target="_blank" rel="external">https://github.com/didinj/spring-boot-mongodb-react-java-crud</a></p>
 <hr>
-<p>How to Setup Spring-Boot with ReactJS and Webpack<br><a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#104;&#x74;&#116;&#x70;&#115;&#58;&#47;&#47;&#x6d;&#101;&#x64;&#x69;&#x75;&#109;&#46;&#99;&#x6f;&#x6d;&#x2f;&#x40;&#x62;&#101;&#110;&#106;&#97;&#109;&#x69;&#110;&#108;&#x69;&#x75;&#x5f;&#52;&#50;&#52;&#55;&#x34;&#x2f;&#x68;&#x6f;&#x77;&#x2d;&#116;&#111;&#x2d;&#115;&#x65;&#116;&#x75;&#112;&#45;&#115;&#112;&#114;&#105;&#x6e;&#103;&#x2d;&#x62;&#x6f;&#111;&#x74;&#x2d;&#x77;&#x69;&#x74;&#x68;&#45;&#x72;&#x65;&#x61;&#99;&#116;&#x6a;&#x73;&#x2d;&#x61;&#110;&#x64;&#45;&#119;&#101;&#x62;&#112;&#x61;&#x63;&#107;&#45;&#x39;&#98;&#x31;&#57;&#x30;&#101;&#x64;&#101;&#98;&#x30;&#99;&#56;">&#104;&#x74;&#116;&#x70;&#115;&#58;&#47;&#47;&#x6d;&#101;&#x64;&#x69;&#x75;&#109;&#46;&#99;&#x6f;&#x6d;&#x2f;&#x40;&#x62;&#101;&#110;&#106;&#97;&#109;&#x69;&#110;&#108;&#x69;&#x75;&#x5f;&#52;&#50;&#52;&#55;&#x34;&#x2f;&#x68;&#x6f;&#x77;&#x2d;&#116;&#111;&#x2d;&#115;&#x65;&#116;&#x75;&#112;&#45;&#115;&#112;&#114;&#105;&#x6e;&#103;&#x2d;&#x62;&#x6f;&#111;&#x74;&#x2d;&#x77;&#x69;&#x74;&#x68;&#45;&#x72;&#x65;&#x61;&#99;&#116;&#x6a;&#x73;&#x2d;&#x61;&#110;&#x64;&#45;&#119;&#101;&#x62;&#112;&#x61;&#x63;&#107;&#45;&#x39;&#98;&#x31;&#57;&#x30;&#101;&#x64;&#101;&#98;&#x30;&#99;&#56;</a></p>
+<p>How to Setup Spring-Boot with ReactJS and Webpack<br><a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#104;&#116;&#116;&#112;&#x73;&#58;&#47;&#47;&#109;&#101;&#100;&#x69;&#117;&#x6d;&#46;&#x63;&#111;&#x6d;&#x2f;&#64;&#x62;&#x65;&#110;&#106;&#97;&#x6d;&#x69;&#110;&#108;&#105;&#x75;&#95;&#52;&#50;&#x34;&#55;&#x34;&#47;&#x68;&#x6f;&#x77;&#45;&#116;&#111;&#45;&#115;&#x65;&#x74;&#x75;&#112;&#45;&#x73;&#x70;&#114;&#x69;&#110;&#103;&#45;&#98;&#111;&#x6f;&#x74;&#x2d;&#119;&#105;&#x74;&#x68;&#x2d;&#x72;&#x65;&#x61;&#99;&#x74;&#x6a;&#115;&#45;&#x61;&#110;&#100;&#x2d;&#x77;&#101;&#x62;&#x70;&#97;&#99;&#107;&#x2d;&#57;&#x62;&#49;&#x39;&#48;&#x65;&#100;&#x65;&#98;&#48;&#99;&#x38;">&#104;&#116;&#116;&#112;&#x73;&#58;&#47;&#47;&#109;&#101;&#100;&#x69;&#117;&#x6d;&#46;&#x63;&#111;&#x6d;&#x2f;&#64;&#x62;&#x65;&#110;&#106;&#97;&#x6d;&#x69;&#110;&#108;&#105;&#x75;&#95;&#52;&#50;&#x34;&#55;&#x34;&#47;&#x68;&#x6f;&#x77;&#45;&#116;&#111;&#45;&#115;&#x65;&#x74;&#x75;&#112;&#45;&#x73;&#x70;&#114;&#x69;&#110;&#103;&#45;&#98;&#111;&#x6f;&#x74;&#x2d;&#119;&#105;&#x74;&#x68;&#x2d;&#x72;&#x65;&#x61;&#99;&#x74;&#x6a;&#115;&#45;&#x61;&#110;&#100;&#x2d;&#x77;&#101;&#x62;&#x70;&#97;&#99;&#107;&#x2d;&#57;&#x62;&#49;&#x39;&#48;&#x65;&#100;&#x65;&#98;&#48;&#99;&#x38;</a></p>
 <p>Spring Boot with ReactJS using WebPack and Yarn.<br><a href="https://github.com/liuben10/spring-boot-react-js-example" target="_blank" rel="external">https://github.com/liuben10/spring-boot-react-js-example</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/10/Spring-Boot-React/" data-id="cjl87a4680017cwtwor84v3ug" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/10/Spring-Boot-React/" data-id="cjl9pscwu0017o0tw9z3kna1y" class="article-share-link">Share</a>
       
       
       
@@ -534,7 +602,7 @@ and exists(select 1 from stadium t3 where t3.people&gt;=100 and t3.`date`=DATE_A
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/30/LeetCode-Solve-Diary/" data-id="cjl87a45w000ucwtwgfk5a76m" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/30/LeetCode-Solve-Diary/" data-id="cjl9pscwj000uo0twhmjdgxw2" class="article-share-link">Share</a>
       
       
       
@@ -662,65 +730,12 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/29/mysql-points/" data-id="cjl87a47o002mcwtws184tn0s" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/29/mysql-points/" data-id="cjl9pscyu002mo0twcgyomhvw" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-db-ppt-digest-ljchen-pku" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/18/db-ppt-digest-ljchen-pku/" class="article-date">
-  <time datetime="2018-06-18T11:56:38.000Z" itemprop="datePublished">2018-06-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/18/db-ppt-digest-ljchen-pku/">数据库概论（陈立军, 北大）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="成功的七项习惯"><a href="#成功的七项习惯" class="headerlink" title="成功的七项习惯"></a>成功的七项习惯</h1><p>第一项习惯：积极主动<br>第二项习惯：一开始就想到最后的目标<br>第三项习惯：重要的事首先做<br>第四项习惯：双赢<br>第五项习惯：先了解别人，再让别人理解自己<br>第六项习惯：合作协调<br>第七项习惯：磨刀不误砍柴功</p>
-<h1 id="名言"><a href="#名言" class="headerlink" title="名言"></a>名言</h1><blockquote>
-<p>科学根源于交谈，在不同的人的合作之下，可能孕育出极为重要的科学成果。 —— 海森堡</p>
-<p>由于搭便车行为的存在，理性、自利的个人一般不会为争取集体利益作贡献 —— 奥尔森，《集体行动的逻辑》</p>
-<p>不同文化的社会中都存在一些利他主义者，一个群体或社会中如果有百分之三的利他主义者，整个社会的风气和行为规范就会出现可喜的变化</p>
-</blockquote>
-<h1 id="格言"><a href="#格言" class="headerlink" title="格言"></a>格言</h1><ul>
-<li>戴手套的猫逮不着老鼠</li>
-<li>倒塌的灯塔比暗礁更危险</li>
-<li>对青少年火一样的激情，岁月是最好的灭火器</li>
-<li>不掷色子，就永远别想得到六点</li>
-<li>统计数字就像超短裙，掩盖起来的部分才是关键</li>
-<li>老鼠夹上总会有免费蛋糕</li>
-</ul>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>Jim Gray Summary Home Page<br><a href="http://jimgray.azurewebsites.net/" target="_blank" rel="external">http://jimgray.azurewebsites.net/</a><br>His primary research interests are in databases and transaction processing systems – with particular focus on using computers to make scientists more productive. </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/18/db-ppt-digest-ljchen-pku/" data-id="cjl87a46o001kcwtwoy4o3zqz" class="article-share-link">Share</a>
-      
-      
-      
     </footer>
   </div>
   
@@ -779,6 +794,10 @@ WHERE a1.id=a2.id;
       <ul>
         
           <li>
+            <a href="/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/">LeetCode - Algorithms - 371. Sum of Two Integers</a>
+          </li>
+        
+          <li>
             <a href="/2018/08/24/LeetCode-Algorithms-Count-Primes/">LeetCode - Algorithms - 204. Count Primes</a>
           </li>
         
@@ -792,10 +811,6 @@ WHERE a1.id=a2.id;
         
           <li>
             <a href="/2018/08/21/LeetCode-Algorithms-Reverse-String/">LeetCode - Algorithms - 344. Reverse String</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/">LeetCode - Algorithms - 300. Longest Increasing Subsequence</a>
           </li>
         
       </ul>

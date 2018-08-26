@@ -65,6 +65,78 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-java-tips" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/10/java-tips/" class="article-date">
+  <time datetime="2018-06-10T12:49:40.000Z" itemprop="datePublished">2018-06-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/10/java-tips/">Java点点</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Java语法"><a href="#Java语法" class="headerlink" title="Java语法"></a>Java语法</h1><ul>
+<li><p>final域<br>final域一旦赋值后将永远不变，因此非常适合用来定义常量。值得注意的是：如果final域是一个基本类型，那么表明改域的值是不能改变的。若final域是一个对象的引用，则仅仅表明改引用不能被改变，也就是永远指向同一个对象，但是被引用的对象自身却是可以改变的。这跟c++中的常量指针很像（不是指向常量的指针）。初始化final域有着特殊的要求：非静态final域要求在构造函数执行后必须被明确赋值，而静态final域在类初始化完成后必须要被明确赋值。</p>
+</li>
+<li><p>JAR地狱（JAR hell）：JAR文件不同版本或路径带来的问题，通常是由于不懂类加载模型导致的。指类路径里JAR包太多这个问题。另外一个“JAR地狱”的解释是“反模式”中的一个概念。DLL地狱（DLL hell）：不同版本带来的问题，DLL可见性和多版本问题，在微软的Windows上尤为突出</p>
+</li>
+<li><p>ThreadLocal<br>A ThreadLocal can be used to avoid the creation of a new SimpleDateFormat for each call.<br>It is needed in a multithread context since the SimpleDateFormat is not thread safe</p>
+</li>
+</ul>
+<h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="Jackson-Annotations"><a href="#Jackson-Annotations" class="headerlink" title="Jackson Annotations"></a>Jackson Annotations</h2><ul>
+<li>@JsonIgnoreProperties one of the most common annotations in Jackson – is used to mark a property or a list of properties to be ignored at the class level.如果是代理类，由于无法标记在属性或方法上，所以，可以标记在类声明上；也作用于反序列化时的字段解析。作用在类上，用来说明有些属性在序列化/反序列化时需要忽略掉，可以将它看做是@JsonIgnore的批量操作，但它的功能比@JsonIgnore要强，比如一个类是代理类，我们无法将将@JsonIgnore标记在属性或方法上，此时便可用。标注在类声明上，它还有一个重要的功能是作用在反序列化时解析字段时过滤一些未知的属性，否则通常情况下解析到我们定义的类不认识的属性便会抛出异常。</li>
+<li>@JsonIgnore The @JsonIgnore annotation is used to mark a property to be ignored at the field level.一般标记在属性或方法上；作用于序列化与反序列化。作用在字段或方法上，用来完全忽略被注解的字段和方法对应的属性，即便这个字段或方法可以被自动检测到或者还有其他的注解</li>
+<li>@JsonPropertyOrder，注释在类声明中</li>
+<li>@JsonAutoDetect 看上面自动检测，不再重复</li>
+<li>@JsonProperty 作用在字段或方法上，用来对属性的序列化/反序列化，可以用来避免遗漏属性，同时提供对属性名称重命名，比如在很多场景下Java对象的属性是按照规范的驼峰书写，但是实际展示的却是类似C-style或C++/Microsolft style</li>
+<li>@JsonUnwrapped 作用在属性字段或方法上，用来将子JSON对象的属性添加到封闭的JSON对象</li>
+<li>@JsonIdentityInfo 2.0+版本新注解，作用于类或属性上，被用来在序列化/反序列化时为该对象或字段添加一个对象识别码，通常是用来解决循环嵌套的问题，比如数据库中的多对多关系，通过配置属性generator来确定识别码生成的方式，有简单的，配置属性property来确定识别码的名称，识别码名称没有限制。</li>
+<li>@JsonNaming jackson 2.1+版本的注解，作用于类或方法，注意这个注解是在jackson-databind包中而不是在jackson-annotations包里，它可以让你定制属性命名策略，作用和前面提到的@JsonProperty的重命名属性名称相同。</li>
+</ul>
+<h3 id="多态类型处理"><a href="#多态类型处理" class="headerlink" title="多态类型处理"></a>多态类型处理</h3><p>jackson允许配置多态类型处理，当进行反序列话时，JSON数据匹配的对象可能有多个子类型，为了正确的读取对象的类型，我们需要添加一些类型信息。可以通过下面几个注解来实现：</p>
+<ul>
+<li>@JsonTypeInfo 作用于类/接口，被用来开启多态类型处理，对基类/接口和子类/实现类都有效</li>
+</ul>
+<h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><p>9 tools to help you with Java Performance Tuning<br><a href="http://blog.idrsolutions.com/2014/06/java-performance-tuning-tools/" target="_blank" rel="external">http://blog.idrsolutions.com/2014/06/java-performance-tuning-tools/</a></p>
+<h1 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h1><p>JWT是 Json Web Token 的缩写。它是基于 RFC 7519 标准定义的一种可以安全传输的 小巧 和 自包含 的JSON对象。由于数据是使用数字签名的，所以是可信任的和安全的。JWT可以使用HMAC算法对secret进行加密或者使用RSA的公钥私钥对来进行签名。</p>
+<p>JWT是由三段组成的，按官方的叫法分别是header（头）、payload（负载）和signature（签名）：</p>
+<p>header.payload.signature</p>
+<p>一个比较成熟的JWT类库，叫 jjwt ( <a href="https://github.com/jwtk/jjwt" target="_blank" rel="external">https://github.com/jwtk/jjwt</a> )。这个类库可以用于Java和Android的JWT token的生成和验证。</p>
+<p>Java JWT: JSON Web Token for Java and Android<br><a href="https://github.com/jwtk/jjwt" target="_blank" rel="external">https://github.com/jwtk/jjwt</a></p>
+<p>JWTs are incredibly cool for authentication because they let us implement reliable Single Sign-On (SSO) with low overhead on any platform (native, web, VR, whatever…) and across domains. JWTs are a strong alternative to pure cookie or session based auth with simple tokens or SAML, which can fail miserably in native app implementations. We can even use cookies with JWTs if we really want.</p>
+<p>For our purposes, we just need to know how to use JWTs within our authentication workflow. When a user logs into our app, the server will check their email and password against the database. If the user exists, we’ll take their {email: <your-email>, password: <your-pw>} combination, turn it into a lovely JWT, and send it back to the client. The client can store the JWT forever or until we set it to expire.</your-pw></your-email></p>
+<p>Whenever the client wants to ask the server for data, it’ll pass the JWT in the request’s Authorization Header (Authorization: Bearer <token>). The server will decode the Authorization Header before executing every request, and the decoded JWT should contain {email: <your-email>, password: <your-pw>}. With that data, the server can retrieve the user again via the database or a cache to determine whether the user is allowed to execute the request.</your-pw></your-email></token></p>
+<p>The Expired Password Problem<br>We still have one last thing that needs modifying in our authorization setup. When a user changes their password, we issue a new JWT, but the old JWT will still pass verification! This can become a serious problem if a hacker gets ahold of a user’s password. To close the loop on this issue, we can make a clever little adjustment to our UserModel database model to include a version parameter, which will be a counter that increments with each new password for the user. We’ll incorporate version into our JWT so only the newest JWT will pass our security. </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/06/10/java-tips/" data-id="cjl9pscy4002bo0twt9oykvw2" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JWT/">JWT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-ibm-developerworks" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/06/10/ibm-developerworks/" class="article-date">
@@ -246,7 +318,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/10/ibm-developerworks/" data-id="cjl87a4770026cwtw54afgmqq" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/10/ibm-developerworks/" data-id="cjl9pscxz0026o0twf8qwp5gp" class="article-share-link">Share</a>
       
       
       
@@ -315,7 +387,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/10/en-quotes/" data-id="cjl87a46s001pcwtw9as6hivv" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/10/en-quotes/" data-id="cjl9pscxe001po0twohgmt1jq" class="article-share-link">Share</a>
       
       
       
@@ -357,7 +429,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/09/journal-digest/" data-id="cjl87a47e002ecwtwgm7ed2jr" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/09/journal-digest/" data-id="cjl9pscym002eo0tw1ouq4eqx" class="article-share-link">Share</a>
       
       
       
@@ -461,7 +533,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/09/linux-cmd-notes/" data-id="cjl87a47j002hcwtwkjb7olhe" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/09/linux-cmd-notes/" data-id="cjl9pscyo002fo0tw3a0u80hx" class="article-share-link">Share</a>
       
       
       
@@ -556,7 +628,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/09/P-vs-NP/" data-id="cjl87a460000ycwtwpo0ib4oq" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/09/P-vs-NP/" data-id="cjl9pscwm000yo0tw36nubvut" class="article-share-link">Share</a>
       
       
       
@@ -616,7 +688,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/08/Substring-Subsequence/" data-id="cjl87a46a0019cwtwxbcllq32" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/08/Substring-Subsequence/" data-id="cjl9pscwv0019o0twoceywt98" class="article-share-link">Share</a>
       
       
       
@@ -680,7 +752,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/05/Preface-to-the-Poems-Collected-from-the-Orchid-Pavilion/" data-id="cjl87a4620010cwtwz9wp10f2" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/05/Preface-to-the-Poems-Collected-from-the-Orchid-Pavilion/" data-id="cjl9pscwn0010o0twv1i672pi" class="article-share-link">Share</a>
       
       
       
@@ -3011,7 +3083,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/03/GSL/" data-id="cjl87a49h005ucwtws2dh71c0" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/03/GSL/" data-id="cjl9psd0x005vo0tw5srk5jnt" class="article-share-link">Share</a>
       
       
       
@@ -3063,54 +3135,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/03/a-toast-to-your-health/" data-id="cjl87a46f001ccwtwn3tjff6a" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/03/a-toast-to-your-health/" data-id="cjl9pscx2001eo0twaxdu2587" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/心理学与生活/">心理学与生活</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-algorithms-data-structures" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/03/algorithms-data-structures/" class="article-date">
-  <time datetime="2018-06-03T18:27:58.000Z" itemprop="datePublished">2018-06-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/03/algorithms-data-structures/">算法与数据结构</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Rosetta-Code"><a href="#Rosetta-Code" class="headerlink" title="Rosetta Code"></a>Rosetta Code</h1><p><a href="http://rosettacode.org/wiki/Rosetta_Code" target="_blank" rel="external">http://rosettacode.org/wiki/Rosetta_Code</a></p>
-<p>用不同语言来演示各种算法。</p>
-<h2 id="Greatest-common-divisor"><a href="#Greatest-common-divisor" class="headerlink" title="Greatest common divisor"></a>Greatest common divisor</h2><p>欧几里得算法<br><a href="http://rosettacode.org/wiki/Greatest_common_divisor" target="_blank" rel="external">http://rosettacode.org/wiki/Greatest_common_divisor</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/03/algorithms-data-structures/" data-id="cjl87a46g001ecwtwioqooal1" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
 
     </footer>
   </div>
@@ -3170,6 +3199,10 @@
       <ul>
         
           <li>
+            <a href="/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/">LeetCode - Algorithms - 371. Sum of Two Integers</a>
+          </li>
+        
+          <li>
             <a href="/2018/08/24/LeetCode-Algorithms-Count-Primes/">LeetCode - Algorithms - 204. Count Primes</a>
           </li>
         
@@ -3183,10 +3216,6 @@
         
           <li>
             <a href="/2018/08/21/LeetCode-Algorithms-Reverse-String/">LeetCode - Algorithms - 344. Reverse String</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/">LeetCode - Algorithms - 300. Longest Increasing Subsequence</a>
           </li>
         
       </ul>
