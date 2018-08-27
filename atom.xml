@@ -82,7 +82,7 @@
     <link href="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/"/>
     <id>https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/</id>
     <published>2018-08-24T15:37:36.000Z</published>
-    <updated>2018-08-24T16:17:05.697Z</updated>
+    <updated>2018-08-27T15:33:13.660Z</updated>
     
     <content type="html"><![CDATA[<p>虽然Difficulty标为Easy，但对自己来说不算简单呀，犯了各种错误。</p>
 <p>参考网上的各种代码，才终于跑通了。 算法其实就是经典的 <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes" target="_blank" rel="external">Sieve of Eratosthenes</a>，复杂度 O(NloglogN)</p>
@@ -96,12 +96,18 @@
 <blockquote>
 <p>20 / 20 test cases passed.<br>Runtime: 17 ms<br>Your runtime beats 50.14 % of java submissions.</p>
 </blockquote>
-<p>这道题好像很适合用Java 8 Streams：</p>
+<p>这道题好像可以拿来作为范例学习Java 8 Streams：</p>
 <ul>
+<li><a href="https://neilmadden.wordpress.com/2014/01/30/java-8-sieve-of-eratosthenes/" target="_blank" rel="external">Java 8 Sieve of Eratosthenes</a></li>
 <li><a href="https://stackoverflow.com/questions/43760641/java-8-streams-and-the-sieve-of-eratosthenes" target="_blank" rel="external">Java 8: streams and the Sieve of Eratosthenes</a></li>
 <li><a href="https://codereview.stackexchange.com/questions/176912/sieve-of-eratosthenes-using-java-8-streams" target="_blank" rel="external">Sieve of Eratosthenes using Java 8 streams</a></li>
 <li><a href="https://www.baeldung.com/java-generate-prime-numbers" target="_blank" rel="external">Generating Prime Numbers in Java</a></li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">import java.util.BitSet;</div><div class="line">import java.util.IntSummaryStatistics;</div><div class="line">import java.util.stream.IntStream;</div><div class="line"></div><div class="line">class Solution &#123;</div><div class="line">    public int countPrimes(int n) &#123;</div><div class="line">    	final BitSet sieve = new BitSet(n);</div><div class="line">    	final IntSummaryStatistics stats = IntStream.rangeClosed(2, n-1)</div><div class="line">    	                  .filter(x -&gt; !sieve.get(x))</div><div class="line">    	                  .peek(x -&gt; &#123;</div><div class="line">    	                      if (x*x &lt; n)</div><div class="line">    	                        for(int i = x; i &lt; n; i+=x)</div><div class="line">    	                           sieve.set(i);</div><div class="line">    	                   &#125;)</div><div class="line">    	                  .summaryStatistics();</div><div class="line">    	return new Long(stats.getCount()).intValue();        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码更精炼了，但性能变差了，LeetCode运行结果：</p>
+<blockquote>
+<p>20 / 20 test cases passed.<br>Runtime: 107 ms<br>Your runtime beats 14.45 % of java submissions.</p>
+</blockquote>
 <h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; n</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var countPrimes = function(n) &#123;</div><div class="line">	if (n&lt;=2) return 0;</div><div class="line">	var sqrt = Math.floor(Math.sqrt(n));</div><div class="line">	var b = new Array(n);</div><div class="line">	b[0]=false;</div><div class="line">	b[1]=false;</div><div class="line">	for(var i=2;i&lt;n;i++) b[i]=true;</div><div class="line">	for(var i=2;i&lt;=sqrt;i++) &#123;</div><div class="line">		if (b[i]) &#123;</div><div class="line">			for(var j=i*i;j&lt;n;j+=i) &#123;</div><div class="line">				b[j]=false;</div><div class="line">			&#125;		</div><div class="line">		&#125;	</div><div class="line">	&#125;</div><div class="line">	var x=0;</div><div class="line">	for(var i=0;i&lt;n;i++) &#123;</div><div class="line">		if (b[i]) x++;</div><div class="line">	&#125;</div><div class="line">	return x;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>LeetCode运行显示：</p>
 <blockquote>
@@ -128,11 +134,12 @@
     <link href="https://hezhigang.github.io/2018/08/22/Java8-tricks/"/>
     <id>https://hezhigang.github.io/2018/08/22/Java8-tricks/</id>
     <published>2018-08-22T18:45:34.000Z</published>
-    <updated>2018-08-22T20:21:15.191Z</updated>
+    <updated>2018-08-27T15:36:34.562Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Streams"><a href="#Streams" class="headerlink" title="Streams"></a>Streams</h1><h2 id="数组连接成字符串"><a href="#数组连接成字符串" class="headerlink" title="数组连接成字符串"></a>数组连接成字符串</h2><p><a href="https://coderwall.com/p/im4lja/joining-objects-into-a-string-with-java-8-stream-api" target="_blank" rel="external">Joining Objects into a String with Java 8 Stream API</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">String[] strs = &#123;&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;&#125;;</div><div class="line">System.out.println(Arrays.stream(strs).collect(Collectors.joining( &quot;,&quot; )));</div></pre></td></tr></table></figure>
 <h2 id="返回数组最大值"><a href="#返回数组最大值" class="headerlink" title="返回数组最大值"></a>返回数组最大值</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int[] arr = &#123;2,7,3,13,59,31&#125;;</div><div class="line">Arrays.stream(arr).max().getAsInt();</div></pre></td></tr></table></figure>
+<h2 id="List-join-as-String"><a href="#List-join-as-String" class="headerlink" title="List join as String"></a>List join as String</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">List&lt;Integer&gt; primes = primeNumbersTill(100);</div><div class="line">String s = primes.stream().map(Object::toString).collect(Collectors.joining(&quot;,&quot;));</div></pre></td></tr></table></figure>
 <h1 id="Lambda"><a href="#Lambda" class="headerlink" title="Lambda"></a>Lambda</h1>]]></content>
     
     <summary type="html">
