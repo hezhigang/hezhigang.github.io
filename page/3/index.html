@@ -65,6 +65,63 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/22/LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters/" class="article-date">
+  <time datetime="2018-07-22T16:05:46.000Z" itemprop="datePublished">2018-07-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/22/LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters/">LeetCode - Algorithms - 3. Longest Substring Without Repeating Characters</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一个多月以前就开始看这个题，先是澄清了下 Substring 与 Subsequence的区别。算法是自己的短板与软肋呀，知之甚少的地方，你再思考也还是只有迷惘，只好上网搜罗，google关键字longest unique substring java搜到：</p>
+<ul>
+<li><a href="https://www.quora.com/In-a-string-find-the-longest-substring-with-all-unique-characters" target="_blank" rel="external">In a string find the longest substring with all unique characters?</a></li>
+<li><a href="https://stackoverflow.com/questions/9734474/find-longest-substring-without-repeating-characters" target="_blank" rel="external">Find longest substring without repeating characters</a></li>
+<li><a href="https://www.geeksforgeeks.org/length-of-the-longest-substring-without-repeating-characters/" target="_blank" rel="external">Length of the longest substring without repeating characters</a></li>
+<li><a href="https://www.programcreek.com/2013/02/leetcode-longest-substring-without-repeating-characters-java/" target="_blank" rel="external">LeetCode – Longest Substring Without Repeating Characters (Java)</a></li>
+<li><a href="https://leetcode.com/articles/longest-substring-without-repeating-characters/" target="_blank" rel="external">3. Longest Substring Without Repeating Characters</a></li>
+<li><a href="https://codereview.stackexchange.com/questions/66461/finding-the-longest-unique-sub-string-in-a-string" target="_blank" rel="external">Finding the longest unique sub-string in a string</a></li>
+<li><a href="https://soulmachine.gitbooks.io/algorithm-essentials/java/greedy/longest-substring-without-repeating-characters.html" target="_blank" rel="external">Longest Substring Without Repeating Characters</a></li>
+</ul>
+<p>看了还是不理解，人家的代码实现也看了，也没看明白。</p>
+<p>又 google 关键字 longest unique substring in a string，搜到 <a href="https://javaconceptoftheday.com/find-longest-substring-without-repeating-characters-java/" target="_blank" rel="external">How To Find Longest Substring Without Repeating Characters In Java?</a>，这个终于看懂了，用到了个LinkedHashMap数据结构来存储无重复字符的substring，从左往右扫描字符数组，一旦字符与HashMap里的字符有重复，就把循环变量i置为那个重复字符在原字符串中的位置，HashMap清空，如果字符不重复，就继续往右扫，如果HashMap的size大于最大无重复子串长度，就更新最大无重复子串长度这个int变量，直到字符串末尾为止。会者不难，难者不会，其实也就这么简单。思路是人家的，自己不过照着人家的解决方案写的，最后写下来代码倒也没几行，LeetCode运行通过了。基本理解了，但要达到了然于胸的程度，还得继续慢慢消化理解。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int lengthOfLongestSubstring(String s) &#123;</div><div class="line">    	int maxUniqSubstrLen = 0;</div><div class="line">    	if (!s.isEmpty()) &#123;</div><div class="line">        	LinkedHashMap&lt;Character,Integer&gt; map = new LinkedHashMap&lt;Character,Integer&gt;();</div><div class="line">        	int len = s.length();</div><div class="line">        	for(int i=0;i&lt;len;i++) &#123;</div><div class="line">        		char ch = s.charAt(i);</div><div class="line">        		if (!map.containsKey(ch)) &#123;</div><div class="line">        			map.put(ch, i);</div><div class="line">        		&#125;</div><div class="line">        		else &#123;</div><div class="line">        			i = map.get(ch);</div><div class="line">        			map.clear();</div><div class="line">        		&#125;</div><div class="line">        		if (map.size()&gt;maxUniqSubstrLen)</div><div class="line">                    maxUniqSubstrLen = map.size();</div><div class="line">        	&#125;    		</div><div class="line">    	&#125;</div><div class="line">        return maxUniqSubstrLen;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码性能倒不怎么样，LeetCode执行结果显示：</p>
+<blockquote>
+<p>You are here!<br>Your runtime beats 10.69 % of java submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/07/22/LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters/" data-id="cjlvc5rv6000q98tweiya4piw" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-New-Concept-English" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/07/18/New-Concept-English/" class="article-date">
@@ -130,7 +187,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/18/New-Concept-English/" data-id="cjlpqlno90016b4twhgmixuax" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/18/New-Concept-English/" data-id="cjlvc5rvl001698tw60ex6vsx" class="article-share-link">Share</a>
       
       
       
@@ -188,7 +245,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/13/bash-shell/" data-id="cjlpqlnop001ub4tw2vvowodo" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/13/bash-shell/" data-id="cjlvc5rwh001w98twvvp5p1wl" class="article-share-link">Share</a>
       
       
       
@@ -233,13 +290,13 @@
 <p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a href="https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application" target="_blank" rel="external">https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application</a></p>
 <p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a href="https://github.com/didinj/spring-boot-mongodb-react-java-crud" target="_blank" rel="external">https://github.com/didinj/spring-boot-mongodb-react-java-crud</a></p>
 <hr>
-<p>How to Setup Spring-Boot with ReactJS and Webpack<br><a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#104;&#116;&#116;&#x70;&#x73;&#x3a;&#47;&#x2f;&#x6d;&#101;&#100;&#x69;&#x75;&#109;&#x2e;&#99;&#x6f;&#109;&#x2f;&#64;&#x62;&#x65;&#110;&#x6a;&#97;&#x6d;&#105;&#110;&#108;&#x69;&#117;&#x5f;&#52;&#50;&#52;&#x37;&#52;&#x2f;&#104;&#111;&#x77;&#45;&#x74;&#111;&#45;&#115;&#101;&#116;&#117;&#112;&#45;&#115;&#112;&#114;&#x69;&#110;&#x67;&#45;&#98;&#111;&#111;&#116;&#x2d;&#x77;&#x69;&#x74;&#104;&#x2d;&#114;&#x65;&#x61;&#99;&#x74;&#106;&#115;&#x2d;&#97;&#x6e;&#100;&#x2d;&#x77;&#101;&#x62;&#x70;&#97;&#99;&#x6b;&#x2d;&#57;&#98;&#49;&#x39;&#x30;&#x65;&#100;&#x65;&#x62;&#48;&#x63;&#x38;">&#104;&#116;&#116;&#x70;&#x73;&#x3a;&#47;&#x2f;&#x6d;&#101;&#100;&#x69;&#x75;&#109;&#x2e;&#99;&#x6f;&#109;&#x2f;&#64;&#x62;&#x65;&#110;&#x6a;&#97;&#x6d;&#105;&#110;&#108;&#x69;&#117;&#x5f;&#52;&#50;&#52;&#x37;&#52;&#x2f;&#104;&#111;&#x77;&#45;&#x74;&#111;&#45;&#115;&#101;&#116;&#117;&#112;&#45;&#115;&#112;&#114;&#x69;&#110;&#x67;&#45;&#98;&#111;&#111;&#116;&#x2d;&#x77;&#x69;&#x74;&#104;&#x2d;&#114;&#x65;&#x61;&#99;&#x74;&#106;&#115;&#x2d;&#97;&#x6e;&#100;&#x2d;&#x77;&#101;&#x62;&#x70;&#97;&#99;&#x6b;&#x2d;&#57;&#98;&#49;&#x39;&#x30;&#x65;&#100;&#x65;&#x62;&#48;&#x63;&#x38;</a></p>
+<p>How to Setup Spring-Boot with ReactJS and Webpack<br><a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#x68;&#x74;&#x74;&#x70;&#115;&#58;&#47;&#x2f;&#109;&#101;&#x64;&#105;&#x75;&#109;&#46;&#x63;&#x6f;&#x6d;&#47;&#x40;&#98;&#101;&#x6e;&#106;&#97;&#109;&#x69;&#x6e;&#x6c;&#105;&#117;&#x5f;&#x34;&#50;&#x34;&#55;&#x34;&#x2f;&#x68;&#x6f;&#x77;&#x2d;&#116;&#111;&#45;&#115;&#101;&#116;&#117;&#x70;&#45;&#115;&#112;&#x72;&#x69;&#x6e;&#103;&#x2d;&#x62;&#x6f;&#111;&#x74;&#45;&#x77;&#105;&#x74;&#104;&#x2d;&#114;&#x65;&#x61;&#x63;&#116;&#106;&#x73;&#x2d;&#x61;&#x6e;&#100;&#45;&#x77;&#x65;&#98;&#112;&#97;&#x63;&#107;&#45;&#x39;&#98;&#x31;&#57;&#x30;&#101;&#100;&#x65;&#98;&#x30;&#x63;&#x38;">&#x68;&#x74;&#x74;&#x70;&#115;&#58;&#47;&#x2f;&#109;&#101;&#x64;&#105;&#x75;&#109;&#46;&#x63;&#x6f;&#x6d;&#47;&#x40;&#98;&#101;&#x6e;&#106;&#97;&#109;&#x69;&#x6e;&#x6c;&#105;&#117;&#x5f;&#x34;&#50;&#x34;&#55;&#x34;&#x2f;&#x68;&#x6f;&#x77;&#x2d;&#116;&#111;&#45;&#115;&#101;&#116;&#117;&#x70;&#45;&#115;&#112;&#x72;&#x69;&#x6e;&#103;&#x2d;&#x62;&#x6f;&#111;&#x74;&#45;&#x77;&#105;&#x74;&#104;&#x2d;&#114;&#x65;&#x61;&#x63;&#116;&#106;&#x73;&#x2d;&#x61;&#x6e;&#100;&#45;&#x77;&#x65;&#98;&#112;&#97;&#x63;&#107;&#45;&#x39;&#98;&#x31;&#57;&#x30;&#101;&#100;&#x65;&#98;&#x30;&#x63;&#x38;</a></p>
 <p>Spring Boot with ReactJS using WebPack and Yarn.<br><a href="https://github.com/liuben10/spring-boot-react-js-example" target="_blank" rel="external">https://github.com/liuben10/spring-boot-react-js-example</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/10/Spring-Boot-React/" data-id="cjlpqlno9001jb4twdodiz4zn" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/10/Spring-Boot-React/" data-id="cjlvc5rw1001l98tw8vyrm9di" class="article-share-link">Share</a>
       
       
       
@@ -326,7 +383,7 @@ and exists(select 1 from stadium t3 where t3.people&gt;=100 and t3.`date`=DATE_A
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/30/LeetCode-Solve-Diary/" data-id="cjlpqlno90013b4twlbswfpah" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/30/LeetCode-Solve-Diary/" data-id="cjlvc5rvl001598twjhoa73et" class="article-share-link">Share</a>
       
       
       
@@ -454,7 +511,7 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/29/mysql-points/" data-id="cjlpqlnq00030b4tw5o0d997j" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/29/mysql-points/" data-id="cjlvc5rxc003298twdhpj5dvz" class="article-share-link">Share</a>
       
       
       
@@ -509,7 +566,7 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/18/db-ppt-digest-ljchen-pku/" data-id="cjlpqlnp4001zb4twxw2wvigw" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/18/db-ppt-digest-ljchen-pku/" data-id="cjlvc5rwh001z98twfc8vhlqm" class="article-share-link">Share</a>
       
       
       
@@ -555,7 +612,7 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/17/football-joke/" data-id="cjlpqlnp40026b4twhcbw5lau" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/17/football-joke/" data-id="cjlvc5rwh002998twb90tknum" class="article-share-link">Share</a>
       
       
       
@@ -602,7 +659,7 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/16/qiniu-founder-xushiwei-quotes/" data-id="cjlpqlnq00032b4twzbie2e92" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/16/qiniu-founder-xushiwei-quotes/" data-id="cjlvc5rxc003598twfkc80l8a" class="article-share-link">Share</a>
       
       
       
@@ -642,54 +699,11 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/13/mathworld-wolfram-selected/" data-id="cjlpqlnq0002xb4tweefevpgx" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/13/mathworld-wolfram-selected/" data-id="cjlvc5rxc002y98twuu1yrq41" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-infoq-selected" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/11/infoq-selected/" class="article-date">
-  <time datetime="2018-06-11T12:35:25.000Z" itemprop="datePublished">2018-06-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/11/infoq-selected/">InfoQ选集</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>DRYer CSS with LESS or Sass<br><a href="https://www.infoq.com/news/2009/07/dry-css-less-yass" target="_blank" rel="external">https://www.infoq.com/news/2009/07/dry-css-less-yass</a></p>
-<p>DSL Evolution<br><a href="https://www.infoq.com/articles/dsl-evolution" target="_blank" rel="external">https://www.infoq.com/articles/dsl-evolution</a></p>
-<p>Application Security With Apache Shiro<br><a href="https://www.infoq.com/articles/apache-shiro" target="_blank" rel="external">https://www.infoq.com/articles/apache-shiro</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/11/infoq-selected/" data-id="cjlpqlnpk002ob4tw89l8hzzs" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/infoq/">infoq</a></li></ul>
 
     </footer>
   </div>
@@ -749,6 +763,10 @@ WHERE a1.id=a2.id;
       <ul>
         
           <li>
+            <a href="/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/">LeetCode - Algorithms - 121. Best Time to Buy and Sell Stock</a>
+          </li>
+        
+          <li>
             <a href="/2018/09/05/sites-for-learn-english/">英语学习相关网站</a>
           </li>
         
@@ -762,10 +780,6 @@ WHERE a1.id=a2.id;
         
           <li>
             <a href="/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/">Better than the Four Colour Theorem - Jim Geelen - mathNEWS - VOLUME 135 • ISSUE 3 - October 20, 2017</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/">LeetCode - Algorithms - 171. Excel Sheet Column Number</a>
           </li>
         
       </ul>
