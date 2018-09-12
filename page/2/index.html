@@ -65,6 +65,68 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Longest-Common-Prefix" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" class="article-date">
+  <time datetime="2018-08-22T18:13:33.000Z" itemprop="datePublished">2018-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/">LeetCode - Algorithms - 14. Longest Common Prefix</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>此题在LeetCode上难度标为Easy，LintCode上却标为Medium</p>
+<ul>
+<li><a href="https://leetcode.com/problems/longest-common-prefix/description/" target="_blank" rel="external">14. Longest Common Prefix</a></li>
+<li><a href="https://www.lintcode.com/problem/longest-common-prefix/description" target="_blank" rel="external">78. Longest Common Prefix</a></li>
+</ul>
+<p>这题虽然不能脱离IDE直接刷题，但没怎么被卡住，一天之内就做完了，还算简单吧。有共同前缀的字符串，它们的首字母肯定一样。</p>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;string[]&#125; strs</div><div class="line"> * @return &#123;string&#125;</div><div class="line"> */</div><div class="line">var longestCommonPrefix = function(strs) &#123;</div><div class="line">	  var lcp = &quot;&quot;;</div><div class="line">	  if (strs==null || strs.length==0)</div><div class="line">		  return lcp;</div><div class="line">	  var minLen = strs[0].length;</div><div class="line">	  var idx = 0;</div><div class="line">	  for(var i=1;i&lt;strs.length;i++) &#123;</div><div class="line">	    if (strs[i].length&lt;minLen) &#123;</div><div class="line">		  minLen = strs[i].length;</div><div class="line">		  idx = i;</div><div class="line">		&#125;</div><div class="line">	  &#125;</div><div class="line">	  var lcp = &quot;&quot;;</div><div class="line">	  var ch = strs[idx].charAt(0);</div><div class="line">	  var b = true;</div><div class="line">	  for(var i=0;i&lt;strs.length;i++) &#123;</div><div class="line">		  b = b &amp;&amp; strs[i].charAt(0)==ch?true:false;</div><div class="line">	  &#125;</div><div class="line">	  if (b) &#123;</div><div class="line">		  lcp+=ch;</div><div class="line">		  for(var j=1;j&lt;minLen;j++) &#123;</div><div class="line">			    ch = strs[idx].charAt(j);</div><div class="line">				b = true;</div><div class="line">			    for(var i=0;i&lt;strs.length;i++) &#123;</div><div class="line">				    b = b &amp;&amp; (strs[i].charAt(j)==ch?true:false);</div><div class="line">				&#125;</div><div class="line">				if (b)</div><div class="line">				  lcp += ch;</div><div class="line">			  &#125;	  </div><div class="line">	  &#125;</div><div class="line">	  return lcp;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode执行显示</p>
+<blockquote>
+<p>118 / 118 test cases passed.<br>Runtime: 56 ms<br>Your runtime beats 93.85 % of javascript submissions.</p>
+</blockquote>
+<p>如果在<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">if (b)</div><div class="line">  lcp += ch;</div></pre></td></tr></table></figure></p>
+<p>后面加个break语句用于跳出循环判断，改成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if (b)</div><div class="line">  lcp += ch;</div><div class="line">else</div><div class="line">  break;</div></pre></td></tr></table></figure></p>
+<p>性能倒反降低了，这个有点不明白？</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public String longestCommonPrefix(String[] strs) &#123;</div><div class="line">    	if (strs==null || strs.length==0) return &quot;&quot;;</div><div class="line">    	int minStrLen = strs[0].length();</div><div class="line">    	int idx = 0;</div><div class="line">    	for(int i=1;i&lt;strs.length;i++) &#123;</div><div class="line">    		if (strs[i].length()&lt;minStrLen) &#123;</div><div class="line">    			minStrLen = strs[i].length();</div><div class="line">    			idx = i;</div><div class="line">    		&#125;</div><div class="line">    	&#125;</div><div class="line">    	StringBuilder lcp = new StringBuilder();</div><div class="line">    	if (strs[idx]!=null &amp;&amp; strs[idx].length()&gt;0) &#123;</div><div class="line">        	char ch = strs[idx].charAt(0);</div><div class="line">        	boolean b = true;</div><div class="line">        	for(int i=0;i&lt;strs.length;i++) &#123;</div><div class="line">        		b = b &amp;&amp; (strs[i].charAt(0)==ch?true:false);</div><div class="line">        	&#125;</div><div class="line">        	if (b) &#123;</div><div class="line">        		lcp.append(ch);</div><div class="line">        		for(int j=1;j&lt;minStrLen;j++) &#123;</div><div class="line">        			ch = strs[idx].charAt(j);</div><div class="line">        			b = true;</div><div class="line">        			for(int i=0;i&lt;strs.length;i++) &#123;</div><div class="line">        				b = b &amp;&amp; (strs[i].charAt(j)==ch?true:false);</div><div class="line">        			&#125;</div><div class="line">        			if (b) &#123;</div><div class="line">        				lcp.append(ch);</div><div class="line">        			&#125;</div><div class="line">        			else &#123;</div><div class="line">        				break;</div><div class="line">        			&#125;</div><div class="line">        		&#125;</div><div class="line">        	&#125;    		</div><div class="line">    	&#125;</div><div class="line">        return lcp.toString();        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode执行显示</p>
+<blockquote>
+<p>118 / 118 test cases passed.<br>Runtime: 9 ms<br>Your runtime beats 21.36 % of java submissions.</p>
+</blockquote>
+<p>跟js代码的情况一样，加了跳出循环判断的break语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">if (b) &#123;</div><div class="line">  lcp.append(ch);</div><div class="line">&#125;</div><div class="line">else &#123;</div><div class="line">  break;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>性能倒反降低，不解？</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" data-id="cjlyioed5000orotwg5ec0ir3" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Reverse-String" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/08/21/LeetCode-Algorithms-Reverse-String/" class="article-date">
@@ -116,7 +178,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/21/LeetCode-Algorithms-Reverse-String/" data-id="cjlvc5rv6001198twe3ecx9qa" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/21/LeetCode-Algorithms-Reverse-String/" data-id="cjlyioedm0015rotwhu91u6ho" class="article-share-link">Share</a>
       
       
       
@@ -188,7 +250,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" data-id="cjlvc5ruq000o98twsvoz1kd9" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" data-id="cjlyioed7000qrotwfaqmn5je" class="article-share-link">Share</a>
       
       
       
@@ -233,7 +295,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/17/IT-coder-vocabulary/" data-id="cjlvc5rub000998twc279jtde" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/17/IT-coder-vocabulary/" data-id="cjlyioecq0009rotw56pfjhwj" class="article-share-link">Share</a>
       
       
       
@@ -288,7 +350,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/12/LeetCode-Algorithms-Move-Zeroes/" data-id="cjlvc5rv6000s98tweriqf70c" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/12/LeetCode-Algorithms-Move-Zeroes/" data-id="cjlyioedc000vrotw6mcbw0qw" class="article-share-link">Share</a>
       
       
       
@@ -353,7 +415,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/07/what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED/" data-id="cjlvc5rxr003e98twsfc0qqwn" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/07/what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED/" data-id="cjlyioefy003hrotwjyj4c183" class="article-share-link">Share</a>
       
       
       
@@ -409,7 +471,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/02/english-learning-tips-from-douban-notes/" data-id="cjlvc5rwh002498twck4aqep3" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/02/english-learning-tips-from-douban-notes/" data-id="cjlyioeet0027rotwye1j6dup" class="article-share-link">Share</a>
       
       
       
@@ -477,7 +539,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/01/LeetCode-Algorithms-LRU-Cache/" data-id="cjlvc5ruq000l98tw7ycmxtk6" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/01/LeetCode-Algorithms-LRU-Cache/" data-id="cjlyioed2000lrotw5egyxazo" class="article-share-link">Share</a>
       
       
       
@@ -528,7 +590,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/27/AWS-Certified-Solutions-Architect/" data-id="cjlvc5rtv000098twluqtraou" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/27/AWS-Certified-Solutions-Architect/" data-id="cjlyioec10000rotw3ozbqno7" class="article-share-link">Share</a>
       
       
       
@@ -576,59 +638,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Reverse-Integer/" data-id="cjlvc5rv6000z98twqjp61exx" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Palindrome-Number" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/23/LeetCode-Algorithms-Palindrome-Number/" class="article-date">
-  <time datetime="2018-07-23T11:31:27.000Z" itemprop="datePublished">2018-07-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/23/LeetCode-Algorithms-Palindrome-Number/">LeetCode - Algorithms - 9. Palindrome Number</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一个多月前就看了下，这题label为Easy，跟 <a href="https://leetcode.com/problems/reverse-integer/description/" target="_blank" rel="external">7. Reverse Integer</a> 有关系，自己做7. Reverse Intege时就简单把整数转为字符串来解决，而这题提示Coud you solve it without converting the integer to a string，自己对c语言为例的过程化编程还是欠差，google 关键字 Palindrome Number，出来</p>
-<ul>
-<li><a href="https://www.programiz.com/c-programming/examples/palindrome-number" target="_blank" rel="external">C Program to Check Whether a Number is Palindrome or Not</a></li>
-<li><a href="https://www.programmingsimplified.com/c/source-code/c-program-palindrome-number" target="_blank" rel="external">Palindrome number in C</a></li>
-<li><a href="https://www.geeksforgeeks.org/check-number-palindrome-not-without-using-extra-space/" target="_blank" rel="external">To check a number is palindrome or not without using any extra space</a></li>
-<li><a href="https://www.javatpoint.com/palindrome-program-in-java" target="_blank" rel="external">Palindrome Program in Java</a></li>
-</ul>
-<p>最后参照 <a href="https://www.programiz.com/c-programming/examples/palindrome-number" target="_blank" rel="external">C Program to Check Whether a Number is Palindrome or Not</a> 的写了java代码，在Eclipse里跑了下，结果不对，又看人家的代码，看来自己还是不理解这个求逆序数的步骤</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public boolean isPalindrome(int x) &#123;</div><div class="line">    	boolean b =  false;</div><div class="line">    	int originalInteger = x;</div><div class="line">    	int reversedInteger = 0, remainder = 0;</div><div class="line">    	int t = x;</div><div class="line">        while (t&gt;0) &#123;</div><div class="line">        	remainder = t%10;</div><div class="line">        	reversedInteger = reversedInteger*10+remainder;</div><div class="line">        	t /= 10;</div><div class="line">        &#125;</div><div class="line">        if (originalInteger==reversedInteger)</div><div class="line">        	b = true;</div><div class="line">        return b;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>Runtime: 100 ms<br>You are here!<br>Your runtime beats 58.36 % of java submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Palindrome-Number/" data-id="cjlvc5rv6000v98twgz8htmfo" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Reverse-Integer/" data-id="cjlyioedi0013rotwbu4syis5" class="article-share-link">Share</a>
       
       
       
@@ -692,6 +702,10 @@
       <ul>
         
           <li>
+            <a href="/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/">LeetCode - Algorithms - 122. Best Time to Buy and Sell Stock II</a>
+          </li>
+        
+          <li>
             <a href="/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/">LeetCode - Algorithms - 121. Best Time to Buy and Sell Stock</a>
           </li>
         
@@ -705,10 +719,6 @@
         
           <li>
             <a href="/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/">LeetCode - Algorithms - 118. Pascal&#39;s Triangle</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/">Better than the Four Colour Theorem - Jim Geelen - mathNEWS - VOLUME 135 • ISSUE 3 - October 20, 2017</a>
           </li>
         
       </ul>
