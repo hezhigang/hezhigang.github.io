@@ -5,19 +5,19 @@
   
 
   
-  <title>LeetCode - Algorithms - 204. Count Primes | A Humble Programmer</title>
+  <title>LeetCode - Algorithms - 227. Basic Calculator II | A Humble Programmer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="虽然Difficulty标为Easy，但对自己来说不算简单呀，犯了各种错误。 参考网上的各种代码，才终于跑通了。 算法其实就是经典的 Sieve of Eratosthenes，复杂度 O(NloglogN) ref Sieve of Eratosthenes The Sieve of Eratosthenes in JavaScript PrimeSieve.java  Java12345678">
+  <meta name="description" content="这题是关于表达式解析的，2007年学习数据结构曾经实现过，思路是把中缀表达式转换为后缀表达式，再结合栈这种数据结构计算后缀表达式，就拿来执行下，结果LeetCode test case 1*2-3/4+5*6-7*8+9/10 报了个错 java.lang.ArithmeticException: / by zero，用StringTokenizer把操作符与操作数拆开，改了下原来的代码，最终运行">
 <meta name="keywords" content="LeetCode,Algorithms">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode - Algorithms - 204. Count Primes">
-<meta property="og:url" content="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/index.html">
+<meta property="og:title" content="LeetCode - Algorithms - 227. Basic Calculator II">
+<meta property="og:url" content="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/index.html">
 <meta property="og:site_name" content="A Humble Programmer">
-<meta property="og:description" content="虽然Difficulty标为Easy，但对自己来说不算简单呀，犯了各种错误。 参考网上的各种代码，才终于跑通了。 算法其实就是经典的 Sieve of Eratosthenes，复杂度 O(NloglogN) ref Sieve of Eratosthenes The Sieve of Eratosthenes in JavaScript PrimeSieve.java  Java12345678">
-<meta property="og:updated_time" content="2018-08-27T15:33:13.660Z">
+<meta property="og:description" content="这题是关于表达式解析的，2007年学习数据结构曾经实现过，思路是把中缀表达式转换为后缀表达式，再结合栈这种数据结构计算后缀表达式，就拿来执行下，结果LeetCode test case 1*2-3/4+5*6-7*8+9/10 报了个错 java.lang.ArithmeticException: / by zero，用StringTokenizer把操作符与操作数拆开，改了下原来的代码，最终运行">
+<meta property="og:updated_time" content="2018-09-14T02:44:26.696Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode - Algorithms - 204. Count Primes">
-<meta name="twitter:description" content="虽然Difficulty标为Easy，但对自己来说不算简单呀，犯了各种错误。 参考网上的各种代码，才终于跑通了。 算法其实就是经典的 Sieve of Eratosthenes，复杂度 O(NloglogN) ref Sieve of Eratosthenes The Sieve of Eratosthenes in JavaScript PrimeSieve.java  Java12345678">
+<meta name="twitter:title" content="LeetCode - Algorithms - 227. Basic Calculator II">
+<meta name="twitter:description" content="这题是关于表达式解析的，2007年学习数据结构曾经实现过，思路是把中缀表达式转换为后缀表达式，再结合栈这种数据结构计算后缀表达式，就拿来执行下，结果LeetCode test case 1*2-3/4+5*6-7*8+9/10 报了个错 java.lang.ArithmeticException: / by zero，用StringTokenizer把操作符与操作数拆开，改了下原来的代码，最终运行">
   
     <link rel="alternate" href="/atom.xml" title="A Humble Programmer" type="application/atom+xml">
   
@@ -68,10 +68,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-LeetCode-Algorithms-Count-Primes" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-LeetCode-Algorithms-Basic-Calculator-II" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/08/24/LeetCode-Algorithms-Count-Primes/" class="article-date">
-  <time datetime="2018-08-24T15:37:36.000Z" itemprop="datePublished">2018-08-24</time>
+    <a href="/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" class="article-date">
+  <time datetime="2018-09-13T20:03:00.000Z" itemprop="datePublished">2018-09-13</time>
 </a>
     
   </div>
@@ -82,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      LeetCode - Algorithms - 204. Count Primes
+      LeetCode - Algorithms - 227. Basic Calculator II
     </h1>
   
 
@@ -90,40 +90,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>虽然Difficulty标为Easy，但对自己来说不算简单呀，犯了各种错误。</p>
-<p>参考网上的各种代码，才终于跑通了。 算法其实就是经典的 <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes" target="_blank" rel="external">Sieve of Eratosthenes</a>，复杂度 O(NloglogN)</p>
-<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
-<li><a href="http://www.algolist.net/Algorithms/Number_theoretic/Sieve_of_Eratosthenes" target="_blank" rel="external">Sieve of Eratosthenes</a></li>
-<li><a href="https://www.craigrodrigues.com/blog/the-sieve-of-eratosthenes-in-javascript" target="_blank" rel="external">The Sieve of Eratosthenes in JavaScript</a></li>
-<li><a href="https://introcs.cs.princeton.edu/java/14array/PrimeSieve.java.html" target="_blank" rel="external">PrimeSieve.java</a></li>
-</ul>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int countPrimes(int n) &#123;</div><div class="line">    	if (n&lt;=2) return 0;</div><div class="line">        int x = 0;</div><div class="line">        int sqrt = (int) Math.sqrt(n);</div><div class="line">        boolean[] b = new boolean[n];</div><div class="line">        b[0]=b[1]=false;</div><div class="line">        for(int i=2;i&lt;n;i++)</div><div class="line">        	b[i]=true;</div><div class="line">        for(int i=2;i&lt;=sqrt;i++) &#123;</div><div class="line">        	if (b[i]) &#123;</div><div class="line">            	for(int j=i*i;j&lt;n;j+=i) &#123;</div><div class="line">            		b[j]=false;</div><div class="line">            	&#125;        		</div><div class="line">        	&#125;</div><div class="line">        &#125;</div><div class="line">        for(int i=0;i&lt;b.length;i++) &#123;</div><div class="line">        	if (b[i])</div><div class="line">        		x++;</div><div class="line">        &#125;</div><div class="line">        return x;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果：</p>
-<blockquote>
-<p>20 / 20 test cases passed.<br>Runtime: 17 ms<br>Your runtime beats 50.14 % of java submissions.</p>
-</blockquote>
-<p>这道题好像可以拿来作为范例学习Java 8 Streams：</p>
+        <p>这题是关于表达式解析的，2007年学习数据结构曾经实现过，思路是把中缀表达式转换为后缀表达式，再结合栈这种数据结构计算后缀表达式，就拿来执行下，结果LeetCode test case <code>1*2-3/4+5*6-7*8+9/10</code> 报了个错 <code>java.lang.ArithmeticException: / by zero</code>，用StringTokenizer把操作符与操作数拆开，改了下原来的代码，最终运行通过了，但自己对其中的机理还是有点知其然而不知其所以然。</p>
+<p>原来java7以后可以在switch的case语句里用String类型。</p>
+<p><a href="https://docs.oracle.com/javase/7/docs/technotes/guides/language/strings-switch.html" target="_blank" rel="external">Strings in switch Statements</a></p>
+<p>In the JDK 7 release, you can use a String object in the expression of a switch statement.</p>
+<p>Basic Calculator这系列的题看来也是比较经典的，表达式解析好像是数据结构与编译原理的交叉点之一。</p>
 <ul>
-<li><a href="https://neilmadden.wordpress.com/2014/01/30/java-8-sieve-of-eratosthenes/" target="_blank" rel="external">Java 8 Sieve of Eratosthenes</a></li>
-<li><a href="https://stackoverflow.com/questions/43760641/java-8-streams-and-the-sieve-of-eratosthenes" target="_blank" rel="external">Java 8: streams and the Sieve of Eratosthenes</a></li>
-<li><a href="https://codereview.stackexchange.com/questions/176912/sieve-of-eratosthenes-using-java-8-streams" target="_blank" rel="external">Sieve of Eratosthenes using Java 8 streams</a></li>
-<li><a href="https://www.baeldung.com/java-generate-prime-numbers" target="_blank" rel="external">Generating Prime Numbers in Java</a></li>
+<li><a href="https://leetcode.com/problems/basic-calculator/description/" target="_blank" rel="external">224. Basic Calculator</a></li>
+<li><a href="https://leetcode.com/problems/basic-calculator-ii/description/" target="_blank" rel="external">227. Basic Calculator II</a></li>
+<li><a href="https://leetcode.com/problems/basic-calculator-iii" target="_blank" rel="external">772. Basic Calculator III</a></li>
+<li><a href="https://leetcode.com/problems/basic-calculator-iv/description/" target="_blank" rel="external">770. Basic Calculator IV</a>  </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">import java.util.BitSet;</div><div class="line">import java.util.IntSummaryStatistics;</div><div class="line">import java.util.stream.IntStream;</div><div class="line"></div><div class="line">class Solution &#123;</div><div class="line">    public int countPrimes(int n) &#123;</div><div class="line">    	final BitSet sieve = new BitSet(n);</div><div class="line">    	final IntSummaryStatistics stats = IntStream.rangeClosed(2, n-1)</div><div class="line">    	                  .filter(x -&gt; !sieve.get(x))</div><div class="line">    	                  .peek(x -&gt; &#123;</div><div class="line">    	                      if (x*x &lt; n)</div><div class="line">    	                        for(int i = x; i &lt; n; i+=x)</div><div class="line">    	                           sieve.set(i);</div><div class="line">    	                   &#125;)</div><div class="line">    	                  .summaryStatistics();</div><div class="line">    	return new Long(stats.getCount()).intValue();        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>代码更精炼了，但性能变差了，LeetCode运行结果：</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.List;</div><div class="line">import java.util.Stack;</div><div class="line">import java.util.StringTokenizer;</div><div class="line"></div><div class="line">class Solution &#123;</div><div class="line">	public static int postfixCalculator(List&lt;String&gt; postfixExpr) &#123;</div><div class="line">		Stack&lt;Integer&gt; stk = new Stack&lt;Integer&gt;();</div><div class="line">		for (int i = 0; i &lt; postfixExpr.size(); i++) &#123;</div><div class="line">			String s = postfixExpr.get(i);</div><div class="line">			int a, b, x;</div><div class="line">			switch (s) &#123;</div><div class="line">			case &quot;*&quot;:</div><div class="line">				if (!stk.isEmpty()) &#123;</div><div class="line">					a = stk.pop().intValue();</div><div class="line">					b = stk.pop().intValue();</div><div class="line">					x = a * b;</div><div class="line">					stk.push(new Integer(x));</div><div class="line">				&#125;</div><div class="line">				break;</div><div class="line">			case &quot;+&quot;:</div><div class="line">				if (!stk.isEmpty()) &#123;</div><div class="line">					a = stk.pop().intValue();</div><div class="line">					b = stk.pop().intValue();</div><div class="line">					x = a + b;</div><div class="line">					stk.push(new Integer(x));</div><div class="line">				&#125;</div><div class="line">				break;</div><div class="line">			case &quot;-&quot;:</div><div class="line">				if (!stk.isEmpty()) &#123;</div><div class="line">					a = stk.pop().intValue();</div><div class="line">					b = stk.pop().intValue();</div><div class="line">					x = b - a;</div><div class="line">					stk.push(new Integer(x));</div><div class="line">				&#125;</div><div class="line">				break;</div><div class="line">			case &quot;/&quot;:</div><div class="line">				if (!stk.isEmpty()) &#123;</div><div class="line">					a = stk.pop().intValue();</div><div class="line">					b = stk.pop().intValue();</div><div class="line">					x = b / a;</div><div class="line">					stk.push(new Integer(x));</div><div class="line">				&#125;</div><div class="line">				break;</div><div class="line">			default: </div><div class="line">				stk.push(new Integer(s));</div><div class="line">				break;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		int ret = 0;</div><div class="line">		if (!stk.isEmpty())</div><div class="line">			ret = stk.pop().intValue();</div><div class="line">		return ret;</div><div class="line">	&#125;</div><div class="line">    </div><div class="line">	public static List&lt;String&gt; infix2postfix(String infixExpr) &#123;</div><div class="line">		List&lt;String&gt; r = new ArrayList&lt;String&gt;();</div><div class="line">		Stack&lt;String&gt; stk = new Stack&lt;String&gt;();</div><div class="line">		List&lt;String&gt; list = new ArrayList&lt;String&gt;();</div><div class="line">		StringTokenizer st = new StringTokenizer(infixExpr,&quot;[\\+\\-\\*/()]&quot;,true);</div><div class="line">	     while (st.hasMoreTokens()) &#123;</div><div class="line">	         list.add(st.nextToken());</div><div class="line">	     &#125;</div><div class="line">		for (int i = 0; i &lt; list.size(); i++) &#123;</div><div class="line">			String s = list.get(i);</div><div class="line">			switch (s) &#123;</div><div class="line">			case &quot;*&quot;:</div><div class="line">			case &quot;/&quot;:</div><div class="line">				while (!stk.isEmpty() &amp;&amp; (stk.peek().equals(&quot;*&quot;) || stk.peek().equals(&quot;/&quot;))) &#123;</div><div class="line">					r.add( stk.pop() );</div><div class="line">				&#125;</div><div class="line">				stk.push(s);</div><div class="line">				break;</div><div class="line">			case &quot;+&quot;:</div><div class="line">			case &quot;-&quot;:</div><div class="line">				while (!stk.isEmpty() &amp;&amp; !stk.peek().equals(&quot;(&quot;)) &#123;</div><div class="line">					r.add( stk.pop() );</div><div class="line">				&#125;</div><div class="line">				stk.push(s);</div><div class="line">				break;</div><div class="line">			case &quot;(&quot;:</div><div class="line">				stk.push(s);</div><div class="line">				break;</div><div class="line">			case &quot;)&quot;:</div><div class="line">				while (!stk.isEmpty() &amp;&amp; !stk.peek().equals(&quot;(&quot;)) &#123;</div><div class="line">					r.add(stk.pop());</div><div class="line">				&#125;</div><div class="line">				if (stk.peek().equals(&quot;(&quot;))</div><div class="line">					stk.pop();</div><div class="line">				break;</div><div class="line">			default:</div><div class="line">				r.add(s);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		while (stk != null &amp;&amp; !stk.isEmpty()) &#123;</div><div class="line">			r.add( stk.pop() );</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		return r;</div><div class="line">	&#125;    </div><div class="line">    </div><div class="line">    public int calculate(String s) &#123;</div><div class="line">        return postfixCalculator(infix2postfix(s.replaceAll(&quot; &quot;, &quot;&quot;)));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>性能不行，LeetCode运行结果</p>
 <blockquote>
-<p>20 / 20 test cases passed.<br>Runtime: 107 ms<br>Your runtime beats 14.45 % of java submissions.</p>
-</blockquote>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; n</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var countPrimes = function(n) &#123;</div><div class="line">	if (n&lt;=2) return 0;</div><div class="line">	var sqrt = Math.floor(Math.sqrt(n));</div><div class="line">	var b = new Array(n);</div><div class="line">	b[0]=false;</div><div class="line">	b[1]=false;</div><div class="line">	for(var i=2;i&lt;n;i++) b[i]=true;</div><div class="line">	for(var i=2;i&lt;=sqrt;i++) &#123;</div><div class="line">		if (b[i]) &#123;</div><div class="line">			for(var j=i*i;j&lt;n;j+=i) &#123;</div><div class="line">				b[j]=false;</div><div class="line">			&#125;		</div><div class="line">		&#125;	</div><div class="line">	&#125;</div><div class="line">	var x=0;</div><div class="line">	for(var i=0;i&lt;n;i++) &#123;</div><div class="line">		if (b[i]) x++;</div><div class="line">	&#125;</div><div class="line">	return x;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>LeetCode运行显示：</p>
-<blockquote>
-<p>20 / 20 test cases passed.<br>Runtime: 92 ms<br>Your runtime beats 97.65 % of javascript submissions.</p>
+<p>109 / 109 test cases passed.<br>Runtime: 115 ms<br>Your runtime beats 4.87 % of java submissions.</p>
 </blockquote>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/" data-id="cjm1fihlg000lhstwqcfch6qi" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjm1fihlg000ghstwci5omazz" class="article-share-link">Share</a>
       
       
       
@@ -135,19 +122,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          LeetCode - Algorithms - 371. Sum of Two Integers
+          LeetCode - Algorithms - 224. Basic Calculator
         
       </div>
     </a>
   
   
-    <a href="/2018/08/22/Java8-tricks/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Java 8 用法</div>
+      <div class="article-nav-title">LeetCode - Algorithms - 122. Best Time to Buy and Sell Stock II</div>
     </a>
   
 </nav>
