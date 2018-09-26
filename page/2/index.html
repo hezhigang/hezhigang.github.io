@@ -65,6 +65,84 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Sum-of-Two-Integers" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/" class="article-date">
+  <time datetime="2018-08-25T02:56:17.000Z" itemprop="datePublished">2018-08-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/">LeetCode - Algorithms - 371. Sum of Two Integers</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这题不Easy呀，像智力题，像脑筋急转弯。<br>代码是人家的，我可想不出来。真是“会者不难，难者不会”。</p>
+<ul>
+<li><a href="https://www.quora.com/How-do-I-add-two-numbers-without-using-any-operator-C-C++" target="_blank" rel="external">How do I add two numbers without using any operator C/C++?</a></li>
+<li><a href="https://stackoverflow.com/questions/365522/what-is-the-best-way-to-add-two-numbers-without-using-the-operator" target="_blank" rel="external">What is the best way to add two numbers without using the + operator?</a></li>
+<li><a href="https://www.geeksforgeeks.org/add-two-numbers-without-using-arithmetic-operators/" target="_blank" rel="external">Add two numbers without using arithmetic operators</a></li>
+</ul>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><h2 id="自增自减运算符"><a href="#自增自减运算符" class="headerlink" title="自增自减运算符"></a>自增自减运算符</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; a</div><div class="line"> * @param &#123;number&#125; b</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var getSum = function(a, b) &#123;</div><div class="line">    if (a&gt;0) &#123;</div><div class="line">        while(a&gt;0) &#123;</div><div class="line">            a--;</div><div class="line">            b++</div><div class="line">        &#125;        </div><div class="line">    &#125;</div><div class="line">    if (a&lt;0) &#123;</div><div class="line">        while(a&lt;0) &#123;</div><div class="line">            a++;</div><div class="line">            b--;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return b;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行显示：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 2096 ms<br>Your runtime beats 3.38 % of javascript submissions.</p>
+</blockquote>
+<h2 id="位运算-递归"><a href="#位运算-递归" class="headerlink" title="位运算+递归"></a>位运算+递归</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; a</div><div class="line"> * @param &#123;number&#125; b</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var getSum = function(a, b) &#123;</div><div class="line">	  var sum,carry;</div><div class="line">	  if (b==0) return a;</div><div class="line">	  sum = a^b;</div><div class="line">	  carry = (a&amp;b)&lt;&lt;1;</div><div class="line">	  return getSum(sum,carry);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 52 ms<br>Your runtime beats 69.57 % of javascript submissions</p>
+</blockquote>
+<h2 id="消除递归的位运算"><a href="#消除递归的位运算" class="headerlink" title="消除递归的位运算"></a>消除递归的位运算</h2><p>知其然而不知其所以然，居然可以这么做，觉得很神奇</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; a</div><div class="line"> * @param &#123;number&#125; b</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var getSum = function(a, b) &#123;</div><div class="line">	  while(b!=0) &#123;</div><div class="line">		  var carry=a&amp;b;</div><div class="line">		  a = a^b;</div><div class="line">		  b = carry&lt;&lt;1;</div><div class="line">	  &#125;</div><div class="line">	  return a;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 48 ms<br>Your runtime beats 100.00 % of javascript submissions.</p>
+</blockquote>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="消除递归的位运算-1"><a href="#消除递归的位运算-1" class="headerlink" title="消除递归的位运算"></a>消除递归的位运算</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int getSum(int a, int b) &#123;</div><div class="line">    	while (b!=0) &#123;</div><div class="line">    		int carry = a&amp;b;</div><div class="line">    		a = a^b;</div><div class="line">    		b = carry&lt;&lt;1;</div><div class="line">    	&#125;</div><div class="line">        return a;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行显示：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 0 ms<br>Your runtime beats 100.00 % of java submissions.</p>
+</blockquote>
+<h2 id="递归-位运算"><a href="#递归-位运算" class="headerlink" title="递归+位运算"></a>递归+位运算</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int getSum(int a, int b) &#123;</div><div class="line">    	int sum,carry;</div><div class="line">    	if (b==0) return a;</div><div class="line">    	sum = a ^ b;</div><div class="line">        carry = (a &amp; b) &lt;&lt; 1;</div><div class="line">        return getSum(sum,carry);  </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 0 ms<br>Your runtime beats 100.00 % of java submissions.</p>
+</blockquote>
+<h2 id="自增自减运算符-1"><a href="#自增自减运算符-1" class="headerlink" title="自增自减运算符"></a>自增自减运算符</h2><p>这个解很像脑筋急转弯，不难，但让人想不到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int getSum(int a, int b) &#123;</div><div class="line">    	if (a&gt;0) &#123;</div><div class="line">    		while(a&gt;0) &#123;</div><div class="line">    			a--;</div><div class="line">    			b++;</div><div class="line">    		&#125;</div><div class="line">    	&#125;</div><div class="line">    	if (a&lt;0) &#123;</div><div class="line">    		while(a&lt;0) &#123;</div><div class="line">    			a++;</div><div class="line">    			b--;</div><div class="line">    		&#125;</div><div class="line">    	&#125;</div><div class="line">    	return b;  </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果如下：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 1 ms<br>Your runtime beats 3.44 % of java submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/" data-id="cjmiwdera001b8wtwsra6hrmq" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Count-Primes" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/08/24/LeetCode-Algorithms-Count-Primes/" class="article-date">
@@ -120,7 +198,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/" data-id="cjm1fihlg000lhstwqcfch6qi" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/" data-id="cjmiwdeqm000m8wtwhdg7fz6j" class="article-share-link">Share</a>
       
       
       
@@ -174,7 +252,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/22/Java8-tricks/" data-id="cjm1fihlg000chstwt57loh26" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/22/Java8-tricks/" data-id="cjmiwdeqb00098wtw16bvt12e" class="article-share-link">Share</a>
       
       
       
@@ -236,7 +314,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" data-id="cjm1fihlv000qhstw5kpi8ds4" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" data-id="cjmiwdeqs000q8wtwqxka6sm5" class="article-share-link">Share</a>
       
       
       
@@ -301,7 +379,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/21/LeetCode-Algorithms-Reverse-String/" data-id="cjm1fihmb0016hstwhs5osfxx" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/21/LeetCode-Algorithms-Reverse-String/" data-id="cjmiwder400168wtwh4ekmq6l" class="article-share-link">Share</a>
       
       
       
@@ -373,7 +451,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" data-id="cjm1fihlv000shstwth57w0bd" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" data-id="cjmiwdeqx000v8wtwb5u671u9" class="article-share-link">Share</a>
       
       
       
@@ -418,7 +496,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/17/IT-coder-vocabulary/" data-id="cjm1fihlg0009hstw9fmty3j9" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/17/IT-coder-vocabulary/" data-id="cjmiwdepp00038wtwvqcj9sbl" class="article-share-link">Share</a>
       
       
       
@@ -473,7 +551,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/12/LeetCode-Algorithms-Move-Zeroes/" data-id="cjm1fihlv000xhstwy6bowzb1" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/12/LeetCode-Algorithms-Move-Zeroes/" data-id="cjmiwdeqy000x8wtw913r4mzt" class="article-share-link">Share</a>
       
       
       
@@ -538,7 +616,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/07/what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED/" data-id="cjm1fihoh003nhstw3jm94kur" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/07/what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED/" data-id="cjmiwdetw003s8wtw9nblqlc5" class="article-share-link">Share</a>
       
       
       
@@ -594,79 +672,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/02/english-learning-tips-from-douban-notes/" data-id="cjm1fihn60029hstwsbryppru" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/02/english-learning-tips-from-douban-notes/" data-id="cjmiwdesy002m8wtwu77cut7u" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-LRU-Cache" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/08/01/LeetCode-Algorithms-LRU-Cache/" class="article-date">
-  <time datetime="2018-08-01T14:09:53.000Z" itemprop="datePublished">2018-08-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/01/LeetCode-Algorithms-LRU-Cache/">LeetCode - Algorithms - 146. LRU Cache</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这题是 <a href="https://leetcode.com/problemset/top-interview-questions/" target="_blank" rel="external">Top Interview Questions</a> 及 <a href="https://leetcode.com/problemset/top-100-liked-questions/" target="_blank" rel="external">Top 100 Liked Questions</a>之一，前后又花了一个星期。</p>
-<p>先是了解了下 <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies" target="_blank" rel="external">Cache replacement policies</a>，其中提及 General implementations of Least recently used (LRU) require keeping “age bits” for cache-lines and track the “Least Recently Used” cache-line based on age-bits.</p>
-<p>题目里提示 Could you do both operations in O(1) time complexity? ，又了解了下<a href="https://en.wikipedia.org/wiki/Time_complexity" target="_blank" rel="external">Time complexity</a>。又在kindle上翻了下《算法图解》，了解了下散列表、链表等数据结构，也算加强了下对哈希表的认识。</p>
-<blockquote>
-<p>在平均情况下， 散列表执行各种操作的时间都为O(1)。 O(1)被称为常量时间。你以前没有见过 常量时间，它并不意味着马上，而是说不管散列表多大，所需的时间都相同。</p>
-<p>实际上，你以前见过常量时间——从数组中获取一个元素所需的时间就是固定的：不管数组多大，从中获取一个元素所需的时间都是相同的。</p>
-<p>填装因子(load factor)度量的是散列表中有多少位置是空的。填装因子越低，发生冲突的可能性越小，散列表的性能越高。一个不错的经验规则是：一旦填装因子大于0.7，就调整散列表的长度。</p>
-</blockquote>
-<p>自己琢磨也是徒劳，不如上网找点提示信息，在quora上找到几条信息</p>
-<ul>
-<li><a href="https://www.quora.com/What-is-the-best-way-to-Implement-an-LRU-Cache" target="_blank" rel="external">What is the best way to Implement an LRU Cache?</a></li>
-<li><a href="https://www.quora.com/How-are-linked-lists-good-for-LRU-caches" target="_blank" rel="external">How are linked lists good for LRU caches?</a></li>
-<li><a href="https://www.quora.com/Why-is-doubly-linked-list-used-in-LRU-Least-Recently-Used-implementation-as-in-this-link-Implement-LRU-Cache-GeeksforGeeks" target="_blank" rel="external">Why is doubly linked list used in LRU(Least Recently Used) implementation as in this link (Implement LRU Cache - GeeksforGeeks)?</a></li>
-</ul>
-<blockquote>
-<p>Typically LRU cache is implemented using a doubly linked list and a hash map.</p>
-<p>An LRU Cache should support fast lookup. Apparently, in order to achieve fast lookup, we need to use Hashtable or HashMap.Also, an LRU Cache requires that insert and delete operations should be in O(1) time. The obvious choice for this requirement is Linked List. Linked List support insert/delete operations in O(1) time if we have the reference of element. While building an LRU cache requires that you think in terms of these two data structures. The reality is that these two data structures actually work coherently to achieve the design.So, we are finalizing on these data structures: HashMap and Doubly Linked List. HashMap holds the keys and values as reference of the nodes (entries) of Doubly Linked List.Doubly Linked List is used to store list of nodes (entries) with most recently used node at the head of the list. So, as more nodes are added to the list, least recently used nodes are moved to the end of the list with node at tail being the least recently used in the list.</p>
-</blockquote>
-<p>自己对java集合类库还是不够熟悉，看到<a href="https://stackoverflow.com/questions/31365998/is-there-any-doubly-linked-list-implementation-in-java" target="_blank" rel="external">Is there any doubly linked list implementation in Java?</a>才明白原来java.util.LinkedList本来就可以当双向链表使用，</p>
-<blockquote>
-<p>Doubly-linked list implementation of the List and Deque interfaces. Implements all optional list operations, and permits all elements (including null).All of the operations perform as could be expected for a doubly-linked list. Operations that index into the list will traverse the list from the beginning or the end, whichever is closer to the specified index. </p>
-</blockquote>
-<p>在leetcode上提交了两次，终于运行通过，如果自己来实现双向链表是不是更能提高性能? 做了这些题，感觉leetcode的算法题不是那种难得要死的题，不会做说明你的数据结构和算法知识还比较欠缺。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">class LRUCache &#123;</div><div class="line">	private LinkedList&lt;DualLinkNode&gt; list;</div><div class="line">	private Map&lt;Integer,DualLinkNode&gt; map;</div><div class="line">	private final int cacheSize;</div><div class="line">	</div><div class="line">    public LRUCache(int capacity) &#123;</div><div class="line">    	list = new LinkedList&lt;DualLinkNode&gt;();</div><div class="line">    	map = new HashMap&lt;Integer,DualLinkNode&gt;();</div><div class="line">    	this.cacheSize = capacity;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public int get(int key) &#123;</div><div class="line">    	if (map.containsKey(key)) &#123;</div><div class="line">    		DualLinkNode node = map.get(key);</div><div class="line">    		list.remove(node);</div><div class="line">    		list.addFirst(node);</div><div class="line">    		return node.val;</div><div class="line">    	&#125;</div><div class="line">    	else &#123;</div><div class="line">    		return -1;</div><div class="line">    	&#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public void put(int key, int value) &#123;</div><div class="line">    	if (map.containsKey(key)) &#123;</div><div class="line">    		DualLinkNode node = map.get(key);</div><div class="line">    		list.remove(node);</div><div class="line">    		node.val=value;</div><div class="line">    		list.addFirst(node);</div><div class="line">    	&#125;</div><div class="line">    	else &#123;</div><div class="line">			if (list.size()==cacheSize) &#123;</div><div class="line">				DualLinkNode node = list.pollLast();</div><div class="line">				map.remove(node.key);</div><div class="line">			&#125;</div><div class="line">			DualLinkNode node = new DualLinkNode(key,value);</div><div class="line">			list.addFirst(node);</div><div class="line">			map.put(key, node);</div><div class="line">    	&#125;</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">	private class DualLinkNode &#123;</div><div class="line">		public int key;</div><div class="line">		public int val;</div><div class="line"></div><div class="line">		public DualLinkNode(int key, int val) &#123;</div><div class="line">			super();</div><div class="line">			this.key = key;</div><div class="line">			this.val = val;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>性能倒不行，leetcode执行显示</p>
-<blockquote>
-<p>18 / 18 test cases passed.<br>Runtime: 227 ms<br>You are here!<br>Your runtime beats 7.69 % of java submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/01/LeetCode-Algorithms-LRU-Cache/" data-id="cjm1fihlv000ohstwbg93ci8i" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
     </footer>
   </div>
@@ -726,6 +736,10 @@
       <ul>
         
           <li>
+            <a href="/2018/09/25/LeetCode-Algorithms-Coin-Change/">LeetCode - Algorithms - 322. Coin Change</a>
+          </li>
+        
+          <li>
             <a href="/2018/09/13/LeetCode-Algorithms-Basic-Calculator/">LeetCode - Algorithms - 224. Basic Calculator</a>
           </li>
         
@@ -739,10 +753,6 @@
         
           <li>
             <a href="/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/">LeetCode - Algorithms - 121. Best Time to Buy and Sell Stock</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/05/sites-for-learn-english/">英语学习相关网站</a>
           </li>
         
       </ul>
