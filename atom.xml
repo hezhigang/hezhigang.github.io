@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2018-09-26T08:39:29.299Z</updated>
+  <updated>2018-09-27T16:32:18.136Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -16,17 +16,62 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>LeetCode - Algorithms - 518. Coin Change 2</title>
+    <link href="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/"/>
+    <id>https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/</id>
+    <published>2018-09-27T16:06:50.000Z</published>
+    <updated>2018-09-27T16:32:18.136Z</updated>
+    
+    <content type="html"><![CDATA[<p>变个样，又不知道怎么解决了，动态规划确实不是那么好理解。根据上一题的经验，还是从递归入手，先实现递归，再琢磨动态规划的解决方案，就有点循序渐进的味道。正如 <a href="https://www.quora.com/What-is-an-easy-way-to-understand-the-coin-change-problem-in-dynamic-programming" target="_blank" rel="external">What is an easy way to understand the coin change problem in dynamic programming?</a> 的一个回答所言：</p>
+<blockquote>
+<p>Instead of thinking about filling a matrix, think in terms of the recurrence relation. I have seen a lot of people who try to think dynamic programming problems in terms of filling a table/array. But this approach is problematic. For example, if the state representation has more than two dimensions, then this approach does not help much.</p>
+<p>The essence of dynamic programming is the idea of a state space and a recurrence relation between states. Once you figure that out for any problem, implementation is straightforward.</p>
+</blockquote>
+<p>参考了这些，虽然还是没有完全理解，程序在leetcode上通过了，程序其实就短短的几行，<code>The code has a O(NC) pseudo-polynomial complexity where N is the amount and C the number of input coins</code>。</p>
+<ul>
+<li><a href="http://marcodiiga.github.io/number-of-ways-to-make-change-for-amount" target="_blank" rel="external">Number of ways to make change for an amount (coin change)</a> 看了这个，终于明白了一点</li>
+<li><a href="http://www.cs.cmu.edu/~yandongl/dp.html" target="_blank" rel="external">Dynamic programming - Ways of Coin Change</a></li>
+<li><a href="https://www.geeksforgeeks.org/coin-change-dp-7/" target="_blank" rel="external">Coin Change | DP-7</a></li>
+<li><a href="https://artofproblemsolving.com/community/c2340h1179726s3_coin_change_problem_recursive_solution" target="_blank" rel="external">Coin Change Problem Recursive Solution</a></li>
+<li><a href="https://www.quora.com/What-is-an-easy-way-to-understand-the-coin-change-problem-in-dynamic-programming" target="_blank" rel="external">What is an easy way to understand the coin change problem in dynamic programming?</a></li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int change(int amount, int[] coins) &#123;</div><div class="line">    	int[] dp = new int[amount+1];</div><div class="line">    	dp[0]=1;</div><div class="line">    	for(int i=0;i&lt;coins.length;i++) &#123;</div><div class="line">    		for(int j=coins[i];j&lt;=amount;++j) &#123;</div><div class="line">    			dp[j]+=dp[j-coins[i]];</div><div class="line">    		&#125;    		</div><div class="line">    	&#125;</div><div class="line">    	return dp[amount];        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>27 / 27 test cases passed.<br>Runtime: 4 ms<br>Your runtime beats 78.72 % of java submissions.</p>
+</blockquote>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; amount</div><div class="line"> * @param &#123;number[]&#125; coins</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var change = function(amount, coins) &#123;</div><div class="line">	var dp = new Array(amount+1);</div><div class="line">	for(var i=0;i&lt;dp.length;i++)</div><div class="line">		dp[i]=0;</div><div class="line">	dp[0]=1;</div><div class="line">	for(var i=0;i&lt;amount;i++)</div><div class="line">		for(var j=coins[i];j&lt;=amount;++j)</div><div class="line">			dp[j]+=dp[j-coins[i]];</div><div class="line">	return dp[amount];    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>27 / 27 test cases passed.<br>Runtime: 60 ms<br>Your runtime beats 89.86 % of javascript submissions.</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;变个样，又不知道怎么解决了，动态规划确实不是那么好理解。根据上一题的经验，还是从递归入手，先实现递归，再琢磨动态规划的解决方案，就有点循序渐进的味道。正如 &lt;a href=&quot;https://www.quora.com/What-is-an-easy-way-to-under
+    
+    </summary>
+    
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+  </entry>
+  
+  <entry>
     <title>LeetCode - Algorithms - 322. Coin Change</title>
     <link href="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/"/>
     <id>https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/</id>
     <published>2018-09-26T03:22:29.000Z</published>
-    <updated>2018-09-26T08:39:29.299Z</updated>
+    <updated>2018-09-26T15:57:10.919Z</updated>
     
     <content type="html"><![CDATA[<ul>
 <li><a href="https://leetcode.com/problems/coin-change/description/" target="_blank" rel="external">322. Coin Change</a></li>
 <li><a href="https://www.lintcode.com/problem/coin-change/description" target="_blank" rel="external">669. 换硬币</a></li>
 </ul>
-<p>被这题卡住了，因为动态规划好像不好理解，看《算法图解》第九章，说动态规划都从一个网格开始，需要具备sub problem overlap 与 optimal structure。上网找线索与提示，最后发现先用递归方式实现，再看动态规划的方案就好理解些。主要参考了这几个：</p>
+<p>被这题卡住了，因为动态规划好像不好理解，看《算法图解》第九章，说动态规划都从一个网格开始，需要具备 <code>Overlapping Sub-problems</code> 与 <code>Optimal Substructure</code>。上网找线索与提示，最后发现先用递归方式实现，再看动态规划的方案就好理解些。主要参考了这几个：</p>
 <ul>
 <li><a href="https://www.geeksforgeeks.org/find-minimum-number-of-coins-that-make-a-change/" target="_blank" rel="external">Find minimum number of coins that make a given value</a></li>
 <li><a href="https://algorithms.tutorialhorizon.com//introduction-to-dynamic-programming-fibonacci-series/#Bottom-Up" target="_blank" rel="external">Introduction To Dynamic Programming – Fibonacci Series</a></li>
@@ -805,44 +850,6 @@
       <category term="english" scheme="https://hezhigang.github.io/tags/english/"/>
     
       <category term="TED" scheme="https://hezhigang.github.io/tags/TED/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>豆瓣日记上的英语经</title>
-    <link href="https://hezhigang.github.io/2018/08/02/english-learning-tips-from-douban-notes/"/>
-    <id>https://hezhigang.github.io/2018/08/02/english-learning-tips-from-douban-notes/</id>
-    <published>2018-08-02T16:09:18.000Z</published>
-    <updated>2018-08-02T16:23:10.202Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://www.douban.com/note/432653465/" target="_blank" rel="external">如何迅速提高英语阅读能力？</a></p>
-<ul>
-<li>对于中初级学习者来说，迅速提高词汇量比分辨近义词的差别更重要。</li>
-<li>只要你不是从小大量阅读英文，背单词就是必须的。</li>
-<li>要按照读音来记单词</li>
-<li>阅读的时候脑子要思考，不断地问：作者在说什么？文章的走向是怎么样的？里面有哪一些核心内容？有什么样的情感？带着目的去阅读，而非无意识阅读。无意识阅读法，只能浪费时间。</li>
-<li>在读复杂句的时候，或者碰到不明白的句子的时候，脑子要分清楚主语、谓语、宾语之间的修饰关系。比如说这个It指代了谁？这句超级无敌长的复杂句里，主谓宾在哪里？修饰是放在前面还是后面了？读的时候可以不做语法分析，但是一定要弄明白每个单词在句子里所扮演的角色，以及它们之间所产生的关系。长难句是绝对绕不过去的一个坎，不要心存侥幸，现在就赶紧解决它吧。</li>
-<li>千万不要总是跳过不懂的东西。</li>
-</ul>
-<hr>
-<p><a href="https://www.douban.com/note/221114977/" target="_blank" rel="external">中国人说英语为什么听起来没有礼貌？（8.17更新添加中英文化差异的讨论）</a></p>
-<ul>
-<li>中国人的英语以Chinglish或Chenglish闻名于世。中国人最大的英语发音问题就是没有连读，但这都不是最主要的语言问题。老外们时常议论，很多中国人在说英语时，听起来没有礼貌；并不是这些中国人本身没礼貌，而是他们还没有习惯英语的礼貌表达方式。</li>
-<li>比如，中国人在餐厅或咖啡厅，会说：“我想要一个汉堡包”或者“我想要一杯咖啡”。但是，如果直接把这些话翻译成英语“I want to have a hamburger.”或“I want to have a coffee.”老外们会觉得这样说话很没有礼貌，当然他们也不会直接告诉你。而在西方国家，老外们一般会说：“Could I have a hamburger, please?”或“Can I have a coffee, please?”在这里joy同学又提到一个需要注意的问题，“打工的孩子最容易不注意的是see you.See u应该是客人说的，隐含了他觉得不错他会再来的意思，而店员最好用低调一点的bye，用see u太强势了。另外人家说谢谢，你也不用说you are welcome, 这实在是太正式了，有点真把自己当回事觉得帮了人家的味道。回答cheers或no worries就好，如果仅仅是对方爱说谢，你甚至可以不回应他的谢，直接说你要说的就好，如果是买了他的东西他谢你，更不能说you r welcome了</li>
-<li>再比如，中国人在拒绝别人邀请的午宴或晚宴时，会说：“抱歉，我不能去，我还有别的安排。”翻译成英文就是“Sorry，I can’t. I have another appointment.”如果这样说，那别人第二次也许不会再邀请你了。老外们一般会这样说：“That is a good idea! I would like to join in but I have another appointment today.” </li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://www.douban.com/note/432653465/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;如何迅速提高英语阅读能力？&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;对于中初级学习者来说，迅速提高词汇量比分辨近义词的差
-    
-    </summary>
-    
-    
-      <category term="english" scheme="https://hezhigang.github.io/tags/english/"/>
     
   </entry>
   

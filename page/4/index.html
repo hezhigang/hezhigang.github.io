@@ -65,6 +65,134 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-mysql-points" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/29/mysql-points/" class="article-date">
+  <time datetime="2018-06-29T14:33:40.000Z" itemprop="datePublished">2018-06-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/29/mysql-points/">mysql知识点</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="limit"><a href="#limit" class="headerlink" title="limit"></a>limit</h1><p><code>LIMIT row_count</code> is equivalent to <code>LIMIT 0, row_count</code></p>
+<p><code>LIMIT {[offset,] row_count</code></p>
+<p><code>limit row_count offset offset</code></p>
+<p>For compatibility with <strong>PostgreSQL</strong>, MySQL also supports the <code>LIMIT row_count OFFSET offset</code> syntax.</p>
+<p>With two arguments, the first argument specifies the offset of the first row to return, and the second specifies the maximum number of rows to return. <strong>The offset of the initial row is 0 (not 1)</strong></p>
+<h1 id="GROUP-CONCAT"><a href="#GROUP-CONCAT" class="headerlink" title="GROUP_CONCAT"></a>GROUP_CONCAT</h1><p> This function returns a string result with the concatenated non-NULL values from a group. It returns NULL if there are no non-NULL values. The full syntax is as follows:</p>
+<pre><code>GROUP_CONCAT([DISTINCT] expr [,expr ...]
+         [ORDER BY {unsigned_integer | col_name | expr}
+             [ASC | DESC] [,col_name ...]]
+         [SEPARATOR str_val])
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SELECT student_name, </div><div class="line">GROUP_CONCAT(DISTINCT test_score ORDER BY test_score DESC SEPARATOR &apos; &apos;) </div><div class="line">FROM student </div><div class="line">GROUP BY student_name;</div></pre></td></tr></table></figure>
+<h1 id="MySQL-Emulate-row-number"><a href="#MySQL-Emulate-row-number" class="headerlink" title="MySQL Emulate row_number"></a>MySQL Emulate row_number</h1><h2 id="LeetCode-SQL-Problem"><a href="#LeetCode-SQL-Problem" class="headerlink" title="LeetCode SQL Problem"></a>LeetCode SQL Problem</h2><h3 id="178-Rank-Scores"><a href="#178-Rank-Scores" class="headerlink" title="178. Rank Scores"></a>178. Rank Scores</h3><pre><code>select a.Score,b.`Rank` from Scores a,
+(
+select t.Score,(@row_number:=@row_number+1) as `Rank` from 
+(
+select distinct Score from Scores order by Score desc
+) t,(SELECT @row_number:=0) t2
+) b
+where a.Score=b.Score 
+order by a.Score desc;
+</code></pre><h3 id="185-Department-Top-Three-Salaries"><a href="#185-Department-Top-Three-Salaries" class="headerlink" title="185. Department Top Three Salaries"></a>185. Department Top Three Salaries</h3><pre><code>select t.DepartmentId,t.Salary,(@num:=if(@deptId = t.DepartmentId, @num +1, if(@deptId := t.DepartmentId, 1, 1))) as row_number from 
+(
+select distinct DepartmentId,Salary from Employee
+) t 
+CROSS JOIN (select @num:=0, @deptId:=null) c  
+order by t.DepartmentId,t.Salary desc;
+</code></pre><h1 id="JOIN"><a href="#JOIN" class="headerlink" title="JOIN"></a>JOIN</h1><h2 id="INNER-JOIN-vs-CROSS-JOIN"><a href="#INNER-JOIN-vs-CROSS-JOIN" class="headerlink" title="INNER JOIN vs. CROSS JOIN"></a>INNER JOIN vs. CROSS JOIN</h2><p>In MySQL, <code>JOIN</code>, <code>CROSS JOIN</code>, and <code>INNER JOIN</code> are syntactic equivalents (they can replace each other). In standard SQL, they are not equivalent. <code>INNER JOIN</code> is used with an ON clause, <code>CROSS JOIN</code> is used otherwise.</p>
+<p>In MySQL, For example:</p>
+<pre><code>SELECT * FROM t1 LEFT JOIN (t2, t3, t4)
+             ON (t2.a=t1.a AND t3.b=t1.b AND t4.c=t1.c)
+</code></pre><p>is equivalent to:</p>
+<pre><code>SELECT * FROM t1 LEFT JOIN (t2 CROSS JOIN t3 CROSS JOIN t4)
+             ON (t2.a=t1.a AND t3.b=t1.b AND t4.c=t1.c)
+</code></pre><h2 id="LEFT-JOIN-vs-RIGHT-JOIN"><a href="#LEFT-JOIN-vs-RIGHT-JOIN" class="headerlink" title="LEFT JOIN vs. RIGHT JOIN"></a>LEFT JOIN vs. RIGHT JOIN</h2><p>RIGHT JOIN works analogously to LEFT JOIN. To keep code portable across databases, it is recommended that you use LEFT JOIN instead of RIGHT JOIN.</p>
+<h1 id="User-Defined-Variables"><a href="#User-Defined-Variables" class="headerlink" title="User-Defined Variables"></a>User-Defined Variables</h1><p> You can store a value in a user-defined variable in one statement and then refer to it later in another statement. This enables you to pass values from one statement to another. User-defined variables are session-specific. That is, a user variable defined by one client cannot be seen or used by other clients. All variables for a given client session are automatically freed when that client exits.</p>
+<p>User variables are written as @var_name, where the variable name var<em>name consists of alphanumeric characters, “.”, “</em>”, and “$”. A user variable name can contain other characters if you quote it as a string or identifier (for example, @’my-var’, @”my-var”, or @`my-var`).</p>
+<p>User variable names are not case sensitive.</p>
+<p>One way to set a user-defined variable is by issuing a SET statement:</p>
+<p>SET @var_name = expr [, @var_name = expr] …</p>
+<p>For SET, either = or := can be used as the assignment operator.</p>
+<p><strong>You can also assign a value to a user variable in statements other than SET. In this case, the assignment operator must be := and not = because the latter is treated as the comparison operator = in non-SET statements</strong>:</p>
+<pre><code>SET @t1=1, @t2=2, @t3:=4;
+SELECT @t1, @t2, @t3, @t4 := @t1+@t2+@t3;
+</code></pre><table>
+<thead>
+<tr>
+<th>@t1</th>
+<th>@t2</th>
+<th>@t3</th>
+<th>@t4 := @t1+@t2+@t3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+<pre><code>SELECT (@aa:=id) AS a, (@aa+3) AS b FROM tbl_name HAVING b=5;
+</code></pre><p>The reference to b in the HAVING clause refers to an alias for an expression in the select list that uses @aa. This does not work as expected: @aa contains the value of id from the previous selected row, not from the current row.</p>
+<h1 id="Multi-Table-Deletes"><a href="#Multi-Table-Deletes" class="headerlink" title="Multi-Table Deletes"></a>Multi-Table Deletes</h1><p>You can specify multiple tables in a DELETE statement to delete rows from one or more tables depending on the condition in the WHERE clause.</p>
+<p>For the first multiple-table syntax, only matching rows from the tables listed before the FROM clause are deleted. For the second multiple-table syntax, only matching rows from the tables listed in the FROM clause (before the USING clause) are deleted. The effect is that you can delete rows from many tables at the same time and have additional tables that are used only for searching:</p>
+<pre><code>DELETE t1, t2 FROM t1 INNER JOIN t2 INNER JOIN t3
+WHERE t1.id=t2.id AND t2.id=t3.id;
+</code></pre><p>Or:</p>
+<pre><code>DELETE FROM t1, t2 USING t1 INNER JOIN t2 INNER JOIN t3
+WHERE t1.id=t2.id AND t2.id=t3.id;
+</code></pre><p>These statements use all three tables when searching for rows to delete, but delete matching rows only from tables t1 and t2. </p>
+<blockquote>
+<p> If you declare an alias for a table, you must use the alias when referring to the table:<br> <code>DELETE t1 FROM test AS t1, test2 WHERE ...</code></p>
+</blockquote>
+<p> Table aliases in a multiple-table DELETE should be declared only in the table_references part of the statement. Elsewhere, alias references are permitted but not alias declarations.</p>
+<p>Correct:</p>
+<pre><code>DELETE a1, a2 FROM t1 AS a1 INNER JOIN t2 AS a2
+WHERE a1.id=a2.id;
+
+DELETE FROM a1, a2 USING t1 AS a1 INNER JOIN t2 AS a2
+WHERE a1.id=a2.id;
+</code></pre><p>Incorrect:</p>
+<pre><code>DELETE t1 AS a1, t2 AS a2 FROM t1 INNER JOIN t2
+WHERE a1.id=a2.id;
+
+DELETE FROM t1 AS a1, t2 AS a2 USING t1 INNER JOIN t2
+WHERE a1.id=a2.id; 
+</code></pre><h1 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h1><p>The ALL and DISTINCT options specify whether duplicate rows should be returned. ALL (the default) specifies that all matching rows should be returned, including duplicates. DISTINCT specifies removal of duplicate rows from the result set. It is an error to specify both options. DISTINCTROW is a synonym for DISTINCT.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/06/29/mysql-points/" data-id="cjmksoiza003ehctwz4lcsrir" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-db-ppt-digest-ljchen-pku" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/06/18/db-ppt-digest-ljchen-pku/" class="article-date">
@@ -106,7 +234,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/18/db-ppt-digest-ljchen-pku/" data-id="cjmiwdesn00288wtwrld3u6rm" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/18/db-ppt-digest-ljchen-pku/" data-id="cjmksoiyg002chctw5so90dpc" class="article-share-link">Share</a>
       
       
       
@@ -152,7 +280,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/17/football-joke/" data-id="cjmiwdetv003q8wtw0f9e4xsx" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/17/football-joke/" data-id="cjmksoiyn002khctwi6g39tvd" class="article-share-link">Share</a>
       
       
       
@@ -199,7 +327,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/16/qiniu-founder-xushiwei-quotes/" data-id="cjmiwdetf00378wtwxew6tgmh" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/16/qiniu-founder-xushiwei-quotes/" data-id="cjmksoj06003ghctwgrn9geav" class="article-share-link">Share</a>
       
       
       
@@ -239,7 +367,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/13/mathworld-wolfram-selected/" data-id="cjmiwdetb00338wtww904lfmz" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/13/mathworld-wolfram-selected/" data-id="cjmksoiz6003ahctwdkhol394" class="article-share-link">Share</a>
       
       
       
@@ -282,7 +410,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/11/infoq-selected/" data-id="cjmiwdet4002v8wtwc1miqvlw" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/11/infoq-selected/" data-id="cjmksoiyz0031hctw9w1v1fh7" class="article-share-link">Share</a>
       
       
       
@@ -332,7 +460,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/10/GIS-Open-Source/" data-id="cjmiwdep800018wtw9x5j5kim" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/10/GIS-Open-Source/" data-id="cjmksoivz0003hctw57a70g1w" class="article-share-link">Share</a>
       
       
       
@@ -445,7 +573,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/10/coder-issue/" data-id="cjmiwdesp002a8wtwnzub59wf" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/10/coder-issue/" data-id="cjmksoiyd0029hctwvb3ib8do" class="article-share-link">Share</a>
       
       
       
@@ -634,7 +762,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/10/IT-questions/" data-id="cjmiwdeq700058wtw76o2al39" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/10/IT-questions/" data-id="cjmksoiwe000bhctwv1huxtmj" class="article-share-link">Share</a>
       
       
       
@@ -678,71 +806,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/10/Pseudo-random/" data-id="cjmiwderv001i8wtwr5g4j3v8" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/10/Pseudo-random/" data-id="cjmksoixs001qhctwnk8aiyiw" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Joel-on-Software" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/10/Joel-on-Software/" class="article-date">
-  <time datetime="2018-06-10T13:12:45.000Z" itemprop="datePublished">2018-06-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/10/Joel-on-Software/">Joel Spolsky的七个建议</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>毕业前练好写作  表达能力-&gt;影响力</li>
-<li>毕业前学好C语言   <ul>
-<li>C语言仍然是当前程序员的共同语言</li>
-<li>你能解释为什么while (<em>s++ = </em>t++)；这句代码的作用是复制字符串吗？</li>
-</ul>
-</li>
-<li>毕业前学好微观经济学  商业领域所有重要理论的基础</li>
-<li>你一定要去学微观经济学，因为你必须搞懂供给和需求，你必须明白竞争优势，你必须理解什么是净现值（NPV），什么是贴现，什么是边际效用。只有这样，你才会懂得为什么生意是现在这种做法。<ul>
-<li>从经营一家公司的角度来看，比起那些不懂的程序员，一个理解基本商业规则的程序员将会更有价值。</li>
-<li>别忘了，在编程工作中也有很枯燥的东西。每一项工作都有枯燥难耐的时刻。我不想雇用那些只想干有趣事情的人。</li>
-</ul>
-</li>
-<li>选修有大量编程实践的课程<ul>
-<li>计算机科学与软件开发不是一回事。</li>
-</ul>
-</li>
-<li>别担心所有工作都被印度人抢走</li>
-<li>找一份好的暑期实习工作</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/10/Joel-on-Software/" data-id="cjmiwdeqd000b8wtw950m0ylv" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Joel/">Joel</a></li></ul>
 
     </footer>
   </div>
@@ -802,6 +870,10 @@
       <ul>
         
           <li>
+            <a href="/2018/09/27/LeetCode-Algorithms-Coin-Change-2/">LeetCode - Algorithms - 518. Coin Change 2</a>
+          </li>
+        
+          <li>
             <a href="/2018/09/25/LeetCode-Algorithms-Coin-Change/">LeetCode - Algorithms - 322. Coin Change</a>
           </li>
         
@@ -815,10 +887,6 @@
         
           <li>
             <a href="/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/">LeetCode - Algorithms - 122. Best Time to Buy and Sell Stock II</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/">LeetCode - Algorithms - 121. Best Time to Buy and Sell Stock</a>
           </li>
         
       </ul>
