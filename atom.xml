@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2018-09-27T16:32:18.136Z</updated>
+  <updated>2018-10-15T06:27:40.402Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -14,6 +14,68 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode - Algorithms - 106. Construct Binary Tree from Inorder and Postorder Traversal</title>
+    <link href="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/"/>
+    <id>https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/</id>
+    <published>2018-10-15T06:21:42.000Z</published>
+    <updated>2018-10-15T06:27:40.402Z</updated>
+    
+    <content type="html"><![CDATA[<p>这题跟<a href="https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/" target="_blank" rel="external">105. Construct Binary Tree from Preorder and Inorder Traversal</a>是一个系列，代码抄袭了<a href="https://www.programcreek.com/2013/01/construct-binary-tree-from-inorder-and-postorder-traversal/" target="_blank" rel="external">Construct Binary Tree from Inorder and Postorder Traversal</a>，二叉树的算法应该说不难理解。</p>
+<blockquote>
+<p>From the post-order array, we know that last element is the root. We can find the root in in-order array. Then we can identify the left and right sub-trees of the root from in-order array. Using the length of left sub-tree, we can identify left and right sub-trees in post-order array. Recursively, we can build up the tree.</p>
+</blockquote>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Definition for a binary tree node.</div><div class="line"> * public class TreeNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     TreeNode left;</div><div class="line"> *     TreeNode right;</div><div class="line"> *     TreeNode(int x) &#123; val = x; &#125;</div><div class="line"> * &#125;</div><div class="line"> */</div><div class="line">class Solution &#123;</div><div class="line">    public TreeNode buildTree(int[] inorder, int[] postorder) &#123;</div><div class="line">    	int inStart=0;</div><div class="line">    	int inEnd=inorder.length-1;</div><div class="line">    	int postStart=0;</div><div class="line">    	int postEnd=postorder.length-1;</div><div class="line">        return buildTree(inorder,inStart,inEnd,postorder,postStart,postEnd);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public TreeNode buildTree(int[] inorder, int inStart, int inEnd, int[] postorder, int postStart, int postEnd) &#123;</div><div class="line">    	if (inStart&gt;inEnd || postStart&gt;postEnd)</div><div class="line">    		return null;</div><div class="line">    	</div><div class="line">    	int rtVal = postorder[postEnd];</div><div class="line">    	TreeNode rt = new TreeNode(rtVal);</div><div class="line">    	</div><div class="line">    	int k=0;</div><div class="line">    	for(int i=0;i&lt;=inEnd;i++) &#123;</div><div class="line">    		if (inorder[i]==rtVal) &#123;</div><div class="line">    			k=i;</div><div class="line">    			break;</div><div class="line">    		&#125;</div><div class="line">    	&#125;</div><div class="line">    	</div><div class="line">    	rt.left = buildTree(inorder,inStart,k-1,postorder, postStart, postStart+k-inStart-1);</div><div class="line">    	rt.right = buildTree(inorder,k+1,inEnd,postorder,postStart+k-inStart,postEnd-1);</div><div class="line">    	</div><div class="line">    	return rt;</div><div class="line">    &#125;    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>203 / 203 test cases passed.<br>Runtime: 18 ms<br>Your runtime beats 25.95 % of java submissions.</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这题跟&lt;a href=&quot;https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/&quot; target=&quot;_blank&quot; rel=&quot;ex
+    
+    </summary>
+    
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LeetCode - Algorithms - 105. Construct Binary Tree from Preorder and Inorder Traversal</title>
+    <link href="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/"/>
+    <id>https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/</id>
+    <published>2018-10-15T02:40:39.000Z</published>
+    <updated>2018-10-15T05:43:27.647Z</updated>
+    
+    <content type="html"><![CDATA[<p>二叉树自己能理解一二，不算难。自己也观察出来了从Preorder里知道根结点，再在Inorder里划分左右子树，如此不断递归二分。代码抄袭了这个的：<br><a href="https://www.programcreek.com/2014/06/leetcode-construct-binary-tree-from-preorder-and-inorder-traversal-java/" target="_blank" rel="external">LeetCode – Construct Binary Tree from Preorder and Inorder Traversal (Java)</a></p>
+<blockquote>
+<p>From the pre-order array, we know that first element is the root. We can find the root in in-order array. Then we can identify the left and right sub-trees of the root from in-order array. Using the length of left sub-tree, we can identify left and right sub-trees in pre-order array. Recursively, we can build up the tree.</p>
+</blockquote>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Definition for a binary tree node.</div><div class="line"> * public class TreeNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     TreeNode left;</div><div class="line"> *     TreeNode right;</div><div class="line"> *     TreeNode(int x) &#123; val = x; &#125;</div><div class="line"> * &#125;</div><div class="line"> */</div><div class="line">class Solution &#123;</div><div class="line">    public TreeNode buildTree(int[] preorder, int[] inorder) &#123;</div><div class="line">    	int preStart=0;</div><div class="line">    	int preEnd=preorder.length-1;</div><div class="line">    	int inStart = 0;</div><div class="line">    	int inEnd = inorder.length-1;</div><div class="line">        return buildTree(preorder,preStart,preEnd,inorder,inStart,inEnd);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public TreeNode buildTree(int[] preorder, int preStart,int preEnd, int[] inorder, int inStart, int inEnd) &#123;</div><div class="line">    	if (preStart&gt;preEnd || inStart&gt;inEnd)</div><div class="line">    	  return null;</div><div class="line">    	</div><div class="line">    	int val = preorder[preStart];</div><div class="line">    	TreeNode rt = new TreeNode(val);</div><div class="line">    	</div><div class="line">    	int k=0;</div><div class="line">    	for(int i=0;i&lt;=inEnd;i++) &#123;</div><div class="line">    		if (inorder[i]==val) &#123;</div><div class="line">    			k=i;</div><div class="line">    			break;</div><div class="line">    		&#125;</div><div class="line">    	&#125;</div><div class="line">    	</div><div class="line">    	rt.left = buildTree(preorder, preStart+1, preStart+(k-inStart),inorder,inStart,k-1);</div><div class="line">    	rt.right = buildTree(preorder, preStart+(k-inStart)+1, preEnd, inorder, k+1, inEnd);</div><div class="line">    	</div><div class="line">    	return rt;</div><div class="line">    &#125;    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>203 / 203 test cases passed.<br>Runtime: 13 ms<br>Your runtime beats 55.29 % of java submissions. </p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;二叉树自己能理解一二，不算难。自己也观察出来了从Preorder里知道根结点，再在Inorder里划分左右子树，如此不断递归二分。代码抄袭了这个的：&lt;br&gt;&lt;a href=&quot;https://www.programcreek.com/2014/06/leetcode-cons
+    
+    </summary>
+    
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode - Algorithms - 518. Coin Change 2</title>
@@ -765,91 +827,6 @@
     
     
       <category term="english" scheme="https://hezhigang.github.io/tags/english/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode - Algorithms - 283. Move Zeroes</title>
-    <link href="https://hezhigang.github.io/2018/08/12/LeetCode-Algorithms-Move-Zeroes/"/>
-    <id>https://hezhigang.github.io/2018/08/12/LeetCode-Algorithms-Move-Zeroes/</id>
-    <published>2018-08-13T03:14:19.000Z</published>
-    <updated>2018-08-13T14:14:47.438Z</updated>
-    
-    <content type="html"><![CDATA[<p>就这么一道tag为Easy的题，对自己来说也不简单呐，犯了各种错误，死循环，数组越界，逻辑错误…，先是用js在页面上试验，结果死循环浏览器卡死，只好先换成java在eclipse上调试。按理这道题用到的就是冒泡排序、选择排序里的操作吧。</p>
-<p>自己只会用各种库与框架，如果要从头写，看来连对数组操作也不熟悉，google关键字<code>java array shift elements left</code>，找到：</p>
-<ul>
-<li><a href="https://www.quora.com/How-do-I-move-the-elements-of-an-array-by-one-cell-towards-left" target="_blank" rel="external">How do I move the elements of an array by one cell towards left?</a></li>
-<li><a href="https://stackoverflow.com/questions/7970857/java-shifting-elements-in-an-array" target="_blank" rel="external">Java, Shifting Elements in an Array</a></li>
-</ul>
-<p>最后总算在leetcode上跑通了，不过还是稀里糊涂的。性能不行，不知道人家高手是怎么做的？难道用快速排序的思路？</p>
-<h1 id="java"><a href="#java" class="headerlink" title="java"></a>java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public void moveZeroes(int[] nums) &#123;</div><div class="line">		for(int i=nums.length-1;i&gt;=0;i--) &#123;</div><div class="line">			if (nums[i]==0) &#123;</div><div class="line">				for(int j=i+1; j&lt;nums.length; j++) &#123;</div><div class="line">					nums[j-1]=nums[j];</div><div class="line">				&#125;</div><div class="line">				nums[nums.length-1]=0;</div><div class="line">			&#125;</div><div class="line">		&#125;       </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>21 / 21 test cases passed.<br>Runtime: 15 ms<br>Your runtime beats 11.98 % of java submissions.</p>
-</blockquote>
-<h1 id="javascript"><a href="#javascript" class="headerlink" title="javascript"></a>javascript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number[]&#125; nums</div><div class="line"> * @return &#123;void&#125; Do not return anything, modify nums in-place instead.</div><div class="line"> */</div><div class="line">var moveZeroes = function(nums) &#123;</div><div class="line">	  for(i=nums.length-1;i&gt;=0;i--) &#123;</div><div class="line">		  if (nums[i]==0) &#123;</div><div class="line">			  for(j=i+1;j&lt;nums.length;j++) &#123;</div><div class="line">			    nums[j-1]=nums[j];</div><div class="line">			  &#125;</div><div class="line">			  nums[nums.length-1]=0;</div><div class="line">		  &#125;</div><div class="line">	  &#125;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>21 / 21 test cases passed.<br>Runtime: 88 ms<br>Your runtime beats 18.25 % of javascript submissions.</p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;就这么一道tag为Easy的题，对自己来说也不简单呐，犯了各种错误，死循环，数组越界，逻辑错误…，先是用js在页面上试验，结果死循环浏览器卡死，只好先换成java在eclipse上调试。按理这道题用到的就是冒泡排序、选择排序里的操作吧。&lt;/p&gt;
-&lt;p&gt;自己只会用各种库与框架
-    
-    </summary>
-    
-    
-      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
-    
-      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>What makes a good life? Lessons from the longest study on happiness - Robert Waldinger - TEDx talk - Transcript</title>
-    <link href="https://hezhigang.github.io/2018/08/07/what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED/"/>
-    <id>https://hezhigang.github.io/2018/08/07/what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED/</id>
-    <published>2018-08-07T18:48:52.000Z</published>
-    <updated>2018-08-11T12:19:25.020Z</updated>
-    
-    <content type="html"><![CDATA[<p>00:00<br>What keeps us healthy and happy as we go through life? If you were going to invest now in your future best self, where would you put your time and your energy? There was a recent survey of millennials asking them what their most important life goals were, and over 80 percent said that a major life goal for them was to get rich. And another 50 percent of those same young adults said that another major life goal was to become famous.</p>
-<p>00:38<br>(Laughter)</p>
-<p>00:40<br>And we’re constantly told to lean in to work, to push harder and achieve more. We’re given the impression that these are the things that we need to go after in order to have a good life. Pictures of entire lives, of the choices that people make and how those choices work out for them, those pictures are almost impossible to get. Most of what we know about human life we know from asking people to remember the past, and as we know, hindsight is anything but 20/20. We forget vast amounts of what happens to us in life, and sometimes memory is downright creative.</p>
-<p>01:24<br>But what if we could watch entire lives as they unfold through time? What if we could study people from the time that they were teenagers all the way into old age to see what really keeps people happy and healthy?</p>
-<p>01:43<br>We did that. The Harvard Study of Adult Development may be the longest study of adult life that’s ever been done. For 75 years, we’ve tracked the lives of 724 men, year after year, asking about their work, their home lives, their health, and of course asking all along the way without knowing how their life stories were going to turn out.</p>
-<p>02:13<br>Studies like this are exceedingly rare. Almost all projects of this kind fall apart within a decade because too many people drop out of the study, or funding for the research dries up, or the researchers get distracted, or they die, and nobody moves the ball further down the field. But through a combination of luck and the persistence of several generations of researchers, this study has survived. About 60 of our original 724 men are still alive, still participating in the study, most of them in their 90s. And we are now beginning to study the more than 2,000 children of these men. And I’m the fourth director of the study.</p>
-<p>03:03<br>Since 1938, we’ve tracked the lives of two groups of men. The first group started in the study when they were sophomores at Harvard College. They all finished college during World War II, and then most went off to serve in the war. And the second group that we’ve followed was a group of boys from Boston’s poorest neighborhoods, boys who were chosen for the study specifically because they were from some of the most troubled and disadvantaged families in the Boston of the 1930s. Most lived in tenements, many without hot and cold running water.</p>
-<p>03:42<br>When they entered the study, all of these teenagers were interviewed. They were given medical exams. We went to their homes and we interviewed their parents. And then these teenagers grew up into adults who entered all walks of life. They became factory workers and lawyers and bricklayers and doctors, one President of the United States. Some developed alcoholism. A few developed schizophrenia. Some climbed the social ladder from the bottom all the way to the very top, and some made that journey in the opposite direction.</p>
-<p>04:23<br>The founders of this study would never in their wildest dreams have imagined that I would be standing here today, 75 years later, telling you that the study still continues. Every two years, our patient and dedicated research staff calls up our men and asks them if we can send them yet one more set of questions about their lives.</p>
-<p>04:48<br>Many of the inner city Boston men ask us, “Why do you keep wanting to study me? My life just isn’t that interesting.” The Harvard men never ask that question.</p>
-<p>04:59<br>(Laughter)</p>
-<p>05:08<br>To get the clearest picture of these lives, we don’t just send them questionnaires. We interview them in their living rooms. We get their medical records from their doctors. We draw their blood, we scan their brains, we talk to their children. We videotape them talking with their wives about their deepest concerns. And when, about a decade ago, we finally asked the wives if they would join us as members of the study, many of the women said, “You know, it’s about time.”</p>
-<p>05:38<br>(Laughter)</p>
-<p>05:39<br>So what have we learned? What are the lessons that come from the tens of thousands of pages of information that we’ve generated on these lives? Well, the lessons aren’t about wealth or fame or working harder and harder. The clearest message that we get from this 75-year study is this: <strong>Good relationships keep us happier and healthier. Period.</strong></p>
-<p>06:11<br>We’ve learned three big lessons about relationships. The first is that <strong>social connections are really good for us, and that loneliness kills.</strong> It turns out that people who are more socially connected to family, to friends, to community, are happier, they’re physically healthier, and they live longer than people who are less well connected. And the experience of loneliness turns out to be toxic. People who are more isolated than they want to be from others find that they are less happy, their health declines earlier in midlife, their brain functioning declines sooner and they live shorter lives than people who are not lonely. And the sad fact is that at any given time, more than one in five Americans will report that they’re lonely.</p>
-<p>07:07<br>And we know that you can be lonely in a crowd and you can be lonely in a marriage, so the second big lesson that we learned is that <strong>it’s not just the number of friends you have, and it’s not whether or not you’re in a committed relationship, but it’s the quality of your close relationships that matters.</strong> It turns out that living in the midst of conflict is really bad for our health. High-conflict marriages, for example, without much affection, turn out to be very bad for our health, perhaps worse than getting divorced. And living in the midst of good, warm relationships is protective.</p>
-<p>07:45<br>Once we had followed our men all the way into their 80s, we wanted to look back at them at midlife and to see if we could predict who was going to grow into a happy, healthy octogenarian and who wasn’t. And when we gathered together everything we knew about them at age 50, it wasn’t their middle age cholesterol levels that predicted how they were going to grow old. It was how satisfied they were in their relationships. The people who were the most satisfied in their relationships at age 50 were the healthiest at age 80. And good, close relationships seem to buffer us from some of the slings and arrows of getting old. Our most happily partnered men and women reported, in their 80s, that on the days when they had more physical pain, their mood stayed just as happy. But the people who were in unhappy relationships, on the days when they reported more physical pain, it was magnified by more emotional pain.</p>
-<p>08:52<br>And the third big lesson that we learned about relationships and our health is that <strong>good relationships don’t just protect our bodies, they protect our brains.</strong> It turns out that being in a securely attached relationship to another person in your 80s is protective, that the people who are in relationships where they really feel they can count on the other person in times of need, those people’s memories stay sharper longer. And the people in relationships where they feel they really can’t count on the other one, those are the people who experience earlier memory decline. And those good relationships, they don’t have to be smooth all the time. Some of our octogenarian couples could bicker with each other day in and day out, but as long as they felt that they could really count on the other when the going got tough, those arguments didn’t take a toll on their memories.</p>
-<p>09:49<br>So this message, that good, close relationships are good for our health and well-being, this is wisdom that’s as old as the hills. Why is this so hard to get and so easy to ignore? Well, we’re human. What we’d really like is a quick fix, something we can get that’ll make our lives good and keep them that way. Relationships are messy and they’re complicated and the hard work of tending to family and friends, it’s not sexy or glamorous. It’s also lifelong. It never ends. The people in our 75-year study who were the happiest in retirement were the people who had actively worked to replace workmates with new playmates. Just like the millennials in that recent survey, many of our men when they were starting out as young adults really believed that fame and wealth and high achievement were what they needed to go after to have a good life. But over and over, over these 75 years, our study has shown that the people who fared the best were the people who leaned in to relationships, with family, with friends, with community.</p>
-<p>11:09<br>So what about you? Let’s say you’re 25, or you’re 40, or you’re 60. What might leaning in to relationships even look like?</p>
-<p>11:19<br>Well, the possibilities are practically endless. It might be something as simple as replacing screen time with people time or livening up a stale relationship by doing something new together, long walks or date nights, or reaching out to that family member who you haven’t spoken to in years, because those all-too-common family feuds take a terrible toll on the people who hold the grudges.</p>
-<p>11:52<br>I’d like to close with a quote from Mark Twain. More than a century ago, he was looking back on his life, and he wrote this: “There isn’t time, so brief is life, for bickerings, apologies, heartburnings, callings to account. There is only time for loving, and but an instant, so to speak, for that.”</p>
-<p>12:22<br><strong>The good life is built with good relationships.</strong></p>
-<p>12:27<br>Thank you.</p>
-<p>12:28<br>(Applause)</p>
-<div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://embed.ted.com/talks/robert_waldinger_what_makes_a_good_life_lessons_from_the_longest_study_on_happiness" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen></iframe></div></div>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;00:00&lt;br&gt;What keeps us healthy and happy as we go through life? If you were going to invest now in your future best self, where would you
-    
-    </summary>
-    
-    
-      <category term="english" scheme="https://hezhigang.github.io/tags/english/"/>
-    
-      <category term="TED" scheme="https://hezhigang.github.io/tags/TED/"/>
     
   </entry>
   
