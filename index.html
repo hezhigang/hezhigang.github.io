@@ -65,6 +65,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Valid-Parentheses" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" class="article-date">
+  <time datetime="2018-10-17T21:38:34.000Z" itemprop="datePublished">2018-10-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/">LeetCode - Algorithms - 20. Valid Parentheses</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Difficulty:Easy的题，在面试现场，面对黑板，我毫无头绪没有任何思路，考官已经提示自己你想想有什么数据结构可以利用，自己还是没想通。</p>
+<blockquote>
+<p>This is a problem that’s good to use a stack.</p>
+</blockquote>
+<p>回来上网找线索，主要参考了这个<a href="https://cheonhyangzhang.wordpress.com/2015/09/14/20-leetcode-java-valid-parentheses-easy/" target="_blank" rel="external">20 LeetCode Java: Valid Parentheses – Easy</a>，此题的关键确实就是数据结构，要用Stack（栈），其实在做表达式解析那两道题<a href="https://leetcode.com/problems/basic-calculator-ii/description/" target="_blank" rel="external">227. Basic Calculator II</a>、<a href="https://leetcode.com/problems/basic-calculator/description/" target="_blank" rel="external">224. Basic Calculator</a>时已经碰到过，自己也做了题，但还是没理解透，遇到新问题又傻眼了。</p>
+<p>代码是人家的，天下程序一大抄！！！但不理解的话，代码不会内化于你。看来自己做LeetCode算法题凑数没用，理解不深，做完了又忘了。看来做完了还得温故知新加深理解。</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public boolean isValid(String s) &#123;</div><div class="line">    	HashMap&lt;Character, Character&gt; pair = new HashMap&lt;Character, Character&gt;();</div><div class="line">        pair.put(&apos;)&apos;,&apos;(&apos;);</div><div class="line">        pair.put(&apos;&#125;&apos;,&apos;&#123;&apos;);</div><div class="line">        pair.put(&apos;]&apos;,&apos;[&apos;);    	</div><div class="line">        Stack&lt;Character&gt; stk = new Stack&lt;Character&gt;();</div><div class="line">        char c = &apos;\u0000&apos;;</div><div class="line">        for(int i=0;i&lt;s.length();i++) &#123;</div><div class="line">        	c = s.charAt(i);</div><div class="line">        	switch(c) &#123;</div><div class="line">        	case &apos;&#123;&apos;:</div><div class="line">        	case &apos;[&apos;:</div><div class="line">        	case &apos;(&apos;:</div><div class="line">        		stk.push(c);</div><div class="line">        		break;</div><div class="line">        	default:</div><div class="line">        		if (stk.isEmpty() || pair.get(c)!=stk.pop())</div><div class="line">        			return false;</div><div class="line">        	&#125;</div><div class="line">        &#125;</div><div class="line">        if (stk.isEmpty())</div><div class="line">        	return true;</div><div class="line">        return false;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果显示：</p>
+<blockquote>
+<p>76 / 76 test cases passed.<br>Runtime: 5 ms<br>Your runtime beats 98.09 % of java submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" data-id="cjndp0pnv001fr8tw2j9zhmtp" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-database-and-mysql-knowledge-points" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/10/16/database-and-mysql-knowledge-points/" class="article-date">
@@ -90,7 +141,9 @@
         <h1 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h1><p>The best way to improve the performance of <strong>SELECT operations</strong> is to create indexes on one or more of the columns that are tested in the query.<br>Indexes are used to find rows with specific column values quickly. Without an index, MySQL must begin with the first row and then read through the entire table to find the relevant rows. The larger the table, the more this costs. If the table has an index for the columns in question, MySQL can quickly determine the position to seek to in the middle of the data file without having to look at all the data. If a table has 1,000 rows, this is at least 100 times faster than reading sequentially. </p>
 <h2 id="Select"><a href="#Select" class="headerlink" title="Select"></a>Select</h2><h3 id="表扫描（table-scan）"><a href="#表扫描（table-scan）" class="headerlink" title="表扫描（table scan）"></a>表扫描（table scan）</h3><ul>
 <li>在表扫描中，每一个表中的文件块都会被顺序扫描，而且每一个记录都会被测试，看它是否会满足条件</li>
-<li>表扫描是在没有索引的情况下进行的<h3 id="索引扫描（index-scan）"><a href="#索引扫描（index-scan）" class="headerlink" title="索引扫描（index scan）"></a>索引扫描（index scan）</h3></li>
+<li>表扫描是在没有索引的情况下进行的</li>
+</ul>
+<h3 id="索引扫描（index-scan）"><a href="#索引扫描（index-scan）" class="headerlink" title="索引扫描（index scan）"></a>索引扫描（index scan）</h3><ul>
 <li>使用索引的扫描算法称之为索引扫描</li>
 <li>当有索引的时候，选择运算就会执行索引扫描</li>
 </ul>
@@ -156,7 +209,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="cjnbyeiv8002k3stwmyivhw8k" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="cjndp0poq002dr8twlw1t15bv" class="article-share-link">Share</a>
       
       
       
@@ -205,7 +258,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="cjnbyeitk000t3stw9p0blf9b" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="cjndp0pn2000lr8twabk5q2eu" class="article-share-link">Share</a>
       
       
       
@@ -254,7 +307,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="cjnbyeitl000v3stwpjkflshf" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="cjndp0pn4000nr8tw9ks7yjjh" class="article-share-link">Share</a>
       
       
       
@@ -317,7 +370,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjnbyeitd000n3stwkrvow286" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjndp0pt4007nr8twtbs62g13" class="article-share-link">Share</a>
       
       
       
@@ -382,7 +435,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="cjnbyeitc000m3stwxghvkixi" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="cjndp0poj0024r8twelmkydkx" class="article-share-link">Share</a>
       
       
       
@@ -427,7 +480,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjnbyeit4000c3stwctcbcdiv" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjndp0pmz000jr8twlp81csbb" class="article-share-link">Share</a>
       
       
       
@@ -483,7 +536,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjnbyeitf000q3stwvyk9aukv" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjndp0pmx000gr8tw4ry3spdh" class="article-share-link">Share</a>
       
       
       
@@ -543,7 +596,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjnbyeita000k3stwv72750lk" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjndp0pn1000kr8twod8idg12" class="article-share-link">Share</a>
       
       
       
@@ -605,74 +658,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cjnbyeit7000f3stwhqaug904" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cjndp0pnj0011r8twj9gv0rgw" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-sites-for-learn-english" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/05/sites-for-learn-english/" class="article-date">
-  <time datetime="2018-09-05T22:28:42.000Z" itemprop="datePublished">2018-09-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/05/sites-for-learn-english/">英语学习相关网站</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="听力"><a href="#听力" class="headerlink" title="听力"></a>听力</h1><p>60-Second Science<br><a href="https://www.scientificamerican.com/podcast/60-second-science/" target="_blank" rel="external">https://www.scientificamerican.com/podcast/60-second-science/</a></p>
-<p>Videos &amp; Podcasts - Scientific American<br><a href="https://www.scientificamerican.com/multimedia/" target="_blank" rel="external">https://www.scientificamerican.com/multimedia/</a></p>
-<p>TED Radio Hour<br><a href="https://www.npr.org/programs/ted-radio-hour" target="_blank" rel="external">https://www.npr.org/programs/ted-radio-hour</a></p>
-<p>BBC - World Service - Home<br><a href="https://www.bbc.co.uk/worldserviceradio" target="_blank" rel="external">https://www.bbc.co.uk/worldserviceradio</a></p>
-<p>BBC Learning English | Pronunciation Tips<br><a href="http://www.bbc.co.uk/worldservice/learningenglish/grammar/pron/" target="_blank" rel="external">http://www.bbc.co.uk/worldservice/learningenglish/grammar/pron/</a></p>
-<p>Learning English - 6 Minute English<br><a href="http://www.bbc.co.uk/worldservice/learningenglish/general/sixminute/" target="_blank" rel="external">http://www.bbc.co.uk/worldservice/learningenglish/general/sixminute/</a></p>
-<h1 id="词典"><a href="#词典" class="headerlink" title="词典"></a>词典</h1><p>Dictionary by Merriam-Webster: America’s most-trusted online dictionary<br><a href="https://www.merriam-webster.com/" target="_blank" rel="external">https://www.merriam-webster.com/</a></p>
-<p>Collins Dictionary<br><a href="https://www.collinsdictionary.com/" target="_blank" rel="external">https://www.collinsdictionary.com/</a></p>
-<h1 id="报刊"><a href="#报刊" class="headerlink" title="报刊"></a>报刊</h1><p><a href="https://medium.com/" target="_blank" rel="external">https://medium.com/</a></p>
-<p><a href="https://www.theatlantic.com/" target="_blank" rel="external">https://www.theatlantic.com/</a></p>
-<p><a href="https://www.newyorker.com/" target="_blank" rel="external">https://www.newyorker.com/</a></p>
-<p><a href="https://www.npr.org/" target="_blank" rel="external">https://www.npr.org/</a></p>
-<p><a href="https://www.economist.com/" target="_blank" rel="external">https://www.economist.com/</a></p>
-<p><a href="https://www.bloomberg.com/businessweek" target="_blank" rel="external">https://www.bloomberg.com/businessweek</a></p>
-<p><a href="https://www.bloomberg.com/canada" target="_blank" rel="external">https://www.bloomberg.com/canada</a></p>
-<p><a href="https://www.theguardian.com/observer" target="_blank" rel="external">https://www.theguardian.com/observer</a></p>
-<p><a href="https://www.theguardian.com/international" target="_blank" rel="external">https://www.theguardian.com/international</a></p>
-<p><a href="http://www.bbc.com/" target="_blank" rel="external">http://www.bbc.com/</a></p>
-<p><a href="https://www.telegraph.co.uk/" target="_blank" rel="external">https://www.telegraph.co.uk/</a></p>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>A Free Online Talking Dictionary of English Pronunciation<br><a href="https://www.howjsay.com/" target="_blank" rel="external">https://www.howjsay.com/</a></p>
-<p>UsingEnglish.com was established in 2002 and is a general English language site specialising in English as a Second Language (ESL).<br><a href="https://www.usingenglish.com/" target="_blank" rel="external">https://www.usingenglish.com/</a></p>
-<p>Discovery Canada<br><a href="https://www.discovery.ca/Home" target="_blank" rel="external">https://www.discovery.ca/Home</a></p>
-<p>English Language &amp; Usage Stack Exchange is a question and answer site for linguists, etymologists, and serious English language enthusiasts.<br><a href="https://english.stackexchange.com/" target="_blank" rel="external">https://english.stackexchange.com/</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="cjnbyeize006f3stwk894g570" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
 
     </footer>
   </div>
@@ -732,6 +722,10 @@
       <ul>
         
           <li>
+            <a href="/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/">LeetCode - Algorithms - 20. Valid Parentheses</a>
+          </li>
+        
+          <li>
             <a href="/2018/10/16/database-and-mysql-knowledge-points/">Knowlege points of database especially mysql</a>
           </li>
         
@@ -745,10 +739,6 @@
         
           <li>
             <a href="/2018/09/27/LeetCode-Algorithms-Coin-Change-2/">LeetCode - Algorithms - 518. Coin Change 2</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/25/LeetCode-Algorithms-Coin-Change/">LeetCode - Algorithms - 322. Coin Change</a>
           </li>
         
       </ul>
