@@ -65,6 +65,71 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Coin-Change" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/25/LeetCode-Algorithms-Coin-Change/" class="article-date">
+  <time datetime="2018-09-26T03:22:29.000Z" itemprop="datePublished">2018-09-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/25/LeetCode-Algorithms-Coin-Change/">LeetCode - Algorithms - 322. Coin Change</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><a href="https://leetcode.com/problems/coin-change/description/" target="_blank" rel="external">322. Coin Change</a></li>
+<li><a href="https://www.lintcode.com/problem/coin-change/description" target="_blank" rel="external">669. 换硬币</a></li>
+</ul>
+<p>被这题卡住了，因为动态规划好像不好理解，看《算法图解》第九章，说动态规划都从一个网格开始，需要具备 <code>Overlapping Sub-problems</code> 与 <code>Optimal Substructure</code>。上网找线索与提示，最后发现先用递归方式实现，再看动态规划的方案就好理解些。主要参考了这几个：</p>
+<ul>
+<li><a href="https://www.geeksforgeeks.org/find-minimum-number-of-coins-that-make-a-change/" target="_blank" rel="external">Find minimum number of coins that make a given value</a></li>
+<li><a href="https://algorithms.tutorialhorizon.com//introduction-to-dynamic-programming-fibonacci-series/#Bottom-Up" target="_blank" rel="external">Introduction To Dynamic Programming – Fibonacci Series</a></li>
+<li><a href="https://algorithms.tutorialhorizon.com/dynamic-programming-minimum-coin-change-problem/" target="_blank" rel="external">Dynamic Programming – Minimum Coin Change Problem</a></li>
+<li><a href="https://www.quora.com/What-is-an-easy-way-to-understand-the-coin-change-problem-in-dynamic-programming" target="_blank" rel="external">What is an easy way to understand the coin change problem in dynamic programming?</a></li>
+<li><a href="https://www.coursera.org/lecture/algorithmic-toolbox/change-problem-GyYGv" target="_blank" rel="external">Change Problem</a></li>
+<li><a href="https://www.youtube.com/watch?v=F28xN-S1SmI" target="_blank" rel="external">Find minimum number of coins (using Dynamic Programming) | GeeksforGeeks</a></li>
+</ul>
+<p>原来 <a href="https://en.wikipedia.org/wiki/Change-making_problem" target="_blank" rel="external">Change-making problem</a> 是 <a href="https://en.wikipedia.org/wiki/Knapsack_problem" target="_blank" rel="external">Knapsack problem</a> 的一类，背包问题还属于NP问题呢。</p>
+<p>此题递归方式的实现是指数时间复杂度，跟动态规划的实现相比差距确实极其明显。递归方式的解法完全不可用，输入[1,2,5],100则报Time Limit Exceeded。 </p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int coinChange(int[] coins, int amount) &#123;</div><div class="line">    	if (amount==0) return 0;</div><div class="line">    	</div><div class="line">    	int n=-1;</div><div class="line">    	</div><div class="line">    	int[] MC = new int[amount+1];</div><div class="line">    	MC[0]=0;</div><div class="line">    	for(int i=1;i&lt;=amount;i++) &#123;</div><div class="line">    		MC[i] = Integer.MAX_VALUE;</div><div class="line">    	&#125;</div><div class="line">    	</div><div class="line">    	for(int i=1;i&lt;=amount;i++) &#123;</div><div class="line">    		for(int j=0;j&lt;coins.length;j++) &#123;</div><div class="line">    			if (i&gt;=coins[j]) &#123;</div><div class="line">    				int numCoins = MC[i-coins[j]];</div><div class="line">    				if (numCoins!=Integer.MAX_VALUE &amp;&amp; (numCoins+1&lt;MC[i])) &#123;</div><div class="line">    					MC[i] = numCoins+1;</div><div class="line">    				&#125;</div><div class="line">    			&#125;</div><div class="line">    		&#125;</div><div class="line">    	&#125;</div><div class="line">    	n=MC[amount];</div><div class="line">    	</div><div class="line">    	if (n==Integer.MIN_VALUE || n==Integer.MAX_VALUE || n==0) n = -1;</div><div class="line">    	return n;      </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>182 / 182 test cases passed.<br>Runtime: 37 ms<br>Your runtime beats 28.19 % of java submissions.</p>
+</blockquote>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number[]&#125; coins</div><div class="line"> * @param &#123;number&#125; amount</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var coinChange = function(coins, amount) &#123;</div><div class="line">	if (amount==0) return 0;</div><div class="line">	</div><div class="line">	var n=-1;</div><div class="line">	var MC = new Array(amount+1);</div><div class="line">	MC[0]=0;</div><div class="line">	for(var i=1;i&lt;=amount;i++)</div><div class="line">		MC[i]=Number.MAX_VALUE;</div><div class="line">	</div><div class="line">	for(var i=1;i&lt;=amount;i++) &#123;</div><div class="line">		for(var j=0;j&lt;coins.length;j++) &#123;</div><div class="line">			if (i&gt;=coins[j]) &#123;</div><div class="line">				var cc = MC[i-coins[j]];</div><div class="line">				if (cc!=Number.MAX_VALUE &amp;&amp; (cc+1&lt;MC[i]))</div><div class="line">					MC[i] = cc+1;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	n = MC[amount];</div><div class="line">	</div><div class="line">	if (n==Number.MIN_VALUE || n==Number.MAX_VALUE || n==0) n = -1;</div><div class="line">	</div><div class="line">	return n;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>182 / 182 test cases passed.<br>Runtime: 80 ms<br>Your runtime beats 95.69 % of javascript submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="cjnupa2hy000ttgtwe3x2qnjr" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Basic-Calculator" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" class="article-date">
@@ -96,7 +161,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjntf4t4x000l4wtwoupdnjiw" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjnupa2ho000ltgtw4zr2dy2y" class="article-share-link">Share</a>
       
       
       
@@ -152,7 +217,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjntf4t4x000j4wtwdyeqhry1" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjnupa2hm000jtgtwm9b4pcdw" class="article-share-link">Share</a>
       
       
       
@@ -212,7 +277,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjntf4t4x000m4wtwra61yzw6" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjnupa2hr000mtgtwrrsf0ib1" class="article-share-link">Share</a>
       
       
       
@@ -274,7 +339,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cjntf4t4x000p4wtwwjgh8oyw" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cjnupa2ht000ptgtwixnstre3" class="article-share-link">Share</a>
       
       
       
@@ -337,7 +402,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="cjntf4t7y00424wtwwwumpz4b" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="cjnupa2l50047tgtwqt00bwpg" class="article-share-link">Share</a>
       
       
       
@@ -388,7 +453,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="cjntf4t5s001j4wtwfae43lzk" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="cjnupa2in001ftgtwgphzbr27" class="article-share-link">Share</a>
       
       
       
@@ -443,7 +508,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="cjntf4t5s001g4wtwi7c48ceb" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="cjnupa2ip001htgtws4whqw8j" class="article-share-link">Share</a>
       
       
       
@@ -496,7 +561,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="cjntf4t4100014wtw1h388q3x" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="cjnupa2gt0001tgtwgpfyysu4" class="article-share-link">Share</a>
       
       
       
@@ -547,85 +612,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" data-id="cjntf4t5c000x4wtwt3grvey8" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Sum-of-Two-Integers" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/" class="article-date">
-  <time datetime="2018-08-25T02:56:17.000Z" itemprop="datePublished">2018-08-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/">LeetCode - Algorithms - 371. Sum of Two Integers</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这题不Easy呀，像智力题，像脑筋急转弯。<br>代码是人家的，我可想不出来。真是“会者不难，难者不会”。</p>
-<ul>
-<li><a href="https://www.quora.com/How-do-I-add-two-numbers-without-using-any-operator-C-C++" target="_blank" rel="external">How do I add two numbers without using any operator C/C++?</a></li>
-<li><a href="https://stackoverflow.com/questions/365522/what-is-the-best-way-to-add-two-numbers-without-using-the-operator" target="_blank" rel="external">What is the best way to add two numbers without using the + operator?</a></li>
-<li><a href="https://www.geeksforgeeks.org/add-two-numbers-without-using-arithmetic-operators/" target="_blank" rel="external">Add two numbers without using arithmetic operators</a></li>
-</ul>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><h2 id="自增自减运算符"><a href="#自增自减运算符" class="headerlink" title="自增自减运算符"></a>自增自减运算符</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; a</div><div class="line"> * @param &#123;number&#125; b</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var getSum = function(a, b) &#123;</div><div class="line">    if (a&gt;0) &#123;</div><div class="line">        while(a&gt;0) &#123;</div><div class="line">            a--;</div><div class="line">            b++</div><div class="line">        &#125;        </div><div class="line">    &#125;</div><div class="line">    if (a&lt;0) &#123;</div><div class="line">        while(a&lt;0) &#123;</div><div class="line">            a++;</div><div class="line">            b--;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return b;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>LeetCode运行显示：</p>
-<blockquote>
-<p>13 / 13 test cases passed.<br>Runtime: 2096 ms<br>Your runtime beats 3.38 % of javascript submissions.</p>
-</blockquote>
-<h2 id="位运算-递归"><a href="#位运算-递归" class="headerlink" title="位运算+递归"></a>位运算+递归</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; a</div><div class="line"> * @param &#123;number&#125; b</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var getSum = function(a, b) &#123;</div><div class="line">	  var sum,carry;</div><div class="line">	  if (b==0) return a;</div><div class="line">	  sum = a^b;</div><div class="line">	  carry = (a&amp;b)&lt;&lt;1;</div><div class="line">	  return getSum(sum,carry);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果：</p>
-<blockquote>
-<p>13 / 13 test cases passed.<br>Runtime: 52 ms<br>Your runtime beats 69.57 % of javascript submissions</p>
-</blockquote>
-<h2 id="消除递归的位运算"><a href="#消除递归的位运算" class="headerlink" title="消除递归的位运算"></a>消除递归的位运算</h2><p>知其然而不知其所以然，居然可以这么做，觉得很神奇</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; a</div><div class="line"> * @param &#123;number&#125; b</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var getSum = function(a, b) &#123;</div><div class="line">	  while(b!=0) &#123;</div><div class="line">		  var carry=a&amp;b;</div><div class="line">		  a = a^b;</div><div class="line">		  b = carry&lt;&lt;1;</div><div class="line">	  &#125;</div><div class="line">	  return a;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果：</p>
-<blockquote>
-<p>13 / 13 test cases passed.<br>Runtime: 48 ms<br>Your runtime beats 100.00 % of javascript submissions.</p>
-</blockquote>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="消除递归的位运算-1"><a href="#消除递归的位运算-1" class="headerlink" title="消除递归的位运算"></a>消除递归的位运算</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int getSum(int a, int b) &#123;</div><div class="line">    	while (b!=0) &#123;</div><div class="line">    		int carry = a&amp;b;</div><div class="line">    		a = a^b;</div><div class="line">    		b = carry&lt;&lt;1;</div><div class="line">    	&#125;</div><div class="line">        return a;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>LeetCode运行显示：</p>
-<blockquote>
-<p>13 / 13 test cases passed.<br>Runtime: 0 ms<br>Your runtime beats 100.00 % of java submissions.</p>
-</blockquote>
-<h2 id="递归-位运算"><a href="#递归-位运算" class="headerlink" title="递归+位运算"></a>递归+位运算</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int getSum(int a, int b) &#123;</div><div class="line">    	int sum,carry;</div><div class="line">    	if (b==0) return a;</div><div class="line">    	sum = a ^ b;</div><div class="line">        carry = (a &amp; b) &lt;&lt; 1;</div><div class="line">        return getSum(sum,carry);  </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果：</p>
-<blockquote>
-<p>13 / 13 test cases passed.<br>Runtime: 0 ms<br>Your runtime beats 100.00 % of java submissions.</p>
-</blockquote>
-<h2 id="自增自减运算符-1"><a href="#自增自减运算符-1" class="headerlink" title="自增自减运算符"></a>自增自减运算符</h2><p>这个解很像脑筋急转弯，不难，但让人想不到</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int getSum(int a, int b) &#123;</div><div class="line">    	if (a&gt;0) &#123;</div><div class="line">    		while(a&gt;0) &#123;</div><div class="line">    			a--;</div><div class="line">    			b++;</div><div class="line">    		&#125;</div><div class="line">    	&#125;</div><div class="line">    	if (a&lt;0) &#123;</div><div class="line">    		while(a&lt;0) &#123;</div><div class="line">    			a++;</div><div class="line">    			b--;</div><div class="line">    		&#125;</div><div class="line">    	&#125;</div><div class="line">    	return b;  </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果如下：</p>
-<blockquote>
-<p>13 / 13 test cases passed.<br>Runtime: 1 ms<br>Your runtime beats 3.44 % of java submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/" data-id="cjntf4t5s001l4wtwalwinh3b" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" data-id="cjnupa2i8000ztgtw9pz2ltvb" class="article-share-link">Share</a>
       
       
       
@@ -689,6 +676,10 @@
       <ul>
         
           <li>
+            <a href="/2018/10/29/LeetCode-Algorithms-Reverse-Bits/">LeetCode - Algorithms - 190. Reverse Bits</a>
+          </li>
+        
+          <li>
             <a href="/2018/10/27/Bitwise-and-Bit-Shift/">Bitwise and Bit Shift</a>
           </li>
         
@@ -702,10 +693,6 @@
         
           <li>
             <a href="/2018/10/22/Maven/">Maven</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/">LeetCode - Algorithms - 20. Valid Parentheses</a>
           </li>
         
       </ul>
