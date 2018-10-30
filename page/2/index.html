@@ -65,6 +65,55 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" class="article-date">
+  <time datetime="2018-10-15T02:40:39.000Z" itemprop="datePublished">2018-10-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/">LeetCode - Algorithms - 105. Construct Binary Tree from Preorder and Inorder Traversal</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>二叉树自己能理解一二，不算难。自己也观察出来了从Preorder里知道根结点，再在Inorder里划分左右子树，如此不断递归二分。代码抄袭了这个的：<br><a href="https://www.programcreek.com/2014/06/leetcode-construct-binary-tree-from-preorder-and-inorder-traversal-java/" target="_blank" rel="external">LeetCode – Construct Binary Tree from Preorder and Inorder Traversal (Java)</a></p>
+<blockquote>
+<p>From the pre-order array, we know that first element is the root. We can find the root in in-order array. Then we can identify the left and right sub-trees of the root from in-order array. Using the length of left sub-tree, we can identify left and right sub-trees in pre-order array. Recursively, we can build up the tree.</p>
+</blockquote>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Definition for a binary tree node.</div><div class="line"> * public class TreeNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     TreeNode left;</div><div class="line"> *     TreeNode right;</div><div class="line"> *     TreeNode(int x) &#123; val = x; &#125;</div><div class="line"> * &#125;</div><div class="line"> */</div><div class="line">class Solution &#123;</div><div class="line">    public TreeNode buildTree(int[] preorder, int[] inorder) &#123;</div><div class="line">    	int preStart=0;</div><div class="line">    	int preEnd=preorder.length-1;</div><div class="line">    	int inStart = 0;</div><div class="line">    	int inEnd = inorder.length-1;</div><div class="line">        return buildTree(preorder,preStart,preEnd,inorder,inStart,inEnd);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public TreeNode buildTree(int[] preorder, int preStart,int preEnd, int[] inorder, int inStart, int inEnd) &#123;</div><div class="line">    	if (preStart&gt;preEnd || inStart&gt;inEnd)</div><div class="line">    	  return null;</div><div class="line">    	</div><div class="line">    	int val = preorder[preStart];</div><div class="line">    	TreeNode rt = new TreeNode(val);</div><div class="line">    	</div><div class="line">    	int k=0;</div><div class="line">    	for(int i=0;i&lt;=inEnd;i++) &#123;</div><div class="line">    		if (inorder[i]==val) &#123;</div><div class="line">    			k=i;</div><div class="line">    			break;</div><div class="line">    		&#125;</div><div class="line">    	&#125;</div><div class="line">    	</div><div class="line">    	rt.left = buildTree(preorder, preStart+1, preStart+(k-inStart),inorder,inStart,k-1);</div><div class="line">    	rt.right = buildTree(preorder, preStart+(k-inStart)+1, preEnd, inorder, k+1, inEnd);</div><div class="line">    	</div><div class="line">    	return rt;</div><div class="line">    &#125;    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>203 / 203 test cases passed.<br>Runtime: 13 ms<br>Your runtime beats 55.29 % of java submissions. </p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="cjnw4gbs3000wectwhd4usagh" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Coin-Change-2" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" class="article-date">
@@ -114,7 +163,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjnvuq5v6001fugtwa447aj5j" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjnw4gbrz000rectwycc2sysx" class="article-share-link">Share</a>
       
       
       
@@ -179,7 +228,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="cjnvuq5v4001dugtwek80e022" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="cjnw4gbs0000tectwoei3oyez" class="article-share-link">Share</a>
       
       
       
@@ -224,7 +273,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjnvuq5up000vugtwrvpnjm9p" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjnw4gbrt000lectwsnere47g" class="article-share-link">Share</a>
       
       
       
@@ -280,7 +329,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjnvuq5uj000qugtwfp74su11" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjnw4gbrr000jectwzk3qsgxq" class="article-share-link">Share</a>
       
       
       
@@ -340,7 +389,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjnvuq5ul000sugtwtc6p58mx" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjnw4gbrv000nectwygjecb16" class="article-share-link">Share</a>
       
       
       
@@ -402,7 +451,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cjnvuq5un000uugtw90emvet5" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cjnw4gbrx000qectwcowftm86" class="article-share-link">Share</a>
       
       
       
@@ -465,7 +514,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="cjnvuq5ze005yugtwr2wa3tzl" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="cjnw4gbxj0048ectwopofqjmp" class="article-share-link">Share</a>
       
       
       
@@ -516,7 +565,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="cjnvuq5vj001uugtw1qalr7so" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="cjnw4gbsr001jectws2dgi7nt" class="article-share-link">Share</a>
       
       
       
@@ -571,7 +620,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="cjnvuq5xg003jugtwbl83goeb" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="cjnw4gbst001mectwpconzcjh" class="article-share-link">Share</a>
       
       
       
@@ -585,64 +634,11 @@
 
 
   
-    <article id="post-Better-than-the-Four-Colour-Theorem-William-Tutte" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" class="article-date">
-  <time datetime="2018-09-02T03:07:28.000Z" itemprop="datePublished">2018-09-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/">Better than the Four Colour Theorem - Jim Geelen - mathNEWS - VOLUME 135 • ISSUE 3 - October 20, 2017</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>There is a limpid journal of mathematics in University of waterloo named <a href="http://mathnews.uwaterloo.ca/" target="_blank" rel="external">mathNEWS</a>, this essay was selected from that little journal. In University of Waterloo’s campus, there is a street named <a href="https://uwaterloo.ca/stories/mathematics-professor-and-wartime-code-breaker-honoured" target="_blank" rel="external">William Tutte way</a> near Davis Centre Library.</p>
-<hr>
-<p><a href="https://en.wikipedia.org/wiki/W._T._Tutte" target="_blank" rel="external">William Tutte</a> spent enormous effort trying to solve the Four Colour Problem. Even after the computer-aided proof of Appel and Haken in 1976, Tutte continued working toward finding a <strong>short, human-readable</strong>, proof.</p>
-<p>Tutte never did succeed, but he came close to achieving his goal on several occasions. For example, Tutte had significant insights into Tait’s Conjecture that three-connected cubic planar graphs are Hamiltonia n, which Tait had already shown to imply the Four Colour Conjecture. Unfortunately, instead of leading him to a proof, <strong>Tutte’s insights led him to discover a 46-vertex counter-example to Tait’s conjecture</strong>. Not long after that, Tutte proved that all four-connected planar graphs are Hamiltonian. While this is agonizingly close to Tait’s Conjecture, it does not have any immediate applications to colouring.</p>
-<p>Following those attempts, Tutte tried various algebraic approaches; one of these involved the chromatic polynomial of a graph. For a graph G and non-negative integer k, let λ<sub>G</sub>(k) denote the number of colourings of G with colours 1, …, k. It is not at all obvious from this definition, but λ<sub>G</sub> is a polynomial, which allows us to define it at values other than the positive integers.</p>
-<p>The Four Colour Conjecture states that λ<sub>G</sub>(4) &gt; 0 whenever G is planar. If 0 ≤ k1 ≤ k2 are integers, then any k<sub>1</sub>-colouring is a k<sub>2</sub>-colouring, and hence λ<sub>G</sub>(k<sub>2</sub>) ≥ λ<sub>G</sub>(k<sub>1</sub>). This property does not extend to non-negative real numbers, but it is conjectured that for each real number x ≥ 4, we have λ<sub>G</sub>(x) &gt; 0 whenever G is planar. Tutte proved the following amazing result which superficially looks stronger than the Four Colour Theorem; in this result τ is the golden ratio, so τ+2 = 5+5<sup>1/2</sup> ≈ 3.618.</p>
-<blockquote>
-<p><strong> The 3.618 Colour Theorem. </strong> For each planar graph G, we have<br>λ<sub>G</sub>(τ+2) &gt; 0.</p>
-</blockquote>
-<p>This year Gordon Royle proved that, if x &lt; 4 is a real number such that λ<sub>G</sub>(x) &gt; 0 for each planar graph G, then x = τ+2. Wow!</p>
-<p>How on earth, you may ask, did Tutte come upon his result? It turns out that he came across the idea to try τ+2 by empirical evidence. That evidence takes the form of eight large binders that are stored in the C&amp;O library on the sixth floor of the MC building. Each of these binders contains, at a guess, around 500 pages. The pages alternate between a beautiful hand-drawn picture of a planar graph and a computer print out of the roots of its chromatic polynomial. Tutte enlisted the help of Ruth Bari and Dick Wick Hall to systematically generate the graphs and the help of Gerry Berman, founder of the C&amp;O Department, to compute the chromatic roots. Nevertheless, it beggars belief to consider the work that Tutte put into drawing each of the graphs by hand and then trawling through these volumes for any patterns that might provide in-roads to the elusive Four Colour Conjecture. In the end he made do with only 3.618 colours.</p>
-<p>This article is in memory of <a href="https://uwaterloo.ca/magazine/spring-2015/features/keeping-secrets" target="_blank" rel="external">William T. Tutte</a>, in this the centennial year of his birth. Among other honours, Tutte was a founding member of the C&amp;O Department, a legendary World War II code breaker, and a hugely influential combinatorialist.</p>
-<p><a href="https://en.wikipedia.org/wiki/Jim_Geelen" target="_blank" rel="external">Jim Geelen</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="cjnvuq5sn0001ugtw0r0m9tw3" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UW/">UW</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mathNEWS/">mathNEWS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -688,6 +684,10 @@
       <ul>
         
           <li>
+            <a href="/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/">LeetCode - Algorithms - 29. Divide Two Integers</a>
+          </li>
+        
+          <li>
             <a href="/2018/10/30/LeetCode-Algorithms-Min-Stack/">LeetCode - Algorithms - 155. Min Stack</a>
           </li>
         
@@ -701,10 +701,6 @@
         
           <li>
             <a href="/2018/10/26/LeetCode-Algorithms-Reverse-Linked-List/">LeetCode - Algorithms - 206. Reverse Linked List</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/24/LeetCode-Algorithms-First-Unique-Character-in-a-String/">LeetCode - Algorithms - 387. First Unique Character in a String</a>
           </li>
         
       </ul>
