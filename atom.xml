@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2018-10-29T19:32:11.541Z</updated>
+  <updated>2018-10-30T14:51:23.096Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -14,6 +14,41 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode - Algorithms - 155. Min Stack</title>
+    <link href="https://hezhigang.github.io/2018/10/30/LeetCode-Algorithms-Min-Stack/"/>
+    <id>https://hezhigang.github.io/2018/10/30/LeetCode-Algorithms-Min-Stack/</id>
+    <published>2018-10-30T14:42:08.000Z</published>
+    <updated>2018-10-30T14:51:23.096Z</updated>
+    
+    <content type="html"><![CDATA[<p>The solution of two stack is clear for me.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">class MinStack &#123;</div><div class="line">	private Stack&lt;Integer&gt; stack;</div><div class="line">	private Stack&lt;Integer&gt; minStack;</div><div class="line">	</div><div class="line">    /** initialize your data structure here. */</div><div class="line">    public MinStack() &#123;</div><div class="line">    	stack = new Stack&lt;Integer&gt;();</div><div class="line">    	minStack = new Stack&lt;Integer&gt;();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public void push(int x) &#123;</div><div class="line">    	stack.push(x);</div><div class="line">    	if (minStack.isEmpty() || minStack.peek()&gt;=x)</div><div class="line">    		minStack.push(x);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public void pop() &#123;</div><div class="line">        int x = stack.pop();</div><div class="line">        if (x==minStack.peek())</div><div class="line">        	minStack.pop();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public int top() &#123;</div><div class="line">        return stack.peek();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public int getMin() &#123;</div><div class="line">        return minStack.peek();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Your MinStack object will be instantiated and called as such:</div><div class="line"> * MinStack obj = new MinStack();</div><div class="line"> * obj.push(x);</div><div class="line"> * obj.pop();</div><div class="line"> * int param_3 = obj.top();</div><div class="line"> * int param_4 = obj.getMin();</div><div class="line"> */</div></pre></td></tr></table></figure>
+<blockquote>
+<p>18 / 18 test cases passed.<br>Runtime: 64 ms<br>Your runtime beats 96.51 % of java submissions.</p>
+</blockquote>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * initialize your data structure here.</div><div class="line"> */</div><div class="line">var MinStack = function(stk,minStk) &#123;</div><div class="line">	this.stk = [];</div><div class="line">	this.minStk = [];    </div><div class="line">&#125;;</div><div class="line"></div><div class="line">/** </div><div class="line"> * @param &#123;number&#125; x</div><div class="line"> * @return &#123;void&#125;</div><div class="line"> */</div><div class="line">MinStack.prototype.push = function(x) &#123;</div><div class="line">    this.stk.push(x);</div><div class="line">    if (this.minStk.length==0 || this.minStk[this.minStk.length-1]&gt;=x)</div><div class="line">    	this.minStk.push(x);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">/**</div><div class="line"> * @return &#123;void&#125;</div><div class="line"> */</div><div class="line">MinStack.prototype.pop = function() &#123;</div><div class="line">    var x = this.stk.pop();</div><div class="line">    if (x==this.minStk[this.minStk.length-1])</div><div class="line">    	this.minStk.pop();</div><div class="line">&#125;;</div><div class="line"></div><div class="line">/**</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">MinStack.prototype.top = function() &#123;</div><div class="line">    return this.stk[this.stk.length-1];</div><div class="line">&#125;;</div><div class="line"></div><div class="line">/**</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">MinStack.prototype.getMin = function() &#123;</div><div class="line">    return this.minStk[this.minStk.length-1];</div><div class="line">&#125;;</div><div class="line"></div><div class="line">/** </div><div class="line"> * Your MinStack object will be instantiated and called as such:</div><div class="line"> * var obj = Object.create(MinStack).createNew()</div><div class="line"> * obj.push(x)</div><div class="line"> * obj.pop()</div><div class="line"> * var param_3 = obj.top()</div><div class="line"> * var param_4 = obj.getMin()</div><div class="line"> */</div></pre></td></tr></table></figure>
+<blockquote>
+<p>18 / 18 test cases passed.<br>Runtime: 68 ms<br>Your runtime beats 100.00 % of javascript submissions.</p>
+</blockquote>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="http://www.cnblogs.com/grandyang/p/4091064.html" target="_blank" rel="external">Min Stack 最小栈</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;The solution of two stack is clear for me.&lt;/p&gt;
+&lt;h1 id=&quot;Java&quot;&gt;&lt;a href=&quot;#Java&quot; class=&quot;headerlink&quot; title=&quot;Java&quot;&gt;&lt;/a&gt;Java&lt;/h1&gt;&lt;figure class=&quot;
+    
+    </summary>
+    
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode - Algorithms - 190. Reverse Bits</title>
@@ -941,40 +976,6 @@
       <category term="UW" scheme="https://hezhigang.github.io/tags/UW/"/>
     
       <category term="mathNEWS" scheme="https://hezhigang.github.io/tags/mathNEWS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode - Algorithms - 171. Excel Sheet Column Number</title>
-    <link href="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/"/>
-    <id>https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/</id>
-    <published>2018-08-28T18:41:37.000Z</published>
-    <updated>2018-08-28T18:52:47.016Z</updated>
-    
-    <content type="html"><![CDATA[<p>这题算Easy，Excel列编号好像可以理解成26进制，少不了查下JDK API Specification，查看JavaScript Bible</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int titleToNumber(String s) &#123;</div><div class="line">    	int n = 0;</div><div class="line">    	int len = s.length();</div><div class="line">    	for(int i=s.length()-1;i&gt;=0;i--) &#123;</div><div class="line">    		n += (Character.getNumericValue(s.charAt(i))-9)*Math.pow(26, len-i-1);</div><div class="line">    	&#125;</div><div class="line">        return n;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>性能不行，LeetCode运行结果</p>
-<blockquote>
-<p>1000 / 1000 test cases passed.<br>Runtime: 4 ms<br>Your runtime beats 5.55 % of java submissions.</p>
-</blockquote>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;string&#125; s</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var titleToNumber = function(s) &#123;</div><div class="line">	  var n = 0;</div><div class="line">	  var len = s.length;</div><div class="line">	  for(var i=s.length-1;i&gt;=0;i--) &#123;</div><div class="line">		  n+=(s.charCodeAt(i)-64)*Math.pow(26,len-i-1);</div><div class="line">	  &#125;</div><div class="line">	  return n;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果：</p>
-<blockquote>
-<p>1000 / 1000 test cases passed.<br>Runtime: 68 ms<br>Your runtime beats 99.02 % of javascript submissions.</p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这题算Easy，Excel列编号好像可以理解成26进制，少不了查下JDK API Specification，查看JavaScript Bible&lt;/p&gt;
-&lt;h1 id=&quot;Java&quot;&gt;&lt;a href=&quot;#Java&quot; class=&quot;headerlink&quot; title=&quot;Jav
-    
-    </summary>
-    
-    
-      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
-    
-      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
     
   </entry>
   
