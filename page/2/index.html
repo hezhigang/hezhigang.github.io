@@ -65,6 +65,55 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" class="article-date">
+  <time datetime="2018-10-15T06:21:42.000Z" itemprop="datePublished">2018-10-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/">LeetCode - Algorithms - 106. Construct Binary Tree from Inorder and Postorder Traversal</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这题跟<a href="https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/" target="_blank" rel="external">105. Construct Binary Tree from Preorder and Inorder Traversal</a>是一个系列，代码抄袭了<a href="https://www.programcreek.com/2013/01/construct-binary-tree-from-inorder-and-postorder-traversal/" target="_blank" rel="external">Construct Binary Tree from Inorder and Postorder Traversal</a>，二叉树的算法应该说不难理解。</p>
+<blockquote>
+<p>From the post-order array, we know that last element is the root. We can find the root in in-order array. Then we can identify the left and right sub-trees of the root from in-order array. Using the length of left sub-tree, we can identify left and right sub-trees in post-order array. Recursively, we can build up the tree.</p>
+</blockquote>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Definition for a binary tree node.</div><div class="line"> * public class TreeNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     TreeNode left;</div><div class="line"> *     TreeNode right;</div><div class="line"> *     TreeNode(int x) &#123; val = x; &#125;</div><div class="line"> * &#125;</div><div class="line"> */</div><div class="line">class Solution &#123;</div><div class="line">    public TreeNode buildTree(int[] inorder, int[] postorder) &#123;</div><div class="line">    	int inStart=0;</div><div class="line">    	int inEnd=inorder.length-1;</div><div class="line">    	int postStart=0;</div><div class="line">    	int postEnd=postorder.length-1;</div><div class="line">        return buildTree(inorder,inStart,inEnd,postorder,postStart,postEnd);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public TreeNode buildTree(int[] inorder, int inStart, int inEnd, int[] postorder, int postStart, int postEnd) &#123;</div><div class="line">    	if (inStart&gt;inEnd || postStart&gt;postEnd)</div><div class="line">    		return null;</div><div class="line">    	</div><div class="line">    	int rtVal = postorder[postEnd];</div><div class="line">    	TreeNode rt = new TreeNode(rtVal);</div><div class="line">    	</div><div class="line">    	int k=0;</div><div class="line">    	for(int i=0;i&lt;=inEnd;i++) &#123;</div><div class="line">    		if (inorder[i]==rtVal) &#123;</div><div class="line">    			k=i;</div><div class="line">    			break;</div><div class="line">    		&#125;</div><div class="line">    	&#125;</div><div class="line">    	</div><div class="line">    	rt.left = buildTree(inorder,inStart,k-1,postorder, postStart, postStart+k-inStart-1);</div><div class="line">    	rt.right = buildTree(inorder,k+1,inEnd,postorder,postStart+k-inStart,postEnd-1);</div><div class="line">    	</div><div class="line">    	return rt;</div><div class="line">    &#125;    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>203 / 203 test cases passed.<br>Runtime: 18 ms<br>Your runtime beats 25.95 % of java submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="cjnxw3t2r000wm0twv0bf7zpk" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" class="article-date">
@@ -100,7 +149,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="cjnw4gbs3000wectwhd4usagh" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="cjnxw3t2s000xm0twbu99fufh" class="article-share-link">Share</a>
       
       
       
@@ -163,7 +212,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjnw4gbrz000rectwycc2sysx" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjnxw3t2o000tm0twjni1s785" class="article-share-link">Share</a>
       
       
       
@@ -228,7 +277,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="cjnw4gbs0000tectwoei3oyez" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="cjnxw3t2p000um0twikbxxsqn" class="article-share-link">Share</a>
       
       
       
@@ -273,7 +322,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjnw4gbrt000lectwsnere47g" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjnxw3t2i000lm0twkly0y9hw" class="article-share-link">Share</a>
       
       
       
@@ -329,7 +378,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjnw4gbrr000jectwzk3qsgxq" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjnxw3t2h000jm0twe1bkbqiw" class="article-share-link">Share</a>
       
       
       
@@ -389,7 +438,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjnw4gbrv000nectwygjecb16" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjnxw3t2j000mm0twpmn5zwwi" class="article-share-link">Share</a>
       
       
       
@@ -451,7 +500,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cjnw4gbrx000qectwcowftm86" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cjnxw3t2l000pm0twi5lm28i7" class="article-share-link">Share</a>
       
       
       
@@ -514,7 +563,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="cjnw4gbxj0048ectwopofqjmp" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="cjnxw3t5w004em0tw0env518n" class="article-share-link">Share</a>
       
       
       
@@ -565,62 +614,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="cjnw4gbsr001jectws2dgi7nt" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Pascal-Triangle" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" class="article-date">
-  <time datetime="2018-09-03T02:51:52.000Z" itemprop="datePublished">2018-09-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/">LeetCode - Algorithms - 118. Pascal&#39;s Triangle</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>不难，不过写递归过程还是犯了些错误。 <a href="https://en.wikipedia.org/wiki/Pascal%27s_triangle" target="_blank" rel="external">Pascal’s triangle</a> 挺有名的，Binomial Coefficients好像是很重要的组合数学概念。</p>
-<ul>
-<li><a href="https://leetcode.com/problems/pascals-triangle/description/" target="_blank" rel="external">118. Pascal’s Triangle</a></li>
-<li><a href="https://www.lintcode.com/problem/yang-hui-triangle/description" target="_blank" rel="external">768. Yang Hui Triangle</a></li>
-</ul>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">public List&lt;List&lt;Integer&gt;&gt; generate(int numRows) &#123;</div><div class="line">	List&lt;List&lt;Integer&gt;&gt; list = new ArrayList&lt;List&lt;Integer&gt;&gt;();</div><div class="line">	</div><div class="line">	if (numRows==1) &#123;</div><div class="line">    	List&lt;Integer&gt; list0 = new ArrayList&lt;Integer&gt;();</div><div class="line">    	list0.add(1);</div><div class="line">    	list.add(list0);</div><div class="line">    	return list;    		</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	if (numRows==2) &#123;</div><div class="line">    	List&lt;Integer&gt; list0 = new ArrayList&lt;Integer&gt;();</div><div class="line">    	list0.add(1);</div><div class="line">    	list.add(list0);    		</div><div class="line">    	List&lt;Integer&gt; list1 = new ArrayList&lt;Integer&gt;();</div><div class="line">    	list1.add(1);</div><div class="line">    	list1.add(1);</div><div class="line">    	list.add(list1);</div><div class="line">    	return list;    		</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	if (numRows&gt;=3) &#123;</div><div class="line">    	List&lt;List&lt;Integer&gt;&gt; list_= generate(numRows-1);</div><div class="line">    	List&lt;Integer&gt; list_pre = list_.get(numRows-2);</div><div class="line">    	for(int i=0;i&lt;list_.size();i++)</div><div class="line">    		list.add(list_.get(i));</div><div class="line">    	List&lt;Integer&gt; list_curr = new ArrayList&lt;Integer&gt;();</div><div class="line">    	list_curr.add(1);</div><div class="line">    	for(int i=1;i&lt;numRows-1;i++) &#123;</div><div class="line">    		list_curr.add(list_pre.get(i)+list_pre.get(i-1));</div><div class="line">    	&#125;</div><div class="line">    	list_curr.add(1);</div><div class="line">    	list.add(list_curr);</div><div class="line">	&#125;</div><div class="line">    return list;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>性能不错，LeetCode运行结果：</p>
-<blockquote>
-<p>15 / 15 test cases passed.<br>Runtime: 0 ms<br>Your runtime beats 100.00 % of java submissions.</p>
-</blockquote>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; numRows</div><div class="line"> * @return &#123;number[][]&#125;</div><div class="line"> */</div><div class="line">var generate = function(numRows) &#123;</div><div class="line">	  if (numRows==1) &#123;</div><div class="line">		  return [[1]];</div><div class="line">	  &#125;</div><div class="line">	  if (numRows==2) &#123;</div><div class="line">		  return [[1],[1,1]];</div><div class="line">	  &#125;</div><div class="line">	  var arr = [];</div><div class="line">	  if (numRows&gt;=3) &#123;</div><div class="line">		  var arr_ = generate(numRows-1);</div><div class="line">		  var line_pre = arr_[numRows-2];</div><div class="line">		  for(i=0;i&lt;arr_.length;i++)</div><div class="line">			  arr.push(arr_[i]);</div><div class="line">		  var line_curr = [1];</div><div class="line">		  for(i=1;i&lt;numRows-1;i++) &#123;</div><div class="line">			  line_curr.push(line_pre[i]+line_pre[i-1]);</div><div class="line">		  &#125;</div><div class="line">		  line_curr.push(1);</div><div class="line">		  arr.push(line_curr);</div><div class="line">	  &#125;</div><div class="line">	  return arr;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果：</p>
-<blockquote>
-<p>15 / 15 test cases passed.<br>Runtime: 52 ms<br>Your runtime beats 90.59 % of javascript submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="cjnw4gbst001mectwpconzcjh" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="cjnxw3t3f001mm0twkzbkt93y" class="article-share-link">Share</a>
       
       
       
@@ -684,6 +678,10 @@
       <ul>
         
           <li>
+            <a href="/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/">LeetCode - Algorithms - 94. Binary Tree Inorder Traversal</a>
+          </li>
+        
+          <li>
             <a href="/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/">LeetCode - Algorithms - 29. Divide Two Integers</a>
           </li>
         
@@ -697,10 +695,6 @@
         
           <li>
             <a href="/2018/10/27/Bitwise-and-Bit-Shift/">Bitwise and Bit Shift</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/26/LeetCode-Algorithms-Reverse-Linked-List/">LeetCode - Algorithms - 206. Reverse Linked List</a>
           </li>
         
       </ul>
