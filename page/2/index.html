@@ -65,6 +65,291 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Maven" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/22/Maven/" class="article-date">
+  <time datetime="2018-10-23T02:48:02.000Z" itemprop="datePublished">2018-10-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/22/Maven/">Maven</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="POM"><a href="#POM" class="headerlink" title="POM"></a>POM</h1><p>Project Object Model（项目对象模型）</p>
+<h2 id="坐标"><a href="#坐标" class="headerlink" title="坐标"></a>坐标</h2><p>在 POM 中，groupId, artifactId, packaging, version 叫作 maven 坐标，它能唯一的确定一个项目。有了 maven 坐标，我们就可以用它来指定我们的项目所依赖的其他项目，插件，或者父项目。一般 maven 坐标写成如下的格式：</p>
+<pre><code>groupId:artifactId:packaging:version
+</code></pre><ul>
+<li>groupId 定义了项目属于哪个组，这有助于在大的范围上区别项目</li>
+<li>artifactId 定义了这个项目在组中唯一的 ID</li>
+<li>version 指明当前项目的版本</li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>name 是一个用户友好的项目名称</li>
+<li>modelVersion 指定 POM 模型的版本</li>
+<li>packaging 指定了项目发布时的打包类型</li>
+</ul>
+<h1 id="Maven项目结构"><a href="#Maven项目结构" class="headerlink" title="Maven项目结构"></a>Maven项目结构</h1><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>${basedir}</td>
+<td>存放 pom.xml和所有的子目录</td>
+</tr>
+<tr>
+<td>${basedir}/src/main/java</td>
+<td>项目的 java源代码</td>
+</tr>
+<tr>
+<td>${basedir}/src/main/resources</td>
+<td>项目的资源，比如说 property文件</td>
+</tr>
+<tr>
+<td>${basedir}/src/test/java</td>
+<td>项目的测试类，比如说 JUnit代码</td>
+</tr>
+<tr>
+<td>${basedir}/src/test/resources</td>
+<td>测试使用的资源</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>编译后 的 classes 会放在 ${basedir}/target/classes 下面</li>
+<li>JAR 文件会放在 ${basedir}/target 下面（默认情况下会产生 JAR 文件）</li>
+</ul>
+<h1 id="Maven-插件"><a href="#Maven-插件" class="headerlink" title="Maven 插件"></a>Maven 插件</h1><p>mvn 本身不会做太多的事情，它不知道怎么样编译或者怎么样打包。它把构建的任务交给插件去做。插件定义了常用的构建逻辑，能够被重复利用。这样做的好处是，一旦插件有了更新，那么所有的 maven 用户都能得到更新。</p>
+<h1 id="Maven-生命周期"><a href="#Maven-生命周期" class="headerlink" title="Maven 生命周期"></a>Maven 生命周期</h1><p>生命周期指项目的构建过程，它包含了一系列的有序的阶段 (phase)，而一个阶段就是构建过程中的一个步骤。</p>
+<p>maven 能支持不同的生命周期，但是最常用的是默认的Maven生命周期 (default Maven lifecycle )。如果你没有对它进行任何的插件配置或者定制的话，那么上面的命令 mvn package 会依次执行默认生命周期中直到包括 package 阶段前的所有阶段的插件目标：</p>
+<ol>
+<li>process-resources 阶段：resources:resources</li>
+<li>compile 阶段：compiler:compile</li>
+<li>process-classes 阶段：(默认无目标)</li>
+<li>process-test-resources 阶段：resources:testResources</li>
+<li>test-compile 阶段：compiler:testCompile</li>
+<li>test 阶段：surefire:test</li>
+<li>prepare-package 阶段：(默认无目标)</li>
+<li>package 阶段：jar:jar</li>
+</ol>
+<h1 id="dependencies"><a href="#dependencies" class="headerlink" title="dependencies"></a>dependencies</h1><ul>
+<li>在 POM 中，依赖关系是在 dependencies 部分中定义的。</li>
+<li>maven 提供了传递依赖的特性，所谓传递依赖是指 maven 会检查被依赖的 jar 文件，把它的依赖关系纳入最终解决的依赖关系链中。</li>
+<li>在 POM 的 dependencies 部分中，scope 决定了依赖关系的适用范围。<ul>
+<li>我们还可以指定 scope 为 provided，意思是 JDK 或者容器会提供所需的jar文件。</li>
+<li>scope 的默认值是 compile，即任何时候都会被包含在 classpath 中，在打包的时候也会被包括进去。</li>
+</ul>
+</li>
+</ul>
+<h1 id="Maven-库"><a href="#Maven-库" class="headerlink" title="Maven 库"></a>Maven 库</h1><h2 id="远程库"><a href="#远程库" class="headerlink" title="远程库"></a>远程库</h2><p>maven 默认的远程库(<a href="http://repo1.maven.org/maven2" target="_blank" rel="external">http://repo1.maven.org/maven2</a>)</p>
+<h2 id="本地库"><a href="#本地库" class="headerlink" title="本地库"></a>本地库</h2><p>本地库是指 maven 下载了插件或者 jar 文件后存放在本地机器上的拷贝。在 Linux 上，它的位置在 ~/.m2/repository，在 Windows XP 上，在 C:\Documents and Settings\username.m2\repository ，在 Windows 7 上，在 C:\Users\username.m2\repository。</p>
+<p>当 maven 查找需要的 jar 文件时，它会先在本地库中寻找，只有在找不到的情况下，才会去远程库中找。</p>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="https://spring.io/guides/gs/maven/" title="This guide walks you through using Maven to build a simple Java project." target="_blank" rel="external">Building Java Projects with Maven</a></li>
+<li><a href="https://www.oracle.com/technetwork/cn/community/java/apache-maven-getting-started-1-406235-zhs.html" target="_blank" rel="external">Apache Maven 入门篇 ( 上 )</a></li>
+<li><a href="https://www.oracle.com/technetwork/cn/community/java/apache-maven-getting-started-2-405568-zhs.html" target="_blank" rel="external">Apache Maven 入门篇(下)</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/java/j-lo-maven/" target="_blank" rel="external">用 Maven 做项目构建</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/opensource/os-maven/index.html?mhq=maven&amp;mhsrc=ibmsearch_a" title="充分使用这些工具" target="_blank" rel="external">在 Eclipse 中利用 Maven</a></li>
+<li><a href="https://developer.ibm.com/articles/j-5things16/" title="Tips for mastering modern Maven plugins" target="_blank" rel="external">Apache Maven plugins</a></li>
+<li><a href="https://maven.apache.org/" target="_blank" rel="external">Apache Maven</a></li>
+<li><a href="https://mvnrepository.com/" target="_blank" rel="external">MvnRepository</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/22/Maven/" data-id="cjo0rf93a0028totw77tde4l8" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Valid-Parentheses" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" class="article-date">
+  <time datetime="2018-10-17T21:38:34.000Z" itemprop="datePublished">2018-10-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/">LeetCode - Algorithms - 20. Valid Parentheses</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Difficulty:Easy的题，在面试现场，面对黑板，我毫无头绪没有任何思路，考官已经提示自己你想想有什么数据结构可以利用，自己还是没想通。</p>
+<blockquote>
+<p>This is a problem that’s good to use a stack.</p>
+</blockquote>
+<p>回来上网找线索，主要参考了这个<a href="https://cheonhyangzhang.wordpress.com/2015/09/14/20-leetcode-java-valid-parentheses-easy/" target="_blank" rel="external">20 LeetCode Java: Valid Parentheses – Easy</a>，此题的关键确实就是数据结构，要用Stack（栈），其实在做表达式解析那两道题<a href="https://leetcode.com/problems/basic-calculator-ii/description/" target="_blank" rel="external">227. Basic Calculator II</a>、<a href="https://leetcode.com/problems/basic-calculator/description/" target="_blank" rel="external">224. Basic Calculator</a>时已经碰到过，自己也做了题，但还是没理解透，遇到新问题又傻眼了。</p>
+<p>代码是人家的，天下程序一大抄！！！但不理解的话，代码不会内化于你。看来自己做LeetCode算法题凑数没用，理解不深，做完了又忘了。看来做完了还得温故知新加深理解。</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public boolean isValid(String s) &#123;</div><div class="line">    	HashMap&lt;Character, Character&gt; pair = new HashMap&lt;Character, Character&gt;();</div><div class="line">        pair.put(&apos;)&apos;,&apos;(&apos;);</div><div class="line">        pair.put(&apos;&#125;&apos;,&apos;&#123;&apos;);</div><div class="line">        pair.put(&apos;]&apos;,&apos;[&apos;);    	</div><div class="line">        Stack&lt;Character&gt; stk = new Stack&lt;Character&gt;();</div><div class="line">        char c = &apos;\u0000&apos;;</div><div class="line">        for(int i=0;i&lt;s.length();i++) &#123;</div><div class="line">        	c = s.charAt(i);</div><div class="line">        	switch(c) &#123;</div><div class="line">        	case &apos;&#123;&apos;:</div><div class="line">        	case &apos;[&apos;:</div><div class="line">        	case &apos;(&apos;:</div><div class="line">        		stk.push(c);</div><div class="line">        		break;</div><div class="line">        	default:</div><div class="line">        		if (stk.isEmpty() || pair.get(c)!=stk.pop())</div><div class="line">        			return false;</div><div class="line">        	&#125;</div><div class="line">        &#125;</div><div class="line">        if (stk.isEmpty())</div><div class="line">        	return true;</div><div class="line">        return false;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果显示：</p>
+<blockquote>
+<p>76 / 76 test cases passed.<br>Runtime: 5 ms<br>Your runtime beats 98.09 % of java submissions.</p>
+</blockquote>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;string&#125; s</div><div class="line"> * @return &#123;boolean&#125;</div><div class="line"> */</div><div class="line">var isValid = function(s) &#123;</div><div class="line">	var pair = &#123;&apos;\&#125;&apos;:&apos;\&#123;&apos;,&apos;\]&apos;:&apos;\[&apos;,&apos;)&apos;:&apos;(&apos;&#125;;</div><div class="line">	var stk = new Array();</div><div class="line">	var c = &apos;&apos;;</div><div class="line">	for(var i=0;i&lt;s.length;i++) &#123;</div><div class="line">		c = s[i];</div><div class="line">		switch(c) &#123;</div><div class="line">		case &apos;&#123;&apos;:</div><div class="line">		case &apos;[&apos;:</div><div class="line">		case &apos;(&apos;:</div><div class="line">			stk.push(c);</div><div class="line">		    break;</div><div class="line">		default:</div><div class="line">			if (stk.length==0 || pair[c]!=stk.pop()) &#123;</div><div class="line">				return false;</div><div class="line">			&#125;</div><div class="line">		&#125;	</div><div class="line">	&#125;</div><div class="line">	if (stk.length==0) return true;</div><div class="line">	return false;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>76 / 76 test cases passed.<br>Runtime: 52 ms<br>Your runtime beats 100.00 % of javascript submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" data-id="cjo0rf9360023totwnf8alnug" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-database-and-mysql-knowledge-points" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/16/database-and-mysql-knowledge-points/" class="article-date">
+  <time datetime="2018-10-16T15:16:04.000Z" itemprop="datePublished">2018-10-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/16/database-and-mysql-knowledge-points/">Knowlege points of database especially mysql</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h1><p>The best way to improve the performance of <strong>SELECT operations</strong> is to create indexes on one or more of the columns that are tested in the query.<br>Indexes are used to find rows with specific column values quickly. Without an index, MySQL must begin with the first row and then read through the entire table to find the relevant rows. The larger the table, the more this costs. If the table has an index for the columns in question, MySQL can quickly determine the position to seek to in the middle of the data file without having to look at all the data. If a table has 1,000 rows, this is at least 100 times faster than reading sequentially. </p>
+<h2 id="Select"><a href="#Select" class="headerlink" title="Select"></a>Select</h2><h3 id="表扫描（table-scan）"><a href="#表扫描（table-scan）" class="headerlink" title="表扫描（table scan）"></a>表扫描（table scan）</h3><ul>
+<li>在表扫描中，每一个表中的文件块都会被顺序扫描，而且每一个记录都会被测试，看它是否会满足条件</li>
+<li>表扫描是在没有索引的情况下进行的</li>
+</ul>
+<h3 id="索引扫描（index-scan）"><a href="#索引扫描（index-scan）" class="headerlink" title="索引扫描（index scan）"></a>索引扫描（index scan）</h3><ul>
+<li>使用索引的扫描算法称之为索引扫描</li>
+<li>当有索引的时候，选择运算就会执行索引扫描</li>
+</ul>
+<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><h2 id="Truncate-diff-Delete"><a href="#Truncate-diff-Delete" class="headerlink" title="Truncate diff Delete"></a>Truncate diff Delete</h2><p>TRUNCATE TABLE empties a table completely. It requires the DROP privilege.</p>
+<p>Logically, TRUNCATE TABLE is similar to a DELETE statement that deletes all rows, or a sequence of DROP TABLE and CREATE TABLE statements. To achieve high performance, it bypasses the DML method of deleting data. Thus, <strong>it cannot be rolled back, it does not cause ON DELETE triggers to fire, and it cannot be performed for InnoDB tables with parent-child foreign key relationships.</strong></p>
+<p>Although TRUNCATE TABLE is similar to DELETE, <strong>it is classified as a DDL statement rather than a DML statement.</strong></p>
+<ul>
+<li>Any AUTO_INCREMENT value is reset to its start value. This is true even for MyISAM and InnoDB, which normally do not reuse sequence values.</li>
+<li>When used with partitioned tables, TRUNCATE TABLE preserves the partitioning; that is, the data and index files are dropped and re-created, while the partition definitions (.par) file is unaffected.</li>
+<li>The TRUNCATE TABLE statement does not invoke ON DELETE triggers. </li>
+</ul>
+<h3 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h3><ul>
+<li><a href="https://dba.stackexchange.com/questions/128843/truncate-doesnt-run-on-delete-trigger-true-or-false/128850" target="_blank" rel="external">“TRUNCATE doesn’t run ON DELETE trigger” true or false</a></li>
+<li><a href="https://stackoverflow.com/questions/35295644/truncate-doesnt-run-on-delete-trigger" target="_blank" rel="external">TRUNCATE doesn’t run ON DELETE trigger?</a></li>
+<li><a href="https://www.quora.com/What-is-the-main-difference-between-Truncate-Delete-and-Drop-in-a-database" target="_blank" rel="external">What is the main difference between Truncate, Delete and Drop in a database?</a></li>
+</ul>
+<h2 id="Partitioning"><a href="#Partitioning" class="headerlink" title="Partitioning"></a>Partitioning</h2><p>MySQL 5.6 Community binaries provided by Oracle include partitioning support.</p>
+<pre><code>SELECT PLUGIN_NAME as Name, PLUGIN_VERSION as Version, PLUGIN_STATUS as Status FROM INFORMATION_SCHEMA.PLUGINS WHERE PLUGIN_TYPE=&apos;STORAGE ENGINE&apos;;
+</code></pre><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Version</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>partition</td>
+<td>1.0</td>
+<td>ACTIVE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Sharding"><a href="#Sharding" class="headerlink" title="Sharding"></a>Sharding</h2><ul>
+<li>分片、分库分表（Sharding）</li>
+<li>以 MySQL 为例，分库分表从阶段应该拆分为分表、分库，一般来说是先进行分表，分表的原动力在于  MySQL 单表性能问题</li>
+<li>是由于业务的不可控，所以大家往往采取比较保守的策略，这就是分表的原因。</li>
+<li>分库主要由于 MySQL 容量上，MySQL 的写入是很昂贵的操作。目前有一些云 RDS 通过计算与存储分离、log is database 的理念来很大程度解决了写入扩大的问题，但在这之前，更为普遍的解决方案就是把一个集群拆分成 N 个集群，即分库分表（sharding）。为了规避热点问题，绝大多数采用的方法就是 hash 切分，也有极少的范围、或者基于 Mapping 的查询切分。</li>
+<li>既然做了分表，那数据的分发、路由就需要进行处理，自下而上分为三层，分别 DB 层、中间层、应用层。DB 层实现，简单来说就是把路由信息加入到某个 Metedata 节点，同时加上一些诸如读写分离、HA 整合成一个 DB 服务或者产品，但这种方案实现复杂度非常高，有的逐步演变成了一种新的数据库，更为常见的是在中间层实现，而中间层又根据偏向 DB 还是偏向应用分为 DB proxy 和 JDBC proxy。</li>
+<li>DB proxy高度依赖网络组件，它需要诸如 LVS/F5 等 VIP 来实现流量的负载均衡，如果跨 IDC，还依赖诸如 DNS 进行IDC 分发。同时部分 DBproxy 对 Prepare 这类操作支持不友好，所以它的问题概括来说：<ul>
+<li>链路过长，每层都会增加响应时间</li>
+<li>网络单点，并且往往是整个公司层面的单点</li>
+<li>部分产品对Prepare 应用不友好，需要绑定 connection 信息</li>
+</ul>
+</li>
+<li>JDBC proxy最大的问题是违背了 DB 透明的原则，它需要对不同的语言编写 Driver，概括来说：<ul>
+<li>语言限制，总会遭到一批 RD 同学的吐槽 “世界上最好的语言竟然不支持！”</li>
+<li>接入繁琐</li>
+<li>DB 不透明</li>
+</ul>
+</li>
+</ul>
+<h3 id="ref-1"><a href="#ref-1" class="headerlink" title="ref"></a>ref</h3><ul>
+<li><a href="https://dzone.com/articles/challenges-of-sharding-mysql" target="_blank" rel="external">Challenges of Sharding MySQL</a></li>
+<li><a href="https://medium.com/@Pinterest_Engineering/sharding-pinterest-how-we-scaled-our-mysql-fleet-3f341e96ca6f" target="_blank" rel="external">Sharding Pinterest: How we scaled our MySQL fleet</a></li>
+<li><a href="https://stackoverflow.com/questions/5541421/mysql-sharding-approaches" target="_blank" rel="external">MySQL sharding approaches?</a></li>
+<li><a href="https://www.mysql.com/cn/products/cluster/scalability.html" target="_blank" rel="external">MySQL NDB Cluster: Scalability</a></li>
+<li><a href="https://www.jianshu.com/p/6ebafabfddae" target="_blank" rel="external">MySQL Sharding详解</a></li>
+<li><a href="https://dbaplus.cn/news-11-1854-1.html" target="_blank" rel="external">方案虽好，成本先行：数据库Sharding+Proxy实践解析</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="cjo0rf94e0039totwfidnl5gq" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/database/">database</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" class="article-date">
@@ -100,7 +385,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="cjnxw3t2r000wm0twv0bf7zpk" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="cjo0rf91p000ztotwf5y8b2lg" class="article-share-link">Share</a>
       
       
       
@@ -149,7 +434,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="cjnxw3t2s000xm0twbu99fufh" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="cjo0rf91r0011totwi1sknv4h" class="article-share-link">Share</a>
       
       
       
@@ -212,7 +497,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjnxw3t2o000tm0twjni1s785" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjo0rf91m000wtotwsp5n14yb" class="article-share-link">Share</a>
       
       
       
@@ -277,7 +562,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="cjnxw3t2p000um0twikbxxsqn" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="cjo0rf91o000xtotwjcdanib8" class="article-share-link">Share</a>
       
       
       
@@ -322,7 +607,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjnxw3t2i000lm0twkly0y9hw" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjo0rf91b000ltotwtwu3otoe" class="article-share-link">Share</a>
       
       
       
@@ -378,7 +663,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjnxw3t2h000jm0twe1bkbqiw" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjo0rf919000jtotwq3kfprui" class="article-share-link">Share</a>
       
       
       
@@ -438,183 +723,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjnxw3t2j000mm0twpmn5zwwi" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" class="article-date">
-  <time datetime="2018-09-09T19:33:12.000Z" itemprop="datePublished">2018-09-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/">LeetCode - Algorithms - 121. Best Time to Buy and Sell Stock</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>虽然难度标为Easy，但自己居然提交了好几次才通过了，而且是因为犯了逻辑错误。最后用个二重循环，倒也简单，但性能不好，不知道高效算法是如何做的？</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int maxProfit(int[] prices) &#123;</div><div class="line">    	if (prices==null || prices.length==0)</div><div class="line">    		return 0;</div><div class="line">        int r = 0;</div><div class="line">        for(int i=0;i&lt;prices.length-1;i++) &#123;</div><div class="line">        	for(int j=prices.length-1;j&gt;i;j--) &#123;</div><div class="line">        		if (prices[j]-prices[i]&gt;r) &#123;</div><div class="line">        			r = prices[j]-prices[i];</div><div class="line">        		&#125;</div><div class="line">        	&#125;</div><div class="line">        &#125;</div><div class="line">        return r;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果</p>
-<blockquote>
-<p>200 / 200 test cases passed.<br>Runtime: 415 ms<br>Your runtime beats 4.30 % of java submissions.</p>
-</blockquote>
-<p>在网上人家的一个O(n)时间复杂度的算法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int maxProfit(int[] prices) &#123;</div><div class="line">    	if (prices==null || prices.length&lt;=1)</div><div class="line">    		return 0;</div><div class="line">        int r = 0;</div><div class="line">        int minPrice = prices[0];</div><div class="line">        for(int i=1;i&lt;prices.length;i++) &#123;</div><div class="line">        	r = Math.max(r, prices[i]-minPrice);</div><div class="line">        	minPrice = Math.min(minPrice, prices[i]);</div><div class="line">        &#125;</div><div class="line">        return r;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果：</p>
-<blockquote>
-<p>200 / 200 test cases passed.<br>Runtime: 2 ms<br>Your runtime beats 32.88 % of java submissions.</p>
-</blockquote>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><h2 id="O-n2"><a href="#O-n2" class="headerlink" title="O(n2)"></a>O(n<sup>2</sup>)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number[]&#125; prices</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var maxProfit = function(prices) &#123;</div><div class="line">	if (prices==null || prices.length==0)</div><div class="line">		return 0;</div><div class="line">	var r=0;</div><div class="line">	var x = 0;</div><div class="line">	for(var i=0;i&lt;prices.length-1;i++) &#123;</div><div class="line">		for(var j=prices.length-1;j&gt;i;j--) &#123;</div><div class="line">			x = prices[j]-prices[i];</div><div class="line">			if (x&gt;r)</div><div class="line">				r = x;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	return r;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果</p>
-<blockquote>
-<p>200 / 200 test cases passed.<br>Runtime: 524 ms<br>Your runtime beats 7.71 % of javascript submissions.</p>
-</blockquote>
-<h2 id="O-n"><a href="#O-n" class="headerlink" title="O(n)"></a>O(n)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number[]&#125; prices</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var maxProfit = function(prices) &#123;</div><div class="line">	if (prices==null || prices.length&lt;=1)</div><div class="line">		return 0;</div><div class="line">	var r=0;</div><div class="line">	var minPrice = prices[0];</div><div class="line">	for(var i=1;i&lt;prices.length;i++) &#123;</div><div class="line">		r = Math.max(r,prices[i]-minPrice);</div><div class="line">		minPrice = Math.min(minPrice,prices[i]);</div><div class="line">	&#125;</div><div class="line">	return r;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果</p>
-<blockquote>
-<p>200 / 200 test cases passed.<br>Runtime: 60 ms<br>Your runtime beats 84.89 % of javascript submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cjnxw3t2l000pm0twi5lm28i7" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-sites-for-learn-english" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/05/sites-for-learn-english/" class="article-date">
-  <time datetime="2018-09-05T22:28:42.000Z" itemprop="datePublished">2018-09-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/05/sites-for-learn-english/">英语学习相关网站</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="听力"><a href="#听力" class="headerlink" title="听力"></a>听力</h1><p>60-Second Science<br><a href="https://www.scientificamerican.com/podcast/60-second-science/" target="_blank" rel="external">https://www.scientificamerican.com/podcast/60-second-science/</a></p>
-<p>Videos &amp; Podcasts - Scientific American<br><a href="https://www.scientificamerican.com/multimedia/" target="_blank" rel="external">https://www.scientificamerican.com/multimedia/</a></p>
-<p>TED Radio Hour<br><a href="https://www.npr.org/programs/ted-radio-hour" target="_blank" rel="external">https://www.npr.org/programs/ted-radio-hour</a></p>
-<p>BBC - World Service - Home<br><a href="https://www.bbc.co.uk/worldserviceradio" target="_blank" rel="external">https://www.bbc.co.uk/worldserviceradio</a></p>
-<p>BBC Learning English | Pronunciation Tips<br><a href="http://www.bbc.co.uk/worldservice/learningenglish/grammar/pron/" target="_blank" rel="external">http://www.bbc.co.uk/worldservice/learningenglish/grammar/pron/</a></p>
-<p>Learning English - 6 Minute English<br><a href="http://www.bbc.co.uk/worldservice/learningenglish/general/sixminute/" target="_blank" rel="external">http://www.bbc.co.uk/worldservice/learningenglish/general/sixminute/</a></p>
-<h1 id="词典"><a href="#词典" class="headerlink" title="词典"></a>词典</h1><p>Dictionary by Merriam-Webster: America’s most-trusted online dictionary<br><a href="https://www.merriam-webster.com/" target="_blank" rel="external">https://www.merriam-webster.com/</a></p>
-<p>Collins Dictionary<br><a href="https://www.collinsdictionary.com/" target="_blank" rel="external">https://www.collinsdictionary.com/</a></p>
-<h1 id="报刊"><a href="#报刊" class="headerlink" title="报刊"></a>报刊</h1><p><a href="https://medium.com/" target="_blank" rel="external">https://medium.com/</a></p>
-<p><a href="https://www.theatlantic.com/" target="_blank" rel="external">https://www.theatlantic.com/</a></p>
-<p><a href="https://www.newyorker.com/" target="_blank" rel="external">https://www.newyorker.com/</a></p>
-<p><a href="https://www.npr.org/" target="_blank" rel="external">https://www.npr.org/</a></p>
-<p><a href="https://www.economist.com/" target="_blank" rel="external">https://www.economist.com/</a></p>
-<p><a href="https://www.bloomberg.com/businessweek" target="_blank" rel="external">https://www.bloomberg.com/businessweek</a></p>
-<p><a href="https://www.bloomberg.com/canada" target="_blank" rel="external">https://www.bloomberg.com/canada</a></p>
-<p><a href="https://www.theguardian.com/observer" target="_blank" rel="external">https://www.theguardian.com/observer</a></p>
-<p><a href="https://www.theguardian.com/international" target="_blank" rel="external">https://www.theguardian.com/international</a></p>
-<p><a href="http://www.bbc.com/" target="_blank" rel="external">http://www.bbc.com/</a></p>
-<p><a href="https://www.telegraph.co.uk/" target="_blank" rel="external">https://www.telegraph.co.uk/</a></p>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>A Free Online Talking Dictionary of English Pronunciation<br><a href="https://www.howjsay.com/" target="_blank" rel="external">https://www.howjsay.com/</a></p>
-<p>UsingEnglish.com was established in 2002 and is a general English language site specialising in English as a Second Language (ESL).<br><a href="https://www.usingenglish.com/" target="_blank" rel="external">https://www.usingenglish.com/</a></p>
-<p>Discovery Canada<br><a href="https://www.discovery.ca/Home" target="_blank" rel="external">https://www.discovery.ca/Home</a></p>
-<p>English Language &amp; Usage Stack Exchange is a question and answer site for linguists, etymologists, and serious English language enthusiasts.<br><a href="https://english.stackexchange.com/" target="_blank" rel="external">https://english.stackexchange.com/</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="cjnxw3t5w004em0tw0env518n" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Pascal-Triangle-II" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" class="article-date">
-  <time datetime="2018-09-05T14:58:59.000Z" itemprop="datePublished">2018-09-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/">LeetCode - Algorithms - 119. Pascal&#39;s Triangle II</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://leetcode.com/problems/pascals-triangle/description/" target="_blank" rel="external">118. Pascal’s Triangle</a> 的变脸题，用递归的方式实现了，还没想通如何用动态规划的方式实现。</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public List&lt;Integer&gt; getRow(int rowIndex) &#123;</div><div class="line">    	List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;();</div><div class="line">    	if (rowIndex==0) &#123;</div><div class="line">    		list.add(1);</div><div class="line">    		return list;</div><div class="line">    	&#125;</div><div class="line">    	if (rowIndex==1) &#123;</div><div class="line">    		list.add(1);</div><div class="line">    		list.add(1);</div><div class="line">    		return list;</div><div class="line">    	&#125;    	</div><div class="line">    	if (rowIndex&gt;=2) &#123;</div><div class="line">    		List&lt;Integer&gt; row_pre = getRow(rowIndex-1);</div><div class="line">    		list.add(1);</div><div class="line">    		for(int i=1;i&lt;rowIndex;i++) &#123;</div><div class="line">    			list.add(row_pre.get(i)+row_pre.get(i-1));</div><div class="line">    		&#125;</div><div class="line">    		list.add(1);</div><div class="line">    	&#125;</div><div class="line">    	return list;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果：</p>
-<blockquote>
-<p>34 / 34 test cases passed.<br>Runtime: 1 ms<br>Your runtime beats 89.30 % of java submissions.</p>
-</blockquote>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; rowIndex</div><div class="line"> * @return &#123;number[]&#125;</div><div class="line"> */</div><div class="line">var getRow = function(rowIndex) &#123;</div><div class="line">	if (rowIndex==0) &#123;</div><div class="line">		return [1];</div><div class="line">	&#125;</div><div class="line">	if (rowIndex==1) &#123;</div><div class="line">		return [1,1];</div><div class="line">	&#125;</div><div class="line">	var arr = [];</div><div class="line">	if (rowIndex&gt;=2) &#123;</div><div class="line">		arr.push(1);</div><div class="line">		var preRow = getRow(rowIndex-1);</div><div class="line">		for(var i=1;i&lt;rowIndex;i++)</div><div class="line">			arr.push(preRow[i]+preRow[i-1]);</div><div class="line">		arr.push(1);</div><div class="line">	&#125;</div><div class="line">	return arr;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果：</p>
-<blockquote>
-<p>34 / 34 test cases passed.<br>Runtime: 52 ms<br>Your runtime beats 93.58 % of javascript submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="cjnxw3t3f001mm0twkzbkt93y" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjo0rf91c000mtotwabhkwy7p" class="article-share-link">Share</a>
       
       
       
@@ -665,7 +774,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
     </div>
   </div>
 
@@ -678,23 +787,23 @@
       <ul>
         
           <li>
+            <a href="/2018/11/02/LeetCode-Algorithms-Binary-Tree-Postorder-Traversal/">LeetCode - Algorithms - 145. Binary Tree Postorder Traversal</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/02/LeetCode-Algorithms-Binary-Tree-Preorder-Traversal/">LeetCode - Algorithms - 144. Binary Tree Preorder Traversal</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/01/LeetCode-Algorithms-Binary-Tree-Level-Order-Traversal/">LeetCode - Algorithms - 102. Binary Tree Level Order Traversal</a>
+          </li>
+        
+          <li>
             <a href="/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/">LeetCode - Algorithms - 94. Binary Tree Inorder Traversal</a>
           </li>
         
           <li>
             <a href="/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/">LeetCode - Algorithms - 29. Divide Two Integers</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/30/LeetCode-Algorithms-Min-Stack/">LeetCode - Algorithms - 155. Min Stack</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/29/LeetCode-Algorithms-Reverse-Bits/">LeetCode - Algorithms - 190. Reverse Bits</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/27/Bitwise-and-Bit-Shift/">Bitwise and Bit Shift</a>
           </li>
         
       </ul>

@@ -65,6 +65,182 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" class="article-date">
+  <time datetime="2018-09-09T19:33:12.000Z" itemprop="datePublished">2018-09-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/">LeetCode - Algorithms - 121. Best Time to Buy and Sell Stock</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>虽然难度标为Easy，但自己居然提交了好几次才通过了，而且是因为犯了逻辑错误。最后用个二重循环，倒也简单，但性能不好，不知道高效算法是如何做的？</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int maxProfit(int[] prices) &#123;</div><div class="line">    	if (prices==null || prices.length==0)</div><div class="line">    		return 0;</div><div class="line">        int r = 0;</div><div class="line">        for(int i=0;i&lt;prices.length-1;i++) &#123;</div><div class="line">        	for(int j=prices.length-1;j&gt;i;j--) &#123;</div><div class="line">        		if (prices[j]-prices[i]&gt;r) &#123;</div><div class="line">        			r = prices[j]-prices[i];</div><div class="line">        		&#125;</div><div class="line">        	&#125;</div><div class="line">        &#125;</div><div class="line">        return r;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果</p>
+<blockquote>
+<p>200 / 200 test cases passed.<br>Runtime: 415 ms<br>Your runtime beats 4.30 % of java submissions.</p>
+</blockquote>
+<p>在网上人家的一个O(n)时间复杂度的算法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int maxProfit(int[] prices) &#123;</div><div class="line">    	if (prices==null || prices.length&lt;=1)</div><div class="line">    		return 0;</div><div class="line">        int r = 0;</div><div class="line">        int minPrice = prices[0];</div><div class="line">        for(int i=1;i&lt;prices.length;i++) &#123;</div><div class="line">        	r = Math.max(r, prices[i]-minPrice);</div><div class="line">        	minPrice = Math.min(minPrice, prices[i]);</div><div class="line">        &#125;</div><div class="line">        return r;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>200 / 200 test cases passed.<br>Runtime: 2 ms<br>Your runtime beats 32.88 % of java submissions.</p>
+</blockquote>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><h2 id="O-n2"><a href="#O-n2" class="headerlink" title="O(n2)"></a>O(n<sup>2</sup>)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number[]&#125; prices</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var maxProfit = function(prices) &#123;</div><div class="line">	if (prices==null || prices.length==0)</div><div class="line">		return 0;</div><div class="line">	var r=0;</div><div class="line">	var x = 0;</div><div class="line">	for(var i=0;i&lt;prices.length-1;i++) &#123;</div><div class="line">		for(var j=prices.length-1;j&gt;i;j--) &#123;</div><div class="line">			x = prices[j]-prices[i];</div><div class="line">			if (x&gt;r)</div><div class="line">				r = x;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	return r;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果</p>
+<blockquote>
+<p>200 / 200 test cases passed.<br>Runtime: 524 ms<br>Your runtime beats 7.71 % of javascript submissions.</p>
+</blockquote>
+<h2 id="O-n"><a href="#O-n" class="headerlink" title="O(n)"></a>O(n)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number[]&#125; prices</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var maxProfit = function(prices) &#123;</div><div class="line">	if (prices==null || prices.length&lt;=1)</div><div class="line">		return 0;</div><div class="line">	var r=0;</div><div class="line">	var minPrice = prices[0];</div><div class="line">	for(var i=1;i&lt;prices.length;i++) &#123;</div><div class="line">		r = Math.max(r,prices[i]-minPrice);</div><div class="line">		minPrice = Math.min(minPrice,prices[i]);</div><div class="line">	&#125;</div><div class="line">	return r;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果</p>
+<blockquote>
+<p>200 / 200 test cases passed.<br>Runtime: 60 ms<br>Your runtime beats 84.89 % of javascript submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cjo0rf91f000ptotw3u88dztz" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-sites-for-learn-english" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/05/sites-for-learn-english/" class="article-date">
+  <time datetime="2018-09-05T22:28:42.000Z" itemprop="datePublished">2018-09-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/05/sites-for-learn-english/">英语学习相关网站</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="听力"><a href="#听力" class="headerlink" title="听力"></a>听力</h1><p>60-Second Science<br><a href="https://www.scientificamerican.com/podcast/60-second-science/" target="_blank" rel="external">https://www.scientificamerican.com/podcast/60-second-science/</a></p>
+<p>Videos &amp; Podcasts - Scientific American<br><a href="https://www.scientificamerican.com/multimedia/" target="_blank" rel="external">https://www.scientificamerican.com/multimedia/</a></p>
+<p>TED Radio Hour<br><a href="https://www.npr.org/programs/ted-radio-hour" target="_blank" rel="external">https://www.npr.org/programs/ted-radio-hour</a></p>
+<p>BBC - World Service - Home<br><a href="https://www.bbc.co.uk/worldserviceradio" target="_blank" rel="external">https://www.bbc.co.uk/worldserviceradio</a></p>
+<p>BBC Learning English | Pronunciation Tips<br><a href="http://www.bbc.co.uk/worldservice/learningenglish/grammar/pron/" target="_blank" rel="external">http://www.bbc.co.uk/worldservice/learningenglish/grammar/pron/</a></p>
+<p>Learning English - 6 Minute English<br><a href="http://www.bbc.co.uk/worldservice/learningenglish/general/sixminute/" target="_blank" rel="external">http://www.bbc.co.uk/worldservice/learningenglish/general/sixminute/</a></p>
+<h1 id="词典"><a href="#词典" class="headerlink" title="词典"></a>词典</h1><p>Dictionary by Merriam-Webster: America’s most-trusted online dictionary<br><a href="https://www.merriam-webster.com/" target="_blank" rel="external">https://www.merriam-webster.com/</a></p>
+<p>Collins Dictionary<br><a href="https://www.collinsdictionary.com/" target="_blank" rel="external">https://www.collinsdictionary.com/</a></p>
+<h1 id="报刊"><a href="#报刊" class="headerlink" title="报刊"></a>报刊</h1><p><a href="https://medium.com/" target="_blank" rel="external">https://medium.com/</a></p>
+<p><a href="https://www.theatlantic.com/" target="_blank" rel="external">https://www.theatlantic.com/</a></p>
+<p><a href="https://www.newyorker.com/" target="_blank" rel="external">https://www.newyorker.com/</a></p>
+<p><a href="https://www.npr.org/" target="_blank" rel="external">https://www.npr.org/</a></p>
+<p><a href="https://www.economist.com/" target="_blank" rel="external">https://www.economist.com/</a></p>
+<p><a href="https://www.bloomberg.com/businessweek" target="_blank" rel="external">https://www.bloomberg.com/businessweek</a></p>
+<p><a href="https://www.bloomberg.com/canada" target="_blank" rel="external">https://www.bloomberg.com/canada</a></p>
+<p><a href="https://www.theguardian.com/observer" target="_blank" rel="external">https://www.theguardian.com/observer</a></p>
+<p><a href="https://www.theguardian.com/international" target="_blank" rel="external">https://www.theguardian.com/international</a></p>
+<p><a href="http://www.bbc.com/" target="_blank" rel="external">http://www.bbc.com/</a></p>
+<p><a href="https://www.telegraph.co.uk/" target="_blank" rel="external">https://www.telegraph.co.uk/</a></p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>A Free Online Talking Dictionary of English Pronunciation<br><a href="https://www.howjsay.com/" target="_blank" rel="external">https://www.howjsay.com/</a></p>
+<p>UsingEnglish.com was established in 2002 and is a general English language site specialising in English as a Second Language (ESL).<br><a href="https://www.usingenglish.com/" target="_blank" rel="external">https://www.usingenglish.com/</a></p>
+<p>Discovery Canada<br><a href="https://www.discovery.ca/Home" target="_blank" rel="external">https://www.discovery.ca/Home</a></p>
+<p>English Language &amp; Usage Stack Exchange is a question and answer site for linguists, etymologists, and serious English language enthusiasts.<br><a href="https://english.stackexchange.com/" target="_blank" rel="external">https://english.stackexchange.com/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="cjo0rf96t004mtotwkri0s5nw" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Pascal-Triangle-II" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" class="article-date">
+  <time datetime="2018-09-05T14:58:59.000Z" itemprop="datePublished">2018-09-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/">LeetCode - Algorithms - 119. Pascal&#39;s Triangle II</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://leetcode.com/problems/pascals-triangle/description/" target="_blank" rel="external">118. Pascal’s Triangle</a> 的变脸题，用递归的方式实现了，还没想通如何用动态规划的方式实现。</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public List&lt;Integer&gt; getRow(int rowIndex) &#123;</div><div class="line">    	List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;();</div><div class="line">    	if (rowIndex==0) &#123;</div><div class="line">    		list.add(1);</div><div class="line">    		return list;</div><div class="line">    	&#125;</div><div class="line">    	if (rowIndex==1) &#123;</div><div class="line">    		list.add(1);</div><div class="line">    		list.add(1);</div><div class="line">    		return list;</div><div class="line">    	&#125;    	</div><div class="line">    	if (rowIndex&gt;=2) &#123;</div><div class="line">    		List&lt;Integer&gt; row_pre = getRow(rowIndex-1);</div><div class="line">    		list.add(1);</div><div class="line">    		for(int i=1;i&lt;rowIndex;i++) &#123;</div><div class="line">    			list.add(row_pre.get(i)+row_pre.get(i-1));</div><div class="line">    		&#125;</div><div class="line">    		list.add(1);</div><div class="line">    	&#125;</div><div class="line">    	return list;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>34 / 34 test cases passed.<br>Runtime: 1 ms<br>Your runtime beats 89.30 % of java submissions.</p>
+</blockquote>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; rowIndex</div><div class="line"> * @return &#123;number[]&#125;</div><div class="line"> */</div><div class="line">var getRow = function(rowIndex) &#123;</div><div class="line">	if (rowIndex==0) &#123;</div><div class="line">		return [1];</div><div class="line">	&#125;</div><div class="line">	if (rowIndex==1) &#123;</div><div class="line">		return [1,1];</div><div class="line">	&#125;</div><div class="line">	var arr = [];</div><div class="line">	if (rowIndex&gt;=2) &#123;</div><div class="line">		arr.push(1);</div><div class="line">		var preRow = getRow(rowIndex-1);</div><div class="line">		for(var i=1;i&lt;rowIndex;i++)</div><div class="line">			arr.push(preRow[i]+preRow[i-1]);</div><div class="line">		arr.push(1);</div><div class="line">	&#125;</div><div class="line">	return arr;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>34 / 34 test cases passed.<br>Runtime: 52 ms<br>Your runtime beats 93.58 % of javascript submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="cjo0rf92r001qtotwgqcnmews" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Pascal-Triangle" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" class="article-date">
@@ -106,7 +282,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="cjnxw3t3h001om0twv59uct9f" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="cjo0rf92s001stotweoe83k0l" class="article-share-link">Share</a>
       
       
       
@@ -159,7 +335,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="cjnxw3t1p0003m0tw3kn2sr5p" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="cjo0rf8zz0003totw46clusfx" class="article-share-link">Share</a>
       
       
       
@@ -210,7 +386,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" data-id="cjnxw3t2x0013m0twfbhe0h57" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" data-id="cjo0rf91w0017totw5v1pzprh" class="article-share-link">Share</a>
       
       
       
@@ -288,7 +464,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/" data-id="cjnxw3t3r001xm0tw0cw7goar" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/" data-id="cjo0rf9330020totwdtmw3u4u" class="article-share-link">Share</a>
       
       
       
@@ -357,7 +533,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/" data-id="cjnxw3t2u000zm0tw88eopr4u" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/" data-id="cjo0rf91t0013totw1z4tn5pw" class="article-share-link">Share</a>
       
       
       
@@ -411,7 +587,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/22/Java8-tricks/" data-id="cjnxw3t25000em0twkx8b0073" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/22/Java8-tricks/" data-id="cjo0rf915000etotwe81txkpg" class="article-share-link">Share</a>
       
       
       
@@ -473,193 +649,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" data-id="cjnxw3t310019m0tw892vwi3c" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" data-id="cjo0rf925001etotw63cxlq02" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Reverse-String" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/08/21/LeetCode-Algorithms-Reverse-String/" class="article-date">
-  <time datetime="2018-08-22T02:51:15.000Z" itemprop="datePublished">2018-08-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/21/LeetCode-Algorithms-Reverse-String/">LeetCode - Algorithms - 344. Reverse String</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这题确实easy,做这题倒真可以脱离IDE在leetcode编辑器里刷题了。<br>做这题，又犯了一次java与js字符串的小错误，在Java里获取String长度的length()是method，在js里获取字符串长度的length是property，老是搞混淆了。</p>
-<h1 id="Javascript"><a href="#Javascript" class="headerlink" title="Javascript"></a>Javascript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;string&#125; s</div><div class="line"> * @return &#123;string&#125;</div><div class="line"> */</div><div class="line">var reverseString = function(s) &#123;</div><div class="line">    var r = &quot;&quot;;</div><div class="line">    if (s!=null &amp;&amp; s.length&gt;0) &#123;</div><div class="line">        for(var i=s.length-1;i&gt;=0;i--) &#123;</div><div class="line">            r+=s[i];</div><div class="line">        &#125;        </div><div class="line">    &#125;</div><div class="line">    return r;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>性能不错，LeetCode执行显示：</p>
-<blockquote>
-<p>476 / 476 test cases passed.<br>Runtime: 72 ms<br>Your runtime beats 96.31 % of javascript submissions.</p>
-</blockquote>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="LOOP-SB"><a href="#LOOP-SB" class="headerlink" title="LOOP+SB"></a>LOOP+SB</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public String reverseString(String s) &#123;</div><div class="line">        StringBuilder sb = new StringBuilder();</div><div class="line">        if (s!=null &amp;&amp; !s.isEmpty()) &#123;</div><div class="line">            for(int i=s.length()-1;i&gt;=0;i--) &#123;</div><div class="line">                sb.append(s.charAt(i));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return sb.toString();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>跟js写法差不多，这java代码的性能倒不行</p>
-<blockquote>
-<p>476 / 476 test cases passed.<br>Runtime: 4 ms<br>Your runtime beats 13.87 % of java submissions.</p>
-</blockquote>
-<h2 id="SB"><a href="#SB" class="headerlink" title="SB"></a>SB</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public String reverseString(String s) &#123;</div><div class="line">        String r = &quot;&quot;;</div><div class="line">        if (s!=null &amp;&amp; !s.isEmpty()) &#123;</div><div class="line">        	StringBuilder sb = new StringBuilder(s);</div><div class="line">        	r = sb.reverse().toString();</div><div class="line">        &#125;</div><div class="line">        return r;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>直接用StringBuilder的reverse()，用StringBuffer好像也类似，性能没什么变化</p>
-<blockquote>
-<p>476 / 476 test cases passed.<br>Runtime: 4 ms<br>Your runtime beats 13.87 % of java submissions.</p>
-</blockquote>
-<h2 id="逆转字符数组"><a href="#逆转字符数组" class="headerlink" title="逆转字符数组"></a>逆转字符数组</h2><h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><ul>
-<li><a href="https://stackoverflow.com/questions/2439141/what-is-the-most-efficient-algorithm-for-reversing-a-string-in-java" target="_blank" rel="external">What is the most efficient algorithm for reversing a String in Java?</a></li>
-<li><a href="https://www.baeldung.com/java-invert-array" target="_blank" rel="external">How to Invert an Array in Java</a></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public String reverseString(String s) &#123;</div><div class="line">    	String r = &quot;&quot;;</div><div class="line">        if (s!=null &amp;&amp; !s.isEmpty()) &#123;</div><div class="line">        	char[] arr = s.toCharArray();</div><div class="line">            for (int i=0; i&lt;arr.length/2; i++) &#123;</div><div class="line">                char temp = arr[i];</div><div class="line">                arr[i] = arr[arr.length-1-i];</div><div class="line">                arr[arr.length-1-i] = temp;</div><div class="line">            &#125;</div><div class="line">            r = new String(arr);</div><div class="line">        &#125;</div><div class="line">        return r;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>leetcode执行显示：</p>
-<blockquote>
-<p>476 / 476 test cases passed.<br>Runtime: 3 ms<br>Your runtime beats 32.94 % of java submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/21/LeetCode-Algorithms-Reverse-String/" data-id="cjnxw3t3p001wm0twv2zv21rg" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Longest-Increasing-Subsequence" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" class="article-date">
-  <time datetime="2018-08-20T16:43:17.000Z" itemprop="datePublished">2018-08-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/">LeetCode - Algorithms - 300. Longest Increasing Subsequence</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://en.wikipedia.org/wiki/Longest_increasing_subsequence" target="_blank" rel="external">Longest increasing subsequence</a> 看来也是道比较经典的算法题，LeetCode 与 LintCode 都有此题。 </p>
-<ul>
-<li><a href="https://leetcode.com/problems/longest-increasing-subsequence/description/" target="_blank" rel="external">300. Longest Increasing Subsequence</a></li>
-<li><a href="https://www.lintcode.com/problem/longest-increasing-subsequence/description" target="_blank" rel="external">76. Longest Increasing Subsequence</a></li>
-</ul>
-<p>有名的算法网站 <a href="https://rosettacode.org/wiki/Rosetta_Code" target="_blank" rel="external">Rosetta Code</a> 上有此题的N种语言之实现 <a href="https://rosettacode.org/wiki/Longest_increasing_subsequence" target="_blank" rel="external">Longest increasing subsequence</a></p>
-<h1 id="Dynamic-Programming"><a href="#Dynamic-Programming" class="headerlink" title="Dynamic Programming"></a>Dynamic Programming</h1><p>琢磨不出来，上网搜罗</p>
-<p>google关键字:</p>
-<ul>
-<li>longest increasing subsequence dynamic programming</li>
-<li>longest increasing subsequence optimal substructure</li>
-</ul>
-<p>这是相关资料：</p>
-<ul>
-<li>Longest Increasing Subsequence using Dynamic Programming<br><a href="http://www.techiedelight.com/longest-increasing-subsequence-using-dynamic-programming/" target="_blank" rel="external">http://www.techiedelight.com/longest-increasing-subsequence-using-dynamic-programming/</a> 最后是按这篇blog的思路写的代码</li>
-<li><a href="https://www.youtube.com/watch?v=4fQJGoeW5VE" target="_blank" rel="external">Dynamic Programming #1: Longest Increasing Subsequence</a> youtube视频，看了这个明白需要增加一个数组保存对应每个数组slice的递增子序列的长度：length of LIS ends with D[i]</li>
-<li>Longest increasing subsequence<br><a href="https://wcipeg.com/wiki/Longest_increasing_subsequence" target="_blank" rel="external">https://wcipeg.com/wiki/Longest_increasing_subsequence</a></li>
-<li>Can I get an explanation for how optimal substructure is used to find the longest increasing subsequence in this powerpoint slide?<br><a href="https://stackoverflow.com/questions/39074402/can-i-get-an-explanation-for-how-optimal-substructure-is-used-to-find-the-longes" target="_blank" rel="external">https://stackoverflow.com/questions/39074402/can-i-get-an-explanation-for-how-optimal-substructure-is-used-to-find-the-longes</a></li>
-<li>Dynamic Programming – Longest Increasing Subsequence<br><a href="https://algorithms.tutorialhorizon.com/dynamic-programming-longest-increasing-subsequence/" target="_blank" rel="external">https://algorithms.tutorialhorizon.com/dynamic-programming-longest-increasing-subsequence/</a></li>
-</ul>
-<p>代码虽然在LeetCode上跑通了，但还是没有完全理解其中的步骤，还是处于知其然而不知其所以然的阶段，好像有点数学归纳法的意味，也有点像递归，动态规划好像也能用来解决兔子序列问题。</p>
-<h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int lengthOfLIS(int[] nums) &#123;</div><div class="line">    	if (nums.length==0)</div><div class="line">    		return 0;</div><div class="line">    	int[] L = new int[nums.length];</div><div class="line">    	L[0]=1;</div><div class="line">    	for(int i=1;i&lt;nums.length;i++) &#123;</div><div class="line">    		for(int j=0;j&lt;i;j++) &#123;</div><div class="line">    			if(nums[j]&lt;nums[i] &amp;&amp; L[j]&gt;L[i])</div><div class="line">    				L[i] = L[j];</div><div class="line">    		&#125;</div><div class="line">    		L[i]++;</div><div class="line">    	&#125;</div><div class="line">    	return Arrays.stream(L).max().getAsInt();        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>性能不行，LeetCode运行结果显示：</p>
-<blockquote>
-<p>24 / 24 test cases passed.<br>Runtime: 78 ms<br>Your runtime beats 2.00 % of java submissions.</p>
-</blockquote>
-<h2 id="javascript"><a href="#javascript" class="headerlink" title="javascript"></a>javascript</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number[]&#125; nums</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var lengthOfLIS = function(nums) &#123;</div><div class="line">  if (nums==null || nums.length==0)</div><div class="line">      return 0;</div><div class="line">  var arr = new Array(nums.length);</div><div class="line">  for(i=0;i&lt;arr.length;i++)</div><div class="line">    arr[i] = 0;</div><div class="line">	arr[0] = 1;</div><div class="line">  for(i=1;i&lt;nums.length;i++) &#123;</div><div class="line">    for(j=0;j&lt;i;j++) &#123;</div><div class="line">	  if (nums[j]&lt;nums[i] &amp;&amp; arr[j]&gt;arr[i]) &#123;</div><div class="line">	    arr[i] = arr[j];</div><div class="line">	  &#125;</div><div class="line">	&#125;</div><div class="line">	arr[i]++;</div><div class="line">  &#125;</div><div class="line">  var maxLISLen = arr[0];</div><div class="line">  for(var i=1;i&lt;arr.length;i++) &#123;</div><div class="line">    if (arr[i]&gt;maxLISLen) </div><div class="line">	  maxLISLen = arr[i];</div><div class="line">  &#125;</div><div class="line">  return maxLISLen;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果显示：</p>
-<blockquote>
-<p>24 / 24 test cases passed.<br>Runtime: 120 ms</p>
-</blockquote>
-<p>此题使用动态规划的算法看来性能不好，时间复杂度为O(n<sup>2</sup>)，维基百科上说最有效的算法为 <a href="https://en.wikipedia.org/wiki/Patience_sorting" target="_blank" rel="external">Patience sorting</a>，能达到 O(n log n)</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" data-id="cjnxw3t32001bm0twoc55egle" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-IT-coder-vocabulary" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/08/17/IT-coder-vocabulary/" class="article-date">
-  <time datetime="2018-08-17T14:48:54.000Z" itemprop="datePublished">2018-08-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/17/IT-coder-vocabulary/">Vocabulary</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><a href="https://translate.google.com/#en/en/asynchronous" target="_blank" rel="external">asynchronous</a></li>
-<li><a href="https://translate.google.com/#auto/en/algorithm" target="_blank" rel="external">algorithm</a></li>
-<li><a href="https://translate.google.com/#auto/en/integer" target="_blank" rel="external">integer</a></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/17/IT-coder-vocabulary/" data-id="cjnxw3t20000bm0twpaur14yf" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
 
     </footer>
   </div>
@@ -706,7 +700,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
     </div>
   </div>
 
@@ -719,23 +713,23 @@
       <ul>
         
           <li>
+            <a href="/2018/11/02/LeetCode-Algorithms-Binary-Tree-Postorder-Traversal/">LeetCode - Algorithms - 145. Binary Tree Postorder Traversal</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/02/LeetCode-Algorithms-Binary-Tree-Preorder-Traversal/">LeetCode - Algorithms - 144. Binary Tree Preorder Traversal</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/01/LeetCode-Algorithms-Binary-Tree-Level-Order-Traversal/">LeetCode - Algorithms - 102. Binary Tree Level Order Traversal</a>
+          </li>
+        
+          <li>
             <a href="/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/">LeetCode - Algorithms - 94. Binary Tree Inorder Traversal</a>
           </li>
         
           <li>
             <a href="/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/">LeetCode - Algorithms - 29. Divide Two Integers</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/30/LeetCode-Algorithms-Min-Stack/">LeetCode - Algorithms - 155. Min Stack</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/29/LeetCode-Algorithms-Reverse-Bits/">LeetCode - Algorithms - 190. Reverse Bits</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/27/Bitwise-and-Bit-Shift/">Bitwise and Bit Shift</a>
           </li>
         
       </ul>
