@@ -65,6 +65,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Reverse-Integer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/23/LeetCode-Algorithms-Reverse-Integer/" class="article-date">
+  <time datetime="2018-07-23T15:50:25.000Z" itemprop="datePublished">2018-07-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/23/LeetCode-Algorithms-Reverse-Integer/">LeetCode - Algorithms - 7. Reverse Integer</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>自己做出来的naive solution，直接把整数转换成字符串，然后逆转字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int reverse(int x) &#123;</div><div class="line">    	int r = 0;</div><div class="line">    	if (x&gt;Integer.MAX_VALUE || x&lt;Integer.MIN_VALUE) &#123;</div><div class="line">    		return r;</div><div class="line">    	&#125;</div><div class="line">    	String s = Integer.toString(x);</div><div class="line">    	if (s!=null &amp;&amp; !s.isEmpty()) &#123;</div><div class="line">    		String ss = &quot;&quot;;</div><div class="line">    		char c = 0;</div><div class="line">    		if (x&lt;0) </div><div class="line">    			s = s.substring(1);</div><div class="line">    		for(int i=s.length()-1;i&gt;=0;i--) &#123;</div><div class="line">    			c = s.charAt(i);</div><div class="line">    			ss += c;</div><div class="line">    		&#125;</div><div class="line">    		if (x&lt;0)</div><div class="line">    			ss = &apos;-&apos;+ss;</div><div class="line">    		System.out.println(&quot;ss=&quot;+ss);</div><div class="line">    		try &#123;</div><div class="line">    		    r = Integer.parseInt(ss);</div><div class="line">    		&#125; catch (NumberFormatException ex) &#123;</div><div class="line">    			r = 0;</div><div class="line">    		&#125;</div><div class="line">    	&#125;    		</div><div class="line">        return r;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>做 <a href="https://leetcode.com/problems/palindrome-number/description/" target="_blank" rel="external">9. Palindrome Number</a> ，提示Coud you solve it without converting the integer to a string? 发现人家的方法更直接利落，温故而知新，重新实现下，结果被卡在 java int out of range 的问题里，1534236469 逆序数超过Integer.MAX_VALUE 返回 1056389759，题目里就提示了 Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows. 最后想到不如把逆序数变量定义为 long类型，再判断是否超过2147483647(0x7fffffff, 2^31-1)，再把long 安全地转换为int返回，java的long安全转换为int的小问题，google关键字 <code>java long to int</code> 参考了下 <a href="https://stackoverflow.com/questions/1590831/safely-casting-long-to-int-in-java" target="_blank" rel="external">Safely casting long to int in Java</a> 这样就ok了，在leetcode上运行通过。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int reverse(int x) &#123;</div><div class="line">    	if (x&gt;Integer.MAX_VALUE || x&lt;Integer.MIN_VALUE) &#123;</div><div class="line">    		return 0;</div><div class="line">    	&#125;</div><div class="line">    	if (x==0) return 0;</div><div class="line">    	int r = 0;</div><div class="line">    	int remainder = 0;</div><div class="line">    	long reverseNumber = 0L;</div><div class="line">    	for(int t = x&gt;0?x:-x; t&gt;0; t/=10) &#123;</div><div class="line">    		remainder = t%10;</div><div class="line">    		reverseNumber *= 10;</div><div class="line">    		reverseNumber += remainder;</div><div class="line">    	&#125;</div><div class="line">    	if (reverseNumber&gt;Integer.MAX_VALUE)</div><div class="line">    		r = 0;</div><div class="line">    	else </div><div class="line">    		r = Long.valueOf(reverseNumber).intValue();</div><div class="line">    	if (x&lt;0)</div><div class="line">    		r *= -1;    	</div><div class="line">        return r;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>性能还不错，leetcode运行显示</p>
+<blockquote>
+<p>1032 / 1032 test cases passed.<br>Runtime: 21 ms<br>Your runtime beats 97.62 % of java submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Reverse-Integer/" data-id="cjo4rpzkt001oqktwtm491yu3" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Palindrome-Number" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/07/23/LeetCode-Algorithms-Palindrome-Number/" class="article-date">
@@ -103,7 +151,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Palindrome-Number/" data-id="cjo1hm3h8001md0twhol4myci" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Palindrome-Number/" data-id="cjo4rpzk9001eqktwc35kfdtu" class="article-share-link">Share</a>
       
       
       
@@ -160,7 +208,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/22/LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters/" data-id="cjo1hm3gz001fd0tw4fqnk5wh" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/22/LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters/" data-id="cjo4rpzk9001dqktw2a1o9lns" class="article-share-link">Share</a>
       
       
       
@@ -239,7 +287,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/18/New-Concept-English/" data-id="cjo1hm3hv002ad0twrnncyz7m" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/18/New-Concept-English/" data-id="cjo4rpzld002gqktwwc2xih9b" class="article-share-link">Share</a>
       
       
       
@@ -297,7 +345,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/13/bash-shell/" data-id="cjo1hm3ig0034d0twgyg2z079" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/13/bash-shell/" data-id="cjo4rpzln002xqktw396z4jpo" class="article-share-link">Share</a>
       
       
       
@@ -342,13 +390,13 @@
 <p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a href="https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application" target="_blank" rel="external">https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application</a></p>
 <p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a href="https://github.com/didinj/spring-boot-mongodb-react-java-crud" target="_blank" rel="external">https://github.com/didinj/spring-boot-mongodb-react-java-crud</a></p>
 <hr>
-<p>How to Setup Spring-Boot with ReactJS and Webpack<br><a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#111;&#58;&#x68;&#116;&#x74;&#x70;&#115;&#58;&#47;&#x2f;&#109;&#101;&#x64;&#x69;&#x75;&#109;&#46;&#x63;&#111;&#x6d;&#x2f;&#64;&#98;&#101;&#x6e;&#x6a;&#x61;&#x6d;&#105;&#110;&#108;&#105;&#x75;&#x5f;&#52;&#50;&#52;&#55;&#x34;&#x2f;&#104;&#x6f;&#x77;&#45;&#x74;&#111;&#45;&#115;&#x65;&#x74;&#117;&#112;&#45;&#115;&#x70;&#x72;&#105;&#x6e;&#103;&#45;&#x62;&#x6f;&#111;&#x74;&#x2d;&#119;&#x69;&#116;&#104;&#45;&#x72;&#101;&#x61;&#x63;&#x74;&#106;&#x73;&#x2d;&#x61;&#110;&#x64;&#x2d;&#119;&#x65;&#98;&#x70;&#x61;&#99;&#107;&#x2d;&#57;&#x62;&#49;&#57;&#x30;&#x65;&#100;&#x65;&#98;&#x30;&#x63;&#x38;">&#x68;&#116;&#x74;&#x70;&#115;&#58;&#47;&#x2f;&#109;&#101;&#x64;&#x69;&#x75;&#109;&#46;&#x63;&#111;&#x6d;&#x2f;&#64;&#98;&#101;&#x6e;&#x6a;&#x61;&#x6d;&#105;&#110;&#108;&#105;&#x75;&#x5f;&#52;&#50;&#52;&#55;&#x34;&#x2f;&#104;&#x6f;&#x77;&#45;&#x74;&#111;&#45;&#115;&#x65;&#x74;&#117;&#112;&#45;&#115;&#x70;&#x72;&#105;&#x6e;&#103;&#45;&#x62;&#x6f;&#111;&#x74;&#x2d;&#119;&#x69;&#116;&#104;&#45;&#x72;&#101;&#x61;&#x63;&#x74;&#106;&#x73;&#x2d;&#x61;&#110;&#x64;&#x2d;&#119;&#x65;&#98;&#x70;&#x61;&#99;&#107;&#x2d;&#57;&#x62;&#49;&#57;&#x30;&#x65;&#100;&#x65;&#98;&#x30;&#x63;&#x38;</a></p>
+<p>How to Setup Spring-Boot with ReactJS and Webpack<br><a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#x6f;&#58;&#104;&#116;&#116;&#112;&#x73;&#58;&#x2f;&#47;&#109;&#101;&#100;&#105;&#x75;&#x6d;&#x2e;&#99;&#111;&#x6d;&#x2f;&#64;&#x62;&#x65;&#110;&#106;&#97;&#x6d;&#x69;&#110;&#108;&#x69;&#117;&#95;&#52;&#50;&#x34;&#x37;&#52;&#47;&#x68;&#x6f;&#119;&#45;&#x74;&#111;&#45;&#115;&#x65;&#x74;&#117;&#112;&#x2d;&#115;&#112;&#114;&#x69;&#110;&#103;&#45;&#x62;&#x6f;&#111;&#116;&#x2d;&#x77;&#x69;&#116;&#104;&#x2d;&#x72;&#x65;&#97;&#x63;&#116;&#x6a;&#x73;&#x2d;&#97;&#x6e;&#x64;&#x2d;&#x77;&#101;&#98;&#112;&#x61;&#99;&#107;&#45;&#x39;&#x62;&#49;&#x39;&#48;&#x65;&#x64;&#101;&#98;&#48;&#99;&#56;">&#104;&#116;&#116;&#112;&#x73;&#58;&#x2f;&#47;&#109;&#101;&#100;&#105;&#x75;&#x6d;&#x2e;&#99;&#111;&#x6d;&#x2f;&#64;&#x62;&#x65;&#110;&#106;&#97;&#x6d;&#x69;&#110;&#108;&#x69;&#117;&#95;&#52;&#50;&#x34;&#x37;&#52;&#47;&#x68;&#x6f;&#119;&#45;&#x74;&#111;&#45;&#115;&#x65;&#x74;&#117;&#112;&#x2d;&#115;&#112;&#114;&#x69;&#110;&#103;&#45;&#x62;&#x6f;&#111;&#116;&#x2d;&#x77;&#x69;&#116;&#104;&#x2d;&#x72;&#x65;&#97;&#x63;&#116;&#x6a;&#x73;&#x2d;&#97;&#x6e;&#x64;&#x2d;&#x77;&#101;&#98;&#112;&#x61;&#99;&#107;&#45;&#x39;&#x62;&#49;&#x39;&#48;&#x65;&#x64;&#101;&#98;&#48;&#99;&#56;</a></p>
 <p>Spring Boot with ReactJS using WebPack and Yarn.<br><a href="https://github.com/liuben10/spring-boot-react-js-example" target="_blank" rel="external">https://github.com/liuben10/spring-boot-react-js-example</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/10/Spring-Boot-React/" data-id="cjo1hm3i6002pd0tw2b3ctw2h" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/10/Spring-Boot-React/" data-id="cjo4rpzln002sqktwlvkr7svf" class="article-share-link">Share</a>
       
       
       
@@ -435,7 +483,7 @@ and exists(select 1 from stadium t3 where t3.people&gt;=100 and t3.`date`=DATE_A
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/30/LeetCode-Solve-Diary/" data-id="cjo1hm3hr0025d0twje2jksza" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/30/LeetCode-Solve-Diary/" data-id="cjo4rpzqn007nqktw0haoa736" class="article-share-link">Share</a>
       
       
       
@@ -563,7 +611,7 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/29/mysql-points/" data-id="cjo1hm3lc004ed0twv2t0wa4c" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/29/mysql-points/" data-id="cjo4rpzoz004eqktwiikzebel" class="article-share-link">Share</a>
       
       
       
@@ -618,7 +666,7 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/18/db-ppt-digest-ljchen-pku/" data-id="cjo1hm3k6003cd0twyus81r8f" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/18/db-ppt-digest-ljchen-pku/" data-id="cjo4rpzlx0035qktw6zxch2dk" class="article-share-link">Share</a>
       
       
       
@@ -664,57 +712,12 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/17/football-joke/" data-id="cjo1hm3kk003kd0twwt6wj9kv" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/17/football-joke/" data-id="cjo4rpzo5003pqktwez2qtwnt" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/英语/">英语</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-qiniu-founder-xushiwei-quotes" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/16/qiniu-founder-xushiwei-quotes/" class="article-date">
-  <time datetime="2018-06-16T19:09:52.000Z" itemprop="datePublished">2018-06-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/16/qiniu-founder-xushiwei-quotes/">七牛许式伟的感言</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>我为谁提供服务的认知，比我是哪个领域的程序员（工种认知）更重要</li>
-<li>有些程序员只关心技术，而不关心业务，我认为这会制约他们的发展，所以才给了这样的忠告。只关心技术的人很快就会遇到成长的天花板。</li>
-<li>大部分人学习的时候太功利，不太重视学习基本功，比如编译原理。事实上我认为编译原理是非常非常重要的一门基础知识。某种程度上说可能是名字不够好，我个人更喜欢把这个领域叫做文本处理。</li>
-<li>没有正确的编程语言，只有合适自己的语言。选择语言需要基于你对要解决的问题域的理解而做出抉择。当然，这事也和品味有关，不同语言实际上体现的是创始人的个性。不少程序员喜欢把语言看做阵营。我个人没有这种想法，语言说白了只是个工具。</li>
-<li>学习新语言的最好办法是实践。你用它写几个程序解决你实际生产环境你遇到的问题，这比任何方式都有效。我记得我第一个C语言程序是在DOS环境下模仿实现了一个doskey，这个东西挺复杂，涉及编辑器、TSR驻留这些领域知识，一个程序写下来有好几千行。这就是我自己的学习方法。</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/16/qiniu-founder-xushiwei-quotes/" data-id="cjo1hm3le004gd0twd3dlgnxu" class="article-share-link">Share</a>
-      
-      
-      
     </footer>
   </div>
   
@@ -751,7 +754,7 @@ WHERE a1.id=a2.id;
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.57px;">LeetCode</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/React-js/" style="font-size: 11.43px;">React.js</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Spring/" style="font-size: 11.43px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 11.43px;">Spring Boot</a> <a href="/tags/TED/" style="font-size: 10px;">TED</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 17.14px;">english</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 15.71px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/linux/" style="font-size: 11.43px;">linux</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 12.86px;">mysql</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/古文/" style="font-size: 10px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/林语堂/" style="font-size: 10px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 14.29px;">英语</a> <a href="/tags/译言/" style="font-size: 11.43px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.57px;">LeetCode</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/React-js/" style="font-size: 11.43px;">React.js</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Spring/" style="font-size: 12.86px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 11.43px;">Spring Boot</a> <a href="/tags/TED/" style="font-size: 10px;">TED</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 17.14px;">english</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 15.71px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/linux/" style="font-size: 11.43px;">linux</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 12.86px;">mysql</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/古文/" style="font-size: 10px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/林语堂/" style="font-size: 10px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 14.29px;">英语</a> <a href="/tags/译言/" style="font-size: 11.43px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -773,6 +776,10 @@ WHERE a1.id=a2.id;
       <ul>
         
           <li>
+            <a href="/2018/11/05/Spring-Portfolio/">Spring Portfolio</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/03/LeetCode-Algorithms-Validate-Binary-Search-Tree/">LeetCode - Algorithms - 98. Validate Binary Search Tree</a>
           </li>
         
@@ -786,10 +793,6 @@ WHERE a1.id=a2.id;
         
           <li>
             <a href="/2018/11/01/LeetCode-Algorithms-Binary-Tree-Level-Order-Traversal/">LeetCode - Algorithms - 102. Binary Tree Level Order Traversal</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/">LeetCode - Algorithms - 94. Binary Tree Inorder Traversal</a>
           </li>
         
       </ul>
