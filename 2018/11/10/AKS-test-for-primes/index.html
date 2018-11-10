@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>AKS test for primes | A Humble Programmer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Manindra Agrawal &amp;amp; Neeraj Kayal &amp;amp; Nitin Saxena present an unconditional deterministic polynomial-time algorithm that determines whether an input number is prime or composite.  The AKS algorith">
+<meta name="keywords" content="Algorithms,mathematics">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AKS test for primes">
+<meta property="og:url" content="https://hezhigang.github.io/2018/11/10/AKS-test-for-primes/index.html">
+<meta property="og:site_name" content="A Humble Programmer">
+<meta property="og:description" content="Manindra Agrawal &amp;amp; Neeraj Kayal &amp;amp; Nitin Saxena present an unconditional deterministic polynomial-time algorithm that determines whether an input number is prime or composite.  The AKS algorith">
+<meta property="og:updated_time" content="2018-11-10T23:39:14.881Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AKS test for primes">
+<meta name="twitter:description" content="Manindra Agrawal &amp;amp; Neeraj Kayal &amp;amp; Nitin Saxena present an unconditional deterministic polynomial-time algorithm that determines whether an input number is prime or composite.  The AKS algorith">
+  
+    <link rel="alternate" href="/atom.xml" title="A Humble Programmer" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">A Humble Programmer</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Talk is cheap, show me the code.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hezhigang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-AKS-test-for-primes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/10/AKS-test-for-primes/" class="article-date">
+  <time datetime="2018-11-10T13:10:58.000Z" itemprop="datePublished">2018-11-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      AKS test for primes
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>Manindra Agrawal</strong> &amp; <strong>Neeraj Kayal</strong> &amp; <strong>Nitin Saxena</strong> present an unconditional deterministic polynomial-time algorithm that determines whether an input number is prime or composite. </p>
+<p>The AKS algorithm for testing whether a number is prime is a polynomial-time algorithm based on an elementary theorem about Pascal triangles.</p>
+<h1 id="Rust"><a href="#Rust" class="headerlink" title="Rust"></a>Rust</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">use std::iter::repeat;</div><div class="line"> </div><div class="line">fn aks_coefficients(k: usize) -&gt; Vec&lt;i64&gt; &#123;</div><div class="line">    let mut coefficients = repeat(0i64).take(k + 1).collect::&lt;Vec&lt;_&gt;&gt;();</div><div class="line">    coefficients[0] = 1;</div><div class="line">    for i in 1..(k + 1) &#123;</div><div class="line">        coefficients[i] = -(1..i).fold(coefficients[0], |prev, j|&#123;</div><div class="line">            let old = coefficients[j];</div><div class="line">            coefficients[j] = old - prev;</div><div class="line">            old</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">    coefficients</div><div class="line">&#125;</div><div class="line"> </div><div class="line">fn is_prime(p: usize) -&gt; bool &#123;</div><div class="line">    if p &lt; 2 &#123;</div><div class="line">        false</div><div class="line">    &#125; else &#123;</div><div class="line">        let c = aks_coefficients(p);</div><div class="line">        (1 .. (c.len() - 1) / 2 + 1).all(|i| (c[i] % (p as i64)) == 0)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">fn main() &#123;</div><div class="line">    for i in 0..8 &#123;</div><div class="line">        println!(&quot;&#123;&#125;: &#123;:?&#125;&quot;, i, aks_coefficients(i));</div><div class="line">    &#125;</div><div class="line">    for i in (1..51).filter(|&amp;i| is_prime(i)) &#123;</div><div class="line">        print!(&quot;&#123;&#125; &quot;, i);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><p>An alternative version which computes the coefficients in a more functional but less efficient way. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">fn aks_coefficients(k: usize) -&gt; Vec&lt;i64&gt; &#123;</div><div class="line">	if k == 0 &#123;</div><div class="line">		vec![1i64]</div><div class="line">	&#125; else &#123;</div><div class="line">		let zero = Some(0i64);</div><div class="line">		(1..k).fold(vec![1i64, -1], |r, _| &#123;</div><div class="line">			let a = r.iter().chain(zero.iter());</div><div class="line">			let b = zero.iter().chain(r.iter());</div><div class="line">			a.zip(b).map(|(x, &amp;y)| x-y).collect()</div><div class="line">		&#125;)</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">fn is_prime(p: usize) -&gt; bool &#123;</div><div class="line">    if p &lt; 2 &#123;</div><div class="line">        false</div><div class="line">    &#125; else &#123;</div><div class="line">        let c = aks_coefficients(p);</div><div class="line">        (1 .. (c.len() - 1) / 2 + 1).all(|i| (c[i] % (p as i64)) == 0)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">fn main() &#123;</div><div class="line">    for i in 0..8 &#123;</div><div class="line">        println!(&quot;&#123;&#125;: &#123;:?&#125;&quot;, i, aks_coefficients(i));</div><div class="line">    &#125;</div><div class="line">    for i in (1..51).filter(|&amp;i| is_prime(i)) &#123;</div><div class="line">        print!(&quot;&#123;&#125; &quot;, i);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">public class AksTest &#123;</div><div class="line">	</div><div class="line">    private static final long[] c = new long[64];</div><div class="line">    </div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        for (int n = 0; n &lt; 10; n++) &#123;</div><div class="line">            coeff(n);</div><div class="line">            show(n);</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        System.out.print(&quot;Primes:&quot;);</div><div class="line">        for (int n = 1; n &lt; c.length; n++)</div><div class="line">            if (isPrime(n))</div><div class="line">                System.out.printf(&quot; %d&quot;, n);</div><div class="line"> </div><div class="line">        System.out.println();</div><div class="line">    &#125;    </div><div class="line"> </div><div class="line">    static void coeff(int n) &#123;</div><div class="line">        c[0] = 1;</div><div class="line">        for (int i = 0; i &lt; n; c[0] = -c[0], i++) &#123;</div><div class="line">            c[1 + i] = 1;</div><div class="line">            for (int j = i; j &gt; 0; j--)</div><div class="line">                c[j] = c[j - 1] - c[j];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    static boolean isPrime(int n) &#123;</div><div class="line">        coeff(n);</div><div class="line">        c[0]++;</div><div class="line">        c[n]--;</div><div class="line"> </div><div class="line">        int i = n;</div><div class="line">        while (i-- != 0 &amp;&amp; c[i] % n == 0)</div><div class="line">            continue;</div><div class="line">        return i &lt; 0;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    static void show(int n) &#123;</div><div class="line">        System.out.print(&quot;(x-1)^&quot; + n + &quot; =&quot;);</div><div class="line">        for (int i = n; i &gt;= 0; i--) &#123;</div><div class="line">            System.out.print(&quot; + &quot; + c[i] + &quot;x^&quot; + i);</div><div class="line">        &#125;</div><div class="line">        System.out.println();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><h2 id="Translation-of-C"><a href="#Translation-of-C" class="headerlink" title="Translation of: C"></a>Translation of: C</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">function coef(n) &#123;</div><div class="line"> 	for (var c=[1], i=0; i&lt;n; c[0]=-c[0], i+=1) &#123;</div><div class="line">		c[i+1]=1; for (var j=i; j; j-=1) c[j] = c[j-1]-c[j]		</div><div class="line">	&#125;</div><div class="line">	return c</div><div class="line">&#125;</div><div class="line"> </div><div class="line">function show(cs)	&#123;</div><div class="line">	var s=&apos;&apos;, n=cs.length-1</div><div class="line">	do s += (cs[n]&gt;0 ? &apos; +&apos; : &apos; &apos;) + cs[n] + (n==0 ? &apos;&apos; : n==1 ? &apos;x&apos; :&apos;x&lt;sup&gt;&apos;+n+&apos;&lt;/sup&gt;&apos;); while (n--)</div><div class="line">	return s</div><div class="line">&#125;</div><div class="line"> </div><div class="line">function isPrime(n) &#123;</div><div class="line">	var cs=coef(n), i=n-1; while (i-- &amp;&amp; cs[i]%n == 0);</div><div class="line">	return i &lt; 1</div><div class="line">&#125;</div><div class="line"> </div><div class="line">for (var n=0; n&lt;=7; n++) document.write(&apos;(x-1)&lt;sup&gt;&apos;,n,&apos;&lt;/sup&gt; = &apos;, show(coef(n)), &apos;&lt;br&gt;&apos;)</div><div class="line"> </div><div class="line">document.write(&apos;&lt;br&gt;Primes: &apos;);</div><div class="line">for (var n=2; n&lt;=50; n++) if (isPrime(n)) document.write(&apos; &apos;, n)</div></pre></td></tr></table></figure>
+<h2 id="Translation-of-CoffeeScript"><a href="#Translation-of-CoffeeScript" class="headerlink" title="Translation of: CoffeeScript"></a>Translation of: CoffeeScript</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line">var i, p, pascal, primerow, primes, show, _i;</div><div class="line"></div><div class="line">pascal = function() &#123;</div><div class="line">  var a;</div><div class="line">  a = [];</div><div class="line">  return function() &#123;</div><div class="line">    var b, i;</div><div class="line">    if (a.length === 0) &#123;</div><div class="line">      return a = [1];</div><div class="line">    &#125; else &#123;</div><div class="line">      b = (function() &#123;</div><div class="line">        var _i, _ref, _results;</div><div class="line">        _results = [];</div><div class="line">        for (i = _i = 0, _ref = a.length - 1; 0 &lt;= _ref ? _i &lt; _ref : _i &gt; _ref; i = 0 &lt;= _ref ? ++_i : --_i) &#123;</div><div class="line">          _results.push(a[i] + a[i + 1]);</div><div class="line">        &#125;</div><div class="line">        return _results;</div><div class="line">      &#125;)();</div><div class="line">      return a = [1].concat(b).concat([1]);</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">show = function(a) &#123;</div><div class="line">  var degree, i, sgn, show_x, str, _i, _ref;</div><div class="line">  show_x = function(e) &#123;</div><div class="line">    switch (e) &#123;</div><div class="line">      case 0:</div><div class="line">        return &quot;&quot;;</div><div class="line">      case 1:</div><div class="line">        return &quot;x&quot;;</div><div class="line">      default:</div><div class="line">        return &quot;x^&quot; + e;</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">  degree = a.length - 1;</div><div class="line">  str = &quot;(x - 1)^&quot; + degree + &quot; =&quot;;</div><div class="line">  sgn = 1;</div><div class="line">  for (i = _i = 0, _ref = a.length; 0 &lt;= _ref ? _i &lt; _ref : _i &gt; _ref; i = 0 &lt;= _ref ? ++_i : --_i) &#123;</div><div class="line">    str += &apos; &apos; + (sgn &gt; 0 ? &quot;+&quot; : &quot;-&quot;) + &apos; &apos; + a[i] + show_x(degree - i);</div><div class="line">    sgn = -sgn;</div><div class="line">  &#125;</div><div class="line">  return str;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">primerow = function(row) &#123;</div><div class="line">  var degree;</div><div class="line">  degree = row.length - 1;</div><div class="line">  return row.slice(1, degree).every(function(x) &#123;</div><div class="line">    return x % degree === 0;</div><div class="line">  &#125;);</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">p = pascal();</div><div class="line"> </div><div class="line">for (i = _i = 0; _i &lt;= 7; i = ++_i) &#123;</div><div class="line">  console.log(show(p()));</div><div class="line">&#125;</div><div class="line"> </div><div class="line">p = pascal();</div><div class="line"> </div><div class="line">p();</div><div class="line"> </div><div class="line">p();</div><div class="line"> </div><div class="line">primes = (function() &#123;</div><div class="line">  var _j, _results;</div><div class="line">  _results = [];</div><div class="line">  for (i = _j = 1; _j &lt;= 49; i = ++_j) &#123;</div><div class="line">    if (primerow(p())) &#123;</div><div class="line">      _results.push(i + 1);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  return _results;</div><div class="line">&#125;)();</div><div class="line"> </div><div class="line">console.log(&quot;&quot;);</div><div class="line"> </div><div class="line">console.log(&quot;The primes upto 50 are: &quot; + primes);</div></pre></td></tr></table></figure>
+<h2 id="Reviewed-ES6"><a href="#Reviewed-ES6" class="headerlink" title="Reviewed (ES6)"></a>Reviewed (ES6)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">function pascal(n) &#123;</div><div class="line">	var cs = []; if (n) while (n--) coef(); return coef</div><div class="line">	function coef() &#123;</div><div class="line">		if (cs.length === 0) return cs = [1];</div><div class="line">		for (var t=[1,1], i=cs.length-1; i; i-=1) t.splice( 1, 0, cs[i-1]+cs[i] ); return cs = t</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function show(cs) &#123;</div><div class="line">	for (var s=&apos;&apos;, sgn=true, i=0, deg=cs.length-1; i&lt;=deg; sgn=!sgn, i+=1) &#123;</div><div class="line">		s += &apos; &apos; + (sgn ? &apos;+&apos; : &apos;-&apos;) + cs[i] + (e =&gt; e==0 ? &apos;&apos; : e==1 ? &apos;x&apos; : &apos;x&lt;sup&gt;&apos; + e + &apos;&lt;/sup&gt;&apos;)(deg-i)</div><div class="line">	&#125;</div><div class="line">	return &apos;(x-1)&lt;sup&gt;&apos; + deg + &apos;&lt;/sup&gt; =&apos; + s;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function isPrime(cs) &#123;</div><div class="line">	var deg=cs.length-1; return cs.slice(1, deg).every( function(c) &#123; return c % deg === 0 &#125; )</div><div class="line">&#125;</div><div class="line"></div><div class="line">var coef=pascal(); for (var i=0; i&lt;=7; i+=1) document.write(show(coef()), &apos;&lt;br&gt;&apos;)</div><div class="line"></div><div class="line">document.write(&apos;&lt;br&gt;Primes: &apos;);</div><div class="line">for (var coef=pascal(2), n=2; n&lt;=50; n+=1) if (isPrime(coef())) document.write(&apos; &apos;, n)</div></pre></td></tr></table></figure>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="http://rosettacode.org/wiki/AKS_test_for_primes" target="_blank" rel="external">AKS test for primes</a></li>
+<li><a href="http://www.cse.iitk.ac.in/users/manindra/algebra/primality_v6.pdf" target="_blank" rel="external">PRIMES is in P</a></li>
+<li><a href="https://en.wikipedia.org/wiki/AKS_primality_test" target="_blank" rel="external">AKS primality test</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/11/10/AKS-test-for-primes/" data-id="cjoc3g45b0000xstwwqxi8dg2" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mathematics/">mathematics</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/11/07/Web-Engineering/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Web Engineering</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/古文/">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心理学与生活/">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无线网络/">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/林语堂/">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/王小波/">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/英语/">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译言/">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试题/">面试题</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.57px;">LeetCode</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/React-js/" style="font-size: 11.43px;">React.js</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Spring/" style="font-size: 12.86px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 11.43px;">Spring Boot</a> <a href="/tags/TED/" style="font-size: 10px;">TED</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 17.14px;">english</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 15.71px;">java</a> <a href="/tags/javascript/" style="font-size: 11.43px;">javascript</a> <a href="/tags/linux/" style="font-size: 11.43px;">linux</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 12.86px;">mysql</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 10px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/林语堂/" style="font-size: 10px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 14.29px;">英语</a> <a href="/tags/译言/" style="font-size: 11.43px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/10/AKS-test-for-primes/">AKS test for primes</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/07/Web-Engineering/">Web Engineering</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/05/Spring-Portfolio/">Spring Portfolio</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/03/LeetCode-Algorithms-Validate-Binary-Search-Tree/">LeetCode - Algorithms - 98. Validate Binary Search Tree</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/02/LeetCode-Algorithms-Binary-Tree-Postorder-Traversal/">LeetCode - Algorithms - 145. Binary Tree Postorder Traversal</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 hezhigang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
