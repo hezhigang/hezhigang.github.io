@@ -65,6 +65,69 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Coin-Change-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" class="article-date">
+  <time datetime="2018-09-27T16:06:50.000Z" itemprop="datePublished">2018-09-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/27/LeetCode-Algorithms-Coin-Change-2/">LeetCode - Algorithms - 518. Coin Change 2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>变个样，又不知道怎么解决了，动态规划确实不是那么好理解。根据上一题的经验，还是从递归入手，先实现递归，再琢磨动态规划的解决方案，就有点循序渐进的味道。正如 <a href="https://www.quora.com/What-is-an-easy-way-to-understand-the-coin-change-problem-in-dynamic-programming" target="_blank" rel="external">What is an easy way to understand the coin change problem in dynamic programming?</a> 的一个回答所言：</p>
+<blockquote>
+<p>Instead of thinking about filling a matrix, think in terms of the recurrence relation. I have seen a lot of people who try to think dynamic programming problems in terms of filling a table/array. But this approach is problematic. For example, if the state representation has more than two dimensions, then this approach does not help much.</p>
+<p>The essence of dynamic programming is the idea of a state space and a recurrence relation between states. Once you figure that out for any problem, implementation is straightforward.</p>
+</blockquote>
+<p>参考了这些，虽然还是没有完全理解，程序在leetcode上通过了，程序其实就短短的几行，<code>The code has a O(NC) pseudo-polynomial complexity where N is the amount and C the number of input coins</code>。</p>
+<ul>
+<li><a href="http://marcodiiga.github.io/number-of-ways-to-make-change-for-amount" target="_blank" rel="external">Number of ways to make change for an amount (coin change)</a> 看了这个，终于明白了一点</li>
+<li><a href="http://www.cs.cmu.edu/~yandongl/dp.html" target="_blank" rel="external">Dynamic programming - Ways of Coin Change</a></li>
+<li><a href="https://www.geeksforgeeks.org/coin-change-dp-7/" target="_blank" rel="external">Coin Change | DP-7</a></li>
+<li><a href="https://artofproblemsolving.com/community/c2340h1179726s3_coin_change_problem_recursive_solution" target="_blank" rel="external">Coin Change Problem Recursive Solution</a></li>
+<li><a href="https://www.quora.com/What-is-an-easy-way-to-understand-the-coin-change-problem-in-dynamic-programming" target="_blank" rel="external">What is an easy way to understand the coin change problem in dynamic programming?</a></li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int change(int amount, int[] coins) &#123;</div><div class="line">    	int[] dp = new int[amount+1];</div><div class="line">    	dp[0]=1;</div><div class="line">    	for(int i=0;i&lt;coins.length;i++) &#123;</div><div class="line">    		for(int j=coins[i];j&lt;=amount;++j) &#123;</div><div class="line">    			dp[j]+=dp[j-coins[i]];</div><div class="line">    		&#125;    		</div><div class="line">    	&#125;</div><div class="line">    	return dp[amount];        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>27 / 27 test cases passed.<br>Runtime: 4 ms<br>Your runtime beats 78.72 % of java submissions.</p>
+</blockquote>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; amount</div><div class="line"> * @param &#123;number[]&#125; coins</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var change = function(amount, coins) &#123;</div><div class="line">	var dp = new Array(amount+1);</div><div class="line">	for(var i=0;i&lt;dp.length;i++)</div><div class="line">		dp[i]=0;</div><div class="line">	dp[0]=1;</div><div class="line">	for(var i=0;i&lt;amount;i++)</div><div class="line">		for(var j=coins[i];j&lt;=amount;++j)</div><div class="line">			dp[j]+=dp[j-coins[i]];</div><div class="line">	return dp[amount];    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>27 / 27 test cases passed.<br>Runtime: 60 ms<br>Your runtime beats 89.86 % of javascript submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjp3e359d000t24twi9c75rw6" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Coin-Change" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/09/25/LeetCode-Algorithms-Coin-Change/" class="article-date">
@@ -116,7 +179,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="cjoxsn2o6000v7wtwpivvhknq" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="cjp3e359d000v24twd6dmp5xv" class="article-share-link">Share</a>
       
       
       
@@ -161,7 +224,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjoxsn2nq000h7wtwuhh1ogm1" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjp3e358x000h24twcu702nxr" class="article-share-link">Share</a>
       
       
       
@@ -217,7 +280,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjoxsn2nq000f7wtw768nslhz" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjp3e358i000f24twp7szyhqd" class="article-share-link">Share</a>
       
       
       
@@ -277,7 +340,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjoxsn2o6000j7wtwifmdjlud" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjp3e358x000j24twt8v8rz3w" class="article-share-link">Share</a>
       
       
       
@@ -339,7 +402,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cjoxsn2o6000k7wtw23xn80bu" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cjp3e358x000k24twb46nm6pz" class="article-share-link">Share</a>
       
       
       
@@ -402,7 +465,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="cjoxsn2r7004i7wtwcllewjgd" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="cjp3e35f0004l24twv5r5bbgl" class="article-share-link">Share</a>
       
       
       
@@ -453,7 +516,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="cjoxsn2p1001o7wtwos98q0oe" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="cjp3e35ao001r24twsdobt5o7" class="article-share-link">Share</a>
       
       
       
@@ -508,7 +571,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="cjoxsn2p1001r7wtw5hoobcyr" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="cjp3e35ao001t24twg31zc41s" class="article-share-link">Share</a>
       
       
       
@@ -561,62 +624,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="cjoxsn2nb00037wtwmrtqz0hg" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="cjp3e3582000324twfqw06mfw" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UW/">UW</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mathNEWS/">mathNEWS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Excel-Sheet-Column-Number" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" class="article-date">
-  <time datetime="2018-08-28T18:41:37.000Z" itemprop="datePublished">2018-08-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/">LeetCode - Algorithms - 171. Excel Sheet Column Number</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这题算Easy，Excel列编号好像可以理解成26进制，少不了查下JDK API Specification，查看JavaScript Bible</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int titleToNumber(String s) &#123;</div><div class="line">    	int n = 0;</div><div class="line">    	int len = s.length();</div><div class="line">    	for(int i=s.length()-1;i&gt;=0;i--) &#123;</div><div class="line">    		n += (Character.getNumericValue(s.charAt(i))-9)*Math.pow(26, len-i-1);</div><div class="line">    	&#125;</div><div class="line">        return n;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>性能不行，LeetCode运行结果</p>
-<blockquote>
-<p>1000 / 1000 test cases passed.<br>Runtime: 4 ms<br>Your runtime beats 5.55 % of java submissions.</p>
-</blockquote>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;string&#125; s</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var titleToNumber = function(s) &#123;</div><div class="line">	  var n = 0;</div><div class="line">	  var len = s.length;</div><div class="line">	  for(var i=s.length-1;i&gt;=0;i--) &#123;</div><div class="line">		  n+=(s.charCodeAt(i)-64)*Math.pow(26,len-i-1);</div><div class="line">	  &#125;</div><div class="line">	  return n;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果：</p>
-<blockquote>
-<p>1000 / 1000 test cases passed.<br>Runtime: 68 ms<br>Your runtime beats 99.02 % of javascript submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" data-id="cjoxsn2om00157wtwkbcyxbog" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
     </footer>
   </div>
@@ -676,6 +688,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/29/LeetCode-Algorithms-Contains-Duplicate/">LeetCode - Algorithms - 217. Contains Duplicate</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/10/AKS-test-for-primes/">AKS test for primes</a>
           </li>
         
@@ -689,10 +705,6 @@
         
           <li>
             <a href="/2018/11/03/LeetCode-Algorithms-Validate-Binary-Search-Tree/">LeetCode - Algorithms - 98. Validate Binary Search Tree</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/02/LeetCode-Algorithms-Binary-Tree-Postorder-Traversal/">LeetCode - Algorithms - 145. Binary Tree Postorder Traversal</a>
           </li>
         
       </ul>
