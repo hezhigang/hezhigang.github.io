@@ -65,6 +65,93 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Solve-Diary" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/30/LeetCode-Solve-Diary/" class="article-date">
+  <time datetime="2018-06-30T11:20:59.000Z" itemprop="datePublished">2018-06-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/30/LeetCode-Solve-Diary/">LeetCode解题日志</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Algorithms"><a href="#Algorithms" class="headerlink" title="Algorithms"></a>Algorithms</h1><h2 id="2-Add-Two-Numbers"><a href="#2-Add-Two-Numbers" class="headerlink" title="2. Add Two Numbers"></a>2. Add Two Numbers</h2><p>用链表模拟十进制加法运算，linked list有点犯晕，在Eclipse IDE上调试了半天才跑通了，只会瞎用框架和库的人算法方面果然是菜鸟。</p>
+<p>一开始出来的结果顺序老是逆着。在网上找了个Function to reverse the linked list，incline到自己那代码里，最后总算在LeetCode上跑过了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public ListNode addTwoNumbers(ListNode l1, ListNode l2) &#123;</div><div class="line">    	ListNode node1 = l1, node2 = l2;</div><div class="line">    	ListNode node = null, tmpNode = null;</div><div class="line">    	int sum = 0;</div><div class="line">    	boolean b = false;</div><div class="line">		while (node1 != null || node2!=null) &#123;</div><div class="line">			node = new ListNode(0);</div><div class="line">			sum = (node1!=null?node1.val:0) + (node2!=null?node2.val:0);</div><div class="line">			if (b) sum++;</div><div class="line">			node.val = sum&lt;10?sum:sum%10;</div><div class="line">			b = sum&gt;=10 ? true : false;</div><div class="line">			if (tmpNode!=null)</div><div class="line">				node.next = tmpNode;</div><div class="line">			if (node1!=null)</div><div class="line">			  node1 = node1.next;</div><div class="line">			if (node2!=null)</div><div class="line">			  node2 = node2.next;</div><div class="line">			tmpNode = node;</div><div class="line">		&#125;</div><div class="line">		if (b) &#123;</div><div class="line">			ListNode node3 = node;</div><div class="line">			node = new ListNode(1);</div><div class="line">			node.next = node3;</div><div class="line">		&#125;</div><div class="line">    	ListNode prev = null;</div><div class="line">    	ListNode current = node;</div><div class="line">    	ListNode next = null;</div><div class="line">        while (current != null) &#123;</div><div class="line">            next = current.next;</div><div class="line">            current.next = prev;</div><div class="line">            prev = current;</div><div class="line">            current = next;</div><div class="line">        &#125;</div><div class="line">        node = prev;</div><div class="line">        return node;        </div><div class="line">    &#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Definition for singly-linked list.</div><div class="line"> */</div><div class="line">class ListNode &#123;</div><div class="line">	int val;</div><div class="line">	ListNode next;</div><div class="line">	ListNode(int x) &#123;</div><div class="line">		val = x;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>写完了过上一段时间，又忘了是怎么做对的，在IDE上debug出来的代码，可能做得比较勉强。</p>
+<hr>
+<h1 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h1><h2 id="196-Delete-Duplicate-Emails"><a href="#196-Delete-Duplicate-Emails" class="headerlink" title="196. Delete Duplicate Emails"></a>196. Delete Duplicate Emails</h2><p>虽然难度标为Easy，居然也被卡住了，还以为要用临时表，google关键字 <code>mysql delete duplicate rows keep one</code>搜到<a href="https://stackoverflow.com/questions/4685173/delete-all-duplicate-rows-except-for-one-in-mysql" target="_blank" rel="external">Delete all Duplicate Rows except for One in MySQL? [duplicate]</a>，原来是自己未完全理解mysql的delete关于多表删除的语法。</p>
+<pre><code>DELETE [LOW_PRIORITY] [QUICK] [IGNORE]
+tbl_name[.*] [, tbl_name[.*]] ...
+FROM table_references
+[WHERE where_condition]
+</code></pre><p>Or:</p>
+<pre><code>DELETE [LOW_PRIORITY] [QUICK] [IGNORE]
+FROM tbl_name[.*] [, tbl_name[.*]] ...
+USING table_references
+[WHERE where_condition]
+</code></pre><p>看来这种技术问题，google+stack overflow 一点就破，自己坚持独立思考在那里死磕纯属浪费时间。</p>
+<h2 id="180-Consecutive-Numbers"><a href="#180-Consecutive-Numbers" class="headerlink" title="180. Consecutive Numbers"></a>180. Consecutive Numbers</h2><p>被卡了好几天，百思不得其解，又开始怀疑是不是select还不足以，难道要用到游标与临时表之类，再琢磨下去也是浪费时间，遇到什么问题，就去问google，尤其是这种自己不会别人会的技术问题，搜 mysql consecutive queries 定位到 <a href="https://dba.stackexchange.com/questions/189013/mysql-query-for-3-consecutive-integers-between-records" target="_blank" rel="external">MySQL query for 3 consecutive integers between records</a>，冥思苦想就是想不对路，一看到人家的解就恍然大悟，自己怎么会想不到这一点，看来自己的sql还是需要外部启发，没有点拨，自己就迷失在思维定势里了。</p>
+<p>不过这题有点让人犯糊涂，如果id不连续呢？那是不是还得用计算列row_num?反正题意是id连续</p>
+<h2 id="185-Department-Top-Three-Salaries"><a href="#185-Department-Top-Three-Salaries" class="headerlink" title="185. Department Top Three Salaries"></a>185. Department Top Three Salaries</h2><p>琢磨了好几天也没思路，问题的难度标为hard，难道用select无法实现？难道要用到cursor与临时表？最后google -> mysql top 3 per group在<a href="https://stackoverflow.com/" target="_blank" rel="external">Stack Overflow</a>找到<a href="https://stackoverflow.com/questions/12113699/get-top-n-records-for-each-group-of-grouped-results" target="_blank" rel="external">Get top n records for each group of grouped results</a>，思路顿开，原来还是要用到查询结果序号的计算列，T-SQL与PL/SQL都有Rank()函数，mysql可以用变量模拟实现，在<a href="https://leetcode.com/problems/rank-scores/description/" target="_blank" rel="external">178. Rank Scores</a>中已经用到，只是本题需要用到两个列，需要用两个@变量。</p>
+<h2 id="184-Department-Highest-Salary"><a href="#184-Department-Highest-Salary" class="headerlink" title="184. Department Highest Salary"></a>184. Department Highest Salary</h2><p>也蒙了几天，group by得到部门max salary是显然的，怎么得到员工姓名？发现用部门id与salary同时作为join的条件就ok了，用using连接从句显得更自然。</p>
+<h2 id="197-Rising-Temperature"><a href="#197-Rising-Temperature" class="headerlink" title="197. Rising Temperature"></a>197. Rising Temperature</h2><p>这题果然Easy, 不过自己还是在mysql手册里查了下函数DATEDIFF(expr1,expr2)，不用google就ok了，在LeetCode第一次就通过了，此题的问题结构好像跟 180. Consecutive Numbers 类似。</p>
+<p>想到人家刷LeetCode都是光用脑子调代码直接在网页上Run，而自己离不开IDE与数据库运行环境，人家那叫刷题，自己只是在做题。</p>
+<h2 id="262-Trips-and-Users"><a href="#262-Trips-and-Users" class="headerlink" title="262. Trips and Users"></a>262. Trips and Users</h2><p>这题又耗了两天，一开始没看懂题意，虽然不能迅速做不出，倒也没怎么被卡住，不过免不了又要在纸上比划一下，还有在mysql上一遍遍执行验证想法，也没啥可以google的，提交Leetcode第一遍就通过了，没想到。自己对left outer join与right outer join的理解似乎有误，这两者是有区别的，自己之前似乎以为这两者是对称的。</p>
+<h2 id="595-Big-Countries"><a href="#595-Big-Countries" class="headerlink" title="595. Big Countries"></a>595. Big Countries</h2><p>这题确实Easy，or条件或用据说性能更好的 union (Set operations)</p>
+<h2 id="596-Classes-More-Than-5-Students"><a href="#596-Classes-More-Than-5-Students" class="headerlink" title="596. Classes More Than 5 Students"></a>596. Classes More Than 5 Students</h2><p>这题也Easy，group by + having子句</p>
+<h2 id="601-Human-Traffic-of-Stadium"><a href="#601-Human-Traffic-of-Stadium" class="headerlink" title="601. Human Traffic of Stadium"></a>601. Human Traffic of Stadium</h2><p>这题又被卡了好几天，google也没搜到什么直接的线索，PL/SQL与T-SQL有分析函数ROW_NUMBER(), RANK(), and DENSE_RANK()，还以为需要mysql模拟这种功能。</p>
+<p>卡在这一步里</p>
+<pre><code>select s.* from stadium s where s.people&gt;=100 
+and exists(select 1 from stadium t2 where t2.people&gt;=100 and t2.`date`=DATE_SUB(s.`date`,INTERVAL 1 DAY)) 
+and exists(select 1 from stadium t3 where t3.people&gt;=100 and t3.`date`=DATE_ADD(s.`date`,INTERVAL 1 DAY));
+</code></pre><p>最后发现用 join + union就好了，显示执行效率不高，可能还有更好的写法</p>
+<h2 id="620-Not-Boring-Movies"><a href="#620-Not-Boring-Movies" class="headerlink" title="620. Not Boring Movies"></a>620. Not Boring Movies</h2><p>这题确实Easy， 可以不假思索地写出SQL，但执行效率还是不够高，而且也查了下MOD函数与mod运算符。</p>
+<h2 id="626-Exchange-Seats"><a href="#626-Exchange-Seats" class="headerlink" title="626. Exchange Seats"></a>626. Exchange Seats</h2><p>这题确实Medium，不难，但也不是很简单就能写出，inner join 与 outer join 进行union，执行效率还是不算高。</p>
+<h2 id="627-Swap-Salary"><a href="#627-Swap-Salary" class="headerlink" title="627. Swap Salary"></a>627. Swap Salary</h2><p>算是Easy吧，不过还是看了下mysql的update语法，用IF()函数或者 case 都可以。</p>
+<hr>
+<h1 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h1><h2 id="195-Tenth-Line"><a href="#195-Tenth-Line" class="headerlink" title="195. Tenth Line"></a>195. Tenth Line</h2><p>自己对linux shell果然是一无所知，连这个Easy的题也需要google 搜 linux sh read nth line，到 <a href="https://stackoverflow.com/questions/6022384/bash-tool-to-get-nth-line-from-a-file" target="_blank" rel="external">Bash tool to get nth line from a file</a>，原来有个sed命令可以很简单地实现读第n行，此题存在一题多解，需要举一反三</p>
+<h2 id="193-Valid-Phone-Numbers"><a href="#193-Valid-Phone-Numbers" class="headerlink" title="193. Valid Phone Numbers"></a>193. Valid Phone Numbers</h2><p>linux shell的题自己本来就不懂，只能从头学起，想也没用，不如google，<code>linux shell regex phone number</code>，直接出来个原题的答案，<a href="https://helloacm.com/regex-coding-exercise-valid-phone-numbers/" target="_blank" rel="external">Regex Coding Exercise – Valid Phone Numbers</a>，一个要点是正则表达式，一个要点是Linux的grep命令，学习了。这篇文章里说用 <strong>awk</strong> 或 <strong>sed</strong> 也行。题目要求用1行shell解决，也搜到个 <a href="http://jiangtao.me/valid-phone-numbers-with-shell-script.html" target="_blank" rel="external">Valid Phone Numbers with shell script</a> 是用shell 的while及if语句来实现。</p>
+<h2 id="192-Word-Frequency"><a href="#192-Word-Frequency" class="headerlink" title="192. Word Frequency"></a>192. Word Frequency</h2><p>这题标为medium，linux shell自己本来就不了解，又有点难度，独立思考不过是浪费时间，不如看看相关专题博客，google关键字linux shell word frequency，搜到 <a href="https://stackoverflow.com/questions/10552803/how-to-create-a-frequency-list-of-every-word-in-a-file" target="_blank" rel="external">How to create a frequency list of every word in a file?</a>，参考里面的左试右试总是不太对，又搜到个答案大全 <a href="https://helloacm.com/shell-coding-exercise-word-frequency/" target="_blank" rel="external">Shell Coding Exercise – Word Frequency</a>，人家高手一题多解给出N种异曲同工的方法，用了很多linux的内置功能命令比如cat, tr, awk, sed, sort,grep, uniq，自己也看不大懂，又参考评论里的解释改了下，原来是要sort两次，第二次逆序sort，终于运行通过，但效率不高。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -r &apos;s/\s+/\n/g&apos; words.txt | grep -v &quot;^$&quot; | sort | uniq -c | sort -r | awk &apos;&#123;print $2&quot; &quot;$1&#125;&apos;</div></pre></td></tr></table></figure>
+<h2 id="194-Transpose-File"><a href="#194-Transpose-File" class="headerlink" title="194. Transpose File"></a>194. Transpose File</h2><p>google关键字shell command transpose，搜到 <a href="https://stackoverflow.com/questions/1729824/an-efficient-way-to-transpose-a-file-in-bash" target="_blank" rel="external">An efficient way to transpose a file in Bash</a> ，原来是要用awk写一小段程序，还没看懂，只有慢慢消息理解了。</p>
+<p><a href="http://www.thelinuxrain.com/articles/transposing-rows-and-columns-3-methods" target="_blank" rel="external">Transposing rows and columns: 3 methods</a> 则提到</p>
+<ul>
+<li>Transposing rows and columns is indeed easy if you have the GNU <strong>datamash</strong> utility on your system. </li>
+<li>The mighty text-processing program <strong>AWK</strong> can also do transposing. </li>
+</ul>
+<p>对高手来说，方法多得很，殊途同归，条条道路通罗马。</p>
+<p>自己的linux shell要学的东西比sql要多得多，sql好歹工作当中经常用，linux shell用得少就处处是问题，形式上先过上一遍，还得慢慢消化理解。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/06/30/LeetCode-Solve-Diary/" data-id="cjp5ya7i1007lx4twacphpqf1" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-mysql-points" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/06/29/mysql-points/" class="article-date">
@@ -179,7 +266,7 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/29/mysql-points/" data-id="cjp3e35ek004g24twytb6xtrg" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/29/mysql-points/" data-id="cjp5ya7go004gx4twjnkr591v" class="article-share-link">Share</a>
       
       
       
@@ -234,7 +321,7 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/18/db-ppt-digest-ljchen-pku/" data-id="cjp3e35d9003c24twj6k2uhn0" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/18/db-ppt-digest-ljchen-pku/" data-id="cjp5ya7fk003cx4tw1b79zj7c" class="article-share-link">Share</a>
       
       
       
@@ -280,7 +367,7 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/17/football-joke/" data-id="cjp3e35dp003m24twozctbdxx" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/17/football-joke/" data-id="cjp5ya7g2003mx4twu00xm5d6" class="article-share-link">Share</a>
       
       
       
@@ -327,7 +414,7 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/16/qiniu-founder-xushiwei-quotes/" data-id="cjp3e35f0004i24tw0j36yof5" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/16/qiniu-founder-xushiwei-quotes/" data-id="cjp5ya7gp004ix4tw1dty2vq4" class="article-share-link">Share</a>
       
       
       
@@ -367,7 +454,7 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/13/mathworld-wolfram-selected/" data-id="cjp3e35ek004b24twaysgzq46" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/13/mathworld-wolfram-selected/" data-id="cjp5ya7gl004bx4twxpzv3ubf" class="article-share-link">Share</a>
       
       
       
@@ -410,7 +497,7 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/11/infoq-selected/" data-id="cjp3e35ek004124twb7u6mm23" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/11/infoq-selected/" data-id="cjp5ya7ge0041x4twfd526n88" class="article-share-link">Share</a>
       
       
       
@@ -460,7 +547,7 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/10/GIS-Open-Source/" data-id="cjp3e358i000524twiattf0xg" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/10/GIS-Open-Source/" data-id="cjp5ya7ci0005x4twm7rx1v66" class="article-share-link">Share</a>
       
       
       
@@ -573,7 +660,7 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/10/coder-issue/" data-id="cjp3e35i1008924tw920wshit" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/10/coder-issue/" data-id="cjp5ya7iu008cx4twcalj5jiw" class="article-share-link">Share</a>
       
       
       
@@ -762,7 +849,7 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/10/IT-questions/" data-id="cjp3e35ig008o24twarnhaiqq" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/10/IT-questions/" data-id="cjp5ya7ja008rx4twqu7ksi35" class="article-share-link">Share</a>
       
       
       
@@ -776,55 +863,11 @@ WHERE a1.id=a2.id;
 
 
   
-    <article id="post-Pseudo-random" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/10/Pseudo-random/" class="article-date">
-  <time datetime="2018-06-10T13:23:41.000Z" itemprop="datePublished">2018-06-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/10/Pseudo-random/">Pseudo-random</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>古老的LCG(linear congruential generator)代表了最好的伪随机数产生器算法。主要原因是容易理解，容易实现，而且速度快。</p>
-<p>如果需要高质量的伪随机数，内存充足(约2kb)，Mersenne twister算法是个不错的选择。Mersenne twister产生随机数的质量几乎超过任何LCG。不过一般Mersenne twister的实现使用LCG产生种子。<br>Mersenne twister是Makoto Matsumoto (松本)和Takuji Nishimura (西村)于1997年开发的伪随机数产生器，基于有限二进制字段上的矩阵线性再生。可以快速产生高质量的伪随机数，修正了古老随机数产生算法的很多缺陷。 Mersenne twister这个名字来自周期长度通常取Mersenne质数这样一个事实。常见的有两个变种Mersenne Twister MT19937和Mersenne Twister MT19937-64。<br>Mersenne Twister有很多长处，例如：周期2^19937 - 1对于一般的应用来说，足够大了，序列关联比较小，能通过很多随机性测试。<br>用Mersenne twister算法实现的伪随机数版本非常多。例如boost库中的高质量快速随机数产生器就是用Mersenne twister算法原理编写的。</p>
-<p>matlab的随机函数产生的随机数都是根据伪随机数序列获取的，在v7.7以上的版本中，有如下的伪随机数产生器：<br>Mersenne twister，<br>Multiplicative congruential generator，<br>Multiplicative lagged Fibonacci generator，<br>Combined multiple recursive generator，<br>Shift-register generator summed with linear congruential generator，<br>Modified subtract with borrow generator。</p>
-<p>在Windows下如果用mt_rand()函数替代rand()函数的话效果也会好很多。这是由于mt_rand()用了Mersenne Twister(马其塞旋转)算法来产生随机数。PHP的文档还说：mt_rand() 可以产生随机数值的平均速度比 libc 提供的 rand() 快四倍。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/10/Pseudo-random/" data-id="cjp3e35bj002l24twujhz9fli" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -857,7 +900,7 @@ WHERE a1.id=a2.id;
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
     </div>
   </div>
 
@@ -868,6 +911,10 @@ WHERE a1.id=a2.id;
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/12/01/LeetCode-Algorithms-Sqrt/">LeetCode - Algorithms - 69. Sqrt(x)</a>
+          </li>
         
           <li>
             <a href="/2018/11/29/LeetCode-Algorithms-Contains-Duplicate/">LeetCode - Algorithms - 217. Contains Duplicate</a>
@@ -883,10 +930,6 @@ WHERE a1.id=a2.id;
         
           <li>
             <a href="/2018/11/05/Spring-Portfolio/">Spring Portfolio</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/03/LeetCode-Algorithms-Validate-Binary-Search-Tree/">LeetCode - Algorithms - 98. Validate Binary Search Tree</a>
           </li>
         
       </ul>
