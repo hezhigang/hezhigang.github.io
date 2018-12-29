@@ -65,6 +65,128 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Maven" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/22/Maven/" class="article-date">
+  <time datetime="2018-10-23T02:48:02.000Z" itemprop="datePublished">2018-10-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/22/Maven/">Maven</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="POM"><a href="#POM" class="headerlink" title="POM"></a>POM</h1><p>Project Object Model（项目对象模型）</p>
+<h2 id="坐标"><a href="#坐标" class="headerlink" title="坐标"></a>坐标</h2><p>在 POM 中，groupId, artifactId, packaging, version 叫作 maven 坐标，它能唯一的确定一个项目。有了 maven 坐标，我们就可以用它来指定我们的项目所依赖的其他项目，插件，或者父项目。一般 maven 坐标写成如下的格式：</p>
+<pre><code>groupId:artifactId:packaging:version
+</code></pre><ul>
+<li>groupId 定义了项目属于哪个组，这有助于在大的范围上区别项目</li>
+<li>artifactId 定义了这个项目在组中唯一的 ID</li>
+<li>version 指明当前项目的版本</li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>name 是一个用户友好的项目名称</li>
+<li>modelVersion 指定 POM 模型的版本</li>
+<li>packaging 指定了项目发布时的打包类型</li>
+</ul>
+<h1 id="Maven项目结构"><a href="#Maven项目结构" class="headerlink" title="Maven项目结构"></a>Maven项目结构</h1><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>${basedir}</td>
+<td>存放 pom.xml和所有的子目录</td>
+</tr>
+<tr>
+<td>${basedir}/src/main/java</td>
+<td>项目的 java源代码</td>
+</tr>
+<tr>
+<td>${basedir}/src/main/resources</td>
+<td>项目的资源，比如说 property文件</td>
+</tr>
+<tr>
+<td>${basedir}/src/test/java</td>
+<td>项目的测试类，比如说 JUnit代码</td>
+</tr>
+<tr>
+<td>${basedir}/src/test/resources</td>
+<td>测试使用的资源</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>编译后 的 classes 会放在 ${basedir}/target/classes 下面</li>
+<li>JAR 文件会放在 ${basedir}/target 下面（默认情况下会产生 JAR 文件）</li>
+</ul>
+<h1 id="Maven-插件"><a href="#Maven-插件" class="headerlink" title="Maven 插件"></a>Maven 插件</h1><p>mvn 本身不会做太多的事情，它不知道怎么样编译或者怎么样打包。它把构建的任务交给插件去做。插件定义了常用的构建逻辑，能够被重复利用。这样做的好处是，一旦插件有了更新，那么所有的 maven 用户都能得到更新。</p>
+<h1 id="Maven-生命周期"><a href="#Maven-生命周期" class="headerlink" title="Maven 生命周期"></a>Maven 生命周期</h1><p>生命周期指项目的构建过程，它包含了一系列的有序的阶段 (phase)，而一个阶段就是构建过程中的一个步骤。</p>
+<p>maven 能支持不同的生命周期，但是最常用的是默认的Maven生命周期 (default Maven lifecycle )。如果你没有对它进行任何的插件配置或者定制的话，那么上面的命令 mvn package 会依次执行默认生命周期中直到包括 package 阶段前的所有阶段的插件目标：</p>
+<ol>
+<li>process-resources 阶段：resources:resources</li>
+<li>compile 阶段：compiler:compile</li>
+<li>process-classes 阶段：(默认无目标)</li>
+<li>process-test-resources 阶段：resources:testResources</li>
+<li>test-compile 阶段：compiler:testCompile</li>
+<li>test 阶段：surefire:test</li>
+<li>prepare-package 阶段：(默认无目标)</li>
+<li>package 阶段：jar:jar</li>
+</ol>
+<h1 id="dependencies"><a href="#dependencies" class="headerlink" title="dependencies"></a>dependencies</h1><ul>
+<li>在 POM 中，依赖关系是在 dependencies 部分中定义的。</li>
+<li>maven 提供了传递依赖的特性，所谓传递依赖是指 maven 会检查被依赖的 jar 文件，把它的依赖关系纳入最终解决的依赖关系链中。</li>
+<li>在 POM 的 dependencies 部分中，scope 决定了依赖关系的适用范围。<ul>
+<li>我们还可以指定 scope 为 provided，意思是 JDK 或者容器会提供所需的jar文件。</li>
+<li>scope 的默认值是 compile，即任何时候都会被包含在 classpath 中，在打包的时候也会被包括进去。</li>
+</ul>
+</li>
+</ul>
+<h1 id="Maven-库"><a href="#Maven-库" class="headerlink" title="Maven 库"></a>Maven 库</h1><h2 id="远程库"><a href="#远程库" class="headerlink" title="远程库"></a>远程库</h2><p>maven 默认的远程库(<a href="http://repo1.maven.org/maven2" target="_blank" rel="external">http://repo1.maven.org/maven2</a>)</p>
+<h2 id="本地库"><a href="#本地库" class="headerlink" title="本地库"></a>本地库</h2><p>本地库是指 maven 下载了插件或者 jar 文件后存放在本地机器上的拷贝。在 Linux 上，它的位置在 ~/.m2/repository，在 Windows XP 上，在 C:\Documents and Settings\username.m2\repository ，在 Windows 7 上，在 C:\Users\username.m2\repository。</p>
+<p>当 maven 查找需要的 jar 文件时，它会先在本地库中寻找，只有在找不到的情况下，才会去远程库中找。</p>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="https://spring.io/guides/gs/maven/" title="This guide walks you through using Maven to build a simple Java project." target="_blank" rel="external">Building Java Projects with Maven</a></li>
+<li><a href="https://www.oracle.com/technetwork/cn/community/java/apache-maven-getting-started-1-406235-zhs.html" target="_blank" rel="external">Apache Maven 入门篇 ( 上 )</a></li>
+<li><a href="https://www.oracle.com/technetwork/cn/community/java/apache-maven-getting-started-2-405568-zhs.html" target="_blank" rel="external">Apache Maven 入门篇(下)</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/java/j-lo-maven/" target="_blank" rel="external">用 Maven 做项目构建</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/opensource/os-maven/index.html?mhq=maven&amp;mhsrc=ibmsearch_a" title="充分使用这些工具" target="_blank" rel="external">在 Eclipse 中利用 Maven</a></li>
+<li><a href="https://developer.ibm.com/articles/j-5things16/" title="Tips for mastering modern Maven plugins" target="_blank" rel="external">Apache Maven plugins</a></li>
+<li><a href="https://maven.apache.org/" target="_blank" rel="external">Apache Maven</a></li>
+<li><a href="https://mvnrepository.com/" target="_blank" rel="external">MvnRepository</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/22/Maven/" data-id="cjq8zzy2c002ni0twppr5ezk0" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Valid-Parentheses" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" class="article-date">
@@ -107,7 +229,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" data-id="cjpzi8i1v002ggotwfzpnbpaf" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" data-id="cjq8zzy25002gi0twpwqecpo9" class="article-share-link">Share</a>
       
       
       
@@ -214,7 +336,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="cjpzi8i35003hgotw2044z55l" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="cjq8zzy3k003ki0tw4ruwf9y5" class="article-share-link">Share</a>
       
       
       
@@ -263,7 +385,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="cjpzi8i0k000xgotwc48x3q8p" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="cjq8zzy02000si0twqd1uf48s" class="article-share-link">Share</a>
       
       
       
@@ -312,7 +434,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="cjpzi8i0k0010gotwrbiitek6" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="cjq8zzy09000xi0tw24auqvpx" class="article-share-link">Share</a>
       
       
       
@@ -375,7 +497,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjpzi8i0k000tgotwpqur0red" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjq8zzy0u0014i0tw3fhyxity" class="article-share-link">Share</a>
       
       
       
@@ -440,7 +562,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="cjpzi8i0k000vgotw5xy33cyz" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="cjq8zzy07000wi0tw1gmyi8pw" class="article-share-link">Share</a>
       
       
       
@@ -485,7 +607,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjpzi8i04000hgotw03hyjdf4" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjq8zzxzr000gi0twg2dc6lwy" class="article-share-link">Share</a>
       
       
       
@@ -541,7 +663,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjpzi8i04000fgotw11zbqitr" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjq8zzxzn000ci0twfby890wh" class="article-share-link">Share</a>
       
       
       
@@ -601,69 +723,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjpzi8i04000jgotwu7snd5ia" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" class="article-date">
-  <time datetime="2018-09-09T19:33:12.000Z" itemprop="datePublished">2018-09-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/">LeetCode - Algorithms - 121. Best Time to Buy and Sell Stock</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>虽然难度标为Easy，但自己居然提交了好几次才通过了，而且是因为犯了逻辑错误。最后用个二重循环，倒也简单，但性能不好，不知道高效算法是如何做的？</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int maxProfit(int[] prices) &#123;</div><div class="line">    	if (prices==null || prices.length==0)</div><div class="line">    		return 0;</div><div class="line">        int r = 0;</div><div class="line">        for(int i=0;i&lt;prices.length-1;i++) &#123;</div><div class="line">        	for(int j=prices.length-1;j&gt;i;j--) &#123;</div><div class="line">        		if (prices[j]-prices[i]&gt;r) &#123;</div><div class="line">        			r = prices[j]-prices[i];</div><div class="line">        		&#125;</div><div class="line">        	&#125;</div><div class="line">        &#125;</div><div class="line">        return r;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果</p>
-<blockquote>
-<p>200 / 200 test cases passed.<br>Runtime: 415 ms<br>Your runtime beats 4.30 % of java submissions.</p>
-</blockquote>
-<p>在网上人家的一个O(n)时间复杂度的算法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int maxProfit(int[] prices) &#123;</div><div class="line">    	if (prices==null || prices.length&lt;=1)</div><div class="line">    		return 0;</div><div class="line">        int r = 0;</div><div class="line">        int minPrice = prices[0];</div><div class="line">        for(int i=1;i&lt;prices.length;i++) &#123;</div><div class="line">        	r = Math.max(r, prices[i]-minPrice);</div><div class="line">        	minPrice = Math.min(minPrice, prices[i]);</div><div class="line">        &#125;</div><div class="line">        return r;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果：</p>
-<blockquote>
-<p>200 / 200 test cases passed.<br>Runtime: 2 ms<br>Your runtime beats 32.88 % of java submissions.</p>
-</blockquote>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><h2 id="O-n2"><a href="#O-n2" class="headerlink" title="O(n2)"></a>O(n<sup>2</sup>)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number[]&#125; prices</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var maxProfit = function(prices) &#123;</div><div class="line">	if (prices==null || prices.length==0)</div><div class="line">		return 0;</div><div class="line">	var r=0;</div><div class="line">	var x = 0;</div><div class="line">	for(var i=0;i&lt;prices.length-1;i++) &#123;</div><div class="line">		for(var j=prices.length-1;j&gt;i;j--) &#123;</div><div class="line">			x = prices[j]-prices[i];</div><div class="line">			if (x&gt;r)</div><div class="line">				r = x;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	return r;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果</p>
-<blockquote>
-<p>200 / 200 test cases passed.<br>Runtime: 524 ms<br>Your runtime beats 7.71 % of javascript submissions.</p>
-</blockquote>
-<h2 id="O-n"><a href="#O-n" class="headerlink" title="O(n)"></a>O(n)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number[]&#125; prices</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var maxProfit = function(prices) &#123;</div><div class="line">	if (prices==null || prices.length&lt;=1)</div><div class="line">		return 0;</div><div class="line">	var r=0;</div><div class="line">	var minPrice = prices[0];</div><div class="line">	for(var i=1;i&lt;prices.length;i++) &#123;</div><div class="line">		r = Math.max(r,prices[i]-minPrice);</div><div class="line">		minPrice = Math.min(minPrice,prices[i]);</div><div class="line">	&#125;</div><div class="line">	return r;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果</p>
-<blockquote>
-<p>200 / 200 test cases passed.<br>Runtime: 60 ms<br>Your runtime beats 84.89 % of javascript submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cjpzi8i04000kgotwvqb5z0zr" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjq8zzxzv000ki0twr6e7awcg" class="article-share-link">Share</a>
       
       
       
@@ -727,6 +787,10 @@
       <ul>
         
           <li>
+            <a href="/2018/12/28/LeetCode-Algorithms-UTF-8-Validation/">LeetCode - Algorithms - 393. UTF-8 Validation</a>
+          </li>
+        
+          <li>
             <a href="/2018/12/22/LeetCode-Algorithms-Shuffle-an-Array/">LeetCode - Algorithms - 384. Shuffle an Array</a>
           </li>
         
@@ -740,10 +804,6 @@
         
           <li>
             <a href="/2018/12/01/LeetCode-Algorithms-Sqrt/">LeetCode - Algorithms - 69. Sqrt(x)</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/29/LeetCode-Algorithms-Contains-Duplicate/">LeetCode - Algorithms - 217. Contains Duplicate</a>
           </li>
         
       </ul>
