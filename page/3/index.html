@@ -65,6 +65,67 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Reverse-Linked-List" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/26/LeetCode-Algorithms-Reverse-Linked-List/" class="article-date">
+  <time datetime="2018-10-26T20:11:16.000Z" itemprop="datePublished">2018-10-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/26/LeetCode-Algorithms-Reverse-Linked-List/">LeetCode - Algorithms - 206. Reverse Linked List</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Although it labeled as Easy, this problem made me wondering and puzzle. In fact I had met the problem in <a href="https://leetcode.com/problems/add-two-numbers/description/" target="_blank" rel="external">2. Add Two Numbers</a>. I can’t do it, what’s more, I can’t understand the solutions after I saw the code implemented by others. I just listed the answer.</p>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="https://www.geeksforgeeks.org/reverse-a-linked-list/" target="_blank" rel="external">Reverse a linked list</a></li>
+<li><a href="http://www.topjavatutorial.com/java/java-programs/reverse-linked-list-using-recursion-in-java/" target="_blank" rel="external">Reverse Linked List using recursion in java</a>: it helps to recursive method</li>
+<li><a href="https://www.geeksforgeeks.org/java-program-for-reverse-a-linked-list/" target="_blank" rel="external">Java Program for Reverse a linked list</a></li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="iteratively"><a href="#iteratively" class="headerlink" title="iteratively"></a>iteratively</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Definition for singly-linked list.</div><div class="line"> * public class ListNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     ListNode next;</div><div class="line"> *     ListNode(int x) &#123; val = x; &#125;</div><div class="line"> * &#125;</div><div class="line"> */</div><div class="line">class Solution &#123;</div><div class="line">    public ListNode reverseList(ListNode head) &#123;</div><div class="line">    	ListNode prev = null;</div><div class="line">    	ListNode current = head;</div><div class="line">    	ListNode next = null;</div><div class="line">    	while(current!=null) &#123;</div><div class="line">    		next = current.next;</div><div class="line">    		current.next = prev;</div><div class="line">    		prev = current;</div><div class="line">    		current = next;</div><div class="line">    	&#125;</div><div class="line">    	head = prev;</div><div class="line">        return head;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode run result:</p>
+<blockquote>
+<p>27 / 27 test cases passed.<br>Runtime: 0 ms<br>Your runtime beats 100.00 % of java submissions.</p>
+</blockquote>
+<h2 id="recursively"><a href="#recursively" class="headerlink" title="recursively"></a>recursively</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Definition for singly-linked list.</div><div class="line"> * public class ListNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     ListNode next;</div><div class="line"> *     ListNode(int x) &#123; val = x; &#125;</div><div class="line"> * &#125;</div><div class="line"> */</div><div class="line">class Solution &#123;</div><div class="line">    public ListNode reverseList(ListNode head) &#123;</div><div class="line">    	if (head==null || head.next==null)</div><div class="line">    		return head;</div><div class="line">    	ListNode p = reverseList(head.next);</div><div class="line">    	head.next.next=head;</div><div class="line">    	head.next=null;</div><div class="line">        return p;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Submission Detail:</p>
+<blockquote>
+<p>27 / 27 test cases passed.<br>Runtime: 1 ms<br>Your runtime beats 6.80 % of java submissions.</p>
+</blockquote>
+<h2 id="Tail-Recursive"><a href="#Tail-Recursive" class="headerlink" title="Tail Recursive"></a>Tail Recursive</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Definition for singly-linked list.</div><div class="line"> * public class ListNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     ListNode next;</div><div class="line"> *     ListNode(int x) &#123; val = x; &#125;</div><div class="line"> * &#125;</div><div class="line"> */</div><div class="line">class Solution &#123;</div><div class="line">    public ListNode reverseUtil(ListNode curr, ListNode prev) &#123;</div><div class="line">    	ListNode head = null;</div><div class="line">    	if (curr.next==null) &#123;</div><div class="line">    		head = curr;</div><div class="line">    		curr.next=prev;</div><div class="line">    		return head;</div><div class="line">    	&#125;</div><div class="line">    	</div><div class="line">    	ListNode next1 = curr.next;</div><div class="line">    	curr.next=prev;</div><div class="line">    	head = reverseUtil(next1,curr);</div><div class="line">    	return head;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public ListNode reverseList(ListNode head) &#123;</div><div class="line">        if (head!=null)</div><div class="line">          return reverseUtil(head,null);        </div><div class="line">        else</div><div class="line">            return null;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Submission Detail: </p>
+<blockquote>
+<p>27 / 27 test cases passed.<br>Runtime: 0 ms<br>Your runtime beats 100.00 % of java submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/26/LeetCode-Algorithms-Reverse-Linked-List/" data-id="cjr6krwgo00240gtw5hpysqlw" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-LeetCode-Algorithms-First-Unique-Character-in-a-String" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/10/24/LeetCode-Algorithms-First-Unique-Character-in-a-String/" class="article-date">
@@ -102,7 +163,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/24/LeetCode-Algorithms-First-Unique-Character-in-a-String/" data-id="cjr27hca6001bestwuyw3eige" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/24/LeetCode-Algorithms-First-Unique-Character-in-a-String/" data-id="cjr6krwfj001d0gtwalnn5gef" class="article-share-link">Share</a>
       
       
       
@@ -224,7 +285,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/22/Maven/" data-id="cjr27hcbx0030estw184o4kt8" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/22/Maven/" data-id="cjr6krwi8002y0gtw1rxwok3x" class="article-share-link">Share</a>
       
       
       
@@ -280,7 +341,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" data-id="cjr27hcbp002restwry3kjh70" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" data-id="cjr6krwi3002r0gtwiay8svx5" class="article-share-link">Share</a>
       
       
       
@@ -387,7 +448,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="cjr27hcdw004festwrg29phf0" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="cjr6krwj2003q0gtw2upaq58o" class="article-share-link">Share</a>
       
       
       
@@ -436,7 +497,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="cjr27hcao001sestw4aw7v96h" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="cjr6krwf5000z0gtw3fag9op8" class="article-share-link">Share</a>
       
       
       
@@ -485,7 +546,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="cjr27hc9t000uestw5d7jccex" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="cjr6krwf900140gtw8poch6ma" class="article-share-link">Share</a>
       
       
       
@@ -548,7 +609,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjr27hc9z0011estwep6bws48" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjr6krweu000s0gtw73wzvla3" class="article-share-link">Share</a>
       
       
       
@@ -613,7 +674,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="cjr27hc9r000sestwdgkpwsq5" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="cjr6krwew000u0gtw803tbgjz" class="article-share-link">Share</a>
       
       
       
@@ -658,63 +719,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjr27hc8y000cestwn84icppj" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Basic-Calculator-II" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" class="article-date">
-  <time datetime="2018-09-13T20:03:00.000Z" itemprop="datePublished">2018-09-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/">LeetCode - Algorithms - 227. Basic Calculator II</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这题是关于表达式解析的，2007年学习数据结构曾经实现过，思路是把中缀表达式转换为后缀表达式，再结合栈这种数据结构计算后缀表达式，就拿来执行下，结果LeetCode test case <code>1*2-3/4+5*6-7*8+9/10</code> 报了个错 <code>java.lang.ArithmeticException: / by zero</code>，用StringTokenizer把操作符与操作数拆开，改了下原来的代码，最终运行通过了，但自己对其中的机理还是有点知其然而不知其所以然。</p>
-<p>原来java7以后可以在switch的case语句里用String类型。</p>
-<p><a href="https://docs.oracle.com/javase/7/docs/technotes/guides/language/strings-switch.html" target="_blank" rel="external">Strings in switch Statements</a></p>
-<p>In the JDK 7 release, you can use a String object in the expression of a switch statement.</p>
-<p>Basic Calculator这系列的题看来也是比较经典的，表达式解析好像是数据结构与编译原理的交叉点之一。</p>
-<ul>
-<li><a href="https://leetcode.com/problems/basic-calculator/description/" target="_blank" rel="external">224. Basic Calculator</a></li>
-<li><a href="https://leetcode.com/problems/basic-calculator-ii/description/" target="_blank" rel="external">227. Basic Calculator II</a></li>
-<li><a href="https://leetcode.com/problems/basic-calculator-iii" target="_blank" rel="external">772. Basic Calculator III</a></li>
-<li><a href="https://leetcode.com/problems/basic-calculator-iv/description/" target="_blank" rel="external">770. Basic Calculator IV</a>  </li>
-</ul>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.List;</div><div class="line">import java.util.Stack;</div><div class="line">import java.util.StringTokenizer;</div><div class="line"></div><div class="line">class Solution &#123;</div><div class="line">	public int postfixCalculator(List&lt;String&gt; postfixExpr) &#123;</div><div class="line">		Stack&lt;Integer&gt; stk = new Stack&lt;Integer&gt;();</div><div class="line">		for (int i = 0; i &lt; postfixExpr.size(); i++) &#123;</div><div class="line">			String s = postfixExpr.get(i);</div><div class="line">			int a, b, x;</div><div class="line">			switch (s) &#123;</div><div class="line">			case &quot;*&quot;:</div><div class="line">				if (!stk.isEmpty()) &#123;</div><div class="line">					a = stk.pop().intValue();</div><div class="line">					b = stk.pop().intValue();</div><div class="line">					x = a * b;</div><div class="line">					stk.push(new Integer(x));</div><div class="line">				&#125;</div><div class="line">				break;</div><div class="line">			case &quot;+&quot;:</div><div class="line">				if (!stk.isEmpty()) &#123;</div><div class="line">					a = stk.pop().intValue();</div><div class="line">					b = stk.pop().intValue();</div><div class="line">					x = a + b;</div><div class="line">					stk.push(new Integer(x));</div><div class="line">				&#125;</div><div class="line">				break;</div><div class="line">			case &quot;-&quot;:</div><div class="line">				if (!stk.isEmpty()) &#123;</div><div class="line">					a = stk.pop().intValue();</div><div class="line">					b = stk.pop().intValue();</div><div class="line">					x = b - a;</div><div class="line">					stk.push(new Integer(x));</div><div class="line">				&#125;</div><div class="line">				break;</div><div class="line">			case &quot;/&quot;:</div><div class="line">				if (!stk.isEmpty()) &#123;</div><div class="line">					a = stk.pop().intValue();</div><div class="line">					b = stk.pop().intValue();</div><div class="line">					x = b / a;</div><div class="line">					stk.push(new Integer(x));</div><div class="line">				&#125;</div><div class="line">				break;</div><div class="line">			default: </div><div class="line">				stk.push(new Integer(s));</div><div class="line">				break;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		int ret = 0;</div><div class="line">		if (!stk.isEmpty())</div><div class="line">			ret = stk.pop().intValue();</div><div class="line">		return ret;</div><div class="line">	&#125;</div><div class="line">    </div><div class="line">	public List&lt;String&gt; infix2postfix(String infixExpr) &#123;</div><div class="line">		List&lt;String&gt; r = new ArrayList&lt;String&gt;();</div><div class="line">		Stack&lt;String&gt; stk = new Stack&lt;String&gt;();</div><div class="line">		List&lt;String&gt; list = new ArrayList&lt;String&gt;();</div><div class="line">		StringTokenizer st = new StringTokenizer(infixExpr,&quot;[\\+\\-\\*/()]&quot;,true);</div><div class="line">	     while (st.hasMoreTokens()) &#123;</div><div class="line">	         list.add(st.nextToken());</div><div class="line">	     &#125;</div><div class="line">		for (int i = 0; i &lt; list.size(); i++) &#123;</div><div class="line">			String s = list.get(i);</div><div class="line">			switch (s) &#123;</div><div class="line">			case &quot;*&quot;:</div><div class="line">			case &quot;/&quot;:</div><div class="line">				while (!stk.isEmpty() &amp;&amp; (stk.peek().equals(&quot;*&quot;) || stk.peek().equals(&quot;/&quot;))) &#123;</div><div class="line">					r.add( stk.pop() );</div><div class="line">				&#125;</div><div class="line">				stk.push(s);</div><div class="line">				break;</div><div class="line">			case &quot;+&quot;:</div><div class="line">			case &quot;-&quot;:</div><div class="line">				while (!stk.isEmpty() &amp;&amp; !stk.peek().equals(&quot;(&quot;)) &#123;</div><div class="line">					r.add( stk.pop() );</div><div class="line">				&#125;</div><div class="line">				stk.push(s);</div><div class="line">				break;</div><div class="line">			case &quot;(&quot;:</div><div class="line">				stk.push(s);</div><div class="line">				break;</div><div class="line">			case &quot;)&quot;:</div><div class="line">				while (!stk.isEmpty() &amp;&amp; !stk.peek().equals(&quot;(&quot;)) &#123;</div><div class="line">					r.add(stk.pop());</div><div class="line">				&#125;</div><div class="line">				if (stk.peek().equals(&quot;(&quot;))</div><div class="line">					stk.pop();</div><div class="line">				break;</div><div class="line">			default:</div><div class="line">				r.add(s);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		while (stk != null &amp;&amp; !stk.isEmpty()) &#123;</div><div class="line">			r.add( stk.pop() );</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		return r;</div><div class="line">	&#125;    </div><div class="line">    </div><div class="line">    public int calculate(String s) &#123;</div><div class="line">        return postfixCalculator(infix2postfix(s.replaceAll(&quot; &quot;, &quot;&quot;)));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>性能不行，LeetCode运行结果</p>
-<blockquote>
-<p>109 / 109 test cases passed.<br>Runtime: 98 ms<br>Your runtime beats 5.79 % of java submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjr27hc8q0007estws7zpik31" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjr6krweh000e0gtwb3wf9hg0" class="article-share-link">Share</a>
       
       
       
@@ -778,6 +783,10 @@
       <ul>
         
           <li>
+            <a href="/2019/01/21/LeetCode-Algorithms-Roman-to-Integer/">LeetCode - Algorithms - 13. Roman to Integer</a>
+          </li>
+        
+          <li>
             <a href="/2019/01/18/LeetCode-Algorithms-Merge-Two-Sorted-Lists/">LeetCode - Algorithms - 21. Merge Two Sorted Lists</a>
           </li>
         
@@ -791,10 +800,6 @@
         
           <li>
             <a href="/2018/12/21/LeetCode-Algorithms-Design-HashMap/">LeetCode - Algorithms - 706. Design HashMap</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/08/LeetCode-Algorithms-Maximum-Subarray/">LeetCode - Algorithms - 53. Maximum Subarray</a>
           </li>
         
       </ul>

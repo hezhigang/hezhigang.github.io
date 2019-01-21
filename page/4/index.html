@@ -65,6 +65,62 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Basic-Calculator-II" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" class="article-date">
+  <time datetime="2018-09-13T20:03:00.000Z" itemprop="datePublished">2018-09-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/">LeetCode - Algorithms - 227. Basic Calculator II</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这题是关于表达式解析的，2007年学习数据结构曾经实现过，思路是把中缀表达式转换为后缀表达式，再结合栈这种数据结构计算后缀表达式，就拿来执行下，结果LeetCode test case <code>1*2-3/4+5*6-7*8+9/10</code> 报了个错 <code>java.lang.ArithmeticException: / by zero</code>，用StringTokenizer把操作符与操作数拆开，改了下原来的代码，最终运行通过了，但自己对其中的机理还是有点知其然而不知其所以然。</p>
+<p>原来java7以后可以在switch的case语句里用String类型。</p>
+<p><a href="https://docs.oracle.com/javase/7/docs/technotes/guides/language/strings-switch.html" target="_blank" rel="external">Strings in switch Statements</a></p>
+<p>In the JDK 7 release, you can use a String object in the expression of a switch statement.</p>
+<p>Basic Calculator这系列的题看来也是比较经典的，表达式解析好像是数据结构与编译原理的交叉点之一。</p>
+<ul>
+<li><a href="https://leetcode.com/problems/basic-calculator/description/" target="_blank" rel="external">224. Basic Calculator</a></li>
+<li><a href="https://leetcode.com/problems/basic-calculator-ii/description/" target="_blank" rel="external">227. Basic Calculator II</a></li>
+<li><a href="https://leetcode.com/problems/basic-calculator-iii" target="_blank" rel="external">772. Basic Calculator III</a></li>
+<li><a href="https://leetcode.com/problems/basic-calculator-iv/description/" target="_blank" rel="external">770. Basic Calculator IV</a>  </li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.List;</div><div class="line">import java.util.Stack;</div><div class="line">import java.util.StringTokenizer;</div><div class="line"></div><div class="line">class Solution &#123;</div><div class="line">	public int postfixCalculator(List&lt;String&gt; postfixExpr) &#123;</div><div class="line">		Stack&lt;Integer&gt; stk = new Stack&lt;Integer&gt;();</div><div class="line">		for (int i = 0; i &lt; postfixExpr.size(); i++) &#123;</div><div class="line">			String s = postfixExpr.get(i);</div><div class="line">			int a, b, x;</div><div class="line">			switch (s) &#123;</div><div class="line">			case &quot;*&quot;:</div><div class="line">				if (!stk.isEmpty()) &#123;</div><div class="line">					a = stk.pop().intValue();</div><div class="line">					b = stk.pop().intValue();</div><div class="line">					x = a * b;</div><div class="line">					stk.push(new Integer(x));</div><div class="line">				&#125;</div><div class="line">				break;</div><div class="line">			case &quot;+&quot;:</div><div class="line">				if (!stk.isEmpty()) &#123;</div><div class="line">					a = stk.pop().intValue();</div><div class="line">					b = stk.pop().intValue();</div><div class="line">					x = a + b;</div><div class="line">					stk.push(new Integer(x));</div><div class="line">				&#125;</div><div class="line">				break;</div><div class="line">			case &quot;-&quot;:</div><div class="line">				if (!stk.isEmpty()) &#123;</div><div class="line">					a = stk.pop().intValue();</div><div class="line">					b = stk.pop().intValue();</div><div class="line">					x = b - a;</div><div class="line">					stk.push(new Integer(x));</div><div class="line">				&#125;</div><div class="line">				break;</div><div class="line">			case &quot;/&quot;:</div><div class="line">				if (!stk.isEmpty()) &#123;</div><div class="line">					a = stk.pop().intValue();</div><div class="line">					b = stk.pop().intValue();</div><div class="line">					x = b / a;</div><div class="line">					stk.push(new Integer(x));</div><div class="line">				&#125;</div><div class="line">				break;</div><div class="line">			default: </div><div class="line">				stk.push(new Integer(s));</div><div class="line">				break;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		int ret = 0;</div><div class="line">		if (!stk.isEmpty())</div><div class="line">			ret = stk.pop().intValue();</div><div class="line">		return ret;</div><div class="line">	&#125;</div><div class="line">    </div><div class="line">	public List&lt;String&gt; infix2postfix(String infixExpr) &#123;</div><div class="line">		List&lt;String&gt; r = new ArrayList&lt;String&gt;();</div><div class="line">		Stack&lt;String&gt; stk = new Stack&lt;String&gt;();</div><div class="line">		List&lt;String&gt; list = new ArrayList&lt;String&gt;();</div><div class="line">		StringTokenizer st = new StringTokenizer(infixExpr,&quot;[\\+\\-\\*/()]&quot;,true);</div><div class="line">	     while (st.hasMoreTokens()) &#123;</div><div class="line">	         list.add(st.nextToken());</div><div class="line">	     &#125;</div><div class="line">		for (int i = 0; i &lt; list.size(); i++) &#123;</div><div class="line">			String s = list.get(i);</div><div class="line">			switch (s) &#123;</div><div class="line">			case &quot;*&quot;:</div><div class="line">			case &quot;/&quot;:</div><div class="line">				while (!stk.isEmpty() &amp;&amp; (stk.peek().equals(&quot;*&quot;) || stk.peek().equals(&quot;/&quot;))) &#123;</div><div class="line">					r.add( stk.pop() );</div><div class="line">				&#125;</div><div class="line">				stk.push(s);</div><div class="line">				break;</div><div class="line">			case &quot;+&quot;:</div><div class="line">			case &quot;-&quot;:</div><div class="line">				while (!stk.isEmpty() &amp;&amp; !stk.peek().equals(&quot;(&quot;)) &#123;</div><div class="line">					r.add( stk.pop() );</div><div class="line">				&#125;</div><div class="line">				stk.push(s);</div><div class="line">				break;</div><div class="line">			case &quot;(&quot;:</div><div class="line">				stk.push(s);</div><div class="line">				break;</div><div class="line">			case &quot;)&quot;:</div><div class="line">				while (!stk.isEmpty() &amp;&amp; !stk.peek().equals(&quot;(&quot;)) &#123;</div><div class="line">					r.add(stk.pop());</div><div class="line">				&#125;</div><div class="line">				if (stk.peek().equals(&quot;(&quot;))</div><div class="line">					stk.pop();</div><div class="line">				break;</div><div class="line">			default:</div><div class="line">				r.add(s);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		while (stk != null &amp;&amp; !stk.isEmpty()) &#123;</div><div class="line">			r.add( stk.pop() );</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		return r;</div><div class="line">	&#125;    </div><div class="line">    </div><div class="line">    public int calculate(String s) &#123;</div><div class="line">        return postfixCalculator(infix2postfix(s.replaceAll(&quot; &quot;, &quot;&quot;)));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>性能不行，LeetCode运行结果</p>
+<blockquote>
+<p>109 / 109 test cases passed.<br>Runtime: 98 ms<br>Your runtime beats 5.79 % of java submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjr6krwee000b0gtwfbrw7igr" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" class="article-date">
@@ -111,7 +167,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjr27hc8s0008estwykeiegdw" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjr6krwes000q0gtwkmv5czua" class="article-share-link">Share</a>
       
       
       
@@ -173,7 +229,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cjr27hc8w000aestwz0ulwq0o" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cjr6krwen000k0gtwy51lwah6" class="article-share-link">Share</a>
       
       
       
@@ -236,7 +292,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="cjr27hchv0075estw6wcmfml7" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="cjr6krwkv00510gtwbtyw44dp" class="article-share-link">Share</a>
       
       
       
@@ -287,7 +343,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="cjr27hcaq001vestwtlful2zt" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="cjr6krwgf001z0gtwx1nvm8vs" class="article-share-link">Share</a>
       
       
       
@@ -342,7 +398,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="cjr27hcb40027estwrizvajx4" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="cjr6krwh1002c0gtwy1086axh" class="article-share-link">Share</a>
       
       
       
@@ -395,7 +451,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="cjr27hc9f000pestwrwb40giy" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="cjr6krwdx00010gtwc8zidz5e" class="article-share-link">Share</a>
       
       
       
@@ -446,7 +502,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" data-id="cjr27hca20016estw34fh2se0" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" data-id="cjr6krwfd00180gtwlcxm8gxq" class="article-share-link">Share</a>
       
       
       
@@ -524,7 +580,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/" data-id="cjr27hcbh002hestwn1097m5z" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/" data-id="cjr6krwhe002j0gtwi1bdhs4d" class="article-share-link">Share</a>
       
       
       
@@ -593,65 +649,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/" data-id="cjr27hc9v000westw5fdbznt4" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/" data-id="cjr6krwf700110gtw85dbpg9r" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Java8-tricks" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/08/22/Java8-tricks/" class="article-date">
-  <time datetime="2018-08-22T18:45:34.000Z" itemprop="datePublished">2018-08-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/22/Java8-tricks/">Java 8 用法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><p>Java 8 新特性概述<br><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jdk8newfeature/index.html" target="_blank" rel="external">https://www.ibm.com/developerworks/cn/java/j-lo-jdk8newfeature/index.html</a></p>
-<p>Java 8 被动迭代式特性介绍<br><a href="https://www.ibm.com/developerworks/cn/java/j-lo-java8-iterator/index.html" target="_blank" rel="external">https://www.ibm.com/developerworks/cn/java/j-lo-java8-iterator/index.html</a></p>
-<p>使用 Java 8 作为 Java 下一代语言<br>评估 Java 8 是否适合代替 Java<br><a href="https://www.ibm.com/developerworks/cn/java/j-jn15/index.html" target="_blank" rel="external">https://www.ibm.com/developerworks/cn/java/j-jn15/index.html</a></p>
-<p>Java 8 中的 Streams API 详解<br>Streams 的背景，以及 Java 8 中的使用详解<br><a href="https://www.ibm.com/developerworks/cn/java/j-lo-java8streamapi/index.html" target="_blank" rel="external">https://www.ibm.com/developerworks/cn/java/j-lo-java8streamapi/index.html</a></p>
-<p>Java 8 中的 Stream 是对集合（Collection）对象功能的增强，它专注于对集合对象进行各种非常便利、高效的聚合操作（aggregate operation），或者大批量数据操作 (bulk data operation)。Stream API 借助于同样新出现的 Lambda 表达式，极大的提高编程效率和程序可读性。同时它提供串行和并行两种模式进行汇聚操作，并发模式能够充分利用多核处理器的优势，使用 fork/join 并行方式来拆分任务和加速处理过程。通常编写并行代码很难而且容易出错, 但使用 Stream API 无需编写一行多线程的代码，就可以很方便地写出高性能的并发程序。所以说，Java 8 中首次出现的 java.util.stream 是一个函数式语言+多核时代综合影响的产物。</p>
-<p>The Java 8 Stream API Tutorial<br><a href="https://www.baeldung.com/java-8-streams" target="_blank" rel="external">https://www.baeldung.com/java-8-streams</a></p>
-<p>Java 8 Stream Tutorial<br><a href="https://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/" target="_blank" rel="external">https://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/</a></p>
-<p>Lambdas and Streams in Java 8 Libraries<br><a href="http://www.drdobbs.com/jvm/lambdas-and-streams-in-java-8-libraries/240166818" target="_blank" rel="external">http://www.drdobbs.com/jvm/lambdas-and-streams-in-java-8-libraries/240166818</a></p>
-<h1 id="Streams"><a href="#Streams" class="headerlink" title="Streams"></a>Streams</h1><h2 id="数组连接成字符串"><a href="#数组连接成字符串" class="headerlink" title="数组连接成字符串"></a>数组连接成字符串</h2><p><a href="https://coderwall.com/p/im4lja/joining-objects-into-a-string-with-java-8-stream-api" target="_blank" rel="external">Joining Objects into a String with Java 8 Stream API</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">String[] strs = &#123;&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;&#125;;</div><div class="line">System.out.println(Arrays.stream(strs).collect(Collectors.joining( &quot;,&quot; )));</div></pre></td></tr></table></figure>
-<h2 id="返回数组最大值"><a href="#返回数组最大值" class="headerlink" title="返回数组最大值"></a>返回数组最大值</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int[] arr = &#123;2,7,3,13,59,31&#125;;</div><div class="line">Arrays.stream(arr).max().getAsInt();</div></pre></td></tr></table></figure>
-<h2 id="List-join-as-String"><a href="#List-join-as-String" class="headerlink" title="List join as String"></a>List join as String</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">List&lt;Integer&gt; primes = primeNumbersTill(100);</div><div class="line">String s = primes.stream().map(Object::toString).collect(Collectors.joining(&quot;,&quot;));</div></pre></td></tr></table></figure>
-<h2 id="java-8-打印素数序列"><a href="#java-8-打印素数序列" class="headerlink" title="java 8 打印素数序列"></a>java 8 打印素数序列</h2><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">import java.util.List;</div><div class="line">import java.util.stream.Collectors;</div><div class="line">import java.util.stream.IntStream;</div><div class="line"></div><div class="line">public static boolean isPrime(int number) &#123;</div><div class="line">	return IntStream.rangeClosed(2, number/2).noneMatch(i -&gt; number%i == 0);</div><div class="line">&#125;</div><div class="line"></div><div class="line">public static List&lt;Integer&gt; primeNumbersTill(int n) &#123;</div><div class="line">	return IntStream.rangeClosed(2, n)</div><div class="line">	      .filter(x -&gt; isPrime(x)).boxed()</div><div class="line">	      .collect(Collectors.toList());</div><div class="line">&#125;</div><div class="line"></div><div class="line">public static void main(String[] args) &#123;</div><div class="line">	final int n = 100;</div><div class="line">	List&lt;Integer&gt; primes = primeNumbersTill(n);</div><div class="line">	String s = primes.stream().map(Object::toString).collect(Collectors.joining(&quot;,&quot;));</div><div class="line">	System.out.println(s);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="2-Sieve-of-Eratosthenes"><a href="#2-Sieve-of-Eratosthenes" class="headerlink" title="2 Sieve of Eratosthenes"></a>2 Sieve of Eratosthenes</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">import java.util.List;</div><div class="line">import java.util.stream.Collectors;</div><div class="line">import java.util.stream.IntStream;</div><div class="line"></div><div class="line">public static List&lt;Integer&gt; primeNumber(int n) &#123;</div><div class="line">    final BitSet sieve = new BitSet(n+1);</div><div class="line">    List&lt;Integer&gt; plist = IntStream.rangeClosed(2, n)</div><div class="line">    	                  .filter(x -&gt; !sieve.get(x))</div><div class="line">    	                  .peek(x -&gt; &#123;</div><div class="line">    	                      if (x*x &lt; n)</div><div class="line">    	                        for(int i = x; i &lt;= n; i+=x)</div><div class="line">    	                           sieve.set(i);</div><div class="line">    	                   &#125;).boxed()</div><div class="line">    	        	      .collect(Collectors.toList());</div><div class="line">    return plist;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">public static void main(String[] args) &#123;</div><div class="line">	final int n = 100;</div><div class="line">	List&lt;Integer&gt; plist = primeNumber(n);</div><div class="line">	System.out.println(plist.stream().map(Object::toString).collect(Collectors.joining(&quot;,&quot;)));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="Lambda"><a href="#Lambda" class="headerlink" title="Lambda"></a>Lambda</h1>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/22/Java8-tricks/" data-id="cjr27hc8m0005estw2slak7ta" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
 
     </footer>
   </div>
@@ -711,6 +713,10 @@
       <ul>
         
           <li>
+            <a href="/2019/01/21/LeetCode-Algorithms-Roman-to-Integer/">LeetCode - Algorithms - 13. Roman to Integer</a>
+          </li>
+        
+          <li>
             <a href="/2019/01/18/LeetCode-Algorithms-Merge-Two-Sorted-Lists/">LeetCode - Algorithms - 21. Merge Two Sorted Lists</a>
           </li>
         
@@ -724,10 +730,6 @@
         
           <li>
             <a href="/2018/12/21/LeetCode-Algorithms-Design-HashMap/">LeetCode - Algorithms - 706. Design HashMap</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/08/LeetCode-Algorithms-Maximum-Subarray/">LeetCode - Algorithms - 53. Maximum Subarray</a>
           </li>
         
       </ul>
