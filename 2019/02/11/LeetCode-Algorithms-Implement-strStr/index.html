@@ -5,14 +5,19 @@
   
 
   
-  <title>Archives | A Humble Programmer</title>
+  <title>LeetCode - Algorithms - 28. Implement strStr() | A Humble Programmer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="A Humble Programmer">
-<meta property="og:url" content="https://hezhigang.github.io/archives/page/2/index.html">
+  <meta name="description" content="Java1 KMP algorithm北京大学信息科学与技术学院《数据结构与算法》 之 KMP模式匹配算法 ©版权所有 12345678910111213141516171819202122232425262728293031323334353637383940414243class Solution &amp;#123;	public int[] nextVector(String P) &amp;#123;">
+<meta name="keywords" content="LeetCode,Algorithms">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode - Algorithms - 28. Implement strStr()">
+<meta property="og:url" content="https://hezhigang.github.io/2019/02/11/LeetCode-Algorithms-Implement-strStr/index.html">
 <meta property="og:site_name" content="A Humble Programmer">
+<meta property="og:description" content="Java1 KMP algorithm北京大学信息科学与技术学院《数据结构与算法》 之 KMP模式匹配算法 ©版权所有 12345678910111213141516171819202122232425262728293031323334353637383940414243class Solution &amp;#123;	public int[] nextVector(String P) &amp;#123;">
+<meta property="og:updated_time" content="2019-02-12T03:22:09.558Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A Humble Programmer">
+<meta name="twitter:title" content="LeetCode - Algorithms - 28. Implement strStr()">
+<meta name="twitter:description" content="Java1 KMP algorithm北京大学信息科学与技术学院《数据结构与算法》 之 KMP模式匹配算法 ©版权所有 12345678910111213141516171819202122232425262728293031323334353637383940414243class Solution &amp;#123;	public int[] nextVector(String P) &amp;#123;">
   
     <link rel="alternate" href="/atom.xml" title="A Humble Programmer" type="application/atom+xml">
   
@@ -63,216 +68,64 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/11/10/AKS-test-for-primes/" class="archive-article-date">
-  <time datetime="2018-11-10T13:10:58.000Z" itemprop="datePublished">Nov 10</time>
+        <section id="main"><article id="post-LeetCode-Algorithms-Implement-strStr" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/11/LeetCode-Algorithms-Implement-strStr/" class="article-date">
+  <time datetime="2019-02-12T03:02:19.000Z" itemprop="datePublished">2019-02-11</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/10/AKS-test-for-primes/">AKS test for primes</a>
+    <h1 class="article-title" itemprop="name">
+      LeetCode - Algorithms - 28. Implement strStr()
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/11/07/Web-Engineering/" class="archive-article-date">
-  <time datetime="2018-11-07T15:48:44.000Z" itemprop="datePublished">Nov 7</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/07/Web-Engineering/">Web Engineering</a>
-    </h1>
-  
+        <h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="1-KMP-algorithm"><a href="#1-KMP-algorithm" class="headerlink" title="1 KMP algorithm"></a>1 KMP algorithm</h2><pre><code>北京大学信息科学与技术学院《数据结构与算法》 之 KMP模式匹配算法 ©版权所有
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">	public int[] nextVector(String P) &#123;</div><div class="line">		int[] arr = new int[P.length()];</div><div class="line">		arr[0] = 0;</div><div class="line">		int k = 0;</div><div class="line">		for (int i = 1; i &lt; P.length(); i++) &#123;</div><div class="line">			k = arr[i - 1];</div><div class="line"></div><div class="line">			while (k &gt; 0 &amp;&amp; P.charAt(i) != P.charAt(k)) &#123;</div><div class="line">				k = arr[k - 1];</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			if (P.charAt(i) == P.charAt(k))</div><div class="line">				arr[i] = k + 1;</div><div class="line">			else</div><div class="line">				arr[i] = 0;</div><div class="line">		&#125;</div><div class="line">		return arr;</div><div class="line">	&#125;</div><div class="line">    </div><div class="line">	public int findPat_KMP(String S, String P, int[] N, int startIndex) &#123;</div><div class="line">		int lastIndex = S.length() - P.length();</div><div class="line">		if (lastIndex &lt; startIndex)</div><div class="line">			return -1;</div><div class="line">		int i = startIndex, j = 0;</div><div class="line">		for (; i &lt; S.length(); i++) &#123;</div><div class="line">			while (P.charAt(j) != S.charAt(i) &amp;&amp; j &gt; 0)</div><div class="line">				j = N[j - 1];</div><div class="line">			if (S.charAt(i) == P.charAt(j))</div><div class="line">				j++;</div><div class="line">			if (j == P.length())</div><div class="line">				return i - j + 1;</div><div class="line">		&#125;</div><div class="line">		return -1;</div><div class="line">	&#125;    </div><div class="line">    </div><div class="line">    public int strStr(String haystack, String needle) &#123;</div><div class="line">        if (needle.isEmpty()) return 0;</div><div class="line">    	int[] arr = nextVector(needle);</div><div class="line">    	if (needle.isEmpty()) return 0;</div><div class="line">        return findPat_KMP(haystack,needle,arr,0);        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><blockquote>
+<p>74 / 74 test cases passed.<br>Runtime: 9 ms, faster than 26.57% of Java online submissions for Implement strStr().<br>Memory Usage: 38.5 MB, less than 0.98% of Java online submissions for Implement strStr().</p>
+</blockquote>
+<h2 id="2-JDK-String-indexOf"><a href="#2-JDK-String-indexOf" class="headerlink" title="2 JDK String indexOf"></a>2 JDK String indexOf</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int strStr(String haystack, String needle) &#123;</div><div class="line">    	if (needle.isEmpty()) return 0;</div><div class="line">        return haystack.indexOf(needle);        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><blockquote>
+<p>74 / 74 test cases passed.<br>Runtime: 3 ms, faster than 99.58% of Java online submissions for Implement strStr().<br>Memory Usage: 38.1 MB, less than 0.98% of Java online submissions for Implement strStr().</p>
+</blockquote>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/11/05/Spring-Portfolio/" class="archive-article-date">
-  <time datetime="2018-11-05T19:57:55.000Z" itemprop="datePublished">Nov 5</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/05/Spring-Portfolio/">Spring Portfolio</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/11/03/LeetCode-Algorithms-Validate-Binary-Search-Tree/" class="archive-article-date">
-  <time datetime="2018-11-03T13:24:40.000Z" itemprop="datePublished">Nov 3</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/02/11/LeetCode-Algorithms-Implement-strStr/" data-id="cjs175gv80018cwtw9rgwn5r7" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/03/LeetCode-Algorithms-Validate-Binary-Search-Tree/">LeetCode - Algorithms - 98. Validate Binary Search Tree</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/11/02/LeetCode-Algorithms-Binary-Tree-Postorder-Traversal/" class="archive-article-date">
-  <time datetime="2018-11-03T01:10:24.000Z" itemprop="datePublished">Nov 2</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/02/LeetCode-Algorithms-Binary-Tree-Postorder-Traversal/">LeetCode - Algorithms - 145. Binary Tree Postorder Traversal</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/11/02/LeetCode-Algorithms-Binary-Tree-Preorder-Traversal/" class="archive-article-date">
-  <time datetime="2018-11-03T01:09:29.000Z" itemprop="datePublished">Nov 2</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/02/LeetCode-Algorithms-Binary-Tree-Preorder-Traversal/">LeetCode - Algorithms - 144. Binary Tree Preorder Traversal</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/02/11/LeetCode-Algorithms-Remove-Duplicates-from-Sorted-Array/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">LeetCode - Algorithms - 26. Remove Duplicates from Sorted Array</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/11/01/LeetCode-Algorithms-Binary-Tree-Level-Order-Traversal/" class="archive-article-date">
-  <time datetime="2018-11-02T02:16:03.000Z" itemprop="datePublished">Nov 1</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/01/LeetCode-Algorithms-Binary-Tree-Level-Order-Traversal/">LeetCode - Algorithms - 102. Binary Tree Level Order Traversal</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/" class="archive-article-date">
-  <time datetime="2018-11-01T00:54:58.000Z" itemprop="datePublished">Oct 31</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/">LeetCode - Algorithms - 94. Binary Tree Inorder Traversal</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/" class="archive-article-date">
-  <time datetime="2018-10-30T19:11:47.000Z" itemprop="datePublished">Oct 30</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/">LeetCode - Algorithms - 29. Divide Two Integers</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/10/30/LeetCode-Algorithms-Min-Stack/" class="archive-article-date">
-  <time datetime="2018-10-30T14:42:08.000Z" itemprop="datePublished">Oct 30</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/30/LeetCode-Algorithms-Min-Stack/">LeetCode - Algorithms - 155. Min Stack</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/10/">10</a><a class="extend next" rel="next" href="/archives/page/3/">Next &raquo;</a>
-  </nav>
 
 </section>
         
