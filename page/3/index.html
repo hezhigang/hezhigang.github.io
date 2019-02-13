@@ -65,6 +65,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Min-Stack" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/30/LeetCode-Algorithms-Min-Stack/" class="article-date">
+  <time datetime="2018-10-30T14:42:08.000Z" itemprop="datePublished">2018-10-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/30/LeetCode-Algorithms-Min-Stack/">LeetCode - Algorithms - 155. Min Stack</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>The solution of two stack is clear for me.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">class MinStack &#123;</div><div class="line">	private Stack&lt;Integer&gt; stack;</div><div class="line">	private Stack&lt;Integer&gt; minStack;</div><div class="line">	</div><div class="line">    /** initialize your data structure here. */</div><div class="line">    public MinStack() &#123;</div><div class="line">    	stack = new Stack&lt;Integer&gt;();</div><div class="line">    	minStack = new Stack&lt;Integer&gt;();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public void push(int x) &#123;</div><div class="line">    	stack.push(x);</div><div class="line">    	if (minStack.isEmpty() || minStack.peek()&gt;=x)</div><div class="line">    		minStack.push(x);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public void pop() &#123;</div><div class="line">        int x = stack.pop();</div><div class="line">        if (x==minStack.peek())</div><div class="line">        	minStack.pop();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public int top() &#123;</div><div class="line">        return stack.peek();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public int getMin() &#123;</div><div class="line">        return minStack.peek();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Your MinStack object will be instantiated and called as such:</div><div class="line"> * MinStack obj = new MinStack();</div><div class="line"> * obj.push(x);</div><div class="line"> * obj.pop();</div><div class="line"> * int param_3 = obj.top();</div><div class="line"> * int param_4 = obj.getMin();</div><div class="line"> */</div></pre></td></tr></table></figure>
+<blockquote>
+<p>18 / 18 test cases passed.<br>Runtime: 64 ms<br>Your runtime beats 96.51 % of java submissions.</p>
+</blockquote>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * initialize your data structure here.</div><div class="line"> */</div><div class="line">var MinStack = function(stk,minStk) &#123;</div><div class="line">	this.stk = [];</div><div class="line">	this.minStk = [];    </div><div class="line">&#125;;</div><div class="line"></div><div class="line">/** </div><div class="line"> * @param &#123;number&#125; x</div><div class="line"> * @return &#123;void&#125;</div><div class="line"> */</div><div class="line">MinStack.prototype.push = function(x) &#123;</div><div class="line">    this.stk.push(x);</div><div class="line">    if (this.minStk.length==0 || this.minStk[this.minStk.length-1]&gt;=x)</div><div class="line">    	this.minStk.push(x);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">/**</div><div class="line"> * @return &#123;void&#125;</div><div class="line"> */</div><div class="line">MinStack.prototype.pop = function() &#123;</div><div class="line">    var x = this.stk.pop();</div><div class="line">    if (x==this.minStk[this.minStk.length-1])</div><div class="line">    	this.minStk.pop();</div><div class="line">&#125;;</div><div class="line"></div><div class="line">/**</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">MinStack.prototype.top = function() &#123;</div><div class="line">    return this.stk[this.stk.length-1];</div><div class="line">&#125;;</div><div class="line"></div><div class="line">/**</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">MinStack.prototype.getMin = function() &#123;</div><div class="line">    return this.minStk[this.minStk.length-1];</div><div class="line">&#125;;</div><div class="line"></div><div class="line">/** </div><div class="line"> * Your MinStack object will be instantiated and called as such:</div><div class="line"> * var obj = Object.create(MinStack).createNew()</div><div class="line"> * obj.push(x)</div><div class="line"> * obj.pop()</div><div class="line"> * var param_3 = obj.top()</div><div class="line"> * var param_4 = obj.getMin()</div><div class="line"> */</div></pre></td></tr></table></figure>
+<blockquote>
+<p>18 / 18 test cases passed.<br>Runtime: 68 ms<br>Your runtime beats 100.00 % of javascript submissions.</p>
+</blockquote>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="http://www.cnblogs.com/grandyang/p/4091064.html" target="_blank" rel="external">Min Stack 最小栈</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/30/LeetCode-Algorithms-Min-Stack/" data-id="cjs2me2wj001nm4tw42mehnjn" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Reverse-Bits" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/10/29/LeetCode-Algorithms-Reverse-Bits/" class="article-date">
@@ -105,7 +157,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/29/LeetCode-Algorithms-Reverse-Bits/" data-id="cjs175gwi0024cwtwqerk1fyt" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/29/LeetCode-Algorithms-Reverse-Bits/" data-id="cjs2me2x00027m4tw8dlfu6n2" class="article-share-link">Share</a>
       
       
       
@@ -247,7 +299,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/27/Bitwise-and-Bit-Shift/" data-id="cjs175gtx0004cwtwu2000g1r" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/27/Bitwise-and-Bit-Shift/" data-id="cjs2me2um0004m4twq0wygu7o" class="article-share-link">Share</a>
       
       
       
@@ -308,7 +360,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/26/LeetCode-Algorithms-Reverse-Linked-List/" data-id="cjs175gwr0029cwtwwxd68mn2" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/26/LeetCode-Algorithms-Reverse-Linked-List/" data-id="cjs2me2x5002cm4two5lis8pn" class="article-share-link">Share</a>
       
       
       
@@ -359,7 +411,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/24/LeetCode-Algorithms-First-Unique-Character-in-a-String/" data-id="cjs175gvh001fcwtwi2b68n3g" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/24/LeetCode-Algorithms-First-Unique-Character-in-a-String/" data-id="cjs2me2wa001fm4twybfkv46f" class="article-share-link">Share</a>
       
       
       
@@ -481,7 +533,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/22/Maven/" data-id="cjs175gy90033cwtwv9ssm6q7" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/22/Maven/" data-id="cjs2me2xx0033m4twj5jr0wu2" class="article-share-link">Share</a>
       
       
       
@@ -537,7 +589,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" data-id="cjs175gy1002ycwtw1lq29jz7" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" data-id="cjs2me2xv0031m4twbd72uhzi" class="article-share-link">Share</a>
       
       
       
@@ -644,7 +696,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="cjs175gyz003xcwtwoxgmowz3" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="cjs2me2za0042m4twwglh46ul" class="article-share-link">Share</a>
       
       
       
@@ -693,7 +745,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="cjs175gv0000zcwtwjjvotesd" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="cjs2me2vw000zm4twipcci4js" class="article-share-link">Share</a>
       
       
       
@@ -742,70 +794,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="cjs175gv40014cwtwui0uyewv" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Coin-Change-2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" class="article-date">
-  <time datetime="2018-09-27T16:06:50.000Z" itemprop="datePublished">2018-09-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/27/LeetCode-Algorithms-Coin-Change-2/">LeetCode - Algorithms - 518. Coin Change 2</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>变个样，又不知道怎么解决了，动态规划确实不是那么好理解。根据上一题的经验，还是从递归入手，先实现递归，再琢磨动态规划的解决方案，就有点循序渐进的味道。正如 <a href="https://www.quora.com/What-is-an-easy-way-to-understand-the-coin-change-problem-in-dynamic-programming" target="_blank" rel="external">What is an easy way to understand the coin change problem in dynamic programming?</a> 的一个回答所言：</p>
-<blockquote>
-<p>Instead of thinking about filling a matrix, think in terms of the recurrence relation. I have seen a lot of people who try to think dynamic programming problems in terms of filling a table/array. But this approach is problematic. For example, if the state representation has more than two dimensions, then this approach does not help much.</p>
-<p>The essence of dynamic programming is the idea of a state space and a recurrence relation between states. Once you figure that out for any problem, implementation is straightforward.</p>
-</blockquote>
-<p>参考了这些，虽然还是没有完全理解，程序在leetcode上通过了，程序其实就短短的几行，<code>The code has a O(NC) pseudo-polynomial complexity where N is the amount and C the number of input coins</code>。</p>
-<ul>
-<li><a href="http://marcodiiga.github.io/number-of-ways-to-make-change-for-amount" target="_blank" rel="external">Number of ways to make change for an amount (coin change)</a> 看了这个，终于明白了一点</li>
-<li><a href="http://www.cs.cmu.edu/~yandongl/dp.html" target="_blank" rel="external">Dynamic programming - Ways of Coin Change</a></li>
-<li><a href="https://www.geeksforgeeks.org/coin-change-dp-7/" target="_blank" rel="external">Coin Change | DP-7</a></li>
-<li><a href="https://artofproblemsolving.com/community/c2340h1179726s3_coin_change_problem_recursive_solution" target="_blank" rel="external">Coin Change Problem Recursive Solution</a></li>
-<li><a href="https://www.quora.com/What-is-an-easy-way-to-understand-the-coin-change-problem-in-dynamic-programming" target="_blank" rel="external">What is an easy way to understand the coin change problem in dynamic programming?</a></li>
-</ul>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int change(int amount, int[] coins) &#123;</div><div class="line">    	int[] dp = new int[amount+1];</div><div class="line">    	dp[0]=1;</div><div class="line">    	for(int i=0;i&lt;coins.length;i++) &#123;</div><div class="line">    		for(int j=coins[i];j&lt;=amount;++j) &#123;</div><div class="line">    			dp[j]+=dp[j-coins[i]];</div><div class="line">    		&#125;    		</div><div class="line">    	&#125;</div><div class="line">    	return dp[amount];        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果：</p>
-<blockquote>
-<p>27 / 27 test cases passed.<br>Runtime: 4 ms<br>Your runtime beats 78.72 % of java submissions.</p>
-</blockquote>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number&#125; amount</div><div class="line"> * @param &#123;number[]&#125; coins</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">var change = function(amount, coins) &#123;</div><div class="line">	var dp = new Array(amount+1);</div><div class="line">	for(var i=0;i&lt;dp.length;i++)</div><div class="line">		dp[i]=0;</div><div class="line">	dp[0]=1;</div><div class="line">	for(var i=0;i&lt;amount;i++)</div><div class="line">		for(var j=coins[i];j&lt;=amount;++j)</div><div class="line">			dp[j]+=dp[j-coins[i]];</div><div class="line">	return dp[amount];    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>LeetCode运行结果：</p>
-<blockquote>
-<p>27 / 27 test cases passed.<br>Runtime: 60 ms<br>Your runtime beats 89.86 % of javascript submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjs175gur000ucwtwjs2eclxi" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="cjs2me2w00014m4twiwebt8yz" class="article-share-link">Share</a>
       
       
       
@@ -869,6 +858,10 @@
       <ul>
         
           <li>
+            <a href="/2019/02/12/LeetCode-Algorithms-Power-of-Three/">LeetCode - Algorithms - 326. Power of Three</a>
+          </li>
+        
+          <li>
             <a href="/2019/02/11/LeetCode-Algorithms-Implement-strStr/">LeetCode - Algorithms - 28. Implement strStr()</a>
           </li>
         
@@ -882,10 +875,6 @@
         
           <li>
             <a href="/2019/01/18/LeetCode-Algorithms-Merge-Two-Sorted-Lists/">LeetCode - Algorithms - 21. Merge Two Sorted Lists</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/28/LeetCode-Algorithms-UTF-8-Validation/">LeetCode - Algorithms - 393. UTF-8 Validation</a>
           </li>
         
       </ul>
