@@ -65,6 +65,62 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Valid-Parentheses" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" class="article-date">
+  <time datetime="2018-10-17T21:38:34.000Z" itemprop="datePublished">2018-10-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/">LeetCode - Algorithms - 20. Valid Parentheses</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Difficulty:Easy的题，在面试现场，面对黑板，我毫无头绪没有任何思路，考官已经提示自己你想想有什么数据结构可以利用，自己还是没想通。</p>
+<blockquote>
+<p>This is a problem that’s good to use a stack.</p>
+</blockquote>
+<p>回来上网找线索，主要参考了这个<a href="https://cheonhyangzhang.wordpress.com/2015/09/14/20-leetcode-java-valid-parentheses-easy/" target="_blank" rel="external">20 LeetCode Java: Valid Parentheses – Easy</a>，此题的关键确实就是数据结构，要用Stack（栈），其实在做表达式解析那两道题<a href="https://leetcode.com/problems/basic-calculator-ii/description/" target="_blank" rel="external">227. Basic Calculator II</a>、<a href="https://leetcode.com/problems/basic-calculator/description/" target="_blank" rel="external">224. Basic Calculator</a>时已经碰到过，自己也做了题，但还是没理解透，遇到新问题又傻眼了。</p>
+<p>代码是人家的，天下程序一大抄！！！但不理解的话，代码不会内化于你。看来自己做LeetCode算法题凑数没用，理解不深，做完了又忘了。看来做完了还得温故知新加深理解。</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public boolean isValid(String s) &#123;</div><div class="line">    	HashMap&lt;Character, Character&gt; pair = new HashMap&lt;Character, Character&gt;();</div><div class="line">        pair.put(&apos;)&apos;,&apos;(&apos;);</div><div class="line">        pair.put(&apos;&#125;&apos;,&apos;&#123;&apos;);</div><div class="line">        pair.put(&apos;]&apos;,&apos;[&apos;);    	</div><div class="line">        Stack&lt;Character&gt; stk = new Stack&lt;Character&gt;();</div><div class="line">        char c = &apos;\u0000&apos;;</div><div class="line">        for(int i=0;i&lt;s.length();i++) &#123;</div><div class="line">        	c = s.charAt(i);</div><div class="line">        	switch(c) &#123;</div><div class="line">        	case &apos;&#123;&apos;:</div><div class="line">        	case &apos;[&apos;:</div><div class="line">        	case &apos;(&apos;:</div><div class="line">        		stk.push(c);</div><div class="line">        		break;</div><div class="line">        	default:</div><div class="line">        		if (stk.isEmpty() || pair.get(c)!=stk.pop())</div><div class="line">        			return false;</div><div class="line">        	&#125;</div><div class="line">        &#125;</div><div class="line">        if (stk.isEmpty())</div><div class="line">        	return true;</div><div class="line">        return false;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果显示：</p>
+<blockquote>
+<p>76 / 76 test cases passed.<br>Runtime: 5 ms<br>Your runtime beats 98.09 % of java submissions.</p>
+</blockquote>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;string&#125; s</div><div class="line"> * @return &#123;boolean&#125;</div><div class="line"> */</div><div class="line">var isValid = function(s) &#123;</div><div class="line">	var pair = &#123;&apos;\&#125;&apos;:&apos;\&#123;&apos;,&apos;\]&apos;:&apos;\[&apos;,&apos;)&apos;:&apos;(&apos;&#125;;</div><div class="line">	var stk = new Array();</div><div class="line">	var c = &apos;&apos;;</div><div class="line">	for(var i=0;i&lt;s.length;i++) &#123;</div><div class="line">		c = s[i];</div><div class="line">		switch(c) &#123;</div><div class="line">		case &apos;&#123;&apos;:</div><div class="line">		case &apos;[&apos;:</div><div class="line">		case &apos;(&apos;:</div><div class="line">			stk.push(c);</div><div class="line">		    break;</div><div class="line">		default:</div><div class="line">			if (stk.length==0 || pair[c]!=stk.pop()) &#123;</div><div class="line">				return false;</div><div class="line">			&#125;</div><div class="line">		&#125;	</div><div class="line">	&#125;</div><div class="line">	if (stk.length==0) return true;</div><div class="line">	return false;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>76 / 76 test cases passed.<br>Runtime: 52 ms<br>Your runtime beats 100.00 % of javascript submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" data-id="cjscjmoe90036zwtwittocqxi" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-database-and-mysql-knowledge-points" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/10/16/database-and-mysql-knowledge-points/" class="article-date">
@@ -158,7 +214,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="cjs9uyf9s0069kctw6ia0epk9" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="cjscjmog70062zwtw4cqz018z" class="article-share-link">Share</a>
       
       
       
@@ -207,7 +263,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="cjs9uyf5p001bkctwzwrcj1oi" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="cjscjmoc4000zzwtwhdouxumm" class="article-share-link">Share</a>
       
       
       
@@ -256,7 +312,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="cjs9uyf5e0014kctwfhmkl77g" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="cjscjmoc0000wzwtweb0gkng9" class="article-share-link">Share</a>
       
       
       
@@ -319,7 +375,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjs9uyf5c0012kctw4x8xzny6" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjscjmobx000uzwtwttdc00rb" class="article-share-link">Share</a>
       
       
       
@@ -384,7 +440,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="cjs9uyf59000zkctw57o7c6jd" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="cjscjmobw000szwtwphhy0a5a" class="article-share-link">Share</a>
       
       
       
@@ -429,7 +485,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjs9uyf4j000nkctwh9xp5rkc" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="cjscjmobj000ezwtwcj383kk1" class="article-share-link">Share</a>
       
       
       
@@ -485,7 +541,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjs9uyf4e000ikctwdu0j3bdm" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="cjscjmobf000bzwtwgdx1v5fg" class="article-share-link">Share</a>
       
       
       
@@ -545,7 +601,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjs9uyf57000ykctwge3qquvz" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="cjscjmobu000qzwtw756xdv7b" class="article-share-link">Share</a>
       
       
       
@@ -607,74 +663,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cjs9uyf51000rkctwgezj7c2p" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cjscjmobt000ozwtwcdu9dl36" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-sites-for-learn-english" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/05/sites-for-learn-english/" class="article-date">
-  <time datetime="2018-09-05T22:28:42.000Z" itemprop="datePublished">2018-09-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/05/sites-for-learn-english/">英语学习相关网站</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="听力"><a href="#听力" class="headerlink" title="听力"></a>听力</h1><p>60-Second Science<br><a href="https://www.scientificamerican.com/podcast/60-second-science/" target="_blank" rel="external">https://www.scientificamerican.com/podcast/60-second-science/</a></p>
-<p>Videos &amp; Podcasts - Scientific American<br><a href="https://www.scientificamerican.com/multimedia/" target="_blank" rel="external">https://www.scientificamerican.com/multimedia/</a></p>
-<p>TED Radio Hour<br><a href="https://www.npr.org/programs/ted-radio-hour" target="_blank" rel="external">https://www.npr.org/programs/ted-radio-hour</a></p>
-<p>BBC - World Service - Home<br><a href="https://www.bbc.co.uk/worldserviceradio" target="_blank" rel="external">https://www.bbc.co.uk/worldserviceradio</a></p>
-<p>BBC Learning English | Pronunciation Tips<br><a href="http://www.bbc.co.uk/worldservice/learningenglish/grammar/pron/" target="_blank" rel="external">http://www.bbc.co.uk/worldservice/learningenglish/grammar/pron/</a></p>
-<p>Learning English - 6 Minute English<br><a href="http://www.bbc.co.uk/worldservice/learningenglish/general/sixminute/" target="_blank" rel="external">http://www.bbc.co.uk/worldservice/learningenglish/general/sixminute/</a></p>
-<h1 id="词典"><a href="#词典" class="headerlink" title="词典"></a>词典</h1><p>Dictionary by Merriam-Webster: America’s most-trusted online dictionary<br><a href="https://www.merriam-webster.com/" target="_blank" rel="external">https://www.merriam-webster.com/</a></p>
-<p>Collins Dictionary<br><a href="https://www.collinsdictionary.com/" target="_blank" rel="external">https://www.collinsdictionary.com/</a></p>
-<h1 id="报刊"><a href="#报刊" class="headerlink" title="报刊"></a>报刊</h1><p><a href="https://medium.com/" target="_blank" rel="external">https://medium.com/</a></p>
-<p><a href="https://www.theatlantic.com/" target="_blank" rel="external">https://www.theatlantic.com/</a></p>
-<p><a href="https://www.newyorker.com/" target="_blank" rel="external">https://www.newyorker.com/</a></p>
-<p><a href="https://www.npr.org/" target="_blank" rel="external">https://www.npr.org/</a></p>
-<p><a href="https://www.economist.com/" target="_blank" rel="external">https://www.economist.com/</a></p>
-<p><a href="https://www.bloomberg.com/businessweek" target="_blank" rel="external">https://www.bloomberg.com/businessweek</a></p>
-<p><a href="https://www.bloomberg.com/canada" target="_blank" rel="external">https://www.bloomberg.com/canada</a></p>
-<p><a href="https://www.theguardian.com/observer" target="_blank" rel="external">https://www.theguardian.com/observer</a></p>
-<p><a href="https://www.theguardian.com/international" target="_blank" rel="external">https://www.theguardian.com/international</a></p>
-<p><a href="http://www.bbc.com/" target="_blank" rel="external">http://www.bbc.com/</a></p>
-<p><a href="https://www.telegraph.co.uk/" target="_blank" rel="external">https://www.telegraph.co.uk/</a></p>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>A Free Online Talking Dictionary of English Pronunciation<br><a href="https://www.howjsay.com/" target="_blank" rel="external">https://www.howjsay.com/</a></p>
-<p>UsingEnglish.com was established in 2002 and is a general English language site specialising in English as a Second Language (ESL).<br><a href="https://www.usingenglish.com/" target="_blank" rel="external">https://www.usingenglish.com/</a></p>
-<p>Discovery Canada<br><a href="https://www.discovery.ca/Home" target="_blank" rel="external">https://www.discovery.ca/Home</a></p>
-<p>English Language &amp; Usage Stack Exchange is a question and answer site for linguists, etymologists, and serious English language enthusiasts.<br><a href="https://english.stackexchange.com/" target="_blank" rel="external">https://english.stackexchange.com/</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="cjs9uyfai007fkctwip7n42we" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
 
     </footer>
   </div>
@@ -702,7 +695,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/古文/">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心理学与生活/">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无线网络/">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/林语堂/">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/王小波/">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/英语/">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译言/">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试题/">面试题</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/古文/">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心理学与生活/">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无线网络/">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/林语堂/">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/王小波/">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/英语/">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译言/">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试题/">面试题</a></li></ul>
     </div>
   </div>
 
@@ -712,7 +705,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.57px;">LeetCode</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/React-js/" style="font-size: 11.43px;">React.js</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Spring/" style="font-size: 12.86px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 11.43px;">Spring Boot</a> <a href="/tags/TED/" style="font-size: 10px;">TED</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 17.14px;">english</a> <a href="/tags/git/" style="font-size: 11.43px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 15.71px;">java</a> <a href="/tags/javascript/" style="font-size: 11.43px;">javascript</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 11.43px;">linux</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 12.86px;">mysql</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 10px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/林语堂/" style="font-size: 10px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 14.29px;">英语</a> <a href="/tags/译言/" style="font-size: 11.43px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Bill-Blair/" style="font-size: 10px;">Bill Blair</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.57px;">LeetCode</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/React-js/" style="font-size: 11.43px;">React.js</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Spring/" style="font-size: 12.86px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 11.43px;">Spring Boot</a> <a href="/tags/TED/" style="font-size: 10px;">TED</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 17.14px;">english</a> <a href="/tags/git/" style="font-size: 11.43px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 15.71px;">java</a> <a href="/tags/javascript/" style="font-size: 11.43px;">javascript</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 11.43px;">linux</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 12.86px;">mysql</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 10px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/林语堂/" style="font-size: 10px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 14.29px;">英语</a> <a href="/tags/译言/" style="font-size: 11.43px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -734,6 +727,10 @@
       <ul>
         
           <li>
+            <a href="/2019/02/19/common-phrases/">Common Phrases</a>
+          </li>
+        
+          <li>
             <a href="/2019/02/17/LeetCode-Algorithms-Remove-Nth-Node-From-End-of-List/">LeetCode - Algorithms - 19. Remove Nth Node From End of List</a>
           </li>
         
@@ -747,10 +744,6 @@
         
           <li>
             <a href="/2019/02/12/LeetCode-Algorithms-Power-of-Three/">LeetCode - Algorithms - 326. Power of Three</a>
-          </li>
-        
-          <li>
-            <a href="/2019/02/11/LeetCode-Algorithms-Implement-strStr/">LeetCode - Algorithms - 28. Implement strStr()</a>
           </li>
         
       </ul>

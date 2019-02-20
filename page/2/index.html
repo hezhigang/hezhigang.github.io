@@ -65,6 +65,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Shuffle-an-Array" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/22/LeetCode-Algorithms-Shuffle-an-Array/" class="article-date">
+  <time datetime="2018-12-22T12:15:47.000Z" itemprop="datePublished">2018-12-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/22/LeetCode-Algorithms-Shuffle-an-Array/">LeetCode - Algorithms - 384. Shuffle an Array</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>It seemed that Spotify only let you click big green SHUFFLE PLAY button if you are not premium user.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="1-Fisher–Yates-shuffle"><a href="#1-Fisher–Yates-shuffle" class="headerlink" title="1 - Fisher–Yates shuffle"></a>1 - Fisher–Yates shuffle</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">import java.util.Random;</div><div class="line"></div><div class="line">class Solution &#123;</div><div class="line">	private int[] shuffleArr;</div><div class="line">	private int[] originalArr;    </div><div class="line"></div><div class="line">    public Solution(int[] nums) &#123;</div><div class="line">    	originalArr = nums.clone();</div><div class="line">    	shuffleArr = nums.clone();       </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    /** Resets the array to its original configuration and return it. */</div><div class="line">    public int[] reset() &#123;</div><div class="line">        return originalArr;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    /** Returns a random shuffling of the array. */</div><div class="line">    public int[] shuffle() &#123;</div><div class="line">    	Random random = new Random();</div><div class="line">    	int temp = 0;</div><div class="line">    	int randomPosition = 0;</div><div class="line">    	final int N = shuffleArr.length;</div><div class="line">    	for(int i=shuffleArr.length-1;i&gt;0;i--) &#123;</div><div class="line">    		randomPosition = random.nextInt(N);</div><div class="line">    		temp = shuffleArr[i];</div><div class="line">    		shuffleArr[i] = shuffleArr[randomPosition];</div><div class="line">    		shuffleArr[randomPosition] = temp;</div><div class="line">    	&#125;</div><div class="line">        return shuffleArr;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><blockquote>
+<p>10 / 10 test cases passed.<br>Runtime: 210 ms<br>Your runtime beats 38.29 % of java submissions.</p>
+</blockquote>
+<h2 id="2-Collections-shuffle"><a href="#2-Collections-shuffle" class="headerlink" title="2 - Collections.shuffle"></a>2 - Collections.shuffle</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">import java.util.Arrays;</div><div class="line">import java.util.Collections;</div><div class="line">import java.util.List;</div><div class="line"></div><div class="line">class Solution &#123;</div><div class="line">	private Integer[] shuffleArr;</div><div class="line">	private int[] originalArr;    </div><div class="line"></div><div class="line">    public Solution(int[] nums) &#123;</div><div class="line">    	shuffleArr = new Integer[nums.length];</div><div class="line">    	for(int i=0;i&lt;nums.length;i++)</div><div class="line">    		shuffleArr[i] = nums[i];</div><div class="line">    	originalArr = nums.clone();       </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    /** Resets the array to its original configuration and return it. */</div><div class="line">    public int[] reset() &#123;</div><div class="line">        return originalArr;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    /** Returns a random shuffling of the array. */</div><div class="line">    public int[] shuffle() &#123;</div><div class="line">    	List&lt;Integer&gt; list = Arrays.asList(shuffleArr); </div><div class="line">    	Collections.shuffle(list);</div><div class="line">    	Integer[] a = new Integer[shuffleArr.length];</div><div class="line">    	list.toArray(a);</div><div class="line">    	int[] r = new int[a.length];</div><div class="line">    	for(int i=0;i&lt;a.length;i++)</div><div class="line">    		r[i] = a[i];</div><div class="line">        return r;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><blockquote>
+<p>10 / 10 test cases passed.<br>Runtime: 141 ms<br>Your runtime beats 96.48 % of java submissions.</p>
+</blockquote>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle" target="_blank" rel="external">Fisher–Yates shuffle</a></li>
+<li><a href="https://www.programcreek.com/2012/02/java-method-to-shuffle-an-int-array-with-random-order/" target="_blank" rel="external">Java Method to Shuffle an Array</a></li>
+<li><a href="https://www.geeksforgeeks.org/shuffle-a-given-array-using-fisher-yates-shuffle-algorithm/" target="_blank" rel="external">Shuffle a given array using Fisher–Yates shuffle Algorithm</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/12/22/LeetCode-Algorithms-Shuffle-an-Array/" data-id="cjscjmodo002ozwtw72v8whlj" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Design-HashMap" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/21/LeetCode-Algorithms-Design-HashMap/" class="article-date">
@@ -96,7 +150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/12/21/LeetCode-Algorithms-Design-HashMap/" data-id="cjs9uyf5u001gkctwrohdu6ue" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/12/21/LeetCode-Algorithms-Design-HashMap/" data-id="cjscjmoc70014zwtwugwfd6zo" class="article-share-link">Share</a>
       
       
       
@@ -152,7 +206,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/12/08/LeetCode-Algorithms-Maximum-Subarray/" data-id="cjs9uyf7c002ukctwmsqs0wae" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/12/08/LeetCode-Algorithms-Maximum-Subarray/" data-id="cjscjmodk002jzwtwxgtm646y" class="article-share-link">Share</a>
       
       
       
@@ -208,7 +262,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/12/01/LeetCode-Algorithms-Sqrt/" data-id="cjs9uyf7f002ykctwpgeg5c92" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/12/01/LeetCode-Algorithms-Sqrt/" data-id="cjscjmodq002rzwtw34gm86wd" class="article-share-link">Share</a>
       
       
       
@@ -257,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/29/LeetCode-Algorithms-Contains-Duplicate/" data-id="cjs9uyf5j0016kctweaun1t3o" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/29/LeetCode-Algorithms-Contains-Duplicate/" data-id="cjscjmoc2000xzwtwk5hcxen3" class="article-share-link">Share</a>
       
       
       
@@ -311,7 +365,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/10/AKS-test-for-primes/" data-id="cjs9uyf4l000okctwnxo0u56v" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/10/AKS-test-for-primes/" data-id="cjscjmobl000gzwtwwymnmwt3" class="article-share-link">Share</a>
       
       
       
@@ -423,7 +477,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/07/Web-Engineering/" data-id="cjs9uyf9p0064kctw39xvi6uj" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/07/Web-Engineering/" data-id="cjscjmogc0068zwtw7yrltxeb" class="article-share-link">Share</a>
       
       
       
@@ -504,7 +558,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/05/Spring-Portfolio/" data-id="cjs9uyfby008ckctwon47gt4o" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/05/Spring-Portfolio/" data-id="cjscjmoio007ozwtw2p07tofj" class="article-share-link">Share</a>
       
       
       
@@ -557,7 +611,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/03/LeetCode-Algorithms-Validate-Binary-Search-Tree/" data-id="cjs9uyf7p0038kctwmw2wzsnh" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/03/LeetCode-Algorithms-Validate-Binary-Search-Tree/" data-id="cjscjmoe60033zwtwxs696c4s" class="article-share-link">Share</a>
       
       
       
@@ -602,52 +656,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/02/LeetCode-Algorithms-Binary-Tree-Postorder-Traversal/" data-id="cjs9uyf55000vkctw060dlti9" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Binary-Tree-Preorder-Traversal" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/02/LeetCode-Algorithms-Binary-Tree-Preorder-Traversal/" class="article-date">
-  <time datetime="2018-11-03T01:09:29.000Z" itemprop="datePublished">2018-11-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/02/LeetCode-Algorithms-Binary-Tree-Preorder-Traversal/">LeetCode - Algorithms - 144. Binary Tree Preorder Traversal</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>2007年学习数据结构曾经把北大《数据结构与算法》(张铭、赵海燕、王腾蛟)教材书上的c++实现翻译为Java语言，现在拿来在LeetCode上跑跑，不是很理解。</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Definition for a binary tree node.</div><div class="line"> * public class TreeNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     TreeNode left;</div><div class="line"> *     TreeNode right;</div><div class="line"> *     TreeNode(int x) &#123; val = x; &#125;</div><div class="line"> * &#125;</div><div class="line"> */</div><div class="line">class Solution &#123;</div><div class="line">    public List&lt;Integer&gt; preorderTraversal(TreeNode root) &#123;</div><div class="line">    	List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;();</div><div class="line">		if (root!=null) &#123;</div><div class="line">			TreeNode ptr = root;</div><div class="line">			Stack&lt;TreeNode&gt; stk = new Stack&lt;TreeNode&gt;();</div><div class="line">			while(!stk.isEmpty() || ptr != null) &#123;</div><div class="line">				if (ptr!=null) &#123;</div><div class="line">					list.add(ptr.val);</div><div class="line">					stk.push(ptr);</div><div class="line">					ptr = ptr.left;</div><div class="line">				&#125;</div><div class="line">				else &#123;</div><div class="line">					ptr = (TreeNode) stk.peek();</div><div class="line">					ptr = ptr.right;</div><div class="line">					stk.pop();</div><div class="line">				&#125;</div><div class="line">			&#125;			</div><div class="line">		&#125;    	</div><div class="line">    	return list;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>68 / 68 test cases passed.<br>Runtime: 1 ms<br>Your runtime beats 61.91 % of java submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/02/LeetCode-Algorithms-Binary-Tree-Preorder-Traversal/" data-id="cjs9uyf53000tkctwok1iioy9" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/02/LeetCode-Algorithms-Binary-Tree-Postorder-Traversal/" data-id="cjscjmobq000kzwtw1ymm96mz" class="article-share-link">Share</a>
       
       
       
@@ -679,7 +688,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/古文/">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心理学与生活/">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无线网络/">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/林语堂/">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/王小波/">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/英语/">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译言/">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试题/">面试题</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/古文/">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心理学与生活/">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无线网络/">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/林语堂/">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/王小波/">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/英语/">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译言/">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试题/">面试题</a></li></ul>
     </div>
   </div>
 
@@ -689,7 +698,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.57px;">LeetCode</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/React-js/" style="font-size: 11.43px;">React.js</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Spring/" style="font-size: 12.86px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 11.43px;">Spring Boot</a> <a href="/tags/TED/" style="font-size: 10px;">TED</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 17.14px;">english</a> <a href="/tags/git/" style="font-size: 11.43px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 15.71px;">java</a> <a href="/tags/javascript/" style="font-size: 11.43px;">javascript</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 11.43px;">linux</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 12.86px;">mysql</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 10px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/林语堂/" style="font-size: 10px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 14.29px;">英语</a> <a href="/tags/译言/" style="font-size: 11.43px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Bill-Blair/" style="font-size: 10px;">Bill Blair</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.57px;">LeetCode</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/React-js/" style="font-size: 11.43px;">React.js</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Spring/" style="font-size: 12.86px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 11.43px;">Spring Boot</a> <a href="/tags/TED/" style="font-size: 10px;">TED</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 17.14px;">english</a> <a href="/tags/git/" style="font-size: 11.43px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 15.71px;">java</a> <a href="/tags/javascript/" style="font-size: 11.43px;">javascript</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 11.43px;">linux</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 12.86px;">mysql</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 10px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/林语堂/" style="font-size: 10px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 14.29px;">英语</a> <a href="/tags/译言/" style="font-size: 11.43px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -711,6 +720,10 @@
       <ul>
         
           <li>
+            <a href="/2019/02/19/common-phrases/">Common Phrases</a>
+          </li>
+        
+          <li>
             <a href="/2019/02/17/LeetCode-Algorithms-Remove-Nth-Node-From-End-of-List/">LeetCode - Algorithms - 19. Remove Nth Node From End of List</a>
           </li>
         
@@ -724,10 +737,6 @@
         
           <li>
             <a href="/2019/02/12/LeetCode-Algorithms-Power-of-Three/">LeetCode - Algorithms - 326. Power of Three</a>
-          </li>
-        
-          <li>
-            <a href="/2019/02/11/LeetCode-Algorithms-Implement-strStr/">LeetCode - Algorithms - 28. Implement strStr()</a>
           </li>
         
       </ul>
