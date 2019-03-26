@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2019-03-25T03:04:26.921Z</updated>
+  <updated>2019-03-26T04:53:07.954Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -14,6 +14,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode - Algorithms - 44. Wildcard Matching</title>
+    <link href="https://hezhigang.github.io/2019/03/26/LeetCode-Algorithms-Wildcard-Matching/"/>
+    <id>https://hezhigang.github.io/2019/03/26/LeetCode-Algorithms-Wildcard-Matching/</id>
+    <published>2019-03-26T04:33:22.000Z</published>
+    <updated>2019-03-26T04:53:07.954Z</updated>
+    
+    <content type="html"><![CDATA[<p>Only mark. It’s an example of dynamic programming.<br>I don’t know how to solve it, what’s more, I can’t understand the answer of others, so I run code of others on leetcode.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p>by XN W</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isMatch</span><span class="params">(String s, String p)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> pl = <span class="number">0</span>;  </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; p.length(); i++) &#123;  </div><div class="line">             <span class="keyword">if</span> (p.charAt(i) != <span class="string">'*'</span>) &#123;  </div><div class="line">                  pl++;  </div><div class="line">             &#125;  </div><div class="line">        &#125;  </div><div class="line">        <span class="keyword">if</span> (pl &gt; s.length()) &#123;  </div><div class="line">             <span class="keyword">return</span> <span class="keyword">false</span>;  </div><div class="line">        &#125;  </div><div class="line">        <span class="keyword">if</span> (s.length() == <span class="number">0</span> &amp;&amp; pl == <span class="number">0</span>) &#123;  </div><div class="line">             <span class="keyword">return</span> <span class="keyword">true</span>;  </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">boolean</span>[][] store = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">2</span>][s.length() + <span class="number">1</span>];  </div><div class="line">        store[<span class="number">0</span>][<span class="number">0</span>] = <span class="keyword">true</span>;  </div><div class="line">        store[<span class="number">1</span>][<span class="number">0</span>] = <span class="keyword">false</span>;   </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> ps = <span class="number">1</span>; ps &lt;= p.length(); ps++) &#123;</div><div class="line">             <span class="keyword">if</span> (p.charAt(ps - <span class="number">1</span>) == <span class="string">'*'</span>) &#123;  </div><div class="line">                  store[<span class="number">1</span>][<span class="number">0</span>] = store[<span class="number">0</span>][<span class="number">0</span>];  </div><div class="line">             &#125; <span class="keyword">else</span> &#123;  </div><div class="line">                  store[<span class="number">1</span>][<span class="number">0</span>] = <span class="keyword">false</span>;  </div><div class="line">             &#125;  </div><div class="line">             <span class="keyword">for</span> (<span class="keyword">int</span> ss = <span class="number">1</span>; ss &lt;= s.length(); ss++) &#123;  </div><div class="line">                  <span class="keyword">if</span> (p.charAt(ps - <span class="number">1</span>) == <span class="string">'?'</span>  </div><div class="line">                            || p.charAt(ps - <span class="number">1</span>) == s.charAt(ss - <span class="number">1</span>)) &#123;  </div><div class="line">                       store[<span class="number">1</span>][ss] = store[<span class="number">0</span>][ss - <span class="number">1</span>];  </div><div class="line">                  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (p.charAt(ps - <span class="number">1</span>) != <span class="string">'*'</span>) &#123;  </div><div class="line">                       store[<span class="number">1</span>][ss] = <span class="keyword">false</span>;  </div><div class="line">                  &#125; <span class="keyword">else</span> &#123;  </div><div class="line">                       store[<span class="number">1</span>][ss] = store[<span class="number">0</span>][ss - <span class="number">1</span>] || store[<span class="number">1</span>][ss - <span class="number">1</span>]  </div><div class="line">                                 || store[<span class="number">0</span>][ss];  </div><div class="line">                  &#125;  </div><div class="line">             &#125;  </div><div class="line">             <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= s.length(); i++) &#123;  </div><div class="line">                  store[<span class="number">0</span>][i] = store[<span class="number">1</span>][i];  </div><div class="line">             &#125;  </div><div class="line">        &#125;  </div><div class="line">        <span class="keyword">return</span> store[<span class="number">1</span>][s.length()];      </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><p>by XN W</p>
+<blockquote>
+<p>1808 / 1808 test cases passed.<br>Runtime: 7 ms, faster than 100.00% of Java online submissions for Wildcard Matching.<br>Memory Usage: 37.7 MB, less than 93.46% of Java online submissions for Wildcard Matching.</p>
+</blockquote>
+<h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><p><a href="http://vialgorithms.blogspot.com/2013/11/wildcard-matching.html" target="_blank" rel="external">Wildcard Matching</a></p>
+<blockquote>
+<p>I hate this algorithms!! Seriously!!!</p>
+</blockquote>
+<ol>
+<li>recursive way</li>
+<li>DP way</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Only mark. It’s an example of dynamic programming.&lt;br&gt;I don’t know how to solve it, what’s more, I can’t understand the answer of others,
+    
+    </summary>
+    
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+      <category term="DP" scheme="https://hezhigang.github.io/tags/DP/"/>
+    
+  </entry>
   
   <entry>
     <title>Let&#39;s communicate</title>
@@ -857,41 +896,6 @@
       <category term="java" scheme="https://hezhigang.github.io/tags/java/"/>
     
       <category term="Spring" scheme="https://hezhigang.github.io/tags/Spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode - Algorithms - 98. Validate Binary Search Tree</title>
-    <link href="https://hezhigang.github.io/2018/11/03/LeetCode-Algorithms-Validate-Binary-Search-Tree/"/>
-    <id>https://hezhigang.github.io/2018/11/03/LeetCode-Algorithms-Validate-Binary-Search-Tree/</id>
-    <published>2018-11-03T13:24:40.000Z</published>
-    <updated>2018-11-03T13:43:27.925Z</updated>
-    
-    <content type="html"><![CDATA[<p>The solution of wikipedia is the elegant answer to this question. It finally passed on LeetCode after I modified and submited six times.</p>
-<blockquote>
-<p>Sometimes we already have a binary tree, and we need to determine whether it is a BST. This problem has a simple recursive solution.</p>
-<p>Essentially we keep creating a valid range (starting from [MIN_VALUE, MAX_VALUE]) and keep shrinking it down for each node as we go down recursively.</p>
-</blockquote>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Definition for a binary tree node.</div><div class="line"> * public class TreeNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     TreeNode left;</div><div class="line"> *     TreeNode right;</div><div class="line"> *     TreeNode(int x) &#123; val = x; &#125;</div><div class="line"> * &#125;</div><div class="line"> */</div><div class="line">class Solution &#123;</div><div class="line">    public boolean isValidBST(TreeNode root) &#123;</div><div class="line">        return isValidBST(root,Long.MIN_VALUE,Long.MAX_VALUE);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public boolean isValidBST(TreeNode root, long minKey, long maxKey) &#123;</div><div class="line">    	if (root==null) return true;</div><div class="line">    	if (root.val&lt;=minKey || root.val&gt;=maxKey) return false;</div><div class="line">    	return isValidBST(root.left,minKey,root.val) &amp;&amp; isValidBST(root.right,root.val,maxKey);</div><div class="line">    &#125;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>75 / 75 test cases passed.<br>Runtime: 0 ms<br>Your runtime beats 100.00 % of java submissions.</p>
-</blockquote>
-<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
-<li><a href="https://en.wikipedia.org/wiki/Binary_search_tree" target="_blank" rel="external">Binary search tree</a></li>
-<li><a href="https://www.quora.com/How-can-I-check-if-a-binary-tree-is-a-BST-or-not" target="_blank" rel="external">How can I check if a binary tree is a BST or not?</a></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;The solution of wikipedia is the elegant answer to this question. It finally passed on LeetCode after I modified and submited six times.&lt;
-    
-    </summary>
-    
-    
-      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
-    
-      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
     
   </entry>
   
