@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2019-04-06T05:46:51.944Z</updated>
+  <updated>2019-05-09T19:52:45.777Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -14,6 +14,50 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode - Algorithms - 215. Kth Largest Element in an Array</title>
+    <link href="https://hezhigang.github.io/2019/05/09/LeetCode-Algorithms-Kth-Largest-Element-in-an-Array/"/>
+    <id>https://hezhigang.github.io/2019/05/09/LeetCode-Algorithms-Kth-Largest-Element-in-an-Array/</id>
+    <published>2019-05-09T19:20:28.000Z</published>
+    <updated>2019-05-09T19:52:45.777Z</updated>
+    
+    <content type="html"><![CDATA[<p>It seemed that every leetcode algorithms problem has mulple solutions, so do this one. I just verified solutions of other peer.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Solution-1-sorting"><a href="#Solution-1-sorting" class="headerlink" title="Solution 1: sorting"></a>Solution 1: sorting</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Arrays;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findKthLargest</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">		Arrays.sort(nums);</div><div class="line">		<span class="keyword">return</span> nums[nums.length - k];        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><blockquote>
+<p>32 / 32 test cases passed.<br>Runtime: 3 ms, faster than 84.58% of Java online submissions for Kth Largest Element in an Array.<br>Memory Usage: 35.7 MB, less than 98.57% of Java online submissions for Kth Largest Element in an Array.</p>
+</blockquote>
+<h2 id="Solution-2-min-heap"><a href="#Solution-2-min-heap" class="headerlink" title="Solution 2: min heap"></a>Solution 2: min heap</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.PriorityQueue;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findKthLargest</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">    	PriorityQueue&lt;Integer&gt; minHeap = <span class="keyword">new</span> PriorityQueue&lt;Integer&gt;(k);</div><div class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i : nums) &#123;</div><div class="line">    		minHeap.offer(i);</div><div class="line">    		<span class="keyword">if</span> (minHeap.size()&gt;k)</div><div class="line">    			minHeap.poll();</div><div class="line">    	&#125;</div><div class="line">    	<span class="keyword">return</span> minHeap.peek();       </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><blockquote>
+<p>32 / 32 test cases passed.<br>Runtime: 8 ms, faster than 51.68% of Java online submissions for Kth Largest Element in an Array.<br>Memory Usage: 35.7 MB, less than 98.37% of Java online submissions for Kth Largest Element in an Array.</p>
+</blockquote>
+<h2 id="Solution-3-a-similar-method-like-quick-sort"><a href="#Solution-3-a-similar-method-like-quick-sort" class="headerlink" title="Solution 3: a similar method like quick sort"></a>Solution 3: a similar method like quick sort</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findKthLargest</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (k &lt; <span class="number">1</span> || nums == <span class="keyword">null</span>) &#123;</div><div class="line">			<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> getKth(nums.length - k + <span class="number">1</span>, nums, <span class="number">0</span>, nums.length - <span class="number">1</span>);       </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getKth</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span>[] nums, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span> pivot = nums[end];</div><div class="line">		<span class="keyword">int</span> left = start;</div><div class="line">		<span class="keyword">int</span> right = end;</div><div class="line">		<span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">			<span class="keyword">while</span> (nums[left] &lt; pivot &amp;&amp; left &lt; right) &#123;</div><div class="line">				left++;</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">while</span> (nums[right] &gt;= pivot &amp;&amp; right &gt; left) &#123;</div><div class="line">				right--;</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">if</span> (left == right) &#123;</div><div class="line">				<span class="keyword">break</span>;</div><div class="line">			&#125;</div><div class="line">			swap(nums, left, right);</div><div class="line">		&#125;</div><div class="line">		swap(nums, left, end);</div><div class="line">		<span class="keyword">if</span> (k == left + <span class="number">1</span>) &#123;</div><div class="line">			<span class="keyword">return</span> pivot;</div><div class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (k &lt; left + <span class="number">1</span>) &#123;</div><div class="line">			<span class="keyword">return</span> getKth(k, nums, start, left - <span class="number">1</span>);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			<span class="keyword">return</span> getKth(k, nums, left + <span class="number">1</span>, end);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">    </div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span> temp = arr[i];</div><div class="line">		arr[i] = arr[j];</div><div class="line">		arr[j] = temp;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><blockquote>
+<p>32 / 32 test cases passed.<br>Runtime: 22 ms, faster than 37.24% of Java online submissions for Kth Largest Element in an Array.<br>Memory Usage: 37.5 MB, less than 94.43% of Java online submissions for Kth Largest Element in an Array.</p>
+</blockquote>
+<h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><ul>
+<li><a href="https://www.programcreek.com/2014/05/leetcode-kth-largest-element-in-an-array-java/" target="_blank" rel="external">LeetCode – Kth Largest Element in an Array (Java)</a></li>
+<li><a href="http://www.cs.yale.edu/homes/aspnes/pinewiki/QuickSelect.html" target="_blank" rel="external">QuickSelect</a>: The QuickSelect algorithm quickly finds the k-th smallest element of an unsorted array of n elements. It is a RandomizedAlgorithm, so we compute the worst-case expected running time.</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;It seemed that every leetcode algorithms problem has mulple solutions, so do this one. I just verified solutions of other peer.&lt;/p&gt;
+&lt;h1 i
+    
+    </summary>
+    
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+      <category term="Divide and Conquer" scheme="https://hezhigang.github.io/tags/Divide-and-Conquer/"/>
+    
+      <category term="Heap" scheme="https://hezhigang.github.io/tags/Heap/"/>
+    
+  </entry>
   
   <entry>
     <title>［独立博客文摘 - 卢昌海］欧几里得与《几何原本》</title>
@@ -790,104 +834,6 @@
       <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
     
       <category term="mathematics" scheme="https://hezhigang.github.io/tags/mathematics/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Web Engineering</title>
-    <link href="https://hezhigang.github.io/2018/11/07/Web-Engineering/"/>
-    <id>https://hezhigang.github.io/2018/11/07/Web-Engineering/</id>
-    <published>2018-11-07T15:48:44.000Z</published>
-    <updated>2018-11-07T16:24:48.924Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>前端工程化（工具）<br>前端组件化（生态）</p>
-</blockquote>
-<h1 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h1><ul>
-<li>NPM的全称是Node Package Manager，Nodejs的包管理器</li>
-<li>从API对用户友好这一个角度来说，Node.js的模块机制是非常优秀的。</li>
-</ul>
-<h2 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h2><h3 id="必备字段"><a href="#必备字段" class="headerlink" title="必备字段"></a>必备字段</h3><ul>
-<li>main指定了加载的入口文件，对于require，只需要main属性即可</li>
-<li>name : 包名，需要在NPM上是唯一的。不能带有空格。</li>
-<li>description : 包简介。通常会显示在一些列表中。</li>
-<li>version : 版本号。一个语义化的版本号（<a href="http://semver.org/" target="_blank" rel="external">http://semver.org/</a> ），通常为x.y.z。该版本号十分重要，常常用于一些版本控制的场合。</li>
-<li>keywords : 关键字数组。用于NPM中的分类搜索。</li>
-<li>maintainers : 包维护者的数组。数组元素是一个包含name、email、web三个属性的JSON对象。</li>
-<li>contributors : 包贡献者的数组。第一个就是包的作者本人。在开源社区，如果提交的patch被merge进master分支的话，就应当加上这个贡献patch的人。格式包含name和email。</li>
-<li>bugs : 一个可以提交bug的URL地址。可以是邮件地址（mailto:mailxx@domain），也可以是网页地址（<a href="http://url）。" target="_blank" rel="external">http://url）。</a></li>
-<li>licenses : 包所使用的许可证。</li>
-<li>repositories : 托管源代码的地址数组。</li>
-<li><strong>dependencies</strong> : 当前包需要的依赖。这个属性十分重要，NPM会通过这个属性，帮你自动加载依赖的包。</li>
-</ul>
-<h3 id="额外字段"><a href="#额外字段" class="headerlink" title="额外字段"></a>额外字段</h3><ul>
-<li>bin : 指定各个内部命令对应的可执行文件的位置</li>
-<li>scripts : 包管理器（NPM）在对包进行安装或者卸载的时候需要进行一些编译或者清除的工作，scripts字段的对象指明了在进行操作时运行哪个文件，或者执行拿条命令。</li>
-<li>engines</li>
-<li>devDependencies : 指定项目开发所需要的模块</li>
-<li>author</li>
-<li>peerDependencies字段，就是用来供插件指定其所需要的主工具的版本。</li>
-<li>config字段用于向环境变量输出值</li>
-<li>browser指定该模板供浏览器使用的版本</li>
-<li>engines指明了该项目所需要的node.js版本</li>
-<li>man用来指定当前模块的man文档的位置</li>
-<li>style指定供浏览器使用时，样式文件所在的位置</li>
-</ul>
-<h3 id="dependencies-amp-devDependencies-format"><a href="#dependencies-amp-devDependencies-format" class="headerlink" title="dependencies &amp; devDependencies format"></a>dependencies &amp; devDependencies format</h3><ul>
-<li>指定版本：比如1.2.2，遵循“大版本.次要版本.小版本”的格式规定，安装时只安装指定版本。</li>
-<li>波浪号（tilde）+指定版本：比如~1.2.2，表示安装1.2.x的最新版本（不低于1.2.2），但是不安装1.3.x，也就是说安装时不改变大版本号和次要版本号。</li>
-<li>插入号（caret）+指定版本：比如ˆ1.2.2，表示安装1.x.x的最新版本（不低于1.2.2），但是不安装2.x.x，也就是说安装时不改变大版本号。需要注意的是，如果大版本号为0，则插入号的行为与波浪号相同，这是因为此时处于开发阶段，即使是次要版本号变动，也可能带来程序的不兼容。</li>
-<li>latest：安装最新版本。</li>
-</ul>
-<h1 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h1><ul>
-<li>webpack以一种非常优雅的方式解决了前端资源依赖管理的问题，它在内部已经集成了许多资源依赖处理的细节，但是对于使用者而言只需要做少量的配置，再结合构建工具，很容易搭建一套前端工程解决方案。</li>
-<li>基于webpack的前端自动化工具，可以自由组合各种开源技术栈（Koa/Express/其他web框架、webpack、Sass/Less/Stylus、Gulp/Grunt等），没有复杂的资源依赖配置，工程结构也相对简单和灵活。</li>
-<li>根据webpack的设计理念，所有资源都是“模块”，webpack内部实现了一套资源加载机制，除了借助插件体系加载不同类型的资源文件之外，webpack还对输出结果提供了非常精细的控制能力，开发者只需要根据需要调整参数即可</li>
-<li>test项表示匹配的资源类型，loader或loaders项表示用来加载这种类型的资源的loader<br>对于css文件，默认情况下webpack会把css content内嵌到js里边，运行时会使用style标签内联。如果希望将css使用link标签引入，可以使用ExtractTextPlugin插件进行提取。</li>
-<li>图片资源的loader配置：意思是，图片资源在加载时先压缩，然后当内容size小于~10KB时，会自动转成base64的方式内嵌进去，这样可以减少一个HTTP的请求。当图片大于10KB时，则会在img/下生成压缩后的图片，命名是[hash:8].[name].[ext]的形式。hash:8的意思是取图片内容hushsum值的前8位，这样做能够保证引用的是图片资源的最新修改版本，保证浏览器端能够即时更新。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    test: /\.(jpe?g|png|gif|svg)$/i,</div><div class="line">    loaders: [</div><div class="line">        &apos;image?...&apos;,</div><div class="line">        &apos;url?limit=10000&amp;name=img/[hash:8].[name].[ext]&apos;,</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>多个入口文件之间可能公用一个模块，可以使用CommonsChunkPlugin插件对指定的chunks进行公共模块的提取，下面代码示例演示提取所有入口文件公用的模块，将其独立打包：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var chunks = Object.keys(entries);</div><div class="line">plugins: [</div><div class="line">    new CommonsChunkPlugin(&#123;</div><div class="line">        name: &apos;vendors&apos;, // 将公共模块提取，生成名为`vendors`的chunk</div><div class="line">        chunks: chunks,</div><div class="line">        minChunks: chunks.length // 提取所有entry共同依赖的模块</div><div class="line">    &#125;)</div><div class="line">]</div></pre></td></tr></table></figure>
-<ul>
-<li>webpack提供了强大的热更新支持，即HMR(hot module replace)。HMR简单说就是webpack启动一个本地webserver（webpack-dev-server），负责处理由webpack生成的静态资源请求。注意webpack-dev-server是把所有资源存储在内存的，所以你会发现在本地没有生成对应的chunk访问却正常。</li>
-</ul>
-<h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><ul>
-<li><a href="http://www.infoq.com/cn/articles/frontend-engineering-webpack" target="_blank" rel="external">基于webpack搭建前端工程解决方案探索</a></li>
-</ul>
-<h1 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h1><p>ECMAScript 6, ECMAScript 2015</p>
-<ul>
-<li>受欢迎的语法糖，例如箭头函数（arrow functions）和简单的字符串插值（string interpolation）</li>
-<li>代理（proxies）和生成器（generators）</li>
-</ul>
-<h1 id="Responsive-Web-design"><a href="#Responsive-Web-design" class="headerlink" title="Responsive Web design"></a>Responsive Web design</h1><ul>
-<li>灵活的基于网格的布局：在移动设备上查看页面时，如果设备的朝向从横向改为竖向时，页面布局会自动地调整并在新布局中展开内容进行显示，这就是灵活的基于网格的布局。在Twitter Bootstrap中，可以使用如下的CSS标签（tag）来实现：<div class="row-fluid"></div></li>
-<li>灵活的图像：动态调整图像的尺寸</li>
-<li>Media Queries（媒介查询）：这个是CSS3的特性，该特性可以通过查询媒介设备将适当的CSS返回给浏览器。Media queries are at the heart of a recent design trend called responsive web design.</li>
-</ul>
-<h1 id="Glosarry"><a href="#Glosarry" class="headerlink" title="Glosarry"></a>Glosarry</h1><ul>
-<li>MVVM (Model-View-ViewModel)</li>
-<li>SPA (single-page-application)</li>
-<li>Responsive Web design</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;前端工程化（工具）&lt;br&gt;前端组件化（生态）&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;npm&quot;&gt;&lt;a href=&quot;#npm&quot; class=&quot;headerlink&quot; title=&quot;npm&quot;&gt;&lt;/a&gt;npm&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;NPM
-    
-    </summary>
-    
-    
-      <category term="javascript" scheme="https://hezhigang.github.io/tags/javascript/"/>
-    
-      <category term="前端" scheme="https://hezhigang.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
     
   </entry>
   
