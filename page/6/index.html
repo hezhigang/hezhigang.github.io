@@ -65,6 +65,243 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Pascal-Triangle" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" class="article-date">
+  <time datetime="2018-09-03T02:51:52.000Z" itemprop="datePublished">2018-09-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/">LeetCode - Algorithms - 118. Pascal&#39;s Triangle</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>不难，不过写递归过程还是犯了些错误。 <a href="https://en.wikipedia.org/wiki/Pascal%27s_triangle" target="_blank" rel="external">Pascal’s triangle</a> 挺有名的，Binomial Coefficients好像是很重要的组合数学概念。</p>
+<ul>
+<li><a href="https://leetcode.com/problems/pascals-triangle/description/" target="_blank" rel="external">118. Pascal’s Triangle</a></li>
+<li><a href="https://www.lintcode.com/problem/yang-hui-triangle/description" target="_blank" rel="external">768. Yang Hui Triangle</a></li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; generate(<span class="keyword">int</span> numRows) &#123;</div><div class="line">	List&lt;List&lt;Integer&gt;&gt; list = <span class="keyword">new</span> ArrayList&lt;List&lt;Integer&gt;&gt;();</div><div class="line">	</div><div class="line">	<span class="keyword">if</span> (numRows==<span class="number">1</span>) &#123;</div><div class="line">    	List&lt;Integer&gt; list0 = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">    	list0.add(<span class="number">1</span>);</div><div class="line">    	list.add(list0);</div><div class="line">    	<span class="keyword">return</span> list;    		</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="keyword">if</span> (numRows==<span class="number">2</span>) &#123;</div><div class="line">    	List&lt;Integer&gt; list0 = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">    	list0.add(<span class="number">1</span>);</div><div class="line">    	list.add(list0);    		</div><div class="line">    	List&lt;Integer&gt; list1 = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">    	list1.add(<span class="number">1</span>);</div><div class="line">    	list1.add(<span class="number">1</span>);</div><div class="line">    	list.add(list1);</div><div class="line">    	<span class="keyword">return</span> list;    		</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="keyword">if</span> (numRows&gt;=<span class="number">3</span>) &#123;</div><div class="line">    	List&lt;List&lt;Integer&gt;&gt; list_= generate(numRows-<span class="number">1</span>);</div><div class="line">    	List&lt;Integer&gt; list_pre = list_.get(numRows-<span class="number">2</span>);</div><div class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;list_.size();i++)</div><div class="line">    		list.add(list_.get(i));</div><div class="line">    	List&lt;Integer&gt; list_curr = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">    	list_curr.add(<span class="number">1</span>);</div><div class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;numRows-<span class="number">1</span>;i++) &#123;</div><div class="line">    		list_curr.add(list_pre.get(i)+list_pre.get(i-<span class="number">1</span>));</div><div class="line">    	&#125;</div><div class="line">    	list_curr.add(<span class="number">1</span>);</div><div class="line">    	list.add(list_curr);</div><div class="line">	&#125;</div><div class="line">    <span class="keyword">return</span> list;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>性能不错，LeetCode运行结果：</p>
+<blockquote>
+<p>15 / 15 test cases passed.<br>Runtime: 0 ms<br>Your runtime beats 100.00 % of java submissions.</p>
+</blockquote>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * @param &#123;number&#125; numRows</div><div class="line"> * @return &#123;number[][]&#125;</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> generate = <span class="function"><span class="keyword">function</span>(<span class="params">numRows</span>) </span>&#123;</div><div class="line">	  <span class="keyword">if</span> (numRows==<span class="number">1</span>) &#123;</div><div class="line">		  <span class="keyword">return</span> [[<span class="number">1</span>]];</div><div class="line">	  &#125;</div><div class="line">	  <span class="keyword">if</span> (numRows==<span class="number">2</span>) &#123;</div><div class="line">		  <span class="keyword">return</span> [[<span class="number">1</span>],[<span class="number">1</span>,<span class="number">1</span>]];</div><div class="line">	  &#125;</div><div class="line">	  <span class="keyword">var</span> arr = [];</div><div class="line">	  <span class="keyword">if</span> (numRows&gt;=<span class="number">3</span>) &#123;</div><div class="line">		  <span class="keyword">var</span> arr_ = generate(numRows<span class="number">-1</span>);</div><div class="line">		  <span class="keyword">var</span> line_pre = arr_[numRows<span class="number">-2</span>];</div><div class="line">		  <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;arr_.length;i++)</div><div class="line">			  arr.push(arr_[i]);</div><div class="line">		  <span class="keyword">var</span> line_curr = [<span class="number">1</span>];</div><div class="line">		  <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;numRows<span class="number">-1</span>;i++) &#123;</div><div class="line">			  line_curr.push(line_pre[i]+line_pre[i<span class="number">-1</span>]);</div><div class="line">		  &#125;</div><div class="line">		  line_curr.push(<span class="number">1</span>);</div><div class="line">		  arr.push(line_curr);</div><div class="line">	  &#125;</div><div class="line">	  <span class="keyword">return</span> arr;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>15 / 15 test cases passed.<br>Runtime: 52 ms<br>Your runtime beats 90.59 % of javascript submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="cjvy0ccsl0027hktw891veast" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Better-than-the-Four-Colour-Theorem-William-Tutte" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" class="article-date">
+  <time datetime="2018-09-02T03:07:28.000Z" itemprop="datePublished">2018-09-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/">Better than the Four Colour Theorem - Jim Geelen - mathNEWS - VOLUME 135 • ISSUE 3 - October 20, 2017</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>There is a limpid journal of mathematics in University of waterloo named <a href="http://mathnews.uwaterloo.ca/" target="_blank" rel="external">mathNEWS</a>, this essay was selected from that little journal. In University of Waterloo’s campus, there is a street named <a href="https://uwaterloo.ca/stories/mathematics-professor-and-wartime-code-breaker-honoured" target="_blank" rel="external">William Tutte way</a> near Davis Centre Library.</p>
+<hr>
+<p><a href="https://en.wikipedia.org/wiki/W._T._Tutte" target="_blank" rel="external">William Tutte</a> spent enormous effort trying to solve the Four Colour Problem. Even after the computer-aided proof of Appel and Haken in 1976, Tutte continued working toward finding a <strong>short, human-readable</strong>, proof.</p>
+<p>Tutte never did succeed, but he came close to achieving his goal on several occasions. For example, Tutte had significant insights into Tait’s Conjecture that three-connected cubic planar graphs are Hamiltonia n, which Tait had already shown to imply the Four Colour Conjecture. Unfortunately, instead of leading him to a proof, <strong>Tutte’s insights led him to discover a 46-vertex counter-example to Tait’s conjecture</strong>. Not long after that, Tutte proved that all four-connected planar graphs are Hamiltonian. While this is agonizingly close to Tait’s Conjecture, it does not have any immediate applications to colouring.</p>
+<p>Following those attempts, Tutte tried various algebraic approaches; one of these involved the chromatic polynomial of a graph. For a graph G and non-negative integer k, let λ<sub>G</sub>(k) denote the number of colourings of G with colours 1, …, k. It is not at all obvious from this definition, but λ<sub>G</sub> is a polynomial, which allows us to define it at values other than the positive integers.</p>
+<p>The Four Colour Conjecture states that λ<sub>G</sub>(4) &gt; 0 whenever G is planar. If 0 ≤ k1 ≤ k2 are integers, then any k<sub>1</sub>-colouring is a k<sub>2</sub>-colouring, and hence λ<sub>G</sub>(k<sub>2</sub>) ≥ λ<sub>G</sub>(k<sub>1</sub>). This property does not extend to non-negative real numbers, but it is conjectured that for each real number x ≥ 4, we have λ<sub>G</sub>(x) &gt; 0 whenever G is planar. Tutte proved the following amazing result which superficially looks stronger than the Four Colour Theorem; in this result τ is the golden ratio, so τ+2 = 5+5<sup>1/2</sup> ≈ 3.618.</p>
+<blockquote>
+<p><strong> The 3.618 Colour Theorem. </strong> For each planar graph G, we have<br>λ<sub>G</sub>(τ+2) &gt; 0.</p>
+</blockquote>
+<p>This year Gordon Royle proved that, if x &lt; 4 is a real number such that λ<sub>G</sub>(x) &gt; 0 for each planar graph G, then x = τ+2. Wow!</p>
+<p>How on earth, you may ask, did Tutte come upon his result? It turns out that he came across the idea to try τ+2 by empirical evidence. That evidence takes the form of eight large binders that are stored in the C&amp;O library on the sixth floor of the MC building. Each of these binders contains, at a guess, around 500 pages. The pages alternate between a beautiful hand-drawn picture of a planar graph and a computer print out of the roots of its chromatic polynomial. Tutte enlisted the help of Ruth Bari and Dick Wick Hall to systematically generate the graphs and the help of Gerry Berman, founder of the C&amp;O Department, to compute the chromatic roots. Nevertheless, it beggars belief to consider the work that Tutte put into drawing each of the graphs by hand and then trawling through these volumes for any patterns that might provide in-roads to the elusive Four Colour Conjecture. In the end he made do with only 3.618 colours.</p>
+<p>This article is in memory of <a href="https://uwaterloo.ca/magazine/spring-2015/features/keeping-secrets" target="_blank" rel="external">William T. Tutte</a>, in this the centennial year of his birth. Among other honours, Tutte was a founding member of the C&amp;O Department, a legendary World War II code breaker, and a hugely influential combinatorialist.</p>
+<p><a href="https://en.wikipedia.org/wiki/Jim_Geelen" target="_blank" rel="external">Jim Geelen</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="cjvy0ccq00001hktwviaq4sd1" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UW/">UW</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mathNEWS/">mathNEWS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Excel-Sheet-Column-Number" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" class="article-date">
+  <time datetime="2018-08-28T18:41:37.000Z" itemprop="datePublished">2018-08-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/">LeetCode - Algorithms - 171. Excel Sheet Column Number</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这题算Easy，Excel列编号好像可以理解成26进制，少不了查下JDK API Specification，查看JavaScript Bible</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">titleToNumber</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">    	<span class="keyword">int</span> n = <span class="number">0</span>;</div><div class="line">    	<span class="keyword">int</span> len = s.length();</div><div class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=s.length()-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</div><div class="line">    		n += (Character.getNumericValue(s.charAt(i))-<span class="number">9</span>)*Math.pow(<span class="number">26</span>, len-i-<span class="number">1</span>);</div><div class="line">    	&#125;</div><div class="line">        <span class="keyword">return</span> n;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>性能不行，LeetCode运行结果</p>
+<blockquote>
+<p>1000 / 1000 test cases passed.<br>Runtime: 4 ms<br>Your runtime beats 5.55 % of java submissions.</p>
+</blockquote>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * @param &#123;string&#125; s</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> titleToNumber = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</div><div class="line">	  <span class="keyword">var</span> n = <span class="number">0</span>;</div><div class="line">	  <span class="keyword">var</span> len = s.length;</div><div class="line">	  <span class="keyword">for</span>(<span class="keyword">var</span> i=s.length<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</div><div class="line">		  n+=(s.charCodeAt(i)<span class="number">-64</span>)*<span class="built_in">Math</span>.pow(<span class="number">26</span>,len-i<span class="number">-1</span>);</div><div class="line">	  &#125;</div><div class="line">	  <span class="keyword">return</span> n;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>1000 / 1000 test cases passed.<br>Runtime: 68 ms<br>Your runtime beats 99.02 % of javascript submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" data-id="cjvy0ccrr001bhktwifpwm9ya" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Sum-of-Two-Integers" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/" class="article-date">
+  <time datetime="2018-08-25T02:56:17.000Z" itemprop="datePublished">2018-08-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/">LeetCode - Algorithms - 371. Sum of Two Integers</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这题不Easy呀，像智力题，像脑筋急转弯。<br>代码是人家的，我可想不出来。真是“会者不难，难者不会”。</p>
+<ul>
+<li><a href="https://www.quora.com/How-do-I-add-two-numbers-without-using-any-operator-C-C++" target="_blank" rel="external">How do I add two numbers without using any operator C/C++?</a></li>
+<li><a href="https://stackoverflow.com/questions/365522/what-is-the-best-way-to-add-two-numbers-without-using-the-operator" target="_blank" rel="external">What is the best way to add two numbers without using the + operator?</a></li>
+<li><a href="https://www.geeksforgeeks.org/add-two-numbers-without-using-arithmetic-operators/" target="_blank" rel="external">Add two numbers without using arithmetic operators</a></li>
+</ul>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><h2 id="自增自减运算符"><a href="#自增自减运算符" class="headerlink" title="自增自减运算符"></a>自增自减运算符</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * @param &#123;number&#125; a</div><div class="line"> * @param &#123;number&#125; b</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> getSum = <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (a&gt;<span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">while</span>(a&gt;<span class="number">0</span>) &#123;</div><div class="line">            a--;</div><div class="line">            b++</div><div class="line">        &#125;        </div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (a&lt;<span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">while</span>(a&lt;<span class="number">0</span>) &#123;</div><div class="line">            a++;</div><div class="line">            b--;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> b;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行显示：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 2096 ms<br>Your runtime beats 3.38 % of javascript submissions.</p>
+</blockquote>
+<h2 id="位运算-递归"><a href="#位运算-递归" class="headerlink" title="位运算+递归"></a>位运算+递归</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * @param &#123;number&#125; a</div><div class="line"> * @param &#123;number&#125; b</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> getSum = <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">	  <span class="keyword">var</span> sum,carry;</div><div class="line">	  <span class="keyword">if</span> (b==<span class="number">0</span>) <span class="keyword">return</span> a;</div><div class="line">	  sum = a^b;</div><div class="line">	  carry = (a&amp;b)&lt;&lt;<span class="number">1</span>;</div><div class="line">	  <span class="keyword">return</span> getSum(sum,carry);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 52 ms<br>Your runtime beats 69.57 % of javascript submissions</p>
+</blockquote>
+<h2 id="消除递归的位运算"><a href="#消除递归的位运算" class="headerlink" title="消除递归的位运算"></a>消除递归的位运算</h2><p>知其然而不知其所以然，居然可以这么做，觉得很神奇</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * @param &#123;number&#125; a</div><div class="line"> * @param &#123;number&#125; b</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> getSum = <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">	  <span class="keyword">while</span>(b!=<span class="number">0</span>) &#123;</div><div class="line">		  <span class="keyword">var</span> carry=a&amp;b;</div><div class="line">		  a = a^b;</div><div class="line">		  b = carry&lt;&lt;<span class="number">1</span>;</div><div class="line">	  &#125;</div><div class="line">	  <span class="keyword">return</span> a;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 48 ms<br>Your runtime beats 100.00 % of javascript submissions.</p>
+</blockquote>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="消除递归的位运算-1"><a href="#消除递归的位运算-1" class="headerlink" title="消除递归的位运算"></a>消除递归的位运算</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">    	<span class="keyword">while</span> (b!=<span class="number">0</span>) &#123;</div><div class="line">    		<span class="keyword">int</span> carry = a&amp;b;</div><div class="line">    		a = a^b;</div><div class="line">    		b = carry&lt;&lt;<span class="number">1</span>;</div><div class="line">    	&#125;</div><div class="line">        <span class="keyword">return</span> a;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行显示：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 0 ms<br>Your runtime beats 100.00 % of java submissions.</p>
+</blockquote>
+<h2 id="递归-位运算"><a href="#递归-位运算" class="headerlink" title="递归+位运算"></a>递归+位运算</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">    	<span class="keyword">int</span> sum,carry;</div><div class="line">    	<span class="keyword">if</span> (b==<span class="number">0</span>) <span class="keyword">return</span> a;</div><div class="line">    	sum = a ^ b;</div><div class="line">        carry = (a &amp; b) &lt;&lt; <span class="number">1</span>;</div><div class="line">        <span class="keyword">return</span> getSum(sum,carry);  </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 0 ms<br>Your runtime beats 100.00 % of java submissions.</p>
+</blockquote>
+<h2 id="自增自减运算符-1"><a href="#自增自减运算符-1" class="headerlink" title="自增自减运算符"></a>自增自减运算符</h2><p>这个解很像脑筋急转弯，不难，但让人想不到</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">    	<span class="keyword">if</span> (a&gt;<span class="number">0</span>) &#123;</div><div class="line">    		<span class="keyword">while</span>(a&gt;<span class="number">0</span>) &#123;</div><div class="line">    			a--;</div><div class="line">    			b++;</div><div class="line">    		&#125;</div><div class="line">    	&#125;</div><div class="line">    	<span class="keyword">if</span> (a&lt;<span class="number">0</span>) &#123;</div><div class="line">    		<span class="keyword">while</span>(a&lt;<span class="number">0</span>) &#123;</div><div class="line">    			a++;</div><div class="line">    			b--;</div><div class="line">    		&#125;</div><div class="line">    	&#125;</div><div class="line">    	<span class="keyword">return</span> b;  </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LeetCode运行结果如下：</p>
+<blockquote>
+<p>13 / 13 test cases passed.<br>Runtime: 1 ms<br>Your runtime beats 3.44 % of java submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/" data-id="cjvy0cct8002zhktwjbp5hkml" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Count-Primes" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/08/24/LeetCode-Algorithms-Count-Primes/" class="article-date">
@@ -120,7 +357,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/" data-id="cjvh2m0r70010d0twk8dkhh58" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/" data-id="cjvy0ccri0012hktwyj6mzx0u" class="article-share-link">Share</a>
       
       
       
@@ -174,7 +411,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/22/Java8-tricks/" data-id="cjvh2m0qa000ad0twt9llmmuy" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/22/Java8-tricks/" data-id="cjvy0ccqi000bhktwsn2vyppa" class="article-share-link">Share</a>
       
       
       
@@ -236,7 +473,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" data-id="cjvh2m0s4001pd0twtktibnua" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" data-id="cjvy0ccs3001lhktwv1rp15se" class="article-share-link">Share</a>
       
       
       
@@ -301,7 +538,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/21/LeetCode-Algorithms-Reverse-String/" data-id="cjvh2m0t0002td0twpmycbr65" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/21/LeetCode-Algorithms-Reverse-String/" data-id="cjvy0ccsy002phktw0d5ivn0g" class="article-share-link">Share</a>
       
       
       
@@ -373,7 +610,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" data-id="cjvh2m0s7001sd0twlzzxa355" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" data-id="cjvy0ccs4001nhktwmvwvrwp9" class="article-share-link">Share</a>
       
       
       
@@ -418,255 +655,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/17/IT-coder-vocabulary/" data-id="cjvh2m0q60007d0twjnekqxy7" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/17/IT-coder-vocabulary/" data-id="cjvy0ccqg0009hktwend24w0m" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Move-Zeroes" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/08/12/LeetCode-Algorithms-Move-Zeroes/" class="article-date">
-  <time datetime="2018-08-13T03:14:19.000Z" itemprop="datePublished">2018-08-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/12/LeetCode-Algorithms-Move-Zeroes/">LeetCode - Algorithms - 283. Move Zeroes</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>就这么一道tag为Easy的题，对自己来说也不简单呐，犯了各种错误，死循环，数组越界，逻辑错误…，先是用js在页面上试验，结果死循环浏览器卡死，只好先换成java在eclipse上调试。按理这道题用到的就是冒泡排序、选择排序里的操作吧。</p>
-<p>自己只会用各种库与框架，如果要从头写，看来连对数组操作也不熟悉，google关键字<code>java array shift elements left</code>，找到：</p>
-<ul>
-<li><a href="https://www.quora.com/How-do-I-move-the-elements-of-an-array-by-one-cell-towards-left" target="_blank" rel="external">How do I move the elements of an array by one cell towards left?</a></li>
-<li><a href="https://stackoverflow.com/questions/7970857/java-shifting-elements-in-an-array" target="_blank" rel="external">Java, Shifting Elements in an Array</a></li>
-</ul>
-<p>最后总算在leetcode上跑通了，不过还是稀里糊涂的。性能不行，不知道人家高手是怎么做的？难道用快速排序的思路？</p>
-<h1 id="java"><a href="#java" class="headerlink" title="java"></a>java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">moveZeroes</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=nums.length-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</div><div class="line">			<span class="keyword">if</span> (nums[i]==<span class="number">0</span>) &#123;</div><div class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>; j&lt;nums.length; j++) &#123;</div><div class="line">					nums[j-<span class="number">1</span>]=nums[j];</div><div class="line">				&#125;</div><div class="line">				nums[nums.length-<span class="number">1</span>]=<span class="number">0</span>;</div><div class="line">			&#125;</div><div class="line">		&#125;       </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>21 / 21 test cases passed.<br>Runtime: 15 ms<br>Your runtime beats 11.98 % of java submissions.</p>
-</blockquote>
-<h1 id="javascript"><a href="#javascript" class="headerlink" title="javascript"></a>javascript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * @param &#123;number[]&#125; nums</div><div class="line"> * @return &#123;void&#125; Do not return anything, modify nums in-place instead.</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> moveZeroes = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</div><div class="line">	  <span class="keyword">for</span>(i=nums.length<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</div><div class="line">		  <span class="keyword">if</span> (nums[i]==<span class="number">0</span>) &#123;</div><div class="line">			  <span class="keyword">for</span>(j=i+<span class="number">1</span>;j&lt;nums.length;j++) &#123;</div><div class="line">			    nums[j<span class="number">-1</span>]=nums[j];</div><div class="line">			  &#125;</div><div class="line">			  nums[nums.length<span class="number">-1</span>]=<span class="number">0</span>;</div><div class="line">		  &#125;</div><div class="line">	  &#125;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>21 / 21 test cases passed.<br>Runtime: 88 ms<br>Your runtime beats 18.25 % of javascript submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/12/LeetCode-Algorithms-Move-Zeroes/" data-id="cjvh2m0sc001xd0twbyv8vq5z" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/08/07/what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED/" class="article-date">
-  <time datetime="2018-08-07T18:48:52.000Z" itemprop="datePublished">2018-08-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/07/what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED/">What makes a good life? Lessons from the longest study on happiness - Robert Waldinger - TEDx talk - Transcript</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>00:00<br>What keeps us healthy and happy as we go through life? If you were going to invest now in your future best self, where would you put your time and your energy? There was a recent survey of millennials asking them what their most important life goals were, and over 80 percent said that a major life goal for them was to get rich. And another 50 percent of those same young adults said that another major life goal was to become famous.</p>
-<p>00:38<br>(Laughter)</p>
-<p>00:40<br>And we’re constantly told to lean in to work, to push harder and achieve more. We’re given the impression that these are the things that we need to go after in order to have a good life. Pictures of entire lives, of the choices that people make and how those choices work out for them, those pictures are almost impossible to get. Most of what we know about human life we know from asking people to remember the past, and as we know, hindsight is anything but 20/20. We forget vast amounts of what happens to us in life, and sometimes memory is downright creative.</p>
-<p>01:24<br>But what if we could watch entire lives as they unfold through time? What if we could study people from the time that they were teenagers all the way into old age to see what really keeps people happy and healthy?</p>
-<p>01:43<br>We did that. The Harvard Study of Adult Development may be the longest study of adult life that’s ever been done. For 75 years, we’ve tracked the lives of 724 men, year after year, asking about their work, their home lives, their health, and of course asking all along the way without knowing how their life stories were going to turn out.</p>
-<p>02:13<br>Studies like this are exceedingly rare. Almost all projects of this kind fall apart within a decade because too many people drop out of the study, or funding for the research dries up, or the researchers get distracted, or they die, and nobody moves the ball further down the field. But through a combination of luck and the persistence of several generations of researchers, this study has survived. About 60 of our original 724 men are still alive, still participating in the study, most of them in their 90s. And we are now beginning to study the more than 2,000 children of these men. And I’m the fourth director of the study.</p>
-<p>03:03<br>Since 1938, we’ve tracked the lives of two groups of men. The first group started in the study when they were sophomores at Harvard College. They all finished college during World War II, and then most went off to serve in the war. And the second group that we’ve followed was a group of boys from Boston’s poorest neighborhoods, boys who were chosen for the study specifically because they were from some of the most troubled and disadvantaged families in the Boston of the 1930s. Most lived in tenements, many without hot and cold running water.</p>
-<p>03:42<br>When they entered the study, all of these teenagers were interviewed. They were given medical exams. We went to their homes and we interviewed their parents. And then these teenagers grew up into adults who entered all walks of life. They became factory workers and lawyers and bricklayers and doctors, one President of the United States. Some developed alcoholism. A few developed schizophrenia. Some climbed the social ladder from the bottom all the way to the very top, and some made that journey in the opposite direction.</p>
-<p>04:23<br>The founders of this study would never in their wildest dreams have imagined that I would be standing here today, 75 years later, telling you that the study still continues. Every two years, our patient and dedicated research staff calls up our men and asks them if we can send them yet one more set of questions about their lives.</p>
-<p>04:48<br>Many of the inner city Boston men ask us, “Why do you keep wanting to study me? My life just isn’t that interesting.” The Harvard men never ask that question.</p>
-<p>04:59<br>(Laughter)</p>
-<p>05:08<br>To get the clearest picture of these lives, we don’t just send them questionnaires. We interview them in their living rooms. We get their medical records from their doctors. We draw their blood, we scan their brains, we talk to their children. We videotape them talking with their wives about their deepest concerns. And when, about a decade ago, we finally asked the wives if they would join us as members of the study, many of the women said, “You know, it’s about time.”</p>
-<p>05:38<br>(Laughter)</p>
-<p>05:39<br>So what have we learned? What are the lessons that come from the tens of thousands of pages of information that we’ve generated on these lives? Well, the lessons aren’t about wealth or fame or working harder and harder. The clearest message that we get from this 75-year study is this: <strong>Good relationships keep us happier and healthier. Period.</strong></p>
-<p>06:11<br>We’ve learned three big lessons about relationships. The first is that <strong>social connections are really good for us, and that loneliness kills.</strong> It turns out that people who are more socially connected to family, to friends, to community, are happier, they’re physically healthier, and they live longer than people who are less well connected. And the experience of loneliness turns out to be toxic. People who are more isolated than they want to be from others find that they are less happy, their health declines earlier in midlife, their brain functioning declines sooner and they live shorter lives than people who are not lonely. And the sad fact is that at any given time, more than one in five Americans will report that they’re lonely.</p>
-<p>07:07<br>And we know that you can be lonely in a crowd and you can be lonely in a marriage, so the second big lesson that we learned is that <strong>it’s not just the number of friends you have, and it’s not whether or not you’re in a committed relationship, but it’s the quality of your close relationships that matters.</strong> It turns out that living in the midst of conflict is really bad for our health. High-conflict marriages, for example, without much affection, turn out to be very bad for our health, perhaps worse than getting divorced. And living in the midst of good, warm relationships is protective.</p>
-<p>07:45<br>Once we had followed our men all the way into their 80s, we wanted to look back at them at midlife and to see if we could predict who was going to grow into a happy, healthy octogenarian and who wasn’t. And when we gathered together everything we knew about them at age 50, it wasn’t their middle age cholesterol levels that predicted how they were going to grow old. It was how satisfied they were in their relationships. The people who were the most satisfied in their relationships at age 50 were the healthiest at age 80. And good, close relationships seem to buffer us from some of the slings and arrows of getting old. Our most happily partnered men and women reported, in their 80s, that on the days when they had more physical pain, their mood stayed just as happy. But the people who were in unhappy relationships, on the days when they reported more physical pain, it was magnified by more emotional pain.</p>
-<p>08:52<br>And the third big lesson that we learned about relationships and our health is that <strong>good relationships don’t just protect our bodies, they protect our brains.</strong> It turns out that being in a securely attached relationship to another person in your 80s is protective, that the people who are in relationships where they really feel they can count on the other person in times of need, those people’s memories stay sharper longer. And the people in relationships where they feel they really can’t count on the other one, those are the people who experience earlier memory decline. And those good relationships, they don’t have to be smooth all the time. Some of our octogenarian couples could bicker with each other day in and day out, but as long as they felt that they could really count on the other when the going got tough, those arguments didn’t take a toll on their memories.</p>
-<p>09:49<br>So this message, that good, close relationships are good for our health and well-being, this is wisdom that’s as old as the hills. Why is this so hard to get and so easy to ignore? Well, we’re human. What we’d really like is a quick fix, something we can get that’ll make our lives good and keep them that way. Relationships are messy and they’re complicated and the hard work of tending to family and friends, it’s not sexy or glamorous. It’s also lifelong. It never ends. The people in our 75-year study who were the happiest in retirement were the people who had actively worked to replace workmates with new playmates. Just like the millennials in that recent survey, many of our men when they were starting out as young adults really believed that fame and wealth and high achievement were what they needed to go after to have a good life. But over and over, over these 75 years, our study has shown that the people who fared the best were the people who leaned in to relationships, with family, with friends, with community.</p>
-<p>11:09<br>So what about you? Let’s say you’re 25, or you’re 40, or you’re 60. What might leaning in to relationships even look like?</p>
-<p>11:19<br>Well, the possibilities are practically endless. It might be something as simple as replacing screen time with people time or livening up a stale relationship by doing something new together, long walks or date nights, or reaching out to that family member who you haven’t spoken to in years, because those all-too-common family feuds take a terrible toll on the people who hold the grudges.</p>
-<p>11:52<br>I’d like to close with a quote from Mark Twain. More than a century ago, he was looking back on his life, and he wrote this: “There isn’t time, so brief is life, for bickerings, apologies, heartburnings, callings to account. There is only time for loving, and but an instant, so to speak, for that.”</p>
-<p>12:22<br><strong>The good life is built with good relationships.</strong></p>
-<p>12:27<br>Thank you.</p>
-<p>12:28<br>(Applause)</p>
-<div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://embed.ted.com/talks/robert_waldinger_what_makes_a_good_life_lessons_from_the_longest_study_on_happiness" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen></iframe></div></div>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/07/what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED/" data-id="cjvh2m10000aad0twwc0jrvzc" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TED/">TED</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-english-learning-tips-from-douban-notes" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/08/02/english-learning-tips-from-douban-notes/" class="article-date">
-  <time datetime="2018-08-02T16:09:18.000Z" itemprop="datePublished">2018-08-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/02/english-learning-tips-from-douban-notes/">豆瓣日记上的英语经</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://www.douban.com/note/432653465/" target="_blank" rel="external">如何迅速提高英语阅读能力？</a></p>
-<ul>
-<li>对于中初级学习者来说，迅速提高词汇量比分辨近义词的差别更重要。</li>
-<li>只要你不是从小大量阅读英文，背单词就是必须的。</li>
-<li>要按照读音来记单词</li>
-<li>阅读的时候脑子要思考，不断地问：作者在说什么？文章的走向是怎么样的？里面有哪一些核心内容？有什么样的情感？带着目的去阅读，而非无意识阅读。无意识阅读法，只能浪费时间。</li>
-<li>在读复杂句的时候，或者碰到不明白的句子的时候，脑子要分清楚主语、谓语、宾语之间的修饰关系。比如说这个It指代了谁？这句超级无敌长的复杂句里，主谓宾在哪里？修饰是放在前面还是后面了？读的时候可以不做语法分析，但是一定要弄明白每个单词在句子里所扮演的角色，以及它们之间所产生的关系。长难句是绝对绕不过去的一个坎，不要心存侥幸，现在就赶紧解决它吧。</li>
-<li>千万不要总是跳过不懂的东西。</li>
-</ul>
-<hr>
-<p><a href="https://www.douban.com/note/221114977/" target="_blank" rel="external">中国人说英语为什么听起来没有礼貌？（8.17更新添加中英文化差异的讨论）</a></p>
-<ul>
-<li>中国人的英语以Chinglish或Chenglish闻名于世。中国人最大的英语发音问题就是没有连读，但这都不是最主要的语言问题。老外们时常议论，很多中国人在说英语时，听起来没有礼貌；并不是这些中国人本身没礼貌，而是他们还没有习惯英语的礼貌表达方式。</li>
-<li>比如，中国人在餐厅或咖啡厅，会说：“我想要一个汉堡包”或者“我想要一杯咖啡”。但是，如果直接把这些话翻译成英语“I want to have a hamburger.”或“I want to have a coffee.”老外们会觉得这样说话很没有礼貌，当然他们也不会直接告诉你。而在西方国家，老外们一般会说：“Could I have a hamburger, please?”或“Can I have a coffee, please?”在这里joy同学又提到一个需要注意的问题，“打工的孩子最容易不注意的是see you.See u应该是客人说的，隐含了他觉得不错他会再来的意思，而店员最好用低调一点的bye，用see u太强势了。另外人家说谢谢，你也不用说you are welcome, 这实在是太正式了，有点真把自己当回事觉得帮了人家的味道。回答cheers或no worries就好，如果仅仅是对方爱说谢，你甚至可以不回应他的谢，直接说你要说的就好，如果是买了他的东西他谢你，更不能说you r welcome了</li>
-<li>再比如，中国人在拒绝别人邀请的午宴或晚宴时，会说：“抱歉，我不能去，我还有别的安排。”翻译成英文就是“Sorry，I can’t. I have another appointment.”如果这样说，那别人第二次也许不会再邀请你了。老外们一般会这样说：“That is a good idea! I would like to join in but I have another appointment today.” </li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/02/english-learning-tips-from-douban-notes/" data-id="cjvh2m0va004hd0twwobezcef" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-LRU-Cache" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/08/01/LeetCode-Algorithms-LRU-Cache/" class="article-date">
-  <time datetime="2018-08-01T14:09:53.000Z" itemprop="datePublished">2018-08-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/01/LeetCode-Algorithms-LRU-Cache/">LeetCode - Algorithms - 146. LRU Cache</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这题是 <a href="https://leetcode.com/problemset/top-interview-questions/" target="_blank" rel="external">Top Interview Questions</a> 及 <a href="https://leetcode.com/problemset/top-100-liked-questions/" target="_blank" rel="external">Top 100 Liked Questions</a>之一，前后又花了一个星期。</p>
-<p>先是了解了下 <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies" target="_blank" rel="external">Cache replacement policies</a>，其中提及 General implementations of Least recently used (LRU) require keeping “age bits” for cache-lines and track the “Least Recently Used” cache-line based on age-bits.</p>
-<p>题目里提示 Could you do both operations in O(1) time complexity? ，又了解了下<a href="https://en.wikipedia.org/wiki/Time_complexity" target="_blank" rel="external">Time complexity</a>。又在kindle上翻了下《算法图解》，了解了下散列表、链表等数据结构，也算加强了下对哈希表的认识。</p>
-<blockquote>
-<p>在平均情况下， 散列表执行各种操作的时间都为O(1)。 O(1)被称为常量时间。你以前没有见过 常量时间，它并不意味着马上，而是说不管散列表多大，所需的时间都相同。</p>
-<p>实际上，你以前见过常量时间——从数组中获取一个元素所需的时间就是固定的：不管数组多大，从中获取一个元素所需的时间都是相同的。</p>
-<p>填装因子(load factor)度量的是散列表中有多少位置是空的。填装因子越低，发生冲突的可能性越小，散列表的性能越高。一个不错的经验规则是：一旦填装因子大于0.7，就调整散列表的长度。</p>
-</blockquote>
-<p>自己琢磨也是徒劳，不如上网找点提示信息，在quora上找到几条信息</p>
-<ul>
-<li><a href="https://www.quora.com/What-is-the-best-way-to-Implement-an-LRU-Cache" target="_blank" rel="external">What is the best way to Implement an LRU Cache?</a></li>
-<li><a href="https://www.quora.com/How-are-linked-lists-good-for-LRU-caches" target="_blank" rel="external">How are linked lists good for LRU caches?</a></li>
-<li><a href="https://www.quora.com/Why-is-doubly-linked-list-used-in-LRU-Least-Recently-Used-implementation-as-in-this-link-Implement-LRU-Cache-GeeksforGeeks" target="_blank" rel="external">Why is doubly linked list used in LRU(Least Recently Used) implementation as in this link (Implement LRU Cache - GeeksforGeeks)?</a></li>
-</ul>
-<blockquote>
-<p>Typically LRU cache is implemented using a doubly linked list and a hash map.</p>
-<p>An LRU Cache should support fast lookup. Apparently, in order to achieve fast lookup, we need to use Hashtable or HashMap.Also, an LRU Cache requires that insert and delete operations should be in O(1) time. The obvious choice for this requirement is Linked List. Linked List support insert/delete operations in O(1) time if we have the reference of element. While building an LRU cache requires that you think in terms of these two data structures. The reality is that these two data structures actually work coherently to achieve the design.So, we are finalizing on these data structures: HashMap and Doubly Linked List. HashMap holds the keys and values as reference of the nodes (entries) of Doubly Linked List.Doubly Linked List is used to store list of nodes (entries) with most recently used node at the head of the list. So, as more nodes are added to the list, least recently used nodes are moved to the end of the list with node at tail being the least recently used in the list.</p>
-</blockquote>
-<p>自己对java集合类库还是不够熟悉，看到<a href="https://stackoverflow.com/questions/31365998/is-there-any-doubly-linked-list-implementation-in-java" target="_blank" rel="external">Is there any doubly linked list implementation in Java?</a>才明白原来java.util.LinkedList本来就可以当双向链表使用，</p>
-<blockquote>
-<p>Doubly-linked list implementation of the List and Deque interfaces. Implements all optional list operations, and permits all elements (including null).All of the operations perform as could be expected for a doubly-linked list. Operations that index into the list will traverse the list from the beginning or the end, whichever is closer to the specified index. </p>
-</blockquote>
-<p>在leetcode上提交了两次，终于运行通过，如果自己来实现双向链表是不是更能提高性能? 做了这些题，感觉leetcode的算法题不是那种难得要死的题，不会做说明你的数据结构和算法知识还比较欠缺。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> LinkedList&lt;DualLinkNode&gt; list;</div><div class="line">	<span class="keyword">private</span> Map&lt;Integer,DualLinkNode&gt; map;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> cacheSize;</div><div class="line">	</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LRUCache</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</div><div class="line">    	list = <span class="keyword">new</span> LinkedList&lt;DualLinkNode&gt;();</div><div class="line">    	map = <span class="keyword">new</span> HashMap&lt;Integer,DualLinkNode&gt;();</div><div class="line">    	<span class="keyword">this</span>.cacheSize = capacity;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</div><div class="line">    	<span class="keyword">if</span> (map.containsKey(key)) &#123;</div><div class="line">    		DualLinkNode node = map.get(key);</div><div class="line">    		list.remove(node);</div><div class="line">    		list.addFirst(node);</div><div class="line">    		<span class="keyword">return</span> node.val;</div><div class="line">    	&#125;</div><div class="line">    	<span class="keyword">else</span> &#123;</div><div class="line">    		<span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">    	&#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(<span class="keyword">int</span> key, <span class="keyword">int</span> value)</span> </span>&#123;</div><div class="line">    	<span class="keyword">if</span> (map.containsKey(key)) &#123;</div><div class="line">    		DualLinkNode node = map.get(key);</div><div class="line">    		list.remove(node);</div><div class="line">    		node.val=value;</div><div class="line">    		list.addFirst(node);</div><div class="line">    	&#125;</div><div class="line">    	<span class="keyword">else</span> &#123;</div><div class="line">			<span class="keyword">if</span> (list.size()==cacheSize) &#123;</div><div class="line">				DualLinkNode node = list.pollLast();</div><div class="line">				map.remove(node.key);</div><div class="line">			&#125;</div><div class="line">			DualLinkNode node = <span class="keyword">new</span> DualLinkNode(key,value);</div><div class="line">			list.addFirst(node);</div><div class="line">			map.put(key, node);</div><div class="line">    	&#125;</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">	<span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">DualLinkNode</span> </span>&#123;</div><div class="line">		<span class="keyword">public</span> <span class="keyword">int</span> key;</div><div class="line">		<span class="keyword">public</span> <span class="keyword">int</span> val;</div><div class="line"></div><div class="line">		<span class="function"><span class="keyword">public</span> <span class="title">DualLinkNode</span><span class="params">(<span class="keyword">int</span> key, <span class="keyword">int</span> val)</span> </span>&#123;</div><div class="line">			<span class="keyword">super</span>();</div><div class="line">			<span class="keyword">this</span>.key = key;</div><div class="line">			<span class="keyword">this</span>.val = val;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>性能倒不行，leetcode执行显示</p>
-<blockquote>
-<p>18 / 18 test cases passed.<br>Runtime: 227 ms<br>You are here!<br>Your runtime beats 7.69 % of java submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/01/LeetCode-Algorithms-LRU-Cache/" data-id="cjvh2m0s0001kd0twwm64n20w" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
     </footer>
   </div>
@@ -680,7 +673,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -694,7 +687,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Divide-and-Conquer/">Divide and Conquer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/">Heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/古文/">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心理学与生活/">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无线网络/">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/林语堂/">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/王小波/">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/英语/">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译言/">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试题/">面试题</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Divide-and-Conquer/">Divide and Conquer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/">Heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marcus-Du-Sautoy/">Marcus Du Sautoy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history-of-mathematics/">history of mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/古文/">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心理学与生活/">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无线网络/">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/林语堂/">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/王小波/">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/英语/">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译言/">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试题/">面试题</a></li></ul>
     </div>
   </div>
 
@@ -704,7 +697,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Bill-Blair/" style="font-size: 11.43px;">Bill Blair</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/DP/" style="font-size: 15.71px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 10px;">Divide and Conquer</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.57px;">LeetCode</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/React-js/" style="font-size: 11.43px;">React.js</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Spring/" style="font-size: 12.86px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 11.43px;">Spring Boot</a> <a href="/tags/TED/" style="font-size: 10px;">TED</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 17.14px;">english</a> <a href="/tags/git/" style="font-size: 11.43px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 15.71px;">java</a> <a href="/tags/javascript/" style="font-size: 11.43px;">javascript</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 11.43px;">linux</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 12.86px;">mysql</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 10px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/林语堂/" style="font-size: 10px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 14.29px;">英语</a> <a href="/tags/译言/" style="font-size: 11.43px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Bill-Blair/" style="font-size: 11.43px;">Bill Blair</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/DP/" style="font-size: 15.71px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 10px;">Divide and Conquer</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.57px;">LeetCode</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 14.29px;">Marcus Du Sautoy</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/React-js/" style="font-size: 11.43px;">React.js</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Spring/" style="font-size: 12.86px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 11.43px;">Spring Boot</a> <a href="/tags/TED/" style="font-size: 10px;">TED</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 14.29px;">The Story of Maths</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 17.14px;">english</a> <a href="/tags/git/" style="font-size: 11.43px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/history-of-mathematics/" style="font-size: 14.29px;">history of mathematics</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 15.71px;">java</a> <a href="/tags/javascript/" style="font-size: 11.43px;">javascript</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 11.43px;">linux</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 12.86px;">mysql</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 10px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/林语堂/" style="font-size: 10px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 14.29px;">英语</a> <a href="/tags/译言/" style="font-size: 11.43px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -730,19 +723,19 @@
           </li>
         
           <li>
-            <a href="/2019/04/06/Euclid-Elements-changhai/">［独立博客文摘 - 卢昌海］欧几里得与《几何原本》</a>
+            <a href="/2019/05/04/The-Story-of-Maths-4-To-Infinity-and-Beyond-Subtitles/">The Story of Maths - 4. To Infinity and Beyond - Subtitles</a>
           </li>
         
           <li>
-            <a href="/2019/03/26/LeetCode-Algorithms-Wildcard-Matching/">LeetCode - Algorithms - 44. Wildcard Matching</a>
+            <a href="/2019/05/04/The-Story-of-Maths-3-The-Frontiers-of-Space-Subtitles/">The Story of Maths - 3. The Frontiers of Space - Subtitles</a>
           </li>
         
           <li>
-            <a href="/2019/03/20/Let-us-communicate/">Let&#39;s communicate</a>
+            <a href="/2019/05/04/The-Story-of-Maths-2-The-Genius-of-the-East-Subtitles/">The Story of Maths - 2. The Genius of the East - Subtitles</a>
           </li>
         
           <li>
-            <a href="/2019/02/19/common-phrases/">Common Phrases</a>
+            <a href="/2019/05/04/The-Story-of-Maths-1-The-Language-of-the-Universe-Subtitles/">The Story of Maths - 1. The Language of the Universe - Subtitles</a>
           </li>
         
       </ul>

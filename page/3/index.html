@@ -65,6 +65,221 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Maximum-Subarray" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/08/LeetCode-Algorithms-Maximum-Subarray/" class="article-date">
+  <time datetime="2018-12-09T04:32:54.000Z" itemprop="datePublished">2018-12-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/08/LeetCode-Algorithms-Maximum-Subarray/">LeetCode - Algorithms - 53. Maximum Subarray</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Tagged as easy, I feel it is not easy to solve. dynamic programming class problem. The solution is others, I only verify it.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="1-Kadane’s-algorithm"><a href="#1-Kadane’s-algorithm" class="headerlink" title="1 Kadane’s algorithm"></a>1 Kadane’s algorithm</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">    	<span class="keyword">int</span> max = Integer.MIN_VALUE;</div><div class="line">    	<span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</div><div class="line">    		count += nums[i];</div><div class="line">    		<span class="keyword">if</span> (count&gt;max)</div><div class="line">    			max = count;</div><div class="line">    		<span class="keyword">if</span> (count&lt;<span class="number">0</span>)</div><div class="line">    			count = <span class="number">0</span>;</div><div class="line">    	&#125;</div><div class="line">    	<span class="keyword">return</span> max;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>202 / 202 test cases passed.<br>Runtime: 10 ms<br>Your runtime beats 40.59 % of java submissions.</p>
+</blockquote>
+<h2 id="2-DP"><a href="#2-DP" class="headerlink" title="2 DP"></a>2 DP</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> newSum = nums[<span class="number">0</span>];</div><div class="line">        <span class="keyword">int</span> max = nums[<span class="number">0</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;nums.length;i++) &#123;</div><div class="line">        	newSum = Math.max(newSum+nums[i], nums[i]);</div><div class="line">        	max = Math.max(newSum, max);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> max;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>202 / 202 test cases passed.<br>Runtime: 7 ms<br>Your runtime beats 89.29 % of java submissions.</p>
+</blockquote>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="https://en.wikipedia.org/wiki/Maximum_subarray_problem" target="_blank" rel="external">Maximum subarray problem</a></li>
+<li><a href="https://medium.com/solvingalgo/how-to-solve-algorithmic-problems-maximum-sum-of-a-contiguous-subarray-5568adbfc5b" target="_blank" rel="external">Solving Algorithmic Problems: Maximum Sum of a Contiguous Subarray<br>Go to the profile of Teiva Harsanyi</a></li>
+<li><a href="https://www.programcreek.com/2013/02/leetcode-maximum-subarray-java/" target="_blank" rel="external">LeetCode – Maximum Subarray (Java)</a></li>
+<li><a href="https://www.quora.com/How-do-I-find-the-maximum-sum-contiguous-subarray-using-a-divide-and-conquer-method" target="_blank" rel="external">How do I find the maximum sum contiguous subarray using a divide and conquer method?</a></li>
+<li><a href="https://blog.csdn.net/m0_38088298/article/details/78039671" target="_blank" rel="external">Divide and Conquer – Leetcode problem53. Maximum Subarray</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/12/08/LeetCode-Algorithms-Maximum-Subarray/" data-id="cjvy0ccs9001shktwpqdrfg08" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Sqrt" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/01/LeetCode-Algorithms-Sqrt/" class="article-date">
+  <time datetime="2018-12-01T20:49:31.000Z" itemprop="datePublished">2018-12-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/01/LeetCode-Algorithms-Sqrt/">LeetCode - Algorithms - 69. Sqrt(x)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (x &lt; <span class="number">0</span>)</div><div class="line">			<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (x &lt; <span class="number">2</span>)</div><div class="line">			<span class="keyword">return</span> x;</div><div class="line">		<span class="keyword">else</span> &#123;</div><div class="line">			<span class="keyword">long</span> smallCandidate = mySqrt(x &gt;&gt; <span class="number">2</span>) &lt;&lt; <span class="number">1</span>;</div><div class="line">			<span class="keyword">long</span> largeCandidate = smallCandidate + <span class="number">1</span>;</div><div class="line">			<span class="keyword">if</span> (largeCandidate*largeCandidate &gt; x)</div><div class="line">				<span class="keyword">return</span> <span class="keyword">new</span> Long(smallCandidate).intValue();</div><div class="line">			<span class="keyword">else</span></div><div class="line">				<span class="keyword">return</span> <span class="keyword">new</span> Long(largeCandidate).intValue();</div><div class="line">		&#125;       </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>1017 / 1017 test cases passed.<br>Runtime: 36 ms<br>Your runtime beats 17.73 % of java submissions.</p>
+</blockquote>
+<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (x==<span class="number">0</span> || x==<span class="number">1</span>) <span class="keyword">return</span> x;</div><div class="line">		<span class="keyword">long</span> i=<span class="number">1</span>, result=<span class="number">1</span>;</div><div class="line">		<span class="keyword">while</span>(result&lt;=x) &#123;</div><div class="line">			i++;</div><div class="line">			result = i*i;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Long(i-<span class="number">1</span>).intValue();       </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>1017 / 1017 test cases passed.<br>Runtime: 33 ms<br>Your runtime beats 24.03 % of java submissions.</p>
+</blockquote>
+<h2 id="3-O-logn"><a href="#3-O-logn" class="headerlink" title="3 O(logn)"></a>3 O(logn)</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (x == <span class="number">0</span> || x == <span class="number">1</span>)</div><div class="line">			<span class="keyword">return</span> x;</div><div class="line"></div><div class="line">		<span class="keyword">long</span> start = <span class="number">1</span>, end = x, ans = <span class="number">0</span>;</div><div class="line">		<span class="keyword">while</span> (start &lt;= end) &#123;</div><div class="line">			<span class="keyword">long</span> mid = (start + end) / <span class="number">2</span>;</div><div class="line"></div><div class="line">			<span class="keyword">if</span> (mid * mid == x)</div><div class="line">				<span class="keyword">return</span> <span class="keyword">new</span> Long(mid).intValue();</div><div class="line"></div><div class="line">			<span class="keyword">if</span> (mid * mid &lt; x) &#123;</div><div class="line">				start = mid + <span class="number">1</span>;</div><div class="line">				ans = mid;</div><div class="line">			&#125; <span class="keyword">else</span></div><div class="line">				end = mid - <span class="number">1</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Long(ans).intValue();       </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>1017 / 1017 test cases passed.<br>Runtime: 16 ms<br>Your runtime beats 95.09 % of java submissions.</p>
+</blockquote>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="https://www.geeksforgeeks.org/square-root-of-an-integer/" target="_blank" rel="external">Square root of an integer</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Integer_square_root" target="_blank" rel="external">Integer square root</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/12/01/LeetCode-Algorithms-Sqrt/" data-id="cjvy0cct6002whktwqoqi4x92" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Contains-Duplicate" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/29/LeetCode-Algorithms-Contains-Duplicate/" class="article-date">
+  <time datetime="2018-11-30T02:00:33.000Z" itemprop="datePublished">2018-11-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/29/LeetCode-Algorithms-Contains-Duplicate/">LeetCode - Algorithms - 217. Contains Duplicate</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Tag easy as it is. This problem is like <a href="https://leetcode.com/problems/first-unique-character-in-a-string/description/" target="_blank" rel="external">387. First Unique Character in a String</a>.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">containsDuplicate</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">    	<span class="keyword">boolean</span> r = <span class="keyword">false</span>;</div><div class="line">    	Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> HashMap&lt;Integer,Integer&gt;();</div><div class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</div><div class="line">    		<span class="keyword">if</span> (map.containsKey(nums[i])) &#123;</div><div class="line">    			<span class="keyword">int</span> val = map.get(nums[i]);</div><div class="line">    			map.put(nums[i], val+<span class="number">1</span>);</div><div class="line">    		&#125;</div><div class="line">    		<span class="keyword">else</span> &#123;</div><div class="line">    			map.put(nums[i], <span class="number">1</span>);</div><div class="line">    		&#125;</div><div class="line">    	&#125;</div><div class="line">    	Iterator&lt;Integer&gt; itr = map.values().iterator();</div><div class="line">    	<span class="keyword">while</span>(itr.hasNext()) &#123;</div><div class="line">    		<span class="keyword">if</span> (itr.next().intValue()&gt;<span class="number">1</span>) &#123;</div><div class="line">    			r = <span class="keyword">true</span>;</div><div class="line">    			<span class="keyword">break</span>;</div><div class="line">    		&#125;</div><div class="line">    	&#125;</div><div class="line">    	<span class="keyword">return</span> r;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>18 / 18 test cases passed.<br>Runtime: 13 ms<br>Your runtime beats 48.76 % of java submissions.</p>
+</blockquote>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * @param &#123;number[]&#125; nums</div><div class="line"> * @return &#123;boolean&#125;</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> containsDuplicate = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> r = <span class="literal">false</span>;</div><div class="line">	<span class="keyword">var</span> count = &#123;&#125;;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</div><div class="line">		<span class="keyword">if</span> (<span class="keyword">typeof</span> count[nums[i]]!=<span class="string">"undefined"</span> &amp;&amp; count[nums[i]]!=<span class="literal">null</span>) &#123;</div><div class="line">			count[nums[i]]++;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span> &#123;</div><div class="line">			count[nums[i]]=<span class="number">1</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> count) &#123;</div><div class="line">		<span class="keyword">if</span> (count[i]&gt;<span class="number">1</span>) &#123;</div><div class="line">			r = <span class="literal">true</span>;</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> r;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>18 / 18 test cases passed.<br>Runtime: 92 ms<br>Your runtime beats 35.80 % of javascript submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/11/29/LeetCode-Algorithms-Contains-Duplicate/" data-id="cjvy0ccrh0011hktw9z8wdp9i" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-AKS-test-for-primes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/10/AKS-test-for-primes/" class="article-date">
+  <time datetime="2018-11-10T13:10:58.000Z" itemprop="datePublished">2018-11-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/10/AKS-test-for-primes/">AKS test for primes</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>Manindra Agrawal</strong> &amp; <strong>Neeraj Kayal</strong> &amp; <strong>Nitin Saxena</strong> present an unconditional deterministic polynomial-time algorithm that determines whether an input number is prime or composite. </p>
+<p>The AKS algorithm for testing whether a number is prime is a polynomial-time algorithm based on an elementary theorem about Pascal triangles.</p>
+<h1 id="Rust"><a href="#Rust" class="headerlink" title="Rust"></a>Rust</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><figure class="highlight rust"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">use</span> std::iter::repeat;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">fn</span> <span class="title">aks_coefficients</span></span>(k: <span class="built_in">usize</span>) -&gt; <span class="built_in">Vec</span>&lt;<span class="built_in">i64</span>&gt; &#123;</div><div class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> coefficients = repeat(<span class="number">0i64</span>).take(k + <span class="number">1</span>).collect::&lt;<span class="built_in">Vec</span>&lt;_&gt;&gt;();</div><div class="line">    coefficients[<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1</span>..(k + <span class="number">1</span>) &#123;</div><div class="line">        coefficients[i] = -(<span class="number">1</span>..i).fold(coefficients[<span class="number">0</span>], |prev, j|&#123;</div><div class="line">            <span class="keyword">let</span> old = coefficients[j];</div><div class="line">            coefficients[j] = old - prev;</div><div class="line">            old</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">    coefficients</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">fn</span> <span class="title">is_prime</span></span>(p: <span class="built_in">usize</span>) -&gt; <span class="built_in">bool</span> &#123;</div><div class="line">    <span class="keyword">if</span> p &lt; <span class="number">2</span> &#123;</div><div class="line">        <span class="literal">false</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">let</span> c = aks_coefficients(p);</div><div class="line">        (<span class="number">1</span> .. (c.len() - <span class="number">1</span>) / <span class="number">2</span> + <span class="number">1</span>).all(|i| (c[i] % (p <span class="keyword">as</span> <span class="built_in">i64</span>)) == <span class="number">0</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..<span class="number">8</span> &#123;</div><div class="line">        <span class="built_in">println!</span>(<span class="string">"&#123;&#125;: &#123;:?&#125;"</span>, i, aks_coefficients(i));</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> (<span class="number">1</span>..<span class="number">51</span>).filter(|&amp;i| is_prime(i)) &#123;</div><div class="line">        <span class="built_in">print!</span>(<span class="string">"&#123;&#125; "</span>, i);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><p>An alternative version which computes the coefficients in a more functional but less efficient way. </p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fn</span> <span class="title">aks_coefficients</span></span>(k: <span class="built_in">usize</span>) -&gt; <span class="built_in">Vec</span>&lt;<span class="built_in">i64</span>&gt; &#123;</div><div class="line">	<span class="keyword">if</span> k == <span class="number">0</span> &#123;</div><div class="line">		<span class="built_in">vec!</span>[<span class="number">1i64</span>]</div><div class="line">	&#125; <span class="keyword">else</span> &#123;</div><div class="line">		<span class="keyword">let</span> zero = <span class="literal">Some</span>(<span class="number">0i64</span>);</div><div class="line">		(<span class="number">1</span>..k).fold(<span class="built_in">vec!</span>[<span class="number">1i64</span>, -<span class="number">1</span>], |r, _| &#123;</div><div class="line">			<span class="keyword">let</span> a = r.iter().chain(zero.iter());</div><div class="line">			<span class="keyword">let</span> b = zero.iter().chain(r.iter());</div><div class="line">			a.zip(b).map(|(x, &amp;y)| x-y).collect()</div><div class="line">		&#125;)</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">fn</span> <span class="title">is_prime</span></span>(p: <span class="built_in">usize</span>) -&gt; <span class="built_in">bool</span> &#123;</div><div class="line">    <span class="keyword">if</span> p &lt; <span class="number">2</span> &#123;</div><div class="line">        <span class="literal">false</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">let</span> c = aks_coefficients(p);</div><div class="line">        (<span class="number">1</span> .. (c.len() - <span class="number">1</span>) / <span class="number">2</span> + <span class="number">1</span>).all(|i| (c[i] % (p <span class="keyword">as</span> <span class="built_in">i64</span>)) == <span class="number">0</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..<span class="number">8</span> &#123;</div><div class="line">        <span class="built_in">println!</span>(<span class="string">"&#123;&#125;: &#123;:?&#125;"</span>, i, aks_coefficients(i));</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> (<span class="number">1</span>..<span class="number">51</span>).filter(|&amp;i| is_prime(i)) &#123;</div><div class="line">        <span class="built_in">print!</span>(<span class="string">"&#123;&#125; "</span>, i);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AksTest</span> </span>&#123;</div><div class="line">	</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span>[] c = <span class="keyword">new</span> <span class="keyword">long</span>[<span class="number">64</span>];</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> n = <span class="number">0</span>; n &lt; <span class="number">10</span>; n++) &#123;</div><div class="line">            coeff(n);</div><div class="line">            show(n);</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        System.out.print(<span class="string">"Primes:"</span>);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> n = <span class="number">1</span>; n &lt; c.length; n++)</div><div class="line">            <span class="keyword">if</span> (isPrime(n))</div><div class="line">                System.out.printf(<span class="string">" %d"</span>, n);</div><div class="line"> </div><div class="line">        System.out.println();</div><div class="line">    &#125;    </div><div class="line"> </div><div class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">coeff</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        c[<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; c[<span class="number">0</span>] = -c[<span class="number">0</span>], i++) &#123;</div><div class="line">            c[<span class="number">1</span> + i] = <span class="number">1</span>;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &gt; <span class="number">0</span>; j--)</div><div class="line">                c[j] = c[j - <span class="number">1</span>] - c[j];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isPrime</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        coeff(n);</div><div class="line">        c[<span class="number">0</span>]++;</div><div class="line">        c[n]--;</div><div class="line"> </div><div class="line">        <span class="keyword">int</span> i = n;</div><div class="line">        <span class="keyword">while</span> (i-- != <span class="number">0</span> &amp;&amp; c[i] % n == <span class="number">0</span>)</div><div class="line">            <span class="keyword">continue</span>;</div><div class="line">        <span class="keyword">return</span> i &lt; <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        System.out.print(<span class="string">"(x-1)^"</span> + n + <span class="string">" ="</span>);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = n; i &gt;= <span class="number">0</span>; i--) &#123;</div><div class="line">            System.out.print(<span class="string">" + "</span> + c[i] + <span class="string">"x^"</span> + i);</div><div class="line">        &#125;</div><div class="line">        System.out.println();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><h2 id="Translation-of-C"><a href="#Translation-of-C" class="headerlink" title="Translation of: C"></a>Translation of: C</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">coef</span>(<span class="params">n</span>) </span>&#123;</div><div class="line"> 	<span class="keyword">for</span> (<span class="keyword">var</span> c=[<span class="number">1</span>], i=<span class="number">0</span>; i&lt;n; c[<span class="number">0</span>]=-c[<span class="number">0</span>], i+=<span class="number">1</span>) &#123;</div><div class="line">		c[i+<span class="number">1</span>]=<span class="number">1</span>; <span class="keyword">for</span> (<span class="keyword">var</span> j=i; j; j-=<span class="number">1</span>) c[j] = c[j<span class="number">-1</span>]-c[j]		</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> c</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params">cs</span>)	</span>&#123;</div><div class="line">	<span class="keyword">var</span> s=<span class="string">''</span>, n=cs.length<span class="number">-1</span></div><div class="line">	<span class="keyword">do</span> s += (cs[n]&gt;<span class="number">0</span> ? <span class="string">' +'</span> : <span class="string">' '</span>) + cs[n] + (n==<span class="number">0</span> ? <span class="string">''</span> : n==<span class="number">1</span> ? <span class="string">'x'</span> :<span class="string">'x&lt;sup&gt;'</span>+n+<span class="string">'&lt;/sup&gt;'</span>); <span class="keyword">while</span> (n--)</div><div class="line">	<span class="keyword">return</span> s</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isPrime</span>(<span class="params">n</span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> cs=coef(n), i=n<span class="number">-1</span>; <span class="keyword">while</span> (i-- &amp;&amp; cs[i]%n == <span class="number">0</span>);</div><div class="line">	<span class="keyword">return</span> i &lt; <span class="number">1</span></div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> n=<span class="number">0</span>; n&lt;=<span class="number">7</span>; n++) <span class="built_in">document</span>.write(<span class="string">'(x-1)&lt;sup&gt;'</span>,n,<span class="string">'&lt;/sup&gt; = '</span>, show(coef(n)), <span class="string">'&lt;br&gt;'</span>)</div><div class="line"> </div><div class="line"><span class="built_in">document</span>.write(<span class="string">'&lt;br&gt;Primes: '</span>);</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> n=<span class="number">2</span>; n&lt;=<span class="number">50</span>; n++) <span class="keyword">if</span> (isPrime(n)) <span class="built_in">document</span>.write(<span class="string">' '</span>, n)</div></pre></td></tr></table></figure>
+<h2 id="Translation-of-CoffeeScript"><a href="#Translation-of-CoffeeScript" class="headerlink" title="Translation of: CoffeeScript"></a>Translation of: CoffeeScript</h2><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line">var i, p, pascal, primerow, primes, show, _i;</div><div class="line"></div><div class="line">pascal = function() &#123;</div><div class="line">  var a;</div><div class="line">  a = [];</div><div class="line">  return function() &#123;</div><div class="line">    var b, i;</div><div class="line">    if (a.length === 0) &#123;</div><div class="line">      return a = [1];</div><div class="line">    &#125; else &#123;</div><div class="line">      b = (function() &#123;</div><div class="line">        var _i, _ref, _results;</div><div class="line">        _results = [];</div><div class="line">        for (i = _i = 0, _ref = a.length - 1; 0 &lt;= _ref ? _i &lt; _ref : _i &gt; _ref; i = 0 &lt;= _ref ? ++_i : --_i) &#123;</div><div class="line">          _results.push(a[i] + a[i + 1]);</div><div class="line">        &#125;</div><div class="line">        return _results;</div><div class="line">      &#125;)();</div><div class="line">      return a = [1].concat(b).concat([1]);</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">show = function(a) &#123;</div><div class="line">  var degree, i, sgn, show_x, str, _i, _ref;</div><div class="line">  show_x = function(e) &#123;</div><div class="line">    switch (e) &#123;</div><div class="line">      case 0:</div><div class="line">        return &quot;&quot;;</div><div class="line">      case 1:</div><div class="line">        return &quot;x&quot;;</div><div class="line">      default:</div><div class="line">        return &quot;x^&quot; + e;</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">  degree = a.length - 1;</div><div class="line">  str = &quot;(x - 1)^&quot; + degree + &quot; =&quot;;</div><div class="line">  sgn = 1;</div><div class="line">  for (i = _i = 0, _ref = a.length; 0 &lt;= _ref ? _i &lt; _ref : _i &gt; _ref; i = 0 &lt;= _ref ? ++_i : --_i) &#123;</div><div class="line">    str += &apos; &apos; + (sgn &gt; 0 ? &quot;+&quot; : &quot;-&quot;) + &apos; &apos; + a[i] + show_x(degree - i);</div><div class="line">    sgn = -sgn;</div><div class="line">  &#125;</div><div class="line">  return str;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">primerow = function(row) &#123;</div><div class="line">  var degree;</div><div class="line">  degree = row.length - 1;</div><div class="line">  return row.slice(1, degree).every(function(x) &#123;</div><div class="line">    return x % degree === 0;</div><div class="line">  &#125;);</div><div class="line">&#125;;</div><div class="line"> </div><div class="line">p = pascal();</div><div class="line"> </div><div class="line">for (i = _i = 0; _i &lt;= 7; i = ++_i) &#123;</div><div class="line">  console.log(show(p()));</div><div class="line">&#125;</div><div class="line"> </div><div class="line">p = pascal();</div><div class="line"> </div><div class="line">p();</div><div class="line"> </div><div class="line">p();</div><div class="line"> </div><div class="line">primes = (function() &#123;</div><div class="line">  var _j, _results;</div><div class="line">  _results = [];</div><div class="line">  for (i = _j = 1; _j &lt;= 49; i = ++_j) &#123;</div><div class="line">    if (primerow(p())) &#123;</div><div class="line">      _results.push(i + 1);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  return _results;</div><div class="line">&#125;)();</div><div class="line"> </div><div class="line">console.log(&quot;&quot;);</div><div class="line"> </div><div class="line">console.log(&quot;The primes upto 50 are: &quot; + primes);</div></pre></td></tr></table></figure>
+<h2 id="Reviewed-ES6"><a href="#Reviewed-ES6" class="headerlink" title="Reviewed (ES6)"></a>Reviewed (ES6)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">function pascal(n) &#123;</div><div class="line">	var cs = []; if (n) while (n--) coef(); return coef</div><div class="line">	function coef() &#123;</div><div class="line">		if (cs.length === 0) return cs = [1];</div><div class="line">		for (var t=[1,1], i=cs.length-1; i; i-=1) t.splice( 1, 0, cs[i-1]+cs[i] ); return cs = t</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function show(cs) &#123;</div><div class="line">	for (var s=&apos;&apos;, sgn=true, i=0, deg=cs.length-1; i&lt;=deg; sgn=!sgn, i+=1) &#123;</div><div class="line">		s += &apos; &apos; + (sgn ? &apos;+&apos; : &apos;-&apos;) + cs[i] + (e =&gt; e==0 ? &apos;&apos; : e==1 ? &apos;x&apos; : &apos;x&lt;sup&gt;&apos; + e + &apos;&lt;/sup&gt;&apos;)(deg-i)</div><div class="line">	&#125;</div><div class="line">	return &apos;(x-1)&lt;sup&gt;&apos; + deg + &apos;&lt;/sup&gt; =&apos; + s;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function isPrime(cs) &#123;</div><div class="line">	var deg=cs.length-1; return cs.slice(1, deg).every( function(c) &#123; return c % deg === 0 &#125; )</div><div class="line">&#125;</div><div class="line"></div><div class="line">var coef=pascal(); for (var i=0; i&lt;=7; i+=1) document.write(show(coef()), &apos;&lt;br&gt;&apos;)</div><div class="line"></div><div class="line">document.write(&apos;&lt;br&gt;Primes: &apos;);</div><div class="line">for (var coef=pascal(2), n=2; n&lt;=50; n+=1) if (isPrime(coef())) document.write(&apos; &apos;, n)</div></pre></td></tr></table></figure>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="http://rosettacode.org/wiki/AKS_test_for_primes" target="_blank" rel="external">AKS test for primes</a></li>
+<li><a href="http://www.cse.iitk.ac.in/users/manindra/algebra/primality_v6.pdf" target="_blank" rel="external">PRIMES is in P</a></li>
+<li><a href="https://en.wikipedia.org/wiki/AKS_primality_test" target="_blank" rel="external">AKS primality test</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/11/10/AKS-test-for-primes/" data-id="cjvy0ccq50003hktw40ns5lm8" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mathematics/">mathematics</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Web-Engineering" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/11/07/Web-Engineering/" class="article-date">
@@ -163,7 +378,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/07/Web-Engineering/" data-id="cjvh2m0vm004wd0twisaxgrmf" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/07/Web-Engineering/" data-id="cjvy0ccu3003yhktwmitl3t2u" class="article-share-link">Share</a>
       
       
       
@@ -244,7 +459,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/05/Spring-Portfolio/" data-id="cjvh2m0yl009nd0twbrnklkct" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/05/Spring-Portfolio/" data-id="cjvy0ccx0009jhktw9jvbxue9" class="article-share-link">Share</a>
       
       
       
@@ -297,7 +512,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/03/LeetCode-Algorithms-Validate-Binary-Search-Tree/" data-id="cjvh2m0tj0033d0twcls5944v" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/03/LeetCode-Algorithms-Validate-Binary-Search-Tree/" data-id="cjvy0cctj0036hktwqwnw7n71" class="article-share-link">Share</a>
       
       
       
@@ -342,7 +557,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/02/LeetCode-Algorithms-Binary-Tree-Postorder-Traversal/" data-id="cjvh2m0qr000od0tw0p16h9y6" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/02/LeetCode-Algorithms-Binary-Tree-Postorder-Traversal/" data-id="cjvy0ccr8000qhktw0mhfi5ra" class="article-share-link">Share</a>
       
       
       
@@ -387,7 +602,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/02/LeetCode-Algorithms-Binary-Tree-Preorder-Traversal/" data-id="cjvh2m0qo000ld0twi7wptmhc" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/02/LeetCode-Algorithms-Binary-Tree-Preorder-Traversal/" data-id="cjvy0ccra000shktwcuzpx0lt" class="article-share-link">Share</a>
       
       
       
@@ -432,216 +647,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/01/LeetCode-Algorithms-Binary-Tree-Level-Order-Traversal/" data-id="cjvh2m0qj000jd0twdxyfgn3b" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Binary-Tree-Inorder-Traversal" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/" class="article-date">
-  <time datetime="2018-11-01T00:54:58.000Z" itemprop="datePublished">2018-10-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/">LeetCode - Algorithms - 94. Binary Tree Inorder Traversal</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>2007年学习数据结构曾经用Java实现过，虽然还是知其然而不知其所以然，北大那本《数据结构与算法》(张铭、赵海燕、王腾蛟)教材上是用C++实现的。</p>
-<h1 id="非递归深度优先周游二叉树"><a href="#非递归深度优先周游二叉树" class="headerlink" title="非递归深度优先周游二叉树"></a>非递归深度优先周游二叉树</h1><ul>
-<li>栈是实现递归的最常用的结构</li>
-<li>深度优先二叉树周游是递归定义的</li>
-<li>利用一个栈来记下尚待周游的结点或子树，以备以后访问。</li>
-</ul>
-<h2 id="非递归中序周游二叉树"><a href="#非递归中序周游二叉树" class="headerlink" title="非递归中序周游二叉树"></a>非递归中序周游二叉树</h2><ul>
-<li>遇到一个结点，就把它推入栈中，并去周游它的左子树</li>
-<li>周游完左子树后，从栈顶托出这个结点并访问之，然后按照它的右链接指示的地址再去周游该结点的右子树。</li>
-</ul>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Definition for a binary tree node.</div><div class="line"> * public class TreeNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     TreeNode left;</div><div class="line"> *     TreeNode right;</div><div class="line"> *     TreeNode(int x) &#123; val = x; &#125;</div><div class="line"> * &#125;</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">    	List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">		<span class="keyword">if</span> (root!=<span class="keyword">null</span>) &#123;</div><div class="line">			TreeNode ptr = root;</div><div class="line">			Stack&lt;TreeNode&gt; stk = <span class="keyword">new</span> Stack&lt;TreeNode&gt;();</div><div class="line">			<span class="keyword">while</span>(!stk.isEmpty() || ptr != <span class="keyword">null</span>) &#123;</div><div class="line">				<span class="keyword">if</span> (ptr!=<span class="keyword">null</span>) &#123;</div><div class="line">					stk.push(ptr);</div><div class="line">					ptr = ptr.left;</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">else</span> &#123;</div><div class="line">					ptr = (TreeNode) stk.peek();</div><div class="line">					list.add(ptr.val);</div><div class="line">					ptr = ptr.right;</div><div class="line">					stk.pop();</div><div class="line">				&#125;</div><div class="line">			&#125;			</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> list;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>68 / 68 test cases passed.<br>Runtime: 1 ms<br>Your runtime beats 60.69 % of java submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/" data-id="cjvh2m0qv000sd0twu200b4mq" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Divide-Two-Integers" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/" class="article-date">
-  <time datetime="2018-10-30T19:11:47.000Z" itemprop="datePublished">2018-10-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/">LeetCode - Algorithms - 29. Divide Two Integers</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://www.programcreek.com/2014/05/leetcode-divide-two-integers-java/" target="_blank" rel="external">LeetCode – Divide Two Integers (Java)</a> is the right answer, tested.</p>
-<blockquote>
-<p>This problem can be solved based on the fact that any number can be converted to the format of the following, Power series of 2:</p>
-</blockquote>
-<pre><code>num=a_0*2^0+a_1*2^1+a_2*2^2+...+a_n*2^n
-</code></pre><h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">divide</span><span class="params">(<span class="keyword">int</span> dividend, <span class="keyword">int</span> divisor)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (divisor == <span class="number">0</span>)</div><div class="line">			<span class="keyword">return</span> Integer.MAX_VALUE;</div><div class="line">		<span class="keyword">if</span> (divisor == -<span class="number">1</span> &amp;&amp; dividend == Integer.MIN_VALUE)</div><div class="line">			<span class="keyword">return</span> Integer.MAX_VALUE;</div><div class="line">		</div><div class="line">    	<span class="keyword">boolean</span> sign = ((<span class="keyword">new</span> Long(dividend)&gt;<span class="number">0</span>) &amp;&amp; (<span class="keyword">new</span> Long(divisor)&gt;<span class="number">0</span>)) || ((<span class="keyword">new</span> Long(dividend)&lt;<span class="number">0</span>) &amp;&amp; (<span class="keyword">new</span> Long(divisor)&lt;<span class="number">0</span>)) ? <span class="keyword">true</span> : <span class="keyword">false</span>;</div><div class="line">    	</div><div class="line">    	<span class="keyword">long</span> dividend_abs = Math.abs(<span class="keyword">new</span> Long(dividend));</div><div class="line">    	<span class="keyword">long</span> divisor_abs = Math.abs(<span class="keyword">new</span> Long(divisor));</div><div class="line"></div><div class="line">    	<span class="keyword">long</span> quotient = <span class="number">0</span>;</div><div class="line">		<span class="keyword">while</span> (dividend_abs &gt;= divisor_abs) &#123;</div><div class="line">			<span class="comment">// calculate number of left shifts</span></div><div class="line">			<span class="keyword">int</span> numShift = <span class="number">0</span>;</div><div class="line">			<span class="keyword">while</span> (dividend_abs &gt;= (divisor_abs &lt;&lt; numShift)) &#123;</div><div class="line">				numShift++;</div><div class="line">			&#125;</div><div class="line">			<span class="comment">// dividend minus the largest shifted divisor</span></div><div class="line">			quotient += <span class="number">1</span> &lt;&lt; (numShift - <span class="number">1</span>);</div><div class="line">			dividend_abs -= (divisor_abs &lt;&lt; (numShift - <span class="number">1</span>));</div><div class="line">		&#125;</div><div class="line">    	</div><div class="line">    	<span class="keyword">return</span> sign?<span class="keyword">new</span> Long(quotient).intValue():-<span class="keyword">new</span> Long(quotient).intValue();       </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>989 / 989 test cases passed.<br>Runtime: 31 ms<br>Your runtime beats 30.12 % of java submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/" data-id="cjvh2m0rg0016d0twemsp1waq" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Min-Stack" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/30/LeetCode-Algorithms-Min-Stack/" class="article-date">
-  <time datetime="2018-10-30T14:42:08.000Z" itemprop="datePublished">2018-10-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/30/LeetCode-Algorithms-Min-Stack/">LeetCode - Algorithms - 155. Min Stack</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>The solution of two stack is clear for me.</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinStack</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> Stack&lt;Integer&gt; stack;</div><div class="line">	<span class="keyword">private</span> Stack&lt;Integer&gt; minStack;</div><div class="line">	</div><div class="line">    <span class="comment">/** initialize your data structure here. */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MinStack</span><span class="params">()</span> </span>&#123;</div><div class="line">    	stack = <span class="keyword">new</span> Stack&lt;Integer&gt;();</div><div class="line">    	minStack = <span class="keyword">new</span> Stack&lt;Integer&gt;();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">    	stack.push(x);</div><div class="line">    	<span class="keyword">if</span> (minStack.isEmpty() || minStack.peek()&gt;=x)</div><div class="line">    		minStack.push(x);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> x = stack.pop();</div><div class="line">        <span class="keyword">if</span> (x==minStack.peek())</div><div class="line">        	minStack.pop();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">top</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> stack.peek();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMin</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> minStack.peek();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Your MinStack object will be instantiated and called as such:</div><div class="line"> * MinStack obj = new MinStack();</div><div class="line"> * obj.push(x);</div><div class="line"> * obj.pop();</div><div class="line"> * int param_3 = obj.top();</div><div class="line"> * int param_4 = obj.getMin();</div><div class="line"> */</div></pre></td></tr></table></figure>
-<blockquote>
-<p>18 / 18 test cases passed.<br>Runtime: 64 ms<br>Your runtime beats 96.51 % of java submissions.</p>
-</blockquote>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * initialize your data structure here.</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> MinStack = <span class="function"><span class="keyword">function</span>(<span class="params">stk,minStk</span>) </span>&#123;</div><div class="line">	<span class="keyword">this</span>.stk = [];</div><div class="line">	<span class="keyword">this</span>.minStk = [];    </div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/** </span></div><div class="line"> * @param &#123;number&#125; x</div><div class="line"> * @return &#123;void&#125;</div><div class="line"> */</div><div class="line">MinStack.prototype.push = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.stk.push(x);</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.minStk.length==<span class="number">0</span> || <span class="keyword">this</span>.minStk[<span class="keyword">this</span>.minStk.length<span class="number">-1</span>]&gt;=x)</div><div class="line">    	<span class="keyword">this</span>.minStk.push(x);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @return &#123;void&#125;</div><div class="line"> */</div><div class="line">MinStack.prototype.pop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> x = <span class="keyword">this</span>.stk.pop();</div><div class="line">    <span class="keyword">if</span> (x==<span class="keyword">this</span>.minStk[<span class="keyword">this</span>.minStk.length<span class="number">-1</span>])</div><div class="line">    	<span class="keyword">this</span>.minStk.pop();</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">MinStack.prototype.top = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.stk[<span class="keyword">this</span>.stk.length<span class="number">-1</span>];</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line">MinStack.prototype.getMin = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.minStk[<span class="keyword">this</span>.minStk.length<span class="number">-1</span>];</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/** </span></div><div class="line"> * Your MinStack object will be instantiated and called as such:</div><div class="line"> * var obj = Object.create(MinStack).createNew()</div><div class="line"> * obj.push(x)</div><div class="line"> * obj.pop()</div><div class="line"> * var param_3 = obj.top()</div><div class="line"> * var param_4 = obj.getMin()</div><div class="line"> */</div></pre></td></tr></table></figure>
-<blockquote>
-<p>18 / 18 test cases passed.<br>Runtime: 68 ms<br>Your runtime beats 100.00 % of javascript submissions.</p>
-</blockquote>
-<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
-<li><a href="http://www.cnblogs.com/grandyang/p/4091064.html" target="_blank" rel="external">Min Stack 最小栈</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/30/LeetCode-Algorithms-Min-Stack/" data-id="cjvh2m0sg0022d0two1ib80ng" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Reverse-Bits" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/29/LeetCode-Algorithms-Reverse-Bits/" class="article-date">
-  <time datetime="2018-10-29T19:20:27.000Z" itemprop="datePublished">2018-10-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/29/LeetCode-Algorithms-Reverse-Bits/">LeetCode - Algorithms - 190. Reverse Bits</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Simple as it labled, The problem is puzzled for it has problem with unsigned integer, and neith Java nor JavaScript has unsigned type. I’d like to pass it for some time. The code copied from Web passed in LeetCode, but it output wrong result for some input number.</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p>solution from <a href="https://www.cnblogs.com/yrbbest/p/4491661.html" target="_blank" rel="external">190. Reverse Bits</a></p>
-<blockquote>
-<p>There is no unsigned integer type. If you need to work with unsigned values originating outside your program, they must be stored in a larger signed type. For example, unsigned bytes produced by an analog-to-digital converter, can be read into variables of type short. — THE Java™ Programming Language, Fourth Edition, By Ken Arnold, James Gosling, David Holmes</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="comment">// you need treat n as an unsigned value</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">reverseBits</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span> res = <span class="number">0</span>;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">31</span>; i &gt;= <span class="number">0</span>; i--) &#123;</div><div class="line">			<span class="keyword">if</span> (((n &gt;&gt; i) &amp; <span class="number">1</span>) == <span class="number">1</span>) &#123;</div><div class="line">				res += (<span class="number">1</span> &lt;&lt; (<span class="number">31</span> - i));</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> res;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>600 / 600 test cases passed.<br>Runtime: 1 ms<br>Your runtime beats 100.00 % of java submissions.</p>
-</blockquote>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><p>solution from <a href="https://blog.csdn.net/u014328357/article/details/52382112" target="_blank" rel="external">190. Reverse Bits – JavaScript 代码</a></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * @param &#123;number&#125; n - a positive integer</div><div class="line"> * @return &#123;number&#125; - a positive integer</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> reverseBits = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> result = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; ++i) &#123;</div><div class="line">        result |= (n &gt;&gt; i &amp; <span class="number">0x1</span>) &lt;&lt; (<span class="number">31</span> - i); </div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> result &gt;&gt;&gt; <span class="number">0</span>;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>600 / 600 test cases passed.<br>Runtime: 88 ms<br>Your runtime beats 12.00 % of javascript submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/29/LeetCode-Algorithms-Reverse-Bits/" data-id="cjvh2m0ss002hd0twodct2x8g" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/01/LeetCode-Algorithms-Binary-Tree-Level-Order-Traversal/" data-id="cjvy0ccr7000ohktwsev03011" class="article-share-link">Share</a>
       
       
       
@@ -659,7 +665,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -673,7 +679,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Divide-and-Conquer/">Divide and Conquer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/">Heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/古文/">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心理学与生活/">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无线网络/">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/林语堂/">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/王小波/">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/英语/">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译言/">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试题/">面试题</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Divide-and-Conquer/">Divide and Conquer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/">Heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marcus-Du-Sautoy/">Marcus Du Sautoy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history-of-mathematics/">history of mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/古文/">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心理学与生活/">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学史/">数学史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无线网络/">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/林语堂/">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/王小波/">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/英语/">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译言/">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试题/">面试题</a></li></ul>
     </div>
   </div>
 
@@ -683,7 +689,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Bill-Blair/" style="font-size: 11.43px;">Bill Blair</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/DP/" style="font-size: 15.71px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 10px;">Divide and Conquer</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.57px;">LeetCode</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/React-js/" style="font-size: 11.43px;">React.js</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Spring/" style="font-size: 12.86px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 11.43px;">Spring Boot</a> <a href="/tags/TED/" style="font-size: 10px;">TED</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 17.14px;">english</a> <a href="/tags/git/" style="font-size: 11.43px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 15.71px;">java</a> <a href="/tags/javascript/" style="font-size: 11.43px;">javascript</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 11.43px;">linux</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 12.86px;">mysql</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 10px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/林语堂/" style="font-size: 10px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 14.29px;">英语</a> <a href="/tags/译言/" style="font-size: 11.43px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Bill-Blair/" style="font-size: 11.43px;">Bill Blair</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/DP/" style="font-size: 15.71px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 10px;">Divide and Conquer</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.57px;">LeetCode</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 14.29px;">Marcus Du Sautoy</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/React-js/" style="font-size: 11.43px;">React.js</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Spring/" style="font-size: 12.86px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 11.43px;">Spring Boot</a> <a href="/tags/TED/" style="font-size: 10px;">TED</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 14.29px;">The Story of Maths</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 17.14px;">english</a> <a href="/tags/git/" style="font-size: 11.43px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/history-of-mathematics/" style="font-size: 14.29px;">history of mathematics</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 15.71px;">java</a> <a href="/tags/javascript/" style="font-size: 11.43px;">javascript</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 11.43px;">linux</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 12.86px;">mysql</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 10px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/林语堂/" style="font-size: 10px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 14.29px;">英语</a> <a href="/tags/译言/" style="font-size: 11.43px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -709,19 +715,19 @@
           </li>
         
           <li>
-            <a href="/2019/04/06/Euclid-Elements-changhai/">［独立博客文摘 - 卢昌海］欧几里得与《几何原本》</a>
+            <a href="/2019/05/04/The-Story-of-Maths-4-To-Infinity-and-Beyond-Subtitles/">The Story of Maths - 4. To Infinity and Beyond - Subtitles</a>
           </li>
         
           <li>
-            <a href="/2019/03/26/LeetCode-Algorithms-Wildcard-Matching/">LeetCode - Algorithms - 44. Wildcard Matching</a>
+            <a href="/2019/05/04/The-Story-of-Maths-3-The-Frontiers-of-Space-Subtitles/">The Story of Maths - 3. The Frontiers of Space - Subtitles</a>
           </li>
         
           <li>
-            <a href="/2019/03/20/Let-us-communicate/">Let&#39;s communicate</a>
+            <a href="/2019/05/04/The-Story-of-Maths-2-The-Genius-of-the-East-Subtitles/">The Story of Maths - 2. The Genius of the East - Subtitles</a>
           </li>
         
           <li>
-            <a href="/2019/02/19/common-phrases/">Common Phrases</a>
+            <a href="/2019/05/04/The-Story-of-Maths-1-The-Language-of-the-Universe-Subtitles/">The Story of Maths - 1. The Language of the Universe - Subtitles</a>
           </li>
         
       </ul>
