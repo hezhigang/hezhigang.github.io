@@ -65,6 +65,71 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Reverse-String" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/21/LeetCode-Algorithms-Reverse-String/" class="article-date">
+  <time datetime="2018-08-22T02:51:15.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/21/LeetCode-Algorithms-Reverse-String/">LeetCode - Algorithms - 344. Reverse String</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这题确实easy,做这题倒真可以脱离IDE在leetcode编辑器里刷题了。<br>做这题，又犯了一次java与js字符串的小错误，在Java里获取String长度的length()是method，在js里获取字符串长度的length是property，老是搞混淆了。</p>
+<h1 id="Javascript"><a href="#Javascript" class="headerlink" title="Javascript"></a>Javascript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * @param &#123;string&#125; s</div><div class="line"> * @return &#123;string&#125;</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> reverseString = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> r = <span class="string">""</span>;</div><div class="line">    <span class="keyword">if</span> (s!=<span class="literal">null</span> &amp;&amp; s.length&gt;<span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=s.length<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</div><div class="line">            r+=s[i];</div><div class="line">        &#125;        </div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> r;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>性能不错，LeetCode执行显示：</p>
+<blockquote>
+<p>476 / 476 test cases passed.<br>Runtime: 72 ms<br>Your runtime beats 96.31 % of javascript submissions.</p>
+</blockquote>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="LOOP-SB"><a href="#LOOP-SB" class="headerlink" title="LOOP+SB"></a>LOOP+SB</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">reverseString</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</div><div class="line">        <span class="keyword">if</span> (s!=<span class="keyword">null</span> &amp;&amp; !s.isEmpty()) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=s.length()-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</div><div class="line">                sb.append(s.charAt(i));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> sb.toString();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>跟js写法差不多，这java代码的性能倒不行</p>
+<blockquote>
+<p>476 / 476 test cases passed.<br>Runtime: 4 ms<br>Your runtime beats 13.87 % of java submissions.</p>
+</blockquote>
+<h2 id="SB"><a href="#SB" class="headerlink" title="SB"></a>SB</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">reverseString</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        String r = <span class="string">""</span>;</div><div class="line">        <span class="keyword">if</span> (s!=<span class="keyword">null</span> &amp;&amp; !s.isEmpty()) &#123;</div><div class="line">        	StringBuilder sb = <span class="keyword">new</span> StringBuilder(s);</div><div class="line">        	r = sb.reverse().toString();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> r;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>直接用StringBuilder的reverse()，用StringBuffer好像也类似，性能没什么变化</p>
+<blockquote>
+<p>476 / 476 test cases passed.<br>Runtime: 4 ms<br>Your runtime beats 13.87 % of java submissions.</p>
+</blockquote>
+<h2 id="逆转字符数组"><a href="#逆转字符数组" class="headerlink" title="逆转字符数组"></a>逆转字符数组</h2><h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><ul>
+<li><a href="https://stackoverflow.com/questions/2439141/what-is-the-most-efficient-algorithm-for-reversing-a-string-in-java" target="_blank" rel="external">What is the most efficient algorithm for reversing a String in Java?</a></li>
+<li><a href="https://www.baeldung.com/java-invert-array" target="_blank" rel="external">How to Invert an Array in Java</a></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">reverseString</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">    	String r = <span class="string">""</span>;</div><div class="line">        <span class="keyword">if</span> (s!=<span class="keyword">null</span> &amp;&amp; !s.isEmpty()) &#123;</div><div class="line">        	<span class="keyword">char</span>[] arr = s.toCharArray();</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;arr.length/<span class="number">2</span>; i++) &#123;</div><div class="line">                <span class="keyword">char</span> temp = arr[i];</div><div class="line">                arr[i] = arr[arr.length-<span class="number">1</span>-i];</div><div class="line">                arr[arr.length-<span class="number">1</span>-i] = temp;</div><div class="line">            &#125;</div><div class="line">            r = <span class="keyword">new</span> String(arr);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> r;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>leetcode执行显示：</p>
+<blockquote>
+<p>476 / 476 test cases passed.<br>Runtime: 3 ms<br>Your runtime beats 32.94 % of java submissions.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/08/21/LeetCode-Algorithms-Reverse-String/" data-id="cjyrp1bmz0031nktwjzg1o0fr" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Longest-Increasing-Subsequence" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" class="article-date">
@@ -123,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" data-id="cjxjjr2pq001nxktwq9rqhu3a" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" data-id="cjyrp1blq001knktwvxj7f6tu" class="article-share-link">Share</a>
       
       
       
@@ -168,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/17/IT-coder-vocabulary/" data-id="cjxjjr2of0008xktwfb6q0wk2" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/17/IT-coder-vocabulary/" data-id="cjyrp1bk90007nktwh4vnqvf2" class="article-share-link">Share</a>
       
       
       
@@ -223,7 +288,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/12/LeetCode-Algorithms-Move-Zeroes/" data-id="cjxjjr2q10020xktwdaktz1yu" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/12/LeetCode-Algorithms-Move-Zeroes/" data-id="cjyrp1blz001unktw1w2tploj" class="article-share-link">Share</a>
       
       
       
@@ -288,7 +353,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/07/what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED/" data-id="cjxjjr2uv009vxktwwlhn6hs1" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/07/what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED/" data-id="cjyrp1bsc00afnktw9i6qakb9" class="article-share-link">Share</a>
       
       
       
@@ -344,7 +409,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/02/english-learning-tips-from-douban-notes/" data-id="cjxjjr2s8004ixktwfadjp4vz" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/02/english-learning-tips-from-douban-notes/" data-id="cjyrp1bpo007mnktwo6cb7lz2" class="article-share-link">Share</a>
       
       
       
@@ -412,7 +477,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/01/LeetCode-Algorithms-LRU-Cache/" data-id="cjxjjr2pp001lxktwupej7cpd" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/01/LeetCode-Algorithms-LRU-Cache/" data-id="cjyrp1blm001fnktwhpjl7mil" class="article-share-link">Share</a>
       
       
       
@@ -463,7 +528,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/27/AWS-Certified-Solutions-Architect/" data-id="cjxjjr2o00001xktwadzgagcj" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/27/AWS-Certified-Solutions-Architect/" data-id="cjyrp1bjy0001nktwu75bg0rv" class="article-share-link">Share</a>
       
       
       
@@ -511,7 +576,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Reverse-Integer/" data-id="cjxjjr2qg002kxktw6zlecb6i" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Reverse-Integer/" data-id="cjyrp1bmj002mnktw1wqci0zv" class="article-share-link">Share</a>
       
       
       
@@ -563,64 +628,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Palindrome-Number/" data-id="cjxjjr2q30022xktwp7e656vm" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/22/LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters/" class="article-date">
-  <time datetime="2018-07-22T16:05:46.000Z" itemprop="datePublished">2018-07-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/22/LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters/">LeetCode - Algorithms - 3. Longest Substring Without Repeating Characters</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一个多月以前就开始看这个题，先是澄清了下 Substring 与 Subsequence的区别。算法是自己的短板与软肋呀，知之甚少的地方，你再思考也还是只有迷惘，只好上网搜罗，google关键字longest unique substring java搜到：</p>
-<ul>
-<li><a href="https://www.quora.com/In-a-string-find-the-longest-substring-with-all-unique-characters" target="_blank" rel="external">In a string find the longest substring with all unique characters?</a></li>
-<li><a href="https://stackoverflow.com/questions/9734474/find-longest-substring-without-repeating-characters" target="_blank" rel="external">Find longest substring without repeating characters</a></li>
-<li><a href="https://www.geeksforgeeks.org/length-of-the-longest-substring-without-repeating-characters/" target="_blank" rel="external">Length of the longest substring without repeating characters</a></li>
-<li><a href="https://www.programcreek.com/2013/02/leetcode-longest-substring-without-repeating-characters-java/" target="_blank" rel="external">LeetCode – Longest Substring Without Repeating Characters (Java)</a></li>
-<li><a href="https://leetcode.com/articles/longest-substring-without-repeating-characters/" target="_blank" rel="external">3. Longest Substring Without Repeating Characters</a></li>
-<li><a href="https://codereview.stackexchange.com/questions/66461/finding-the-longest-unique-sub-string-in-a-string" target="_blank" rel="external">Finding the longest unique sub-string in a string</a></li>
-<li><a href="https://soulmachine.gitbooks.io/algorithm-essentials/java/greedy/longest-substring-without-repeating-characters.html" target="_blank" rel="external">Longest Substring Without Repeating Characters</a></li>
-</ul>
-<p>看了还是不理解，人家的代码实现也看了，也没看明白。</p>
-<p>又 google 关键字 longest unique substring in a string，搜到 <a href="https://javaconceptoftheday.com/find-longest-substring-without-repeating-characters-java/" target="_blank" rel="external">How To Find Longest Substring Without Repeating Characters In Java?</a>，这个终于看懂了，用到了个LinkedHashMap数据结构来存储无重复字符的substring，从左往右扫描字符数组，一旦字符与HashMap里的字符有重复，就把循环变量i置为那个重复字符在原字符串中的位置，HashMap清空，如果字符不重复，就继续往右扫，如果HashMap的size大于最大无重复子串长度，就更新最大无重复子串长度这个int变量，直到字符串末尾为止。会者不难，难者不会，其实也就这么简单。思路是人家的，自己不过照着人家的解决方案写的，最后写下来代码倒也没几行，LeetCode运行通过了。基本理解了，但要达到了然于胸的程度，还得继续慢慢消化理解。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">    	<span class="keyword">int</span> maxUniqSubstrLen = <span class="number">0</span>;</div><div class="line">    	<span class="keyword">if</span> (!s.isEmpty()) &#123;</div><div class="line">        	LinkedHashMap&lt;Character,Integer&gt; map = <span class="keyword">new</span> LinkedHashMap&lt;Character,Integer&gt;();</div><div class="line">        	<span class="keyword">int</span> len = s.length();</div><div class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++) &#123;</div><div class="line">        		<span class="keyword">char</span> ch = s.charAt(i);</div><div class="line">        		<span class="keyword">if</span> (!map.containsKey(ch)) &#123;</div><div class="line">        			map.put(ch, i);</div><div class="line">        		&#125;</div><div class="line">        		<span class="keyword">else</span> &#123;</div><div class="line">        			i = map.get(ch);</div><div class="line">        			map.clear();</div><div class="line">        		&#125;</div><div class="line">        		<span class="keyword">if</span> (map.size()&gt;maxUniqSubstrLen)</div><div class="line">                    maxUniqSubstrLen = map.size();</div><div class="line">        	&#125;    		</div><div class="line">    	&#125;</div><div class="line">        <span class="keyword">return</span> maxUniqSubstrLen;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>代码性能倒不怎么样，LeetCode执行结果显示：</p>
-<blockquote>
-<p>You are here!<br>Your runtime beats 10.69 % of java submissions.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/22/LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters/" data-id="cjxjjr2pt001qxktwv7k0rjas" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Palindrome-Number/" data-id="cjyrp1bme002enktwkbvuihra" class="article-share-link">Share</a>
       
       
       
@@ -671,7 +679,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
     </div>
   </div>
 
@@ -682,6 +690,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/07/31/my-social-media-tweets/">网络社区自媒体胡言乱语</a>
+          </li>
         
           <li>
             <a href="/2019/06/30/react-native-cheat-sheet/">React Native Cheat Sheet</a>
@@ -697,10 +709,6 @@
         
           <li>
             <a href="/2019/05/04/The-Story-of-Maths-4-To-Infinity-and-Beyond-Subtitles/">The Story of Maths - 4. To Infinity and Beyond - Subtitles</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/04/The-Story-of-Maths-3-The-Frontiers-of-Space-Subtitles/">The Story of Maths - 3. The Frontiers of Space - Subtitles</a>
           </li>
         
       </ul>
