@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
 
@@ -14,6 +14,7 @@
 <meta property="og:url" content="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/index.html">
 <meta property="og:site_name" content="A Humble Programmer">
 <meta property="og:description" content="这题算Easy，Excel列编号好像可以理解成26进制，少不了查下JDK API Specification，查看JavaScript Bible Java12345678910class Solution &amp;#123;    public int titleToNumber(String s) &amp;#123;    	int n = 0;    	int len = s.length();">
+<meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-03-26T05:18:39.827Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode - Algorithms - 171. Excel Sheet Column Number">
@@ -29,7 +30,7 @@
   
   <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
 <body>
   <div id="container">
     <div id="wrap">
@@ -91,12 +92,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>这题算Easy，Excel列编号好像可以理解成26进制，少不了查下JDK API Specification，查看JavaScript Bible</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">titleToNumber</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">    	<span class="keyword">int</span> n = <span class="number">0</span>;</div><div class="line">    	<span class="keyword">int</span> len = s.length();</div><div class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=s.length()-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</div><div class="line">    		n += (Character.getNumericValue(s.charAt(i))-<span class="number">9</span>)*Math.pow(<span class="number">26</span>, len-i-<span class="number">1</span>);</div><div class="line">    	&#125;</div><div class="line">        <span class="keyword">return</span> n;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">titleToNumber</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> len = s.length();</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=s.length()-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">    		n += (Character.getNumericValue(s.charAt(i))-<span class="number">9</span>)*Math.pow(<span class="number">26</span>, len-i-<span class="number">1</span>);</span><br><span class="line">    	&#125;</span><br><span class="line">        <span class="keyword">return</span> n;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>性能不行，LeetCode运行结果</p>
 <blockquote>
 <p>1000 / 1000 test cases passed.<br>Runtime: 4 ms<br>Your runtime beats 5.55 % of java submissions.</p>
 </blockquote>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * @param &#123;string&#125; s</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> titleToNumber = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</div><div class="line">	  <span class="keyword">var</span> n = <span class="number">0</span>;</div><div class="line">	  <span class="keyword">var</span> len = s.length;</div><div class="line">	  <span class="keyword">for</span>(<span class="keyword">var</span> i=s.length<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</div><div class="line">		  n+=(s.charCodeAt(i)<span class="number">-64</span>)*<span class="built_in">Math</span>.pow(<span class="number">26</span>,len-i<span class="number">-1</span>);</div><div class="line">	  &#125;</div><div class="line">	  <span class="keyword">return</span> n;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; s</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> titleToNumber = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">	  <span class="keyword">var</span> n = <span class="number">0</span>;</span><br><span class="line">	  <span class="keyword">var</span> len = s.length;</span><br><span class="line">	  <span class="keyword">for</span>(<span class="keyword">var</span> i=s.length<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">		  n+=(s.charCodeAt(i)<span class="number">-64</span>)*<span class="built_in">Math</span>.pow(<span class="number">26</span>,len-i<span class="number">-1</span>);</span><br><span class="line">	  &#125;</span><br><span class="line">	  <span class="keyword">return</span> n;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>LeetCode运行结果：</p>
 <blockquote>
 <p>1000 / 1000 test cases passed.<br>Runtime: 68 ms<br>Your runtime beats 99.02 % of javascript submissions.</p>
@@ -105,7 +106,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" data-id="cjyrp1blk001enktwrzq86282" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" data-id="cjzd3a4v8000qfgtwy7t0ge7c" class="article-share-link">Share</a>
       
       
       

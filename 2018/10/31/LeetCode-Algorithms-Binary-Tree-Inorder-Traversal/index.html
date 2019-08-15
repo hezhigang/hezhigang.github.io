@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
 
@@ -14,6 +14,7 @@
 <meta property="og:url" content="https://hezhigang.github.io/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/index.html">
 <meta property="og:site_name" content="A Humble Programmer">
 <meta property="og:description" content="2007年学习数据结构曾经用Java实现过，虽然还是知其然而不知其所以然，北大那本《数据结构与算法》(张铭、赵海燕、王腾蛟)教材上是用C++实现的。 非递归深度优先周游二叉树 栈是实现递归的最常用的结构 深度优先二叉树周游是递归定义的 利用一个栈来记下尚待周游的结点或子树，以备以后访问。  非递归中序周游二叉树 遇到一个结点，就把它推入栈中，并去周游它的左子树 周游完左子树后，从栈顶托出这个结点并">
+<meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-03-26T05:13:44.799Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode - Algorithms - 94. Binary Tree Inorder Traversal">
@@ -29,7 +30,7 @@
   
   <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
 <body>
   <div id="container">
     <div id="wrap">
@@ -100,7 +101,7 @@
 <li>遇到一个结点，就把它推入栈中，并去周游它的左子树</li>
 <li>周游完左子树后，从栈顶托出这个结点并访问之，然后按照它的右链接指示的地址再去周游该结点的右子树。</li>
 </ul>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Definition for a binary tree node.</div><div class="line"> * public class TreeNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     TreeNode left;</div><div class="line"> *     TreeNode right;</div><div class="line"> *     TreeNode(int x) &#123; val = x; &#125;</div><div class="line"> * &#125;</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">    	List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">		<span class="keyword">if</span> (root!=<span class="keyword">null</span>) &#123;</div><div class="line">			TreeNode ptr = root;</div><div class="line">			Stack&lt;TreeNode&gt; stk = <span class="keyword">new</span> Stack&lt;TreeNode&gt;();</div><div class="line">			<span class="keyword">while</span>(!stk.isEmpty() || ptr != <span class="keyword">null</span>) &#123;</div><div class="line">				<span class="keyword">if</span> (ptr!=<span class="keyword">null</span>) &#123;</div><div class="line">					stk.push(ptr);</div><div class="line">					ptr = ptr.left;</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">else</span> &#123;</div><div class="line">					ptr = (TreeNode) stk.peek();</div><div class="line">					list.add(ptr.val);</div><div class="line">					ptr = ptr.right;</div><div class="line">					stk.pop();</div><div class="line">				&#125;</div><div class="line">			&#125;			</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> list;        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">    	List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">		<span class="keyword">if</span> (root!=<span class="keyword">null</span>) &#123;</span><br><span class="line">			TreeNode ptr = root;</span><br><span class="line">			Stack&lt;TreeNode&gt; stk = <span class="keyword">new</span> Stack&lt;TreeNode&gt;();</span><br><span class="line">			<span class="keyword">while</span>(!stk.isEmpty() || ptr != <span class="keyword">null</span>) &#123;</span><br><span class="line">				<span class="keyword">if</span> (ptr!=<span class="keyword">null</span>) &#123;</span><br><span class="line">					stk.push(ptr);</span><br><span class="line">					ptr = ptr.left;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> &#123;</span><br><span class="line">					ptr = (TreeNode) stk.peek();</span><br><span class="line">					list.add(ptr.val);</span><br><span class="line">					ptr = ptr.right;</span><br><span class="line">					stk.pop();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;			</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> list;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>68 / 68 test cases passed.<br>Runtime: 1 ms<br>Your runtime beats 60.69 % of java submissions.</p>
 </blockquote>
@@ -108,7 +109,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/" data-id="cjyrp1bkz000snktw2r58vyar" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/" data-id="cjzd3a4up000dfgtweyhommx0" class="article-share-link">Share</a>
       
       
       

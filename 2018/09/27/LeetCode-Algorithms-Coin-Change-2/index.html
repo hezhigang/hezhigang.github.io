@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
 
@@ -14,6 +14,7 @@
 <meta property="og:url" content="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/index.html">
 <meta property="og:site_name" content="A Humble Programmer">
 <meta property="og:description" content="变个样，又不知道怎么解决了，动态规划确实不是那么好理解。根据上一题的经验，还是从递归入手，先实现递归，再琢磨动态规划的解决方案，就有点循序渐进的味道。正如 What is an easy way to understand the coin change problem in dynamic programming? 的一个回答所言：  Instead of thinking about fill">
+<meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-03-28T02:59:16.737Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode - Algorithms - 518. Coin Change 2">
@@ -29,7 +30,7 @@
   
   <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
 <body>
   <div id="container">
     <div id="wrap">
@@ -90,25 +91,25 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>变个样，又不知道怎么解决了，动态规划确实不是那么好理解。根据上一题的经验，还是从递归入手，先实现递归，再琢磨动态规划的解决方案，就有点循序渐进的味道。正如 <a href="https://www.quora.com/What-is-an-easy-way-to-understand-the-coin-change-problem-in-dynamic-programming" target="_blank" rel="external">What is an easy way to understand the coin change problem in dynamic programming?</a> 的一个回答所言：</p>
+        <p>变个样，又不知道怎么解决了，动态规划确实不是那么好理解。根据上一题的经验，还是从递归入手，先实现递归，再琢磨动态规划的解决方案，就有点循序渐进的味道。正如 <a href="https://www.quora.com/What-is-an-easy-way-to-understand-the-coin-change-problem-in-dynamic-programming" target="_blank" rel="noopener">What is an easy way to understand the coin change problem in dynamic programming?</a> 的一个回答所言：</p>
 <blockquote>
 <p>Instead of thinking about filling a matrix, think in terms of the recurrence relation. I have seen a lot of people who try to think dynamic programming problems in terms of filling a table/array. But this approach is problematic. For example, if the state representation has more than two dimensions, then this approach does not help much.</p>
 <p>The essence of dynamic programming is the idea of a state space and a recurrence relation between states. Once you figure that out for any problem, implementation is straightforward.</p>
 </blockquote>
 <p>参考了这些，虽然还是没有完全理解，程序在leetcode上通过了，程序其实就短短的几行，<code>The code has a O(NC) pseudo-polynomial complexity where N is the amount and C the number of input coins</code>。</p>
 <ul>
-<li><a href="http://marcodiiga.github.io/number-of-ways-to-make-change-for-amount" target="_blank" rel="external">Number of ways to make change for an amount (coin change)</a> 看了这个，终于明白了一点</li>
-<li><a href="http://www.cs.cmu.edu/~yandongl/dp.html" target="_blank" rel="external">Dynamic programming - Ways of Coin Change</a></li>
-<li><a href="https://www.geeksforgeeks.org/coin-change-dp-7/" target="_blank" rel="external">Coin Change | DP-7</a></li>
-<li><a href="https://artofproblemsolving.com/community/c2340h1179726s3_coin_change_problem_recursive_solution" target="_blank" rel="external">Coin Change Problem Recursive Solution</a></li>
-<li><a href="https://www.quora.com/What-is-an-easy-way-to-understand-the-coin-change-problem-in-dynamic-programming" target="_blank" rel="external">What is an easy way to understand the coin change problem in dynamic programming?</a></li>
+<li><a href="http://marcodiiga.github.io/number-of-ways-to-make-change-for-amount" target="_blank" rel="noopener">Number of ways to make change for an amount (coin change)</a> 看了这个，终于明白了一点</li>
+<li><a href="http://www.cs.cmu.edu/~yandongl/dp.html" target="_blank" rel="noopener">Dynamic programming - Ways of Coin Change</a></li>
+<li><a href="https://www.geeksforgeeks.org/coin-change-dp-7/" target="_blank" rel="noopener">Coin Change | DP-7</a></li>
+<li><a href="https://artofproblemsolving.com/community/c2340h1179726s3_coin_change_problem_recursive_solution" target="_blank" rel="noopener">Coin Change Problem Recursive Solution</a></li>
+<li><a href="https://www.quora.com/What-is-an-easy-way-to-understand-the-coin-change-problem-in-dynamic-programming" target="_blank" rel="noopener">What is an easy way to understand the coin change problem in dynamic programming?</a></li>
 </ul>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">change</span><span class="params">(<span class="keyword">int</span> amount, <span class="keyword">int</span>[] coins)</span> </span>&#123;</div><div class="line">    	<span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[amount+<span class="number">1</span>];</div><div class="line">    	dp[<span class="number">0</span>]=<span class="number">1</span>;</div><div class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;coins.length;i++) &#123;</div><div class="line">    		<span class="keyword">for</span>(<span class="keyword">int</span> j=coins[i];j&lt;=amount;++j) &#123;</div><div class="line">    			dp[j]+=dp[j-coins[i]];</div><div class="line">    		&#125;    		</div><div class="line">    	&#125;</div><div class="line">    	<span class="keyword">return</span> dp[amount];        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">change</span><span class="params">(<span class="keyword">int</span> amount, <span class="keyword">int</span>[] coins)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[amount+<span class="number">1</span>];</span><br><span class="line">    	dp[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;coins.length;i++) &#123;</span><br><span class="line">    		<span class="keyword">for</span>(<span class="keyword">int</span> j=coins[i];j&lt;=amount;++j) &#123;</span><br><span class="line">    			dp[j]+=dp[j-coins[i]];</span><br><span class="line">    		&#125;    		</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">return</span> dp[amount];        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>LeetCode运行结果：</p>
 <blockquote>
 <p>27 / 27 test cases passed.<br>Runtime: 4 ms<br>Your runtime beats 78.72 % of java submissions.</p>
 </blockquote>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * @param &#123;number&#125; amount</div><div class="line"> * @param &#123;number[]&#125; coins</div><div class="line"> * @return &#123;number&#125;</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> change = <span class="function"><span class="keyword">function</span>(<span class="params">amount, coins</span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> dp = <span class="keyword">new</span> <span class="built_in">Array</span>(amount+<span class="number">1</span>);</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;dp.length;i++)</div><div class="line">		dp[i]=<span class="number">0</span>;</div><div class="line">	dp[<span class="number">0</span>]=<span class="number">1</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;amount;i++)</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> j=coins[i];j&lt;=amount;++j)</div><div class="line">			dp[j]+=dp[j-coins[i]];</div><div class="line">	<span class="keyword">return</span> dp[amount];    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; amount</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; coins</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> change = <span class="function"><span class="keyword">function</span>(<span class="params">amount, coins</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> dp = <span class="keyword">new</span> <span class="built_in">Array</span>(amount+<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;dp.length;i++)</span><br><span class="line">		dp[i]=<span class="number">0</span>;</span><br><span class="line">	dp[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;amount;i++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> j=coins[i];j&lt;=amount;++j)</span><br><span class="line">			dp[j]+=dp[j-coins[i]];</span><br><span class="line">	<span class="keyword">return</span> dp[amount];    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>LeetCode运行结果：</p>
 <blockquote>
 <p>27 / 27 test cases passed.<br>Runtime: 60 ms<br>Your runtime beats 89.86 % of javascript submissions.</p>
@@ -117,7 +118,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjyrp1bl1000tnktwxabdjg9q" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="cjzd3a4uv000hfgtwffrlf1rb" class="article-share-link">Share</a>
       
       
       

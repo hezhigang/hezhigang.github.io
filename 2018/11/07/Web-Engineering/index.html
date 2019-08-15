@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
 
@@ -14,6 +14,7 @@
 <meta property="og:url" content="https://hezhigang.github.io/2018/11/07/Web-Engineering/index.html">
 <meta property="og:site_name" content="A Humble Programmer">
 <meta property="og:description" content="前端工程化（工具）前端组件化（生态）  npm NPM的全称是Node Package Manager，Nodejs的包管理器 从API对用户友好这一个角度来说，Node.js的模块机制是非常优秀的。  package.json必备字段 main指定了加载的入口文件，对于require，只需要main属性即可 name : 包名，需要在NPM上是唯一的。不能带有空格。 description :">
+<meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2018-11-07T16:24:48.924Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Web Engineering">
@@ -29,7 +30,7 @@
   
   <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
 <body>
   <div id="container">
     <div id="wrap">
@@ -101,11 +102,11 @@
 <li>main指定了加载的入口文件，对于require，只需要main属性即可</li>
 <li>name : 包名，需要在NPM上是唯一的。不能带有空格。</li>
 <li>description : 包简介。通常会显示在一些列表中。</li>
-<li>version : 版本号。一个语义化的版本号（<a href="http://semver.org/" target="_blank" rel="external">http://semver.org/</a> ），通常为x.y.z。该版本号十分重要，常常用于一些版本控制的场合。</li>
+<li>version : 版本号。一个语义化的版本号（<a href="http://semver.org/" target="_blank" rel="noopener">http://semver.org/</a> ），通常为x.y.z。该版本号十分重要，常常用于一些版本控制的场合。</li>
 <li>keywords : 关键字数组。用于NPM中的分类搜索。</li>
 <li>maintainers : 包维护者的数组。数组元素是一个包含name、email、web三个属性的JSON对象。</li>
 <li>contributors : 包贡献者的数组。第一个就是包的作者本人。在开源社区，如果提交的patch被merge进master分支的话，就应当加上这个贡献patch的人。格式包含name和email。</li>
-<li>bugs : 一个可以提交bug的URL地址。可以是邮件地址（mailto:mailxx@domain），也可以是网页地址（<a href="http://url）。" target="_blank" rel="external">http://url）。</a></li>
+<li>bugs : 一个可以提交bug的URL地址。可以是邮件地址（mailto:mailxx@domain），也可以是网页地址（<a href="http://url）。" target="_blank" rel="noopener">http://url）。</a></li>
 <li>licenses : 包所使用的许可证。</li>
 <li>repositories : 托管源代码的地址数组。</li>
 <li><strong>dependencies</strong> : 当前包需要的依赖。这个属性十分重要，NPM会通过这个属性，帮你自动加载依赖的包。</li>
@@ -136,16 +137,16 @@
 <li>test项表示匹配的资源类型，loader或loaders项表示用来加载这种类型的资源的loader<br>对于css文件，默认情况下webpack会把css content内嵌到js里边，运行时会使用style标签内联。如果希望将css使用link标签引入，可以使用ExtractTextPlugin插件进行提取。</li>
 <li>图片资源的loader配置：意思是，图片资源在加载时先压缩，然后当内容size小于~10KB时，会自动转成base64的方式内嵌进去，这样可以减少一个HTTP的请求。当图片大于10KB时，则会在img/下生成压缩后的图片，命名是[hash:8].[name].[ext]的形式。hash:8的意思是取图片内容hushsum值的前8位，这样做能够保证引用的是图片资源的最新修改版本，保证浏览器端能够即时更新。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    test: /\.(jpe?g|png|gif|svg)$/i,</div><div class="line">    loaders: [</div><div class="line">        &apos;image?...&apos;,</div><div class="line">        &apos;url?limit=10000&amp;name=img/[hash:8].[name].[ext]&apos;,</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    test: /\.(jpe?g|png|gif|svg)$/i,</span><br><span class="line">    loaders: [</span><br><span class="line">        &apos;image?...&apos;,</span><br><span class="line">        &apos;url?limit=10000&amp;name=img/[hash:8].[name].[ext]&apos;,</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>多个入口文件之间可能公用一个模块，可以使用CommonsChunkPlugin插件对指定的chunks进行公共模块的提取，下面代码示例演示提取所有入口文件公用的模块，将其独立打包：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var chunks = Object.keys(entries);</div><div class="line">plugins: [</div><div class="line">    new CommonsChunkPlugin(&#123;</div><div class="line">        name: &apos;vendors&apos;, // 将公共模块提取，生成名为`vendors`的chunk</div><div class="line">        chunks: chunks,</div><div class="line">        minChunks: chunks.length // 提取所有entry共同依赖的模块</div><div class="line">    &#125;)</div><div class="line">]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var chunks = Object.keys(entries);</span><br><span class="line">plugins: [</span><br><span class="line">    new CommonsChunkPlugin(&#123;</span><br><span class="line">        name: &apos;vendors&apos;, // 将公共模块提取，生成名为`vendors`的chunk</span><br><span class="line">        chunks: chunks,</span><br><span class="line">        minChunks: chunks.length // 提取所有entry共同依赖的模块</span><br><span class="line">    &#125;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 <ul>
 <li>webpack提供了强大的热更新支持，即HMR(hot module replace)。HMR简单说就是webpack启动一个本地webserver（webpack-dev-server），负责处理由webpack生成的静态资源请求。注意webpack-dev-server是把所有资源存储在内存的，所以你会发现在本地没有生成对应的chunk访问却正常。</li>
 </ul>
 <h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><ul>
-<li><a href="http://www.infoq.com/cn/articles/frontend-engineering-webpack" target="_blank" rel="external">基于webpack搭建前端工程解决方案探索</a></li>
+<li><a href="http://www.infoq.com/cn/articles/frontend-engineering-webpack" target="_blank" rel="noopener">基于webpack搭建前端工程解决方案探索</a></li>
 </ul>
 <h1 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h1><p>ECMAScript 6, ECMAScript 2015</p>
 <ul>
@@ -166,7 +167,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/07/Web-Engineering/" data-id="cjyrp1bpc0076nktwc1pknju0" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/07/Web-Engineering/" data-id="cjzd3a4wo001ufgtwk00pjug5" class="article-share-link">Share</a>
       
       
       

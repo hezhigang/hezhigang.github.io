@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
 
@@ -14,6 +14,7 @@
 <meta property="og:url" content="https://hezhigang.github.io/2018/06/29/mysql-points/index.html">
 <meta property="og:site_name" content="A Humble Programmer">
 <meta property="og:description" content="limitLIMIT row_count is equivalent to LIMIT 0, row_count LIMIT {[offset,] row_count limit row_count offset offset For compatibility with PostgreSQL, MySQL also supports the LIMIT row_count OFFSET offs">
+<meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-03-26T05:43:27.037Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql知识点">
@@ -29,7 +30,7 @@
   
   <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
 <body>
   <div id="container">
     <div id="wrap">
@@ -100,7 +101,7 @@
          [ORDER BY {unsigned_integer | col_name | expr}
              [ASC | DESC] [,col_name ...]]
          [SEPARATOR str_val])
-</code></pre><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> student_name, </div><div class="line"><span class="keyword">GROUP_CONCAT</span>(<span class="keyword">DISTINCT</span> test_score <span class="keyword">ORDER</span> <span class="keyword">BY</span> test_score <span class="keyword">DESC</span> SEPARATOR <span class="string">' '</span>) </div><div class="line"><span class="keyword">FROM</span> student </div><div class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> student_name;</div></pre></td></tr></table></figure>
+</code></pre><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> student_name, </span><br><span class="line"><span class="keyword">GROUP_CONCAT</span>(<span class="keyword">DISTINCT</span> test_score <span class="keyword">ORDER</span> <span class="keyword">BY</span> test_score <span class="keyword">DESC</span> SEPARATOR <span class="string">' '</span>) </span><br><span class="line"><span class="keyword">FROM</span> student </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> student_name;</span><br></pre></td></tr></table></figure>
 <h1 id="MySQL-Emulate-row-number"><a href="#MySQL-Emulate-row-number" class="headerlink" title="MySQL Emulate row_number"></a>MySQL Emulate row_number</h1><h2 id="LeetCode-SQL-Problem"><a href="#LeetCode-SQL-Problem" class="headerlink" title="LeetCode SQL Problem"></a>LeetCode SQL Problem</h2><h3 id="178-Rank-Scores"><a href="#178-Rank-Scores" class="headerlink" title="178. Rank Scores"></a>178. Rank Scores</h3><pre><code>select a.Score,b.`Rank` from Scores a,
 (
 select t.Score,(@row_number:=@row_number+1) as `Rank` from 
@@ -125,7 +126,7 @@ order by t.DepartmentId,t.Salary desc;
              ON (t2.a=t1.a AND t3.b=t1.b AND t4.c=t1.c)
 </code></pre><h2 id="LEFT-JOIN-vs-RIGHT-JOIN"><a href="#LEFT-JOIN-vs-RIGHT-JOIN" class="headerlink" title="LEFT JOIN vs. RIGHT JOIN"></a>LEFT JOIN vs. RIGHT JOIN</h2><p>RIGHT JOIN works analogously to LEFT JOIN. To keep code portable across databases, it is recommended that you use LEFT JOIN instead of RIGHT JOIN.</p>
 <h1 id="User-Defined-Variables"><a href="#User-Defined-Variables" class="headerlink" title="User-Defined Variables"></a>User-Defined Variables</h1><p> You can store a value in a user-defined variable in one statement and then refer to it later in another statement. This enables you to pass values from one statement to another. User-defined variables are session-specific. That is, a user variable defined by one client cannot be seen or used by other clients. All variables for a given client session are automatically freed when that client exits.</p>
-<p>User variables are written as @var_name, where the variable name var<em>name consists of alphanumeric characters, “.”, “</em>”, and “$”. A user variable name can contain other characters if you quote it as a string or identifier (for example, @’my-var’, @”my-var”, or @`my-var`).</p>
+<p>User variables are written as @var_name, where the variable name var_name consists of alphanumeric characters, “.”, “_”, and “$”. A user variable name can contain other characters if you quote it as a string or identifier (for example, @’my-var’, @”my-var”, or @`my-var`).</p>
 <p>User variable names are not case sensitive.</p>
 <p>One way to set a user-defined variable is by issuing a SET statement:</p>
 <p>SET @var_name = expr [, @var_name = expr] …</p>
@@ -182,7 +183,7 @@ WHERE a1.id=a2.id;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/29/mysql-points/" data-id="cjyrp1bq30089nktw0d09fnk6" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/29/mysql-points/" data-id="cjzd3a4xh002hfgtw0qwhgtnv" class="article-share-link">Share</a>
       
       
       
