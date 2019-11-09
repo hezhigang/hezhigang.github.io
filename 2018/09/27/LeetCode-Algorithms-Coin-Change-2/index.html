@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="A Humble Programmer">
 <meta property="og:description" content="变个样，又不知道怎么解决了，动态规划确实不是那么好理解。根据上一题的经验，还是从递归入手，先实现递归，再琢磨动态规划的解决方案，就有点循序渐进的味道。正如 What is an easy way to understand the coin change problem in dynamic programming? 的一个回答所言：  Instead of thinking about fill">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-16T16:13:28.439Z">
+<meta property="og:updated_time" content="2019-11-09T12:55:39.874Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode - Algorithms - 518. Coin Change 2">
 <meta name="twitter:description" content="变个样，又不知道怎么解决了，动态规划确实不是那么好理解。根据上一题的经验，还是从递归入手，先实现递归，再琢磨动态规划的解决方案，就有点循序渐进的味道。正如 What is an easy way to understand the coin change problem in dynamic programming? 的一个回答所言：  Instead of thinking about fill">
@@ -109,15 +109,17 @@
 <li><a href="https://www.quora.com/What-is-an-easy-way-to-understand-the-coin-change-problem-in-dynamic-programming" target="_blank" rel="noopener">What is an easy way to understand the coin change problem in dynamic programming?</a></li>
 </ul>
 <h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">change</span><span class="params">(<span class="keyword">int</span> amount, <span class="keyword">int</span>[] coins)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[amount+<span class="number">1</span>];</span><br><span class="line">    	dp[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;coins.length;i++) &#123;</span><br><span class="line">    		<span class="keyword">for</span>(<span class="keyword">int</span> j=coins[i];j&lt;=amount;++j) &#123;</span><br><span class="line">    			dp[j]+=dp[j-coins[i]];</span><br><span class="line">    		&#125;    		</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">return</span> dp[amount];        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>LeetCode运行结果：</p>
-<blockquote>
-<p>27 / 27 test cases passed.<br>Runtime: 4 ms<br>Your runtime beats 78.72 % of java submissions.</p>
-</blockquote>
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>27 / 27 test cases passed.</li>
+<li>Runtime: 4 ms</li>
+<li>Your runtime beats 78.72 % of java submissions.</li>
+</ul>
 <h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; amount</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; coins</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> change = <span class="function"><span class="keyword">function</span>(<span class="params">amount, coins</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> dp = <span class="keyword">new</span> <span class="built_in">Array</span>(amount+<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;dp.length;i++)</span><br><span class="line">		dp[i]=<span class="number">0</span>;</span><br><span class="line">	dp[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;amount;i++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> j=coins[i];j&lt;=amount;++j)</span><br><span class="line">			dp[j]+=dp[j-coins[i]];</span><br><span class="line">	<span class="keyword">return</span> dp[amount];    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>LeetCode运行结果：</p>
-<blockquote>
-<p>27 / 27 test cases passed.<br>Runtime: 60 ms<br>Your runtime beats 89.86 % of javascript submissions.</p>
-</blockquote>
+<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>27 / 27 test cases passed.</li>
+<li>Runtime: 60 ms</li>
+<li>Your runtime beats 89.86 % of javascript submissions.</li>
+</ul>
 
       
     </div>
