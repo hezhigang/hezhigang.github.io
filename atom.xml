@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2019-11-03T04:00:21.086Z</updated>
+  <updated>2019-11-15T04:13:39.039Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode - Algorithms - 49. Group Anagrams</title>
+    <link href="https://hezhigang.github.io/2019/11/14/LeetCode-Algorithms-Group-Anagrams/"/>
+    <id>https://hezhigang.github.io/2019/11/14/LeetCode-Algorithms-Group-Anagrams/</id>
+    <published>2019-11-15T03:10:34.000Z</published>
+    <updated>2019-11-15T04:13:39.039Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/group-anagrams/" target="_blank" rel="noopener">49. Group Anagrams</a></p><blockquote><p>Given an array of strings, group anagrams together.</p></blockquote><h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><h2 id="solution-by-Joan-Indiana-Lyness"><a href="#solution-by-Joan-Indiana-Lyness" class="headerlink" title="solution by Joan Indiana Lyness"></a>solution by Joan Indiana Lyness</h2><p><a href="https://medium.com/javascript-in-plain-english/algorithms-101-group-anagrams-in-javascript-b3e3c10d211e" target="_blank" rel="noopener">Algorithms 101: Group Anagrams in JavaScript</a></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string[]&#125; strs</span></span><br><span class="line"><span class="comment"> * @return &#123;string[][]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> groupAnagrams = <span class="function"><span class="keyword">function</span>(<span class="params">strs</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> m = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;strs.length;i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> s = strs[i];</span><br><span class="line">        <span class="keyword">var</span> c = s.split(<span class="string">""</span>).sort();</span><br><span class="line">        m[c]?m[c].push(s):m[c]=[s];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> r = [];</span><br><span class="line">    <span class="keyword">var</span> keys = <span class="built_in">Object</span>.keys(m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> k=<span class="number">0</span>; k&lt;keys.length; k++) &#123;</span><br><span class="line">        r.push( m[keys[k]] );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul><li>101 / 101 test cases passed.</li><li>Runtime: 144 ms, faster than 32.01% of JavaScript online submissions for Group Anagrams.</li><li>Memory Usage: 45.6 MB, less than 34.78% of JavaScript online submissions for Group Anagrams.</li></ul><h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="translation-from-solution-of-Joan-Indiana-Lyness"><a href="#translation-from-solution-of-Joan-Indiana-Lyness" class="headerlink" title="translation from solution of Joan Indiana Lyness"></a>translation from solution of Joan Indiana Lyness</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;String&gt;&gt; groupAnagrams(String[] strs) &#123;</span><br><span class="line">List&lt;List&lt;String&gt;&gt; list = <span class="keyword">new</span> ArrayList&lt;List&lt;String&gt;&gt;();</span><br><span class="line">Map&lt;String, List&lt;String&gt;&gt; map = <span class="keyword">new</span> HashMap&lt;String, List&lt;String&gt;&gt;();</span><br><span class="line">String s;</span><br><span class="line"><span class="keyword">char</span>[] c;</span><br><span class="line">String key;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; strs.length; i++) &#123;</span><br><span class="line">s = strs[i];</span><br><span class="line">c = s.toCharArray();</span><br><span class="line">Arrays.sort(c);</span><br><span class="line">key = <span class="keyword">new</span> String(c);</span><br><span class="line"><span class="keyword">if</span> (map.containsKey(key)) &#123;</span><br><span class="line">map.get(key).add(s);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">List&lt;String&gt; glist = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">glist.add(s);</span><br><span class="line">map.put(key, glist);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">list.addAll(map.values());</span><br><span class="line"><span class="keyword">return</span> list;      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul><li>101 / 101 test cases passed.</li><li>Runtime: 9 ms, faster than 83.05% of Java online submissions for Group Anagrams.</li><li>Memory Usage: 40.8 MB, less than 96.49% of Java online submissions for Group Anagrams.</li></ul><h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><ul><li><a href="https://stackoverflow.com/questions/30199304/sorting-characters-alphabetically-in-a-string" target="_blank" rel="noopener">Sorting characters alphabetically in a String</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;Problem&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/group-anagr
+      
+    
+    </summary>
+    
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+      <category term="Hash" scheme="https://hezhigang.github.io/tags/Hash/"/>
+    
+  </entry>
   
   <entry>
     <title>Interesting titles in memory of scientists</title>
@@ -517,31 +544,6 @@
       
       
         &lt;h1 id=&quot;Java&quot;&gt;&lt;a href=&quot;#Java&quot; class=&quot;headerlink&quot; title=&quot;Java&quot;&gt;&lt;/a&gt;Java&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;Hint: Maintain two pointers and update one with a dela
-      
-    
-    </summary>
-    
-    
-      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
-    
-      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode - Algorithms - 237. Delete Node in a Linked List</title>
-    <link href="https://hezhigang.github.io/2019/02/14/LeetCode-Algorithms-Delete-Node-in-a-Linked-List/"/>
-    <id>https://hezhigang.github.io/2019/02/14/LeetCode-Algorithms-Delete-Node-in-a-Linked-List/</id>
-    <published>2019-02-15T02:21:54.000Z</published>
-    <updated>2019-11-09T12:49:27.685Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p><a href="https://www.quora.com/How-do-I-delete-a-node-in-a-linked-list" target="_blank" rel="noopener">How do I delete a node in a linked list?</a></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(ListNode node)</span> </span>&#123;</span><br><span class="line">    ListNode temp = node.next;</span><br><span class="line">    node.val = temp.val;</span><br><span class="line">    node.next = temp.next;</span><br><span class="line">    temp = <span class="keyword">null</span>;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul><li>41 / 41 test cases passed.</li><li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Delete Node in a Linked List.</li><li>Memory Usage: 37.6 MB, less than 100.00% of Java online submissions for Delete Node in a Linked List.</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Java&quot;&gt;&lt;a href=&quot;#Java&quot; class=&quot;headerlink&quot; title=&quot;Java&quot;&gt;&lt;/a&gt;Java&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://www.quora.com/How-do-I-delete-a-node-in-a-lin
       
     
     </summary>
