@@ -70,6 +70,74 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Concurrency-Print-in-Order" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/08/LeetCode-Concurrency-Print-in-Order/" class="article-date">
+  <time datetime="2019-08-08T20:28:27.000Z" itemprop="datePublished">2019-08-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/08/LeetCode-Concurrency-Print-in-Order/">LeetCode - Concurrency - 1114. Print in Order</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>An example of multiple solutions selected from discuss.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h2><p><a href="https://leetcode.com/problems/print-in-order/discuss/333397/Java-Simple-yet-effective.-Using-volatile-without-lock" target="_blank" rel="noopener">[Java] Simple, yet effective. Using volatile without lock</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> flag;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        flag = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">first</span><span class="params">(Runnable printFirst)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(;;) &#123;</span><br><span class="line">        	<span class="keyword">if</span> (flag==<span class="number">1</span>) &#123;</span><br><span class="line">        		printFirst.run();</span><br><span class="line">                flag = <span class="number">2</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">second</span><span class="params">(Runnable printSecond)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	<span class="keyword">for</span>(;;) &#123;</span><br><span class="line">    		<span class="keyword">if</span> (flag==<span class="number">2</span>) &#123;</span><br><span class="line">    			printSecond.run();</span><br><span class="line">                flag=<span class="number">3</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">third</span><span class="params">(Runnable printThird)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	<span class="keyword">for</span>(;;) &#123;</span><br><span class="line">    		<span class="keyword">if</span> (flag==<span class="number">3</span>) &#123;</span><br><span class="line">    			printThird.run();</span><br><span class="line">                flag = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>36 / 36 test cases passed.<br>Runtime: 9 ms, faster than 88.93% of Java online submissions for Print in Order.<br>Memory Usage: 35.9 MB, less than 100.00% of Java online submissions for Print in Order.</p>
+</blockquote>
+<h2 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h2><p><a href="https://leetcode.com/problems/print-in-order/discuss/332954/JavaGo-Implements" target="_blank" rel="noopener">[Java/Go] Implements</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.Semaphore;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">	Semaphore semaphore1 = <span class="keyword">new</span> Semaphore(<span class="number">0</span>);</span><br><span class="line">	Semaphore semaphore2 = <span class="keyword">new</span> Semaphore(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">first</span><span class="params">(Runnable printFirst)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        printFirst.run();</span><br><span class="line">        semaphore1.release();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">second</span><span class="params">(Runnable printSecond)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	semaphore1.acquire();</span><br><span class="line">    	printSecond.run();</span><br><span class="line">    	semaphore2.release();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">third</span><span class="params">(Runnable printThird)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	semaphore2.acquire();</span><br><span class="line">    	printThird.run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>36 / 36 test cases passed.<br>Runtime: 9 ms, faster than 89.05% of Java online submissions for Print in Order.<br>Memory Usage: 35.7 MB, less than 100.00% of Java online submissions for Print in Order.</p>
+</blockquote>
+<h2 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h2><p><a href="https://leetcode.com/problems/print-in-order/discuss/333001/Java-Basic-version-with-just-a-synchronized-block-and-a-counter" target="_blank" rel="noopener">[Java] Basic version with just a synchronized block &amp; a counter</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String mutex = <span class="keyword">new</span> String(<span class="string">""</span>);</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> counter = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">first</span><span class="params">(Runnable printFirst)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	<span class="keyword">boolean</span> loop = <span class="keyword">true</span>;</span><br><span class="line">    	<span class="keyword">while</span> (loop) &#123;</span><br><span class="line">    		<span class="keyword">synchronized</span>(mutex) &#123;</span><br><span class="line">    			<span class="keyword">if</span> (counter == <span class="number">1</span>) &#123;</span><br><span class="line">    				printFirst.run();</span><br><span class="line">    				++counter;</span><br><span class="line">    				loop = <span class="keyword">false</span>;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">second</span><span class="params">(Runnable printSecond)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	<span class="keyword">boolean</span> loop = <span class="keyword">true</span>;</span><br><span class="line">    	<span class="keyword">while</span> (loop) &#123;</span><br><span class="line">    		<span class="keyword">synchronized</span>(mutex) &#123;</span><br><span class="line">    			<span class="keyword">if</span> (counter == <span class="number">2</span>) &#123;</span><br><span class="line">    				printSecond.run();</span><br><span class="line">    				++counter;</span><br><span class="line">    				loop = <span class="keyword">false</span>;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">third</span><span class="params">(Runnable printThird)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	<span class="keyword">boolean</span> loop = <span class="keyword">true</span>;</span><br><span class="line">    	<span class="keyword">while</span> (loop) &#123;</span><br><span class="line">    		<span class="keyword">synchronized</span>(mutex) &#123;</span><br><span class="line">    			<span class="keyword">if</span> (counter == <span class="number">3</span>) &#123;</span><br><span class="line">    				printThird.run();</span><br><span class="line">    				++counter;</span><br><span class="line">    				loop = <span class="keyword">false</span>;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>36 / 36 test cases passed.<br>Runtime: 9 ms, faster than 89.16% of Java online submissions for Print in Order.<br>Memory Usage: 36 MB, less than 100.00% of Java online submissions for Print in Order.</p>
+</blockquote>
+<h2 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h2><p><a href="https://leetcode.com/problems/print-in-order/discuss/333052/Java-7ms-CountDownLatch" target="_blank" rel="noopener">[Java] 7ms CountDownLatch</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.CountDownLatch;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> CountDownLatch L1 = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> CountDownLatch L2 = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">first</span><span class="params">(Runnable printFirst)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        printFirst.run();</span><br><span class="line">        L1.countDown();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">second</span><span class="params">(Runnable printSecond)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	L1.await();</span><br><span class="line">    	printSecond.run();</span><br><span class="line">    	L2.countDown();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">third</span><span class="params">(Runnable printThird)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	L2.await();</span><br><span class="line">    	printThird.run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>36 / 36 test cases passed.<br>Runtime: 9 ms, faster than 89.16% of Java online submissions for Print in Order.<br>Memory Usage: 35.4 MB, less than 100.00% of Java online submissions for Print in Order.</p>
+</blockquote>
+<h2 id="Phaser"><a href="#Phaser" class="headerlink" title="Phaser"></a>Phaser</h2><p><a href="https://leetcode.com/problems/print-in-order/discuss/333249/Java-Phaser-solution-very-fast" target="_blank" rel="noopener">Java Phaser solution, very fast</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.Phaser;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Phaser phaser;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		phaser = <span class="keyword">new</span> Phaser(<span class="number">3</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">first</span><span class="params">(Runnable printFirst)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">0</span>);</span><br><span class="line">        printFirst.run();</span><br><span class="line">        phaser.arrive();</span><br><span class="line">        phaser.arrive();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">second</span><span class="params">(Runnable printSecond)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">0</span>);</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">1</span>);</span><br><span class="line">    	printSecond.run();</span><br><span class="line">    	phaser.arrive();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">third</span><span class="params">(Runnable printThird)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">0</span>);</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">1</span>);</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">2</span>);</span><br><span class="line">    	printThird.run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>36 / 36 test cases passed.<br>Runtime: 10 ms, faster than 55.92% of Java online submissions for Print in Order.<br>Memory Usage: 36 MB, less than 100.00% of Java online submissions for Print in Order.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/08/08/LeetCode-Concurrency-Print-in-Order/" data-id="ck3fe28k7003td8jazigsbutf" data-title="LeetCode - Concurrency - 1114. Print in Order" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-my-social-media-tweets" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/31/my-social-media-tweets/" class="article-date">
@@ -331,7 +399,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/07/31/my-social-media-tweets/" data-id="ck39kmq9z00bzxsja6fnahnve" data-title="网络社区自媒体胡言乱语" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/07/31/my-social-media-tweets/" data-id="ck3fe28q900ccd8jal5mb3vlt" data-title="网络社区自媒体胡言乱语" class="article-share-link">Share</a>
       
       
       
@@ -385,7 +453,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/06/30/react-native-cheat-sheet/" data-id="ck39kmq5t0069xsjareb7r4n0" data-title="React Native Cheat Sheet" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/06/30/react-native-cheat-sheet/" data-id="ck3fe28lv006bd8ja0sa79y4t" data-title="React Native Cheat Sheet" class="article-share-link">Share</a>
       
       
       
@@ -460,7 +528,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/06/07/everyone-can-use-english-xiaolai/" data-id="ck39kmq8b00b1xsjaolniwti3" data-title="人人都能用英语 - 李笑来" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/06/07/everyone-can-use-english-xiaolai/" data-id="ck3fe28oj00bed8jaxvaf7re4" data-title="人人都能用英语 - 李笑来" class="article-share-link">Share</a>
       
       
       
@@ -525,7 +593,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/05/09/LeetCode-Algorithms-Kth-Largest-Element-in-an-Array/" data-id="ck39kmq2f001pxsjavpp56ixo" data-title="LeetCode - Algorithms - 215. Kth Largest Element in an Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/05/09/LeetCode-Algorithms-Kth-Largest-Element-in-an-Array/" data-id="ck3fe28in001td8jap6fkt67s" data-title="LeetCode - Algorithms - 215. Kth Largest Element in an Array" class="article-share-link">Share</a>
       
       
       
@@ -1525,7 +1593,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/05/04/The-Story-of-Maths-4-To-Infinity-and-Beyond-Subtitles/" data-id="ck39kmqbg00d1xsjas77y82ww" data-title="The Story of Maths - 4. To Infinity and Beyond - Subtitles" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/05/04/The-Story-of-Maths-4-To-Infinity-and-Beyond-Subtitles/" data-id="ck3fe28rm00ddd8jap7qovjpy" data-title="The Story of Maths - 4. To Infinity and Beyond - Subtitles" class="article-share-link">Share</a>
       
       
       
@@ -2694,7 +2762,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/05/04/The-Story-of-Maths-3-The-Frontiers-of-Space-Subtitles/" data-id="ck39kmqbf00d0xsja937pfshm" data-title="The Story of Maths - 3. The Frontiers of Space - Subtitles" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/05/04/The-Story-of-Maths-3-The-Frontiers-of-Space-Subtitles/" data-id="ck3fe28rq00did8jajscv5ndp" data-title="The Story of Maths - 3. The Frontiers of Space - Subtitles" class="article-share-link">Share</a>
       
       
       
@@ -3547,7 +3615,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/05/04/The-Story-of-Maths-2-The-Genius-of-the-East-Subtitles/" data-id="ck39kmqb600ckxsjayvtz8giz" data-title="The Story of Maths - 2. The Genius of the East - Subtitles" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/05/04/The-Story-of-Maths-2-The-Genius-of-the-East-Subtitles/" data-id="ck3fe28rf00cxd8jagt58edpx" data-title="The Story of Maths - 2. The Genius of the East - Subtitles" class="article-share-link">Share</a>
       
       
       
@@ -4385,7 +4453,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/05/04/The-Story-of-Maths-1-The-Language-of-the-Universe-Subtitles/" data-id="ck39kmqb700clxsja5o4sc000" data-title="The Story of Maths - 1. The Language of the Universe - Subtitles" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/05/04/The-Story-of-Maths-1-The-Language-of-the-Universe-Subtitles/" data-id="ck3fe28rg00cyd8jabz6p0s2b" data-title="The Story of Maths - 1. The Language of the Universe - Subtitles" class="article-share-link">Share</a>
       
       
       
@@ -4511,70 +4579,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/04/06/Euclid-Elements-changhai/" data-id="ck39kmq7z00amxsja7oryq4ge" data-title="［独立博客文摘 - 卢昌海］欧几里得与《几何原本》" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/04/06/Euclid-Elements-changhai/" data-id="ck3fe28o600azd8jao8m6yryq" data-title="［独立博客文摘 - 卢昌海］欧几里得与《几何原本》" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学史/">数学史</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Wildcard-Matching" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/26/LeetCode-Algorithms-Wildcard-Matching/" class="article-date">
-  <time datetime="2019-03-26T04:33:22.000Z" itemprop="datePublished">2019-03-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/26/LeetCode-Algorithms-Wildcard-Matching/">LeetCode - Algorithms - 44. Wildcard Matching</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Only mark. It’s an example of dynamic programming.<br>I don’t know how to solve it, what’s more, I can’t understand the answer of others, so I run code of others on leetcode.</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p>by XN W</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isMatch</span><span class="params">(String s, String p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> pl = <span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; p.length(); i++) &#123;  </span><br><span class="line">             <span class="keyword">if</span> (p.charAt(i) != <span class="string">'*'</span>) &#123;  </span><br><span class="line">                  pl++;  </span><br><span class="line">             &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span> (pl &gt; s.length()) &#123;  </span><br><span class="line">             <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span> (s.length() == <span class="number">0</span> &amp;&amp; pl == <span class="number">0</span>) &#123;  </span><br><span class="line">             <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">boolean</span>[][] store = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">2</span>][s.length() + <span class="number">1</span>];  </span><br><span class="line">        store[<span class="number">0</span>][<span class="number">0</span>] = <span class="keyword">true</span>;  </span><br><span class="line">        store[<span class="number">1</span>][<span class="number">0</span>] = <span class="keyword">false</span>;   </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> ps = <span class="number">1</span>; ps &lt;= p.length(); ps++) &#123;</span><br><span class="line">             <span class="keyword">if</span> (p.charAt(ps - <span class="number">1</span>) == <span class="string">'*'</span>) &#123;  </span><br><span class="line">                  store[<span class="number">1</span>][<span class="number">0</span>] = store[<span class="number">0</span>][<span class="number">0</span>];  </span><br><span class="line">             &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">                  store[<span class="number">1</span>][<span class="number">0</span>] = <span class="keyword">false</span>;  </span><br><span class="line">             &#125;  </span><br><span class="line">             <span class="keyword">for</span> (<span class="keyword">int</span> ss = <span class="number">1</span>; ss &lt;= s.length(); ss++) &#123;  </span><br><span class="line">                  <span class="keyword">if</span> (p.charAt(ps - <span class="number">1</span>) == <span class="string">'?'</span>  </span><br><span class="line">                            || p.charAt(ps - <span class="number">1</span>) == s.charAt(ss - <span class="number">1</span>)) &#123;  </span><br><span class="line">                       store[<span class="number">1</span>][ss] = store[<span class="number">0</span>][ss - <span class="number">1</span>];  </span><br><span class="line">                  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (p.charAt(ps - <span class="number">1</span>) != <span class="string">'*'</span>) &#123;  </span><br><span class="line">                       store[<span class="number">1</span>][ss] = <span class="keyword">false</span>;  </span><br><span class="line">                  &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">                       store[<span class="number">1</span>][ss] = store[<span class="number">0</span>][ss - <span class="number">1</span>] || store[<span class="number">1</span>][ss - <span class="number">1</span>]  </span><br><span class="line">                                 || store[<span class="number">0</span>][ss];  </span><br><span class="line">                  &#125;  </span><br><span class="line">             &#125;  </span><br><span class="line">             <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= s.length(); i++) &#123;  </span><br><span class="line">                  store[<span class="number">0</span>][i] = store[<span class="number">1</span>][i];  </span><br><span class="line">             &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> store[<span class="number">1</span>][s.length()];      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><p>by XN W</p>
-<ul>
-<li>1808 / 1808 test cases passed.</li>
-<li>Runtime: 7 ms, faster than 100.00% of Java online submissions for Wildcard Matching.</li>
-<li>Memory Usage: 37.7 MB, less than 93.46% of Java online submissions for Wildcard Matching.</li>
-</ul>
-<h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><p><a href="http://vialgorithms.blogspot.com/2013/11/wildcard-matching.html" target="_blank" rel="noopener">Wildcard Matching</a></p>
-<blockquote>
-<p>I hate this algorithms!! Seriously!!!</p>
-</blockquote>
-<ol>
-<li>recursive way</li>
-<li>DP way</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/03/26/LeetCode-Algorithms-Wildcard-Matching/" data-id="ck39kmq47003pxsjams2d035x" data-title="LeetCode - Algorithms - 44. Wildcard Matching" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
     </footer>
   </div>
@@ -4614,7 +4623,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BFS/" style="font-size: 10px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 11.25px;">Bill Blair</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 10px;">DFS</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 10px;">Divide and Conquer</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.75px;">LeetCode</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 13.75px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 11.25px;">React.js</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Spring/" style="font-size: 12.5px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 11.25px;">Spring Boot</a> <a href="/tags/TED/" style="font-size: 11.25px;">TED</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 13.75px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10px;">Topological Sort</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 11.25px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 17.5px;">english</a> <a href="/tags/git/" style="font-size: 11.25px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 10px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/history-of-mathematics/" style="font-size: 13.75px;">history of mathematics</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 16.25px;">java</a> <a href="/tags/javascript/" style="font-size: 11.25px;">javascript</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 11.25px;">linux</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 12.5px;">mysql</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 10px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 12.5px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 13.75px;">英语</a> <a href="/tags/译言/" style="font-size: 11.25px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BFS/" style="font-size: 11.25px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 11.25px;">Bill Blair</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 11.25px;">DFS</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 10px;">Divide and Conquer</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.75px;">LeetCode</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 13.75px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 11.25px;">React.js</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Spring/" style="font-size: 12.5px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 11.25px;">Spring Boot</a> <a href="/tags/TED/" style="font-size: 11.25px;">TED</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 13.75px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 11.25px;">Topological Sort</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 11.25px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 17.5px;">english</a> <a href="/tags/git/" style="font-size: 11.25px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 11.25px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/history-of-mathematics/" style="font-size: 13.75px;">history of mathematics</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 16.25px;">java</a> <a href="/tags/javascript/" style="font-size: 11.25px;">javascript</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 11.25px;">linux</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 12.5px;">mysql</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 10px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 12.5px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 13.75px;">英语</a> <a href="/tags/译言/" style="font-size: 11.25px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -4636,6 +4645,10 @@
       <ul>
         
           <li>
+            <a href="/2019/11/25/LeetCode-Algorithms-Course-Schedule-II/">LeetCode - Algorithms - 210. Course Schedule II</a>
+          </li>
+        
+          <li>
             <a href="/2019/11/21/LeetCode-Algorithms-Course-Schedule/">LeetCode - Algorithms - 207. Course Schedule</a>
           </li>
         
@@ -4649,10 +4662,6 @@
         
           <li>
             <a href="/2019/11/14/LeetCode-Algorithms-Group-Anagrams/">LeetCode - Algorithms - 49. Group Anagrams</a>
-          </li>
-        
-          <li>
-            <a href="/2019/11/02/interesting-titles-in-memory-of-scientists/">Interesting titles in memory of scientists</a>
           </li>
         
       </ul>
