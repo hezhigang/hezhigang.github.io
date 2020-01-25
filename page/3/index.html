@@ -75,6 +75,350 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Concurrency-Print-in-Order" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/08/08/LeetCode-Concurrency-Print-in-Order/" class="article-date">
+  <time class="dt-published" datetime="2019-08-08T20:28:27.000Z" itemprop="datePublished">2019-08-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/08/08/LeetCode-Concurrency-Print-in-Order/">LeetCode - Concurrency - 1114. Print in Order</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>An example of multiple solutions selected from discuss.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h2><p><a href="https://leetcode.com/problems/print-in-order/discuss/333397/Java-Simple-yet-effective.-Using-volatile-without-lock" target="_blank" rel="noopener">[Java] Simple, yet effective. Using volatile without lock</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> flag;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        flag = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">first</span><span class="params">(Runnable printFirst)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(;;) &#123;</span><br><span class="line">        	<span class="keyword">if</span> (flag==<span class="number">1</span>) &#123;</span><br><span class="line">        		printFirst.run();</span><br><span class="line">                flag = <span class="number">2</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">second</span><span class="params">(Runnable printSecond)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	<span class="keyword">for</span>(;;) &#123;</span><br><span class="line">    		<span class="keyword">if</span> (flag==<span class="number">2</span>) &#123;</span><br><span class="line">    			printSecond.run();</span><br><span class="line">                flag=<span class="number">3</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">third</span><span class="params">(Runnable printThird)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	<span class="keyword">for</span>(;;) &#123;</span><br><span class="line">    		<span class="keyword">if</span> (flag==<span class="number">3</span>) &#123;</span><br><span class="line">    			printThird.run();</span><br><span class="line">                flag = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>36 / 36 test cases passed.<br>Runtime: 9 ms, faster than 88.93% of Java online submissions for Print in Order.<br>Memory Usage: 35.9 MB, less than 100.00% of Java online submissions for Print in Order.</p>
+</blockquote>
+<h2 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h2><p><a href="https://leetcode.com/problems/print-in-order/discuss/332954/JavaGo-Implements" target="_blank" rel="noopener">[Java/Go] Implements</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.Semaphore;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">	Semaphore semaphore1 = <span class="keyword">new</span> Semaphore(<span class="number">0</span>);</span><br><span class="line">	Semaphore semaphore2 = <span class="keyword">new</span> Semaphore(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">first</span><span class="params">(Runnable printFirst)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        printFirst.run();</span><br><span class="line">        semaphore1.release();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">second</span><span class="params">(Runnable printSecond)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	semaphore1.acquire();</span><br><span class="line">    	printSecond.run();</span><br><span class="line">    	semaphore2.release();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">third</span><span class="params">(Runnable printThird)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	semaphore2.acquire();</span><br><span class="line">    	printThird.run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>36 / 36 test cases passed.<br>Runtime: 9 ms, faster than 89.05% of Java online submissions for Print in Order.<br>Memory Usage: 35.7 MB, less than 100.00% of Java online submissions for Print in Order.</p>
+</blockquote>
+<h2 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h2><p><a href="https://leetcode.com/problems/print-in-order/discuss/333001/Java-Basic-version-with-just-a-synchronized-block-and-a-counter" target="_blank" rel="noopener">[Java] Basic version with just a synchronized block &amp; a counter</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String mutex = <span class="keyword">new</span> String(<span class="string">""</span>);</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> counter = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">first</span><span class="params">(Runnable printFirst)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	<span class="keyword">boolean</span> loop = <span class="keyword">true</span>;</span><br><span class="line">    	<span class="keyword">while</span> (loop) &#123;</span><br><span class="line">    		<span class="keyword">synchronized</span>(mutex) &#123;</span><br><span class="line">    			<span class="keyword">if</span> (counter == <span class="number">1</span>) &#123;</span><br><span class="line">    				printFirst.run();</span><br><span class="line">    				++counter;</span><br><span class="line">    				loop = <span class="keyword">false</span>;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">second</span><span class="params">(Runnable printSecond)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	<span class="keyword">boolean</span> loop = <span class="keyword">true</span>;</span><br><span class="line">    	<span class="keyword">while</span> (loop) &#123;</span><br><span class="line">    		<span class="keyword">synchronized</span>(mutex) &#123;</span><br><span class="line">    			<span class="keyword">if</span> (counter == <span class="number">2</span>) &#123;</span><br><span class="line">    				printSecond.run();</span><br><span class="line">    				++counter;</span><br><span class="line">    				loop = <span class="keyword">false</span>;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">third</span><span class="params">(Runnable printThird)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	<span class="keyword">boolean</span> loop = <span class="keyword">true</span>;</span><br><span class="line">    	<span class="keyword">while</span> (loop) &#123;</span><br><span class="line">    		<span class="keyword">synchronized</span>(mutex) &#123;</span><br><span class="line">    			<span class="keyword">if</span> (counter == <span class="number">3</span>) &#123;</span><br><span class="line">    				printThird.run();</span><br><span class="line">    				++counter;</span><br><span class="line">    				loop = <span class="keyword">false</span>;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>36 / 36 test cases passed.<br>Runtime: 9 ms, faster than 89.16% of Java online submissions for Print in Order.<br>Memory Usage: 36 MB, less than 100.00% of Java online submissions for Print in Order.</p>
+</blockquote>
+<h2 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h2><p><a href="https://leetcode.com/problems/print-in-order/discuss/333052/Java-7ms-CountDownLatch" target="_blank" rel="noopener">[Java] 7ms CountDownLatch</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.CountDownLatch;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> CountDownLatch L1 = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> CountDownLatch L2 = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">first</span><span class="params">(Runnable printFirst)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        printFirst.run();</span><br><span class="line">        L1.countDown();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">second</span><span class="params">(Runnable printSecond)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	L1.await();</span><br><span class="line">    	printSecond.run();</span><br><span class="line">    	L2.countDown();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">third</span><span class="params">(Runnable printThird)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	L2.await();</span><br><span class="line">    	printThird.run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>36 / 36 test cases passed.<br>Runtime: 9 ms, faster than 89.16% of Java online submissions for Print in Order.<br>Memory Usage: 35.4 MB, less than 100.00% of Java online submissions for Print in Order.</p>
+</blockquote>
+<h2 id="Phaser"><a href="#Phaser" class="headerlink" title="Phaser"></a>Phaser</h2><p><a href="https://leetcode.com/problems/print-in-order/discuss/333249/Java-Phaser-solution-very-fast" target="_blank" rel="noopener">Java Phaser solution, very fast</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.Phaser;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Phaser phaser;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		phaser = <span class="keyword">new</span> Phaser(<span class="number">3</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">first</span><span class="params">(Runnable printFirst)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">0</span>);</span><br><span class="line">        printFirst.run();</span><br><span class="line">        phaser.arrive();</span><br><span class="line">        phaser.arrive();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">second</span><span class="params">(Runnable printSecond)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">0</span>);</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">1</span>);</span><br><span class="line">    	printSecond.run();</span><br><span class="line">    	phaser.arrive();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">third</span><span class="params">(Runnable printThird)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">0</span>);</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">1</span>);</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">2</span>);</span><br><span class="line">    	printThird.run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>36 / 36 test cases passed.<br>Runtime: 10 ms, faster than 55.92% of Java online submissions for Print in Order.<br>Memory Usage: 36 MB, less than 100.00% of Java online submissions for Print in Order.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/08/08/LeetCode-Concurrency-Print-in-Order/" data-id="ck57hm12g004v7wvgc1ggb99p" data-title="LeetCode - Concurrency - 1114. Print in Order" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/" rel="tag">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-my-social-media-tweets" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/07/31/my-social-media-tweets/" class="article-date">
+  <time class="dt-published" datetime="2019-07-31T16:26:30.000Z" itemprop="datePublished">2019-07-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/07/31/my-social-media-tweets/">网络社区自媒体胡言乱语</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Facebook"><a href="#Facebook" class="headerlink" title="Facebook"></a>Facebook</h1><blockquote>
+<p>Our main business is not to see what lies dimly at a distance, but to do what lies clearly at hand.</p>
+</blockquote>
+<blockquote>
+<p>吾生也有涯，而知也无涯，以有涯随无涯，殆矣。<br>少则得，多则惑。</p>
+</blockquote>
+<blockquote>
+<p>在时间这条路上，我们回不去</p>
+</blockquote>
+<blockquote>
+<p>后天习得对人类有更大的作用，先天本能对动物更为重要。</p>
+</blockquote>
+<blockquote>
+<p>两点一线上的提线木偶，<br>在四维一体的时空流形中穿梭，<br>碌碌繁忙如蚂蚁<br>丢魂落魄的行尸走肉在游街示众</p>
+</blockquote>
+<blockquote>
+<p>人总是会在某种意义上得到他想要的，因为人本来就不清楚他想要的是什么，所谓的奋斗，最终被证明不过是冲动，但如果连冲动都没有了，那不就成了废人一个，更无可救药了。</p>
+</blockquote>
+<blockquote>
+<p>希望与洞察力是照亮我们生活的阳光，世界是概率驱动的，现在独一无二，未来却是平行宇宙</p>
+</blockquote>
+<blockquote>
+<p>今天的我是昨天的我选择的结果，明天的我将是今天的我选择的结果，我们就这样在一天天地选择着未来的自己，我的选择就是我的未来，我的习性就是我的选择。</p>
+</blockquote>
+<blockquote>
+<p>大多数人，都是自己的热情和欲念的奴隶。</p>
+</blockquote>
+<blockquote>
+<p>所谓的活着，不过是在浪费粮食污染环境。</p>
+</blockquote>
+<blockquote>
+<p>心肠硬的人信仰唯物论，心肠软的信仰唯心论</p>
+</blockquote>
+<blockquote>
+<p>这是一个马太效应、赢家通吃的社会</p>
+</blockquote>
+<h1 id="豆瓣"><a href="#豆瓣" class="headerlink" title="豆瓣"></a>豆瓣</h1><blockquote>
+<p>“我希望他们不要和我讨论这个问题，这个问题我已经几十年不做了，因为我觉得没有什么希望再做下去了。不要认为陈景润做出‘1＋2’，还差一步就做出‘1＋1’。是的，就是这一步；但这一步根本就大得不得了，这一步比90年来走过的路还要长。”王元说。<br>美国加州大学洛杉矶分校的华裔数学家陶哲轩是2006年数学菲尔茨奖获得者之一。王元说：“陶哲轩应该是最近几十年来全世界做得最好的两位数学家之一，他的目标之一就是要证明‘1＋1’，他现在做出来的结果也很好，但他在很多次报告中都讲，他的方法不可能证明‘1＋1’。”</p>
+</blockquote>
+<blockquote>
+<p>“民科”和“民哲”不仅在思维、心理上高度相似，就像是同一个心理物种，而且甚至可以相互转化，成为相同的社会物种。</p>
+</blockquote>
+<blockquote>
+<p>我是宇宙的一块拼图，体量上也许微不足道，但个性上可能独一无二。</p>
+</blockquote>
+<blockquote>
+<p>伽罗瓦：扩域。黎曼：解析延拓。Cohen：力迫，扩张模型。朗兰兹：数学分支奇妙的内在联系</p>
+</blockquote>
+<blockquote>
+<p>囤书如山倒，读书如抽丝，我早已经囤下后半辈子都读不完的书，但出于占有欲，我还是不断在买书。——《人生有什么非占有不可的吗》静岛</p>
+</blockquote>
+<blockquote>
+<p>电视时代，沙发上的土豆。触屏时代，低头的屏奴。娱乐至死的时代。唯一能安慰我们之可悲的东西就是消遣，可是它也是我们可悲之中的最大的可悲。……若是没有它，我们就会陷于无聊，而这种无聊就会推动我们去寻找一种更牢靠的解脱办法了。可是消遣却使得我们开心，并使我们不知不觉地走到死亡。</p>
+</blockquote>
+<blockquote>
+<p>一位北大数学系某级专业成绩第一名的毕业生告诉我，当年他之所以没有选择做职业数学家，正是因为从数学家的故事里听出了高风险性，他从而决定选择金融——可见数学这个行业的风险性高于金融业。</p>
+</blockquote>
+<blockquote>
+<p>乔治·华盛顿曾经说过：”如果被剥夺了言论自由，我们就会变得愚笨沉默，如绵羊般被拉向屠宰场。”</p>
+</blockquote>
+<blockquote>
+<p>第一性原理（First principle thinking，又称“第一原理”）由亚里士多德表述：在每一系统的探索中，存在第一原理，是一个最基本的命题或假设，不能被省略或删除，也不能被违反。</p>
+</blockquote>
+<blockquote>
+<p>我们这些没本事的平庸之人，只能堕入“拿命换钱，拿钱续命”的有限循环螺旋式死亡之旅。</p>
+</blockquote>
+<blockquote>
+<p>衰老是慢性病？</p>
+</blockquote>
+<blockquote>
+<p>约西亚·威拉德·吉布斯：科学存在一种建设力，能从混沌中重建次序；科学存在一种分析力，能够区分真实与虚假；科学存在一种整合力，能看到一个真理而没哟忘记另一个真理；拥有这三种才能的，才是真正的科学家。 天才敬天才，麦克斯韦和爱因斯坦都赞赏吉布斯。</p>
+</blockquote>
+<blockquote>
+<p>Bitcoin has evolved to become better-suited to being an asset than being a means of exchange.</p>
+</blockquote>
+<blockquote>
+<p>手游让我们娱乐至死</p>
+</blockquote>
+<blockquote>
+<p>你的兴趣，是痴心迷恋的真兴趣？还是叶公好龙的假爱好？</p>
+</blockquote>
+<blockquote>
+<p>在朋友圈装逼，在微信群卖傻</p>
+</blockquote>
+<blockquote>
+<p>Well-being and happiness never appeared to me as an absolute aim. I am even inclined to compare such moral aims to the ambitions of a pig.</p>
+</blockquote>
+<blockquote>
+<p>苏东坡：<br>人生到处知何似，应似飞鸿踏雪泥。<br>泥上偶然留指爪，鸿飞那复计东西。<br>纳兰性德：<br>人生若只如初见，何事秋风悲画扇。等闲变却故人心，却道故人心易变。</p>
+</blockquote>
+<blockquote>
+<p>希尔伯特：哥廷根随便找个学数学的小孩都比爱因斯坦更懂黎曼几何，但广义相对论只有爱因斯坦才能想得明白。<br>陈省身：我不久即看到爱因斯坦所遭遇的问题之极度困难与数学及物理学的不同。不知道他的物理如何？数学也就那样。丛和联络的概念都很简洁，爱因斯坦会喜欢的。</p>
+</blockquote>
+<blockquote>
+<p>余英时： 西方经典《赞愚》中就说，越是愚钝的人越有智慧，愚钝的人不是言词辩诘，而是对人生有某些很深的体验。越聪明的人越是糟糕，聪明等于是一个工具，就像科技一样… - 精神空虚的中国没有大师</p>
+</blockquote>
+<blockquote>
+<p>看来对阮一峰、李笑来这样的知识精英来说，彼得·德鲁克预言的知识社会已经来临</p>
+</blockquote>
+<blockquote>
+<p>许知远： 利润，如今变成了连接这个国家的纽带，看看今天中国人信仰的庸俗哲学吧：一切都是利益驱动的，一切现象都可以通过利益来解释。 - 价值的真空</p>
+</blockquote>
+<blockquote>
+<p>欧拉全集75卷，黎曼全集1卷，欧拉是高斯的祖父辈，欧拉比高斯大了整整七十岁，高斯是黎曼的伯父辈，高斯比黎曼大四十九岁。黎曼为了证明高斯关于素数密度可以用对数积分来估计的猜想，把欧拉乘积恒等式推广到复域，提出了zeta函数及其函数方程，为素数定理的证明理清了理路。</p>
+</blockquote>
+<blockquote>
+<p>浮生若梦，人生几何？有首流行歌曲叫《光阴的故事》，有部情景喜剧叫《成长的烦恼》</p>
+</blockquote>
+<blockquote>
+<p>高科技就是银弹?</p>
+</blockquote>
+<blockquote>
+<p>最常用的聊天语气词：嗯嗯，哈哈和呵呵。嗯是冷漠，嗯嗯是温柔，嗯嗯嗯是不耐烦。</p>
+</blockquote>
+<blockquote>
+<p>天才通常被认为都有点怪僻：牛顿，脾气暴躁；纳什（John Nash），妄想狂；佩雷尔曼（Grigory Perelman），喜欢留长指甲。然而，陶哲轩却是“超级正常”，以至于他的学生开玩笑的说，在许多方面陶哲轩违背了好莱坞的疯狂天才定义，好莱坞不会拍任何陶的电影。</p>
+</blockquote>
+<blockquote>
+<p>耶稣会的教士都接受过良好的欧洲人文教育并经受过准军事训练，利玛窦、汤若望、南怀仁都是这一组织中出类拔萃的人才，他们身后有足够的支持，供他们以精密的仪器、华美的书籍、先进的技术赢得中国上流社会的青睐。</p>
+</blockquote>
+<blockquote>
+<p>有时我觉得自己学习中文非常有益，陶冶性灵，但更多的时候，我觉得自己是中毒太深，不敢再把情绪放纵到诗与文里面，以免如梦如幻，贻误终身。</p>
+</blockquote>
+<blockquote>
+<p>志大才疏，眼高手低。<br>心比天高，命如纸薄。<br>平淡是真，从容难能。<br>心态平和，神清气爽。</p>
+</blockquote>
+<blockquote>
+<p>西奥多·罗斯福把这些喜欢揭露社会阴暗面的记者称为“扒粪者”（muckraker），但他肯定了这些揭露社会黑暗的记者们的价值，认为只有把丑恶暴露在阳光下，社会才可能改善。前后持续十几年的“扒粪运动”,有效地净化了美国的政治和商务生态，也给美国新闻行业建立了“调查”和“批评”的传统。</p>
+</blockquote>
+<blockquote>
+<p>如果世界有本源的话，世界的大本大源必定是守恒的吧，能量守恒、动量守恒、角动量守恒，麦克斯韦妖、拉普拉斯妖、黑洞熵，负熵之秩序的原素或许也是守恒的。</p>
+</blockquote>
+<blockquote>
+<p>弗里曼·戴森认为博士制度令人讨厌, Freeman Dyson没有博士学位。<br>博士制度是在19世纪为了教育德国教授而发明的，它适合那些少数将要终身当教授的人，但现在却变成了为了工作而必须获得的某种会员卡，无论是成为教授还是从事其它职业。它迫使人们浪费许多年的时间和生命，去假装做一些他们其实完全不适合的研究。</p>
+</blockquote>
+<blockquote>
+<p>民科的命操牛顿的心</p>
+</blockquote>
+<blockquote>
+<p>工作撵跑三个魔鬼：无聊、堕落和贫穷。</p>
+</blockquote>
+<blockquote>
+<p>浮生若梦，人生最大的痛苦是梦醒了发现自己无路可走。</p>
+</blockquote>
+<h1 id="微博"><a href="#微博" class="headerlink" title="微博"></a>微博</h1><blockquote>
+<p>元旦紧随圣诞节，环球都在辞旧迎新。浩瀚的宇宙中，地球母亲环抱着我们这些个天天制造垃圾的坏儿女，又绕着太阳这个生养万物的核反应堆转了一圈。老丁把一袋生活垃圾投进公寓楼前的不可回收垃圾桶里，有些自责，又明知故犯地对生态下了次毒手，感到所谓的活着，似乎不过是在浪费粮食污染环境。</p>
+</blockquote>
+<blockquote>
+<p>社会是最高的那所大学，没有围墙的、最open的大学。自学能力是最高的那个学位，无冕的、最high的学位。</p>
+</blockquote>
+<blockquote>
+<p>《道德经》中“修之于身，其德乃真”的本义，似乎不是在嘲笑那些伪君子言行不一“说一套、做一套”、仁义道德嘴把式，而是：尽管你认同那些更有利于使你“做最好的自己”的种种道理，你却不能够把它们身体力行，这些能够“德润身”的道理就只是些虚的道理，而坏习惯依旧像鬼魂一样形影不离地笼罩着你。 ​​​​</p>
+</blockquote>
+<blockquote>
+<p>明-洪应明-菜根谭：迷则乐境成苦海，悟则苦海为乐境。John Milton, Paradise Lost: The mind is its own place, and in it self Can make a Heav’n of Hell, a Hell of Heav’n.</p>
+</blockquote>
+<blockquote>
+<p>“饭吃七分饱”的富兰克林表达法：在我见到的人中，饿死的人寥寥无几，撑死的人倒有成千上万。 Eat not to Dulness. Drink not to Elevation.</p>
+</blockquote>
+<blockquote>
+<p>相当一部分中国公民以经济为惟一生活目标。科名之心不可有，经济之才不可无。Money talks. In God we trust, the rest pay cash. Money changed hands. ​​​​</p>
+</blockquote>
+<blockquote>
+<p>有没有一个科学的价值观？什么样的价值观能让我不卑不亢？什么样的价值观能让我心平气和？什么样的价值观能让我泰然自若？内隐的价值观，挥之不去的内心指令，根深蒂固的核心假设，心理捷径累积成思维定势，生活的磨砺在内心深处的沉淀，价值的迷失是全盘的迷失，是注定要误入歧途、无可救药的迷失。</p>
+</blockquote>
+<blockquote>
+<p>子不语怪、力、乱、神。知之为知之，不知为不知，是知也。子曰：未知生，焉知死？未能事人，焉能事鬼？敬鬼神而远之。～ 疑邻偷斧，疑心生暗鬼。～ 精气为物，游魂为变。～ 一念之善，吉神随之；一念之恶，厉鬼尾之。～ 暗示能作用于心理，人的知觉伴生错觉甚至幻觉，居心不良的人就有可能在其中搞鬼。 ​​​​</p>
+</blockquote>
+<blockquote>
+<p>十大讨厌鬼：① 烈火战车：他怕是吃着炸药了！② 暗箭伤人 的“狙击手”： 玩阴的！③ 万事通先生：什么都懂，又什么都不懂！④ 自以为是的半瓶醋：一瓶不摇半瓶摇，一知半解危害大！⑤ 一触即发的手榴弹：惹不起啊，离他远点！ ⑥ 满口应承的好好先生：口是心非，请你别敷衍我！⑦ 犹豫不决的或许先生：布利丹的驴，你倒是拿个主意呀！⑧ 闷不吭声的没事先生：有嘴巴不能光用来吃饭，你倒是开口说话呀！⑨ 负面思考者：一个人，就是他整天所想的那些，他怎可能是别种样子呢？⑩ 牢骚大王：听其言，即知其人。</p>
+</blockquote>
+<blockquote>
+<p>德裔美籍数学家 Hans Lewy（烈伟，1904～1988，R.柯朗（D.希尔伯特的学生）的学生）曾以数学家的口吻说道：“在许多方面分析（即逻辑严谨的微积分）比其它一些数学分支更接近于生活。”意思好像是说数学分析的问题不管是陈述、前提，还是结论、趋势都不是那么清晰明了，需要下功夫，如同生活的真面目。 ​​​​</p>
+</blockquote>
+<blockquote>
+<p>E.T.BELL数学三清最得意的成就：① Αρχιμήδης：球的体积计算公式，被刻在其墓碑上和菲尔兹奖章背面；② Newton：用三棱镜发现光的色散，牛顿自称：“在我看来，如果那不是迄今对自然的演变所作的最重要的发现，也是最有趣的发现。” ③  Gauß：高斯-博内公式，高斯称其为Theorema Egregium。</p>
+</blockquote>
+<blockquote>
+<p>19世纪并肩齐名的数学与物理的集大成者：黎曼（G.F.B.Riemann, 1826～1866），师承高斯、狄利克雷，黎曼几何、黎曼zeta函数等关键数学概念的首创者，堪称现代数学的摩西；麦克斯韦（James Clerk Maxwell，1831～1879），师承开尔文勋爵、斯托克斯爵士，巨著《电磁通论》让世界走上电气时代的康庄大道。 ​​​​</p>
+</blockquote>
+<blockquote>
+<p>德鲁克（管理学的Guru）针对知识社会的重要课题【自我管理】提了几个问题：1. 我的优势是什么？不要试图改变自己，这样做是不能成功的。相反，你需要用心改进做事的方式方法。不要采用你做不到或做得不好的方法来做事。2. 做事的方式方法？3. 价值观？4. 取舍？5. 我能贡献什么？6. 建设性的人际关系</p>
+</blockquote>
+<blockquote>
+<p>科学精神希冀人类的理性能够逼近三位一体的神所走的无穷的道路，于是有了集合论中的悖论和量子力学中的佯谬。罗素理发师悖论：朴素集合论经不起推敲；巴拿赫-塔斯基悖论：选择公理会变魔术；波粒二象性佯谬：实相无相，微妙法门；测量佯谬：波包一测就塌缩。薛定谔的猫到底是活着还是死了？这很难说。 ​​​​</p>
+</blockquote>
+<blockquote>
+<p>科学家的临终憾事：爱因斯坦：统一场论，规范场纲领已经形式上统一了电弱强这三种基本力，但引力很难纳入规范场纲领；海森堡：湍流，虽然以测不准原理而闻名于世，但海森堡的博士论文却是-《关于流体运动的层流和湍流》；哈代：黎曼假设，我敢说没有一种微积分和伽罗瓦理论那样的新思想新方法，甭想证明RH； </p>
+</blockquote>
+<blockquote>
+<p>美国很有创造性的微分几何学家 H.惠特尼对数学的研究与学习的方法论方面有相当独到的见解，他认为最好的学习方法是学以致用，没有自己的想法那不是真正的学习，他对研究过程的描述相当吻合认知心理学关于知识的心理表征、认知地图、图式、问题解决与创造性的观点。 ​​​​</p>
+</blockquote>
+<blockquote>
+<p>在科学天才的头脑中进化着的科学方程，是造物主的十四行诗。牛顿以横绝一世的数学才能综合出让天文学家奉为圭皋的万有引力定律，爱因斯坦以最能体现理性思维张力的广义相对论引力场方程超越之；麦克斯韦提炼整理出以对称之美著称的电磁场方程组，狄拉克以魔法般的相对论性量子电动力学方程组逾越之。</p>
+</blockquote>
+<blockquote>
+<p>微积分的书何其多矣，但最好的两套恐怕是：① 纯数学家哈代的分析学名著《纯数学》，哈代及其剑桥分析学派主要研究分析和数论，所以偏于纯粹数学，第一章是永恒的名篇；② 应用数学家柯朗的《微积分和数学分析引论》，多元微积分、微分方程部分更为精彩。最好是两套都学一学，纯粹数学与应用数学并举。</p>
+</blockquote>
+<blockquote>
+<p>《社会的管理》结尾写道：从机械的宇宙向生物的宇宙的转变，最终将需要一种新的哲学综合。康德也许会把它叫做Einsicht或叫做一种“纯粹洞察批判”。这是Peter F. Drucker的原话，还是选编者 Atsuo Ueda（笃男植田）添油加醋的话？</p>
+</blockquote>
+<blockquote>
+<p>爱因斯坦是有哲学气质的大科学家：① 使一切尽可能简单，但不要超过简单性的极限。② 任何事情都是相对的，有些事情，特别是光速，不是相对的。③ 提问题的思维水平不足以解决问题，但提出一个问题往往比解决一个问题更重要，因为提出新的问题、新的可能性，从新的角度看旧问题，需要创造性的想像力。</p>
+</blockquote>
+<blockquote>
+<p>［杏花］暖气潜催次第春，梅花已谢杏花新。赵村红杏每年开，十五年来看几回？又是一年芳草绿，依然十里杏花红。纵被春风吹作雪，绝胜南陌碾成尘。 ［玉兰］如此高花白于雪，年年偏是斗风开。绰约新妆玉有辉，素娥千队雪成围。翠条多力引风长，点破银花玉雪香。年年岁岁花相似，岁岁年年人不同。</p>
+</blockquote>
+<blockquote>
+<p>针对物理学家 Eugene Wigner（尤金·维格纳，1902—1995）“数学在物理学中不可思议的有效性”的说法，数学家 Israïl Moseevich Gelfand（I.M.盖尔范德，1913—2009）说了句饶舌的俏皮话：这世上惟一比“数学在物理学中不可思议的有效性”更加不可思议的是“数学在生物学中不可思议的无效性”。</p>
+</blockquote>
+<blockquote>
+<p>公理化的祖师爷Εὐκλείδης的传说（文学色彩浓郁，但不乏可信度）：① 柏拉图学院标榜“不懂几何者勿入”，托勒密王欲学几何，咨询祖师有无捷径，答曰：“几何学无王道”。② 某生问几何何利之有？祖师嘱其仆予此生一金币，耻之曰：“孺子欲图利于几何”，谓众人曰：“是知识就值得学习”。</p>
+</blockquote>
+<blockquote>
+<p>科学精神的理念旨在寻求自洽、贯通、循序的理路，它的困难在于要借助最终展现为逻辑链路的思维去探究一个非线性的、无穷维自由度的、混沌的世界，它的稳妥、公信力与继往开来式发展使它永远存在着揭不开的谜团，它寻求的是“人同此心，心同此理”的道与理，而非“只可意会，不可言传”的感与悟。</p>
+</blockquote>
+<blockquote>
+<p>微分方程之于物理，如同微积分之于数学。在理论物理中，微分方程几乎就是数学模型的同义词。① 按海森堡的说法，现代流体力学的奠基人普朗特无需计算就能“看出”微分方程的解；② 狄拉克：当我无需实际去解就可以预见方程的解的行为时，我算是理解了这个方程。③  狄拉克：我大量的工作花在玩方程上。</p>
+</blockquote>
+<blockquote>
+<p>阔气的数学家：① 朗道：有人问如何在哥廷根找到他家，他漫不经心地说：“很好找，就是城里最好的那座房子”。② 邦别艾里：年轻时开着炫目的跑车参加欧洲学术会议，他的父亲答应他如果他能解决黎曼假设，就给他买辆法拉利。③ 西蒙斯：身家几十亿的富翁数学家，与陈省身合作提出陈-西蒙斯拓扑不变式。</p>
+</blockquote>
+<blockquote>
+<p>① 德鲁克：杯子“半满”与“半空”描述的是同一现象，含义却迥然不同，从“半满”看到“半空”意味着看到潜藏的机会。② 陈省身：三角形的“内角和等于π”与“外角和等于2π”等价，但从“为了正确的推广而表现出的形式适应性”而言后者更优越，后者适用于任何多边形，外角和是多边形的一个不变量。</p>
+<p>“一切都是命，半点不由人”那是消极的宿命论，但世界亦非测不准原理衍生出的骰子般完全随机，世界的本相更接近于素数序列内蕴的伪随机，整体正则而局部近乎随机，蕴自由于法则，素数序列似乎是伪随机的极限，即素数没有生成公式，素数从点上而言是测不准的，能估计的只有它的拟对数积分变化的密度。</p>
+<p>胆识决定选择，选择铸就未来。</p>
+<p>发扬光大分形几何的曼德勃罗和发现耗散结构的普里高津有点像，都有首创性的贡献，又都喜欢兜售他们的创见。</p>
+<p>只有科学的进步才像太阳的光辉一样普照芸芸众生，我想把人类的希望寄托在以Clay千年难题为代表的越来越难啃的科学难题身上。</p>
+<p>工作是银，健康是金。1992年世界卫生组织在加拿大维多利亚召开的国际心脏健康会议上发表的关于保健的《维多利亚宣言》认为健康的四大基石是：1、均衡膳食，2、戒烟限酒，3、适量运动，4、心理平衡。 ​​​​</p>
+<p>1976年愚人节，乔布斯和沃兹尼克、Ron Wayne一起创建了苹果公司，11天后Ron Wayne选择了退出，并把他名下如今价值220亿美元的10%股权以800美元卖给了乔布斯和沃兹尼克。 ​​​​有个CNN记者采访了与巨额财富失之交臂的Ron Wayne，Ron Wayne说道:”What can I say? You make a decision based on your understanding of the circumstances, and you live with it, But when you’re at a focal point of history, you don’t realize you’re at a focal point of history.” ​​​​</p>
+<p>在不知不觉中，我们身不由己地被无认知而显神秘的未知之合力所冲撞，事后联想前因后果，自我宽慰说，命运捉弄人，缘份说不清。生有涯而知无涯，难得糊涂。 ​​​​</p>
+<p>生命是上帝在四维时空流形中吹起的负熵的气泡，终将因按对数函数变化的熵增而回归死寂的平衡态。人得气之全，物得气之偏。</p>
+<p>周鸿祎：Overture是付费点击模式的鼻祖，Overture创造的付费点击模式确实为广告客户创造了商业价值，但是作为寄生于搜索引擎的企业，Overture却并没有为用户创造价值，最后落入被雅虎收购的命运。最后是Google的AdWords将搜索引擎的用户价值和Overture的付费点击模式完美地结合在一起。 ​​​​</p>
+<p>1941年秋，傅斯年（ 中研院史语所所长，兼任北大文科研究所所长）对王叔岷（川大中文系毕业生）说：＂要把才子气洗干净，三年之内不许发表文章！＂​​​​​​​​​​​​​​​​​​​​</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/07/31/my-social-media-tweets/" data-id="ck57hm13j007y7wvgh0krauyh" data-title="网络社区自媒体胡言乱语" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-react-native-cheat-sheet" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2019/06/30/react-native-cheat-sheet/" class="article-date">
@@ -4256,156 +4600,6 @@
 
 
   
-    <article id="post-LeetCode-Algorithms-Wildcard-Matching" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/03/26/LeetCode-Algorithms-Wildcard-Matching/" class="article-date">
-  <time class="dt-published" datetime="2019-03-26T04:33:22.000Z" itemprop="datePublished">2019-03-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/03/26/LeetCode-Algorithms-Wildcard-Matching/">LeetCode - Algorithms - 44. Wildcard Matching</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Only mark. It’s an example of dynamic programming.<br>I don’t know how to solve it, what’s more, I can’t understand the answer of others, so I run code of others on leetcode.</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p>by XN W</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isMatch</span><span class="params">(String s, String p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> pl = <span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; p.length(); i++) &#123;  </span><br><span class="line">             <span class="keyword">if</span> (p.charAt(i) != <span class="string">'*'</span>) &#123;  </span><br><span class="line">                  pl++;  </span><br><span class="line">             &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span> (pl &gt; s.length()) &#123;  </span><br><span class="line">             <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span> (s.length() == <span class="number">0</span> &amp;&amp; pl == <span class="number">0</span>) &#123;  </span><br><span class="line">             <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">boolean</span>[][] store = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">2</span>][s.length() + <span class="number">1</span>];  </span><br><span class="line">        store[<span class="number">0</span>][<span class="number">0</span>] = <span class="keyword">true</span>;  </span><br><span class="line">        store[<span class="number">1</span>][<span class="number">0</span>] = <span class="keyword">false</span>;   </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> ps = <span class="number">1</span>; ps &lt;= p.length(); ps++) &#123;</span><br><span class="line">             <span class="keyword">if</span> (p.charAt(ps - <span class="number">1</span>) == <span class="string">'*'</span>) &#123;  </span><br><span class="line">                  store[<span class="number">1</span>][<span class="number">0</span>] = store[<span class="number">0</span>][<span class="number">0</span>];  </span><br><span class="line">             &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">                  store[<span class="number">1</span>][<span class="number">0</span>] = <span class="keyword">false</span>;  </span><br><span class="line">             &#125;  </span><br><span class="line">             <span class="keyword">for</span> (<span class="keyword">int</span> ss = <span class="number">1</span>; ss &lt;= s.length(); ss++) &#123;  </span><br><span class="line">                  <span class="keyword">if</span> (p.charAt(ps - <span class="number">1</span>) == <span class="string">'?'</span>  </span><br><span class="line">                            || p.charAt(ps - <span class="number">1</span>) == s.charAt(ss - <span class="number">1</span>)) &#123;  </span><br><span class="line">                       store[<span class="number">1</span>][ss] = store[<span class="number">0</span>][ss - <span class="number">1</span>];  </span><br><span class="line">                  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (p.charAt(ps - <span class="number">1</span>) != <span class="string">'*'</span>) &#123;  </span><br><span class="line">                       store[<span class="number">1</span>][ss] = <span class="keyword">false</span>;  </span><br><span class="line">                  &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">                       store[<span class="number">1</span>][ss] = store[<span class="number">0</span>][ss - <span class="number">1</span>] || store[<span class="number">1</span>][ss - <span class="number">1</span>]  </span><br><span class="line">                                 || store[<span class="number">0</span>][ss];  </span><br><span class="line">                  &#125;  </span><br><span class="line">             &#125;  </span><br><span class="line">             <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= s.length(); i++) &#123;  </span><br><span class="line">                  store[<span class="number">0</span>][i] = store[<span class="number">1</span>][i];  </span><br><span class="line">             &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> store[<span class="number">1</span>][s.length()];      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><p>by XN W</p>
-<ul>
-<li>1808 / 1808 test cases passed.</li>
-<li>Runtime: 7 ms, faster than 100.00% of Java online submissions for Wildcard Matching.</li>
-<li>Memory Usage: 37.7 MB, less than 93.46% of Java online submissions for Wildcard Matching.</li>
-</ul>
-<h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><p><a href="http://vialgorithms.blogspot.com/2013/11/wildcard-matching.html" target="_blank" rel="noopener">Wildcard Matching</a></p>
-<blockquote>
-<p>I hate this algorithms!! Seriously!!!</p>
-</blockquote>
-<ol>
-<li>recursive way</li>
-<li>DP way</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/03/26/LeetCode-Algorithms-Wildcard-Matching/" data-id="ck57hm12b004l7wvg7jfpfs1r" data-title="LeetCode - Algorithms - 44. Wildcard Matching" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-Let-us-communicate" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/03/20/Let-us-communicate/" class="article-date">
-  <time class="dt-published" datetime="2019-03-20T15:56:15.000Z" itemprop="datePublished">2019-03-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/03/20/Let-us-communicate/">Let&#39;s communicate</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <div style="background-color:#008000;color:#ffffff;padding:0.5em;margin:0.5em; font-size:x-large; line-height:1.5em">This material is from <span style="font-family: Monotype Corsiva, Comic Sans MS, sans-serif">Bill Blair</span>, A respectful elder gentleman. Mr. Blair is a canadian volunteer english language tutor lived in Waterloo.</div>
-
-<h2 id="Asking-someone-to-say-something-again"><a href="#Asking-someone-to-say-something-again" class="headerlink" title="Asking someone to say something again"></a>Asking someone to say something again</h2><blockquote>
-<p>Pardon?<br>I’m sorry I didn’t hear / catch what you said.<br>Would / Could you say that again, please?<br>Would / Could you repeat what you said, please?<br>I’m sorry, what did you say?<br>What was that?<br><em>Informal</em>: What was that again …?<br><em>very informal</em>: What? ? Eh? Mm?</p>
-</blockquote>
-<h2 id="Checking-you-have-understood"><a href="#Checking-you-have-understood" class="headerlink" title="Checking you have understood"></a>Checking you have understood</h2><blockquote>
-<p>So, …<br>Does that mean …?<br>Do you mean …?<br>If I understand right …<br>I’m not sure I understand. Does that mean …?</p>
-</blockquote>
-<h2 id="Saying-something-another-way"><a href="#Saying-something-another-way" class="headerlink" title="Saying something another way"></a>Saying something another way</h2><blockquote>
-<p>In other words, …<br>That means …<br>What I mean is …<br>That’s to say …<br>…., or rather …<br>What I’m trying to say is …<br>What I’m driving at / getting at is …</p>
-</blockquote>
-<h2 id="Giving-yourself-time-to-think"><a href="#Giving-yourself-time-to-think" class="headerlink" title="Giving yourself time to think"></a>Giving yourself time to think</h2><blockquote>
-<p>…. oh / er / um, …<br>Let me see / think …<br>…. just a moment, …<br>…. you see, …<br>…. you know, …<br>How shall I put it?<br>…. now what’s the word … ?</p>
-</blockquote>
-<h2 id="Checking-someone-has-understood-you"><a href="#Checking-someone-has-understood-you" class="headerlink" title="Checking someone has understood you"></a>Checking someone has understood you</h2><blockquote>
-<p>Do you know what I mean?<br>…. if you see what I mean.<br>I hope that’s clear.<br>Do I make myself clear?</p>
-</blockquote>
-<p><em>informal</em>: </p>
-<blockquote>
-<p>Are you with me?<br>Get it?<br>Right?</p>
-</blockquote>
-<p><em>Very informal</em>:</p>
-<blockquote>
-<p>Got the message?</p>
-</blockquote>
-<h2 id="Changing-the-subject"><a href="#Changing-the-subject" class="headerlink" title="Changing the subject"></a>Changing the subject</h2><blockquote>
-<p>…., by the way, …<br>…., before I forget, …<br>…., I nearly forgot, …</p>
-</blockquote>
-<h2 id="You-want-to-add-something"><a href="#You-want-to-add-something" class="headerlink" title="You want to add something"></a>You want to add something</h2><blockquote>
-<p>I’d like to make another point.<br>I’d also like to say …</p>
-</blockquote>
-<h2 id="You-need-help"><a href="#You-need-help" class="headerlink" title="You need help"></a>You need help</h2><blockquote>
-<p>I don’t understand, I’m sorry.<br>I’m not sure I understand what you mean.<br>What’s the meaning of …?<br>What does the word … mean?<br>What’s the French / the English word for …?<br>I didn’t hear what you said.</p>
-</blockquote>
-<p>Can you / Could you / Would you</p>
-<blockquote>
-<p>repeat, please?<br>say it again, please?<br>explain it again, please?<br>spell that word, please?<br>write it on the board, please?<br>speak louder / up, please?<br>speak more slowly, please?</p>
-</blockquote>
-<blockquote>
-<p>Could you step aside, please? I can’t see the board.</p>
-</blockquote>
-<h2 id="You-want-to-apologize"><a href="#You-want-to-apologize" class="headerlink" title="You want to apologize"></a>You want to apologize</h2><blockquote>
-<p>Sorry, I’m late.<br>I apologize for being late.<br>I’m afraid I’ve forgotten my workbook.</p>
-</blockquote>
-<h2 id="Don’t-be-dumb"><a href="#Don’t-be-dumb" class="headerlink" title="Don’t be dumb"></a>Don’t be dumb</h2><blockquote>
-<p>I’m afraid I don’t know.<br>I haven’t a clue.<br>I’m afraid I haven’t got the faintest / slightest idea.<br>I’m terribly sorry but I haven’t understood the question.<br>Sorry I don’t know what you mean.<br>I’m not sure I can answer.<br>I’ve no idea (about) what I am expected to do.<br>I wish I knew.<br>I must admit I don’t know much about this problem.<br>I’m sorry but I don’t know what to say.</p>
-</blockquote>
-<h2 id="Showing-you’re-interested"><a href="#Showing-you’re-interested" class="headerlink" title="Showing you’re interested"></a>Showing you’re interested</h2><blockquote>
-<p>Uh, uh (↗↘)<br>I see … (↗↘)<br>Really? (↗)<br>Oh, yes. (↗↘)<br>How interesting!(↗↘)<br>I know / see what you mean.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/03/20/Let-us-communicate/" data-id="ck57hm12d004o7wvg0bpkc5ki" data-title="Let&#39;s communicate" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bill-Blair/" rel="tag">Bill Blair</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -4434,7 +4628,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 11.11px;">Array</a> <a href="/tags/BFS/" style="font-size: 12.22px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 11.11px;">Bill Blair</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 12.22px;">DFS</a> <a href="/tags/DP/" style="font-size: 15.56px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 10px;">Divide and Conquer</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.89px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 13.33px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 11.11px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 11.11px;">React.js</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 10px;">Sort</a> <a href="/tags/Spring/" style="font-size: 12.22px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 11.11px;">Spring Boot</a> <a href="/tags/TED/" style="font-size: 11.11px;">TED</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 13.33px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 11.11px;">Topological Sort</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 10px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 11.11px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 17.78px;">english</a> <a href="/tags/git/" style="font-size: 11.11px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 11.11px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/history-of-mathematics/" style="font-size: 13.33px;">history of mathematics</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/javascript/" style="font-size: 11.11px;">javascript</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 11.11px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 12.22px;">mysql</a> <a href="/tags/poem/" style="font-size: 10px;">poem</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 10px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 11.11px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12.22px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 14.44px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 11.11px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 11.11px;">Array</a> <a href="/tags/BFS/" style="font-size: 12.22px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 11.11px;">Bill Blair</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 12.22px;">DFS</a> <a href="/tags/DP/" style="font-size: 15.56px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 10px;">Divide and Conquer</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.89px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 13.33px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 11.11px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 11.11px;">React.js</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 10px;">Sort</a> <a href="/tags/Spring/" style="font-size: 12.22px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 11.11px;">Spring Boot</a> <a href="/tags/TED/" style="font-size: 11.11px;">TED</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 13.33px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 11.11px;">Topological Sort</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 10px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 11.11px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 17.78px;">english</a> <a href="/tags/git/" style="font-size: 11.11px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 11.11px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/history-of-mathematics/" style="font-size: 13.33px;">history of mathematics</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/javascript/" style="font-size: 11.11px;">javascript</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 11.11px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 12.22px;">mysql</a> <a href="/tags/poem/" style="font-size: 12.22px;">poem</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 10px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 11.11px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12.22px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 14.44px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 11.11px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -4456,6 +4650,14 @@
       <ul>
         
           <li>
+            <a href="/2020/01/24/do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye/">Do not stand at my grave and weep</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/24/no-man-is-an-island-John-Donne/">No man is an island</a>
+          </li>
+        
+          <li>
             <a href="/2020/01/20/postgres-cheatsheet/">Postgres Cheatsheet</a>
           </li>
         
@@ -4465,14 +4667,6 @@
         
           <li>
             <a href="/2020/01/14/The-Way-and-its-Power-Lao-Tzu/">道德經(老子) - The Way and its Power(Lao Tzu)</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/01/The-Year-Ella-Wheeler-Wilcox/">The Year</a>
-          </li>
-        
-          <li>
-            <a href="/2019/12/31/LeetCode-Algorithms-Number-of-Islands/">LeetCode - Algorithms - 200. Number of Islands</a>
           </li>
         
       </ul>
