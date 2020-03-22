@@ -75,6 +75,121 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-git-cmd" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/05/21/git-cmd/" class="article-date">
+  <time class="dt-published" datetime="2018-05-21T07:17:41.000Z" itemprop="datePublished">2018-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/05/21/git-cmd/">常用git命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><code>git init</code> 会将当前目录直接转换为 Git 工作目录并在此处创建的 .git（隐藏）目录中创建存储库。</p>
+<p>查看哪些文件处于什么状态<br>Show the working tree status<br><code>git status</code></p>
+<blockquote>
+<p>git status 有助于跟踪已添加的更改、未添加的更改以及更改所在的分支。</p>
+</blockquote>
+<p>查看尚未暂存的文件更新了哪些部分<br><code>git diff</code></p>
+<p>直接将远程镜像克隆到本地仓库<br><code>git clone git@github.com:sikaozhe1997/Xin-Yue.git</code></p>
+<p>查看远程仓库<br><code>git remote -v</code></p>
+<p>从远程获取最新版本到本地<br><code>git fetch origin master</code></p>
+<p>比较本地的仓库和远程参考的区别<br><code>git log -p master.. origin/master</code></p>
+<p>switch branches: <code>git checkout</code> &lt;branch&gt;</p>
+<p>switch branches with new branch created: <code>git checkout -b</code> &lt;branch&gt;</p>
+<p>view branches: <code>git branch</code></p>
+<p>add files: <code>git add</code> file1 file2</p>
+<p>commit: <code>git commit -m</code> “comments”</p>
+<h1 id="放弃修改"><a href="#放弃修改" class="headerlink" title="放弃修改"></a>放弃修改</h1><h2 id="没有使用git-add到暂存区"><a href="#没有使用git-add到暂存区" class="headerlink" title="没有使用git add到暂存区"></a>没有使用git add到暂存区</h2><p>git checkout – filename</p>
+<h2 id="已经git-add到暂存区"><a href="#已经git-add到暂存区" class="headerlink" title="已经git add到暂存区"></a>已经git add到暂存区</h2><p>git reset HEAD filename</p>
+<h2 id="git-add-amp-git-commit-之后"><a href="#git-add-amp-git-commit-之后" class="headerlink" title="git add &amp; git commit 之后"></a>git add &amp; git commit 之后</h2><p>git reset commit_id</p>
+<p>这个id是你想要回到的那个节点，可以通过 <code>git log</code> 查看</p>
+<h1 id="Configure-your-DVCS-username-for-commits"><a href="#Configure-your-DVCS-username-for-commits" class="headerlink" title="Configure your DVCS username for commits"></a>Configure your DVCS username for commits</h1><h2 id="global"><a href="#global" class="headerlink" title="global"></a>global</h2><p><code>git config --global user.name</code> “FIRST_NAME LAST_NAME”</p>
+<p><code>git config --global user.email</code> “<a href="mailto:MY_NAME@example.com">MY_NAME@example.com</a>“</p>
+<h2 id="repository-specific"><a href="#repository-specific" class="headerlink" title="repository-specific"></a>repository-specific</h2><p><code>git config user.name</code> “FIRST_NAME LAST_NAME”</p>
+<p><code>git config user.email</code> “<a href="mailto:MY_NAME@example.com">MY_NAME@example.com</a>“</p>
+<h1 id="git-stash"><a href="#git-stash" class="headerlink" title="git-stash"></a>git-stash</h1><ul>
+<li><p><code>git stash</code></p>
+</li>
+<li><p><code>git stash list</code></p>
+</li>
+<li><p><code>git stash apply</code></p>
+</li>
+<li><p><code>git stash apply stash@{1}</code></p>
+</li>
+<li><p><code>git stash drop stash@{0}</code></p>
+</li>
+<li><p><code>git stash save &quot;message&quot;</code></p>
+</li>
+<li><p><code>git stash pop stash@{1}</code></p>
+</li>
+</ul>
+<h2 id="pop-vs-apply"><a href="#pop-vs-apply" class="headerlink" title="pop vs apply"></a>pop vs apply</h2><ul>
+<li>pop : Remove a single stashed state from the stash list and apply it on top of the current working tree state</li>
+<li>apply: Like pop, but do not remove the state from the stash list.</li>
+</ul>
+<h1 id="checkout"><a href="#checkout" class="headerlink" title="checkout"></a>checkout</h1><ul>
+<li><code>git checkout --track</code> origin/newsletter</li>
+</ul>
+<p>Branch newsletter set up to track remote branch newsletter from origin.<br>Switched to a new branch ‘newsletter’</p>
+<ul>
+<li><code>git checkout</code> branch_name <code>--</code> paths</li>
+</ul>
+<h1 id="clone"><a href="#clone" class="headerlink" title="clone"></a>clone</h1><p><code>git clone --depth</code> 1 url</p>
+<p>Create a shallow clone with a history truncated to the latest commits.</p>
+<h1 id="del-branch"><a href="#del-branch" class="headerlink" title="del branch"></a>del branch</h1><ul>
+<li><code>git branch -d</code> branch_name</li>
+<li><code>git branch -D</code> branch_name</li>
+</ul>
+<p>The -d option stands for –delete, which would delete the local branch, only if you have already pushed and merged it with your remote branches.</p>
+<p>The -D option stands for –delete –force, which deletes the branch regardless of its push and merge status, so be careful using this one!</p>
+<h1 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h1><ul>
+<li><code>git diff</code> pom.xml</li>
+<li><code>git diff</code> branch1 branch2 – file</li>
+</ul>
+<h1 id="Unable-to-clone-Git-repository-due-to-self-signed-certificate"><a href="#Unable-to-clone-Git-repository-due-to-self-signed-certificate" class="headerlink" title="Unable to clone Git repository due to self signed certificate"></a>Unable to clone Git repository due to self signed certificate</h1><p><code>git config --global http.sslVerify false</code></p>
+<h1 id="Git-Pull-Vs-Git-Fetch"><a href="#Git-Pull-Vs-Git-Fetch" class="headerlink" title="Git Pull Vs Git Fetch"></a>Git Pull Vs Git Fetch</h1><h2 id="Fetch"><a href="#Fetch" class="headerlink" title="Fetch"></a>Fetch</h2><p>git fetch really only downloads new data from a remote repository - but it doesn’t integrate any of this new data into your working files. Fetch is great for getting a fresh view on all the things that happened in a remote repository.<br>Due to it’s “harmless” nature, you can rest assured: fetch will never manipulate, destroy, or screw up anything.</p>
+<h2 id="Pull"><a href="#Pull" class="headerlink" title="Pull"></a>Pull</h2><p>git pull, in contrast, is used with a different goal in mind: to update your current HEAD branch with the latest changes from the remote server. This means that pull not only downloads new data; it also directly integrates it into your current working copy files. This has a couple of consequences:</p>
+<ul>
+<li>Since “git pull” tries to merge remote changes with your local ones, a so-called “merge conflict” can occur. Check out our in-depth tutorial on How to deal with merge conflicts for more information.</li>
+<li>Like for many other actions, it’s highly recommended to start a “git pull” only with a clean working copy. This means that you should not have any uncommitted local changes before you pull. </li>
+</ul>
+<h1 id="keep-a-git-branch-in-sync-with-master"><a href="#keep-a-git-branch-in-sync-with-master" class="headerlink" title="keep a git branch in sync with master"></a>keep a git branch in sync with master</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line"></span><br><span class="line">git pull</span><br><span class="line"></span><br><span class="line">git checkout feature_branch</span><br><span class="line"></span><br><span class="line">git merge master</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line"></span><br><span class="line">git merge feature_branch</span><br><span class="line"></span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<h1 id="git-cherry-pick"><a href="#git-cherry-pick" class="headerlink" title="git-cherry-pick"></a>git-cherry-pick</h1><p>git cherry-pick master</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/05/21/git-cmd/" data-id="ck57hm13900747wvgfetld167" data-title="常用git命令" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-hexo-cmd" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2018/05/20/hexo-cmd/" class="article-date">
@@ -570,7 +685,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 13px;">Array</a> <a href="/tags/BFS/" style="font-size: 17px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 11px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 12px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 10px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 15px;">DFS</a> <a href="/tags/DP/" style="font-size: 16px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 10px;">Divide and Conquer</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/HackerRank/" style="font-size: 11px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 13px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 11px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 11px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 10px;">Sort</a> <a href="/tags/Spring/" style="font-size: 12px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 11px;">Spring Boot</a> <a href="/tags/TED/" style="font-size: 14px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 10px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 13px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 11px;">Topological Sort</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 11px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18px;">english</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/git/" style="font-size: 12px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 14px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 13px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 17px;">java</a> <a href="/tags/javascript/" style="font-size: 11px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 11px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 13px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 12px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 15px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10px;">recurrence</a> <a href="/tags/sql/" style="font-size: 11px;">sql</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 11px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 10px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 11px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 14px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 11px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 13px;">Array</a> <a href="/tags/BFS/" style="font-size: 17px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 11px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 12px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 10px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 15px;">DFS</a> <a href="/tags/DP/" style="font-size: 16px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 10px;">Divide and Conquer</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/HackerRank/" style="font-size: 11px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 13px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 11px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 11px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 10px;">Sort</a> <a href="/tags/Spring/" style="font-size: 12px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 11px;">Spring Boot</a> <a href="/tags/TED/" style="font-size: 14px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 10px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 13px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 11px;">Topological Sort</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 11px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18px;">english</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/git/" style="font-size: 12px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 14px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 13px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 17px;">java</a> <a href="/tags/javascript/" style="font-size: 11px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 11px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 13px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 12px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 16px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10px;">recurrence</a> <a href="/tags/sql/" style="font-size: 11px;">sql</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 11px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 10px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 11px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 14px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 11px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -592,6 +707,10 @@
       <ul>
         
           <li>
+            <a href="/2020/03/22/Sonnet-129-William-Shakespeare/">Sonnet 129</a>
+          </li>
+        
+          <li>
             <a href="/2020/03/22/LeetCode-Algorithms-create-target-array-in-the-given-order/">LeetCode - Algorithms - 1389. Create Target Array in the Given Order</a>
           </li>
         
@@ -605,10 +724,6 @@
         
           <li>
             <a href="/2020/03/17/Lines-poem-Emily-Bronte/">Lines</a>
-          </li>
-        
-          <li>
-            <a href="/2020/03/17/LeetCode-Algorithms-fibonacci-number/">LeetCode - Algorithms - 509. Fibonacci Number</a>
           </li>
         
       </ul>
