@@ -75,6 +75,143 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Bitwise-and-Bit-Shift" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/10/27/Bitwise-and-Bit-Shift/" class="article-date">
+  <time class="dt-published" datetime="2018-10-27T23:26:24.000Z" itemprop="datePublished">2018-10-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/10/27/Bitwise-and-Bit-Shift/">Bitwise and Bit Shift</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Java-Bitwise-and-Bit-Shift-Operators"><a href="#Java-Bitwise-and-Bit-Shift-Operators" class="headerlink" title="Java Bitwise and Bit Shift Operators"></a>Java Bitwise and Bit Shift Operators</h1><table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#124;</td>
+<td>Bitwise OR</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>Bitwise AND</td>
+</tr>
+<tr>
+<td>~</td>
+<td>Bitwise Complement</td>
+</tr>
+<tr>
+<td>^</td>
+<td>Bitwise XOR</td>
+</tr>
+<tr>
+<td>&lt;&lt;</td>
+<td>Left Shift</td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>Right Shift</td>
+</tr>
+<tr>
+<td>&gt;&gt;&gt;</td>
+<td>Unsigned Right Shift</td>
+</tr>
+</tbody></table>
+<h1 id="example"><a href="#example" class="headerlink" title="example"></a>example</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><pre><code>System.out.printf(&quot;%d*%d=%d&quot;, 2,8,2&lt;&lt;3);</code></pre><h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><pre><code>System.out.printf(&quot;%d/2=%d&quot;,11,11&gt;&gt;1);</code></pre><h2 id="3"><a href="#3" class="headerlink" title="3"></a>3</h2><pre><code>public static boolean isOddNum(int n) {
+    return (n &amp; 1)==1;
+}</code></pre><h2 id="4"><a href="#4" class="headerlink" title="4"></a>4</h2><pre><code>public static int powerofTwo(int n) {
+    return 2&lt;&lt;(n-1);
+}    </code></pre><h2 id="5"><a href="#5" class="headerlink" title="5"></a>5</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * how to multiply two arbitrary integers a and b (a greater than b) </span></span><br><span class="line"><span class="comment"> * using only bitshifts and addition</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> a</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> b</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">multiply</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> c = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (b!=<span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">if</span> ((b &amp; <span class="number">1</span>)!=<span class="number">0</span>)</span><br><span class="line">			c+=a;</span><br><span class="line">		a &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">		b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6"><a href="#6" class="headerlink" title="6"></a>6</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * how to calculate a sum of two integers a and b </span></span><br><span class="line"><span class="comment"> * using bitwise operators and zero-testing</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> a</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> b</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> c=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(a!=<span class="number">0</span>) &#123;</span><br><span class="line">		c = b &amp; a;</span><br><span class="line">		b = b ^ a;</span><br><span class="line">		c &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">		a = c;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="JavaScript-Bitwise-Operators"><a href="#JavaScript-Bitwise-Operators" class="headerlink" title="JavaScript Bitwise Operators"></a>JavaScript Bitwise Operators</h1><table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&amp;</td>
+<td>AND</td>
+<td>Sets each bit to 1 if both bits are 1</td>
+</tr>
+<tr>
+<td>&#124;</td>
+<td>OR</td>
+<td>Sets each bit to 1 if one of two bits is 1</td>
+</tr>
+<tr>
+<td>^</td>
+<td>XOR</td>
+<td>Sets each bit to 1 if only one of two bits is 1</td>
+</tr>
+<tr>
+<td>~</td>
+<td>NOT</td>
+<td>Inverts all the bits</td>
+</tr>
+<tr>
+<td>&lt;&lt;</td>
+<td>Zero fill left</td>
+<td>shift    Shifts left by pushing zeros in from the right and let the leftmost bits fall off</td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>Signed right shift</td>
+<td>Shifts right by pushing copies of the leftmost bit in from the left, and let the rightmost bits fall off</td>
+</tr>
+<tr>
+<td>&gt;&gt;&gt;</td>
+<td>Zero fill right</td>
+<td>shift    Shifts right by pushing zeros in from the left, and let the rightmost bits fall off</td>
+</tr>
+</tbody></table>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/op3.html" target="_blank" rel="noopener">Bitwise and Bit Shift Operators</a></li>
+<li><a href="https://www.programiz.com/java-programming/bitwise-operators" target="_blank" rel="noopener">Java Bitwise and Bit Shift Operators</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators" target="_blank" rel="noopener">Bitwise operators</a></li>
+<li><a href="https://msdn.microsoft.com/en-us/library/336xbhcz.aspx" target="_blank" rel="noopener">Left Shift and Right Shift Operators</a></li>
+<li><a href="https://www.w3schools.com/js/js_bitwise.asp" target="_blank" rel="noopener">JavaScript Bitwise Operations</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Bitwise_operation" target="_blank" rel="noopener">Bitwise operation</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/27/Bitwise-and-Bit-Shift/" data-id="ck57hm0zb00017wvggobr4xvz" data-title="Bitwise and Bit Shift" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Reverse-Linked-List" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2018/10/26/LeetCode-Algorithms-Reverse-Linked-List/" class="article-date">
@@ -292,9 +429,26 @@
 <p>当 maven 查找需要的 jar 文件时，它会先在本地库中寻找，只有在找不到的情况下，才会去远程库中找。</p>
 <h1 id="mvn"><a href="#mvn" class="headerlink" title="mvn"></a>mvn</h1><ul>
 <li>mvn install -DskipTests</li>
-<li>mvn clean install</li>
+<li>mvn clean install : executes the clean build life cycle and the install build phase in the default build life cycle.</li>
 <li>mvn install:install-file -Dfile=xxx.jar -DgroupId=xxx -DartifactId=xxx -Dversion=xxx -Dpackaging=jar</li>
 </ul>
+<h2 id="common"><a href="#common" class="headerlink" title="common"></a>common</h2><ul>
+<li><p>mvn clean : Clears the target directory into which Maven normally builds your project.</p>
+</li>
+<li><p>mvn package : Builds the project and packages the resulting JAR file into the target directory.</p>
+</li>
+<li><p>mvn package -Dmaven.test.skip=true : Builds the project and packages the resulting JAR file into the target directory - without running the unit tests during the build.</p>
+</li>
+<li><p>mvn install : Builds the project described by your Maven POM file and installs the resulting artifact (JAR) into your local Maven repository</p>
+<h1 id="build-phase-command"><a href="#build-phase-command" class="headerlink" title="build phase command"></a>build phase command</h1></li>
+<li><p>mvn pre-clean</p>
+</li>
+<li><p>mvn compile</p>
+</li>
+<li><p>mvn package</p>
+</li>
+</ul>
+<h1 id="build-phases"><a href="#build-phases" class="headerlink" title="build phases"></a>build phases</h1><p>The most commonly used build phases in the default build life cycle are:<br>| Build Phase | Description |<br>| :———– | :———-  |<br>| validate | Validates that the project is correct and all necessary information is available. This also makes sure the dependencies are downloaded. |<br>| compile |    Compiles the source code of the project. |<br>| test | Runs the tests against the compiled source code using a suitable unit testing framework. These tests should not require the code be packaged or deployed. |<br>| package |    Packs the compiled code in its distributable format, such as a JAR. |<br>| install |    Install the package into the local repository, for use as a dependency in other projects locally. |<br>| deploy | Copies the final package to the remote repository for sharing with other developers and projects. |</p>
 <h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
 <li><a href="https://spring.io/guides/gs/maven/" target="_blank" rel="noopener" title="This guide walks you through using Maven to build a simple Java project.">Building Java Projects with Maven</a></li>
 <li><a href="https://www.oracle.com/technetwork/cn/community/java/apache-maven-getting-started-1-406235-zhs.html" target="_blank" rel="noopener">Apache Maven 入门篇 ( 上 )</a></li>
@@ -732,53 +886,6 @@
 
 
   
-    <article id="post-LeetCode-Algorithms-Basic-Calculator" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" class="article-date">
-  <time class="dt-published" datetime="2018-09-14T03:06:59.000Z" itemprop="datePublished">2018-09-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2018/09/13/LeetCode-Algorithms-Basic-Calculator/">LeetCode - Algorithms - 224. Basic Calculator</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p>代码见前一篇</p>
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>37 / 37 test cases passed.</li>
-<li>Runtime: 143 ms</li>
-<li>Your runtime beats 6.05 % of java submissions.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="ck57hm10e000w7wvgeain3feb" data-title="LeetCode - Algorithms - 224. Basic Calculator" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -829,6 +936,10 @@
       <ul>
         
           <li>
+            <a href="/2020/04/30/row-row-row-your-boat/">Row, Row, Row Your Boat</a>
+          </li>
+        
+          <li>
             <a href="/2020/04/28/stay-hungry-stay-foolish-steve-jobs/">Stay hungry. Stay foolish.</a>
           </li>
         
@@ -842,10 +953,6 @@
         
           <li>
             <a href="/2020/04/24/LeetCode-Algorithms-day-of-the-week/">LeetCode - Algorithms - 1185. Day of the Week</a>
-          </li>
-        
-          <li>
-            <a href="/2020/04/23/classical-music-sharon-wiseman/">Classical Music</a>
           </li>
         
       </ul>

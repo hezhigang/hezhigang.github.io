@@ -75,6 +75,120 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Web-Engineering" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/11/07/Web-Engineering/" class="article-date">
+  <time class="dt-published" datetime="2018-11-07T15:48:44.000Z" itemprop="datePublished">2018-11-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/11/07/Web-Engineering/">Web Engineering</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>前端工程化（工具）<br>前端组件化（生态）</p>
+</blockquote>
+<h1 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h1><ul>
+<li>NPM的全称是Node Package Manager，Nodejs的包管理器</li>
+<li>从API对用户友好这一个角度来说，Node.js的模块机制是非常优秀的。</li>
+</ul>
+<h2 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h2><h3 id="必备字段"><a href="#必备字段" class="headerlink" title="必备字段"></a>必备字段</h3><ul>
+<li>main指定了加载的入口文件，对于require，只需要main属性即可</li>
+<li>name : 包名，需要在NPM上是唯一的。不能带有空格。</li>
+<li>description : 包简介。通常会显示在一些列表中。</li>
+<li>version : 版本号。一个语义化的版本号（<a href="http://semver.org/" target="_blank" rel="noopener">http://semver.org/</a> ），通常为x.y.z。该版本号十分重要，常常用于一些版本控制的场合。</li>
+<li>keywords : 关键字数组。用于NPM中的分类搜索。</li>
+<li>maintainers : 包维护者的数组。数组元素是一个包含name、email、web三个属性的JSON对象。</li>
+<li>contributors : 包贡献者的数组。第一个就是包的作者本人。在开源社区，如果提交的patch被merge进master分支的话，就应当加上这个贡献patch的人。格式包含name和email。</li>
+<li>bugs : 一个可以提交bug的URL地址。可以是邮件地址（mailto:mailxx@domain），也可以是网页地址（<a href="http://url）。" target="_blank" rel="noopener">http://url）。</a></li>
+<li>licenses : 包所使用的许可证。</li>
+<li>repositories : 托管源代码的地址数组。</li>
+<li><strong>dependencies</strong> : 当前包需要的依赖。这个属性十分重要，NPM会通过这个属性，帮你自动加载依赖的包。</li>
+</ul>
+<h3 id="额外字段"><a href="#额外字段" class="headerlink" title="额外字段"></a>额外字段</h3><ul>
+<li>bin : 指定各个内部命令对应的可执行文件的位置</li>
+<li>scripts : 包管理器（NPM）在对包进行安装或者卸载的时候需要进行一些编译或者清除的工作，scripts字段的对象指明了在进行操作时运行哪个文件，或者执行拿条命令。</li>
+<li>engines</li>
+<li>devDependencies : 指定项目开发所需要的模块</li>
+<li>author</li>
+<li>peerDependencies字段，就是用来供插件指定其所需要的主工具的版本。</li>
+<li>config字段用于向环境变量输出值</li>
+<li>browser指定该模板供浏览器使用的版本</li>
+<li>engines指明了该项目所需要的node.js版本</li>
+<li>man用来指定当前模块的man文档的位置</li>
+<li>style指定供浏览器使用时，样式文件所在的位置</li>
+</ul>
+<h3 id="dependencies-amp-devDependencies-format"><a href="#dependencies-amp-devDependencies-format" class="headerlink" title="dependencies &amp; devDependencies format"></a>dependencies &amp; devDependencies format</h3><ul>
+<li>指定版本：比如1.2.2，遵循“大版本.次要版本.小版本”的格式规定，安装时只安装指定版本。</li>
+<li>波浪号（tilde）+指定版本：比如~1.2.2，表示安装1.2.x的最新版本（不低于1.2.2），但是不安装1.3.x，也就是说安装时不改变大版本号和次要版本号。</li>
+<li>插入号（caret）+指定版本：比如ˆ1.2.2，表示安装1.x.x的最新版本（不低于1.2.2），但是不安装2.x.x，也就是说安装时不改变大版本号。需要注意的是，如果大版本号为0，则插入号的行为与波浪号相同，这是因为此时处于开发阶段，即使是次要版本号变动，也可能带来程序的不兼容。</li>
+<li>latest：安装最新版本。</li>
+</ul>
+<h1 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h1><ul>
+<li>webpack以一种非常优雅的方式解决了前端资源依赖管理的问题，它在内部已经集成了许多资源依赖处理的细节，但是对于使用者而言只需要做少量的配置，再结合构建工具，很容易搭建一套前端工程解决方案。</li>
+<li>基于webpack的前端自动化工具，可以自由组合各种开源技术栈（Koa/Express/其他web框架、webpack、Sass/Less/Stylus、Gulp/Grunt等），没有复杂的资源依赖配置，工程结构也相对简单和灵活。</li>
+<li>根据webpack的设计理念，所有资源都是“模块”，webpack内部实现了一套资源加载机制，除了借助插件体系加载不同类型的资源文件之外，webpack还对输出结果提供了非常精细的控制能力，开发者只需要根据需要调整参数即可</li>
+<li>test项表示匹配的资源类型，loader或loaders项表示用来加载这种类型的资源的loader<br>对于css文件，默认情况下webpack会把css content内嵌到js里边，运行时会使用style标签内联。如果希望将css使用link标签引入，可以使用ExtractTextPlugin插件进行提取。</li>
+<li>图片资源的loader配置：意思是，图片资源在加载时先压缩，然后当内容size小于~10KB时，会自动转成base64的方式内嵌进去，这样可以减少一个HTTP的请求。当图片大于10KB时，则会在img/下生成压缩后的图片，命名是[hash:8].[name].[ext]的形式。hash:8的意思是取图片内容hushsum值的前8位，这样做能够保证引用的是图片资源的最新修改版本，保证浏览器端能够即时更新。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    test: &#x2F;\.(jpe?g|png|gif|svg)$&#x2F;i,</span><br><span class="line">    loaders: [</span><br><span class="line">        &#39;image?...&#39;,</span><br><span class="line">        &#39;url?limit&#x3D;10000&amp;name&#x3D;img&#x2F;[hash:8].[name].[ext]&#39;,</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>多个入口文件之间可能公用一个模块，可以使用CommonsChunkPlugin插件对指定的chunks进行公共模块的提取，下面代码示例演示提取所有入口文件公用的模块，将其独立打包：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var chunks &#x3D; Object.keys(entries);</span><br><span class="line">plugins: [</span><br><span class="line">    new CommonsChunkPlugin(&#123;</span><br><span class="line">        name: &#39;vendors&#39;, &#x2F;&#x2F; 将公共模块提取，生成名为&#96;vendors&#96;的chunk</span><br><span class="line">        chunks: chunks,</span><br><span class="line">        minChunks: chunks.length &#x2F;&#x2F; 提取所有entry共同依赖的模块</span><br><span class="line">    &#125;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>webpack提供了强大的热更新支持，即HMR(hot module replace)。HMR简单说就是webpack启动一个本地webserver（webpack-dev-server），负责处理由webpack生成的静态资源请求。注意webpack-dev-server是把所有资源存储在内存的，所以你会发现在本地没有生成对应的chunk访问却正常。</li>
+</ul>
+<h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><ul>
+<li><a href="http://www.infoq.com/cn/articles/frontend-engineering-webpack" target="_blank" rel="noopener">基于webpack搭建前端工程解决方案探索</a></li>
+</ul>
+<h1 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h1><p>ECMAScript 6, ECMAScript 2015</p>
+<ul>
+<li>受欢迎的语法糖，例如箭头函数（arrow functions）和简单的字符串插值（string interpolation）</li>
+<li>代理（proxies）和生成器（generators）</li>
+</ul>
+<h1 id="Responsive-Web-design"><a href="#Responsive-Web-design" class="headerlink" title="Responsive Web design"></a>Responsive Web design</h1><ul>
+<li>灵活的基于网格的布局：在移动设备上查看页面时，如果设备的朝向从横向改为竖向时，页面布局会自动地调整并在新布局中展开内容进行显示，这就是灵活的基于网格的布局。在Twitter Bootstrap中，可以使用如下的CSS标签（tag）来实现：<div class="row-fluid"></div></li>
+<li>灵活的图像：动态调整图像的尺寸</li>
+<li>Media Queries（媒介查询）：这个是CSS3的特性，该特性可以通过查询媒介设备将适当的CSS返回给浏览器。Media queries are at the heart of a recent design trend called responsive web design.</li>
+</ul>
+<h1 id="Glosarry"><a href="#Glosarry" class="headerlink" title="Glosarry"></a>Glosarry</h1><ul>
+<li>MVVM (Model-View-ViewModel)</li>
+<li>SPA (single-page-application)</li>
+<li>Responsive Web design</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/11/07/Web-Engineering/" data-id="ck57hm12q005m7wvg4gtr580t" data-title="Web Engineering" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-Spring-Portfolio" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2018/11/05/Spring-Portfolio/" class="article-date">
@@ -591,143 +705,6 @@
 
 
   
-    <article id="post-Bitwise-and-Bit-Shift" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2018/10/27/Bitwise-and-Bit-Shift/" class="article-date">
-  <time class="dt-published" datetime="2018-10-27T23:26:24.000Z" itemprop="datePublished">2018-10-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2018/10/27/Bitwise-and-Bit-Shift/">Bitwise and Bit Shift</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="Java-Bitwise-and-Bit-Shift-Operators"><a href="#Java-Bitwise-and-Bit-Shift-Operators" class="headerlink" title="Java Bitwise and Bit Shift Operators"></a>Java Bitwise and Bit Shift Operators</h1><table>
-<thead>
-<tr>
-<th>Operator</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>&#124;</td>
-<td>Bitwise OR</td>
-</tr>
-<tr>
-<td>&amp;</td>
-<td>Bitwise AND</td>
-</tr>
-<tr>
-<td>~</td>
-<td>Bitwise Complement</td>
-</tr>
-<tr>
-<td>^</td>
-<td>Bitwise XOR</td>
-</tr>
-<tr>
-<td>&lt;&lt;</td>
-<td>Left Shift</td>
-</tr>
-<tr>
-<td>&gt;&gt;</td>
-<td>Right Shift</td>
-</tr>
-<tr>
-<td>&gt;&gt;&gt;</td>
-<td>Unsigned Right Shift</td>
-</tr>
-</tbody></table>
-<h1 id="example"><a href="#example" class="headerlink" title="example"></a>example</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><pre><code>System.out.printf(&quot;%d*%d=%d&quot;, 2,8,2&lt;&lt;3);</code></pre><h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><pre><code>System.out.printf(&quot;%d/2=%d&quot;,11,11&gt;&gt;1);</code></pre><h2 id="3"><a href="#3" class="headerlink" title="3"></a>3</h2><pre><code>public static boolean isOddNum(int n) {
-    return (n &amp; 1)==1;
-}</code></pre><h2 id="4"><a href="#4" class="headerlink" title="4"></a>4</h2><pre><code>public static int powerofTwo(int n) {
-    return 2&lt;&lt;(n-1);
-}    </code></pre><h2 id="5"><a href="#5" class="headerlink" title="5"></a>5</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * how to multiply two arbitrary integers a and b (a greater than b) </span></span><br><span class="line"><span class="comment"> * using only bitshifts and addition</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> a</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> b</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">multiply</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> c = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (b!=<span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">if</span> ((b &amp; <span class="number">1</span>)!=<span class="number">0</span>)</span><br><span class="line">			c+=a;</span><br><span class="line">		a &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">		b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="6"><a href="#6" class="headerlink" title="6"></a>6</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * how to calculate a sum of two integers a and b </span></span><br><span class="line"><span class="comment"> * using bitwise operators and zero-testing</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> a</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> b</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> c=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(a!=<span class="number">0</span>) &#123;</span><br><span class="line">		c = b &amp; a;</span><br><span class="line">		b = b ^ a;</span><br><span class="line">		c &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">		a = c;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="JavaScript-Bitwise-Operators"><a href="#JavaScript-Bitwise-Operators" class="headerlink" title="JavaScript Bitwise Operators"></a>JavaScript Bitwise Operators</h1><table>
-<thead>
-<tr>
-<th>Operator</th>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>&amp;</td>
-<td>AND</td>
-<td>Sets each bit to 1 if both bits are 1</td>
-</tr>
-<tr>
-<td>&#124;</td>
-<td>OR</td>
-<td>Sets each bit to 1 if one of two bits is 1</td>
-</tr>
-<tr>
-<td>^</td>
-<td>XOR</td>
-<td>Sets each bit to 1 if only one of two bits is 1</td>
-</tr>
-<tr>
-<td>~</td>
-<td>NOT</td>
-<td>Inverts all the bits</td>
-</tr>
-<tr>
-<td>&lt;&lt;</td>
-<td>Zero fill left</td>
-<td>shift    Shifts left by pushing zeros in from the right and let the leftmost bits fall off</td>
-</tr>
-<tr>
-<td>&gt;&gt;</td>
-<td>Signed right shift</td>
-<td>Shifts right by pushing copies of the leftmost bit in from the left, and let the rightmost bits fall off</td>
-</tr>
-<tr>
-<td>&gt;&gt;&gt;</td>
-<td>Zero fill right</td>
-<td>shift    Shifts right by pushing zeros in from the left, and let the rightmost bits fall off</td>
-</tr>
-</tbody></table>
-<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
-<li><a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/op3.html" target="_blank" rel="noopener">Bitwise and Bit Shift Operators</a></li>
-<li><a href="https://www.programiz.com/java-programming/bitwise-operators" target="_blank" rel="noopener">Java Bitwise and Bit Shift Operators</a></li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators" target="_blank" rel="noopener">Bitwise operators</a></li>
-<li><a href="https://msdn.microsoft.com/en-us/library/336xbhcz.aspx" target="_blank" rel="noopener">Left Shift and Right Shift Operators</a></li>
-<li><a href="https://www.w3schools.com/js/js_bitwise.asp" target="_blank" rel="noopener">JavaScript Bitwise Operations</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Bitwise_operation" target="_blank" rel="noopener">Bitwise operation</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/27/Bitwise-and-Bit-Shift/" data-id="ck57hm0zb00017wvggobr4xvz" data-title="Bitwise and Bit Shift" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -778,6 +755,10 @@
       <ul>
         
           <li>
+            <a href="/2020/04/30/row-row-row-your-boat/">Row, Row, Row Your Boat</a>
+          </li>
+        
+          <li>
             <a href="/2020/04/28/stay-hungry-stay-foolish-steve-jobs/">Stay hungry. Stay foolish.</a>
           </li>
         
@@ -791,10 +772,6 @@
         
           <li>
             <a href="/2020/04/24/LeetCode-Algorithms-day-of-the-week/">LeetCode - Algorithms - 1185. Day of the Week</a>
-          </li>
-        
-          <li>
-            <a href="/2020/04/23/classical-music-sharon-wiseman/">Classical Music</a>
           </li>
         
       </ul>
