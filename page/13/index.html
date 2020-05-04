@@ -75,6 +75,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Divide-Two-Integers" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/" class="article-date">
+  <time class="dt-published" datetime="2018-10-30T19:11:47.000Z" itemprop="datePublished">2018-10-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/">LeetCode - Algorithms - 29. Divide Two Integers</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a href="https://www.programcreek.com/2014/05/leetcode-divide-two-integers-java/" target="_blank" rel="noopener">LeetCode – Divide Two Integers (Java)</a> is the right answer, tested.</p>
+<blockquote>
+<p>This problem can be solved based on the fact that any number can be converted to the format of the following, Power series of 2:</p>
+</blockquote>
+<pre><code>num=a_0*2^0+a_1*2^1+a_2*2^2+...+a_n*2^n</code></pre><h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">divide</span><span class="params">(<span class="keyword">int</span> dividend, <span class="keyword">int</span> divisor)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (divisor == <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">return</span> Integer.MAX_VALUE;</span><br><span class="line">		<span class="keyword">if</span> (divisor == -<span class="number">1</span> &amp;&amp; dividend == Integer.MIN_VALUE)</span><br><span class="line">			<span class="keyword">return</span> Integer.MAX_VALUE;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">boolean</span> sign = ((<span class="keyword">new</span> Long(dividend)&gt;<span class="number">0</span>) &amp;&amp; (<span class="keyword">new</span> Long(divisor)&gt;<span class="number">0</span>)) || ((<span class="keyword">new</span> Long(dividend)&lt;<span class="number">0</span>) &amp;&amp; (<span class="keyword">new</span> Long(divisor)&lt;<span class="number">0</span>)) ? <span class="keyword">true</span> : <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">long</span> dividend_abs = Math.abs(<span class="keyword">new</span> Long(dividend));</span><br><span class="line">    	<span class="keyword">long</span> divisor_abs = Math.abs(<span class="keyword">new</span> Long(divisor));</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">long</span> quotient = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span> (dividend_abs &gt;= divisor_abs) &#123;</span><br><span class="line">			<span class="comment">// calculate number of left shifts</span></span><br><span class="line">			<span class="keyword">int</span> numShift = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">while</span> (dividend_abs &gt;= (divisor_abs &lt;&lt; numShift)) &#123;</span><br><span class="line">				numShift++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// dividend minus the largest shifted divisor</span></span><br><span class="line">			quotient += <span class="number">1</span> &lt;&lt; (numShift - <span class="number">1</span>);</span><br><span class="line">			dividend_abs -= (divisor_abs &lt;&lt; (numShift - <span class="number">1</span>));</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">return</span> sign?<span class="keyword">new</span> Long(quotient).intValue():-<span class="keyword">new</span> Long(quotient).intValue();       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>989 / 989 test cases passed.</li>
+<li>Runtime: 31 ms</li>
+<li>Your runtime beats 30.12 % of java submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/" data-id="ck57hm11100227wvg06eo7x5a" data-title="LeetCode - Algorithms - 29. Divide Two Integers" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Min-Stack" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2018/10/30/LeetCode-Algorithms-Min-Stack/" class="article-date">
@@ -840,63 +892,11 @@
 
 
   
-    <article id="post-LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" class="article-date">
-  <time class="dt-published" datetime="2018-10-15T02:40:39.000Z" itemprop="datePublished">2018-10-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/">LeetCode - Algorithms - 105. Construct Binary Tree from Preorder and Inorder Traversal</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>二叉树自己能理解一二，不算难。自己也观察出来了从Preorder里知道根结点，再在Inorder里划分左右子树，如此不断递归二分。代码抄袭了这个的：<br><a href="https://www.programcreek.com/2014/06/leetcode-construct-binary-tree-from-preorder-and-inorder-traversal-java/" target="_blank" rel="noopener">LeetCode – Construct Binary Tree from Preorder and Inorder Traversal (Java)</a></p>
-<blockquote>
-<p>From the pre-order array, we know that first element is the root. We can find the root in in-order array. Then we can identify the left and right sub-trees of the root from in-order array. Using the length of left sub-tree, we can identify left and right sub-trees in pre-order array. Recursively, we can build up the tree.</p>
-</blockquote>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">buildTree</span><span class="params">(<span class="keyword">int</span>[] preorder, <span class="keyword">int</span>[] inorder)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">int</span> preStart=<span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> preEnd=preorder.length-<span class="number">1</span>;</span><br><span class="line">    	<span class="keyword">int</span> inStart = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> inEnd = inorder.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> buildTree(preorder,preStart,preEnd,inorder,inStart,inEnd);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">buildTree</span><span class="params">(<span class="keyword">int</span>[] preorder, <span class="keyword">int</span> preStart,<span class="keyword">int</span> preEnd, <span class="keyword">int</span>[] inorder, <span class="keyword">int</span> inStart, <span class="keyword">int</span> inEnd)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (preStart&gt;preEnd || inStart&gt;inEnd)</span><br><span class="line">    	  <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">int</span> val = preorder[preStart];</span><br><span class="line">    	TreeNode rt = <span class="keyword">new</span> TreeNode(val);</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">int</span> k=<span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=inEnd;i++) &#123;</span><br><span class="line">    		<span class="keyword">if</span> (inorder[i]==val) &#123;</span><br><span class="line">    			k=i;</span><br><span class="line">    			<span class="keyword">break</span>;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">    	rt.left = buildTree(preorder, preStart+<span class="number">1</span>, preStart+(k-inStart),inorder,inStart,k-<span class="number">1</span>);</span><br><span class="line">    	rt.right = buildTree(preorder, preStart+(k-inStart)+<span class="number">1</span>, preEnd, inorder, k+<span class="number">1</span>, inEnd);</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">return</span> rt;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>203 / 203 test cases passed.</li>
-<li>Runtime: 13 ms</li>
-<li>Your runtime beats 55.29 % of java submissions.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="ck57hm10y001x7wvg5npo7ehs" data-title="LeetCode - Algorithms - 105. Construct Binary Tree from Preorder and Inorder Traversal" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/12/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/14/">Next »</a>
+    <a class="extend prev" rel="prev" href="/page/12/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="extend next" rel="next" href="/page/14/">Next »</a>
   </nav>
 
 </section>
@@ -942,6 +942,10 @@
       <ul>
         
           <li>
+            <a href="/2020/05/04/some-differences-between-British-and-American-English/">Some Differences between British and American English</a>
+          </li>
+        
+          <li>
             <a href="/2020/05/02/LeetCode-Algorithms-rotate-image/">LeetCode - Algorithms - 48. Rotate Image</a>
           </li>
         
@@ -955,10 +959,6 @@
         
           <li>
             <a href="/2020/04/28/stay-hungry-stay-foolish-steve-jobs/">Stay hungry. Stay foolish.</a>
-          </li>
-        
-          <li>
-            <a href="/2020/04/27/how-to-grow-old-bertrand-russell/">How to Grow Old</a>
           </li>
         
       </ul>
