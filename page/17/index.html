@@ -75,6 +75,65 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Basic-Calculator" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" class="article-date">
+  <time class="dt-published" datetime="2018-09-14T03:06:59.000Z" itemprop="datePublished">2018-09-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/09/13/LeetCode-Algorithms-Basic-Calculator/">LeetCode - Algorithms - 224. Basic Calculator</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><p>代码见前一篇</p>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>37 / 37 test cases passed.</li>
+<li>Runtime: 143 ms</li>
+<li>Your runtime beats 6.05 % of java submissions.</li>
+</ul>
+<h2 id="2-Shunting-yard-algorithm"><a href="#2-Shunting-yard-algorithm" class="headerlink" title="2 Shunting-yard algorithm"></a>2 Shunting-yard algorithm</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.StringTokenizer;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">calculate</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> evalRPN(infixToPostfix(s.replaceAll(<span class="string">" "</span>,<span class="string">""</span>)));      </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">evalRPN</span><span class="params">(List&lt;String&gt; exprlist)</span></span>&#123;</span><br><span class="line">        LinkedList&lt;Integer&gt; stack = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (String token : exprlist) &#123;</span><br><span class="line">            Integer tokenNum = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                tokenNum = Integer.parseInt(token);</span><br><span class="line">            &#125;<span class="keyword">catch</span>(NumberFormatException e)&#123;&#125;</span><br><span class="line">            <span class="keyword">if</span>(tokenNum != <span class="keyword">null</span>)&#123;</span><br><span class="line">                stack.push(Integer.parseInt(token+<span class="string">""</span>));</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(token.equals(<span class="string">"-"</span>))&#123;</span><br><span class="line">                <span class="keyword">int</span> secondOperand = stack.pop();</span><br><span class="line">                <span class="keyword">int</span> firstOperand = stack.pop();</span><br><span class="line">                stack.push(firstOperand - secondOperand);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(token.equals(<span class="string">"+"</span>))&#123;</span><br><span class="line">                <span class="keyword">int</span> secondOperand = stack.pop();</span><br><span class="line">                <span class="keyword">int</span> firstOperand = stack.pop();</span><br><span class="line">                stack.push(firstOperand + secondOperand);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> r = stack.pop();</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    &#125;    </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> List&lt;String&gt; <span class="title">infixToPostfix</span><span class="params">(String infix)</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        <span class="keyword">final</span> String ops = <span class="string">"-+"</span>;</span><br><span class="line"></span><br><span class="line">        Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line"></span><br><span class="line">        StringTokenizer st = <span class="keyword">new</span> StringTokenizer(infix,<span class="string">"[\\+\\-()]"</span>,<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">while</span> (st.hasMoreTokens()) &#123;</span><br><span class="line">            String token = st.nextToken();</span><br><span class="line">            <span class="keyword">if</span> (token.isEmpty())</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">char</span> c = token.charAt(<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">int</span> idx = ops.indexOf(c);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (idx != -<span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (stack.isEmpty())</span><br><span class="line">                    stack.push(idx);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">while</span> (!stack.isEmpty()) &#123;</span><br><span class="line">                        <span class="keyword">int</span> prec2 = stack.peek() / <span class="number">2</span>;</span><br><span class="line">                        <span class="keyword">int</span> prec1 = idx / <span class="number">2</span>;</span><br><span class="line">                        <span class="keyword">if</span> (prec2 &gt; prec1 || prec2 == prec1)</span><br><span class="line">                            list.add( ops.charAt(stack.pop()) + <span class="string">""</span> );</span><br><span class="line">                        <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    stack.push(idx);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="string">'('</span>) &#123;</span><br><span class="line">                stack.push(-<span class="number">2</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="string">')'</span>) &#123;</span><br><span class="line">                <span class="keyword">while</span> (stack.peek() != -<span class="number">2</span>)</span><br><span class="line">                    list.add( ops.charAt(stack.pop())+<span class="string">""</span> );</span><br><span class="line">                stack.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                list.add( token );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (!stack.isEmpty())</span><br><span class="line">            list.add( ops.charAt(stack.pop())+<span class="string">""</span> );</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>37 / 37 test cases passed.</li>
+<li>Runtime: 172 ms, faster than 7.80% of Java online submissions for Basic Calculator.</li>
+<li>Memory Usage: 55.4 MB, less than 20.00% of Java online submissions for Basic Calculator.</li>
+</ul>
+<h3 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h3><ul>
+<li><a href="https://rosettacode.org/wiki/Parsing/Shunting-yard_algorithm#Java" target="_blank" rel="noopener">Parsing/Shunting-yard algorithm</a></li>
+<li><a href="https://rosettacode.org/wiki/Parsing/RPN_calculator_algorithm#Java_2" target="_blank" rel="noopener">Parsing/RPN calculator algorithm</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Shunting-yard_algorithm" target="_blank" rel="noopener">Shunting-yard algorithm</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="ck57hm10e000w7wvgeain3feb" data-title="LeetCode - Algorithms - 224. Basic Calculator" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Basic-Calculator-II" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" class="article-date">
@@ -635,87 +694,6 @@
 
 
   
-    <article id="post-LeetCode-Algorithms-Count-Primes" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2018/08/24/LeetCode-Algorithms-Count-Primes/" class="article-date">
-  <time class="dt-published" datetime="2018-08-24T15:37:36.000Z" itemprop="datePublished">2018-08-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2018/08/24/LeetCode-Algorithms-Count-Primes/">LeetCode - Algorithms - 204. Count Primes</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>虽然Difficulty标为Easy，但对自己来说不算简单呀，犯了各种错误。</p>
-<p>参考网上的各种代码，才终于跑通了。 算法其实就是经典的 <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes" target="_blank" rel="noopener">Sieve of Eratosthenes</a>，复杂度 O(NloglogN)</p>
-<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
-<li><a href="http://www.algolist.net/Algorithms/Number_theoretic/Sieve_of_Eratosthenes" target="_blank" rel="noopener">Sieve of Eratosthenes</a></li>
-<li><a href="https://www.craigrodrigues.com/blog/the-sieve-of-eratosthenes-in-javascript" target="_blank" rel="noopener">The Sieve of Eratosthenes in JavaScript</a></li>
-<li><a href="https://introcs.cs.princeton.edu/java/14array/PrimeSieve.java.html" target="_blank" rel="noopener">PrimeSieve.java</a></li>
-</ul>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">countPrimes</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (n&lt;=<span class="number">2</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> sqrt = (<span class="keyword">int</span>) Math.sqrt(n);</span><br><span class="line">        <span class="keyword">boolean</span>[] b = <span class="keyword">new</span> <span class="keyword">boolean</span>[n];</span><br><span class="line">        b[<span class="number">0</span>]=b[<span class="number">1</span>]=<span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;n;i++)</span><br><span class="line">        	b[i]=<span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=sqrt;i++) &#123;</span><br><span class="line">        	<span class="keyword">if</span> (b[i]) &#123;</span><br><span class="line">            	<span class="keyword">for</span>(<span class="keyword">int</span> j=i*i;j&lt;n;j+=i) &#123;</span><br><span class="line">            		b[j]=<span class="keyword">false</span>;</span><br><span class="line">            	&#125;        		</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;b.length;i++) &#123;</span><br><span class="line">        	<span class="keyword">if</span> (b[i])</span><br><span class="line">        		x++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>20 / 20 test cases passed.</li>
-<li>Your runtime beats 42.53 % of java submissions.</li>
-</ul>
-<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><p>这道题好像可以拿来作为范例学习Java 8 Streams：</p>
-<ul>
-<li><a href="https://neilmadden.wordpress.com/2014/01/30/java-8-sieve-of-eratosthenes/" target="_blank" rel="noopener">Java 8 Sieve of Eratosthenes</a></li>
-<li><a href="https://stackoverflow.com/questions/43760641/java-8-streams-and-the-sieve-of-eratosthenes" target="_blank" rel="noopener">Java 8: streams and the Sieve of Eratosthenes</a></li>
-<li><a href="https://codereview.stackexchange.com/questions/176912/sieve-of-eratosthenes-using-java-8-streams" target="_blank" rel="noopener">Sieve of Eratosthenes using Java 8 streams</a></li>
-<li><a href="https://www.baeldung.com/java-generate-prime-numbers" target="_blank" rel="noopener">Generating Prime Numbers in Java</a></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.BitSet;</span><br><span class="line"><span class="keyword">import</span> java.util.IntSummaryStatistics;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.IntStream;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">countPrimes</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">final</span> BitSet sieve = <span class="keyword">new</span> BitSet(n);</span><br><span class="line">    	<span class="keyword">final</span> IntSummaryStatistics stats = IntStream.rangeClosed(<span class="number">2</span>, n-<span class="number">1</span>)</span><br><span class="line">    	                  .filter(x -&gt; !sieve.get(x))</span><br><span class="line">    	                  .peek(x -&gt; &#123;</span><br><span class="line">    	                      <span class="keyword">if</span> (x*x &lt; n)</span><br><span class="line">    	                        <span class="keyword">for</span>(<span class="keyword">int</span> i = x; i &lt; n; i+=x)</span><br><span class="line">    	                           sieve.set(i);</span><br><span class="line">    	                   &#125;)</span><br><span class="line">    	                  .summaryStatistics();</span><br><span class="line">    	<span class="keyword">return</span> <span class="keyword">new</span> Long(stats.getCount()).intValue();        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>20 / 20 test cases passed.</li>
-<li>Your runtime beats 14.45 % of java submissions.</li>
-</ul>
-<p>代码更精炼了，但性能变差了</p>
-<h2 id="3-bottom-up-approach"><a href="#3-bottom-up-approach" class="headerlink" title="3 bottom-up approach"></a>3 bottom-up approach</h2><p>solution of <a href="https://medium.com/@hylei_73413/count-primes-8b5a760c3b3b" target="_blank" rel="noopener">Leetcode 204. Count Primes</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">countPrimes</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">boolean</span> notPrime[] = <span class="keyword">new</span> <span class="keyword">boolean</span>[n];</span><br><span class="line">		<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; n; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (!notPrime[i]) &#123;</span><br><span class="line">				count++;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">2</span>; i * j &lt; n; j++) &#123;</span><br><span class="line">					notPrime[i * j] = <span class="keyword">true</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>20 / 20 test cases passed.</li>
-<li>Runtime: 13 ms, faster than 77.25% of Java online submissions for Count Primes.</li>
-<li>Memory Usage: 38.3 MB, less than 5.66% of Java online submissions for Count Primes.</li>
-</ul>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">n</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> countPrimes = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n&lt;=<span class="number">2</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> sqrt = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.sqrt(n));</span><br><span class="line">	<span class="keyword">var</span> b = <span class="keyword">new</span> <span class="built_in">Array</span>(n);</span><br><span class="line">	b[<span class="number">0</span>]=<span class="literal">false</span>;</span><br><span class="line">	b[<span class="number">1</span>]=<span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">2</span>;i&lt;n;i++) b[i]=<span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">2</span>;i&lt;=sqrt;i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (b[i]) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">var</span> j=i*i;j&lt;n;j+=i) &#123;</span><br><span class="line">				b[j]=<span class="literal">false</span>;</span><br><span class="line">			&#125;		</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> x=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;n;i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (b[i]) x++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> x;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Submission-Detail-3"><a href="#Submission-Detail-3" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>20 / 20 test cases passed.</li>
-<li>Your runtime beats 97.46 % of javascript submissions.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/" data-id="ck57hm110001z7wvgdcr72lyu" data-title="LeetCode - Algorithms - 204. Count Primes" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -766,6 +744,10 @@
       <ul>
         
           <li>
+            <a href="/2020/07/07/leetcode-algorithms-running-sum-of-1d-array/">LeetCode - Algorithms - 1480. Running Sum of 1d Array</a>
+          </li>
+        
+          <li>
             <a href="/2020/07/07/leetcode-algorithms-number-of-steps-to-reduce-a-number-to-zero/">LeetCode - Algorithms - 1342. Number of Steps to Reduce a Number to Zero</a>
           </li>
         
@@ -779,10 +761,6 @@
         
           <li>
             <a href="/2020/07/01/Anthems-of-Canada/">O Canada - Anthems of Canada - English version</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/27/how-to-get-back-to-work-after-a-career-break-carol-fishman-cohen-ted/">How to get back to work after a career break - Carol Fishman Cohen - TEDxBeaconStreet - Transcript</a>
           </li>
         
       </ul>
