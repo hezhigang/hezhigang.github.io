@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2020-07-08T21:26:46.808Z</updated>
+  <updated>2020-07-09T20:32:04.196Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode - Algorithms - 476. Number Complement</title>
+    <link href="https://hezhigang.github.io/2020/07/09/leetcode-algorithms-number-complement/"/>
+    <id>https://hezhigang.github.io/2020/07/09/leetcode-algorithms-number-complement/</id>
+    <published>2020-07-09T18:40:24.000Z</published>
+    <updated>2020-07-09T20:32:04.196Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/number-complement/" target="_blank" rel="noopener">476. Number Complement</a> This question is the same as 1009</p><h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="naive"><a href="#naive" class="headerlink" title="naive"></a>naive</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findComplement</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        String s = Integer.toBinaryString(num);</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = s.length();</span><br><span class="line">        <span class="keyword">char</span>[] a = <span class="keyword">new</span> <span class="keyword">char</span>[N];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            a[i] = s.charAt(i) == <span class="string">'0'</span> ? <span class="string">'1'</span> : <span class="string">'0'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        r = Integer.parseInt(String.valueOf(a),<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul><li>149 / 149 test cases passed.</li><li>Runtime: 1 ms, faster than 35.06% of Java online submissions for Number Complement.</li><li>Memory Usage: 38.5 MB, less than 5.05% of Java online submissions for Number Complement.</li></ul><h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findComplement</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        String s = Integer.toBinaryString(num);</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = s.length();</span><br><span class="line">        <span class="keyword">char</span>[] a = s.toCharArray();</span><br><span class="line">        <span class="keyword">if</span> (a[N - <span class="number">1</span>] == <span class="string">'0'</span>)</span><br><span class="line">            r = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = N - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (a[i] == <span class="string">'0'</span>)</span><br><span class="line">                r += <span class="number">2</span> &lt;&lt; (N - <span class="number">2</span> - i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul><li>149 / 149 test cases passed.</li><li>Runtime: 1 ms, faster than 35.06% of Java online submissions for Number Complement.</li><li>Memory Usage: 37.7 MB, less than 18.78% of Java online submissions for Number Complement.</li></ul><h2 id="3"><a href="#3" class="headerlink" title="3"></a>3</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findComplement</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        String s = Integer.toBinaryString(num);</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = s.length();</span><br><span class="line">        <span class="keyword">if</span> (s.charAt(N - <span class="number">1</span>) == <span class="string">'0'</span>)</span><br><span class="line">            r = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = N - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s.charAt(i) == <span class="string">'0'</span>)</span><br><span class="line">                r += <span class="number">2</span> &lt;&lt; (N - <span class="number">2</span> - i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul><li>149 / 149 test cases passed.</li><li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Number Complement.</li><li>Memory Usage: 36.4 MB, less than 49.07% of Java online submissions for Number Complement.</li></ul><h2 id="4"><a href="#4" class="headerlink" title="4"></a>4</h2><p><a href="https://leetcode.com/problems/complement-of-base-10-integer/" target="_blank" rel="noopener">1009. Complement of Base 10 Integer</a></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">bitwiseComplement</span><span class="params">(<span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">        String s = Integer.toBinaryString(N);</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> LEN = s.length();</span><br><span class="line">        <span class="keyword">if</span> (s.charAt(LEN - <span class="number">1</span>) == <span class="string">'0'</span>)</span><br><span class="line">            r = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = LEN - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s.charAt(i) == <span class="string">'0'</span>)</span><br><span class="line">                r += <span class="number">2</span> &lt;&lt; (LEN - <span class="number">2</span> - i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Submission-Detail-3"><a href="#Submission-Detail-3" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul><li>128 / 128 test cases passed.</li><li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Complement of Base 10 Integer.</li><li>Memory Usage: 36.5 MB, less than 29.82% of Java online submissions for Complement of Base 10 Integer.</li></ul><hr><ul><li><a href="https://www.programiz.com/java-programming/bitwise-operators" target="_blank" rel="noopener">Java Bitwise and Bit Shift Operators</a></li><li><a href="https://introcs.cs.princeton.edu/java/61data/" target="_blank" rel="noopener">6.1 Representing Information</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;Problem&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/number-comp
+      
+    
+    </summary>
+    
+    
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+      <category term="Bit Manipulation" scheme="https://hezhigang.github.io/tags/Bit-Manipulation/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode - Algorithms - 66. Plus One</title>
@@ -538,33 +566,6 @@
       <category term="HackerRank" scheme="https://hezhigang.github.io/tags/HackerRank/"/>
     
       <category term="regex" scheme="https://hezhigang.github.io/tags/regex/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Rain</title>
-    <link href="https://hezhigang.github.io/2020/05/29/rain-robert-louis-stevenson/"/>
-    <id>https://hezhigang.github.io/2020/05/29/rain-robert-louis-stevenson/</id>
-    <published>2020-05-29T18:54:24.000Z</published>
-    <updated>2020-05-29T18:59:05.315Z</updated>
-    
-    <content type="html"><![CDATA[<p>by <a href="https://en.wikipedia.org/wiki/Robert_Louis_Stevenson" target="_blank" rel="noopener">Robert Louis Stevenson</a></p><blockquote><p>The rain is raining all around,<br>It falls on field and tree,<br>It rains on the umbrellas here,<br>And on the ships at sea.</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;by &lt;a href=&quot;https://en.wikipedia.org/wiki/Robert_Louis_Stevenson&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Robert Louis Stevenson&lt;/a&gt;&lt;/p&gt;
-&lt;blockquo
-      
-    
-    </summary>
-    
-    
-    
-      <category term="english" scheme="https://hezhigang.github.io/tags/english/"/>
-    
-      <category term="poem" scheme="https://hezhigang.github.io/tags/poem/"/>
     
   </entry>
   
