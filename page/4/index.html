@@ -75,6 +75,75 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-rotate-image" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/05/02/LeetCode-Algorithms-rotate-image/" class="article-date">
+  <time class="dt-published" datetime="2020-05-02T04:13:26.000Z" itemprop="datePublished">2020-05-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/05/02/LeetCode-Algorithms-rotate-image/">LeetCode - Algorithms - 48. Rotate Image</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Done by myself. Aha following step with <a href="https://leetcode.com/problems/transpose-matrix/" target="_blank" rel="noopener">867. Transpose Matrix</a>. After I solved it, I found this <a href="https://www.techiedelight.com/place-rotate-matrix-90-degrees-clock-wise-direction/" target="_blank" rel="noopener">In-place rotate matrix by 90 degrees in clock-wise direction</a> on web. Interesting. It is likely to be an elegant solution to this problem. “There is no algorithm for creativity.”, as Andy Hargreaves had ever said.</p>
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/rotate-image/" target="_blank" rel="noopener">48. Rotate Image</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><p>transpose and then swap columns symmetrically</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="keyword">int</span>[][] matrix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> N = matrix.length;</span><br><span class="line">        <span class="keyword">int</span> tmp;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;i; j++) &#123;</span><br><span class="line">                tmp = matrix[i][j];</span><br><span class="line">                matrix[i][j] = matrix[j][i];</span><br><span class="line">                matrix[j][i] = tmp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;N/<span class="number">2</span>; j++) &#123;</span><br><span class="line">                tmp = matrix[i][j];</span><br><span class="line">                matrix[i][j] = matrix[i][N-<span class="number">1</span>-j];</span><br><span class="line">                matrix[i][N-<span class="number">1</span>-j] = tmp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>21 / 21 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Rotate Image.</li>
+<li>Memory Usage: 39.4 MB, less than 5.77% of Java online submissions for Rotate Image.</li>
+</ul>
+<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><p>solution of <a href="http://www.geeksforgeeks.org" target="_blank" rel="noopener">www.geeksforgeeks.org</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="keyword">int</span>[][] matrix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> N = matrix.length;</span><br><span class="line">        <span class="keyword">int</span> tmp;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N/<span class="number">2</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i; j&lt;N-i-<span class="number">1</span>; j++) &#123;</span><br><span class="line">                tmp = matrix[i][j];</span><br><span class="line">                matrix[i][j] = matrix[N-<span class="number">1</span>-j][i];</span><br><span class="line">                matrix[N-<span class="number">1</span>-j][i] = matrix[N-<span class="number">1</span>-i][N-<span class="number">1</span>-j];</span><br><span class="line">                matrix[N-<span class="number">1</span>-i][N-<span class="number">1</span>-j] = matrix[j][N-<span class="number">1</span>-i];</span><br><span class="line">                matrix[j][N-<span class="number">1</span>-i] = tmp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>21 / 21 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Rotate Image.</li>
+<li>Memory Usage: 39.4 MB, less than 5.77% of Java online submissions for Rotate Image.</li>
+</ul>
+<h2 id="non-in-place-method"><a href="#non-in-place-method" class="headerlink" title="non in-place method"></a>non in-place method</h2><p>matrix rotate</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[][] rotate_math_stackexchange(<span class="keyword">int</span>[][] matrix) &#123;</span><br><span class="line">    <span class="keyword">int</span> N = matrix.length;</span><br><span class="line">    <span class="keyword">int</span>[][] R = <span class="keyword">new</span> <span class="keyword">int</span>[N][N];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;N; j++) &#123;</span><br><span class="line">            R[i][j] = matrix[N-<span class="number">1</span>-j][i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> R;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[][]&#125;</span> <span class="variable">matrix</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;void&#125;</span> </span>Do not return anything, modify matrix in-place instead.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> rotate = <span class="function"><span class="keyword">function</span>(<span class="params">matrix</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> n = matrix.length;</span><br><span class="line">    <span class="keyword">var</span> tmp;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>; j&lt;i; j++) &#123;</span><br><span class="line">            tmp = matrix[i][j];</span><br><span class="line">            matrix[i][j] = matrix[j][i];</span><br><span class="line">            matrix[j][i] = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>; j&lt;n/<span class="number">2</span>; j++) &#123;</span><br><span class="line">            tmp = matrix[i][j];</span><br><span class="line">            matrix[i][j] = matrix[i][n<span class="number">-1</span>-j];</span><br><span class="line">            matrix[i][n<span class="number">-1</span>-j] = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>21 / 21 test cases passed.</li>
+<li>Runtime: 56 ms, faster than 57.20% of JavaScript online submissions for Rotate Image.</li>
+<li>Memory Usage: 33.4 MB, less than 100.00% of JavaScript online submissions for Rotate Image.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/05/02/LeetCode-Algorithms-rotate-image/" data-id="ck9phai4u0000j8vgbcr50wpy" data-title="LeetCode - Algorithms - 48. Rotate Image" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-algorithms-quotes" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2020/05/01/algorithms-quotes/" class="article-date">
@@ -593,61 +662,6 @@
 
 
   
-    <article id="post-LeetCode-Algorithms-transpose-matrix" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/18/LeetCode-Algorithms-transpose-matrix/" class="article-date">
-  <time class="dt-published" datetime="2020-04-18T05:00:23.000Z" itemprop="datePublished">2020-04-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/18/LeetCode-Algorithms-transpose-matrix/">LeetCode - Algorithms - 867. Transpose Matrix</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/transpose-matrix/" target="_blank" rel="noopener">867. Transpose Matrix</a></p>
-<blockquote>
-<p>Given a matrix A, return the transpose of A.</p>
-</blockquote>
-<p>\( \begin{bmatrix}<br>1 &amp;2 &amp;3 \\<br>4 &amp;5 &amp;6 \\<br>7 &amp;8 &amp;9<br>\end{bmatrix} \Rightarrow \begin{bmatrix}<br>1 &amp;4 &amp;7 \\<br>2 &amp;5 &amp;8 \\<br>3 &amp;6 &amp;9<br>\end{bmatrix} \)</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[][] transpose(<span class="keyword">int</span>[][] A) &#123;</span><br><span class="line">        <span class="keyword">int</span> h = A.length;</span><br><span class="line">        <span class="keyword">int</span> w = A[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span>[][] B = <span class="keyword">new</span> <span class="keyword">int</span>[w][h];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;h; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;w; j++)</span><br><span class="line">                B[j][i]=A[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> B;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>36 / 36 test cases passed.</li>
-<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Transpose Matrix.</li>
-<li>Memory Usage: 40.6 MB, less than 91.67% of Java online submissions for Transpose Matrix.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/18/LeetCode-Algorithms-transpose-matrix/" data-id="ck9560v7h0000c8vg9dndhavx" data-title="LeetCode - Algorithms - 867. Transpose Matrix" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -698,6 +712,10 @@
       <ul>
         
           <li>
+            <a href="/2020/07/08/leetcode-algorithms-plus-one/">LeetCode - Algorithms - 66. Plus One</a>
+          </li>
+        
+          <li>
             <a href="/2020/07/08/leetcode-algorithms-xor-operation-in-an-array/">LeetCode - Algorithms - 1486. XOR Operation in an Array</a>
           </li>
         
@@ -711,10 +729,6 @@
         
           <li>
             <a href="/2020/07/04/United-States-Declaration-of-Independence/">United States Declaration of Independence</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/03/leetcode-algorithms-max-points-on-a-line/">LeetCode - Algorithms - 149. Max Points on a Line</a>
           </li>
         
       </ul>
