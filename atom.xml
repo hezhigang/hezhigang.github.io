@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2020-08-11T19:04:27.337Z</updated>
+  <updated>2020-08-12T15:29:55.051Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode - Algorithms - 349. Intersection of Two Arrays</title>
+    <link href="https://hezhigang.github.io/2020/08/12/leetcode-algorithms-intersection-of-two-arrays/"/>
+    <id>https://hezhigang.github.io/2020/08/12/leetcode-algorithms-intersection-of-two-arrays/</id>
+    <published>2020-08-12T15:16:46.000Z</published>
+    <updated>2020-08-12T15:29:55.051Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/intersection-of-two-arrays/" target="_blank" rel="noopener">349. Intersection of Two Arrays</a></p><h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="brute-force-method"><a href="#brute-force-method" class="headerlink" title="brute force method"></a>brute force method</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] intersection(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len1 = nums1.length;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len2 = nums2.length;</span><br><span class="line"></span><br><span class="line">        Set&lt;Integer&gt; ret = <span class="keyword">new</span> HashSet&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len1; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; len2; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums1[i] == nums2[j])</span><br><span class="line">                    ret.add(nums1[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] r = <span class="keyword">new</span> <span class="keyword">int</span>[ret.size()];</span><br><span class="line">        <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Integer e : ret)</span><br><span class="line">            r[k++] = e.intValue();</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul><li>60 / 60 test cases passed.</li><li>Runtime: 8 ms, faster than 11.36% of Java online submissions for Intersection of Two Arrays.</li><li>Memory Usage: 39.9 MB, less than 54.69% of Java online submissions for Intersection of Two Arrays.</li></ul><h2 id="retainAll-of-HashSet-in-Java-collections-framework"><a href="#retainAll-of-HashSet-in-Java-collections-framework" class="headerlink" title="retainAll of HashSet in Java collections framework"></a>retainAll of HashSet in Java collections framework</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] intersection(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2) &#123;</span><br><span class="line">        Set&lt;Integer&gt; set1 = <span class="keyword">new</span> HashSet&lt;Integer&gt;();</span><br><span class="line">        Set&lt;Integer&gt; set2 = <span class="keyword">new</span> HashSet&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums1.length; i++)</span><br><span class="line">            set1.add(nums1[i]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums2.length; i++)</span><br><span class="line">            set2.add(nums2[i]);</span><br><span class="line">        set1.retainAll(set2);</span><br><span class="line">        <span class="keyword">int</span>[] r = <span class="keyword">new</span> <span class="keyword">int</span>[set1.size()];</span><br><span class="line">        <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Integer e : set1)</span><br><span class="line">            r[k++] = e.intValue();</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul><li>60 / 60 test cases passed.</li><li>Runtime: 2 ms, faster than 99.40% of Java online submissions for Intersection of Two Arrays.</li><li>Memory Usage: 39.4 MB, less than 90.00% of Java online submissions for Intersection of Two Arrays.</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;Problem&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/intersectio
+      
+    
+    </summary>
+    
+    
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+      <category term="Sort" scheme="https://hezhigang.github.io/tags/Sort/"/>
+    
+      <category term="Binary Search" scheme="https://hezhigang.github.io/tags/Binary-Search/"/>
+    
+      <category term="Two Pointers" scheme="https://hezhigang.github.io/tags/Two-Pointers/"/>
+    
+      <category term="Hash Table" scheme="https://hezhigang.github.io/tags/Hash-Table/"/>
+    
+  </entry>
   
   <entry>
     <title>《昨日歌》《今日歌》《明日歌》</title>
@@ -537,31 +571,6 @@
     
     
       <category term="english" scheme="https://hezhigang.github.io/tags/english/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>王阳明诗十二首</title>
-    <link href="https://hezhigang.github.io/2020/06/25/Chinese-Poems-of-Wang-Shouren/"/>
-    <id>https://hezhigang.github.io/2020/06/25/Chinese-Poems-of-Wang-Shouren/</id>
-    <published>2020-06-25T16:44:41.000Z</published>
-    <updated>2020-06-26T03:00:28.902Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://en.wikipedia.org/wiki/Wang_Yangming" target="_blank" rel="noopener">王守仁</a>，知行合一，全能大儒，明朝一哥。如《菜根谭》所言：非上上智，无了了心。👍</p><blockquote><p>你未看此花时，此花与汝<strong>心</strong>同归于寂。<br>你来看此花时，则此花颜色一时明白起来，便知此花不在你的<strong>心</strong>外。<br>Before you see the flower, both you and the flower are in a state of isolation. When you see the flower its color and shape become clearer to you — which means that knowledge of the flower cannot exist apart from mind.</p></blockquote><blockquote><p>答人问道</p></blockquote><blockquote><p>饥来吃饭倦来眠，只此修行玄更玄。<br>说与世人浑不信，却从身外觅神仙。</p></blockquote><blockquote><p>中秋</p></blockquote><blockquote><p>去年中秋阴复晴，今年中秋阴复阴。<br>百年好景不多遇，况乃白发相侵寻。<br><strong>吾心自有光明月，千古团圆永无缺。</strong><br>山河大地拥情辉，赏心何必中秋节。</p></blockquote><blockquote><p>王门四句教</p></blockquote><blockquote><p>无善无恶<strong>心</strong>之体，有善有恶意之动。<br>知善知恶是<strong>良知</strong>，为善去恶是格物。</p></blockquote><blockquote><p>赠阳伯</p></blockquote><blockquote><p>阳伯即伯阳，伯阳竟安在？<br>大道即人<strong>心</strong>，万古未尝改。<br>长生在求仁，金丹非外待。<br>谬矣三十年，于今吾始悔。</p></blockquote><blockquote><p>书汪进之太极岩</p></blockquote><blockquote><p>始信<strong>心</strong>非明镜台，须知明镜亦尘埃。<br>人人有个圆圈在，莫向蒲团坐死灰。</p></blockquote><blockquote><p>溪水</p></blockquote><blockquote><p>年华若流水，一去无回停。<br>悠悠百年内，吾道终何成！</p></blockquote><blockquote><p>咏良知四首示诸生</p></blockquote><blockquote><p>个个人<strong>心</strong>有仲尼，自将闻见苦遮迷。<br>而今指与真头面，只是<strong>良知</strong>更莫疑。</p></blockquote><blockquote><p>问君何事日憧憧？烦恼场中错用功。<br>莫道圣门无口诀，<strong>良知</strong>两字是参同。</p></blockquote><blockquote><p>人人自有定盘针，万化根源总在<strong>心</strong>。<br>却笑从前颠倒见，枝枝叶叶外头寻。</p></blockquote><blockquote><p>无声无臭独知时，此是乾坤万有基。<br>抛却自家无尽藏，沿门持钵效贫儿。</p></blockquote><blockquote><p>示诸生</p></blockquote><blockquote><p>尔身各各自天真，不问求人更问人。<br>但<strong>致良知</strong>成德业，谩从故纸费精神。<br>乾坤是易原非尽，心性何形得有尘？<br>莫道先生学禅语，此言端的为君陈。</p></blockquote><blockquote><p>啾啾吟</p></blockquote><blockquote><p>智者不惑仁不忧，君胡戚戚眉双愁？<br>信步行来皆坦道，凭天判下非人谋。</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Wang_Yangming&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;王守仁&lt;/a&gt;，知行合一，全能大儒，明朝一哥。如《菜根谭》所言：非上上智，无了了心。👍&lt;/p&gt;
-&lt;bl
-      
-    
-    </summary>
-    
-    
-    
-      <category term="古文" scheme="https://hezhigang.github.io/tags/%E5%8F%A4%E6%96%87/"/>
     
   </entry>
   
