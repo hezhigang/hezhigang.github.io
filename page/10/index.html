@@ -75,6 +75,86 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-valid-boomerang" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/02/28/LeetCode-Algorithms-valid-boomerang/" class="article-date">
+  <time class="dt-published" datetime="2020-02-29T02:51:08.000Z" itemprop="datePublished">2020-02-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/02/28/LeetCode-Algorithms-valid-boomerang/">LeetCode - Algorithms - 1037. Valid Boomerang</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<p>It’s easy indeed once you think about the slope of a line.</p>
+<h1 id="Zoomerang-a-Boomerang"><a href="#Zoomerang-a-Boomerang" class="headerlink" title="Zoomerang a Boomerang"></a>Zoomerang a Boomerang</h1><p>by <strong>Ruth I. Dowell</strong></p>
+<blockquote>
+<p>Zoomerang a boomerang<br>Around a maple tree!<br>Zoomrang a boomerang<br>But don’t hit me!</p>
+</blockquote>
+<p>from <em>Poems to make your belly laugh</em></p>
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/valid-boomerang/" target="_blank" rel="noopener">1037. Valid Boomerang</a></p>
+<p>A boomerang is a set of 3 points that are all distinct and not in a straight line.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="cross-product"><a href="#cross-product" class="headerlink" title="cross product"></a>cross product</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isBoomerang</span><span class="params">(<span class="keyword">int</span>[][] points)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (points[<span class="number">2</span>][<span class="number">1</span>]-points[<span class="number">0</span>][<span class="number">1</span>])*(points[<span class="number">1</span>][<span class="number">0</span>]-points[<span class="number">0</span>][<span class="number">0</span>]) == (points[<span class="number">1</span>][<span class="number">1</span>]-points[<span class="number">0</span>][<span class="number">1</span>])*(points[<span class="number">2</span>][<span class="number">0</span>]-points[<span class="number">0</span>][<span class="number">0</span>])?<span class="keyword">false</span>:<span class="keyword">true</span>;      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>190 / 190 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Valid Boomerang.</li>
+<li>Memory Usage: 37.2 MB, less than 100.00% of Java online submissions for Valid Boomerang.</li>
+</ul>
+<h2 id="Heron’s-formula"><a href="#Heron’s-formula" class="headerlink" title="Heron’s formula"></a>Heron’s formula</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isBoomerang</span><span class="params">(<span class="keyword">int</span>[][] points)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">double</span> a = Math.sqrt(Math.pow(points[<span class="number">1</span>][<span class="number">0</span>] - points[<span class="number">0</span>][<span class="number">0</span>], <span class="number">2</span>) + Math.pow(points[<span class="number">1</span>][<span class="number">1</span>] - points[<span class="number">0</span>][<span class="number">1</span>], <span class="number">2</span>));</span><br><span class="line">		<span class="keyword">double</span> b = Math.sqrt(Math.pow(points[<span class="number">2</span>][<span class="number">0</span>] - points[<span class="number">1</span>][<span class="number">0</span>], <span class="number">2</span>) + Math.pow(points[<span class="number">2</span>][<span class="number">1</span>] - points[<span class="number">1</span>][<span class="number">1</span>], <span class="number">2</span>));</span><br><span class="line">		<span class="keyword">double</span> c = Math.sqrt(Math.pow(points[<span class="number">2</span>][<span class="number">0</span>] - points[<span class="number">0</span>][<span class="number">0</span>], <span class="number">2</span>) + Math.pow(points[<span class="number">2</span>][<span class="number">1</span>] - points[<span class="number">0</span>][<span class="number">1</span>], <span class="number">2</span>));</span><br><span class="line">		<span class="keyword">double</span> s = (a + b + c) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">double</span> A = Math.sqrt(s * (s - a) * (s - b) * (s - c));</span><br><span class="line">		<span class="keyword">return</span> A != <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>190 / 190 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Valid Boomerang.</li>
+<li>Memory Usage: 36.9 MB, less than 83.23% of Java online submissions for Valid Boomerang.</li>
+</ul>
+<h2 id="Gauss’s-area-formula"><a href="#Gauss’s-area-formula" class="headerlink" title="Gauss’s area formula"></a>Gauss’s area formula</h2><p><a href="https://en.wikipedia.org/wiki/Shoelace_formula" target="_blank" rel="noopener">Shoelace formula</a></p>
+<p> let \( \mathbf {A} \) be the area of the triangle whose vertices are given by the coordinates \( (x_{1},y_{1}) \), \( (x_{2},y_{2}) \), and \( (x_{3},y_{3}) \). </p>
+<p> \( \mathbf {A} \) can be written as a determinant</p>
+<p> \( {\displaystyle \mathbf<br> {A} ={\frac {1}{2}}<br> {<br>     \begin{vmatrix}1&amp;1&amp;1 \\<br>     x_{1}&amp;x_{2}&amp;x_{3} \\<br>     y_{1}&amp;y_{2}&amp;y_{3}<br>     \end{vmatrix}<br> }<br> }<br> \)</p>
+<p>If the coordinates are written in a clockwise order, the value of the determinant will be \( {\displaystyle -\mathbf {A} } \)</p>
+<p>Rearranging another way</p>
+<p>\( {\displaystyle \mathbf {A} ={\frac {1}{2}}|x_{1}y_{2}+x_{2}y_{3}+x_{3}y_{1}-x_{2}y_{1}-x_{3}y_{2}-x_{1}y_{3}|} \)</p>
+<p>which is the form of the shoelace formula. This formula can be extended to find the area of any polygon since a simple polygon can be divided into triangles.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isBoomerang</span><span class="params">(<span class="keyword">int</span>[][] points)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> A = points[<span class="number">0</span>][<span class="number">0</span>] * points[<span class="number">1</span>][<span class="number">1</span>] + points[<span class="number">1</span>][<span class="number">0</span>] * points[<span class="number">2</span>][<span class="number">1</span>] + points[<span class="number">2</span>][<span class="number">0</span>] * points[<span class="number">0</span>][<span class="number">1</span>]</span><br><span class="line">				- points[<span class="number">1</span>][<span class="number">0</span>] * points[<span class="number">0</span>][<span class="number">1</span>] - points[<span class="number">2</span>][<span class="number">0</span>] * points[<span class="number">1</span>][<span class="number">1</span>] - points[<span class="number">0</span>][<span class="number">0</span>] * points[<span class="number">2</span>][<span class="number">1</span>];</span><br><span class="line">		<span class="keyword">return</span> A != <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>190 / 190 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Valid Boomerang.</li>
+<li>Memory Usage: 37.7 MB, less than 15.65% of Java online submissions for Valid Boomerang.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/02/28/LeetCode-Algorithms-valid-boomerang/" data-id="ck770xnhj0000csvg3app1s6e" data-title="LeetCode - Algorithms - 1037. Valid Boomerang" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/" rel="tag">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Search-Insert-Position" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2020/02/27/LeetCode-Algorithms-Search-Insert-Position/" class="article-date">
@@ -604,95 +684,6 @@
 
 
   
-    <article id="post-intellij-idea-cheat-sheet" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/02/20/intellij-idea-cheat-sheet/" class="article-date">
-  <time class="dt-published" datetime="2020-02-20T16:51:43.000Z" itemprop="datePublished">2020-02-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/02/20/intellij-idea-cheat-sheet/">IntelliJ IDEA Cheat Sheet</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="Shortcuts"><a href="#Shortcuts" class="headerlink" title="Shortcuts"></a>Shortcuts</h1><h2 id="Double-Shift"><a href="#Double-Shift" class="headerlink" title="Double Shift"></a>Double Shift</h2><p>Search Everywhere</p>
-<p>Find anything related to IntelliJ IDEA or your project and open it, execute it, or jump to it.</p>
-<h2 id="Ctrl-E"><a href="#Ctrl-E" class="headerlink" title="Ctrl+E"></a>Ctrl+E</h2><p>View recent files, Recent files popup</p>
-<p>Select a recently opened file from the list.</p>
-<h2 id="Alt-1"><a href="#Alt-1" class="headerlink" title="Alt + 1"></a>Alt + 1</h2><p>Project window</p>
-<h2 id="Esc"><a href="#Esc" class="headerlink" title="Esc"></a>Esc</h2><p>focus on editor</p>
-<h2 id="Alt-Enter"><a href="#Alt-Enter" class="headerlink" title="Alt + Enter"></a>Alt + Enter</h2><p>Show intention actions and quick-fixes</p>
-<h2 id="Alt-F1"><a href="#Alt-F1" class="headerlink" title="Alt+F1"></a>Alt+F1</h2><p>locate the current file in the project structure</p>
-<h2 id="F2"><a href="#F2" class="headerlink" title="F2"></a>F2</h2><p>Next highlighted error</p>
-<h2 id="Ctrl-B"><a href="#Ctrl-B" class="headerlink" title="Ctrl + B"></a>Ctrl + B</h2><p>go to declaration</p>
-<h2 id="Alt-F7"><a href="#Alt-F7" class="headerlink" title="Alt + F7"></a>Alt + F7</h2><p>find usages</p>
-<h2 id="Tap-Ctrl-Twice"><a href="#Tap-Ctrl-Twice" class="headerlink" title="Tap Ctrl Twice"></a>Tap Ctrl Twice</h2><p>Run anything</p>
-<h2 id="Ctrl-W-Shift-Ctrl-W"><a href="#Ctrl-W-Shift-Ctrl-W" class="headerlink" title="Ctrl + W / Shift + Ctrl + W"></a>Ctrl + W / Shift + Ctrl + W</h2><p>Extend / Shrink Selection</p>
-<h2 id="Shift-Ctrl-Enter"><a href="#Shift-Ctrl-Enter" class="headerlink" title="Shift + Ctrl + Enter"></a>Shift + Ctrl + Enter</h2><p>Complete current statement</p>
-<h2 id="Shift-Ctrl-Alt-T"><a href="#Shift-Ctrl-Alt-T" class="headerlink" title="Shift + Ctrl + Alt + T"></a>Shift + Ctrl + Alt + T</h2><p>Refactor</p>
-<h2 id="Shift-Ctrl-A"><a href="#Shift-Ctrl-A" class="headerlink" title="Shift + Ctrl + A"></a>Shift + Ctrl + A</h2><p>Find Action</p>
-<h2 id="Ctrl-Shift-F"><a href="#Ctrl-Shift-F" class="headerlink" title="Ctrl+Shift+F"></a>Ctrl+Shift+F</h2><p>Find the search string in a project, Find in path</p>
-<h2 id="Add-Delete-and-Move-Lines"><a href="#Add-Delete-and-Move-Lines" class="headerlink" title="Add, Delete, and Move Lines"></a>Add, Delete, and Move Lines</h2><h3 id="Ctrl-Y"><a href="#Ctrl-Y" class="headerlink" title="Ctrl+Y"></a>Ctrl+Y</h3><p>To delete the current line</p>
-<h3 id="Ctrl-Mouse-Wheel"><a href="#Ctrl-Mouse-Wheel" class="headerlink" title="Ctrl + Mouse Wheel"></a>Ctrl + Mouse Wheel</h3><p>zoom text content</p>
-<h2 id="Reformat-and-rearrange-code"><a href="#Reformat-and-rearrange-code" class="headerlink" title="Reformat and rearrange code"></a>Reformat and rearrange code</h2><h3 id="Ctrl-Alt-L"><a href="#Ctrl-Alt-L" class="headerlink" title="Ctrl+Alt+L"></a>Ctrl+Alt+L</h3><p>Reformat a code fragment in a file</p>
-<h2 id="Generating-code"><a href="#Generating-code" class="headerlink" title="Generating code"></a>Generating code</h2><h3 id="Alt-Insert"><a href="#Alt-Insert" class="headerlink" title="Alt+Insert"></a>Alt+Insert</h3><p>Generate getters and setters for a class</p>
-<h2 id="find-and-locate"><a href="#find-and-locate" class="headerlink" title="find and locate"></a>find and locate</h2><h3 id="Ctrl-Shift-M"><a href="#Ctrl-Shift-M" class="headerlink" title="Ctrl + Shift + M"></a>Ctrl + Shift + M</h3><p>Ctrl + [, Ctrl + ] also worked</p>
-<p>move Caret to matching brace, Move Caret to Code Block Start/End</p>
-<h2 id="Alt-Enter-1"><a href="#Alt-Enter-1" class="headerlink" title="Alt+Enter"></a>Alt+Enter</h2><p>Auto import suggestion</p>
-<h2 id="Ctrl-G"><a href="#Ctrl-G" class="headerlink" title="Ctrl + G"></a>Ctrl + G</h2><p>Go to Line</p>
-<h2 id="Ctrl-Shift-Up-Down"><a href="#Ctrl-Shift-Up-Down" class="headerlink" title="Ctrl + Shift + Up / Down"></a>Ctrl + Shift + Up / Down</h2><p>Move Lines</p>
-<h1 id="Ctrl-Shift-F10"><a href="#Ctrl-Shift-F10" class="headerlink" title="Ctrl + Shift + F10"></a>Ctrl + Shift + F10</h1><p>Run</p>
-<h1 id="preference"><a href="#preference" class="headerlink" title="preference"></a>preference</h1><h2 id="Change-the-UI-theme"><a href="#Change-the-UI-theme" class="headerlink" title="Change the UI theme"></a>Change the UI theme</h2><p>Settings/Preferences | Appearance &amp; Behavior | Appearance</p>
-<h3 id="Theme-list"><a href="#Theme-list" class="headerlink" title="Theme list"></a>Theme list</h3><ul>
-<li>Darcula: Default dark theme</li>
-<li>Light: More traditional light theme</li>
-<li>High contrast: Theme designed for users with color vision deficiency</li>
-</ul>
-<h1 id="Export-import-project-structure"><a href="#Export-import-project-structure" class="headerlink" title="Export/import project structure"></a>Export/import project structure</h1><ul>
-<li>*.iml (module description files)</li>
-<li>.idea folder</li>
-</ul>
-<h2 id="Module-dependencies"><a href="#Module-dependencies" class="headerlink" title="Module dependencies"></a>Module dependencies</h2><h3 id="dependency-scope"><a href="#dependency-scope" class="headerlink" title="dependency scope"></a>dependency scope</h3><ul>
-<li><strong>Compile</strong>: required to build, test, and run a project (the default scope).</li>
-<li>Test: required to compile and run unit tests.</li>
-<li><strong>Runtime</strong>: included in the classpath for your sources and test sources but only at the run phase.</li>
-<li><strong>Provided</strong>: used for building and testing a project.</li>
-</ul>
-<h1 id="clear-the-caches-in-Intellij-IDEA"><a href="#clear-the-caches-in-Intellij-IDEA" class="headerlink" title="clear the caches in Intellij IDEA"></a>clear the caches in Intellij IDEA</h1><p>file menu, <code>Clear Caches and Restart</code>, select option to restart</p>
-<h1 id="Debugger"><a href="#Debugger" class="headerlink" title="Debugger"></a>Debugger</h1><h2 id="Step-over-F8"><a href="#Step-over-F8" class="headerlink" title="Step over F8"></a>Step over F8</h2><h2 id="Step-into-F7"><a href="#Step-into-F7" class="headerlink" title="Step into F7"></a>Step into F7</h2><h2 id="Resume-program-F9"><a href="#Resume-program-F9" class="headerlink" title="Resume program F9"></a>Resume program F9</h2><h2 id="Run-to-cursor-Alt-F9"><a href="#Run-to-cursor-Alt-F9" class="headerlink" title="Run to cursor Alt + F9"></a>Run to cursor Alt + F9</h2><h2 id="Drop-Frame"><a href="#Drop-Frame" class="headerlink" title="Drop Frame"></a>Drop Frame</h2><h1 id="others"><a href="#others" class="headerlink" title="others"></a>others</h1><h2 id="Console-output-encoding"><a href="#Console-output-encoding" class="headerlink" title="Console output encoding"></a>Console output encoding</h2><p>On the Help menu, click Edit Custom VM Options.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-Dfile.encoding&#x3D;UTF-8</span><br><span class="line">-Dconsole.encoding&#x3D;UTF-8</span><br></pre></td></tr></table></figure>
-
-<h1 id="HTTP-client"><a href="#HTTP-client" class="headerlink" title="HTTP client"></a>HTTP client</h1><h2 id="cookies"><a href="#cookies" class="headerlink" title="cookies"></a>cookies</h2><p><code>http-client.cookies</code> file under the <code>.idea/httpRequests/</code> directory</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/20/intellij-idea-cheat-sheet/" data-id="ck6vpvxvu0006rovg18ytcsmq" data-title="IntelliJ IDEA Cheat Sheet" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -721,7 +712,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.14px;">Array</a> <a href="/tags/BFS/" style="font-size: 15.71px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.71px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 13.57px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 14.29px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.29px;">DFS</a> <a href="/tags/DP/" style="font-size: 14.29px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 10.71px;">Divide and Conquer</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/HackerRank/" style="font-size: 15px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 10px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.29px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 12.14px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.71px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.71px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 10.71px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 10.71px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.43px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.71px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/TED/" style="font-size: 16.43px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 11.43px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 12.14px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.71px;">Topological Sort</a> <a href="/tags/Two-Pointers/" style="font-size: 12.14px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 12.14px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.71px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.43px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.57px;">english</a> <a href="/tags/essay/" style="font-size: 10.71px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/git/" style="font-size: 11.43px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.86px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 12.14px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/javascript/" style="font-size: 10.71px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.71px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 15px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.43px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 17.86px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.71px;">recurrence</a> <a href="/tags/regex/" style="font-size: 13.57px;">regex</a> <a href="/tags/sql/" style="font-size: 10.71px;">sql</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.71px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 12.14px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 10.71px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 11.43px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 12.86px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 10.71px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.14px;">Array</a> <a href="/tags/BFS/" style="font-size: 15.71px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.71px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 13.57px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 14.29px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.29px;">DFS</a> <a href="/tags/DP/" style="font-size: 14.29px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 10.71px;">Divide and Conquer</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/HackerRank/" style="font-size: 15px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 10px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.29px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 12.14px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.71px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.71px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 10.71px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 10.71px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.43px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.71px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/TED/" style="font-size: 16.43px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 11.43px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 12.14px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.71px;">Topological Sort</a> <a href="/tags/Two-Pointers/" style="font-size: 12.14px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 12.14px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.71px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.43px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.57px;">english</a> <a href="/tags/essay/" style="font-size: 10.71px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/git/" style="font-size: 12.14px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.86px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 12.14px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/javascript/" style="font-size: 10.71px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.71px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 15px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.43px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 17.86px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.71px;">recurrence</a> <a href="/tags/regex/" style="font-size: 13.57px;">regex</a> <a href="/tags/sql/" style="font-size: 10.71px;">sql</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.71px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 12.14px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 10.71px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 11.43px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 12.86px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 10.71px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -743,6 +734,10 @@
       <ul>
         
           <li>
+            <a href="/2020/08/17/workings-of-git/">The workings and concepts of Git - Reader&#39;s Digest</a>
+          </li>
+        
+          <li>
             <a href="/2020/08/16/the-speed-of-darkness-muriel-rukeyser/">The Speed of Darkness</a>
           </li>
         
@@ -756,10 +751,6 @@
         
           <li>
             <a href="/2020/08/07/leetcode-algorithms-shuffle-the-array/">LeetCode - Algorithms - 1470. Shuffle the Array</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/06/renascence-edna-millay/">Renascence</a>
           </li>
         
       </ul>
