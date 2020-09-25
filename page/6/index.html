@@ -70,6 +70,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-longest-consecutive-sequence" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/05/LeetCode-Algorithms-longest-consecutive-sequence/" class="article-date">
+  <time datetime="2020-05-06T03:47:05.000Z" itemprop="datePublished">2020-05-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/05/LeetCode-Algorithms-longest-consecutive-sequence/">LeetCode - Algorithms - 128. Longest Consecutive Sequence</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Hard problem. Exercise for union-find. Almost done by myself, with help of union-find by Robert Sedgewick and Kevin Wayne.</p>
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/longest-consecutive-sequence/" target="_blank" rel="noopener">128. Longest Consecutive Sequence</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="union–find"><a href="#union–find" class="headerlink" title="union–find"></a>union–find</h2><p>© <a href="https://algs4.cs.princeton.edu/15uf/" target="_blank" rel="noopener">1.5 Case Study: Union-Find</a> Copyright © 2000–2019 <a href="https://www.cs.princeton.edu/~rs" target="_blank" rel="noopener">Robert Sedgewick</a> and <a href="https://www.cs.princeton.edu/~wayne" target="_blank" rel="noopener">Kevin Wayne</a>. All rights reserved.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestConsecutive</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] arr = removeDuplicates(nums);</span><br><span class="line">        <span class="keyword">int</span> N = arr.length;</span><br><span class="line">        Map&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;Integer, Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!map.containsKey(arr[i]-<span class="number">1</span>)) map.put(arr[i]-<span class="number">1</span>, i);</span><br><span class="line">            <span class="keyword">if</span> (!map.containsKey(arr[i]+<span class="number">1</span>)) map.put(arr[i]+<span class="number">1</span>, i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">        UF uf = <span class="keyword">new</span> UF(N);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (map.containsKey(arr[i])) &#123;</span><br><span class="line">                uf.union(i, map.get(arr[i]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] parent = uf.parent();</span><br><span class="line">        Map&lt;Integer,Integer&gt; tmpMap = <span class="keyword">new</span> HashMap&lt;Integer, Integer&gt;();</span><br><span class="line">        <span class="keyword">int</span> k;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;parent.length; i++) &#123;</span><br><span class="line">            k = parent[i];</span><br><span class="line">            <span class="keyword">if</span> (tmpMap.containsKey(parent[i]))</span><br><span class="line">                tmpMap.put(k, tmpMap.get(k)+<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                tmpMap.put(k, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(Integer n : tmpMap.values()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (n&gt;len)</span><br><span class="line">                len = n;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> len;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] removeDuplicates(<span class="keyword">int</span>[] input) &#123;</span><br><span class="line">        <span class="keyword">if</span> (input == <span class="keyword">null</span> || input.length &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> input;</span><br><span class="line">        &#125;</span><br><span class="line">        Set&lt;Integer&gt; aSet = <span class="keyword">new</span> HashSet&lt;&gt;(input.length);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : input) &#123;</span><br><span class="line">            aSet.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[aSet.size()];</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(Integer x : aSet)</span><br><span class="line">            a[i++] = x;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Weighted quick-union by rank with path compression by halving.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Robert Sedgewick</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Kevin Wayne</span></span><br><span class="line"><span class="comment"> * Algorithms, 4th edition textbook code and libraries</span></span><br><span class="line"><span class="comment"> * https://github.com/kevin-wayne/algs4</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UF</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] parent;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] rank;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> count;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UF</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>) <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line">        count = n;</span><br><span class="line">        parent = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        rank = <span class="keyword">new</span> <span class="keyword">byte</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">            rank[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">        validate(p);</span><br><span class="line">        <span class="keyword">while</span> (p != parent[p]) &#123;</span><br><span class="line">            parent[p] = parent[parent[p]];</span><br><span class="line">            p = parent[p];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">count</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">union</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootP = find(p);</span><br><span class="line">        <span class="keyword">int</span> rootQ = find(q);</span><br><span class="line">        <span class="keyword">if</span> (rootP == rootQ) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>      (rank[rootP] &lt; rank[rootQ]) parent[rootP] = rootQ;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (rank[rootP] &gt; rank[rootQ]) parent[rootQ] = rootP;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            parent[rootQ] = rootP;</span><br><span class="line">            rank[rootP]++;</span><br><span class="line">        &#125;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">validate</span><span class="params">(<span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = parent.length;</span><br><span class="line">        <span class="keyword">if</span> (p &lt; <span class="number">0</span> || p &gt;= n) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"index "</span> + p + <span class="string">" is not between 0 and "</span> + (n-<span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] parent() &#123;<span class="keyword">return</span> parent;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>68 / 68 test cases passed.</li>
+<li>Runtime: 8 ms, faster than 23.72% of Java online submissions for Longest Consecutive Sequence.</li>
+<li>Memory Usage: 40.8 MB, less than 8.62% of Java online submissions for Longest Consecutive Sequence.</li>
+</ul>
+<h1 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h1><ul>
+<li><a href="https://algs4.cs.princeton.edu/15uf/" target="_blank" rel="noopener">1.5 Case Study: Union-Find</a></li>
+<li><a href="https://github.com/kevin-wayne/algs4" target="_blank" rel="noopener">Algorithms, 4th edition textbook code and libraries</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/05/05/LeetCode-Algorithms-longest-consecutive-sequence/" data-id="ckfh5pdtb005fggjai1u0nxiz" data-title="LeetCode - Algorithms - 128. Longest Consecutive Sequence" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Union-Find/">Union Find</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-some-differences-between-British-and-American-English" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/05/04/some-differences-between-British-and-American-English/" class="article-date">
@@ -315,7 +370,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/05/04/some-differences-between-British-and-American-English/" data-id="ckfg8s15600ciacjayy24mztg" data-title="Some Differences between British and American English" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/05/04/some-differences-between-British-and-American-English/" data-id="ckfh5pdyj00cnggjaxl2dihpn" data-title="Some Differences between British and American English" class="article-share-link">Share</a>
       
       
       
@@ -381,7 +436,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/05/02/LeetCode-Algorithms-rotate-image/" data-id="ckfg8s10k005hacjaasuyzc0r" data-title="LeetCode - Algorithms - 48. Rotate Image" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/05/02/LeetCode-Algorithms-rotate-image/" data-id="ckfh5pdtc005hggjafdsh4df4" data-title="LeetCode - Algorithms - 48. Rotate Image" class="article-share-link">Share</a>
       
       
       
@@ -447,7 +502,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/05/01/algorithms-quotes/" data-id="ckfg8s11j0072acjadlfhekyj" data-title="Algorithms Quotes" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/05/01/algorithms-quotes/" data-id="ckfh5pdug006xggja7s4f24gi" data-title="Algorithms Quotes" class="article-share-link">Share</a>
       
       
       
@@ -497,7 +552,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/30/row-row-row-your-boat/" data-id="ckfg8s14x00c5acja7vjicgwp" data-title="Row, Row, Row Your Boat" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/30/row-row-row-your-boat/" data-id="ckfh5pdya00c6ggjao8tx8y44" data-title="Row, Row, Row Your Boat" class="article-share-link">Share</a>
       
       
       
@@ -570,7 +625,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/28/stay-hungry-stay-foolish-steve-jobs/" data-id="ckfg8s19q00p3acjahor8z98q" data-title="Stay hungry. Stay foolish." class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/28/stay-hungry-stay-foolish-steve-jobs/" data-id="ckfh5pe4z00pfggjax9nfpkvw" data-title="Stay hungry. Stay foolish." class="article-share-link">Share</a>
       
       
       
@@ -624,7 +679,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/27/how-to-grow-old-bertrand-russell/" data-id="ckfg8s12w009hacjaq60ikwum" data-title="How to Grow Old" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/27/how-to-grow-old-bertrand-russell/" data-id="ckfh5pdvy009kggja2esg6446" data-title="How to Grow Old" class="article-share-link">Share</a>
       
       
       
@@ -678,7 +733,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/26/the-work-of-happiness-may-sarton/" data-id="ckfg8s15o00d7acja9rek2mer" data-title="The Work of Happiness" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/26/the-work-of-happiness-may-sarton/" data-id="ckfh5pdyy00d7ggja5wgds3p3" data-title="The Work of Happiness" class="article-share-link">Share</a>
       
       
       
@@ -738,7 +793,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/24/LeetCode-Algorithms-day-of-the-week/" data-id="ckfg8s108004xacjaq9mdol63" data-title="LeetCode - Algorithms - 1185. Day of the Week" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/24/LeetCode-Algorithms-day-of-the-week/" data-id="ckfh5pdt0004vggjaoo8x8yyn" data-title="LeetCode - Algorithms - 1185. Day of the Week" class="article-share-link">Share</a>
       
       
       
@@ -782,70 +837,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/23/classical-music-sharon-wiseman/" data-id="ckfg8s11q007hacjavvlbzd4y" data-title="Classical Music" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/23/classical-music-sharon-wiseman/" data-id="ckfh5pduq007fggjamp6kxd62" data-title="Classical Music" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poem/">poem</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-sort-an-array" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/04/23/LeetCode-Algorithms-sort-an-array/" class="article-date">
-  <time datetime="2020-04-23T05:34:30.000Z" itemprop="datePublished">2020-04-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/23/LeetCode-Algorithms-sort-an-array/">LeetCode - Algorithms - 912. Sort an Array</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><blockquote>
-<p>Given an array of integers nums, sort the array in ascending order.</p>
-</blockquote>
-<p><a href="https://leetcode.com/problems/sort-an-array/" target="_blank" rel="noopener">912. Sort an Array</a></p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Insertion-sort"><a href="#Insertion-sort" class="headerlink" title="Insertion sort"></a>Insertion sort</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArray(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="keyword">int</span> temp;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &gt; <span class="number">0</span>; j--) &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[j] &lt; nums[j - <span class="number">1</span>]) &#123;</span><br><span class="line">                    temp = nums[j];</span><br><span class="line">                    nums[j] = nums[j-<span class="number">1</span>];</span><br><span class="line">                    nums[j-<span class="number">1</span>] = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nums;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>10 / 10 test cases passed.</li>
-<li>Runtime: 1323 ms, faster than 5.01% of Java online submissions for Sort an Array.</li>
-<li>Memory Usage: 47.2 MB, less than 6.12% of Java online submissions for Sort an Array.</li>
-</ul>
-<h2 id="Quicksort"><a href="#Quicksort" class="headerlink" title="Quicksort"></a>Quicksort</h2><p>© John Bentley, <em>Programming Pearls</em></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArray(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        qsort(<span class="number">0</span>,nums.length-<span class="number">1</span>, nums);</span><br><span class="line">        <span class="keyword">return</span> nums;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Quicksort</span></span><br><span class="line"><span class="comment">     * Programming Pearls</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@author</span> John Bentley</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> l</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> u</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> inArr</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">qsort</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> u, <span class="keyword">int</span>[] inArr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (l&gt;=u) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">int</span> m=l;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=l+<span class="number">1</span>;i&lt;=u; i++)</span><br><span class="line">            <span class="keyword">if</span> (inArr[i]&lt;inArr[l])</span><br><span class="line">                swap(inArr, ++m, i);</span><br><span class="line">        swap(inArr, l, m);</span><br><span class="line">        qsort(l,m-<span class="number">1</span>,inArr);</span><br><span class="line">        qsort(m+<span class="number">1</span>,u,inArr);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> temp = arr[i];</span><br><span class="line">        arr[i] = arr[j];</span><br><span class="line">        arr[j] = temp;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>10 / 10 test cases passed.</li>
-<li>Runtime: 4 ms, faster than 91.33% of Java online submissions for Sort an Array.</li>
-<li>Memory Usage: 46.8 MB, less than 6.12% of Java online submissions for Sort an Array.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/23/LeetCode-Algorithms-sort-an-array/" data-id="ckfg8s10p005racjaqw7h3sqn" data-title="LeetCode - Algorithms - 912. Sort an Array" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
     </footer>
   </div>
@@ -885,7 +881,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.14px;">Array</a> <a href="/tags/BFS/" style="font-size: 15.71px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.71px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 14.29px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 14.29px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.29px;">DFS</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 10.71px;">Divide and Conquer</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 15px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 10.71px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.29px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 12.14px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.71px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.71px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 10.71px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 11.43px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.43px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.71px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/TED/" style="font-size: 16.43px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 11.43px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 12.14px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.71px;">Topological Sort</a> <a href="/tags/Two-Pointers/" style="font-size: 12.14px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 12.14px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.71px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.43px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.57px;">english</a> <a href="/tags/essay/" style="font-size: 10.71px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/git/" style="font-size: 12.14px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.86px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 12.14px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/javascript/" style="font-size: 10.71px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.71px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 15.71px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.43px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 17.86px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.71px;">recurrence</a> <a href="/tags/regex/" style="font-size: 13.57px;">regex</a> <a href="/tags/sql/" style="font-size: 10.71px;">sql</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.71px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/中文经典/" style="font-size: 10px;">中文经典</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 12.14px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10.71px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 11.43px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 12.86px;">英语</a> <a href="/tags/译言/" style="font-size: 10.71px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.33px;">Array</a> <a href="/tags/BFS/" style="font-size: 15.33px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.67px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 14px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 14px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14px;">DFS</a> <a href="/tags/DP/" style="font-size: 14.67px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 10.67px;">Divide and Conquer</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 14.67px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 10.67px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.33px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 12px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.67px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.67px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 10.67px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 11.33px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.33px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.67px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 11.33px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 12px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.67px;">Topological Sort</a> <a href="/tags/Two-Pointers/" style="font-size: 12px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 12px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.67px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.33px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.67px;">english</a> <a href="/tags/essay/" style="font-size: 10.67px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/git/" style="font-size: 12px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.67px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 12px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 14.67px;">java</a> <a href="/tags/javascript/" style="font-size: 10.67px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.67px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.33px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 18px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.67px;">recurrence</a> <a href="/tags/regex/" style="font-size: 13.33px;">regex</a> <a href="/tags/sql/" style="font-size: 10.67px;">sql</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.67px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/中文经典/" style="font-size: 10px;">中文经典</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 12px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10.67px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 11.33px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 12.67px;">英语</a> <a href="/tags/译言/" style="font-size: 10.67px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -907,6 +903,10 @@
       <ul>
         
           <li>
+            <a href="/2020/09/24/extended-euclidean-algorithm-and-modular-multiplicative-inverse/">Extended Euclidean algorithm and Modular multiplicative inverse</a>
+          </li>
+        
+          <li>
             <a href="/2020/09/23/common-vocabulary-ielts-listening/">Build your IELTS Listening test vocabulary</a>
           </li>
         
@@ -920,10 +920,6 @@
         
           <li>
             <a href="/2020/09/18/leetcode-algorithms-rotate-string/">LeetCode - Algorithms - 796. Rotate String</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/14/leetcode-algorithms-perfect-number/">LeetCode - Algorithms - 507. Perfect Number</a>
           </li>
         
       </ul>
