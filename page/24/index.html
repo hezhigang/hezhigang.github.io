@@ -70,6 +70,107 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-P-vs-NP" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/09/P-vs-NP/" class="article-date">
+  <time datetime="2018-06-09T12:38:33.000Z" itemprop="datePublished">2018-06-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/09/P-vs-NP/">P vs NP Problem</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+<blockquote>
+<p>If it is easy to check that a solution to a problem is correct, is it also easy to solve the problem? This is the essence of the P vs NP question. Typical of the NP problems is that of the Hamiltonian Path Problem: given N cities to visit (by car), how can one do this without visiting a city twice? If you give me a solution, I can easily check that it is correct. But I cannot so easily (given the methods I know) find a solution. </p>
+<p>Suppose that you are organizing housing accommodations for a group of four hundred university students. Space is limited and only one hundred of the students will receive places in the dormitory. To complicate matters, the Dean has provided you with a list of pairs of incompatible students, and requested that no pair from this list appear in your final choice. This is an example of what computer scientists call an NP-problem, since it is easy to check if a given choice of one hundred students proposed by a coworker is satisfactory (i.e., no pair taken from your coworker’s list also appears on the list from the Dean’s office), however the task of generating such a list from scratch seems to be so hard as to be completely impractical. Indeed, the total number of ways of choosing one hundred students from the four hundred applicants is greater than the number of atoms in the known universe! Thus no future civilization could ever hope to build a supercomputer capable of solving the problem by brute force; that is, by checking every possible combination of 100 students. However, this apparent difficulty may only reflect the lack of ingenuity of your programmer. In fact, one of the outstanding problems in computer science is determining whether questions exist whose answer can be quickly checked, but which require an impossibly long time to solve by any direct procedure. Problems like the one listed above certainly seem to be of this kind, but so far no one has managed to prove that any of them really are so hard as they appear, i.e., that there really is no feasible way to generate an answer with the help of a computer. Stephen Cook and Leonid Levin formulated the P (i.e., easy to find) versus NP (i.e., easy to check) problem independently in 1971.</p>
+</blockquote>
+<p><img src="http://www.claymath.org/sites/default/files/styles/large_clay/public/cook_levin.jpg?itok=5F-aePo_" alt="Image credit: on the left, Stephen Cook by Jiří Janíček (cropped).   CC BY-SA 3.0"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Problem Statement. Does Ｐ = ＮＰ?</span><br></pre></td></tr></table></figure>
+<p>Ｐ = {L | L = L(M) for some Turing machine M that runs in polynomial time}. </p>
+<p>The notation ＮＰ stands for “Nondeterministic Polynomial time”, since originally ＮＰ was defined in terms of nondeterministic machines (that is, machines that have more than one possible move from a given configuration). </p>
+<p>To put it more briefly, Ｐ is the set of easy decision problems. ＮＰ is the class of decision problems for which it is easy to check the correctness of a claimed answer, with the aid of a little extra information. So we aren’t asking for a way to find a solution, but only to verify that an alleged solution really is correct. </p>
+<p>In Ｐ are the problems where it’s easy to find a solution, and in ＮＰ are the problems where it’s easy to check a solution that may have been very tedious to find. </p>
+<p>\(\huge \mathbf{P} \subset \mathbf{NP} \tt{?}\)</p>
+<p>The crucial question related to Ｐ and ＮＰ is whether the subset relation is proper?<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P ⊂ NP?</span><br></pre></td></tr></table></figure></p>
+<p>很显然的是Ｐ类都属于ＮＰ类（P ⊆ NP），这样问题就变成：是否某些NP类问题（比如旅行推销员问题）不存在多项式时间过程算法? 问题难在如何证明这一点？如何从逻辑上排除旅行推销员问题存在多项式时间过程算法的可能性？这跟黎曼假设的严格数学证明要排除临界线外有复零点的可能性一样困难。 </p>
+<p>复杂性范畴之间的包含关系： </p>
+<p>\(\mathrm{LOGSPACE} \subseteq \mathbf{P} \subseteq \mathbf{NP} \subseteq \mathrm{PSPACE} \)<br>\(\mathrm{LOGSPACE} \subset \mathrm{PSPACE} \)</p>
+<p>LOGSPACE ⊆ P ⊆ NP ⊆ PSPACE，用简单的对角化论证法能够证明LOGSPACE是PSPACE的真子集，其余的包含关系是否为真包含关系？无人能够证明。 </p>
+<p>很多研究复杂性理论的专家都认为 Ｐ≠ＮＰ，MIT的Scott Aaronson从哲学角度发表了他的看法：“如果P = NP，那么我们就会处于一个截然不同的世界中，创造性飞跃将失去其难能可贵的价值，解决一个问题和认识到问题有解没什么分别。任何一个能欣赏交响乐的人都能成为莫扎特，任何一个懂得数学证明的人都能成为高斯…”。（If P = NP, then the world would be a profoundly different place than we usually assume it to be. There would be no special value in “creative leaps,” no fundamental gap between solving a problem and recognizing the solution once it’s found. Everyone who could appreciate a symphony would be Mozart; everyone who could follow a step-by-step argument would be Gauss…）。按 Stephen Cook 在白皮书中的说法，如果P = NP，那么机器就能给出克雷数学研究所七大难题的形式化证明，尽管证明会很繁琐很冗长。( If P = NP, …. For example, it would transform mathematics by allowing a computer to find a formal proof of any theorem that has a proof of reasonable length, since formal proofs can easily be recognized in polynomial time. Such theorems may well include all of the CMI prize problems. Although the formal proofs may not be initially intelligible to humans, the problem of finding intelligible proofs would be reduced to that of finding a recognition algorithm for intelligible proofs. Similar remarks apply to diverse creative human endeavors, such as designing airplane wings, creating physical theories, or even composing music. The question in each case is to what extent an efficient algorithm for recognizing a good result can be found. This is a fundamental problem in artificial intelligence, and one whose solution itself would be aided by the NP-solver by allowing easy testing of recognition theories. ) </p>
+<p>在克雷数学研究所的官方资料中，此问题由 Stephen Cook （创造性地提出 ＮＰ-complete 概念并证明The satisfiability problem是NP-完全问题）作出权威解读。 </p>
+<h1 id="相关的经典论文"><a href="#相关的经典论文" class="headerlink" title="相关的经典论文"></a>相关的经典论文</h1><ul>
+<li>Finite Automata and Their Decision Problems, Michael O. Rabin &amp; Dana Scott, 1959 </li>
+<li>The Complexity of Theorem-Proving Procedures, Stephen A. Cook, 1971 </li>
+<li>Reducibility among combinatorial problems, Richard Karp, 1972 </li>
+</ul>
+<h1 id="数学元素"><a href="#数学元素" class="headerlink" title="数学元素"></a>数学元素</h1><ul>
+<li>图灵机（Turing Machine） </li>
+<li>可计算性 </li>
+<li>NP-完全：如果图论中的哈密顿回路有类似欧拉回路那样的多项式判定算法，则所有其它NP类问题也都能用多项式时间过程解决 </li>
+</ul>
+<h1 id="NP-hard-问题"><a href="#NP-hard-问题" class="headerlink" title="ＮＰ-hard 问题"></a>ＮＰ-hard 问题</h1><ul>
+<li>哈密顿回路判定 (Hamiltonian Circuit ) </li>
+<li>旅行推销员问题 (The Traveling Salesman problem) </li>
+<li>背包问题 (The Bin Packing problem) </li>
+<li>数独(Sudoku) </li>
+</ul>
+<h1 id="专家评论"><a href="#专家评论" class="headerlink" title="专家评论"></a>专家评论</h1><ul>
+<li>Richard Karp: (Berkeley, unsure, P!=NP) My intuitive belief is that P is unequal to NP,but the only supporting arguments I can offer are the failure of all efforts to place specific NP-complete problems in P by constructing polynomial-time algorithms.I believe that the traditional proof techniques will not suffice. Something entirely novel will be required. My hunch is that the problem will be solved by a young researcher who is not encumbered by too much conventional wisdom about how to attack the problem.</li>
+<li>Donald Knuth: (Retired from Stanford) It will be solved by either 2048 or 4096. I am currently somewhat pessimistic. The outcome will be the truly worst case scenario: namely that someone will prove “P=NP because there are only finitely many obstructions to the opposite hypothesis”; hence there will exists a polynomial time solution to SAT but we will never know its complexity!</li>
+<li>Alexander Razborov: (Institute for Advanced Study) Well, this problem is (at the moment) very unique since we seem to be missing even the most basic understanding of the nature of its difficulty. Neither we currently have any ideas of what approach might turn out to be viable and lead us to the solution (or at least to a better understanding of the problem). All approaches tried so far probably (in some cases, provably) have failed. In this sense P=NP is different from many other major mathematical problems on which a gradual progress was being constantly done (sometimes for centuries) whereupon they yielded, either completely or partially. Perhaps, although, the key word in this difference is “century”, and the P=NP problem has simply not aged enough yet (by mathematical standards). </li>
+<li>Bob Tarjan: (Princeton) In my view, there is no way to even make intelligent guesses about the answer to any of these questions. If I had to bet now, I would bet that P is not equal to NP. I estimate the half-life of this problem at 25 - 50 more years, but I wouldn’t bet on it being solved before 2100. Its solution will require unforeseen new techniques.</li>
+<li>Avi Wigderson: (Institute of Advanced Study) I think this project is a bit premature. I think we know too little of what is relevant to even guess answers to your questions, certainly if “we” is replaced by “I.”The only thing I can definitely say, is that it is one of the most important and interesting questions ever asked by humans, and more people and resources should participate in filling up the holes that would allow better guesses of answers to your questions.</li>
+<li>Andy Yao（姚期智）: (Princeton) It’s hard to say when the question will be resolved. I don’t have even an educated guess. Probably the resolution is that P is not equal to NP. I think the mathematical techniques used will be beautiful. </li>
+</ul>
+<h1 id="观点"><a href="#观点" class="headerlink" title="观点"></a>观点</h1><ul>
+<li>P vs. NP问题的解决可能有赖于大幅度创新的证明技术</li>
+<li>堵丁柱&amp;葛可一的《计算复杂性导论》前言：<ul>
+<li>人们在七十年代开始对NP-完全问题的研究主要是横向发展，也就是以许多不同的计算模型来分析难解问题的本质。这些新的计算模型包括了平行计算模型、概率计算模型、布尔线路、判断树、平均复杂性、交互证明系统以及程式长度复杂性等等。对这些新的计算模型的研究一方面使我们对难解问题有了更深一层的认识，一方面也产生了一些预想不到的应用。最显著的一个例子就是计算密码学的革命性突破：基于NP问题的公钥密码体系。另一个有名的例子是线性规划的多项式时间解的发现。</li>
+<li>到了八十年代中，对NP-完全问题的研究有了纵向的突破，在许多表面看来并不相关的计算模型之间发现了深刻的刻划关系。这些刻划关系不但解决了几个令人困扰多年的未解问题，同时也刺激了其它相关领域的发展。其中之一是对线路复杂性的研究发现了一些问题在某种有限制的线路模型中必有指数下界。这些结果使用了组合数学与概率方法等新的数学工具，并且解决了一个有名的有关多项式分层的未解问题。另一个更重大的结果是以概率可验证明对NP类的刻划。由此得出了许多组合优化问题近似解的NP-完全性，从而刺激了算法界对近似算法研究的新热潮。这个结果来自于对交互证明系统这个概念的扩展，并且使用了线性代数与编码理论等数学证明技巧。</li>
+</ul>
+</li>
+<li>1993年Razborov和Rudich证明的一个结果表明，给定一个特定的可信的假设，在某种意义下「自然」的证明不能解决P vs NP问题。这表明一些现在似乎最有希望的方法不太可能成功。随着更多这类的定理得到证明，该定理的可能证明有越来越多的陷阱要规避。</li>
+</ul>
+<h1 id="科普文章"><a href="#科普文章" class="headerlink" title="科普文章"></a>科普文章</h1><ul>
+<li><a href="https://www.quantamagazine.org/a-short-guide-to-hard-problems-20180716/" title="What’s easy for a computer to do, and what’s almost impossible? Those questions form the core of computational complexity. We present a map of the landscape." target="_blank" rel="noopener">A Short Guide to Hard Problems</a></li>
+</ul>
+<hr>
+<p>豆瓣小组帖子<a href="https://www.douban.com/group/topic/12613604/" target="_blank" rel="noopener">② Ｐ vs. ＮＰ： The P versus NP Problem</a>，现在github上留作备份</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/06/09/P-vs-NP/" data-id="ckfoatws100oixlja2ffsnihz" data-title="P vs NP Problem" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/">MILLENNIUM PROBLEMS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-Substring-Subsequence" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/06/08/Substring-Subsequence/" class="article-date">
@@ -116,7 +217,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/08/Substring-Subsequence/" data-id="ckfkhuhtq006knpjaki1wla9i" data-title="Substring versus Subsequence" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/08/Substring-Subsequence/" data-id="ckfoatwk0006mxljawi2cztnt" data-title="Substring versus Subsequence" class="article-share-link">Share</a>
       
       
       
@@ -182,7 +283,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/05/Preface-to-the-Poems-Collected-from-the-Orchid-Pavilion/" data-id="ckfkhuhti006anpja41558ksu" data-title="蘭亭集序" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/05/Preface-to-the-Poems-Collected-from-the-Orchid-Pavilion/" data-id="ckfoatwjs006axljay2vf0nxk" data-title="蘭亭集序" class="article-share-link">Share</a>
       
       
       
@@ -2515,7 +2616,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/03/GSL/" data-id="ckfkhui4a00r4npjavxc46e64" data-title="General Service List" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/03/GSL/" data-id="ckfoatwwq00rgxljay06i672c" data-title="General Service List" class="article-share-link">Share</a>
       
       
       
@@ -2598,7 +2699,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/03/a-toast-to-your-health/" data-id="ckfkhuhu60071npjaq4w9g8ti" data-title="A Toast to your health（告别心理亚健康的良方）" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/03/a-toast-to-your-health/" data-id="ckfoatwkb006yxljalj8x2y35" data-title="A Toast to your health（告别心理亚健康的良方）" class="article-share-link">Share</a>
       
       
       
@@ -2646,7 +2747,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/03/algorithms-data-structures/" data-id="ckfkhuhu1006wnpjakmdylhyg" data-title="算法与数据结构" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/03/algorithms-data-structures/" data-id="ckfoatwka006wxljaw1xv50a5" data-title="算法与数据结构" class="article-share-link">Share</a>
       
       
       
@@ -2799,7 +2900,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/03/reading-notes/" data-id="ckfkhui4100qxnpja2d2k5ncm" data-title="读书摘抄" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/03/reading-notes/" data-id="ckfoatwwf00r9xljazxf0gziz" data-title="读书摘抄" class="article-share-link">Share</a>
       
       
       
@@ -2870,7 +2971,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/01/How-to-Write-Email-in-English/" data-id="ckfkhuhp9000knpjaejyvn62h" data-title="How to Write Email in English" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/06/01/How-to-Write-Email-in-English/" data-id="ckfoatwf9000jxljacrt8x95t" data-title="How to Write Email in English" class="article-share-link">Share</a>
       
       
       
@@ -2953,7 +3054,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/05/31/The-Future-of-Wireless-Networking/" data-id="ckfkhui1x00obnpjajq5nujpd" data-title="无线网络的未来" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/05/31/The-Future-of-Wireless-Networking/" data-id="ckfoatwsc00onxljajdo5hljv" data-title="无线网络的未来" class="article-share-link">Share</a>
       
       
       
@@ -3059,59 +3160,12 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/05/30/How-Google-Works/" data-id="ckfkhui1o00o3npjavdyuw6u1" data-title="Google搜索引擎的工作原理" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/05/30/How-Google-Works/" data-id="ckfoatwrt00ofxljaf6b60w76" data-title="Google搜索引擎的工作原理" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Google/">Google</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/译言/">译言</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-independent-blog" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/05/28/independent-blog/" class="article-date">
-  <time datetime="2018-05-28T07:24:45.000Z" itemprop="datePublished">2018-05-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/28/independent-blog/">还活着的独立博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="卢昌海"><a href="#卢昌海" class="headerlink" title="卢昌海"></a>卢昌海</h1><p><a href="http://www.changhai.org/" target="_blank" rel="noopener">http://www.changhai.org/</a></p>
-<h1 id="谢益辉"><a href="#谢益辉" class="headerlink" title="谢益辉"></a>谢益辉</h1><h2 id="中文博客"><a href="#中文博客" class="headerlink" title="中文博客"></a>中文博客</h2><p><a href="https://yihui.name/cn/" target="_blank" rel="noopener">https://yihui.name/cn/</a></p>
-<h2 id="英文博客"><a href="#英文博客" class="headerlink" title="英文博客"></a>英文博客</h2><p><a href="https://yihui.name/en/" target="_blank" rel="noopener">https://yihui.name/en/</a></p>
-<h1 id="张志强"><a href="#张志强" class="headerlink" title="张志强"></a>张志强</h1><p><a href="https://zhiqiang.org/" target="_blank" rel="noopener">https://zhiqiang.org/</a></p>
-<h1 id="陈皓"><a href="#陈皓" class="headerlink" title="陈皓"></a>陈皓</h1><p><a href="https://coolshell.cn/" target="_blank" rel="noopener">https://coolshell.cn/</a></p>
-<h1 id="阮一峰"><a href="#阮一峰" class="headerlink" title="阮一峰"></a>阮一峰</h1><p><a href="http://www.ruanyifeng.com/blog/" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/</a></p>
-<h1 id="王垠"><a href="#王垠" class="headerlink" title="王垠"></a>王垠</h1><p><a href="http://www.yinwang.org/" target="_blank" rel="noopener">http://www.yinwang.org/</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/05/28/independent-blog/" data-id="ckfkhuhw0009qnpjasbfbo7qf" data-title="还活着的独立博客" class="article-share-link">Share</a>
-      
-      
-      
     </footer>
   </div>
   
@@ -3150,7 +3204,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.33px;">Array</a> <a href="/tags/BFS/" style="font-size: 15.33px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.67px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 14px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 14px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14px;">DFS</a> <a href="/tags/DP/" style="font-size: 14.67px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 10.67px;">Divide and Conquer</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 14.67px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 10.67px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.33px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 12px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.67px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.67px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 10.67px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 11.33px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.33px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.67px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 12px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 12px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.67px;">Topological Sort</a> <a href="/tags/Two-Pointers/" style="font-size: 12px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 12px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.67px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.33px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.67px;">english</a> <a href="/tags/essay/" style="font-size: 10.67px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/git/" style="font-size: 12px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.67px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 12px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 14.67px;">java</a> <a href="/tags/javascript/" style="font-size: 10.67px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.67px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.33px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 18px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.67px;">recurrence</a> <a href="/tags/regex/" style="font-size: 13.33px;">regex</a> <a href="/tags/sql/" style="font-size: 10.67px;">sql</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.67px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/中文经典/" style="font-size: 10px;">中文经典</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 12px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10.67px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 11.33px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 12.67px;">英语</a> <a href="/tags/译言/" style="font-size: 10.67px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.86px;">Array</a> <a href="/tags/BFS/" style="font-size: 15.71px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.71px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 14.29px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 14.29px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.29px;">DFS</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 10.71px;">Divide and Conquer</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 15px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 10.71px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.29px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 12.14px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.71px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.71px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 10.71px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 11.43px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.43px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.71px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/TED/" style="font-size: 17.14px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 12.14px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 12.14px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.71px;">Topological Sort</a> <a href="/tags/Two-Pointers/" style="font-size: 12.86px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 12.14px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.71px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.43px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.57px;">english</a> <a href="/tags/essay/" style="font-size: 10.71px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/git/" style="font-size: 12.14px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.86px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 12.14px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/javascript/" style="font-size: 10.71px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.71px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.43px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.43px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 17.86px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.71px;">recurrence</a> <a href="/tags/regex/" style="font-size: 13.57px;">regex</a> <a href="/tags/sql/" style="font-size: 10.71px;">sql</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.71px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/中文经典/" style="font-size: 10px;">中文经典</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 12.14px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10.71px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 11.43px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 12.86px;">英语</a> <a href="/tags/译言/" style="font-size: 10.71px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -3172,6 +3226,10 @@
       <ul>
         
           <li>
+            <a href="/2020/09/29/leetcode-algorithms-3sum/">LeetCode - Algorithms - 15. 3Sum</a>
+          </li>
+        
+          <li>
             <a href="/2020/09/26/what-is-a-coronavirus-elizabeth-cox-TED-Ed/">What is a coronavirus? - Elizabeth Cox - TED-Ed - Transcript</a>
           </li>
         
@@ -3185,10 +3243,6 @@
         
           <li>
             <a href="/2020/09/22/leetcode-algorithms-valid-anagram/">LeetCode - Algorithms - 242. Valid Anagram</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/21/why-you-will-fail-to-have-a-great-career-larry-smith-ted/">Why you will fail to have a great career - Larry Smith - TEDxUW | November 2011 - Transcript</a>
           </li>
         
       </ul>
