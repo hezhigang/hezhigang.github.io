@@ -70,6 +70,63 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Java8-tricks" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/22/Java8-tricks/" class="article-date">
+  <time datetime="2018-08-22T18:45:34.000Z" itemprop="datePublished">2018-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/22/Java8-tricks/">Java 8 用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><p>Java 8 新特性概述<br><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jdk8newfeature/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/java/j-lo-jdk8newfeature/index.html</a></p>
+<p>Java 8 被动迭代式特性介绍<br><a href="https://www.ibm.com/developerworks/cn/java/j-lo-java8-iterator/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/java/j-lo-java8-iterator/index.html</a></p>
+<p>使用 Java 8 作为 Java 下一代语言<br>评估 Java 8 是否适合代替 Java<br><a href="https://www.ibm.com/developerworks/cn/java/j-jn15/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/java/j-jn15/index.html</a></p>
+<p>Java 8 中的 Streams API 详解<br>Streams 的背景，以及 Java 8 中的使用详解<br><a href="https://www.ibm.com/developerworks/cn/java/j-lo-java8streamapi/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/java/j-lo-java8streamapi/index.html</a></p>
+<p>Java 8 中的 Stream 是对集合（Collection）对象功能的增强，它专注于对集合对象进行各种非常便利、高效的聚合操作（aggregate operation），或者大批量数据操作 (bulk data operation)。Stream API 借助于同样新出现的 Lambda 表达式，极大的提高编程效率和程序可读性。同时它提供串行和并行两种模式进行汇聚操作，并发模式能够充分利用多核处理器的优势，使用 fork/join 并行方式来拆分任务和加速处理过程。通常编写并行代码很难而且容易出错, 但使用 Stream API 无需编写一行多线程的代码，就可以很方便地写出高性能的并发程序。所以说，Java 8 中首次出现的 java.util.stream 是一个函数式语言+多核时代综合影响的产物。</p>
+<p>The Java 8 Stream API Tutorial<br><a href="https://www.baeldung.com/java-8-streams" target="_blank" rel="noopener">https://www.baeldung.com/java-8-streams</a></p>
+<p>Java 8 Stream Tutorial<br><a href="https://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/" target="_blank" rel="noopener">https://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/</a></p>
+<p>Lambdas and Streams in Java 8 Libraries<br><a href="http://www.drdobbs.com/jvm/lambdas-and-streams-in-java-8-libraries/240166818" target="_blank" rel="noopener">http://www.drdobbs.com/jvm/lambdas-and-streams-in-java-8-libraries/240166818</a></p>
+<h1 id="Streams"><a href="#Streams" class="headerlink" title="Streams"></a>Streams</h1><h2 id="数组连接成字符串"><a href="#数组连接成字符串" class="headerlink" title="数组连接成字符串"></a>数组连接成字符串</h2><p><a href="https://coderwall.com/p/im4lja/joining-objects-into-a-string-with-java-8-stream-api" target="_blank" rel="noopener">Joining Objects into a String with Java 8 Stream API</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] strs = &#123;<span class="string">"flower"</span>,<span class="string">"flow"</span>,<span class="string">"flight"</span>&#125;;</span><br><span class="line">System.out.println(Arrays.stream(strs).collect(Collectors.joining( <span class="string">","</span> )));</span><br></pre></td></tr></table></figure>
+<h2 id="返回数组最大值"><a href="#返回数组最大值" class="headerlink" title="返回数组最大值"></a>返回数组最大值</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arr = &#123;<span class="number">2</span>,<span class="number">7</span>,<span class="number">3</span>,<span class="number">13</span>,<span class="number">59</span>,<span class="number">31</span>&#125;;</span><br><span class="line">Arrays.stream(arr).max().getAsInt();</span><br></pre></td></tr></table></figure>
+<h2 id="List-join-as-String"><a href="#List-join-as-String" class="headerlink" title="List join as String"></a>List join as String</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; primes = primeNumbersTill(<span class="number">100</span>);</span><br><span class="line">String s = primes.stream().map(Object::toString).collect(Collectors.joining(<span class="string">","</span>));</span><br></pre></td></tr></table></figure>
+<h2 id="print-2D-array"><a href="#print-2D-array" class="headerlink" title="print 2D array"></a>print 2D array</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[][] matrix = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;, &#123;<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;, &#123;<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>&#125;&#125;;</span><br><span class="line">Stream.of(matrix).map(Arrays::toString).forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+<h2 id="java-8-打印素数序列"><a href="#java-8-打印素数序列" class="headerlink" title="java 8 打印素数序列"></a>java 8 打印素数序列</h2><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.IntStream;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isPrime</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> IntStream.rangeClosed(<span class="number">2</span>, number/<span class="number">2</span>).noneMatch(i -&gt; number%i == <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Integer&gt; <span class="title">primeNumbersTill</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> IntStream.rangeClosed(<span class="number">2</span>, n)</span><br><span class="line">	      .filter(x -&gt; isPrime(x)).boxed()</span><br><span class="line">	      .collect(Collectors.toList());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">final</span> <span class="keyword">int</span> n = <span class="number">100</span>;</span><br><span class="line">	List&lt;Integer&gt; primes = primeNumbersTill(n);</span><br><span class="line">	String s = primes.stream().map(Object::toString).collect(Collectors.joining(<span class="string">","</span>));</span><br><span class="line">	System.out.println(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-Sieve-of-Eratosthenes"><a href="#2-Sieve-of-Eratosthenes" class="headerlink" title="2 Sieve of Eratosthenes"></a>2 Sieve of Eratosthenes</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.IntStream;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Integer&gt; <span class="title">primeNumber</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> BitSet sieve = <span class="keyword">new</span> BitSet(n+<span class="number">1</span>);</span><br><span class="line">    List&lt;Integer&gt; plist = IntStream.rangeClosed(<span class="number">2</span>, n)</span><br><span class="line">    	                  .filter(x -&gt; !sieve.get(x))</span><br><span class="line">    	                  .peek(x -&gt; &#123;</span><br><span class="line">    	                      <span class="keyword">if</span> (x*x &lt; n)</span><br><span class="line">    	                        <span class="keyword">for</span>(<span class="keyword">int</span> i = x; i &lt;= n; i+=x)</span><br><span class="line">    	                           sieve.set(i);</span><br><span class="line">    	                   &#125;).boxed()</span><br><span class="line">    	        	      .collect(Collectors.toList());</span><br><span class="line">    <span class="keyword">return</span> plist;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">final</span> <span class="keyword">int</span> n = <span class="number">100</span>;</span><br><span class="line">	List&lt;Integer&gt; plist = primeNumber(n);</span><br><span class="line">	System.out.println(plist.stream().map(Object::toString).collect(Collectors.joining(<span class="string">","</span>)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Lambda"><a href="#Lambda" class="headerlink" title="Lambda"></a>Lambda</h1><h1 id="LocalDate"><a href="#LocalDate" class="headerlink" title="LocalDate"></a>LocalDate</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LocalDate now = LocalDate.now();</span><br><span class="line">LocalDate firstDayOfYear = now.with(TemporalAdjusters.firstDayOfYear());</span><br><span class="line">System.out.println( firstDayOfYear.format(DateTimeFormatter.ofPattern(<span class="string">"yyyy-MM-dd"</span>)) );</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/08/22/Java8-tricks/" data-id="ckfse33qe000mrmjarizq3yzx" data-title="Java 8 用法" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Longest-Common-Prefix" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" class="article-date">
@@ -118,7 +175,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" data-id="ckfr5unu4002ifuja51wygn60" data-title="LeetCode - Algorithms - 14. Longest Common Prefix" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" data-id="ckfse33s4002hrmjazbiemgbh" data-title="LeetCode - Algorithms - 14. Longest Common Prefix" class="article-share-link">Share</a>
       
       
       
@@ -199,7 +256,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/21/LeetCode-Algorithms-Reverse-String/" data-id="ckfr5unuu003ofuja1ml77azm" data-title="LeetCode - Algorithms - 344. Reverse String" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/21/LeetCode-Algorithms-Reverse-String/" data-id="ckfse33t7003trmjajvwm8nd0" data-title="LeetCode - Algorithms - 344. Reverse String" class="article-share-link">Share</a>
       
       
       
@@ -273,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" data-id="ckfr5unu1002dfujatxlw9nig" data-title="LeetCode - Algorithms - 300. Longest Increasing Subsequence" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" data-id="ckfse33rz002crmjacytiwo1d" data-title="LeetCode - Algorithms - 300. Longest Increasing Subsequence" class="article-share-link">Share</a>
       
       
       
@@ -321,7 +378,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/17/IT-coder-vocabulary/" data-id="ckfr5unsu000ifuja115ycjb2" data-title="Vocabulary" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/17/IT-coder-vocabulary/" data-id="ckfse33q7000frmjaej9dpiq7" data-title="Vocabulary" class="article-share-link">Share</a>
       
       
       
@@ -380,7 +437,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/12/LeetCode-Algorithms-Move-Zeroes/" data-id="ckfr5unua002ufuja5a7nhspt" data-title="LeetCode - Algorithms - 283. Move Zeroes" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/12/LeetCode-Algorithms-Move-Zeroes/" data-id="ckfse33sd002rrmja8asg06aw" data-title="LeetCode - Algorithms - 283. Move Zeroes" class="article-share-link">Share</a>
       
       
       
@@ -447,7 +504,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/07/what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED/" data-id="ckfr5uo4j00prfujalg0yu9qj" data-title="What makes a good life? Lessons from the longest study on happiness - Robert Waldinger - TEDx talk - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/07/what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED/" data-id="ckfse344y00pkrmjafbeds8fe" data-title="What makes a good life? Lessons from the longest study on happiness - Robert Waldinger - TEDx talk - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -505,7 +562,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/02/english-learning-tips-from-douban-notes/" data-id="ckfr5unxe007yfujaxiapzvi9" data-title="豆瓣日记上的英语经" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/02/english-learning-tips-from-douban-notes/" data-id="ckfse33w3007xrmja8kk5pcl4" data-title="豆瓣日记上的英语经" class="article-share-link">Share</a>
       
       
       
@@ -581,7 +638,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/01/LeetCode-Algorithms-LRU-Cache/" data-id="ckfr5unu0002afujaxrn2pgf3" data-title="LeetCode - Algorithms - 146. LRU Cache" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/01/LeetCode-Algorithms-LRU-Cache/" data-id="ckfse33s1002frmjaf76g36jj" data-title="LeetCode - Algorithms - 146. LRU Cache" class="article-share-link">Share</a>
       
       
       
@@ -634,65 +691,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/27/AWS-Certified-Solutions-Architect/" data-id="ckfr5unsb0005fuja5jzewpec" data-title="AWS Certified Solutions Architect" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/27/AWS-Certified-Solutions-Architect/" data-id="ckfse33pt0003rmjac35e301k" data-title="AWS Certified Solutions Architect" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Reverse-Integer" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/23/LeetCode-Algorithms-Reverse-Integer/" class="article-date">
-  <time datetime="2018-07-23T15:50:25.000Z" itemprop="datePublished">2018-07-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/23/LeetCode-Algorithms-Reverse-Integer/">LeetCode - Algorithms - 7. Reverse Integer</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><p>自己做出来的naive solution，直接把整数转换成字符串，然后逆转字符串</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">reverse</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">if</span> (x&gt;Integer.MAX_VALUE || x&lt;Integer.MIN_VALUE) &#123;</span><br><span class="line">    		<span class="keyword">return</span> r;</span><br><span class="line">    	&#125;</span><br><span class="line">    	String s = Integer.toString(x);</span><br><span class="line">    	<span class="keyword">if</span> (s!=<span class="keyword">null</span> &amp;&amp; !s.isEmpty()) &#123;</span><br><span class="line">    		String ss = <span class="string">""</span>;</span><br><span class="line">    		<span class="keyword">char</span> c = <span class="number">0</span>;</span><br><span class="line">    		<span class="keyword">if</span> (x&lt;<span class="number">0</span>)</span><br><span class="line">    			s = s.substring(<span class="number">1</span>);</span><br><span class="line">    		<span class="keyword">for</span>(<span class="keyword">int</span> i=s.length()-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">    			c = s.charAt(i);</span><br><span class="line">    			ss += c;</span><br><span class="line">    		&#125;</span><br><span class="line">    		<span class="keyword">if</span> (x&lt;<span class="number">0</span>)</span><br><span class="line">    			ss = <span class="string">'-'</span>+ss;</span><br><span class="line">    		System.out.println(<span class="string">"ss="</span>+ss);</span><br><span class="line">    		<span class="keyword">try</span> &#123;</span><br><span class="line">    		    r = Integer.parseInt(ss);</span><br><span class="line">    		&#125; <span class="keyword">catch</span> (NumberFormatException ex) &#123;</span><br><span class="line">    			r = <span class="number">0</span>;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;    		</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>1032 / 1032 test cases passed.</li>
-</ul>
-<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><p>做 <a href="https://leetcode.com/problems/palindrome-number/description/" target="_blank" rel="noopener">9. Palindrome Number</a> ，提示Coud you solve it without converting the integer to a string? 发现人家的方法更直接利落，温故而知新，重新实现下，结果被卡在 java int out of range 的问题里，1534236469 逆序数超过Integer.MAX_VALUE 返回 1056389759，题目里就提示了 Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows. 最后想到不如把逆序数变量定义为 long类型，再判断是否超过2147483647(0x7fffffff, 2^31-1)，再把long 安全地转换为int返回，java的long安全转换为int的小问题，google关键字 <code>java long to int</code> 参考了下 <a href="https://stackoverflow.com/questions/1590831/safely-casting-long-to-int-in-java" target="_blank" rel="noopener">Safely casting long to int in Java</a> 这样就ok了，在leetcode上运行通过。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">reverse</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (x&gt;Integer.MAX_VALUE || x&lt;Integer.MIN_VALUE) &#123;</span><br><span class="line">    		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">if</span> (x==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> remainder = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">long</span> reverseNumber = <span class="number">0L</span>;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> t = x&gt;<span class="number">0</span>?x:-x; t&gt;<span class="number">0</span>; t/=<span class="number">10</span>) &#123;</span><br><span class="line">    		remainder = t%<span class="number">10</span>;</span><br><span class="line">    		reverseNumber *= <span class="number">10</span>;</span><br><span class="line">    		reverseNumber += remainder;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">if</span> (reverseNumber&gt;Integer.MAX_VALUE)</span><br><span class="line">    		r = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">else</span></span><br><span class="line">    		r = Long.valueOf(reverseNumber).intValue();</span><br><span class="line">    	<span class="keyword">if</span> (x&lt;<span class="number">0</span>)</span><br><span class="line">    		r *= -<span class="number">1</span>;    	</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>1032 / 1032 test cases passed.</li>
-<li>Runtime: 21 ms</li>
-<li>Your runtime beats 97.62 % of java submissions.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Reverse-Integer/" data-id="ckfr5unus003mfujaauhwzjqd" data-title="LeetCode - Algorithms - 7. Reverse Integer" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
     </footer>
   </div>
@@ -754,6 +757,10 @@
       <ul>
         
           <li>
+            <a href="/2020/10/02/inspiring-quotes-for-english-learners/">【repost】Inspiring quotes for English learners</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/01/side-income-ideas-for-programmers/">Side Income Ideas For Programmers</a>
           </li>
         
@@ -767,10 +774,6 @@
         
           <li>
             <a href="/2020/09/26/what-is-a-coronavirus-elizabeth-cox-TED-Ed/">What is a coronavirus? - Elizabeth Cox - TED-Ed - Transcript</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/24/extended-euclidean-algorithm-and-modular-multiplicative-inverse/">Extended Euclidean algorithm and Modular multiplicative inverse</a>
           </li>
         
       </ul>
