@@ -70,6 +70,85 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Count-Primes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/24/LeetCode-Algorithms-Count-Primes/" class="article-date">
+  <time datetime="2018-08-24T15:37:36.000Z" itemprop="datePublished">2018-08-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/24/LeetCode-Algorithms-Count-Primes/">LeetCode - Algorithms - 204. Count Primes</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>虽然Difficulty标为Easy，但对自己来说不算简单呀，犯了各种错误。</p>
+<p>参考网上的各种代码，才终于跑通了。 算法其实就是经典的 <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes" target="_blank" rel="noopener">Sieve of Eratosthenes</a>，复杂度 O(NloglogN)</p>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="http://www.algolist.net/Algorithms/Number_theoretic/Sieve_of_Eratosthenes" target="_blank" rel="noopener">Sieve of Eratosthenes</a></li>
+<li><a href="https://www.craigrodrigues.com/blog/the-sieve-of-eratosthenes-in-javascript" target="_blank" rel="noopener">The Sieve of Eratosthenes in JavaScript</a></li>
+<li><a href="https://introcs.cs.princeton.edu/java/14array/PrimeSieve.java.html" target="_blank" rel="noopener">PrimeSieve.java</a></li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">countPrimes</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (n&lt;=<span class="number">2</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> sqrt = (<span class="keyword">int</span>) Math.sqrt(n);</span><br><span class="line">        <span class="keyword">boolean</span>[] b = <span class="keyword">new</span> <span class="keyword">boolean</span>[n];</span><br><span class="line">        b[<span class="number">0</span>]=b[<span class="number">1</span>]=<span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;n;i++)</span><br><span class="line">        	b[i]=<span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=sqrt;i++) &#123;</span><br><span class="line">        	<span class="keyword">if</span> (b[i]) &#123;</span><br><span class="line">            	<span class="keyword">for</span>(<span class="keyword">int</span> j=i*i;j&lt;n;j+=i) &#123;</span><br><span class="line">            		b[j]=<span class="keyword">false</span>;</span><br><span class="line">            	&#125;        		</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;b.length;i++) &#123;</span><br><span class="line">        	<span class="keyword">if</span> (b[i])</span><br><span class="line">        		x++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>20 / 20 test cases passed.</li>
+<li>Your runtime beats 42.53 % of java submissions.</li>
+</ul>
+<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><p>这道题好像可以拿来作为范例学习Java 8 Streams：</p>
+<ul>
+<li><a href="https://neilmadden.wordpress.com/2014/01/30/java-8-sieve-of-eratosthenes/" target="_blank" rel="noopener">Java 8 Sieve of Eratosthenes</a></li>
+<li><a href="https://stackoverflow.com/questions/43760641/java-8-streams-and-the-sieve-of-eratosthenes" target="_blank" rel="noopener">Java 8: streams and the Sieve of Eratosthenes</a></li>
+<li><a href="https://codereview.stackexchange.com/questions/176912/sieve-of-eratosthenes-using-java-8-streams" target="_blank" rel="noopener">Sieve of Eratosthenes using Java 8 streams</a></li>
+<li><a href="https://www.baeldung.com/java-generate-prime-numbers" target="_blank" rel="noopener">Generating Prime Numbers in Java</a></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.BitSet;</span><br><span class="line"><span class="keyword">import</span> java.util.IntSummaryStatistics;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.IntStream;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">countPrimes</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">final</span> BitSet sieve = <span class="keyword">new</span> BitSet(n);</span><br><span class="line">    	<span class="keyword">final</span> IntSummaryStatistics stats = IntStream.rangeClosed(<span class="number">2</span>, n-<span class="number">1</span>)</span><br><span class="line">    	                  .filter(x -&gt; !sieve.get(x))</span><br><span class="line">    	                  .peek(x -&gt; &#123;</span><br><span class="line">    	                      <span class="keyword">if</span> (x*x &lt; n)</span><br><span class="line">    	                        <span class="keyword">for</span>(<span class="keyword">int</span> i = x; i &lt; n; i+=x)</span><br><span class="line">    	                           sieve.set(i);</span><br><span class="line">    	                   &#125;)</span><br><span class="line">    	                  .summaryStatistics();</span><br><span class="line">    	<span class="keyword">return</span> <span class="keyword">new</span> Long(stats.getCount()).intValue();        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>20 / 20 test cases passed.</li>
+<li>Your runtime beats 14.45 % of java submissions.</li>
+</ul>
+<p>代码更精炼了，但性能变差了</p>
+<h2 id="3-bottom-up-approach"><a href="#3-bottom-up-approach" class="headerlink" title="3 bottom-up approach"></a>3 bottom-up approach</h2><p>solution of <a href="https://medium.com/@hylei_73413/count-primes-8b5a760c3b3b" target="_blank" rel="noopener">Leetcode 204. Count Primes</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">countPrimes</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">boolean</span> notPrime[] = <span class="keyword">new</span> <span class="keyword">boolean</span>[n];</span><br><span class="line">		<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; n; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (!notPrime[i]) &#123;</span><br><span class="line">				count++;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">2</span>; i * j &lt; n; j++) &#123;</span><br><span class="line">					notPrime[i * j] = <span class="keyword">true</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>20 / 20 test cases passed.</li>
+<li>Runtime: 13 ms, faster than 77.25% of Java online submissions for Count Primes.</li>
+<li>Memory Usage: 38.3 MB, less than 5.66% of Java online submissions for Count Primes.</li>
+</ul>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; n</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> countPrimes = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n&lt;=<span class="number">2</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> sqrt = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.sqrt(n));</span><br><span class="line">	<span class="keyword">var</span> b = <span class="keyword">new</span> <span class="built_in">Array</span>(n);</span><br><span class="line">	b[<span class="number">0</span>]=<span class="literal">false</span>;</span><br><span class="line">	b[<span class="number">1</span>]=<span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">2</span>;i&lt;n;i++) b[i]=<span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">2</span>;i&lt;=sqrt;i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (b[i]) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">var</span> j=i*i;j&lt;n;j+=i) &#123;</span><br><span class="line">				b[j]=<span class="literal">false</span>;</span><br><span class="line">			&#125;		</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> x=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;n;i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (b[i]) x++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> x;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail-3"><a href="#Submission-Detail-3" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>20 / 20 test cases passed.</li>
+<li>Your runtime beats 97.46 % of javascript submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/" data-id="ckfvjmioe001gi7japflc8o12" data-title="LeetCode - Algorithms - 204. Count Primes" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-Java8-tricks" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/08/22/Java8-tricks/" class="article-date">
@@ -111,7 +190,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/22/Java8-tricks/" data-id="ckfse33qe000mrmjarizq3yzx" data-title="Java 8 用法" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/22/Java8-tricks/" data-id="ckfvjminr000ni7jas5uwxgkk" data-title="Java 8 用法" class="article-share-link">Share</a>
       
       
       
@@ -175,7 +254,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" data-id="ckfse33s4002hrmjazbiemgbh" data-title="LeetCode - Algorithms - 14. Longest Common Prefix" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" data-id="ckfvjmiox0029i7ja2f4xf6g8" data-title="LeetCode - Algorithms - 14. Longest Common Prefix" class="article-share-link">Share</a>
       
       
       
@@ -256,7 +335,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/21/LeetCode-Algorithms-Reverse-String/" data-id="ckfse33t7003trmjajvwm8nd0" data-title="LeetCode - Algorithms - 344. Reverse String" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/21/LeetCode-Algorithms-Reverse-String/" data-id="ckfvjmiqd003si7jaytop12x1" data-title="LeetCode - Algorithms - 344. Reverse String" class="article-share-link">Share</a>
       
       
       
@@ -330,7 +409,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" data-id="ckfse33rz002crmjacytiwo1d" data-title="LeetCode - Algorithms - 300. Longest Increasing Subsequence" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" data-id="ckfvjmip6002ei7jacdxt6w2n" data-title="LeetCode - Algorithms - 300. Longest Increasing Subsequence" class="article-share-link">Share</a>
       
       
       
@@ -378,7 +457,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/17/IT-coder-vocabulary/" data-id="ckfse33q7000frmjaej9dpiq7" data-title="Vocabulary" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/17/IT-coder-vocabulary/" data-id="ckfvjmino000ii7ja71wjzl5x" data-title="Vocabulary" class="article-share-link">Share</a>
       
       
       
@@ -437,7 +516,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/12/LeetCode-Algorithms-Move-Zeroes/" data-id="ckfse33sd002rrmja8asg06aw" data-title="LeetCode - Algorithms - 283. Move Zeroes" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/12/LeetCode-Algorithms-Move-Zeroes/" data-id="ckfvjmipi002ri7ja5z9srtnt" data-title="LeetCode - Algorithms - 283. Move Zeroes" class="article-share-link">Share</a>
       
       
       
@@ -504,7 +583,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/07/what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED/" data-id="ckfse344y00pkrmjafbeds8fe" data-title="What makes a good life? Lessons from the longest study on happiness - Robert Waldinger - TEDx talk - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/07/what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED/" data-id="ckfvjmj0s00pzi7jazgefi9b9" data-title="What makes a good life? Lessons from the longest study on happiness - Robert Waldinger - TEDx talk - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -562,7 +641,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/02/english-learning-tips-from-douban-notes/" data-id="ckfse33w3007xrmja8kk5pcl4" data-title="豆瓣日记上的英语经" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/02/english-learning-tips-from-douban-notes/" data-id="ckfvjmisn007vi7jaxhyba7sw" data-title="豆瓣日记上的英语经" class="article-share-link">Share</a>
       
       
       
@@ -638,64 +717,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/01/LeetCode-Algorithms-LRU-Cache/" data-id="ckfse33s1002frmjaf76g36jj" data-title="LeetCode - Algorithms - 146. LRU Cache" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/01/LeetCode-Algorithms-LRU-Cache/" data-id="ckfvjmip5002ci7jati4jgln3" data-title="LeetCode - Algorithms - 146. LRU Cache" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-AWS-Certified-Solutions-Architect" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/27/AWS-Certified-Solutions-Architect/" class="article-date">
-  <time datetime="2018-07-27T15:45:39.000Z" itemprop="datePublished">2018-07-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/27/AWS-Certified-Solutions-Architect/">AWS Certified Solutions Architect</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>How did you prepare for AWS Certified Solutions Architect - Associate Level certification?<br><a href="https://www.quora.com/How-did-you-prepare-for-AWS-Certified-Solutions-Architect-Associate-Level-certification" target="_blank" rel="noopener">https://www.quora.com/How-did-you-prepare-for-AWS-Certified-Solutions-Architect-Associate-Level-certification</a></p>
-<p>Preparing for the AWS Certified Solutions Architect Associate Certification Exam<br><a href="https://blog.newrelic.com/2018/05/30/aws-certified-solutions-architect-associate-exam-prep/" target="_blank" rel="noopener">https://blog.newrelic.com/2018/05/30/aws-certified-solutions-architect-associate-exam-prep/</a></p>
-<hr>
-<p>AWS Certified Solutions Architect - Associate<br><a href="https://aws.amazon.com/certification/certified-solutions-architect-associate/" target="_blank" rel="noopener">https://aws.amazon.com/certification/certified-solutions-architect-associate/</a></p>
-<p>AWS Certified Solutions Architect – Associate<br><a href="https://aws.amazon.com/tw/certification/certified-solutions-architect-associate/" target="_blank" rel="noopener">https://aws.amazon.com/tw/certification/certified-solutions-architect-associate/</a></p>
-<p>AWS Certified Solutions Architect – Associate<br><a href="https://aws.amazon.com/cn/certification/certified-solutions-architect-associate/" target="_blank" rel="noopener">https://aws.amazon.com/cn/certification/certified-solutions-architect-associate/</a></p>
-<p>AWS Well-Architected<br>采用架构最佳实践进行学习、测量和构建<br><a href="https://aws.amazon.com/cn/architecture/well-architected/" target="_blank" rel="noopener">https://aws.amazon.com/cn/architecture/well-architected/</a></p>
-<p>AWS Well-Architected<br>Learn, measure, and build using architectural best practices<br><a href="https://aws.amazon.com/architecture/well-architected/" target="_blank" rel="noopener">https://aws.amazon.com/architecture/well-architected/</a></p>
-<p><a href="https://aws.amazon.com/cn/getting-started" target="_blank" rel="noopener">https://aws.amazon.com/cn/getting-started</a></p>
-<hr>
-<p>Amazon Web Services - Documentation<br>Documenting Amazon Web Services and SDKs<br><a href="https://github.com/awsdocs" target="_blank" rel="noopener">https://github.com/awsdocs</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/27/AWS-Certified-Solutions-Architect/" data-id="ckfse33pt0003rmjac35e301k" data-title="AWS Certified Solutions Architect" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li></ul>
 
     </footer>
   </div>
@@ -757,6 +783,10 @@
       <ul>
         
           <li>
+            <a href="/2020/10/04/learn-to-think-in-english/">Learn How To Think In English</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/02/inspiring-quotes-for-english-learners/">【repost】Inspiring quotes for English learners</a>
           </li>
         
@@ -770,10 +800,6 @@
         
           <li>
             <a href="/2020/09/29/leetcode-algorithms-3sum/">LeetCode - Algorithms - 15. 3Sum</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/26/what-is-a-coronavirus-elizabeth-cox-TED-Ed/">What is a coronavirus? - Elizabeth Cox - TED-Ed - Transcript</a>
           </li>
         
       </ul>
