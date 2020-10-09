@@ -70,6 +70,70 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" class="article-date">
+  <time datetime="2018-09-09T19:33:12.000Z" itemprop="datePublished">2018-09-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/">LeetCode - Algorithms - 121. Best Time to Buy and Sell Stock</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>虽然难度标为Easy，但自己居然提交了好几次才通过了，而且是因为犯了逻辑错误。最后用个二重循环，倒也简单，但性能不好，不知道高效算法是如何做的？</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (prices==<span class="keyword">null</span> || prices.length==<span class="number">0</span>)</span><br><span class="line">    		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;prices.length-<span class="number">1</span>;i++) &#123;</span><br><span class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> j=prices.length-<span class="number">1</span>;j&gt;i;j--) &#123;</span><br><span class="line">        		<span class="keyword">if</span> (prices[j]-prices[i]&gt;r) &#123;</span><br><span class="line">        			r = prices[j]-prices[i];</span><br><span class="line">        		&#125;</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>200 / 200 test cases passed.</li>
+<li>Your runtime beats 4.30 % of java submissions.</li>
+</ul>
+<p>在网上人家的一个O(n)时间复杂度的算法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (prices==<span class="keyword">null</span> || prices.length&lt;=<span class="number">1</span>)</span><br><span class="line">    		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> minPrice = prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;prices.length;i++) &#123;</span><br><span class="line">        	r = Math.max(r, prices[i]-minPrice);</span><br><span class="line">        	minPrice = Math.min(minPrice, prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>200 / 200 test cases passed.</li>
+<li>Your runtime beats 32.88 % of java submissions.</li>
+</ul>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><h2 id="O-n2"><a href="#O-n2" class="headerlink" title="O(n2)"></a>O(n<sup>2</sup>)</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; prices</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span>(<span class="params">prices</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (prices==<span class="literal">null</span> || prices.length==<span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> r=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> x = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;prices.length<span class="number">-1</span>;i++) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> j=prices.length<span class="number">-1</span>;j&gt;i;j--) &#123;</span><br><span class="line">			x = prices[j]-prices[i];</span><br><span class="line">			<span class="keyword">if</span> (x&gt;r)</span><br><span class="line">				r = x;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> r;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>200 / 200 test cases passed.</li>
+<li>Your runtime beats 7.71 % of javascript submissions.</li>
+</ul>
+<h2 id="O-n"><a href="#O-n" class="headerlink" title="O(n)"></a>O(n)</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; prices</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span>(<span class="params">prices</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (prices==<span class="literal">null</span> || prices.length&lt;=<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> r=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> minPrice = prices[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">1</span>;i&lt;prices.length;i++) &#123;</span><br><span class="line">		r = <span class="built_in">Math</span>.max(r,prices[i]-minPrice);</span><br><span class="line">		minPrice = <span class="built_in">Math</span>.min(minPrice,prices[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> r;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail-3"><a href="#Submission-Detail-3" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>200 / 200 test cases passed.</li>
+<li>Your runtime beats 84.89 % of javascript submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="ckg1mf0aq000zfzjawfnjqwgk" data-title="LeetCode - Algorithms - 121. Best Time to Buy and Sell Stock" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-sites-for-learn-english" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/09/05/sites-for-learn-english/" class="article-date">
@@ -119,7 +183,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="ckg0vbqe000czsojaaje9n8c0" data-title="英语学习相关网站" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="ckg1mf0lu00cvfzjaevhnuts1" data-title="英语学习相关网站" class="article-share-link">Share</a>
       
       
       
@@ -172,7 +236,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="ckg0vbq6u0037sojae74crdk6" data-title="LeetCode - Algorithms - 119. Pascal&#39;s Triangle II" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="ckg1mf0cl0031fzjagscf3yy5" data-title="LeetCode - Algorithms - 119. Pascal&#39;s Triangle II" class="article-share-link">Share</a>
       
       
       
@@ -229,7 +293,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="ckg0vbq6s0035sojaxkp5l7f6" data-title="LeetCode - Algorithms - 118. Pascal&#39;s Triangle" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="ckg1mf0co0034fzjanoxsavsr" data-title="LeetCode - Algorithms - 118. Pascal&#39;s Triangle" class="article-share-link">Share</a>
       
       
       
@@ -285,7 +349,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="ckg0vbq490008sojaexpsbn7m" data-title="Better than the Four Colour Theorem - Jim Geelen - mathNEWS - VOLUME 135 • ISSUE 3 - October 20, 2017" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="ckg1mf09z0008fzja6jk1u0qw" data-title="Better than the Four Colour Theorem - Jim Geelen - mathNEWS - VOLUME 135 • ISSUE 3 - October 20, 2017" class="article-share-link">Share</a>
       
       
       
@@ -338,7 +402,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" data-id="ckg0vbq5s0021sojaazxm3ymj" data-title="LeetCode - Algorithms - 171. Excel Sheet Column Number" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" data-id="ckg1mf0bm001yfzja9zptphnr" data-title="LeetCode - Algorithms - 171. Excel Sheet Column Number" class="article-share-link">Share</a>
       
       
       
@@ -418,7 +482,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/" data-id="ckg0vbq7m004esoja35ps88qv" data-title="LeetCode - Algorithms - 371. Sum of Two Integers" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/" data-id="ckg1mf0dw004afzja5mrmygll" data-title="LeetCode - Algorithms - 371. Sum of Two Integers" class="article-share-link">Share</a>
       
       
       
@@ -497,7 +561,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/" data-id="ckg0vbq5i001nsojayin4hxcy" data-title="LeetCode - Algorithms - 204. Count Primes" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/" data-id="ckg1mf0b7001ifzjax16rnz2d" data-title="LeetCode - Algorithms - 204. Count Primes" class="article-share-link">Share</a>
       
       
       
@@ -554,7 +618,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/22/Java8-tricks/" data-id="ckg0vbq4y0011sojaheinz7cy" data-title="Java 8 用法" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/22/Java8-tricks/" data-id="ckg1mf0ai000ofzja6ymvji99" data-title="Java 8 用法" class="article-share-link">Share</a>
       
       
       
@@ -618,88 +682,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" data-id="ckg0vbq69002lsojan6kkbpph" data-title="LeetCode - Algorithms - 14. Longest Common Prefix" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Reverse-String" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/08/21/LeetCode-Algorithms-Reverse-String/" class="article-date">
-  <time datetime="2018-08-22T02:51:15.000Z" itemprop="datePublished">2018-08-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/21/LeetCode-Algorithms-Reverse-String/">LeetCode - Algorithms - 344. Reverse String</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这题确实easy,做这题倒真可以脱离IDE在leetcode编辑器里刷题了。<br>做这题，又犯了一次java与js字符串的小错误，在Java里获取String长度的length()是method，在js里获取字符串长度的length是property，老是搞混淆了。</p>
-<h1 id="Javascript"><a href="#Javascript" class="headerlink" title="Javascript"></a>Javascript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; s</span></span><br><span class="line"><span class="comment"> * @return &#123;string&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> reverseString = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> r = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">if</span> (s!=<span class="literal">null</span> &amp;&amp; s.length&gt;<span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=s.length<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">            r+=s[i];</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>476 / 476 test cases passed.</li>
-<li>Your runtime beats 96.31 % of javascript submissions.</li>
-</ul>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="LOOP-SB"><a href="#LOOP-SB" class="headerlink" title="LOOP+SB"></a>LOOP+SB</h2><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">reverseString</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">if</span> (s!=<span class="keyword">null</span> &amp;&amp; !s.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=s.length()-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">                sb.append(s.charAt(i));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
-<li>476 / 476 test cases passed.</li>
-<li>Your runtime beats 13.87 % of java submissions.</li>
-</ul>
-<p>跟js写法差不多，这java代码的性能倒不行</p>
-<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">reverseString</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">if</span> (s!=<span class="keyword">null</span> &amp;&amp; !s.isEmpty()) &#123;</span><br><span class="line">        	<span class="keyword">char</span>[] arr = s.toCharArray();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=arr.length-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">                sb.append(arr[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
-<li>476 / 476 test cases passed.</li>
-<li>Your runtime beats 5.40 % of java submissions.</li>
-</ul>
-<h2 id="SB"><a href="#SB" class="headerlink" title="SB"></a>SB</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">reverseString</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        String r = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">if</span> (s!=<span class="keyword">null</span> &amp;&amp; !s.isEmpty()) &#123;</span><br><span class="line">        	StringBuilder sb = <span class="keyword">new</span> StringBuilder(s);</span><br><span class="line">        	r = sb.reverse().toString();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail-3"><a href="#Submission-Detail-3" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>476 / 476 test cases passed.</li>
-<li>Your runtime beats 5.40 % of java submissions.</li>
-</ul>
-<p>直接用StringBuilder的reverse()，用StringBuffer好像也类似，性能没什么变化</p>
-<h2 id="逆转字符数组"><a href="#逆转字符数组" class="headerlink" title="逆转字符数组"></a>逆转字符数组</h2><h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><ul>
-<li><a href="https://stackoverflow.com/questions/2439141/what-is-the-most-efficient-algorithm-for-reversing-a-string-in-java" target="_blank" rel="noopener">What is the most efficient algorithm for reversing a String in Java?</a></li>
-<li><a href="https://www.baeldung.com/java-invert-array" target="_blank" rel="noopener">How to Invert an Array in Java</a></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">reverseString</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    	String r = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">if</span> (s!=<span class="keyword">null</span> &amp;&amp; !s.isEmpty()) &#123;</span><br><span class="line">        	<span class="keyword">char</span>[] arr = s.toCharArray();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;arr.length/<span class="number">2</span>; i++) &#123;</span><br><span class="line">                <span class="keyword">char</span> temp = arr[i];</span><br><span class="line">                arr[i] = arr[arr.length-<span class="number">1</span>-i];</span><br><span class="line">                arr[arr.length-<span class="number">1</span>-i] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">            r = <span class="keyword">new</span> String(arr);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail-4"><a href="#Submission-Detail-4" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>476 / 476 test cases passed.</li>
-<li>Your runtime beats 7.62 % of java submissions.</li>
-</ul>
-<h1 id="Rust"><a href="#Rust" class="headerlink" title="Rust"></a>Rust</h1><p><a href="https://leetcode.com/problems/reverse-string/discuss/354654/Rust-95%2B" target="_blank" rel="noopener">Rust 95%+</a></p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">impl</span> Solution &#123;</span><br><span class="line">    <span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">reverse_string</span></span>(s: &amp;<span class="keyword">mut</span> <span class="built_in">Vec</span>&lt;<span class="built_in">char</span>&gt;) &#123;</span><br><span class="line">        <span class="keyword">let</span> len = s.len();</span><br><span class="line">        <span class="keyword">if</span> len &gt; <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> <span class="keyword">mut</span> midpoint = len / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> len % <span class="number">2</span> != <span class="number">0</span> &#123;</span><br><span class="line">                midpoint += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..midpoint &#123;</span><br><span class="line">                <span class="keyword">let</span> j = len - i - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">let</span> buffer = s[i];</span><br><span class="line">                s[i] = s[j];</span><br><span class="line">                s[j] = buffer;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail-5"><a href="#Submission-Detail-5" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>478 / 478 test cases passed.</li>
-<li>Runtime: 20 ms, faster than 95.94% of Rust online submissions for Reverse String.</li>
-<li>Memory Usage: 5.1 MB, less than 100.00% of Rust online submissions for Reverse String.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/21/LeetCode-Algorithms-Reverse-String/" data-id="ckg0vbq7b003wsoja5rwnnpjs" data-title="LeetCode - Algorithms - 344. Reverse String" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" data-id="ckg1mf0by002ffzjayo9w1cal" data-title="LeetCode - Algorithms - 14. Longest Common Prefix" class="article-share-link">Share</a>
       
       
       
@@ -765,6 +748,10 @@
       <ul>
         
           <li>
+            <a href="/2020/10/08/the-hunt-for-a-supermassive-black-hole-andrea-ghez-tedglobal/">The hunt for a supermassive black hole - Andrea Ghez - TEDGlobal 2009 - Transcript</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/08/mother-and-child-louise-gluck/">Mother and Child</a>
           </li>
         
@@ -778,10 +765,6 @@
         
           <li>
             <a href="/2020/10/06/top-10-algorithms/">Top 10 Algorithms</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/05/leetcode-algorithms-rotate-array/">LeetCode - Algorithms - 189. Rotate Array</a>
           </li>
         
       </ul>
