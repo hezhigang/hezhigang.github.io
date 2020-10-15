@@ -70,6 +70,67 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Pow" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/26/LeetCode-Algorithms-Pow/" class="article-date">
+  <time datetime="2020-02-27T02:50:48.000Z" itemprop="datePublished">2020-02-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/26/LeetCode-Algorithms-Pow/">LeetCode - Algorithms - 50. Pow(x, n)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/powx-n/" target="_blank" rel="noopener">50. Pow(x, n)</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Accepted"><a href="#Accepted" class="headerlink" title="Accepted"></a>Accepted</h2><blockquote>
+<p>In mathematics and computer programming, exponentiating by squaring is a general method for fast computation of large positive integer powers of a number, or more generally of an element of a semigroup, like a polynomial or a square matrix.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">myPow</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (x==<span class="number">0.0</span>d &amp;&amp; n==<span class="number">0</span>)</span><br><span class="line">			<span class="keyword">return</span> Double.POSITIVE_INFINITY;</span><br><span class="line">		<span class="keyword">if</span> (n&gt;=<span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> myPow_recur(x, n);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">double</span> reciprocal = myPow_recur(x, -n);</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1.0</span>/reciprocal;</span><br><span class="line">		&#125;       </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">double</span> <span class="title">myPow_recur</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (n==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">double</span> square = myPow_recur(x,n/<span class="number">2</span>);</span><br><span class="line">		<span class="keyword">if</span> ( (n &amp; <span class="number">1</span>) == <span class="number">1</span> ) &#123;</span><br><span class="line">			<span class="keyword">return</span> x*square*square;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> square*square;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>304 / 304 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Pow(x, n).</li>
+<li>Memory Usage: 36.6 MB, less than 5.88% of Java online submissions for Pow(x, n).</li>
+</ul>
+<h2 id="Time-Limit-Exceeded"><a href="#Time-Limit-Exceeded" class="headerlink" title="Time Limit Exceeded"></a>Time Limit Exceeded</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">myPow</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (x==<span class="number">0.0</span>d &amp;&amp; n==<span class="number">0</span>)</span><br><span class="line">    		<span class="keyword">return</span> Double.POSITIVE_INFINITY;</span><br><span class="line">        <span class="keyword">double</span> y = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (n==<span class="number">0</span>)</span><br><span class="line">        	y=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (n&gt;<span class="number">0</span>) &#123;</span><br><span class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> i=n;i&gt;<span class="number">0</span>;i--)</span><br><span class="line">        		y*=x;</span><br><span class="line">		&#125;</span><br><span class="line">        <span class="keyword">if</span> (n&lt;<span class="number">0</span>) &#123;</span><br><span class="line">        	<span class="keyword">double</span> reciprocal = <span class="number">1</span>;</span><br><span class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> i=-n;i&gt;<span class="number">0</span>;i--)</span><br><span class="line">				reciprocal*=x;</span><br><span class="line">        	y = <span class="number">1.0</span>/reciprocal;</span><br><span class="line">		&#125;</span><br><span class="line">        <span class="keyword">return</span> y;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>299 / 304 test cases passed.</li>
+<li>Status: Time Limit Exceeded</li>
+</ul>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="https://en.wikipedia.org/wiki/Exponentiation_by_squaring" target="_blank" rel="noopener">Wikipedia - Exponentiation by squaring</a></li>
+<li><a href="https://www.techiedelight.com/power-function-implementation-recursive-iterative/" target="_blank" rel="noopener">Efficiently implement power function - Recursive and Iterative - 3. Optimized Divide &amp; Conquer solution</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/02/26/LeetCode-Algorithms-Pow/" data-id="ckgayqz5j003cc6ja6n13040v" data-title="LeetCode - Algorithms - 50. Pow(x, n)" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-the-green-grass-under-the-snow-Annie-Preston" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/25/the-green-grass-under-the-snow-Annie-Preston/" class="article-date">
@@ -106,7 +167,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/25/the-green-grass-under-the-snow-Annie-Preston/" data-id="ckg9qmsxq00dp9jjavzxm1566" data-title="The Green Grass Under The Snow" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/25/the-green-grass-under-the-snow-Annie-Preston/" data-id="ckgayqzdy00dvc6jav6526hn3" data-title="The Green Grass Under The Snow" class="article-share-link">Share</a>
       
       
       
@@ -172,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/25/LeetCode-Algorithms-Binary-Search/" data-id="ckg9qmsiw000y9jjam3nro487" data-title="LeetCode - Algorithms - 704. Binary Search" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/25/LeetCode-Algorithms-Binary-Search/" data-id="ckgayqz3k000zc6jax96kuu98" data-title="LeetCode - Algorithms - 704. Binary Search" class="article-share-link">Share</a>
       
       
       
@@ -258,7 +319,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/25/do-we-see-reality-as-it-is-Donald-Hoffman-TED/" data-id="ckg9qmt9200s49jjawr0e9gm3" data-title="Do we see reality as it is? - Donald Hoffman - TED2015 - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/25/do-we-see-reality-as-it-is-Donald-Hoffman-TED/" data-id="ckgayqzm600s2c6ja49fkh4iw" data-title="Do we see reality as it is? - Donald Hoffman - TED2015 - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -310,7 +371,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/24/LeetCode-Algorithms-Surrounded-Regions/" data-id="ckg9qmsol004a9jja4u2b4n1n" data-title="LeetCode - Algorithms - 130. Surrounded Regions" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/24/LeetCode-Algorithms-Surrounded-Regions/" data-id="ckgayqz69004gc6ja4z5h7gya" data-title="LeetCode - Algorithms - 130. Surrounded Regions" class="article-share-link">Share</a>
       
       
       
@@ -356,7 +417,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/21/what-would-happen-if-you-did-not-drink-water-mia-nacamulli-TED-Ed/" data-id="ckg9qmsyn00ej9jja7ya6zfoy" data-title="What would happen if you didn’t drink water? - Mia Nacamulli - TED-Ed - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/21/what-would-happen-if-you-did-not-drink-water-mia-nacamulli-TED-Ed/" data-id="ckgayqzep00emc6javyoioe2f" data-title="What would happen if you didn’t drink water? - Mia Nacamulli - TED-Ed - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -410,7 +471,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/21/binary-matrix-01/" data-id="ckg9qmsr7007b9jjaw5rhdyh0" data-title="LeetCode - Algorithms - 542. 01 Matrix" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/21/binary-matrix-01/" data-id="ckgayqz8p007kc6jalz6rcn5d" data-title="LeetCode - Algorithms - 542. 01 Matrix" class="article-share-link">Share</a>
       
       
       
@@ -499,7 +560,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/20/intellij-idea-cheat-sheet/" data-id="ckg9qmstk009x9jja9rj379gf" data-title="IntelliJ IDEA Cheat Sheet" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/20/intellij-idea-cheat-sheet/" data-id="ckgayqzap00a3c6ja9gkedp0s" data-title="IntelliJ IDEA Cheat Sheet" class="article-share-link">Share</a>
       
       
       
@@ -560,7 +621,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/19/LeetCode-Algorithms-Employee-Importance/" data-id="ckg9qmsjz00209jjan90tvjks" data-title="LeetCode - Algorithms - 690. Employee Importance" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/19/LeetCode-Algorithms-Employee-Importance/" data-id="ckgayqz4h0021c6jatceqcbqt" data-title="LeetCode - Algorithms - 690. Employee Importance" class="article-share-link">Share</a>
       
       
       
@@ -612,66 +673,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/18/LeetCode-Algorithms-Rotting-Oranges/" data-id="ckg9qmso5003x9jjam4uktxyt" data-title="LeetCode - Algorithms - 994. Rotting Oranges" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/18/LeetCode-Algorithms-Rotting-Oranges/" data-id="ckgayqz5x003yc6jar89unq47" data-title="LeetCode - Algorithms - 994. Rotting Oranges" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BFS/">BFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/graph/">graph</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-josephus-problem" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/12/josephus-problem/" class="article-date">
-  <time datetime="2020-02-13T01:20:47.000Z" itemprop="datePublished">2020-02-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/12/josephus-problem/">Josephus problem</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>Concrete mathematics is Eulerian mathematics.<br>           – <em>Concrete Mathematics</em>, Ronald L. Graham &amp; Donald E. Knuth &amp; Oren Patashnik</p>
-</blockquote>
-<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p>Josephus problem is a math puzzle with a grim description: n prisoners are standing on a circle, sequentially numbered from 0 to n-1.<br>An executioner walks along the circle, starting from prisoner 0, removing every kth prisoner and killing him.<br>As the process goes on, the circle becomes smaller and smaller, until only one prisoner remains, who is then freed.</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="recurrence"><a href="#recurrence" class="headerlink" title="recurrence"></a>recurrence</h2><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">josephus</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (n == <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">return</span> (josephus(n - <span class="number">1</span>, k) + k - <span class="number">1</span>) % n + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">execute</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> killIdx = <span class="number">0</span>;</span><br><span class="line">    ArrayList&lt;Integer&gt; prisoners = <span class="keyword">new</span> ArrayList&lt;Integer&gt;(n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++)&#123;</span><br><span class="line">        prisoners.add(i);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">"Prisoners executed in order:"</span>);</span><br><span class="line">    <span class="keyword">while</span>(prisoners.size() &gt; <span class="number">1</span>)&#123;</span><br><span class="line">        killIdx = (killIdx + k - <span class="number">1</span>) % prisoners.size();</span><br><span class="line">        System.out.print(prisoners.get(killIdx) + <span class="string">" "</span>);</span><br><span class="line">        prisoners.remove(killIdx);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">    <span class="keyword">return</span> prisoners.get(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="circular-linked-list"><a href="#circular-linked-list" class="headerlink" title="circular linked list"></a>circular linked list</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">int</span> data;</span><br><span class="line">  <span class="keyword">public</span> Node next;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(<span class="keyword">int</span> data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.data = data;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getJosephusPosition</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">  Node head = <span class="keyword">new</span> Node(<span class="number">1</span>);</span><br><span class="line">  Node prev = head;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    prev.next = <span class="keyword">new</span> Node(i);</span><br><span class="line">    prev = prev.next;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  prev.next = head;</span><br><span class="line"></span><br><span class="line">  Node ptr1 = head, ptr2 = head;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (ptr1.next != ptr1) &#123;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (count != m) &#123;</span><br><span class="line">      ptr2 = ptr1;</span><br><span class="line">      ptr1 = ptr1.next;</span><br><span class="line">      count++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ptr2.next = ptr1.next;</span><br><span class="line">    ptr1 = ptr2.next;</span><br><span class="line">  &#125;</span><br><span class="line">  System.out.printf(<span class="string">"Last person left standing (Josephus Position) is %d \n"</span>, ptr1.data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
-<li><a href="https://rosettacode.org/wiki/Josephus_problem" target="_blank" rel="noopener">Josephus problem</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Josephus_problem" target="_blank" rel="noopener">Josephus problem</a></li>
-<li><a href="https://www.geeksforgeeks.org/josephus-problem-set-1-a-on-solution/" target="_blank" rel="noopener">Josephus problem</a></li>
-<li><a href="https://www.geeksforgeeks.org/josephus-circle-using-circular-linked-list/" target="_blank" rel="noopener">Josephus Circle using circular linked list</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/12/josephus-problem/" data-id="ckg9qmsty00aa9jjasy4lh64h" data-title="Josephus problem" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recurrence/">recurrence</a></li></ul>
 
     </footer>
   </div>
@@ -733,6 +739,10 @@
       <ul>
         
           <li>
+            <a href="/2020/10/15/quotes-in-career-advice-by-terence-tao/">Quotes in Career advice - What&#39;s new - Terence Tao</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/14/victoria-declaration-on-heart-health/">Victoria Declaration on Heart Health</a>
           </li>
         
@@ -746,10 +756,6 @@
         
           <li>
             <a href="/2020/10/09/imagine-john-lennon/">Imagine (John Lennon song)</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/08/the-hunt-for-a-supermassive-black-hole-andrea-ghez-tedglobal/">The hunt for a supermassive black hole - Andrea Ghez - TEDGlobal 2009 - Transcript</a>
           </li>
         
       </ul>
