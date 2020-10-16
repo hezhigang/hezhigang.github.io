@@ -70,6 +70,64 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Binary-Tree-Inorder-Traversal" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/" class="article-date">
+  <time datetime="2018-11-01T00:54:58.000Z" itemprop="datePublished">2018-10-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/">LeetCode - Algorithms - 94. Binary Tree Inorder Traversal</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>2007年学习数据结构曾经用Java实现过，虽然还是知其然而不知其所以然，北大那本《数据结构与算法》(张铭、赵海燕、王腾蛟)教材上是用C++实现的。</p>
+<h1 id="非递归深度优先周游二叉树"><a href="#非递归深度优先周游二叉树" class="headerlink" title="非递归深度优先周游二叉树"></a>非递归深度优先周游二叉树</h1><ul>
+<li>栈是实现递归的最常用的结构</li>
+<li>深度优先二叉树周游是递归定义的</li>
+<li>利用一个栈来记下尚待周游的结点或子树，以备以后访问。</li>
+</ul>
+<h2 id="非递归中序周游二叉树"><a href="#非递归中序周游二叉树" class="headerlink" title="非递归中序周游二叉树"></a>非递归中序周游二叉树</h2><ul>
+<li>遇到一个结点，就把它推入栈中，并去周游它的左子树</li>
+<li>周游完左子树后，从栈顶托出这个结点并访问之，然后按照它的右链接指示的地址再去周游该结点的右子树。</li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">    	List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">		<span class="keyword">if</span> (root!=<span class="keyword">null</span>) &#123;</span><br><span class="line">			TreeNode ptr = root;</span><br><span class="line">			Stack&lt;TreeNode&gt; stk = <span class="keyword">new</span> Stack&lt;TreeNode&gt;();</span><br><span class="line">			<span class="keyword">while</span>(!stk.isEmpty() || ptr != <span class="keyword">null</span>) &#123;</span><br><span class="line">				<span class="keyword">if</span> (ptr!=<span class="keyword">null</span>) &#123;</span><br><span class="line">					stk.push(ptr);</span><br><span class="line">					ptr = ptr.left;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> &#123;</span><br><span class="line">					ptr = (TreeNode) stk.peek();</span><br><span class="line">					list.add(ptr.val);</span><br><span class="line">					ptr = ptr.right;</span><br><span class="line">					stk.pop();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;			</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> list;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>68 / 68 test cases passed.</li>
+<li>Runtime: 1 ms</li>
+<li>Your runtime beats 60.69 % of java submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/" data-id="ckgcjmmts000zl9ja8c0e7yii" data-title="LeetCode - Algorithms - 94. Binary Tree Inorder Traversal" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Divide-Two-Integers" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/" class="article-date">
@@ -107,7 +165,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/" data-id="ckgb9wc01001qmkjaqk78z001" data-title="LeetCode - Algorithms - 29. Divide Two Integers" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/" data-id="ckgcjmmun001wl9ja5efrmum7" data-title="LeetCode - Algorithms - 29. Divide Two Integers" class="article-share-link">Share</a>
       
       
       
@@ -165,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/30/LeetCode-Algorithms-Min-Stack/" data-id="ckgb9wc0s002qmkja2q6lgtb1" data-title="LeetCode - Algorithms - 155. Min Stack" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/30/LeetCode-Algorithms-Min-Stack/" data-id="ckgcjmmv5002pl9jauhfrukaw" data-title="LeetCode - Algorithms - 155. Min Stack" class="article-share-link">Share</a>
       
       
       
@@ -225,7 +283,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/29/LeetCode-Algorithms-Reverse-Bits/" data-id="ckgb9wc20003nmkja96tg8sx3" data-title="LeetCode - Algorithms - 190. Reverse Bits" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/29/LeetCode-Algorithms-Reverse-Bits/" data-id="ckgcjmmvy003ml9jahfe6o5hd" data-title="LeetCode - Algorithms - 190. Reverse Bits" class="article-share-link">Share</a>
       
       
       
@@ -369,7 +427,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/27/Bitwise-and-Bit-Shift/" data-id="ckgb9wbyd0004mkjacq0iqm6c" data-title="Bitwise and Bit Shift" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/27/Bitwise-and-Bit-Shift/" data-id="ckgcjmmt50008l9jaj4fgeeek" data-title="Bitwise and Bit Shift" class="article-share-link">Share</a>
       
       
       
@@ -435,7 +493,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/26/LeetCode-Algorithms-Reverse-Linked-List/" data-id="ckgb9wc22003pmkja1cdvnkt2" data-title="LeetCode - Algorithms - 206. Reverse Linked List" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/26/LeetCode-Algorithms-Reverse-Linked-List/" data-id="ckgcjmmw0003rl9jaouevak0p" data-title="LeetCode - Algorithms - 206. Reverse Linked List" class="article-share-link">Share</a>
       
       
       
@@ -490,7 +548,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/24/LeetCode-Algorithms-First-Unique-Character-in-a-String/" data-id="ckgb9wc080021mkjas6djzqb8" data-title="LeetCode - Algorithms - 387. First Unique Character in a String" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/24/LeetCode-Algorithms-First-Unique-Character-in-a-String/" data-id="ckgcjmmus0023l9jacpy75fr9" data-title="LeetCode - Algorithms - 387. First Unique Character in a String" class="article-share-link">Share</a>
       
       
       
@@ -665,7 +723,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/22/Maven/" data-id="ckgb9wc3v0064mkjad7cgi1w5" data-title="Maven" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/22/Maven/" data-id="ckgcjmmxa005yl9jaeumjdars" data-title="Maven" class="article-share-link">Share</a>
       
       
       
@@ -725,7 +783,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" data-id="ckgb9wc2i004emkjan32mfzvw" data-title="LeetCode - Algorithms - 20. Valid Parentheses" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" data-id="ckgcjmmwi004il9jaxsfn4z3r" data-title="LeetCode - Algorithms - 20. Valid Parentheses" class="article-share-link">Share</a>
       
       
       
@@ -834,63 +892,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="ckgb9wc59007smkjasuv68yyj" data-title="Knowlege points of database especially mysql" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="ckgcjmmyg007jl9jaiordgl5i" data-title="Knowlege points of database especially mysql" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/database/">database</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" class="article-date">
-  <time datetime="2018-10-15T06:21:42.000Z" itemprop="datePublished">2018-10-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/">LeetCode - Algorithms - 106. Construct Binary Tree from Inorder and Postorder Traversal</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这题跟<a href="https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/" target="_blank" rel="noopener">105. Construct Binary Tree from Preorder and Inorder Traversal</a>是一个系列，代码抄袭了<a href="https://www.programcreek.com/2013/01/construct-binary-tree-from-inorder-and-postorder-traversal/" target="_blank" rel="noopener">Construct Binary Tree from Inorder and Postorder Traversal</a>，二叉树的算法应该说不难理解。</p>
-<blockquote>
-<p>From the post-order array, we know that last element is the root. We can find the root in in-order array. Then we can identify the left and right sub-trees of the root from in-order array. Using the length of left sub-tree, we can identify left and right sub-trees in post-order array. Recursively, we can build up the tree.</p>
-</blockquote>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">buildTree</span><span class="params">(<span class="keyword">int</span>[] inorder, <span class="keyword">int</span>[] postorder)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">int</span> inStart=<span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> inEnd=inorder.length-<span class="number">1</span>;</span><br><span class="line">    	<span class="keyword">int</span> postStart=<span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> postEnd=postorder.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> buildTree(inorder,inStart,inEnd,postorder,postStart,postEnd);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">buildTree</span><span class="params">(<span class="keyword">int</span>[] inorder, <span class="keyword">int</span> inStart, <span class="keyword">int</span> inEnd, <span class="keyword">int</span>[] postorder, <span class="keyword">int</span> postStart, <span class="keyword">int</span> postEnd)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (inStart&gt;inEnd || postStart&gt;postEnd)</span><br><span class="line">    		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">int</span> rtVal = postorder[postEnd];</span><br><span class="line">    	TreeNode rt = <span class="keyword">new</span> TreeNode(rtVal);</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">int</span> k=<span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=inEnd;i++) &#123;</span><br><span class="line">    		<span class="keyword">if</span> (inorder[i]==rtVal) &#123;</span><br><span class="line">    			k=i;</span><br><span class="line">    			<span class="keyword">break</span>;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">    	rt.left = buildTree(inorder,inStart,k-<span class="number">1</span>,postorder, postStart, postStart+k-inStart-<span class="number">1</span>);</span><br><span class="line">    	rt.right = buildTree(inorder,k+<span class="number">1</span>,inEnd,postorder,postStart+k-inStart,postEnd-<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">return</span> rt;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>203 / 203 test cases passed.</li>
-<li>Runtime: 18 ms</li>
-<li>Your runtime beats 25.95 % of java submissions.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="ckgb9wbzo001dmkja16glfeht" data-title="LeetCode - Algorithms - 106. Construct Binary Tree from Inorder and Postorder Traversal" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
     </footer>
   </div>
@@ -952,6 +958,10 @@
       <ul>
         
           <li>
+            <a href="/2020/10/16/leetcode-algorithms-sort-array-by-parity/">LeetCode - Algorithms - 905. Sort Array By Parity</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/15/leetcode-algorithms-day-of-the-year/">LeetCode - Algorithms - 1154. Day of the Year</a>
           </li>
         
@@ -965,10 +975,6 @@
         
           <li>
             <a href="/2020/10/13/leetcode-algorithms-find-common-characters/">LeetCode - Algorithms - 1002. Find Common Characters</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/11/leetcode-algorithms-matrix-diagonal-sum/">LeetCode - Algorithms - 1572. Matrix Diagonal Sum</a>
           </li>
         
       </ul>
