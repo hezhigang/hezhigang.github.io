@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2020-10-18T17:17:58.752Z</updated>
+  <updated>2020-10-19T03:18:43.933Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode - Algorithms - 896. Monotonic Array</title>
+    <link href="https://hezhigang.github.io/2020/10/18/leetcode-algorithms-monotonic-array/"/>
+    <id>https://hezhigang.github.io/2020/10/18/leetcode-algorithms-monotonic-array/</id>
+    <published>2020-10-19T02:48:44.000Z</published>
+    <updated>2020-10-19T03:18:43.933Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/monotonic-array/" target="_blank" rel="noopener">896. Monotonic Array</a></p><h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="One-Pass"><a href="#One-Pass" class="headerlink" title="One Pass"></a>One Pass</h2><p>© <a href="https://leetcode.com/problems/monotonic-array/solution/" target="_blank" rel="noopener">Approach 3: One Pass &#40;Simple Variant&#41;</a></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isMonotonic</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> increasing = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">boolean</span> decreasing = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; A.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (A[i] &gt; A[i + <span class="number">1</span>]) decreasing = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">if</span> (A[i] &lt; A[i + <span class="number">1</span>]) increasing = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> increasing || decreasing;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul><li>366 / 366 test cases passed.</li><li>Runtime: 1 ms, faster than 100.00% of Java online submissions for Monotonic Array.</li><li>Memory Usage: 47.8 MB, less than 18.59% of Java online submissions for Monotonic Array.</li></ul><h2 id="my-solution"><a href="#my-solution" class="headerlink" title="my solution"></a>my solution</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isMonotonic</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = A.length;</span><br><span class="line">        <span class="keyword">if</span> (N&lt;=<span class="number">2</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">int</span>[] d = <span class="keyword">new</span> <span class="keyword">int</span>[N-<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>, j=<span class="number">0</span>; i&lt;N; i++,j++) &#123;</span><br><span class="line">            d[j] = A[i]-A[i-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> min=d[<span class="number">0</span>],max=d[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N-<span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (d[i]&lt;min) min = d[i];</span><br><span class="line">            <span class="keyword">if</span> (d[i]&gt;max) max = d[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (min&lt;=<span class="number">0</span> &amp;&amp; max&lt;=<span class="number">0</span>) || (min&gt;=<span class="number">0</span> &amp;&amp; max&gt;=<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul><li>366 / 366 test cases passed.</li><li>Runtime: 2 ms, faster than 31.40% of Java online submissions for Monotonic Array.</li><li>Memory Usage: 46.9 MB, less than 18.59% of Java online submissions for Monotonic Array.</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;Problem&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/monotonic-a
+      
+    
+    </summary>
+    
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+      <category term="Array" scheme="https://hezhigang.github.io/tags/Array/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode - Algorithms - 1232. Check If It Is a Straight Line</title>
@@ -507,34 +534,6 @@
     
     
       <category term="programmer" scheme="https://hezhigang.github.io/tags/programmer/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Sonnet 73</title>
-    <link href="https://hezhigang.github.io/2020/09/30/sonnet-73-william-shakespeare/"/>
-    <id>https://hezhigang.github.io/2020/09/30/sonnet-73-william-shakespeare/</id>
-    <published>2020-09-30T15:19:16.000Z</published>
-    <updated>2020-10-10T01:10:57.251Z</updated>
-    
-    <content type="html"><![CDATA[<p>by <a href="https://en.wikipedia.org/wiki/William_Shakespeare" target="_blank" rel="noopener">William Shakespeare</a></p><p>That time of year thou mayst in me behold,<br>When yellow leaves, or none, or few, do hang<br>Upon those boughs which shake against the cold,<br>Bare ruined choirs, where late the sweet birds sang;<br>In me thou seest the twilight of such day<br>As after sunset fadeth in the west,<br>Which by and by black night doth take away,<br>Death’s second self that seals up all in rest;<br>In me thou seest the glowing of such fire<br>That on the ashes of his youth doth lie,<br>As the deathbed whereon it must expire,<br>Consum’d with that which it was nourish’d by;<br>This thou perceiv’st, which makes thy love more strong,<br>To love that well, which thou must leave ere long.</p><iframe src="https://open.spotify.com/embed/track/0YdUQ0aQ7HxDqTvMCiEVqN" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe><hr><ul><li><a href="https://en.wikipedia.org/wiki/Sonnet_73" target="_blank" rel="noopener">Sonnet 73</a></li><li><a href="https://www.poetryfoundation.org/poems/45099/sonnet-73-that-time-of-year-thou-mayst-in-me-behold" target="_blank" rel="noopener">Sonnet 73: That time of year thou mayst in me behold</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;by &lt;a href=&quot;https://en.wikipedia.org/wiki/William_Shakespeare&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;William Shakespeare&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;That time of
-      
-    
-    </summary>
-    
-    
-      <category term="english" scheme="https://hezhigang.github.io/tags/english/"/>
-    
-      <category term="poem" scheme="https://hezhigang.github.io/tags/poem/"/>
-    
-      <category term="song" scheme="https://hezhigang.github.io/tags/song/"/>
     
   </entry>
   
