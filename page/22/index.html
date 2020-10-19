@@ -70,6 +70,68 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" class="article-date">
+  <time datetime="2018-09-11T22:15:42.000Z" itemprop="datePublished">2018-09-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/">LeetCode - Algorithms - 122. Best Time to Buy and Sell Stock II</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>自己已经意识到就是在输入数组里找递增子序列，但还是没想通。上网找点提示，参考了<a href="https://www.programcreek.com/2014/02/leetcode-best-time-to-buy-and-sell-stock-ii-java/" target="_blank" rel="noopener">LeetCode – Best Time to Buy and Sell Stock II (Java)</a>，看了人家的，恍然大悟，不难，但就是想不到。</p>
+<p>这系列 <code>Best Time to Buy and Sell Stock</code> 的题看来也是比较经典的</p>
+<ul>
+<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/" target="_blank" rel="noopener">121. Best Time to Buy and Sell Stock</a></li>
+<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/" target="_blank" rel="noopener">122. Best Time to Buy and Sell Stock II</a></li>
+<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/description/" target="_blank" rel="noopener">123. Best Time to Buy and Sell Stock III</a></li>
+<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/description/" target="_blank" rel="noopener">188. Best Time to Buy and Sell Stock IV</a></li>
+<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/description/" target="_blank" rel="noopener">309. Best Time to Buy and Sell Stock with Cooldown</a></li>
+<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/description/" target="_blank" rel="noopener">714. Best Time to Buy and Sell Stock with Transaction Fee</a></li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">int</span> profit = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> diff = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;prices.length;i++) &#123;</span><br><span class="line">    		diff = prices[i]-prices[i-<span class="number">1</span>];</span><br><span class="line">    			<span class="keyword">if</span> (diff&gt;<span class="number">0</span>) &#123;</span><br><span class="line">    				profit+=diff;</span><br><span class="line">    			&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">        <span class="keyword">return</span> profit;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>201 / 201 test cases passed.</li>
+<li>Your runtime beats 99.86 % of java submissions.</li>
+</ul>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; prices</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span>(<span class="params">prices</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> profit = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> diff = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">1</span>;i&lt;prices.length;i++) &#123;</span><br><span class="line">		diff = prices[i]-prices[i<span class="number">-1</span>];</span><br><span class="line">		<span class="keyword">if</span> (diff&gt;<span class="number">0</span>)</span><br><span class="line">			profit+=diff;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> profit;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>201 / 201 test cases passed.</li>
+<li>Your runtime beats 18.88 % of javascript submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="ckggy85qc000tt6jabttjpdsj" data-title="LeetCode - Algorithms - 122. Best Time to Buy and Sell Stock II" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" class="article-date">
@@ -118,7 +180,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="ckgfypzn4000wf8jazhw9ymy5" data-title="LeetCode - Algorithms - 121. Best Time to Buy and Sell Stock" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="ckggy85qf000yt6jaften5a5f" data-title="LeetCode - Algorithms - 121. Best Time to Buy and Sell Stock" class="article-share-link">Share</a>
       
       
       
@@ -183,7 +245,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="ckgfypzw000djf8jaumyygka3" data-title="英语学习相关网站" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="ckggy85yf00dit6jauvf237di" data-title="英语学习相关网站" class="article-share-link">Share</a>
       
       
       
@@ -236,7 +298,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="ckgfypzoy0037f8ja4afif4kx" data-title="LeetCode - Algorithms - 119. Pascal&#39;s Triangle II" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="ckggy85rr002yt6japrovyv4e" data-title="LeetCode - Algorithms - 119. Pascal&#39;s Triangle II" class="article-share-link">Share</a>
       
       
       
@@ -293,7 +355,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="ckgfypzp1003af8jaky8sznjm" data-title="LeetCode - Algorithms - 118. Pascal&#39;s Triangle" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="ckggy85rv0031t6ja98qp9umk" data-title="LeetCode - Algorithms - 118. Pascal&#39;s Triangle" class="article-share-link">Share</a>
       
       
       
@@ -349,7 +411,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="ckgfypzmf0008f8jat6z5zle7" data-title="Better than the Four Colour Theorem - Jim Geelen - mathNEWS - VOLUME 135 • ISSUE 3 - October 20, 2017" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="ckggy85pz000ct6ja74v7uap8" data-title="Better than the Four Colour Theorem - Jim Geelen - mathNEWS - VOLUME 135 • ISSUE 3 - October 20, 2017" class="article-share-link">Share</a>
       
       
       
@@ -402,7 +464,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" data-id="ckgfypzo40021f8ja5v2y0rl1" data-title="LeetCode - Algorithms - 171. Excel Sheet Column Number" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" data-id="ckggy85r5001xt6jan7t7gcbh" data-title="LeetCode - Algorithms - 171. Excel Sheet Column Number" class="article-share-link">Share</a>
       
       
       
@@ -482,7 +544,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/" data-id="ckgfypzpo0046f8ja8weahkty" data-title="LeetCode - Algorithms - 371. Sum of Two Integers" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/" data-id="ckggy85sm0042t6jaogzl8yia" data-title="LeetCode - Algorithms - 371. Sum of Two Integers" class="article-share-link">Share</a>
       
       
       
@@ -561,7 +623,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/" data-id="ckgfypznq001nf8jamayjp5e5" data-title="LeetCode - Algorithms - 204. Count Primes" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/" data-id="ckggy85qp001dt6jaybt8w6v3" data-title="LeetCode - Algorithms - 204. Count Primes" class="article-share-link">Share</a>
       
       
       
@@ -618,75 +680,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/22/Java8-tricks/" data-id="ckgfypzmw000nf8japrvr044d" data-title="Java 8 用法" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/22/Java8-tricks/" data-id="ckggy85q8000nt6jaymxfl4uj" data-title="Java 8 用法" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Longest-Common-Prefix" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" class="article-date">
-  <time datetime="2018-08-22T18:13:33.000Z" itemprop="datePublished">2018-08-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/">LeetCode - Algorithms - 14. Longest Common Prefix</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>此题在LeetCode上难度标为Easy，LintCode上却标为Medium</p>
-<ul>
-<li><a href="https://leetcode.com/problems/longest-common-prefix/description/" target="_blank" rel="noopener">14. Longest Common Prefix</a></li>
-<li><a href="https://www.lintcode.com/problem/longest-common-prefix/description" target="_blank" rel="noopener">78. Longest Common Prefix</a></li>
-</ul>
-<p>这题虽然不能脱离IDE直接刷题，但没怎么被卡住，一天之内就做完了，还算简单吧。有共同前缀的字符串，它们的首字母肯定一样。</p>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string[]&#125; strs</span></span><br><span class="line"><span class="comment"> * @return &#123;string&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> longestCommonPrefix = <span class="function"><span class="keyword">function</span>(<span class="params">strs</span>) </span>&#123;</span><br><span class="line">	  <span class="keyword">var</span> lcp = <span class="string">""</span>;</span><br><span class="line">	  <span class="keyword">if</span> (strs==<span class="literal">null</span> || strs.length==<span class="number">0</span>)</span><br><span class="line">		  <span class="keyword">return</span> lcp;</span><br><span class="line">	  <span class="keyword">var</span> minLen = strs[<span class="number">0</span>].length;</span><br><span class="line">	  <span class="keyword">var</span> idx = <span class="number">0</span>;</span><br><span class="line">	  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">1</span>;i&lt;strs.length;i++) &#123;</span><br><span class="line">	    <span class="keyword">if</span> (strs[i].length&lt;minLen) &#123;</span><br><span class="line">		  minLen = strs[i].length;</span><br><span class="line">		  idx = i;</span><br><span class="line">		&#125;</span><br><span class="line">	  &#125;</span><br><span class="line">	  <span class="keyword">var</span> lcp = <span class="string">""</span>;</span><br><span class="line">	  <span class="keyword">var</span> ch = strs[idx].charAt(<span class="number">0</span>);</span><br><span class="line">	  <span class="keyword">var</span> b = <span class="literal">true</span>;</span><br><span class="line">	  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;strs.length;i++) &#123;</span><br><span class="line">		  b = b &amp;&amp; strs[i].charAt(<span class="number">0</span>)==ch?<span class="literal">true</span>:<span class="literal">false</span>;</span><br><span class="line">	  &#125;</span><br><span class="line">	  <span class="keyword">if</span> (b) &#123;</span><br><span class="line">		  lcp+=ch;</span><br><span class="line">		  <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">1</span>;j&lt;minLen;j++) &#123;</span><br><span class="line">			    ch = strs[idx].charAt(j);</span><br><span class="line">				b = <span class="literal">true</span>;</span><br><span class="line">			    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;strs.length;i++) &#123;</span><br><span class="line">				    b = b &amp;&amp; (strs[i].charAt(j)==ch?<span class="literal">true</span>:<span class="literal">false</span>);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span> (b)</span><br><span class="line">				  lcp += ch;</span><br><span class="line">			  &#125;	  </span><br><span class="line">	  &#125;</span><br><span class="line">	  <span class="keyword">return</span> lcp;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>118 / 118 test cases passed.</li>
-<li>Your runtime beats 81.84 % of javascript submissions.</li>
-</ul>
-<p>如果在<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if (b)</span><br><span class="line">  lcp += ch;</span><br></pre></td></tr></table></figure></p>
-<p>后面加个break语句用于跳出循环判断，改成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if (b)</span><br><span class="line">  lcp += ch;</span><br><span class="line">else</span><br><span class="line">  break;</span><br></pre></td></tr></table></figure></p>
-<p>性能倒反降低了，这个有点不明白？</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">longestCommonPrefix</span><span class="params">(String[] strs)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (strs==<span class="keyword">null</span> || strs.length==<span class="number">0</span>) <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    	<span class="keyword">int</span> minStrLen = strs[<span class="number">0</span>].length();</span><br><span class="line">    	<span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;strs.length;i++) &#123;</span><br><span class="line">    		<span class="keyword">if</span> (strs[i].length()&lt;minStrLen) &#123;</span><br><span class="line">    			minStrLen = strs[i].length();</span><br><span class="line">    			idx = i;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	StringBuilder lcp = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    	<span class="keyword">if</span> (strs[idx]!=<span class="keyword">null</span> &amp;&amp; strs[idx].length()&gt;<span class="number">0</span>) &#123;</span><br><span class="line">        	<span class="keyword">char</span> ch = strs[idx].charAt(<span class="number">0</span>);</span><br><span class="line">        	<span class="keyword">boolean</span> b = <span class="keyword">true</span>;</span><br><span class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;strs.length;i++) &#123;</span><br><span class="line">        		b = b &amp;&amp; (strs[i].charAt(<span class="number">0</span>)==ch?<span class="keyword">true</span>:<span class="keyword">false</span>);</span><br><span class="line">        	&#125;</span><br><span class="line">        	<span class="keyword">if</span> (b) &#123;</span><br><span class="line">        		lcp.append(ch);</span><br><span class="line">        		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;minStrLen;j++) &#123;</span><br><span class="line">        			ch = strs[idx].charAt(j);</span><br><span class="line">        			b = <span class="keyword">true</span>;</span><br><span class="line">        			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;strs.length;i++) &#123;</span><br><span class="line">        				b = b &amp;&amp; (strs[i].charAt(j)==ch?<span class="keyword">true</span>:<span class="keyword">false</span>);</span><br><span class="line">        			&#125;</span><br><span class="line">        			<span class="keyword">if</span> (b) &#123;</span><br><span class="line">        				lcp.append(ch);</span><br><span class="line">        			&#125;</span><br><span class="line">        			<span class="keyword">else</span> &#123;</span><br><span class="line">        				<span class="keyword">break</span>;</span><br><span class="line">        			&#125;</span><br><span class="line">        		&#125;</span><br><span class="line">        	&#125;    		</span><br><span class="line">    	&#125;</span><br><span class="line">        <span class="keyword">return</span> lcp.toString();        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>118 / 118 test cases passed.</li>
-<li>Your runtime beats 11.84 % of java submissions.</li>
-</ul>
-<p>跟js代码的情况一样，加了跳出循环判断的break语句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if (b) &#123;</span><br><span class="line">  lcp.append(ch);</span><br><span class="line">&#125;</span><br><span class="line">else &#123;</span><br><span class="line">  break;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>性能倒反降低，不解？</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" data-id="ckgfypzoh002nf8ja1k2ffetf" data-title="LeetCode - Algorithms - 14. Longest Common Prefix" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
     </footer>
   </div>
@@ -748,6 +746,10 @@
       <ul>
         
           <li>
+            <a href="/2020/10/19/the-best-known-quantum-algorithms/">The best-known quantum algorithms</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/18/leetcode-algorithms-monotonic-array/">LeetCode - Algorithms - 896. Monotonic Array</a>
           </li>
         
@@ -761,10 +763,6 @@
         
           <li>
             <a href="/2020/10/16/leetcode-algorithms-sort-array-by-parity/">LeetCode - Algorithms - 905. Sort Array By Parity</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/15/leetcode-algorithms-day-of-the-year/">LeetCode - Algorithms - 1154. Day of the Year</a>
           </li>
         
       </ul>

@@ -70,6 +70,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Surrounded-Regions" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/24/LeetCode-Algorithms-Surrounded-Regions/" class="article-date">
+  <time datetime="2020-02-25T03:06:20.000Z" itemprop="datePublished">2020-02-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/24/LeetCode-Algorithms-Surrounded-Regions/">LeetCode - Algorithms - 130. Surrounded Regions</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/surrounded-regions/" target="_blank" rel="noopener">130. Surrounded Regions</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> d[][] = &#123;</span><br><span class="line">            &#123;<span class="number">0</span>, <span class="number">1</span>&#125;,</span><br><span class="line">            &#123;<span class="number">1</span>, <span class="number">0</span>&#125;,</span><br><span class="line">            &#123;<span class="number">0</span>, -<span class="number">1</span>&#125;,</span><br><span class="line">            &#123;-<span class="number">1</span>, <span class="number">0</span>&#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="keyword">char</span>[][] board)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> h = board.length;</span><br><span class="line">        <span class="keyword">int</span> w = h==<span class="number">0</span> ? <span class="number">0</span> : board[<span class="number">0</span>].length;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (h==<span class="number">0</span> || w==<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; w; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (board[<span class="number">0</span>][j] == <span class="string">'O'</span>) bfs(<span class="number">0</span>, j, board, h, w);</span><br><span class="line">            <span class="keyword">if</span> (board[h - <span class="number">1</span>][j] == <span class="string">'O'</span>) bfs(h - <span class="number">1</span>, j, board, h, w);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; h-<span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (board[i][<span class="number">0</span>] == <span class="string">'O'</span>) bfs(i, <span class="number">0</span>, board, h, w);</span><br><span class="line">            <span class="keyword">if</span> (board[i][w - <span class="number">1</span>] == <span class="string">'O'</span>) bfs(i, w - <span class="number">1</span>, board, h, w);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; h; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; w; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (board[i][j] == <span class="string">'O'</span>) board[i][j] = <span class="string">'X'</span>;</span><br><span class="line">                <span class="keyword">if</span> (board[i][j] == <span class="string">'B'</span>) board[i][j] = <span class="string">'O'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bfs</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">char</span>[][] board, <span class="keyword">int</span> h, <span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">        Queue&lt;Point&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        queue.add(<span class="keyword">new</span> Point(i,j));</span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            Point curr = queue.poll();</span><br><span class="line">            <span class="keyword">int</span> row = curr.x;</span><br><span class="line">            <span class="keyword">int</span> col =  curr.y;</span><br><span class="line">            <span class="keyword">if</span> (isValid(board, h, w, row, col)) &#123;</span><br><span class="line">                board[row][col] = <span class="string">'B'</span>;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span>[] c: d) &#123;</span><br><span class="line">                    <span class="keyword">int</span> x = curr.x + c[<span class="number">0</span>];</span><br><span class="line">                    <span class="keyword">int</span> y = curr.y + c[<span class="number">1</span>];</span><br><span class="line">                    queue.add(<span class="keyword">new</span> Point(x, y));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isValid</span><span class="params">(<span class="keyword">char</span>[][] grid, <span class="keyword">int</span> width, <span class="keyword">int</span> height, <span class="keyword">int</span> row, <span class="keyword">int</span> col)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (row &gt;= <span class="number">0</span>) &amp;&amp; (row &lt; width) &amp;&amp; (col &gt;= <span class="number">0</span>) &amp;&amp; (col &lt; height) &amp;&amp; grid[row][col] == <span class="string">'O'</span>;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    <span class="keyword">int</span> y;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Point</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = x;</span><br><span class="line">        <span class="keyword">this</span>.y = y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>59 / 59 test cases passed.</li>
+<li>Runtime: 2 ms, faster than 55.96% of Java online submissions for Surrounded Regions.</li>
+<li>Memory Usage: 41.7 MB, less than 64.29% of Java online submissions for Surrounded Regions.</li>
+</ul>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="https://leetcode-cn.com/problems/surrounded-regions/solution/dfs-bfs-bing-cha-ji-by-powcai/" target="_blank" rel="noopener">powcai ~ DFS + BFS + 并查集</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/02/24/LeetCode-Algorithms-Surrounded-Regions/" data-id="ckggy85sv004et6jaayiurtsz" data-title="LeetCode - Algorithms - 130. Surrounded Regions" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BFS/">BFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DFS/">DFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Union-Find/">Union Find</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-what-would-happen-if-you-did-not-drink-water-mia-nacamulli-TED-Ed" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/21/what-would-happen-if-you-did-not-drink-water-mia-nacamulli-TED-Ed/" class="article-date">
@@ -100,7 +152,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/21/what-would-happen-if-you-did-not-drink-water-mia-nacamulli-TED-Ed/" data-id="ckgfypzx500f1f8jatyh5ld09" data-title="What would happen if you didn’t drink water? - Mia Nacamulli - TED-Ed - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/21/what-would-happen-if-you-did-not-drink-water-mia-nacamulli-TED-Ed/" data-id="ckggy862800oyt6jasv5yruj5" data-title="What would happen if you didn’t drink water? - Mia Nacamulli - TED-Ed - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -154,7 +206,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/21/binary-matrix-01/" data-id="ckgfypzrq007kf8jatf16flar" data-title="LeetCode - Algorithms - 542. 01 Matrix" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/21/binary-matrix-01/" data-id="ckggy85um007bt6jacjuyjm6h" data-title="LeetCode - Algorithms - 542. 01 Matrix" class="article-share-link">Share</a>
       
       
       
@@ -243,7 +295,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/20/intellij-idea-cheat-sheet/" data-id="ckgfypztl009yf8jae1m98yw4" data-title="IntelliJ IDEA Cheat Sheet" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/20/intellij-idea-cheat-sheet/" data-id="ckggy85wf009zt6jaoau1rb8b" data-title="IntelliJ IDEA Cheat Sheet" class="article-share-link">Share</a>
       
       
       
@@ -304,7 +356,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/19/LeetCode-Algorithms-Employee-Importance/" data-id="ckgfypzo50023f8japiqd2z9p" data-title="LeetCode - Algorithms - 690. Employee Importance" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/19/LeetCode-Algorithms-Employee-Importance/" data-id="ckggy85r4001ut6jazfjnzkvd" data-title="LeetCode - Algorithms - 690. Employee Importance" class="article-share-link">Share</a>
       
       
       
@@ -356,7 +408,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/18/LeetCode-Algorithms-Rotting-Oranges/" data-id="ckgfypzpk003zf8japlstnr1m" data-title="LeetCode - Algorithms - 994. Rotting Oranges" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/18/LeetCode-Algorithms-Rotting-Oranges/" data-id="ckggy85sg003st6jaevku6mbh" data-title="LeetCode - Algorithms - 994. Rotting Oranges" class="article-share-link">Share</a>
       
       
       
@@ -411,7 +463,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/12/josephus-problem/" data-id="ckgfypztw00adf8jaszhww8cp" data-title="Josephus problem" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/12/josephus-problem/" data-id="ckggy85wi00a4t6jaki64f6h1" data-title="Josephus problem" class="article-share-link">Share</a>
       
       
       
@@ -584,7 +636,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/02/what-you-eat-matters-hope/" data-id="ckgfyq06500tlf8jallb24gyv" data-title="H.O.P.E. What You Eat Matters (2018) – Full Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/02/what-you-eat-matters-hope/" data-id="ckggy868500trt6ja4hd5yxkj" data-title="H.O.P.E. What You Eat Matters (2018) – Full Transcript" class="article-share-link">Share</a>
       
       
       
@@ -640,7 +692,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/01/30/shortest-path-in-a-binary-maze/" data-id="ckgfypzw200dlf8jacuf0vmkw" data-title="Shortest path in a binary maze" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/01/30/shortest-path-in-a-binary-maze/" data-id="ckggy85ye00dgt6jahb0w2bni" data-title="Shortest path in a binary maze" class="article-share-link">Share</a>
       
       
       
@@ -688,59 +740,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/01/27/nth-root/" data-id="ckgfypzvo00cuf8janfr280ej" data-title="The principal nth root of a positive real number" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/01/27/nth-root/" data-id="ckggy85y300crt6jaf4nlbhai" data-title="The principal nth root of a positive real number" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/24/do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye/" class="article-date">
-  <time datetime="2020-01-25T04:43:48.000Z" itemprop="datePublished">2020-01-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/24/do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye/">Do not stand at my grave and weep</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>by <a href="https://en.wikipedia.org/wiki/Mary_Elizabeth_Frye" target="_blank" rel="noopener">Mary Elizabeth Frye</a></p>
-<blockquote>
-<p>Do not stand at my grave and weep,<br>I am not there; I do not sleep.<br>I am a thousand winds that blow,<br>I am the diamond glints on snow,<br>I am the sun on ripened grain,<br>I am the gentle autumn rain.<br>When you awaken in the morning’s hush<br>I am the swift uplifting rush<br>Of quiet birds in circling flight.<br>I am the soft star-shine at night.<br>Do not stand at my grave and cry,<br>I am not there; I did not die.</p>
-</blockquote>
-<hr>
-<p><a href="https://en.wikipedia.org/wiki/Do_Not_Stand_at_My_Grave_and_Weep" target="_blank" rel="noopener">Do Not Stand at My Grave and Weep</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/01/24/do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye/" data-id="ckgfypzsd0081f8ja6n9rf0nd" data-title="Do not stand at my grave and weep" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poem/">poem</a></li></ul>
 
     </footer>
   </div>
@@ -802,6 +806,10 @@
       <ul>
         
           <li>
+            <a href="/2020/10/19/the-best-known-quantum-algorithms/">The best-known quantum algorithms</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/18/leetcode-algorithms-monotonic-array/">LeetCode - Algorithms - 896. Monotonic Array</a>
           </li>
         
@@ -815,10 +823,6 @@
         
           <li>
             <a href="/2020/10/16/leetcode-algorithms-sort-array-by-parity/">LeetCode - Algorithms - 905. Sort Array By Parity</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/15/leetcode-algorithms-day-of-the-year/">LeetCode - Algorithms - 1154. Day of the Year</a>
           </li>
         
       </ul>
