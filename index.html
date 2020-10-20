@@ -70,6 +70,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-algorithms-third-maximum-number" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/20/leetcode-algorithms-third-maximum-number/" class="article-date">
+  <time datetime="2020-10-20T15:57:24.000Z" itemprop="datePublished">2020-10-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/20/leetcode-algorithms-third-maximum-number/">LeetCode - Algorithms - 414. Third Maximum Number</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/third-maximum-number/" target="_blank" rel="noopener">414. Third Maximum Number</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">thirdMax</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = nums.length;</span><br><span class="line">        <span class="keyword">int</span> max = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] &gt; max)</span><br><span class="line">                max = nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> m2 = Integer.MIN_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] &lt; max &amp;&amp; nums[i] &gt; m2)</span><br><span class="line">                m2 = nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> m3 = Long.MIN_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] &lt; m2 &amp;&amp; nums[i] &gt; m3)</span><br><span class="line">                m3 = nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> m3 &gt; Long.MIN_VALUE ? <span class="keyword">new</span> Long(m3).intValue() : max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>26 / 26 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 90.82% of Java online submissions for Third Maximum Number.</li>
+<li>Memory Usage: 39.2 MB, less than 7.88% of Java online submissions for Third Maximum Number.</li>
+</ul>
+<h1 id="javascript"><a href="#javascript" class="headerlink" title="javascript"></a>javascript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> thirdMax = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> max=nums[<span class="number">0</span>],min=nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">1</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[i]&gt;max)</span><br><span class="line">            max = nums[i];</span><br><span class="line">        <span class="keyword">if</span> (nums[i]&lt;min)</span><br><span class="line">            min = nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> lowguard = min<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">var</span> m2 = lowguard;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[i]&lt;max &amp;&amp; nums[i]&gt;m2)</span><br><span class="line">            m2 = nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> m3 = lowguard;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[i]&lt;m2 &amp;&amp; nums[i]&gt;m3)</span><br><span class="line">            m3 = nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> m3!=lowguard?m3:max;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>26 / 26 test cases passed.</li>
+<li>Runtime: 80 ms, faster than 72.32% of JavaScript online submissions for Third Maximum Number.</li>
+<li>Memory Usage: 38.9 MB, less than 5.00% of JavaScript online submissions for Third Maximum Number.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/20/leetcode-algorithms-third-maximum-number/" data-id="ckgi7twtp00bxq2jamgxh0g8f" data-title="LeetCode - Algorithms - 414. Third Maximum Number" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-the-best-known-quantum-algorithms" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/10/19/the-best-known-quantum-algorithms/" class="article-date">
@@ -117,7 +172,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/19/the-best-known-quantum-algorithms/" data-id="ckggy862i00p8t6jafxrtwgwt" data-title="The best-known quantum algorithms" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/19/the-best-known-quantum-algorithms/" data-id="ckgi7twvi00e9q2ja2z3t80th" data-title="The best-known quantum algorithms" class="article-share-link">Share</a>
       
       
       
@@ -173,7 +228,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/18/leetcode-algorithms-monotonic-array/" data-id="ckggy85x600bbt6ja7lnrsnp9" data-title="LeetCode - Algorithms - 896. Monotonic Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/18/leetcode-algorithms-monotonic-array/" data-id="ckgi7twta00bbq2jann1s3efy" data-title="LeetCode - Algorithms - 896. Monotonic Array" class="article-share-link">Share</a>
       
       
       
@@ -238,7 +293,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/17/leetcode-algorithms-check-if-it-is-a-straight-line/" data-id="ckggy85wp00ajt6japujw5jpn" data-title="LeetCode - Algorithms - 1232. Check If It Is a Straight Line" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/17/leetcode-algorithms-check-if-it-is-a-straight-line/" data-id="ckgi7twtf00biq2ja5wslibmf" data-title="LeetCode - Algorithms - 1232. Check If It Is a Straight Line" class="article-share-link">Share</a>
       
       
       
@@ -288,7 +343,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/16/leetcode-algorithms-flipping-an-image/" data-id="ckggy85wy00awt6japeeiunzl" data-title="LeetCode - Algorithms - 832. Flipping an Image" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/16/leetcode-algorithms-flipping-an-image/" data-id="ckgi7twsx00amq2janr12d45l" data-title="LeetCode - Algorithms - 832. Flipping an Image" class="article-share-link">Share</a>
       
       
       
@@ -345,7 +400,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/16/leetcode-algorithms-sort-array-by-parity/" data-id="ckggy85xo00bxt6jatbzzoyl0" data-title="LeetCode - Algorithms - 905. Sort Array By Parity" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/16/leetcode-algorithms-sort-array-by-parity/" data-id="ckgi7twtx00c4q2ja8i4uq65m" data-title="LeetCode - Algorithms - 905. Sort Array By Parity" class="article-share-link">Share</a>
       
       
       
@@ -405,7 +460,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/15/leetcode-algorithms-day-of-the-year/" data-id="ckggy85wr00amt6jav08zh6lk" data-title="LeetCode - Algorithms - 1154. Day of the Year" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/15/leetcode-algorithms-day-of-the-year/" data-id="ckgi7twsv00ajq2ja8slfvqpl" data-title="LeetCode - Algorithms - 1154. Day of the Year" class="article-share-link">Share</a>
       
       
       
@@ -494,7 +549,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/15/quotes-in-career-advice-by-terence-tao/" data-id="ckggy85y800d3t6jain6z9yp5" data-title="Quotes in Career advice - What&#39;s new - Terence Tao" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/15/quotes-in-career-advice-by-terence-tao/" data-id="ckgi7twut00ddq2jaub95w9qv" data-title="Quotes in Career advice - What&#39;s new - Terence Tao" class="article-share-link">Share</a>
       
       
       
@@ -553,7 +608,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/14/victoria-declaration-on-heart-health/" data-id="ckggy862200ort6jay7bnitao" data-title="Victoria Declaration on Heart Health" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/14/victoria-declaration-on-heart-health/" data-id="ckgi7tww700f0q2jahra5l04b" data-title="Victoria Declaration on Heart Health" class="article-share-link">Share</a>
       
       
       
@@ -602,61 +657,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/13/leetcode-algorithms-find-common-characters/" data-id="ckggy85ww00att6jap9ae7l63" data-title="LeetCode - Algorithms - 1002. Find Common Characters" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/13/leetcode-algorithms-find-common-characters/" data-id="ckgi7twsy00aoq2ja4569n3eb" data-title="LeetCode - Algorithms - 1002. Find Common Characters" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-leetcode-algorithms-matrix-diagonal-sum" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/11/leetcode-algorithms-matrix-diagonal-sum/" class="article-date">
-  <time datetime="2020-10-12T00:53:48.000Z" itemprop="datePublished">2020-10-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/11/leetcode-algorithms-matrix-diagonal-sum/">LeetCode - Algorithms - 1572. Matrix Diagonal Sum</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Easy indeed! I can do it on leetcode editor without IDE debug.</p>
-<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/matrix-diagonal-sum/" target="_blank" rel="noopener">1572. Matrix Diagonal Sum</a></p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">diagonalSum</span><span class="params">(<span class="keyword">int</span>[][] mat)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = mat.length;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++) &#123;</span><br><span class="line">            sum += mat[i][i];</span><br><span class="line">            <span class="keyword">if</span> ((N-<span class="number">1</span>)!=<span class="number">2</span>*i)</span><br><span class="line">                sum += mat[i][N-<span class="number">1</span>-i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>113 / 113 test cases passed.</li>
-<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Matrix Diagonal Sum.</li>
-<li>Memory Usage: 39.5 MB, less than 16.30% of Java online submissions for Matrix Diagonal Sum.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/11/leetcode-algorithms-matrix-diagonal-sum/" data-id="ckggy85x100b1t6jazl6le8n7" data-title="LeetCode - Algorithms - 1572. Matrix Diagonal Sum" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
     </footer>
   </div>
@@ -718,6 +723,10 @@
       <ul>
         
           <li>
+            <a href="/2020/10/20/leetcode-algorithms-third-maximum-number/">LeetCode - Algorithms - 414. Third Maximum Number</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/19/the-best-known-quantum-algorithms/">The best-known quantum algorithms</a>
           </li>
         
@@ -731,10 +740,6 @@
         
           <li>
             <a href="/2020/10/16/leetcode-algorithms-flipping-an-image/">LeetCode - Algorithms - 832. Flipping an Image</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/16/leetcode-algorithms-sort-array-by-parity/">LeetCode - Algorithms - 905. Sort Array By Parity</a>
           </li>
         
       </ul>
