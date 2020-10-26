@@ -70,6 +70,65 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Wildcard-Matching" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/26/LeetCode-Algorithms-Wildcard-Matching/" class="article-date">
+  <time datetime="2019-03-26T04:33:22.000Z" itemprop="datePublished">2019-03-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/26/LeetCode-Algorithms-Wildcard-Matching/">LeetCode - Algorithms - 44. Wildcard Matching</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Only mark. It’s an example of dynamic programming.<br>I don’t know how to solve it, what’s more, I can’t understand the answer of others, so I run code of others on leetcode.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p>by XN W</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isMatch</span><span class="params">(String s, String p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> pl = <span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; p.length(); i++) &#123;  </span><br><span class="line">             <span class="keyword">if</span> (p.charAt(i) != <span class="string">'*'</span>) &#123;  </span><br><span class="line">                  pl++;  </span><br><span class="line">             &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span> (pl &gt; s.length()) &#123;  </span><br><span class="line">             <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span> (s.length() == <span class="number">0</span> &amp;&amp; pl == <span class="number">0</span>) &#123;  </span><br><span class="line">             <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">boolean</span>[][] store = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">2</span>][s.length() + <span class="number">1</span>];  </span><br><span class="line">        store[<span class="number">0</span>][<span class="number">0</span>] = <span class="keyword">true</span>;  </span><br><span class="line">        store[<span class="number">1</span>][<span class="number">0</span>] = <span class="keyword">false</span>;   </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> ps = <span class="number">1</span>; ps &lt;= p.length(); ps++) &#123;</span><br><span class="line">             <span class="keyword">if</span> (p.charAt(ps - <span class="number">1</span>) == <span class="string">'*'</span>) &#123;  </span><br><span class="line">                  store[<span class="number">1</span>][<span class="number">0</span>] = store[<span class="number">0</span>][<span class="number">0</span>];  </span><br><span class="line">             &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">                  store[<span class="number">1</span>][<span class="number">0</span>] = <span class="keyword">false</span>;  </span><br><span class="line">             &#125;  </span><br><span class="line">             <span class="keyword">for</span> (<span class="keyword">int</span> ss = <span class="number">1</span>; ss &lt;= s.length(); ss++) &#123;  </span><br><span class="line">                  <span class="keyword">if</span> (p.charAt(ps - <span class="number">1</span>) == <span class="string">'?'</span>  </span><br><span class="line">                            || p.charAt(ps - <span class="number">1</span>) == s.charAt(ss - <span class="number">1</span>)) &#123;  </span><br><span class="line">                       store[<span class="number">1</span>][ss] = store[<span class="number">0</span>][ss - <span class="number">1</span>];  </span><br><span class="line">                  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (p.charAt(ps - <span class="number">1</span>) != <span class="string">'*'</span>) &#123;  </span><br><span class="line">                       store[<span class="number">1</span>][ss] = <span class="keyword">false</span>;  </span><br><span class="line">                  &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">                       store[<span class="number">1</span>][ss] = store[<span class="number">0</span>][ss - <span class="number">1</span>] || store[<span class="number">1</span>][ss - <span class="number">1</span>]  </span><br><span class="line">                                 || store[<span class="number">0</span>][ss];  </span><br><span class="line">                  &#125;  </span><br><span class="line">             &#125;  </span><br><span class="line">             <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= s.length(); i++) &#123;  </span><br><span class="line">                  store[<span class="number">0</span>][i] = store[<span class="number">1</span>][i];  </span><br><span class="line">             &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> store[<span class="number">1</span>][s.length()];      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><p>by XN W</p>
+<ul>
+<li>1808 / 1808 test cases passed.</li>
+<li>Runtime: 7 ms, faster than 100.00% of Java online submissions for Wildcard Matching.</li>
+<li>Memory Usage: 37.7 MB, less than 93.46% of Java online submissions for Wildcard Matching.</li>
+</ul>
+<h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><p><a href="http://vialgorithms.blogspot.com/2013/11/wildcard-matching.html" target="_blank" rel="noopener">Wildcard Matching</a></p>
+<blockquote>
+<p>I hate this algorithms!! Seriously!!!</p>
+</blockquote>
+<ol>
+<li>recursive way</li>
+<li>DP way</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/03/26/LeetCode-Algorithms-Wildcard-Matching/" data-id="ckgptfwf7004khdjamcng709s" data-title="LeetCode - Algorithms - 44. Wildcard Matching" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-Let-us-communicate" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/20/Let-us-communicate/" class="article-date">
@@ -147,7 +206,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/03/20/Let-us-communicate/" data-id="ckgpslsws005y8vjakni03494" data-title="Let&#39;s communicate" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/03/20/Let-us-communicate/" data-id="ckgptfwg0005shdjaqsxdbobo" data-title="Let&#39;s communicate" class="article-share-link">Share</a>
       
       
       
@@ -246,7 +305,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/02/19/common-phrases/" data-id="ckgpslsyf007r8vjamstaa0ou" data-title="Common Phrases" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/02/19/common-phrases/" data-id="ckgptfwhe007lhdjagqfhrnuw" data-title="Common Phrases" class="article-share-link">Share</a>
       
       
       
@@ -299,7 +358,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/02/17/LeetCode-Algorithms-Remove-Nth-Node-From-End-of-List/" data-id="ckgpslsv7003m8vjac5x6n498" data-title="LeetCode - Algorithms - 19. Remove Nth Node From End of List" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/02/17/LeetCode-Algorithms-Remove-Nth-Node-From-End-of-List/" data-id="ckgptfwei003ghdjatv816zyb" data-title="LeetCode - Algorithms - 19. Remove Nth Node From End of List" class="article-share-link">Share</a>
       
       
       
@@ -348,7 +407,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/02/14/LeetCode-Algorithms-Delete-Node-in-a-Linked-List/" data-id="ckgpslssv001u8vjarofo1nmy" data-title="LeetCode - Algorithms - 237. Delete Node in a Linked List" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/02/14/LeetCode-Algorithms-Delete-Node-in-a-Linked-List/" data-id="ckgptfwd6001ohdjap5bmaru2" data-title="LeetCode - Algorithms - 237. Delete Node in a Linked List" class="article-share-link">Share</a>
       
       
       
@@ -442,7 +501,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/02/13/smartphone-screen-time/" data-id="ckgpslt3900ed8vjafosq7dal" data-title="smartphone, social media and screen time" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/02/13/smartphone-screen-time/" data-id="ckgptfwlu00e8hdja1puutid9" data-title="smartphone, social media and screen time" class="article-share-link">Share</a>
       
       
       
@@ -496,7 +555,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/02/12/LeetCode-Algorithms-Power-of-Three/" data-id="ckgpslsv2003f8vjarlpo2vsn" data-title="LeetCode - Algorithms - 326. Power of Three" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/02/12/LeetCode-Algorithms-Power-of-Three/" data-id="ckgptfwec0039hdjabj94psvz" data-title="LeetCode - Algorithms - 326. Power of Three" class="article-share-link">Share</a>
       
       
       
@@ -551,7 +610,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/02/11/LeetCode-Algorithms-Implement-strStr/" data-id="ckgpslst9002b8vjacmal1k8c" data-title="LeetCode - Algorithms - 28. Implement strStr()" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/02/11/LeetCode-Algorithms-Implement-strStr/" data-id="ckgptfwdg0026hdjatjyudi6m" data-title="LeetCode - Algorithms - 28. Implement strStr()" class="article-share-link">Share</a>
       
       
       
@@ -625,7 +684,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/02/11/LeetCode-Algorithms-Remove-Duplicates-from-Sorted-Array/" data-id="ckgpslsv4003h8vja7v8tpqgn" data-title="LeetCode - Algorithms - 26. Remove Duplicates from Sorted Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/02/11/LeetCode-Algorithms-Remove-Duplicates-from-Sorted-Array/" data-id="ckgptfweg003ehdja6vhyqz3q" data-title="LeetCode - Algorithms - 26. Remove Duplicates from Sorted Array" class="article-share-link">Share</a>
       
       
       
@@ -676,72 +735,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/01/21/LeetCode-Algorithms-Roman-to-Integer/" data-id="ckgpslsvh003y8vjaudv2qt3m" data-title="LeetCode - Algorithms - 13. Roman to Integer" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/01/21/LeetCode-Algorithms-Roman-to-Integer/" data-id="ckgptfweo003thdjacyguqgof" data-title="LeetCode - Algorithms - 13. Roman to Integer" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Merge-Two-Sorted-Lists" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/18/LeetCode-Algorithms-Merge-Two-Sorted-Lists/" class="article-date">
-  <time datetime="2019-01-18T15:25:13.000Z" itemprop="datePublished">2019-01-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/18/LeetCode-Algorithms-Merge-Two-Sorted-Lists/">LeetCode - Algorithms - 21. Merge Two Sorted Lists</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>I am confused with pointer and linked list since I tounched computer as freshman in university.</p>
-<p>just verify solution of other guys.</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Iterative"><a href="#Iterative" class="headerlink" title="Iterative"></a>Iterative</h2><p>© <a href="https://www.programcreek.com/2012/12/leetcode-merge-two-sorted-lists-java/" target="_blank" rel="noopener">LeetCode – Merge Two Sorted Lists (Java)</a></p>
-<p>The key to solve the problem is defining a <strong>fake head</strong>. Then compare the first elements from each list. Add the smaller one to the merged list. Finally, when one of them is empty, simply append it to the merged list, since it is already sorted.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeTwoLists</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">		ListNode head = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">		ListNode p = head;</span><br><span class="line"></span><br><span class="line">		ListNode p1 = l1;</span><br><span class="line">		ListNode p2 = l2;</span><br><span class="line">		<span class="keyword">while</span> (p1 != <span class="keyword">null</span> &amp;&amp; p2 != <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (p1.val &lt; p2.val) &#123;</span><br><span class="line">				p.next = p1;</span><br><span class="line">				p1 = p1.next;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				p.next = p2;</span><br><span class="line">				p2 = p2.next;</span><br><span class="line">			&#125;</span><br><span class="line">			p = p.next;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (p1 != <span class="keyword">null</span>) &#123;</span><br><span class="line">			p.next = p1;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (p2 != <span class="keyword">null</span>) &#123;</span><br><span class="line">			p.next = p2;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> head.next;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>208 / 208 test cases passed.</li>
-<li>Runtime: 1 ms, faster than 20.84% of Java online submissions for Merge Two Sorted Lists.</li>
-<li>Memory Usage: 40.2 MB, less than 12.09% of Java online submissions for Merge Two Sorted Lists.</li>
-</ul>
-<h2 id="Recursive"><a href="#Recursive" class="headerlink" title="Recursive"></a>Recursive</h2><blockquote>
-<p><a href="https://leetcode.com/problems/merge-two-sorted-lists/discuss/9715/Java-1-ms-4-lines-codes-using-recursion" target="_blank" rel="noopener">Java, 1 ms, 4 lines codes, using recursion</a></p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeTwoLists</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (l1==<span class="keyword">null</span>) <span class="keyword">return</span> l2;</span><br><span class="line">    	<span class="keyword">if</span> (l2==<span class="keyword">null</span>) <span class="keyword">return</span> l1;</span><br><span class="line">    	<span class="keyword">if</span> (l1.val&lt;l2.val) &#123;</span><br><span class="line">    		l1.next = mergeTwoLists(l1.next,l2);</span><br><span class="line">    		<span class="keyword">return</span> l1;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">else</span> &#123;</span><br><span class="line">    		l2.next = mergeTwoLists(l1,l2.next);</span><br><span class="line">    		<span class="keyword">return</span> l2;</span><br><span class="line">    	&#125;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>208 / 208 test cases passed.</li>
-<li>Runtime: 13 ms</li>
-<li>Your runtime beats 34.74 % of java submissions.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/01/18/LeetCode-Algorithms-Merge-Two-Sorted-Lists/" data-id="ckgpslstm002q8vjabqm44bc6" data-title="LeetCode - Algorithms - 21. Merge Two Sorted Lists" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/">Linked List</a></li></ul>
 
     </footer>
   </div>
@@ -803,6 +801,10 @@
       <ul>
         
           <li>
+            <a href="/2020/10/25/symmetry-reality-riddle-marcus-du-sautoy-tedglobal/">Symmetry, reality&#39;s riddle - Marcus du Sautoy - TEDGlobal 2009 - Transcript</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/25/galois-theory/">Galois theory</a>
           </li>
         
@@ -816,10 +818,6 @@
         
           <li>
             <a href="/2020/10/23/let-us-now-praise-prime-numbers-helen-spalding/">Let Us Now Praise Prime Numbers</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/22/leetcode-algorithms-remove-duplicates-from-sorted-list/">LeetCode - Algorithms - 83. Remove Duplicates from Sorted List</a>
           </li>
         
       </ul>

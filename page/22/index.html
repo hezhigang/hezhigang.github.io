@@ -70,6 +70,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-First-Unique-Character-in-a-String" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/24/LeetCode-Algorithms-First-Unique-Character-in-a-String/" class="article-date">
+  <time datetime="2018-10-24T16:13:23.000Z" itemprop="datePublished">2018-10-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/24/LeetCode-Algorithms-First-Unique-Character-in-a-String/">LeetCode - Algorithms - 387. First Unique Character in a String</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>虽然是Easy的题，自己却想不出来，最后只好参考了这个 <a href="https://www.geeksforgeeks.org/given-a-string-find-its-first-non-repeating-character/" target="_blank" rel="noopener">Given a string, find its first non-repeating character</a> 的思路，倒也很容易看明白，一点就破的题。</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">firstUniqChar</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    	Map&lt;Character,Integer&gt; count = <span class="keyword">new</span> HashMap&lt;Character,Integer&gt;();</span><br><span class="line">    	<span class="keyword">char</span> c = <span class="string">'\u0000'</span>;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.length();i++) &#123;</span><br><span class="line">    		c = s.charAt(i);</span><br><span class="line">    		<span class="keyword">if</span> (count.containsKey(c)) &#123;</span><br><span class="line">    			count.put(c, count.get(c)+<span class="number">1</span>);</span><br><span class="line">    		&#125;</span><br><span class="line">    		<span class="keyword">else</span> &#123;</span><br><span class="line">    			count.put(c, <span class="number">1</span>);</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> r = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.length();i++) &#123;</span><br><span class="line">        	<span class="keyword">if</span> (count.get(s.charAt(i))==<span class="number">1</span>) &#123;</span><br><span class="line">        		r = i;</span><br><span class="line">        		<span class="keyword">break</span>;</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>104 / 104 test cases passed.</li>
+<li>Runtime: 61 ms</li>
+<li>Your runtime beats 25.39 % of java submissions.</li>
+</ul>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; s</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> firstUniqChar = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> count = &#123;&#125;;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;s.length;i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">typeof</span> count[s[i]]!=<span class="string">"undefined"</span> &amp;&amp; count[s[i]]!=<span class="literal">null</span>) &#123;</span><br><span class="line">			count[s[i]]++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			count[s[i]]=<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> r=<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;s.length;i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (count[s[i]]==<span class="number">1</span>) &#123;</span><br><span class="line">			r=i;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> r;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>104 / 104 test cases passed.</li>
+<li>Runtime: 108 ms</li>
+<li>Your runtime beats 37.23 % of javascript submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/24/LeetCode-Algorithms-First-Unique-Character-in-a-String/" data-id="ckgptfwde0022hdja4qwkdamw" data-title="LeetCode - Algorithms - 387. First Unique Character in a String" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-Maven" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/10/22/Maven/" class="article-date">
@@ -229,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/22/Maven/" data-id="ckgpslswy00668vjauc6rmelm" data-title="Maven" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/22/Maven/" data-id="ckgptfwg3005xhdjaqg4krmgi" data-title="Maven" class="article-share-link">Share</a>
       
       
       
@@ -289,7 +344,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" data-id="ckgpslsvy004l8vjaxkqa3pzl" data-title="LeetCode - Algorithms - 20. Valid Parentheses" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" data-id="ckgptfwf5004fhdja1ewjrp5l" data-title="LeetCode - Algorithms - 20. Valid Parentheses" class="article-share-link">Share</a>
       
       
       
@@ -398,7 +453,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="ckgpslsyi007t8vjaqzp0w4u8" data-title="Knowlege points of database especially mysql" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="ckgptfwhg007ohdja9cqyuiyy" data-title="Knowlege points of database especially mysql" class="article-share-link">Share</a>
       
       
       
@@ -450,7 +505,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="ckgpslssl001h8vjaveq4neu4" data-title="LeetCode - Algorithms - 106. Construct Binary Tree from Inorder and Postorder Traversal" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="ckgptfwcx001ahdjay8czwus7" data-title="LeetCode - Algorithms - 106. Construct Binary Tree from Inorder and Postorder Traversal" class="article-share-link">Share</a>
       
       
       
@@ -502,7 +557,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="ckgpslssm001j8vjar66lb3zw" data-title="LeetCode - Algorithms - 105. Construct Binary Tree from Preorder and Inorder Traversal" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="ckgptfwd2001hhdjai51w2kb2" data-title="LeetCode - Algorithms - 105. Construct Binary Tree from Preorder and Inorder Traversal" class="article-share-link">Share</a>
       
       
       
@@ -569,7 +624,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="ckgpslsse00188vjajbua6j2f" data-title="LeetCode - Algorithms - 518. Coin Change 2" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="ckgptfwcu0017hdjaq3f85x7m" data-title="LeetCode - Algorithms - 518. Coin Change 2" class="article-share-link">Share</a>
       
       
       
@@ -638,7 +693,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="ckgpslssj001e8vja8v8wms25" data-title="LeetCode - Algorithms - 322. Coin Change" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="ckgptfwcz001chdja5s2q8xzu" data-title="LeetCode - Algorithms - 322. Coin Change" class="article-share-link">Share</a>
       
       
       
@@ -697,7 +752,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="ckgpslsrw000u8vja4cqspsmw" data-title="LeetCode - Algorithms - 224. Basic Calculator" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="ckgptfwcf000rhdjaky2yr3ij" data-title="LeetCode - Algorithms - 224. Basic Calculator" class="article-share-link">Share</a>
       
       
       
@@ -756,69 +811,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="ckgpslsrv000r8vjaozutqxgn" data-title="LeetCode - Algorithms - 227. Basic Calculator II" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" class="article-date">
-  <time datetime="2018-09-11T22:15:42.000Z" itemprop="datePublished">2018-09-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/">LeetCode - Algorithms - 122. Best Time to Buy and Sell Stock II</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>自己已经意识到就是在输入数组里找递增子序列，但还是没想通。上网找点提示，参考了<a href="https://www.programcreek.com/2014/02/leetcode-best-time-to-buy-and-sell-stock-ii-java/" target="_blank" rel="noopener">LeetCode – Best Time to Buy and Sell Stock II (Java)</a>，看了人家的，恍然大悟，不难，但就是想不到。</p>
-<p>这系列 <code>Best Time to Buy and Sell Stock</code> 的题看来也是比较经典的</p>
-<ul>
-<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/" target="_blank" rel="noopener">121. Best Time to Buy and Sell Stock</a></li>
-<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/" target="_blank" rel="noopener">122. Best Time to Buy and Sell Stock II</a></li>
-<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/description/" target="_blank" rel="noopener">123. Best Time to Buy and Sell Stock III</a></li>
-<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/description/" target="_blank" rel="noopener">188. Best Time to Buy and Sell Stock IV</a></li>
-<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/description/" target="_blank" rel="noopener">309. Best Time to Buy and Sell Stock with Cooldown</a></li>
-<li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/description/" target="_blank" rel="noopener">714. Best Time to Buy and Sell Stock with Transaction Fee</a></li>
-</ul>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">int</span> profit = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> diff = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;prices.length;i++) &#123;</span><br><span class="line">    		diff = prices[i]-prices[i-<span class="number">1</span>];</span><br><span class="line">    			<span class="keyword">if</span> (diff&gt;<span class="number">0</span>) &#123;</span><br><span class="line">    				profit+=diff;</span><br><span class="line">    			&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">        <span class="keyword">return</span> profit;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>201 / 201 test cases passed.</li>
-<li>Your runtime beats 99.86 % of java submissions.</li>
-</ul>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; prices</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span>(<span class="params">prices</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> profit = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> diff = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">1</span>;i&lt;prices.length;i++) &#123;</span><br><span class="line">		diff = prices[i]-prices[i<span class="number">-1</span>];</span><br><span class="line">		<span class="keyword">if</span> (diff&gt;<span class="number">0</span>)</span><br><span class="line">			profit+=diff;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> profit;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>201 / 201 test cases passed.</li>
-<li>Your runtime beats 18.88 % of javascript submissions.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="ckgpslsry000w8vjaibk9tvb0" data-title="LeetCode - Algorithms - 122. Best Time to Buy and Sell Stock II" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="ckgptfwch000thdjagd20jppx" data-title="LeetCode - Algorithms - 227. Basic Calculator II" class="article-share-link">Share</a>
       
       
       
@@ -884,6 +877,10 @@
       <ul>
         
           <li>
+            <a href="/2020/10/25/symmetry-reality-riddle-marcus-du-sautoy-tedglobal/">Symmetry, reality&#39;s riddle - Marcus du Sautoy - TEDGlobal 2009 - Transcript</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/25/galois-theory/">Galois theory</a>
           </li>
         
@@ -897,10 +894,6 @@
         
           <li>
             <a href="/2020/10/23/let-us-now-praise-prime-numbers-helen-spalding/">Let Us Now Praise Prime Numbers</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/22/leetcode-algorithms-remove-duplicates-from-sorted-list/">LeetCode - Algorithms - 83. Remove Duplicates from Sorted List</a>
           </li>
         
       </ul>
