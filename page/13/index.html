@@ -70,6 +70,63 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-greatest-common-divisor" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/19/greatest-common-divisor/" class="article-date">
+  <time datetime="2020-03-20T01:41:55.000Z" itemprop="datePublished">2020-03-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/19/greatest-common-divisor/">Greatest common divisor</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<h1 id="java"><a href="#java" class="headerlink" title="java"></a>java</h1><h2 id="Built-in"><a href="#Built-in" class="headerlink" title="Built-in"></a>Built-in</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.math.BigInteger;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">gcd</span><span class="params">(<span class="keyword">long</span> a, <span class="keyword">long</span> b)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> BigInteger.valueOf(a).gcd(BigInteger.valueOf(b)).longValue();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Recursive"><a href="#Recursive" class="headerlink" title="Recursive"></a>Recursive</h2><p>To calculate \( gcd(m, n) \), for given values \( 0 \leq m &lt; n\), <strong>Euclid’s algorithm</strong> uses the recurrence</p>
+<p>\(<br>    \begin{align*}<br>    \begin{cases}<br>    gcd(0, n) = n ; \\<br>    gcd(m, n) = gcd(n \hspace{1mm} mod \hspace{1mm} m, m), \hspace{4mm} for \hspace{1mm} m &gt; 0. \\<br>    \end{cases}<br>    \end{align*}<br>\)</p>
+<p>for example, \( gcd(12, 18) = gcd(6, 12) = gcd(0, 6) = 6 \).</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">gcd</span><span class="params">(<span class="keyword">long</span> a, <span class="keyword">long</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (a == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> b;</span><br><span class="line">	<span class="keyword">if</span> (b == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> a;</span><br><span class="line">	<span class="keyword">if</span> (a &gt; b)</span><br><span class="line">		<span class="keyword">return</span> gcd(b, a % b);</span><br><span class="line">	<span class="keyword">return</span> gcd(a, b % a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="non-mod"><a href="#non-mod" class="headerlink" title="non mod"></a>non mod</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">gcd</span><span class="params">(<span class="keyword">long</span> a, <span class="keyword">long</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (a &lt; b)</span><br><span class="line">		<span class="keyword">return</span> gcd(b, a);</span><br><span class="line">	<span class="keyword">if</span> (b == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> a;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> gcd(a - b, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="bit-operation"><a href="#bit-operation" class="headerlink" title="bit operation"></a>bit operation</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">gcd</span><span class="params">(<span class="keyword">long</span> a, <span class="keyword">long</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (a &lt; b)</span><br><span class="line">		<span class="keyword">return</span> gcd(b, a);</span><br><span class="line">	<span class="keyword">if</span> (b == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> a;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> ((a &amp; <span class="number">1</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> ((b &amp; <span class="number">1</span>) == <span class="number">0</span>)</span><br><span class="line">				<span class="keyword">return</span> (gcd(a &gt;&gt; <span class="number">1</span>, b &gt;&gt; <span class="number">1</span>) &lt;&lt; <span class="number">1</span>);</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				<span class="keyword">return</span> gcd(a &gt;&gt; <span class="number">1</span>, b);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> ((b &amp; <span class="number">1</span>) == <span class="number">0</span>)</span><br><span class="line">				<span class="keyword">return</span> gcd(a, b &gt;&gt; <span class="number">1</span>);</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				<span class="keyword">return</span> gcd(b, a - b);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="references"><a href="#references" class="headerlink" title="references"></a>references</h1><ul>
+<li><a href="http://rosettacode.org/wiki/Greatest_common_divisor" target="_blank" rel="noopener">Greatest common divisor</a></li>
+<li>《编程之美-微软技术面试心得》, 2.7 最大公约数问题</li>
+<li><a href="https://en.wikipedia.org/wiki/Greatest_common_divisor" target="_blank" rel="noopener">Greatest common divisor</a></li>
+<li><a href="https://mathworld.wolfram.com/GreatestCommonDivisor.html" target="_blank" rel="noopener">Greatest Common Divisor</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/03/19/greatest-common-divisor/" data-id="ckh4edo6e0098ixja9ee8dx7o" data-title="Greatest common divisor" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recursion/">Recursion</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-rubik-cube" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/03/19/rubik-cube/" class="article-date">
@@ -135,7 +192,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/03/19/rubik-cube/" data-id="ckgz1i8r700eci8jacfvyh18a" data-title="［趣味数学·益智游戏］魔方" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/03/19/rubik-cube/" data-id="ckh4edo9o00ehixjazq8qdvom" data-title="［趣味数学·益智游戏］魔方" class="article-share-link">Share</a>
       
       
       
@@ -190,7 +247,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/03/17/Lines-poem-Emily-Bronte/" data-id="ckgz1i8ob009vi8ja245od8jo" data-title="Lines" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/03/17/Lines-poem-Emily-Bronte/" data-id="ckh4edo4e005xixjagz22a6fr" data-title="Lines" class="article-share-link">Share</a>
       
       
       
@@ -258,7 +315,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/03/17/LeetCode-Algorithms-fibonacci-number/" data-id="ckgz1i8l30052i8jab6w7o60d" data-title="LeetCode - Algorithms - 509. Fibonacci Number" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/03/17/LeetCode-Algorithms-fibonacci-number/" data-id="ckh4edo3w0051ixjahe63b8mv" data-title="LeetCode - Algorithms - 509. Fibonacci Number" class="article-share-link">Share</a>
       
       
       
@@ -301,7 +358,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/03/16/hackerrank-sql-type-of-triangle/" data-id="ckgz1i8o4009li8ja81xd411e" data-title="HackerRank - SQL - Type of Triangle" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/03/16/hackerrank-sql-type-of-triangle/" data-id="ckh4edo6q009sixjah9jv93np" data-title="HackerRank - SQL - Type of Triangle" class="article-share-link">Share</a>
       
       
       
@@ -370,7 +427,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/03/14/why-euler-phi-function-is-multiplicative/" data-id="ckgz1i8s300g4i8jaw7wx905d" data-title="Why is Euler&#39;s phi function multiplicative?" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/03/14/why-euler-phi-function-is-multiplicative/" data-id="ckh4edoas00g9ixjashntoqbx" data-title="Why is Euler&#39;s phi function multiplicative?" class="article-share-link">Share</a>
       
       
       
@@ -502,7 +559,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/03/13/what-we-do-and-don-t-know-about-the-coronavirus-David-Heymann-TED/" data-id="ckgz1i8x600toi8jan8r04hy4" data-title="What we do (and don&#39;t) know about the coronavirus - David Heymann - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/03/13/what-we-do-and-don-t-know-about-the-coronavirus-David-Heymann-TED/" data-id="ckh4edog600ttixjacyjpvj2c" data-title="What we do (and don&#39;t) know about the coronavirus - David Heymann - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -548,7 +605,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/03/12/hackerrank-sql-weather-observation-station-3/" data-id="ckgz1i8o6009oi8jamdurrb8b" data-title="HackerRank - SQL - Weather Observation Station 3" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/03/12/hackerrank-sql-weather-observation-station-3/" data-id="ckh4edo6n009pixjahj00by8m" data-title="HackerRank - SQL - Weather Observation Station 3" class="article-share-link">Share</a>
       
       
       
@@ -616,7 +673,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/03/06/vs-code-shortcuts/" data-id="ckgz1i8rw00fni8jam8jitfvc" data-title="VS Code Shortcuts" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/03/06/vs-code-shortcuts/" data-id="ckh4edoam00fwixjajraq8xfn" data-title="VS Code Shortcuts" class="article-share-link">Share</a>
       
       
       
@@ -661,67 +718,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/03/05/vuejs-notes/" data-id="ckgz1i8ry00fqi8jargj15i88" data-title="Vue.js notes" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/03/05/vuejs-notes/" data-id="ckh4edoap00g1ixjawf9p89xl" data-title="Vue.js notes" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-git-branch-best-practices" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/03/04/git-branch-best-practices/" class="article-date">
-  <time datetime="2020-03-04T21:14:28.000Z" itemprop="datePublished">2020-03-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/04/git-branch-best-practices/">Git branch best practices</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Git-Flow"><a href="#Git-Flow" class="headerlink" title="Git Flow"></a>Git Flow</h1><p>A successful Git branching model<br><a href="https://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">https://nvie.com/posts/a-successful-git-branching-model/</a></p>
-<h1 id="GitHub-Flow"><a href="#GitHub-Flow" class="headerlink" title="GitHub Flow"></a>GitHub Flow</h1><p>GitHub Flow<br><a href="http://scottchacon.com/2011/08/31/github-flow.html" target="_blank" rel="noopener">http://scottchacon.com/2011/08/31/github-flow.html</a></p>
-<h1 id="GitLab-Flow"><a href="#GitLab-Flow" class="headerlink" title="GitLab Flow"></a>GitLab Flow</h1><p>GitLab Flow<br><a href="https://about.gitlab.com/blog/2014/09/29/gitlab-flow/" target="_blank" rel="noopener">https://about.gitlab.com/blog/2014/09/29/gitlab-flow/</a></p>
-<h1 id="One-Flow"><a href="#One-Flow" class="headerlink" title="One Flow"></a>One Flow</h1><p>GitFlow considered harmful<br><a href="https://www.endoflineblog.com/gitflow-considered-harmful" target="_blank" rel="noopener">https://www.endoflineblog.com/gitflow-considered-harmful</a></p>
-<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
-<li><a href="http://www.ruanyifeng.com/blog/2015/12/git-workflow.html" target="_blank" rel="noopener">Git 工作流程</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2015/08/git-use-process.html" target="_blank" rel="noopener">Git 使用规范流程</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html" target="_blank" rel="noopener">常用 Git 命令清单</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html" target="_blank" rel="noopener">Git远程操作详解</a></li>
-<li><a href="https://medium.com/@patrickporto/4-branching-workflows-for-git-30d0aaee7bf" target="_blank" rel="noopener">4 branching workflows for Git</a></li>
-<li><a href="https://raygun.com/blog/git-workflow/" target="_blank" rel="noopener">5 Git workflow best practices you’ve got to use</a></li>
-<li><a href="https://www.ibm.com/developerworks/cn/java/j-lo-git-mange/index.html" target="_blank" rel="noopener">Git 分支管理最佳实践</a></li>
-<li><a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-git-and-github-5/index.html" target="_blank" rel="noopener">Git 和 GitHub：从入门到实践，第 5 部分 - 分支管理策略介绍</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/03/04/git-branch-best-practices/" data-id="ckgz1i8np008si8ja45admoni" data-title="Git branch best practices" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
 
     </footer>
   </div>
@@ -783,6 +784,10 @@
       <ul>
         
           <li>
+            <a href="/2020/11/05/gettysburg-address/">Gettysburg Address</a>
+          </li>
+        
+          <li>
             <a href="/2020/11/01/a-father-to-his-son-carl-sandburg/">A Father To His Son</a>
           </li>
         
@@ -796,10 +801,6 @@
         
           <li>
             <a href="/2020/10/28/leetcode-algorithms-valid-palindrome/">LeetCode - Algorithms - 125. Valid Palindrome</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/27/leetcode-algorithms-palindrome-linked-list/">LeetCode - Algorithms - 234. Palindrome Linked List</a>
           </li>
         
       </ul>
