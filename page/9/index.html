@@ -70,6 +70,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-preimage-size-of-factorial-zeroes-function" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/09/LeetCode-Algorithms-preimage-size-of-factorial-zeroes-function/" class="article-date">
+  <time datetime="2020-06-10T02:58:34.000Z" itemprop="datePublished">2020-06-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/09/LeetCode-Algorithms-preimage-size-of-factorial-zeroes-function/">LeetCode - Algorithms - 793. Preimage Size of Factorial Zeroes Function</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/preimage-size-of-factorial-zeroes-function/" target="_blank" rel="noopener">793. Preimage Size of Factorial Zeroes Function</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="my-solution"><a href="#my-solution" class="headerlink" title="my solution"></a>my solution</h2><p>Let \( f(x) \) be the number of zeroes at the end of \(x!\). We can observe that \( f(x) \) rise when \( x \equiv 0 \hspace{2mm} (mod \hspace{1mm} 5) \),<br>and \( f(5k)=f(5k+1)=f(5k+2)=f(5k+3)=f(5k+4) \).<br>\( f(x)=\lfloor \frac{x}{5} \rfloor + \lfloor \frac{x}{25} \rfloor + \cdots + \lfloor \frac{x}{5^n} \rfloor \) where \( \lfloor \frac{x}{5^n} \rfloor \geq 1 \)<br>so, there is a inequality that \( \frac{x}{5} &lt; f(x) &lt; \frac{x}{4} \).</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">preimageSizeFZF</span><span class="params">(<span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">long</span> r = search_rank(K);</span><br><span class="line">        count = r==-<span class="number">1</span>?<span class="number">0</span>:<span class="number">5</span>;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">long</span> <span class="title">search_rank</span><span class="params">(<span class="keyword">long</span> K)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> lo = <span class="number">4</span>*K;</span><br><span class="line">        <span class="keyword">long</span> hi = <span class="number">5</span>*K;</span><br><span class="line">        <span class="keyword">while</span> (lo &lt;= hi) &#123;</span><br><span class="line">            <span class="keyword">long</span> mid = lo + (hi - lo) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">long</span> y = f(mid);</span><br><span class="line">            <span class="keyword">if</span> (K &lt; y)</span><br><span class="line">                hi = mid - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (K &gt; y)</span><br><span class="line">                lo = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">long</span> <span class="title">f</span><span class="params">(<span class="keyword">long</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">5</span>; i &lt;= x; i *= <span class="number">5</span>)</span><br><span class="line">            count += x / i;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>44 / 44 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Preimage Size of Factorial Zeroes Function.</li>
+<li>Memory Usage: 35.6 MB, less than 100.00% of Java online submissions for Preimage Size of Factorial Zeroes Function.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/06/09/LeetCode-Algorithms-preimage-size-of-factorial-zeroes-function/" data-id="ckhtbsyzh005i0wja16hjmm7m" data-title="LeetCode - Algorithms - 793. Preimage Size of Factorial Zeroes Function" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-hackerrank-regex-backreferences" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/07/hackerrank-regex-backreferences/" class="article-date">
@@ -141,7 +193,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/06/07/hackerrank-regex-backreferences/" data-id="ckhqgpbfq00965bjaa4qx514b" data-title="HackerRank - Regex - Backreferences" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/06/07/hackerrank-regex-backreferences/" data-id="ckhtbsz31009a0wjajm8u1uj4" data-title="HackerRank - Regex - Backreferences" class="article-share-link">Share</a>
       
       
       
@@ -218,7 +270,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/06/06/LeetCode-Algorithms-factorial-trailing-zeroes/" data-id="ckhqgpbcw004t5bjap8ig57yu" data-title="LeetCode - Algorithms - 172. Factorial Trailing Zeroes" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/06/06/LeetCode-Algorithms-factorial-trailing-zeroes/" data-id="ckhtbsyz100500wjaykb7xhbl" data-title="LeetCode - Algorithms - 172. Factorial Trailing Zeroes" class="article-share-link">Share</a>
       
       
       
@@ -281,7 +333,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/06/05/LeetCode-Algorithms-majority-element/" data-id="ckhqgpbd6005b5bjafsoh6fu6" data-title="LeetCode - Algorithms - 169. Majority Element" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/06/05/LeetCode-Algorithms-majority-element/" data-id="ckhtbsyzn005k0wjah5hix07u" data-title="LeetCode - Algorithms - 169. Majority Element" class="article-share-link">Share</a>
       
       
       
@@ -330,7 +382,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/06/01/the-rainbow-christina-rossetti/" data-id="ckhqgpbjv00f65bja9irtt5sg" data-title="The Rainbow" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/06/01/the-rainbow-christina-rossetti/" data-id="ckhtbsz9700ff0wja7wd1z4h3" data-title="The Rainbow" class="article-share-link">Share</a>
       
       
       
@@ -400,7 +452,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/05/30/hackerrank-regex-grouping-and-capturing/" data-id="ckhqgpbfr00985bja5qcu1psx" data-title="HackerRank - Regex - Grouping and Capturing" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/05/30/hackerrank-regex-grouping-and-capturing/" data-id="ckhtbsz33009f0wja51xxvfzo" data-title="HackerRank - Regex - Grouping and Capturing" class="article-share-link">Share</a>
       
       
       
@@ -446,7 +498,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/05/29/rain-robert-louis-stevenson/" data-id="ckhqgpbj100dx5bjaix4q8cju" data-title="Rain" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/05/29/rain-robert-louis-stevenson/" data-id="ckhtbsz7s00e60wjase9nisz6" data-title="Rain" class="article-share-link">Share</a>
       
       
       
@@ -503,7 +555,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/05/23/gauss-algorithm-to-the-chinese-remainder-theorem/" data-id="ckhqgpbf9008f5bjaz2b8ztkl" data-title="Gauss&#39;s algorithm and Chinese remainder theorem" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/05/23/gauss-algorithm-to-the-chinese-remainder-theorem/" data-id="ckhtbsz2k008l0wjal3fw10nj" data-title="Gauss&#39;s algorithm and Chinese remainder theorem" class="article-share-link">Share</a>
       
       
       
@@ -592,7 +644,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/05/22/hackerrank-regex-repetitions/" data-id="ckhqgpbft009d5bja6gxjrim3" data-title="HackerRank - Regex - Repetitions" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/05/22/hackerrank-regex-repetitions/" data-id="ckhtbsz38009k0wjacbfdxp60" data-title="HackerRank - Regex - Repetitions" class="article-share-link">Share</a>
       
       
       
@@ -647,60 +699,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/05/17/LeetCode-Algorithms-find-first-and-last-position-of-element-in-sorted-array/" data-id="ckhqgpbd000515bjanhqtnjui" data-title="LeetCode - Algorithms - 34. Find First and Last Position of Element in Sorted Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/05/17/LeetCode-Algorithms-find-first-and-last-position-of-element-in-sorted-array/" data-id="ckhtbsyz600530wja0xfts66j" data-title="LeetCode - Algorithms - 34. Find First and Last Position of Element in Sorted Array" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-isomorphic-strings" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/05/16/LeetCode-Algorithms-isomorphic-strings/" class="article-date">
-  <time datetime="2020-05-17T03:31:57.000Z" itemprop="datePublished">2020-05-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/16/LeetCode-Algorithms-isomorphic-strings/">LeetCode - Algorithms - 205. Isomorphic Strings</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/isomorphic-strings/" target="_blank" rel="noopener">205. Isomorphic Strings</a></p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isIsomorphic</span><span class="params">(String s, String t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> r = <span class="keyword">true</span>;</span><br><span class="line">        Map&lt;Character,Character&gt; map = <span class="keyword">new</span> HashMap&lt;Character, Character&gt;();</span><br><span class="line">        Map&lt;Character,Character&gt; map2 = <span class="keyword">new</span> HashMap&lt;Character, Character&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;s.length(); i++) &#123;</span><br><span class="line">            <span class="keyword">char</span> k = s.charAt(i);</span><br><span class="line">            <span class="keyword">char</span> x = t.charAt(i);</span><br><span class="line">            <span class="keyword">if</span> (map.containsKey(k)) &#123;</span><br><span class="line">                <span class="keyword">char</span> v = map.get(k);</span><br><span class="line">                <span class="keyword">if</span> (x!=v) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                map.put(k,x);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (map2.containsKey(x)) &#123;</span><br><span class="line">                <span class="keyword">char</span> v = map2.get(x);</span><br><span class="line">                <span class="keyword">if</span> (k!=v) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                map2.put(x, k);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>32 / 32 test cases passed.</li>
-<li>Runtime: 12 ms, faster than 26.96% of Java online submissions for Isomorphic Strings.</li>
-<li>Memory Usage: 39.6 MB, less than 6.14% of Java online submissions for Isomorphic Strings.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/05/16/LeetCode-Algorithms-isomorphic-strings/" data-id="ckhqgpbd500585bjaf6quirnt" data-title="LeetCode - Algorithms - 205. Isomorphic Strings" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HashTable/">HashTable</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
     </footer>
   </div>
@@ -740,7 +743,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 18.13px;">Array</a> <a href="/tags/BFS/" style="font-size: 15px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.63px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 14.38px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 14.38px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 13.75px;">DFS</a> <a href="/tags/DP/" style="font-size: 14.38px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.25px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 16.88px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 14.38px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 11.25px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.38px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.63px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.88px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.63px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.63px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 10.63px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 11.25px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.63px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 10.63px;">String</a> <a href="/tags/TED/" style="font-size: 16.88px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 11.88px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.88px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.63px;">Topological Sort</a> <a href="/tags/Two-Pointers/" style="font-size: 15px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.88px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.63px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.25px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.75px;">english</a> <a href="/tags/essay/" style="font-size: 10.63px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.88px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.5px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.88px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 14.38px;">java</a> <a href="/tags/javascript/" style="font-size: 10.63px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.63px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.25px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.25px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 17.5px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 10px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.63px;">recurrence</a> <a href="/tags/regex/" style="font-size: 13.13px;">regex</a> <a href="/tags/song/" style="font-size: 11.25px;">song</a> <a href="/tags/sql/" style="font-size: 10.63px;">sql</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.63px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/中文经典/" style="font-size: 10px;">中文经典</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 12.5px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10.63px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10.63px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 11.88px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 12.5px;">英语</a> <a href="/tags/译言/" style="font-size: 10.63px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 18.13px;">Array</a> <a href="/tags/BFS/" style="font-size: 15px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.63px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 14.38px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 14.38px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 13.75px;">DFS</a> <a href="/tags/DP/" style="font-size: 14.38px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.25px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 16.88px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 14.38px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 11.25px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.38px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.63px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.88px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.63px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.63px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 10.63px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 11.25px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.63px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 10.63px;">String</a> <a href="/tags/TED/" style="font-size: 16.88px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 11.88px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.88px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.63px;">Topological Sort</a> <a href="/tags/Two-Pointers/" style="font-size: 15px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.88px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.63px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.25px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.75px;">english</a> <a href="/tags/essay/" style="font-size: 10.63px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.88px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.5px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.88px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 14.38px;">java</a> <a href="/tags/javascript/" style="font-size: 10.63px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.63px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.25px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.25px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 17.5px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 10px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.63px;">recurrence</a> <a href="/tags/regex/" style="font-size: 13.13px;">regex</a> <a href="/tags/song/" style="font-size: 11.88px;">song</a> <a href="/tags/sql/" style="font-size: 10.63px;">sql</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.63px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/中文经典/" style="font-size: 10px;">中文经典</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 12.5px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10.63px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10.63px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 11.88px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 12.5px;">英语</a> <a href="/tags/译言/" style="font-size: 10.63px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -762,6 +765,10 @@
       <ul>
         
           <li>
+            <a href="/2020/11/22/sonnet-97-william-shakespeare/">Sonnet 97</a>
+          </li>
+        
+          <li>
             <a href="/2020/11/20/fractals-and-the-art-of-roughness-benoit-mandelbrot-ted2010/">Fractals and the art of roughness - Benoit Mandelbrot - TED2010 - Transcript</a>
           </li>
         
@@ -775,10 +782,6 @@
         
           <li>
             <a href="/2020/11/01/a-father-to-his-son-carl-sandburg/">A Father To His Son</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/31/elegy-by-tao-yuanming/">擬輓歌辭</a>
           </li>
         
       </ul>
