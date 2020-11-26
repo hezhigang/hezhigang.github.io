@@ -70,6 +70,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" class="article-date">
+  <time datetime="2018-10-15T02:40:39.000Z" itemprop="datePublished">2018-10-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/">LeetCode - Algorithms - 105. Construct Binary Tree from Preorder and Inorder Traversal</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>二叉树自己能理解一二，不算难。自己也观察出来了从Preorder里知道根结点，再在Inorder里划分左右子树，如此不断递归二分。代码抄袭了这个的：<br><a href="https://www.programcreek.com/2014/06/leetcode-construct-binary-tree-from-preorder-and-inorder-traversal-java/" target="_blank" rel="noopener">LeetCode – Construct Binary Tree from Preorder and Inorder Traversal (Java)</a></p>
+<blockquote>
+<p>From the pre-order array, we know that first element is the root. We can find the root in in-order array. Then we can identify the left and right sub-trees of the root from in-order array. Using the length of left sub-tree, we can identify left and right sub-trees in pre-order array. Recursively, we can build up the tree.</p>
+</blockquote>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">buildTree</span><span class="params">(<span class="keyword">int</span>[] preorder, <span class="keyword">int</span>[] inorder)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">int</span> preStart=<span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> preEnd=preorder.length-<span class="number">1</span>;</span><br><span class="line">    	<span class="keyword">int</span> inStart = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> inEnd = inorder.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> buildTree(preorder,preStart,preEnd,inorder,inStart,inEnd);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">buildTree</span><span class="params">(<span class="keyword">int</span>[] preorder, <span class="keyword">int</span> preStart,<span class="keyword">int</span> preEnd, <span class="keyword">int</span>[] inorder, <span class="keyword">int</span> inStart, <span class="keyword">int</span> inEnd)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (preStart&gt;preEnd || inStart&gt;inEnd)</span><br><span class="line">    	  <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">int</span> val = preorder[preStart];</span><br><span class="line">    	TreeNode rt = <span class="keyword">new</span> TreeNode(val);</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">int</span> k=<span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=inEnd;i++) &#123;</span><br><span class="line">    		<span class="keyword">if</span> (inorder[i]==val) &#123;</span><br><span class="line">    			k=i;</span><br><span class="line">    			<span class="keyword">break</span>;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">    	rt.left = buildTree(preorder, preStart+<span class="number">1</span>, preStart+(k-inStart),inorder,inStart,k-<span class="number">1</span>);</span><br><span class="line">    	rt.right = buildTree(preorder, preStart+(k-inStart)+<span class="number">1</span>, preEnd, inorder, k+<span class="number">1</span>, inEnd);</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">return</span> rt;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>203 / 203 test cases passed.</li>
+<li>Runtime: 13 ms</li>
+<li>Your runtime beats 55.29 % of java submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="ckhywrp4c001fjmjamykyphwl" data-title="LeetCode - Algorithms - 105. Construct Binary Tree from Preorder and Inorder Traversal" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Coin-Change-2" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" class="article-date">
@@ -121,7 +173,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="ckhxlwrhv0018zqjaje48arb4" data-title="LeetCode - Algorithms - 518. Coin Change 2" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="ckhywrp3w0019jmjaxtaowd0i" data-title="LeetCode - Algorithms - 518. Coin Change 2" class="article-share-link">Share</a>
       
       
       
@@ -190,7 +242,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="ckhxlwri3001czqjaklvzqea7" data-title="LeetCode - Algorithms - 322. Coin Change" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="ckhywrp47001djmjaerc1z3km" data-title="LeetCode - Algorithms - 322. Coin Change" class="article-share-link">Share</a>
       
       
       
@@ -249,7 +301,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="ckhxlwrhh000uzqjaiy2o787l" data-title="LeetCode - Algorithms - 224. Basic Calculator" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="ckhywrp2m000qjmjalea30r8d" data-title="LeetCode - Algorithms - 224. Basic Calculator" class="article-share-link">Share</a>
       
       
       
@@ -308,7 +360,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="ckhxlwrhf000rzqjap5g61rqm" data-title="LeetCode - Algorithms - 227. Basic Calculator II" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="ckhywrp2o000tjmjajthddfyo" data-title="LeetCode - Algorithms - 227. Basic Calculator II" class="article-share-link">Share</a>
       
       
       
@@ -370,7 +422,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="ckhxlwrhl000yzqjacf32av8z" data-title="LeetCode - Algorithms - 122. Best Time to Buy and Sell Stock II" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="ckhywrp2t000vjmjahcth5xf1" data-title="LeetCode - Algorithms - 122. Best Time to Buy and Sell Stock II" class="article-share-link">Share</a>
       
       
       
@@ -434,7 +486,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="ckhxlwrhj000wzqja9g6rx5py" data-title="LeetCode - Algorithms - 121. Best Time to Buy and Sell Stock" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="ckhywrp2z000yjmjalw3jkuh7" data-title="LeetCode - Algorithms - 121. Best Time to Buy and Sell Stock" class="article-share-link">Share</a>
       
       
       
@@ -499,7 +551,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="ckhxlwru900eozqjato06trhy" data-title="英语学习相关网站" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="ckhywrppi00erjmjar7i9rj0n" data-title="英语学习相关网站" class="article-share-link">Share</a>
       
       
       
@@ -552,7 +604,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="ckhxlwrjr0033zqjabhsa268w" data-title="LeetCode - Algorithms - 119. Pascal&#39;s Triangle II" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="ckhywrp6t0033jmja7tdvzv3k" data-title="LeetCode - Algorithms - 119. Pascal&#39;s Triangle II" class="article-share-link">Share</a>
       
       
       
@@ -609,7 +661,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="ckhxlwrjt0035zqjaq38tyzt7" data-title="LeetCode - Algorithms - 118. Pascal&#39;s Triangle" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="ckhywrp6z0036jmjav16fx9lf" data-title="LeetCode - Algorithms - 118. Pascal&#39;s Triangle" class="article-share-link">Share</a>
       
       
       
@@ -625,67 +677,11 @@
 
 
   
-    <article id="post-Better-than-the-Four-Colour-Theorem-William-Tutte" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" class="article-date">
-  <time datetime="2018-09-02T03:07:28.000Z" itemprop="datePublished">2018-09-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/">Better than the Four Colour Theorem - Jim Geelen - mathNEWS - VOLUME 135 • ISSUE 3 - October 20, 2017</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-</script>
-
-<p>There is a limpid journal of mathematics in University of waterloo named <a href="http://mathnews.uwaterloo.ca/" target="_blank" rel="noopener">mathNEWS</a>, this essay was selected from that little journal. In University of Waterloo’s campus, there is a street named <a href="https://uwaterloo.ca/stories/mathematics-professor-and-wartime-code-breaker-honoured" target="_blank" rel="noopener">William Tutte way</a> near Davis Centre Library.</p>
-<hr>
-<p><a href="https://en.wikipedia.org/wiki/W._T._Tutte" target="_blank" rel="noopener">William Tutte</a> spent enormous effort trying to solve the Four Colour Problem. Even after the computer-aided proof of Appel and Haken in 1976, Tutte continued working toward finding a <strong>short, human-readable</strong>, proof.</p>
-<p>Tutte never did succeed, but he came close to achieving his goal on several occasions. For example, Tutte had significant insights into Tait’s Conjecture that three-connected cubic planar graphs are Hamiltonia n, which Tait had already shown to imply the Four Colour Conjecture. Unfortunately, instead of leading him to a proof, <strong>Tutte’s insights led him to discover a 46-vertex counter-example to Tait’s conjecture</strong>. Not long after that, Tutte proved that all four-connected planar graphs are Hamiltonian. While this is agonizingly close to Tait’s Conjecture, it does not have any immediate applications to colouring.</p>
-<p>Following those attempts, Tutte tried various algebraic approaches; one of these involved the chromatic polynomial of a graph. For a graph G and non-negative integer k, let \( \lambda_G(k) \) denote the number of colourings of G with colours 1, …, k. It is not at all obvious from this definition, but \( \lambda_G \) is a polynomial, which allows us to define it at values other than the positive integers.</p>
-<p>The Four Colour Conjecture states that \( \lambda_G(4) &gt; 0 \) whenever G is planar. If \( 0 \leq k_1 \leq k_2 \) are integers, then any \( k_1 \)-colouring is a \( k_2 \)-colouring, and hence \( \lambda_G(k_2) \geq \lambda_G(k_1) \). This property does not extend to non-negative real numbers, but it is conjectured that for each real number \( x \geq 4 \), we have \( \lambda_G(x) &gt; 0 \) whenever G is planar. Tutte proved the following amazing result which superficially looks stronger than the Four Colour Theorem; in this result \( \tau \) is the golden ratio, so \( \tau+2=\frac{5+\sqrt{5}}{2} \approx 3.618 \).</p>
-<p><strong>The 3.618 Colour Theorem.</strong> For each <em>planar graph</em> G, we have<br>\( \lambda_G(\tau+2) &gt; 0 \).</p>
-<p>This year Gordon Royle proved that, if \( x &lt; 4 \) is a real number such that \( \lambda_G(x) &gt; 0 \) for each planar graph G, then \( x = \tau+2 \). Wow!</p>
-<p>How on earth, you may ask, did Tutte come upon his result? It turns out that he came across the idea to try \( \tau+2 \) by empirical evidence. That evidence takes the form of eight large binders that are stored in the C&amp;O library on the sixth floor of the MC building. Each of these binders contains, at a guess, around 500 pages. The pages alternate between a beautiful hand-drawn picture of a planar graph and a computer print out of the roots of its chromatic polynomial. Tutte enlisted the help of Ruth Bari and Dick Wick Hall to systematically generate the graphs and the help of Gerry Berman, founder of the C&amp;O Department, to compute the chromatic roots. Nevertheless, it beggars belief to consider the work that Tutte put into drawing each of the graphs by hand and then trawling through these volumes for any patterns that might provide in-roads to the elusive Four Colour Conjecture. In the end he made do with only 3.618 colours.</p>
-<p>This article is in memory of <a href="https://uwaterloo.ca/magazine/spring-2015/features/keeping-secrets" target="_blank" rel="noopener">William T. Tutte</a>, in this the centennial year of his birth. Among other honours, Tutte was a founding member of the C&amp;O Department, a legendary World War II code breaker, and a hugely influential combinatorialist.</p>
-<p><a href="https://en.wikipedia.org/wiki/Jim_Geelen" target="_blank" rel="noopener">Jim Geelen</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="ckhxlwrgi0005zqja8mm73g5n" data-title="Better than the Four Colour Theorem - Jim Geelen - mathNEWS - VOLUME 135 • ISSUE 3 - October 20, 2017" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UW/">UW</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mathNEWS/">mathNEWS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/23/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/25/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/23/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/25/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -709,7 +705,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 18.13px;">Array</a> <a href="/tags/BFS/" style="font-size: 15px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.63px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 14.38px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 14.38px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 13.75px;">DFS</a> <a href="/tags/DP/" style="font-size: 14.38px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.25px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 16.88px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 14.38px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 11.25px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.38px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.63px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.88px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.63px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.63px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 10.63px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 11.88px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.63px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 10.63px;">String</a> <a href="/tags/TED/" style="font-size: 16.88px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 11.88px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.88px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.63px;">Topological Sort</a> <a href="/tags/Two-Pointers/" style="font-size: 15px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.88px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.63px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.25px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.75px;">english</a> <a href="/tags/essay/" style="font-size: 10.63px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.88px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.5px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.88px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 14.38px;">java</a> <a href="/tags/javascript/" style="font-size: 10.63px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.63px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.25px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.25px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 17.5px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 10px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.63px;">recurrence</a> <a href="/tags/regex/" style="font-size: 13.13px;">regex</a> <a href="/tags/song/" style="font-size: 11.88px;">song</a> <a href="/tags/sql/" style="font-size: 10.63px;">sql</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.63px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/中文经典/" style="font-size: 10px;">中文经典</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 12.5px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10.63px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10.63px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 11.88px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 12.5px;">英语</a> <a href="/tags/译言/" style="font-size: 10.63px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 18.13px;">Array</a> <a href="/tags/BFS/" style="font-size: 15px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.63px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 14.38px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 13.75px;">DFS</a> <a href="/tags/DP/" style="font-size: 14.38px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.25px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 16.88px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 14.38px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 11.25px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.38px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.63px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.88px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.63px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.63px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 10.63px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 11.88px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.63px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 10.63px;">String</a> <a href="/tags/TED/" style="font-size: 16.88px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 11.88px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.88px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.63px;">Topological Sort</a> <a href="/tags/Two-Pointers/" style="font-size: 15px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.88px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.63px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.25px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.75px;">english</a> <a href="/tags/essay/" style="font-size: 10.63px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.88px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.5px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.88px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 14.38px;">java</a> <a href="/tags/javascript/" style="font-size: 10.63px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.63px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.25px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.25px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 17.5px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 10px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.63px;">recurrence</a> <a href="/tags/regex/" style="font-size: 13.13px;">regex</a> <a href="/tags/song/" style="font-size: 11.88px;">song</a> <a href="/tags/sql/" style="font-size: 10.63px;">sql</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.63px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/中文经典/" style="font-size: 10px;">中文经典</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 12.5px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10.63px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10.63px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 11.88px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 12.5px;">英语</a> <a href="/tags/译言/" style="font-size: 10.63px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -731,6 +727,10 @@
       <ul>
         
           <li>
+            <a href="/2020/11/26/leetcode-algorithms-valid-perfect-square/">LeetCode - Algorithms - 367. Valid Perfect Square</a>
+          </li>
+        
+          <li>
             <a href="/2020/11/25/the-final-speech-from-the-great-dictator/">The Final Speech from The Great Dictator</a>
           </li>
         
@@ -744,10 +744,6 @@
         
           <li>
             <a href="/2020/11/22/sonnet-97-william-shakespeare/">Sonnet 97</a>
-          </li>
-        
-          <li>
-            <a href="/2020/11/20/fractals-and-the-art-of-roughness-benoit-mandelbrot-ted2010/">Fractals and the art of roughness - Benoit Mandelbrot - TED2010 - Transcript</a>
           </li>
         
       </ul>
