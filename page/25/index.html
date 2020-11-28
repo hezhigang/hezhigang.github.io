@@ -70,6 +70,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Pascal-Triangle-II" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" class="article-date">
+  <time datetime="2018-09-05T14:58:59.000Z" itemprop="datePublished">2018-09-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/">LeetCode - Algorithms - 119. Pascal&#39;s Triangle II</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://leetcode.com/problems/pascals-triangle/description/" target="_blank" rel="noopener">118. Pascal’s Triangle</a> 的变脸题，用递归的方式实现了，还没想通如何用动态规划的方式实现。</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">getRow</span><span class="params">(<span class="keyword">int</span> rowIndex)</span> </span>&#123;</span><br><span class="line">    	List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">    	<span class="keyword">if</span> (rowIndex==<span class="number">0</span>) &#123;</span><br><span class="line">    		list.add(<span class="number">1</span>);</span><br><span class="line">    		<span class="keyword">return</span> list;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">if</span> (rowIndex==<span class="number">1</span>) &#123;</span><br><span class="line">    		list.add(<span class="number">1</span>);</span><br><span class="line">    		list.add(<span class="number">1</span>);</span><br><span class="line">    		<span class="keyword">return</span> list;</span><br><span class="line">    	&#125;    	</span><br><span class="line">    	<span class="keyword">if</span> (rowIndex&gt;=<span class="number">2</span>) &#123;</span><br><span class="line">    		List&lt;Integer&gt; row_pre = getRow(rowIndex-<span class="number">1</span>);</span><br><span class="line">    		list.add(<span class="number">1</span>);</span><br><span class="line">    		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;rowIndex;i++) &#123;</span><br><span class="line">    			list.add(row_pre.get(i)+row_pre.get(i-<span class="number">1</span>));</span><br><span class="line">    		&#125;</span><br><span class="line">    		list.add(<span class="number">1</span>);</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">return</span> list;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>34 / 34 test cases passed.</li>
+<li>Your runtime beats 89.30 % of java submissions.</li>
+</ul>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; rowIndex</span></span><br><span class="line"><span class="comment"> * @return &#123;number[]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> getRow = <span class="function"><span class="keyword">function</span>(<span class="params">rowIndex</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (rowIndex==<span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> [<span class="number">1</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (rowIndex==<span class="number">1</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> [<span class="number">1</span>,<span class="number">1</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> arr = [];</span><br><span class="line">	<span class="keyword">if</span> (rowIndex&gt;=<span class="number">2</span>) &#123;</span><br><span class="line">		arr.push(<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">var</span> preRow = getRow(rowIndex<span class="number">-1</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">1</span>;i&lt;rowIndex;i++)</span><br><span class="line">			arr.push(preRow[i]+preRow[i<span class="number">-1</span>]);</span><br><span class="line">		arr.push(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> arr;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>34 / 34 test cases passed.</li>
+<li>Your runtime beats 93.58 % of javascript submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="cki13s64u003385ja4wx6jn1x" data-title="LeetCode - Algorithms - 119. Pascal&#39;s Triangle II" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Pascal-Triangle" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" class="article-date">
@@ -111,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="ckhzphnkp0036jcja6su7da3g" data-title="LeetCode - Algorithms - 118. Pascal&#39;s Triangle" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="cki13s650003585jabk9zqm6u" data-title="LeetCode - Algorithms - 118. Pascal&#39;s Triangle" class="article-share-link">Share</a>
       
       
       
@@ -167,7 +220,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="ckhzphnhs0003jcja51kp37d3" data-title="Better than the Four Colour Theorem - Jim Geelen - mathNEWS - VOLUME 135 • ISSUE 3 - October 20, 2017" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="cki13s61w000385jak69lhbvl" data-title="Better than the Four Colour Theorem - Jim Geelen - mathNEWS - VOLUME 135 • ISSUE 3 - October 20, 2017" class="article-share-link">Share</a>
       
       
       
@@ -220,7 +273,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" data-id="ckhzphnjr001zjcjasoi6s5on" data-title="LeetCode - Algorithms - 171. Excel Sheet Column Number" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/28/LeetCode-Algorithms-Excel-Sheet-Column-Number/" data-id="cki13s63s001z85jasc0k2gme" data-title="LeetCode - Algorithms - 171. Excel Sheet Column Number" class="article-share-link">Share</a>
       
       
       
@@ -300,7 +353,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/" data-id="ckhzphnlg0047jcjaesw5ujs7" data-title="LeetCode - Algorithms - 371. Sum of Two Integers" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Sum-of-Two-Integers/" data-id="cki13s660004785jahn9jftdi" data-title="LeetCode - Algorithms - 371. Sum of Two Integers" class="article-share-link">Share</a>
       
       
       
@@ -379,7 +432,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/" data-id="ckhzphnjc001fjcjaq4701nkn" data-title="LeetCode - Algorithms - 204. Count Primes" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/24/LeetCode-Algorithms-Count-Primes/" data-id="cki13s63e001g85ja3c5r4ntb" data-title="LeetCode - Algorithms - 204. Count Primes" class="article-share-link">Share</a>
       
       
       
@@ -436,7 +489,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/22/Java8-tricks/" data-id="ckhzphnik000pjcja1xehlnd0" data-title="Java 8 用法" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/22/Java8-tricks/" data-id="cki13s62j000k85jarst6vgf4" data-title="Java 8 用法" class="article-share-link">Share</a>
       
       
       
@@ -500,7 +553,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" data-id="ckhzphnk0002hjcjajo9ryscc" data-title="LeetCode - Algorithms - 14. Longest Common Prefix" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" data-id="cki13s646002h85jahbj6oejd" data-title="LeetCode - Algorithms - 14. Longest Common Prefix" class="article-share-link">Share</a>
       
       
       
@@ -581,7 +634,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/21/LeetCode-Algorithms-Reverse-String/" data-id="ckhzphnl7003ujcjamz78c70g" data-title="LeetCode - Algorithms - 344. Reverse String" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/21/LeetCode-Algorithms-Reverse-String/" data-id="cki13s65m003s85ja62ykw5ex" data-title="LeetCode - Algorithms - 344. Reverse String" class="article-share-link">Share</a>
       
       
       
@@ -655,60 +708,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" data-id="ckhzphnjz002ejcja9r6qiyr3" data-title="LeetCode - Algorithms - 300. Longest Increasing Subsequence" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" data-id="cki13s644002e85japof5cl5b" data-title="LeetCode - Algorithms - 300. Longest Increasing Subsequence" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-IT-coder-vocabulary" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/08/17/IT-coder-vocabulary/" class="article-date">
-  <time datetime="2018-08-17T14:48:54.000Z" itemprop="datePublished">2018-08-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/17/IT-coder-vocabulary/">Vocabulary</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li>asynchronous</li>
-<li>algorithm</li>
-<li>integer</li>
-<li>legacy system</li>
-<li>mutable</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/17/IT-coder-vocabulary/" data-id="ckhzphnig000jjcja4o292gn5" data-title="Vocabulary" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELL/">ELL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
 
     </footer>
   </div>
@@ -770,6 +774,10 @@
       <ul>
         
           <li>
+            <a href="/2020/11/27/covid-19-outlooks-a-reverse-poem-britt-mackinnon/">COVID-19 Outlooks</a>
+          </li>
+        
+          <li>
             <a href="/2020/11/26/leetcode-algorithms-sum-of-square-numbers/">LeetCode - Algorithms - 633. Sum of Square Numbers</a>
           </li>
         
@@ -783,10 +791,6 @@
         
           <li>
             <a href="/2020/11/24/leetcode-algorithms-average-salary-excluding-the-minimum-and-maximum-salary/">LeetCode - Algorithms - 1491. Average Salary Excluding the Minimum and Maximum Salary</a>
-          </li>
-        
-          <li>
-            <a href="/2020/11/23/love-is-not-all-edna-millay/">Love is Not All</a>
           </li>
         
       </ul>
