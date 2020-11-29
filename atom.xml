@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2020-11-28T02:58:39.398Z</updated>
+  <updated>2020-11-29T02:15:48.376Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode - Algorithms - 906. Super Palindromes</title>
+    <link href="https://hezhigang.github.io/2020/11/28/leetcode-algorithms-super-palindromes/"/>
+    <id>https://hezhigang.github.io/2020/11/28/leetcode-algorithms-super-palindromes/</id>
+    <published>2020-11-29T01:35:47.000Z</published>
+    <updated>2020-11-29T02:15:48.376Z</updated>
+    
+    <content type="html"><![CDATA[<p>fair and square (palindromes whose square root is a palindrome) numbers</p><h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/super-palindromes/" target="_blank" rel="noopener">906. Super Palindromes</a></p><h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Brute-force-search"><a href="#Brute-force-search" class="headerlink" title="Brute-force search"></a>Brute-force search</h2><p>1 to 18 digits</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">superpalindromesInRange</span><span class="params">(String L, String R)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span>[] superPalindromes = &#123;<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">121</span>, <span class="number">484</span>, <span class="number">10201</span>, <span class="number">12321</span>, <span class="number">14641</span>, <span class="number">40804</span>, <span class="number">44944</span>, <span class="number">1002001</span>, <span class="number">1234321</span>, <span class="number">4008004</span>, <span class="number">100020001</span>, <span class="number">102030201</span>, <span class="number">104060401</span>, <span class="number">121242121</span>, <span class="number">123454321</span>, <span class="number">125686521</span>, <span class="number">400080004</span>, <span class="number">404090404</span>, <span class="number">10000200001L</span>, <span class="number">10221412201L</span>, <span class="number">12102420121L</span>, <span class="number">12345654321L</span>, <span class="number">40000800004L</span>, <span class="number">1000002000001L</span>, <span class="number">1002003002001L</span>, <span class="number">1004006004001L</span>, <span class="number">1020304030201L</span>, <span class="number">1022325232201L</span>, <span class="number">1024348434201L</span>, <span class="number">1210024200121L</span>, <span class="number">1212225222121L</span>, <span class="number">1214428244121L</span>, <span class="number">1232346432321L</span>, <span class="number">1234567654321L</span>, <span class="number">4000008000004L</span>,<span class="number">4004009004004L</span>, <span class="number">100000020000001L</span>, <span class="number">100220141022001L</span>, <span class="number">102012040210201L</span>, <span class="number">102234363432201L</span>, <span class="number">121000242000121L</span>, <span class="number">121242363242121L</span>, <span class="number">123212464212321L</span>, <span class="number">123456787654321L</span>, <span class="number">400000080000004L</span>, <span class="number">10000000200000001L</span>, <span class="number">10002000300020001L</span>, <span class="number">10004000600040001L</span>, <span class="number">10020210401202001L</span>, <span class="number">10022212521222001L</span>, <span class="number">10024214841242001L</span>, <span class="number">10201020402010201L</span>, <span class="number">10203040504030201L</span>, <span class="number">10205060806050201L</span>, <span class="number">10221432623412201L</span>, <span class="number">10223454745432201L</span>, <span class="number">12100002420000121L</span>, <span class="number">12102202520220121L</span>, <span class="number">12104402820440121L</span>, <span class="number">12122232623222121L</span>, <span class="number">12124434743442121L</span>, <span class="number">12321024642012321L</span>, <span class="number">12323244744232321L</span>, <span class="number">12343456865434321L</span>, <span class="number">12345678987654321L</span>, <span class="number">40000000800000004L</span>, <span class="number">40004000900040004L</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">long</span> lo = Long.parseLong(L);</span><br><span class="line">        <span class="keyword">long</span> hi = Long.parseLong(R);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; superPalindromes.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (superPalindromes[i]&gt;=lo &amp;&amp; superPalindromes[i]&lt;=hi)</span><br><span class="line">                n++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul><li>48 / 48 test cases passed.</li><li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Super Palindromes.</li><li>Memory Usage: 36.8 MB, less than 97.83% of Java online submissions for Super Palindromes.</li></ul><h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul><li><a href="http://www.fengyuan.com/palindrome.html" target="_blank" rel="noopener">Palindromic Square Numbers – Searching for square numbers which are palindromic</a></li><li><a href="https://tavianator.com/2013/fair_and_square.html" target="_blank" rel="noopener">Fair and Square, or How to Count to a Googol</a></li><li><a href="https://math.stackexchange.com/questions/360999/palindromic-squares-of-palindromes" target="_blank" rel="noopener">palindromic squares of palindromes</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;fair and square (palindromes whose square root is a palindrome) numbers&lt;/p&gt;
+&lt;h1 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=
+      
+    
+    </summary>
+    
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+      <category term="math" scheme="https://hezhigang.github.io/tags/math/"/>
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+  </entry>
   
   <entry>
     <title>COVID-19 Outlooks</title>
@@ -65,9 +93,9 @@
     </summary>
     
     
-      <category term="math" scheme="https://hezhigang.github.io/tags/math/"/>
-    
       <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+      <category term="math" scheme="https://hezhigang.github.io/tags/math/"/>
     
       <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
     
@@ -92,9 +120,9 @@
     </summary>
     
     
-      <category term="math" scheme="https://hezhigang.github.io/tags/math/"/>
-    
       <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+      <category term="math" scheme="https://hezhigang.github.io/tags/math/"/>
     
       <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
     
@@ -532,29 +560,6 @@
     
     
       <category term="math" scheme="https://hezhigang.github.io/tags/math/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Legends in Computer science and engineering</title>
-    <link href="https://hezhigang.github.io/2020/10/24/legends-in-computer-science-and-engineering/"/>
-    <id>https://hezhigang.github.io/2020/10/24/legends-in-computer-science-and-engineering/</id>
-    <published>2020-10-25T03:09:07.000Z</published>
-    <updated>2020-10-25T19:24:40.341Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Donald-Knuth"><a href="#Donald-Knuth" class="headerlink" title="Donald Knuth"></a><a href="https://en.wikipedia.org/wiki/Donald_Knuth" target="_blank" rel="noopener">Donald Knuth</a></h1><p>Donald Knuth has been described as the Euclid of computer science.</p><p>Bill Gates has praised the difficulty of the subject matter in <a href="https://en.wikipedia.org/wiki/The_Art_of_Computer_Programming" target="_blank" rel="noopener">The Art of Computer Programming</a>, stating, “If you think you’re a really good programmer … You should definitely send me a résumé if you can read the whole thing.”</p><h1 id="Ken-Thompson"><a href="#Ken-Thompson" class="headerlink" title="Ken Thompson"></a><a href="https://en.wikipedia.org/wiki/Ken_Thompson" target="_blank" rel="noopener">Ken Thompson</a></h1><p>To what extent should one trust a statement that a program is free of Trojan horses? Perhaps it is more important to trust the people who wrote the software. (Reflections on Trusting Trust, Ken Thompson)</p><p>in his Turing Award lecture, he described how he had incorporated a backdoor security hole in the original UNIX C compiler. To do this, the C compiler recognized when it was recompiling itself and the UNIX login program. When it recompiled itself, it modified the compiler so the compiler backdoor was included. When it recompiled the UNIX login program, the login program would allow Thompson to always be able to log in using a fixed set of credentials.</p><p>…the fact that Ken had always wanted to write an operating system of his own was what led fairly directly to Unix” (Dennis Ritchie)</p><h1 id="Dennis-Ritchie"><a href="#Dennis-Ritchie" class="headerlink" title="Dennis Ritchie"></a><a href="https://en.wikipedia.org/wiki/Dennis_Ritchie" target="_blank" rel="noopener">Dennis Ritchie</a></h1><p>My undergraduate experience convinced me that I was not smart enough to be a physicist, and that computers were quite neat. My graduate school experience convinced me that I was not smart enough to be an expert in the theory of algorithms and also that I liked procedural languages better than functional ones.</p><h1 id="Bill-Joy"><a href="#Bill-Joy" class="headerlink" title="Bill Joy"></a><a href="https://en.wikipedia.org/wiki/Bill_Joy" target="_blank" rel="noopener">Bill Joy</a></h1><p>BBN had a big contract to implement TCP/IP, but their stuff didn’t work, and grad student Joy’s stuff worked. So they had this big meeting and this grad student in a T-shirt shows up, and they said, “How did you do this?” And Bill said, “It’s very simple — you read the protocol and write the code.”</p><div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://embed.ted.com/talks/bill_joy_what_i_m_worried_about_what_i_m_excited_about" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen></iframe></div></div><h1 id="Linus-Torvalds"><a href="#Linus-Torvalds" class="headerlink" title="Linus Torvalds"></a><a href="https://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank" rel="noopener">Linus Torvalds</a></h1><div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://embed.ted.com/talks/linus_torvalds_the_mind_behind_linux" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen></iframe></div></div><h1 id="John-D-Carmack"><a href="#John-D-Carmack" class="headerlink" title="John D. Carmack"></a><a href="https://en.wikipedia.org/wiki/John_Carmack" target="_blank" rel="noopener">John D. Carmack</a></h1><p>In the information age, the barriers [to entry into programming] just aren’t there. The barriers are self imposed. If you want to set off and go develop some grand new thing, you don’t need millions of dollars of capitalization. You need enough pizza and Diet Coke to stick in your refrigerator, a cheap PC to work on, and the dedication to go through with it. We slept on floors. We waded across rivers.</p><h1 id="Anders-Hejlsberg"><a href="#Anders-Hejlsberg" class="headerlink" title="Anders Hejlsberg"></a><a href="https://en.wikipedia.org/wiki/Anders_Hejlsberg" target="_blank" rel="noopener">Anders Hejlsberg</a></h1><div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://channel9.msdn.com/posts/Anders-Hejlsberg-Introducing-TypeScript/player" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" allowfullscreen frameborder="0" scrolling="no" title="Anders Hejlsberg: Introducing TypeScript - Microsoft Channel 9 Video"></iframe></div></div>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Donald-Knuth&quot;&gt;&lt;a href=&quot;#Donald-Knuth&quot; class=&quot;headerlink&quot; title=&quot;Donald Knuth&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Donald_Knut
-      
-    
-    </summary>
-    
-    
-      <category term="english" scheme="https://hezhigang.github.io/tags/english/"/>
     
   </entry>
   

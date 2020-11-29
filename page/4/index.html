@@ -70,6 +70,71 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-algorithms-check-if-it-is-a-straight-line" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/17/leetcode-algorithms-check-if-it-is-a-straight-line/" class="article-date">
+  <time datetime="2020-10-18T03:05:16.000Z" itemprop="datePublished">2020-10-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/17/leetcode-algorithms-check-if-it-is-a-straight-line/">LeetCode - Algorithms - 1232. Check If It Is a Straight Line</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/check-if-it-is-a-straight-line/" target="_blank" rel="noopener">1232. Check If It Is a Straight Line</a></p>
+<h2 id="similar-question"><a href="#similar-question" class="headerlink" title="similar question"></a>similar question</h2><ul>
+<li><a href="https://leetcode.com/problems/valid-boomerang/" target="_blank" rel="noopener">1037. Valid Boomerang</a></li>
+<li><a href="https://leetcode.com/problems/max-points-on-a-line/solution/" target="_blank" rel="noopener">149. Max Points on a Line</a></li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="my-solution"><a href="#my-solution" class="headerlink" title="my solution"></a>my solution</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isColine</span><span class="params">(<span class="keyword">int</span> x1, <span class="keyword">int</span> y1, <span class="keyword">int</span> x2, <span class="keyword">int</span> y2, <span class="keyword">int</span> x3, <span class="keyword">int</span> y3)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = (y3 - y2) * (x3 - x1);</span><br><span class="line">        <span class="keyword">int</span> b = (y3 - y1) * (x3 - x2);</span><br><span class="line">        <span class="keyword">return</span> a == b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkStraightLine</span><span class="params">(<span class="keyword">int</span>[][] coordinates)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = coordinates.length;</span><br><span class="line">        <span class="keyword">boolean</span> b;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N - <span class="number">2</span>; i++) &#123;</span><br><span class="line">            b = isColine(coordinates[i][<span class="number">0</span>], coordinates[i][<span class="number">1</span>], coordinates[i + <span class="number">1</span>][<span class="number">0</span>], coordinates[i + <span class="number">1</span>][<span class="number">1</span>], coordinates[i + <span class="number">2</span>][<span class="number">0</span>], coordinates[i + <span class="number">2</span>][<span class="number">1</span>]);</span><br><span class="line">            <span class="keyword">if</span> (b == <span class="keyword">false</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>79 / 79 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 22.67% of Java online submissions for Check If It Is a Straight Line.</li>
+<li>Memory Usage: 41 MB, less than 6.80% of Java online submissions for Check If It Is a Straight Line.</li>
+</ul>
+<h2 id="Computational-geometry-method"><a href="#Computational-geometry-method" class="headerlink" title="Computational geometry method"></a>Computational geometry method</h2><p>© Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.</p>
+<h3 id="keys"><a href="#keys" class="headerlink" title="keys"></a>keys</h3><ul>
+<li>Shoelace formula, also known as Gauss’s area formula</li>
+<li>vertices must listed in clockwise(or counterclockwise, increasing order of polar angle) order</li>
+<li>CCW: Given three points a, b, and c, is a→b→c a counterclockwise turn? Determinant (or cross product) gives 2x signed area of planar triangle.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkStraightLine</span><span class="params">(<span class="keyword">int</span>[][] coordinates)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = coordinates.length;</span><br><span class="line">        Point2D[] a = <span class="keyword">new</span> Point2D[N];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            a[i] = <span class="keyword">new</span> Point2D(coordinates[i][<span class="number">0</span>], coordinates[i][<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        Arrays.sort(a);</span><br><span class="line">        Arrays.sort(a, <span class="number">1</span>, N, a[<span class="number">0</span>].polarOrder());</span><br><span class="line">        <span class="keyword">int</span> A = a[N - <span class="number">1</span>].x() * a[<span class="number">0</span>].y() - a[<span class="number">0</span>].x() * a[N - <span class="number">1</span>].y();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            A += a[i].x() * a[i + <span class="number">1</span>].y() - a[i + <span class="number">1</span>].x() * a[i].y();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> A == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Point2D</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Point2D</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> x;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> y;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Point2D</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = x;</span><br><span class="line">        <span class="keyword">this</span>.y = y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">x</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">y</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">ccw</span><span class="params">(Point2D a, Point2D b, Point2D c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> area2 = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);</span><br><span class="line">        <span class="keyword">if</span> (area2 &lt; <span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (area2 &gt; <span class="number">0</span>) <span class="keyword">return</span> +<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Point2D that)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.y &lt; that.y) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.y &gt; that.y) <span class="keyword">return</span> +<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.x &lt; that.x) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.x &gt; that.x) <span class="keyword">return</span> +<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Comparator&lt;Point2D&gt; <span class="title">polarOrder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> PolarOrder();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">PolarOrder</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">Point2D</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Point2D q1, Point2D q2)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">int</span> dx1 = q1.x - x;</span><br><span class="line">            <span class="keyword">int</span> dy1 = q1.y - y;</span><br><span class="line">            <span class="keyword">int</span> dx2 = q2.x - x;</span><br><span class="line">            <span class="keyword">int</span> dy2 = q2.y - y;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (dy1 &gt;= <span class="number">0</span> &amp;&amp; dy2 &lt; <span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (dy2 &gt;= <span class="number">0</span> &amp;&amp; dy1 &lt; <span class="number">0</span>) <span class="keyword">return</span> +<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (dy1 == <span class="number">0</span> &amp;&amp; dy2 == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (dx1 &gt;= <span class="number">0</span> &amp;&amp; dx2 &lt; <span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (dx2 &gt;= <span class="number">0</span> &amp;&amp; dx1 &lt; <span class="number">0</span>) <span class="keyword">return</span> +<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">return</span> -ccw(Point2D.<span class="keyword">this</span>, q1, q2);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>79 / 79 test cases passed.</li>
+<li>Runtime: 6 ms, faster than 9.07% of Java online submissions for Check If It Is a Straight Line.</li>
+<li>Memory Usage: 38.8 MB, less than 6.80% of Java online submissions for Check If It Is a Straight Line.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/17/leetcode-algorithms-check-if-it-is-a-straight-line/" data-id="cki2hqdym00b2lqjafy05pkhh" data-title="LeetCode - Algorithms - 1232. Check If It Is a Straight Line" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/geometry/">geometry</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-leetcode-algorithms-flipping-an-image" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/10/16/leetcode-algorithms-flipping-an-image/" class="article-date">
@@ -104,7 +169,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/16/leetcode-algorithms-flipping-an-image/" data-id="cki13s6bh00bb85jaaas3ryg3" data-title="LeetCode - Algorithms - 832. Flipping an Image" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/16/leetcode-algorithms-flipping-an-image/" data-id="cki2hqdyv00bflqjatchy1wy7" data-title="LeetCode - Algorithms - 832. Flipping an Image" class="article-share-link">Share</a>
       
       
       
@@ -161,7 +226,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/16/leetcode-algorithms-sort-array-by-parity/" data-id="cki13s6cs00ct85jac1t5y6r6" data-title="LeetCode - Algorithms - 905. Sort Array By Parity" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/16/leetcode-algorithms-sort-array-by-parity/" data-id="cki2hqdzq00cslqjajaqwxp2j" data-title="LeetCode - Algorithms - 905. Sort Array By Parity" class="article-share-link">Share</a>
       
       
       
@@ -221,7 +286,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/15/leetcode-algorithms-day-of-the-year/" data-id="cki13s6b100ay85jazx4v7m1z" data-title="LeetCode - Algorithms - 1154. Day of the Year" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/15/leetcode-algorithms-day-of-the-year/" data-id="cki2hqdyj00axlqjasacijrsg" data-title="LeetCode - Algorithms - 1154. Day of the Year" class="article-share-link">Share</a>
       
       
       
@@ -310,7 +375,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/15/quotes-in-career-advice-by-terence-tao/" data-id="cki13s6e500ek85jawyskn0mw" data-title="Quotes in Career advice - What&#39;s new - Terence Tao" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/15/quotes-in-career-advice-by-terence-tao/" data-id="cki2hqe0v00ejlqja6mz61fc9" data-title="Quotes in Career advice - What&#39;s new - Terence Tao" class="article-share-link">Share</a>
       
       
       
@@ -369,7 +434,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/14/victoria-declaration-on-heart-health/" data-id="cki13s6f900gc85janzth17cy" data-title="Victoria Declaration on Heart Health" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/14/victoria-declaration-on-heart-health/" data-id="cki2hqe2400gflqjaj6rneima" data-title="Victoria Declaration on Heart Health" class="article-share-link">Share</a>
       
       
       
@@ -418,7 +483,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/13/leetcode-algorithms-find-common-characters/" data-id="cki13s6b700b385jaju33cw7y" data-title="LeetCode - Algorithms - 1002. Find Common Characters" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/13/leetcode-algorithms-find-common-characters/" data-id="cki2hqdyo00b5lqjaydr2ual0" data-title="LeetCode - Algorithms - 1002. Find Common Characters" class="article-share-link">Share</a>
       
       
       
@@ -468,7 +533,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/11/leetcode-algorithms-matrix-diagonal-sum/" data-id="cki13s6bt00bl85ja8elhjdqr" data-title="LeetCode - Algorithms - 1572. Matrix Diagonal Sum" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/11/leetcode-algorithms-matrix-diagonal-sum/" data-id="cki2hqdz000bklqjah2fe5euv" data-title="LeetCode - Algorithms - 1572. Matrix Diagonal Sum" class="article-share-link">Share</a>
       
       
       
@@ -524,7 +589,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/09/imagine-john-lennon/" data-id="cki13s6af00a485jasa6y3y9t" data-title="Imagine (John Lennon song)" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/09/imagine-john-lennon/" data-id="cki2hqdy200a8lqja81iie7h4" data-title="Imagine (John Lennon song)" class="article-share-link">Share</a>
       
       
       
@@ -610,68 +675,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/08/the-hunt-for-a-supermassive-black-hole-andrea-ghez-tedglobal/" data-id="cki13s6o300ws85jalk18o398" data-title="The hunt for a supermassive black hole - Andrea Ghez - TEDGlobal 2009 - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/08/the-hunt-for-a-supermassive-black-hole-andrea-ghez-tedglobal/" data-id="cki2hqe8c00wtlqja5wdt5x8x" data-title="The hunt for a supermassive black hole - Andrea Ghez - TEDGlobal 2009 - Transcript" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TED/">TED</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-mother-and-child-louise-gluck" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/08/mother-and-child-louise-gluck/" class="article-date">
-  <time datetime="2020-10-08T13:27:06.000Z" itemprop="datePublished">2020-10-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/08/mother-and-child-louise-gluck/">Mother and Child</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>by <a href="https://en.wikipedia.org/wiki/Louise_Gl%C3%BCck" target="_blank" rel="noopener">Louise Elisabeth Glück</a></p>
-<p>We’re all dreamers; we don’t know who we are.</p>
-<p>Some machine made us; machine of the world, the constricting family.<br>Then back to the world, polished by soft whips.</p>
-<p>We dream; we don’t remember.</p>
-<p>Machine of the family: dark fur, forests of the mother’s body.<br>Machine of the mother: white city inside her.</p>
-<p>And before that: earth and water.<br>Moss between rocks, pieces of leaves and grass.</p>
-<p>And before, cells in a great darkness.<br>And before that, the veiled world.</p>
-<p>This is why you were born: to silence me.<br>Cells of my mother and father, it is your turn<br>to be pivotal, to be the masterpiece.</p>
-<p>I improvised; I never remembered.<br>Now it’s your turn to be driven;<br>you’re the one who demands to know:</p>
-<p>Why do I suffer? Why am I ignorant?<br>Cells in a great darkness. Some machine made us;<br>it is your turn to address it, to go back asking<br>what am I for? What am I for?</p>
-<hr>
-<ul>
-<li><a href="https://www.poetryfoundation.org/poems/49617/mother-and-child" target="_blank" rel="noopener">Mother and Child</a></li>
-<li>The 2020 Nobel Prize in Literature is awarded to the American poet Louise Glück “for her unmistakable poetic voice that with austere beauty makes individual existence universal.”</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/08/mother-and-child-louise-gluck/" data-id="cki13s6dp00e085jalb7d4an0" data-title="Mother and Child" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poem/">poem</a></li></ul>
 
     </footer>
   </div>
@@ -733,6 +741,10 @@
       <ul>
         
           <li>
+            <a href="/2020/11/28/leetcode-algorithms-super-palindromes/">LeetCode - Algorithms - 906. Super Palindromes</a>
+          </li>
+        
+          <li>
             <a href="/2020/11/27/covid-19-outlooks-a-reverse-poem-britt-mackinnon/">COVID-19 Outlooks</a>
           </li>
         
@@ -746,10 +758,6 @@
         
           <li>
             <a href="/2020/11/25/the-final-speech-from-the-great-dictator/">The Final Speech from The Great Dictator</a>
-          </li>
-        
-          <li>
-            <a href="/2020/11/24/leetcode-algorithms-average-salary-excluding-the-minimum-and-maximum-salary/">LeetCode - Algorithms - 1491. Average Salary Excluding the Minimum and Maximum Salary</a>
           </li>
         
       </ul>

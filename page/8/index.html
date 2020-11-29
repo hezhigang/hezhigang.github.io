@@ -70,6 +70,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-algorithms-merge-sorted-array" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/13/leetcode-algorithms-merge-sorted-array/" class="article-date">
+  <time datetime="2020-07-13T21:57:53.000Z" itemprop="datePublished">2020-07-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/13/leetcode-algorithms-merge-sorted-array/">LeetCode - Algorithms - 88. Merge Sorted Array</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/merge-sorted-array/" target="_blank" rel="noopener">88. Merge Sorted Array</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span> m, <span class="keyword">int</span>[] nums2, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (m == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">                nums1[i] = nums2[i];</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> idx = m + n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> idx1 = m - <span class="number">1</span>, idx2 = n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (; idx1 &gt;= <span class="number">0</span> &amp;&amp; idx2 &gt;= <span class="number">0</span>; ) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums1[idx1] &lt; nums2[idx2]) &#123;</span><br><span class="line">                nums1[idx--] = nums2[idx2];</span><br><span class="line">                idx2--;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                nums1[idx--] = nums1[idx1];</span><br><span class="line">                idx1--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (idx2 &gt;= <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= idx2; i++)</span><br><span class="line">                nums1[i] = nums2[i];       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>59 / 59 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Merge Sorted Array.</li>
+<li>Memory Usage: 39.9 MB, less than 18.03% of Java online submissions for Merge Sorted Array.</li>
+</ul>
+<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span> m, <span class="keyword">int</span>[] nums2, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (m == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">                nums1[i] = nums2[i];</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> idx = m + n - <span class="number">1</span>;</span><br><span class="line">        m--;</span><br><span class="line">        n--;</span><br><span class="line">        <span class="keyword">for</span> (; m &gt;= <span class="number">0</span> &amp;&amp; n &gt;= <span class="number">0</span>; ) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums1[m] &lt; nums2[n]) &#123;</span><br><span class="line">                nums1[idx--] = nums2[n];</span><br><span class="line">                n--;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                nums1[idx--] = nums1[m];</span><br><span class="line">                m--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n &gt;= <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++)</span><br><span class="line">                nums1[i] = nums2[i];       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>59 / 59 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Merge Sorted Array.</li>
+<li>Memory Usage: 40 MB, less than 14.13% of Java online submissions for Merge Sorted Array.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/07/13/leetcode-algorithms-merge-sorted-array/" data-id="cki2hqdz100bmlqja3tj29m6f" data-title="LeetCode - Algorithms - 88. Merge Sorted Array" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-leetcode-algorithms-power-of-four" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/07/11/leetcode-algorithms-power-of-four/" class="article-date">
@@ -123,7 +178,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/11/leetcode-algorithms-power-of-four/" data-id="cki13s6ca00c785jakzcdjwte" data-title="LeetCode - Algorithms - 342. Power of Four" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/11/leetcode-algorithms-power-of-four/" data-id="cki2hqdze00c6lqja30r18jso" data-title="LeetCode - Algorithms - 342. Power of Four" class="article-share-link">Share</a>
       
       
       
@@ -191,7 +246,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/10/leetcode-algorithms-power-of-two/" data-id="cki13s6cd00cc85jaq4fid5po" data-title="LeetCode - Algorithms - 231. Power of Two" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/10/leetcode-algorithms-power-of-two/" data-id="cki2hqdzd00c4lqjansa682rv" data-title="LeetCode - Algorithms - 231. Power of Two" class="article-share-link">Share</a>
       
       
       
@@ -264,7 +319,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/09/leetcode-algorithms-number-complement/" data-id="cki13s6c000bs85jazvf26uzv" data-title="LeetCode - Algorithms - 476. Number Complement" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/09/leetcode-algorithms-number-complement/" data-id="cki2hqdz400brlqja1bszt8nb" data-title="LeetCode - Algorithms - 476. Number Complement" class="article-share-link">Share</a>
       
       
       
@@ -325,7 +380,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/08/leetcode-algorithms-plus-one/" data-id="cki13s6c600c285jaykthn1s3" data-title="LeetCode - Algorithms - 66. Plus One" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/08/leetcode-algorithms-plus-one/" data-id="cki2hqdz800bzlqjam147mrtd" data-title="LeetCode - Algorithms - 66. Plus One" class="article-share-link">Share</a>
       
       
       
@@ -374,7 +429,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/08/leetcode-algorithms-xor-operation-in-an-array/" data-id="cki13s6d700d885jat3zbpeen" data-title="LeetCode - Algorithms - 1486. XOR Operation in an Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/08/leetcode-algorithms-xor-operation-in-an-array/" data-id="cki2hqe0400dalqjadfbhxlfk" data-title="LeetCode - Algorithms - 1486. XOR Operation in an Array" class="article-share-link">Share</a>
       
       
       
@@ -435,7 +490,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/07/leetcode-algorithms-running-sum-of-1d-array/" data-id="cki13s6cn00cm85jalqg675y0" data-title="LeetCode - Algorithms - 1480. Running Sum of 1d Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/07/leetcode-algorithms-running-sum-of-1d-array/" data-id="cki2hqdzi00cdlqja0hrcpev8" data-title="LeetCode - Algorithms - 1480. Running Sum of 1d Array" class="article-share-link">Share</a>
       
       
       
@@ -490,7 +545,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/07/leetcode-algorithms-number-of-steps-to-reduce-a-number-to-zero/" data-id="cki13s6c100bv85jafqqw39gw" data-title="LeetCode - Algorithms - 1342. Number of Steps to Reduce a Number to Zero" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/07/leetcode-algorithms-number-of-steps-to-reduce-a-number-to-zero/" data-id="cki2hqdz600bulqjam40ms0n0" data-title="LeetCode - Algorithms - 1342. Number of Steps to Reduce a Number to Zero" class="article-share-link">Share</a>
       
       
       
@@ -576,7 +631,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/04/United-States-Declaration-of-Independence/" data-id="cki13s6kq00u485jagherozz8" data-title="United States Declaration of Independence" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/04/United-States-Declaration-of-Independence/" data-id="cki2hqe6e00u0lqjaqevhcf66" data-title="United States Declaration of Independence" class="article-share-link">Share</a>
       
       
       
@@ -635,60 +690,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/03/leetcode-algorithms-max-points-on-a-line/" data-id="cki13s6bp00bi85ja3psi010g" data-title="LeetCode - Algorithms - 149. Max Points on a Line" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/03/leetcode-algorithms-max-points-on-a-line/" data-id="cki2hqdyy00bhlqjaqlearngp" data-title="LeetCode - Algorithms - 149. Max Points on a Line" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-Anthems-of-Canada" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/01/Anthems-of-Canada/" class="article-date">
-  <time datetime="2020-07-02T03:21:30.000Z" itemprop="datePublished">2020-07-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/01/Anthems-of-Canada/">O Canada - Anthems of Canada - English version</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>O Canada!<br>Our home and native land!<br>True patriot love in all of us command.</p>
-<p>With glowing hearts we see thee rise,<br>The True North strong and free!</p>
-<p>From far and wide,<br>O Canada, we stand on guard for thee.</p>
-<p>God keep our land glorious and free!<br>O Canada, we stand on guard for thee.</p>
-<p>O Canada, we stand on guard for thee.</p>
-<hr>
-<p><a href="https://www.canada.ca/en/canadian-heritage/services/anthems-canada.html" target="_blank" rel="noopener">Anthems of Canada</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/01/Anthems-of-Canada/" data-id="cki13s61q000185jal2yl43l0" data-title="O Canada - Anthems of Canada - English version" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
 
     </footer>
   </div>
@@ -750,6 +756,10 @@
       <ul>
         
           <li>
+            <a href="/2020/11/28/leetcode-algorithms-super-palindromes/">LeetCode - Algorithms - 906. Super Palindromes</a>
+          </li>
+        
+          <li>
             <a href="/2020/11/27/covid-19-outlooks-a-reverse-poem-britt-mackinnon/">COVID-19 Outlooks</a>
           </li>
         
@@ -763,10 +773,6 @@
         
           <li>
             <a href="/2020/11/25/the-final-speech-from-the-great-dictator/">The Final Speech from The Great Dictator</a>
-          </li>
-        
-          <li>
-            <a href="/2020/11/24/leetcode-algorithms-average-salary-excluding-the-minimum-and-maximum-salary/">LeetCode - Algorithms - 1491. Average Salary Excluding the Minimum and Maximum Salary</a>
           </li>
         
       </ul>
