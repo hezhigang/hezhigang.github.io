@@ -70,6 +70,94 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Concurrency-Print-in-Order" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/08/LeetCode-Concurrency-Print-in-Order/" class="article-date">
+  <time datetime="2019-08-08T20:28:27.000Z" itemprop="datePublished">2019-08-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/08/LeetCode-Concurrency-Print-in-Order/">LeetCode - Concurrency - 1114. Print in Order</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>An example of multiple solutions selected from discuss.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h2><p>Using <code>volatile</code> variables reduces the risk of memory consistency errors, because any write to a volatile variable establishes a happens-before relationship with subsequent reads of that same variable. This means that <strong>changes to a volatile variable are always visible to other threads</strong>. What’s more, it also means that when a thread reads a volatile variable, it sees not just the latest change to the volatile, but also the side effects of the code that led up the change.</p>
+<p><code>volatile</code> has semantics for memory visibility. Basically, the value of a volatile field becomes visible to all readers (other threads in particular) after a write operation completes on it. Without volatile, readers could see some non-updated value.</p>
+<p>In programming, an atomic action is one that effectively happens all at once. An atomic action cannot stop in the middle: it either happens completely, or it doesn’t happen at all. No side effects of an atomic action are visible until the action is complete.</p>
+<ul>
+<li>Reads and writes are atomic for reference variables and for most primitive variables (all types except long and double).</li>
+<li>Reads and writes are atomic for all variables declared <code>volatile</code> (including long and double variables).</li>
+</ul>
+<p><a href="https://leetcode.com/problems/print-in-order/discuss/333397/Java-Simple-yet-effective.-Using-volatile-without-lock" target="_blank" rel="noopener">&#91;Java&#93; Simple, yet effective. Using volatile without lock</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> flag;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        flag = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">first</span><span class="params">(Runnable printFirst)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(;;) &#123;</span><br><span class="line">        	<span class="keyword">if</span> (flag==<span class="number">1</span>) &#123;</span><br><span class="line">        		printFirst.run();</span><br><span class="line">                flag = <span class="number">2</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">second</span><span class="params">(Runnable printSecond)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	<span class="keyword">for</span>(;;) &#123;</span><br><span class="line">    		<span class="keyword">if</span> (flag==<span class="number">2</span>) &#123;</span><br><span class="line">    			printSecond.run();</span><br><span class="line">                flag=<span class="number">3</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">third</span><span class="params">(Runnable printThird)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	<span class="keyword">for</span>(;;) &#123;</span><br><span class="line">    		<span class="keyword">if</span> (flag==<span class="number">3</span>) &#123;</span><br><span class="line">    			printThird.run();</span><br><span class="line">                flag = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>36 / 36 test cases passed.<br>Runtime: 9 ms, faster than 88.93% of Java online submissions for Print in Order.<br>Memory Usage: 35.9 MB, less than 100.00% of Java online submissions for Print in Order.</p>
+</blockquote>
+<h2 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h2><p>Conceptually, a <code>semaphore</code> maintains a set of permits. Each <code>acquire()</code> blocks if necessary until a permit is available, and then takes it. Each <code>release()</code> adds a permit, potentially releasing a blocking acquirer. However, no actual permit objects are used; the <code>Semaphore</code> just keeps a count of the number available and acts accordingly.</p>
+<p><code>Semaphores</code> are often used to restrict the number of threads that can access some (physical or logical) resource.</p>
+<p><a href="https://leetcode.com/problems/print-in-order/discuss/332954/JavaGo-Implements" target="_blank" rel="noopener">[Java/Go] Implements</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.Semaphore;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">	Semaphore semaphore1 = <span class="keyword">new</span> Semaphore(<span class="number">0</span>);</span><br><span class="line">	Semaphore semaphore2 = <span class="keyword">new</span> Semaphore(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">first</span><span class="params">(Runnable printFirst)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        printFirst.run();</span><br><span class="line">        semaphore1.release();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">second</span><span class="params">(Runnable printSecond)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	semaphore1.acquire();</span><br><span class="line">    	printSecond.run();</span><br><span class="line">    	semaphore2.release();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">third</span><span class="params">(Runnable printThird)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	semaphore2.acquire();</span><br><span class="line">    	printThird.run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>36 / 36 test cases passed.<br>Runtime: 9 ms, faster than 89.05% of Java online submissions for Print in Order.<br>Memory Usage: 35.7 MB, less than 100.00% of Java online submissions for Print in Order.</p>
+</blockquote>
+<h2 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h2><p>The Java programming language provides two basic synchronization idioms: <code>synchronized methods</code> and <code>synchronized statements</code>.</p>
+<p>Unlike synchronized methods, <code>synchronized statements</code> must specify the object that provides the intrinsic lock.</p>
+<p><code>Synchronized statements</code> are also useful for improving concurrency with fine-grained synchronization.</p>
+<p><a href="https://leetcode.com/problems/print-in-order/discuss/333001/Java-Basic-version-with-just-a-synchronized-block-and-a-counter" target="_blank" rel="noopener">[Java] Basic version with just a synchronized block &amp; a counter</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String mutex = <span class="keyword">new</span> String(<span class="string">""</span>);</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> counter = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">first</span><span class="params">(Runnable printFirst)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	<span class="keyword">boolean</span> loop = <span class="keyword">true</span>;</span><br><span class="line">    	<span class="keyword">while</span> (loop) &#123;</span><br><span class="line">    		<span class="keyword">synchronized</span>(mutex) &#123;</span><br><span class="line">    			<span class="keyword">if</span> (counter == <span class="number">1</span>) &#123;</span><br><span class="line">    				printFirst.run();</span><br><span class="line">    				++counter;</span><br><span class="line">    				loop = <span class="keyword">false</span>;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">second</span><span class="params">(Runnable printSecond)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	<span class="keyword">boolean</span> loop = <span class="keyword">true</span>;</span><br><span class="line">    	<span class="keyword">while</span> (loop) &#123;</span><br><span class="line">    		<span class="keyword">synchronized</span>(mutex) &#123;</span><br><span class="line">    			<span class="keyword">if</span> (counter == <span class="number">2</span>) &#123;</span><br><span class="line">    				printSecond.run();</span><br><span class="line">    				++counter;</span><br><span class="line">    				loop = <span class="keyword">false</span>;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">third</span><span class="params">(Runnable printThird)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	<span class="keyword">boolean</span> loop = <span class="keyword">true</span>;</span><br><span class="line">    	<span class="keyword">while</span> (loop) &#123;</span><br><span class="line">    		<span class="keyword">synchronized</span>(mutex) &#123;</span><br><span class="line">    			<span class="keyword">if</span> (counter == <span class="number">3</span>) &#123;</span><br><span class="line">    				printThird.run();</span><br><span class="line">    				++counter;</span><br><span class="line">    				loop = <span class="keyword">false</span>;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>36 / 36 test cases passed.<br>Runtime: 9 ms, faster than 89.16% of Java online submissions for Print in Order.<br>Memory Usage: 36 MB, less than 100.00% of Java online submissions for Print in Order.</p>
+</blockquote>
+<h2 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h2><p>A synchronization aid that allows one or more threads to wait until a set of operations being performed in other threads completes.</p>
+<p>A <code>CountDownLatch</code> is initialized with a given count. The <code>await</code> methods block until the current count reaches zero due to invocations of the <code>countDown()</code> method, after which all waiting threads are released and any subsequent invocations of await return immediately. This is a one-shot phenomenon – the count cannot be reset.</p>
+<p>A CountDownLatch is a versatile synchronization tool and can be used for a number of purposes. A <code>CountDownLatch</code> initialized with a count of one serves as a simple on/off latch, or gate: all threads invoking await wait at the gate until it is opened by a thread invoking <code>countDown()</code>. A CountDownLatch initialized to N can be used to make one thread wait until N threads have completed some action, or some action has been completed N times.</p>
+<p>A useful property of a <code>CountDownLatch</code> is that it doesn’t require that threads calling <code>countDown</code> wait for the count to reach zero before proceeding, it simply prevents any thread from proceeding past an await until all threads could pass.</p>
+<p>Another typical usage would be to divide a problem into N parts, describe each part with a Runnable that executes that portion and counts down on the latch, and queue all the Runnables to an Executor. When all sub-parts are complete, the coordinating thread will be able to pass through await.</p>
+<p><a href="https://leetcode.com/problems/print-in-order/discuss/333052/Java-7ms-CountDownLatch" target="_blank" rel="noopener">[Java] 7ms CountDownLatch</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.CountDownLatch;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> CountDownLatch L1 = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> CountDownLatch L2 = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">first</span><span class="params">(Runnable printFirst)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        printFirst.run();</span><br><span class="line">        L1.countDown();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">second</span><span class="params">(Runnable printSecond)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	L1.await();</span><br><span class="line">    	printSecond.run();</span><br><span class="line">    	L2.countDown();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">third</span><span class="params">(Runnable printThird)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	L2.await();</span><br><span class="line">    	printThird.run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>36 / 36 test cases passed.<br>Runtime: 9 ms, faster than 89.16% of Java online submissions for Print in Order.<br>Memory Usage: 35.4 MB, less than 100.00% of Java online submissions for Print in Order.</p>
+</blockquote>
+<h2 id="Phaser"><a href="#Phaser" class="headerlink" title="Phaser"></a>Phaser</h2><p>A reusable synchronization barrier, similar in functionality to CyclicBarrier and CountDownLatch but supporting more flexible usage.</p>
+<p>Methods <code>arrive()</code> and arriveAndDeregister() record arrival. These methods do not block, but return an associated arrival phase number; that is, the phase number of the phaser to which the arrival applied.</p>
+<p>Method <code>awaitAdvance(int)</code> requires an argument indicating an arrival phase number, and returns when the phaser advances to (or is already at) a different phase.</p>
+<p><a href="https://leetcode.com/problems/print-in-order/discuss/333249/Java-Phaser-solution-very-fast" target="_blank" rel="noopener">Java Phaser solution, very fast</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.Phaser;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Phaser phaser;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		phaser = <span class="keyword">new</span> Phaser(<span class="number">3</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">first</span><span class="params">(Runnable printFirst)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">0</span>);</span><br><span class="line">        printFirst.run();</span><br><span class="line">        phaser.arrive();</span><br><span class="line">        phaser.arrive();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">second</span><span class="params">(Runnable printSecond)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">0</span>);</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">1</span>);</span><br><span class="line">    	printSecond.run();</span><br><span class="line">    	phaser.arrive();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">third</span><span class="params">(Runnable printThird)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">0</span>);</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">1</span>);</span><br><span class="line">    	phaser.arrive();</span><br><span class="line">    	phaser.awaitAdvance(<span class="number">2</span>);</span><br><span class="line">    	printThird.run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>36 / 36 test cases passed.<br>Runtime: 10 ms, faster than 55.92% of Java online submissions for Print in Order.<br>Memory Usage: 36 MB, less than 100.00% of Java online submissions for Print in Order.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/08/08/LeetCode-Concurrency-Print-in-Order/" data-id="cki4pnq2j00u67xjajymcgz3v" data-title="LeetCode - Concurrency - 1114. Print in Order" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-my-social-media-tweets" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/31/my-social-media-tweets/" class="article-date">
@@ -331,7 +419,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/07/31/my-social-media-tweets/" data-id="cki4236zx00wc8ija8gza2crv" data-title="网络社区自媒体胡言乱语" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/07/31/my-social-media-tweets/" data-id="cki4pnq5w00x07xjaj6ihuoul" data-title="网络社区自媒体胡言乱语" class="article-share-link">Share</a>
       
       
       
@@ -385,7 +473,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/06/30/react-native-cheat-sheet/" data-id="cki4236qh00em8ijar7h5gv9m" data-title="React Native Cheat Sheet" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/06/30/react-native-cheat-sheet/" data-id="cki4pnpwo00en7xja8any06oz" data-title="React Native Cheat Sheet" class="article-share-link">Share</a>
       
       
       
@@ -460,7 +548,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/06/07/everyone-can-use-english-xiaolai/" data-id="cki4236x500u48ijaay938dc4" data-title="人人都能用英语 - 李笑来" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/06/07/everyone-can-use-english-xiaolai/" data-id="cki4pnq3c00us7xjato0af2jn" data-title="人人都能用英语 - 李笑来" class="article-share-link">Share</a>
       
       
       
@@ -534,7 +622,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/05/09/LeetCode-Algorithms-Kth-Largest-Element-in-an-Array/" data-id="cki4236fp002a8ijaq1ai6cxk" data-title="LeetCode - Algorithms - 215. Kth Largest Element in an Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/05/09/LeetCode-Algorithms-Kth-Largest-Element-in-an-Array/" data-id="cki4pnpnq00257xjaj694fg80" data-title="LeetCode - Algorithms - 215. Kth Largest Element in an Array" class="article-share-link">Share</a>
       
       
       
@@ -1534,7 +1622,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/05/04/The-Story-of-Maths-4-To-Infinity-and-Beyond-Subtitles/" data-id="cki42371x00y28ijan32o6w5h" data-title="The Story of Maths - 4. To Infinity and Beyond - Subtitles" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/05/04/The-Story-of-Maths-4-To-Infinity-and-Beyond-Subtitles/" data-id="cki4pnq7j00yq7xjastjop0oq" data-title="The Story of Maths - 4. To Infinity and Beyond - Subtitles" class="article-share-link">Share</a>
       
       
       
@@ -2703,7 +2791,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/05/04/The-Story-of-Maths-3-The-Frontiers-of-Space-Subtitles/" data-id="cki42372300y98ijaf1ohr6lu" data-title="The Story of Maths - 3. The Frontiers of Space - Subtitles" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/05/04/The-Story-of-Maths-3-The-Frontiers-of-Space-Subtitles/" data-id="cki4pnq7s00yx7xjaxz5apuqc" data-title="The Story of Maths - 3. The Frontiers of Space - Subtitles" class="article-share-link">Share</a>
       
       
       
@@ -3556,7 +3644,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/05/04/The-Story-of-Maths-2-The-Genius-of-the-East-Subtitles/" data-id="cki42371j00xl8ijaa8yvfrvy" data-title="The Story of Maths - 2. The Genius of the East - Subtitles" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/05/04/The-Story-of-Maths-2-The-Genius-of-the-East-Subtitles/" data-id="cki4pnq7800ya7xjasou561wp" data-title="The Story of Maths - 2. The Genius of the East - Subtitles" class="article-share-link">Share</a>
       
       
       
@@ -4394,7 +4482,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/05/04/The-Story-of-Maths-1-The-Language-of-the-Universe-Subtitles/" data-id="cki42371k00xm8ijaipy57m7p" data-title="The Story of Maths - 1. The Language of the Universe - Subtitles" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/05/04/The-Story-of-Maths-1-The-Language-of-the-Universe-Subtitles/" data-id="cki4pnq7700y97xja24h3zm7o" data-title="The Story of Maths - 1. The Language of the Universe - Subtitles" class="article-share-link">Share</a>
       
       
       
@@ -4520,70 +4608,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/04/06/Euclid-Elements-changhai/" data-id="cki4236vg00ta8ijailvqjsbs" data-title="［独立博客文摘 - 卢昌海］欧几里得与《几何原本》" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/04/06/Euclid-Elements-changhai/" data-id="cki4pnq2000tx7xjaxv1dik32" data-title="［独立博客文摘 - 卢昌海］欧几里得与《几何原本》" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学史/">数学史</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Wildcard-Matching" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/26/LeetCode-Algorithms-Wildcard-Matching/" class="article-date">
-  <time datetime="2019-03-26T04:33:22.000Z" itemprop="datePublished">2019-03-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/26/LeetCode-Algorithms-Wildcard-Matching/">LeetCode - Algorithms - 44. Wildcard Matching</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Only mark. It’s an example of dynamic programming.<br>I don’t know how to solve it, what’s more, I can’t understand the answer of others, so I run code of others on leetcode.</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p>by XN W</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isMatch</span><span class="params">(String s, String p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> pl = <span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; p.length(); i++) &#123;  </span><br><span class="line">             <span class="keyword">if</span> (p.charAt(i) != <span class="string">'*'</span>) &#123;  </span><br><span class="line">                  pl++;  </span><br><span class="line">             &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span> (pl &gt; s.length()) &#123;  </span><br><span class="line">             <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span> (s.length() == <span class="number">0</span> &amp;&amp; pl == <span class="number">0</span>) &#123;  </span><br><span class="line">             <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">boolean</span>[][] store = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">2</span>][s.length() + <span class="number">1</span>];  </span><br><span class="line">        store[<span class="number">0</span>][<span class="number">0</span>] = <span class="keyword">true</span>;  </span><br><span class="line">        store[<span class="number">1</span>][<span class="number">0</span>] = <span class="keyword">false</span>;   </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> ps = <span class="number">1</span>; ps &lt;= p.length(); ps++) &#123;</span><br><span class="line">             <span class="keyword">if</span> (p.charAt(ps - <span class="number">1</span>) == <span class="string">'*'</span>) &#123;  </span><br><span class="line">                  store[<span class="number">1</span>][<span class="number">0</span>] = store[<span class="number">0</span>][<span class="number">0</span>];  </span><br><span class="line">             &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">                  store[<span class="number">1</span>][<span class="number">0</span>] = <span class="keyword">false</span>;  </span><br><span class="line">             &#125;  </span><br><span class="line">             <span class="keyword">for</span> (<span class="keyword">int</span> ss = <span class="number">1</span>; ss &lt;= s.length(); ss++) &#123;  </span><br><span class="line">                  <span class="keyword">if</span> (p.charAt(ps - <span class="number">1</span>) == <span class="string">'?'</span>  </span><br><span class="line">                            || p.charAt(ps - <span class="number">1</span>) == s.charAt(ss - <span class="number">1</span>)) &#123;  </span><br><span class="line">                       store[<span class="number">1</span>][ss] = store[<span class="number">0</span>][ss - <span class="number">1</span>];  </span><br><span class="line">                  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (p.charAt(ps - <span class="number">1</span>) != <span class="string">'*'</span>) &#123;  </span><br><span class="line">                       store[<span class="number">1</span>][ss] = <span class="keyword">false</span>;  </span><br><span class="line">                  &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">                       store[<span class="number">1</span>][ss] = store[<span class="number">0</span>][ss - <span class="number">1</span>] || store[<span class="number">1</span>][ss - <span class="number">1</span>]  </span><br><span class="line">                                 || store[<span class="number">0</span>][ss];  </span><br><span class="line">                  &#125;  </span><br><span class="line">             &#125;  </span><br><span class="line">             <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= s.length(); i++) &#123;  </span><br><span class="line">                  store[<span class="number">0</span>][i] = store[<span class="number">1</span>][i];  </span><br><span class="line">             &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> store[<span class="number">1</span>][s.length()];      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><p>by XN W</p>
-<ul>
-<li>1808 / 1808 test cases passed.</li>
-<li>Runtime: 7 ms, faster than 100.00% of Java online submissions for Wildcard Matching.</li>
-<li>Memory Usage: 37.7 MB, less than 93.46% of Java online submissions for Wildcard Matching.</li>
-</ul>
-<h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><p><a href="http://vialgorithms.blogspot.com/2013/11/wildcard-matching.html" target="_blank" rel="noopener">Wildcard Matching</a></p>
-<blockquote>
-<p>I hate this algorithms!! Seriously!!!</p>
-</blockquote>
-<ol>
-<li>recursive way</li>
-<li>DP way</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/03/26/LeetCode-Algorithms-Wildcard-Matching/" data-id="cki4236hl004m8ija9s2w7p1r" data-title="LeetCode - Algorithms - 44. Wildcard Matching" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
     </footer>
   </div>
@@ -4645,6 +4674,10 @@
       <ul>
         
           <li>
+            <a href="/2020/11/30/quotes-of-winston-churchill/">Quotes - Winston Churchill</a>
+          </li>
+        
+          <li>
             <a href="/2020/11/29/painting-as-a-pastime-winston-churchill/">Painting as a Pastime</a>
           </li>
         
@@ -4658,10 +4691,6 @@
         
           <li>
             <a href="/2020/11/26/leetcode-algorithms-sum-of-square-numbers/">LeetCode - Algorithms - 633. Sum of Square Numbers</a>
-          </li>
-        
-          <li>
-            <a href="/2020/11/26/leetcode-algorithms-valid-perfect-square/">LeetCode - Algorithms - 367. Valid Perfect Square</a>
           </li>
         
       </ul>
