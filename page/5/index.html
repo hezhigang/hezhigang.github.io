@@ -70,6 +70,66 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-algorithms-day-of-the-year" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/15/leetcode-algorithms-day-of-the-year/" class="article-date">
+  <time datetime="2020-10-15T18:20:14.000Z" itemprop="datePublished">2020-10-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/15/leetcode-algorithms-day-of-the-year/">LeetCode - Algorithms - 1154. Day of the Year</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/day-of-the-year/" target="_blank" rel="noopener">1154. Day of the Year</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="my-solution"><a href="#my-solution" class="headerlink" title="my solution"></a>my solution</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">dayOfYear</span><span class="params">(String date)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> year = Integer.parseInt(date.substring(<span class="number">0</span>,<span class="number">4</span>));</span><br><span class="line">        <span class="keyword">int</span> month = Integer.parseInt(date.substring(<span class="number">5</span>,<span class="number">7</span>));</span><br><span class="line">        <span class="keyword">int</span> day = Integer.parseInt(date.substring(<span class="number">8</span>,<span class="number">10</span>));</span><br><span class="line">        <span class="keyword">int</span>[] dayOfMonth = &#123;<span class="number">31</span>, <span class="number">28</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>&#125;;</span><br><span class="line">        <span class="keyword">boolean</span> leapYear = ((year % <span class="number">4</span> == <span class="number">0</span>) &amp;&amp; (year % <span class="number">100</span> != <span class="number">0</span>)) || (year % <span class="number">400</span> == <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (leapYear)</span><br><span class="line">            dayOfMonth[<span class="number">1</span>] = <span class="number">29</span>;</span><br><span class="line">        <span class="keyword">int</span> dy = day;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; month; i++) &#123;</span><br><span class="line">            dy += dayOfMonth[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dy;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>246 / 246 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 98.63% of Java online submissions for Day of the Year.</li>
+<li>Memory Usage: 37.1 MB, less than 7.99% of Java online submissions for Day of the Year.</li>
+</ul>
+<h2 id="java8-LocalDate"><a href="#java8-LocalDate" class="headerlink" title="java8 LocalDate"></a>java8 LocalDate</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.time.LocalDate;</span><br><span class="line"><span class="keyword">import</span> java.time.format.DateTimeFormatter;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">dayOfYear</span><span class="params">(String date)</span> </span>&#123;</span><br><span class="line">        LocalDate d = LocalDate.parse(date, DateTimeFormatter.ofPattern(<span class="string">"yyyy-MM-dd"</span>));</span><br><span class="line">        <span class="keyword">return</span> d.getDayOfYear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>246 / 246 test cases passed.</li>
+<li>Runtime: 16 ms, faster than 6.07% of Java online submissions for Day of the Year.</li>
+<li>Memory Usage: 38.3 MB, less than 7.64% of Java online submissions for Day of the Year.</li>
+</ul>
+<hr>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Leap_year" target="_blank" rel="noopener">Leap year</a></li>
+<li><a href="https://www.tutorialspoint.com/Java-program-to-find-if-the-given-number-is-a-leap-year" target="_blank" rel="noopener">Java program to find if the given number is a leap year?</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/15/leetcode-algorithms-day-of-the-year/" data-id="ckijqujnl00ay8rjaudbug1l6" data-title="LeetCode - Algorithms - 1154. Day of the Year" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-quotes-in-career-advice-by-terence-tao" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/10/15/quotes-in-career-advice-by-terence-tao/" class="article-date">
@@ -143,7 +203,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/15/quotes-in-career-advice-by-terence-tao/" data-id="ckiicyzal00emhajaqp1a38uf" data-title="Quotes in Career advice - What&#39;s new - Terence Tao" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/15/quotes-in-career-advice-by-terence-tao/" data-id="ckijqujr900em8rja6j3ozrc4" data-title="Quotes in Career advice - What&#39;s new - Terence Tao" class="article-share-link">Share</a>
       
       
       
@@ -202,7 +262,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/14/victoria-declaration-on-heart-health/" data-id="ckiicyzbz00gkhaja6acksww9" data-title="Victoria Declaration on Heart Health" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/14/victoria-declaration-on-heart-health/" data-id="ckijqujsx00gj8rjaq7hafhkt" data-title="Victoria Declaration on Heart Health" class="article-share-link">Share</a>
       
       
       
@@ -251,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/13/leetcode-algorithms-find-common-characters/" data-id="ckiicyz7z00b6hajanc7kotjz" data-title="LeetCode - Algorithms - 1002. Find Common Characters" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/13/leetcode-algorithms-find-common-characters/" data-id="ckijqujnw00b38rjad0z8scc3" data-title="LeetCode - Algorithms - 1002. Find Common Characters" class="article-share-link">Share</a>
       
       
       
@@ -301,7 +361,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/11/leetcode-algorithms-matrix-diagonal-sum/" data-id="ckiicyz8e00bshajahicr3ukc" data-title="LeetCode - Algorithms - 1572. Matrix Diagonal Sum" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/11/leetcode-algorithms-matrix-diagonal-sum/" data-id="ckijqujot00bn8rjag1gekc8r" data-title="LeetCode - Algorithms - 1572. Matrix Diagonal Sum" class="article-share-link">Share</a>
       
       
       
@@ -357,7 +417,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/09/imagine-john-lennon/" data-id="ckiicyz7l00afhajadq1bhrxi" data-title="Imagine (John Lennon song)" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/09/imagine-john-lennon/" data-id="ckijqujlq00a48rjawxl6omil" data-title="Imagine (John Lennon song)" class="article-share-link">Share</a>
       
       
       
@@ -443,7 +503,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/08/the-hunt-for-a-supermassive-black-hole-andrea-ghez-tedglobal/" data-id="ckiicyzki00y5hajazwj12utb" data-title="The hunt for a supermassive black hole - Andrea Ghez - TEDGlobal 2009 - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/08/the-hunt-for-a-supermassive-black-hole-andrea-ghez-tedglobal/" data-id="ckijquk1p00xd8rjaksc7235n" data-title="The hunt for a supermassive black hole - Andrea Ghez - TEDGlobal 2009 - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -500,7 +560,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/08/mother-and-child-louise-gluck/" data-id="ckiicyza000e0hajar0i4aovy" data-title="Mother and Child" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/08/mother-and-child-louise-gluck/" data-id="ckijqujqr00e08rjawg7jpg9h" data-title="Mother and Child" class="article-share-link">Share</a>
       
       
       
@@ -580,7 +640,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/07/how-crispr-lets-us-edit-our-dna-jennifer-doudna-tedglobal-london/" data-id="ckiicyziz00w0hajay6rz49hn" data-title="How CRISPR lets us edit our DNA - Jennifer Doudna - TEDGlobal&gt;London - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/07/how-crispr-lets-us-edit-our-dna-jennifer-doudna-tedglobal-london/" data-id="ckijqujzj00v38rja65rejmbo" data-title="How CRISPR lets us edit our DNA - Jennifer Doudna - TEDGlobal&gt;London - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -708,7 +768,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/07/eight-stages-psychosocial-development/" data-id="ckiicyz5p0085haja6xm7y8wl" data-title="Erikson&#39;s stages of psychosocial development" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/07/eight-stages-psychosocial-development/" data-id="ckijqujjd007x8rja73es9v8y" data-title="Erikson&#39;s stages of psychosocial development" class="article-share-link">Share</a>
       
       
       
@@ -724,92 +784,11 @@
 
 
   
-    <article id="post-top-10-algorithms" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/06/top-10-algorithms/" class="article-date">
-  <time datetime="2020-10-06T21:36:13.000Z" itemprop="datePublished">2020-10-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/06/top-10-algorithms/">Top 10 Algorithms</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-<p>© <a href="https://www.computer.org/csdl/magazine/cs/2000/01/c1022/13rRUxBJhBm" target="_blank" rel="noopener">Guest Editors’ Introduction: The Top 10 Algorithms</a></p>
-<blockquote>
-<p>An algorithm is a sequence of finite computational steps that<br>transforms an input into an output. &#40;Cormen and Leiserson, 2009&#41;</p>
-</blockquote>
-<p><em>Algos</em> is the Greek word for pain. <em>Algor</em> is Latin, to be cold. Neither is the root for <em>algorithm</em>, which stems instead from al-Khwarizmi, the name of the ninth-century Arab scholar whose book <em>al-jabr wa’l muqabalah</em> devolved into today’s high school algebra textbooks. Al-Khwarizmi stressed the importance of methodical procedures for solving problems. Were he around today, he’d no doubt be impressed by the advances in his eponymous approach.</p>
-<p>Some of the very best algorithms of the computer age are highlighted in the January/February 2000 issue of <em>Computing in Science &amp; Engineering</em>, a joint publication of the American Institute of Physics and the IEEE Computer Society. Guest editors Jack Don-garra of the University of Tennessee and Oak Ridge National Laboratory and Fran-cis Sullivan of the Center for Comput-ing Sciences at the Institute for Defense Analyses put togeth-er a list they call the “<strong>Top Ten Algorithms of the Century</strong>.”</p>
-<p>“We tried to assemble the <strong>10 al-gorithms with the greatest influence on the development and practice of science and engineering in the 20th century</strong>,” Dongarra and Sullivan write. As with any top-10 list, their selections—and non-selections—are bound to be controversial, they acknowledge. When it comes to picking the algorithmic best, there seems to be no best algorithm.</p>
-<h1 id="1946-Metropolis-Algorithm-for-Monte-Carlo"><a href="#1946-Metropolis-Algorithm-for-Monte-Carlo" class="headerlink" title="1946: Metropolis Algorithm for Monte Carlo"></a>1946: Metropolis Algorithm for Monte Carlo</h1><p>John von Neumann, Stan Ulam, and Nick Metropolis, all at the Los Alamos Scientific Laboratory, cook up the Metropolis algorithm, also known as the Monte Carlo method.</p>
-<p><a href="https://en.wikipedia.org/wiki/Monte_Carlo_method" target="_blank" rel="noopener">Monte Carlo methods</a> are the only practical choice for evaluating problems of high dimensions.</p>
-<h1 id="1947-Simplex-Method-for-Linear-Programming"><a href="#1947-Simplex-Method-for-Linear-Programming" class="headerlink" title="1947: Simplex Method for Linear Programming"></a>1947: Simplex Method for Linear Programming</h1><p>George Dantzig, at the RAND Corporation, creates the simplex method for linear programming.</p>
-<p><a href="https://en.wikipedia.org/wiki/Simplex_algorithm" target="_blank" rel="noopener">The Simplex method</a> relies on noticing that the objective function’s maximum must occur on a corner of the space bounded by the constraints of the “feasible region.”</p>
-<h1 id="1950-Krylov-Subspace-Iteration-Methods"><a href="#1950-Krylov-Subspace-Iteration-Methods" class="headerlink" title="1950: Krylov Subspace Iteration Methods"></a>1950: Krylov Subspace Iteration Methods</h1><p>Magnus Hestenes, Eduard Stiefel, and Cornelius Lanczos, all from the Institute for Numerical Analysis at the National Bureau of Standards, initiate the development of Krylov subspace iteration methods.</p>
-<p>The importance of iterative algorithms in linear algebra stems from the simple fact that a direct approach will require \( O(N^3) \) work. The Krylov subspace <a href="https://en.wikipedia.org/wiki/Iterative_method" target="_blank" rel="noopener">iteration methods</a> have led to a major change in how users deal with large, sparse, nonsymmetric matrix problems.</p>
-<h1 id="1951-The-Decompositional-Approach-to-Matrix-Computations"><a href="#1951-The-Decompositional-Approach-to-Matrix-Computations" class="headerlink" title="1951: The Decompositional Approach to Matrix Computations"></a>1951: The Decompositional Approach to Matrix Computations</h1><p>Alston Householder of Oak Ridge National Laboratory formalizes the decompositional approach to matrix computations.</p>
-<p>Introducing the decompositional approach to matrix computations revolutionized the field.</p>
-<h1 id="1957-The-Fortran-Optimizing-Compiler"><a href="#1957-The-Fortran-Optimizing-Compiler" class="headerlink" title="1957: The Fortran Optimizing Compiler"></a>1957: The Fortran Optimizing Compiler</h1><p>John Backus leads a team at IBM in developing the Fortran optimizing compiler.</p>
-<p>The creation of Fortran may rank as the single most important event in the history of computer programming: Finally, scientists (and others) could tell the computer what they wanted it to do, without having to descend into the netherworld of machine code. Although modest by modern compiler standards—Fortran I consisted of a mere 23,500 assembly-language instructions—the early compiler was nonetheless capable of surprisingly sophisticated computations. As Backus himself recalls in a recent history of Fortran I, II, and III, published in 1998 in the <em>IEEE Annals of the History of Computing</em>, the compiler “<strong>produced code of such efficiency that its output would startle the programmers who studied it</strong>.”</p>
-<h1 id="1959-QR-Algorithm-for-Computing-Eigenvalues"><a href="#1959-QR-Algorithm-for-Computing-Eigenvalues" class="headerlink" title="1959: QR Algorithm for Computing Eigenvalues"></a>1959: QR Algorithm for Computing Eigenvalues</h1><p>J.G.F. Francis of Ferranti Ltd., London, finds a stable method for computing eigenvalues, known as the QR algorithm.</p>
-<p>The <a href="https://en.wikipedia.org/wiki/QR_algorithm" target="_blank" rel="noopener">QR Algorithm</a> for computing eigenvalues of a matrix has transformed the approach to computing the spectrum of a matrix.</p>
-<h1 id="1962-Quicksort-Algorithm-for-Sorting"><a href="#1962-Quicksort-Algorithm-for-Sorting" class="headerlink" title="1962: Quicksort Algorithm for Sorting"></a>1962: Quicksort Algorithm for Sorting</h1><p>Tony Hoare of Elliott Brothers, Ltd., London, presents Quicksort.</p>
-<p>Hoare’s algorithm uses the age-old recursive strategy of divide and conquer to solve the problem.</p>
-<p>Sorting is a central problem in many areas of computing so it is no surprise to see an approach to solving the problem as one of the top 10. <a href="https://en.wikipedia.org/wiki/Quicksort" target="_blank" rel="noopener">Quicksort</a> is one of the best practical sorting algorithm for general inputs. In addition, its complexity analysis and its structure have been a rich source of inspiration for developing general algorithm techniques for various applications.</p>
-<h1 id="1965-Fast-Fourier-Transform"><a href="#1965-Fast-Fourier-Transform" class="headerlink" title="1965: Fast Fourier Transform"></a>1965: Fast Fourier Transform</h1><p>James Cooley of the IBM T.J. Watson Research Center and John Tukey of Princeton University and AT&amp;T Bell Laboratories unveil the fast Fourier transform.</p>
-<p>Easily the most far-reaching algo-rithm in applied mathematics, the FFT revolutionized signal processing. The underlying idea goes back to Gauss (who needed to calculate orbits of asteroids), but it was the Cooley–Tukey paper that made it clear how easily Fourier transforms can be computed. Like Quicksort, the FFT relies on a divide-and-conquer strategy to reduce an ostensibly \( O(N^2) \) chore to an \( O(NlogN) \) frolic. But unlike Quick- sort, the implementation is (at first sight) nonintuitive and less than straightforward. This in itself gave computer science an impetus to investigate the inherent complexity of computational problems and algorithms.</p>
-<blockquote>
-<p>Mozart could listen to music just once and then write it<br>down from memory without any mistakes. &#40;Vernon, 1996&#41;</p>
-</blockquote>
-<p><a href="https://en.wikipedia.org/wiki/Fast_Fourier_transform" target="_blank" rel="noopener">FFT</a> is an algorithm “the whole family can use.” The FFT is perhaps the most ubiquitous algorithm in use today to analyze and manipulate digital or discrete data. The FFT takes the operation count for discrete Fourier transform from \( O(N^2) \) to \( O(NlogN) \).</p>
-<h1 id="1977-Integer-Relation-Detection"><a href="#1977-Integer-Relation-Detection" class="headerlink" title="1977: Integer Relation Detection"></a>1977: Integer Relation Detection</h1><p>Helaman Ferguson and Rodney Forcade of Brigham Young University advance an integer relation detection algorithm.</p>
-<p>Some recently discovered <a href="https://en.wikipedia.org/wiki/Integer_relation_algorithm" target="_blank" rel="noopener">integer relation detection algorithms</a> have become a centerpiece of the emerging discipline of “experimental mathematics” — the use of modern computer technology as an exploratory tool in mathematical research.</p>
-<h1 id="1987-Fast-Multipole-Method"><a href="#1987-Fast-Multipole-Method" class="headerlink" title="1987: Fast Multipole Method"></a>1987: Fast Multipole Method</h1><p>Leslie Greengard and Vladimir Rokhlin of Yale University invent the fast multipole algorithm.</p>
-<p>The <a href="https://en.wikipedia.org/wiki/Fast_multipole_method" target="_blank" rel="noopener">Fast Multipole Algorithm</a> was developed originally to calculate gravitational and electrostatic potentials. The method utilizes techniques to quickly compute and combine the pair-wise approximation in \( O(N) \) operations.</p>
-<hr>
-<ul>
-<li>The Best of the 20th Century: Editors Name Top 10 Algorithms, By Barry A. Cipra, a mathematician and writer based in Northfield, Minnesota.</li>
-<li>The Top10 Algorithms From The 20th Century, Alex Townsend, Cornell University</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/06/top-10-algorithms/" data-id="ckiicyzbt00gfhajaxspi5dmy" data-title="Top 10 Algorithms" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -855,6 +834,10 @@
       <ul>
         
           <li>
+            <a href="/2020/12/10/language-difficulty-ranking-for-english-speaker/">Language difficulty ranking for English speaker by FSI</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/09/leetcode-algorithms-two-sum-ii-input-array-is-sorted/">LeetCode - Algorithms - 167. Two Sum II - Input array is sorted</a>
           </li>
         
@@ -868,10 +851,6 @@
         
           <li>
             <a href="/2020/12/01/phd-song-by-hurwitz/">Ph.D.</a>
-          </li>
-        
-          <li>
-            <a href="/2020/11/30/quotes-of-winston-churchill/">Quotes - Winston Churchill</a>
           </li>
         
       </ul>
