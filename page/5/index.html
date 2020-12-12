@@ -70,6 +70,63 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-algorithms-sort-array-by-parity" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/16/leetcode-algorithms-sort-array-by-parity/" class="article-date">
+  <time datetime="2020-10-16T17:37:47.000Z" itemprop="datePublished">2020-10-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/16/leetcode-algorithms-sort-array-by-parity/">LeetCode - Algorithms - 905. Sort Array By Parity</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>It’s easy indeed.</p>
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/sort-array-by-parity/" target="_blank" rel="noopener">905. Sort Array By Parity</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Two-Pass"><a href="#Two-Pass" class="headerlink" title="Two Pass"></a>Two Pass</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArrayByParity(<span class="keyword">int</span>[] A) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = A.length;</span><br><span class="line">        <span class="keyword">int</span>[] B = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">        <span class="keyword">int</span> left=<span class="number">0</span>, right=N-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((A[i]&amp;<span class="number">1</span>)==<span class="number">0</span>) &#123;</span><br><span class="line">                B[left++]=A[i];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                B[right--]=A[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> B;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>285 / 285 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 99.47% of Java online submissions for Sort Array By Parity.</li>
+<li>Memory Usage: 40.1 MB, less than 30.13% of Java online submissions for Sort Array By Parity.</li>
+</ul>
+<h2 id="In-Place"><a href="#In-Place" class="headerlink" title="In-Place"></a>In-Place</h2><p>© <a href="https://leetcode.com/problems/sort-array-by-parity/solution/" target="_blank" rel="noopener">Solution - Approach 3: In-Place</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArrayByParity(<span class="keyword">int</span>[] A) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = A.length;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = N - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> temp;</span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((A[left] &amp; <span class="number">1</span>)==<span class="number">1</span> &amp;&amp; (A[right] &amp; <span class="number">1</span>)==<span class="number">0</span>) &#123;</span><br><span class="line">                temp = A[left];</span><br><span class="line">                A[left] = A[right];</span><br><span class="line">                A[right] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> ((A[left] &amp; <span class="number">1</span>) == <span class="number">0</span>) left++;</span><br><span class="line">            <span class="keyword">if</span> ((A[right] &amp; <span class="number">1</span>) == <span class="number">1</span>) right--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> A;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>285 / 285 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Sort Array By Parity.</li>
+<li>Memory Usage: 39.6 MB, less than 30.13% of Java online submissions for Sort Array By Parity.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/16/leetcode-algorithms-sort-array-by-parity/" data-id="ckil90prq00ctncjahpedx144" data-title="LeetCode - Algorithms - 905. Sort Array By Parity" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-leetcode-algorithms-day-of-the-year" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/10/15/leetcode-algorithms-day-of-the-year/" class="article-date">
@@ -114,7 +171,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/15/leetcode-algorithms-day-of-the-year/" data-id="ckijqujnl00ay8rjaudbug1l6" data-title="LeetCode - Algorithms - 1154. Day of the Year" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/15/leetcode-algorithms-day-of-the-year/" data-id="ckil90pqc00ayncjadq043d9p" data-title="LeetCode - Algorithms - 1154. Day of the Year" class="article-share-link">Share</a>
       
       
       
@@ -203,7 +260,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/15/quotes-in-career-advice-by-terence-tao/" data-id="ckijqujr900em8rja6j3ozrc4" data-title="Quotes in Career advice - What&#39;s new - Terence Tao" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/15/quotes-in-career-advice-by-terence-tao/" data-id="ckil90psz00etncja0dmmsr91" data-title="Quotes in Career advice - What&#39;s new - Terence Tao" class="article-share-link">Share</a>
       
       
       
@@ -262,7 +319,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/14/victoria-declaration-on-heart-health/" data-id="ckijqujsx00gj8rjaq7hafhkt" data-title="Victoria Declaration on Heart Health" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/14/victoria-declaration-on-heart-health/" data-id="ckil90puj00hbncjae6ws3p86" data-title="Victoria Declaration on Heart Health" class="article-share-link">Share</a>
       
       
       
@@ -311,7 +368,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/13/leetcode-algorithms-find-common-characters/" data-id="ckijqujnw00b38rjad0z8scc3" data-title="LeetCode - Algorithms - 1002. Find Common Characters" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/13/leetcode-algorithms-find-common-characters/" data-id="ckil90pq800atncjaw5axndpp" data-title="LeetCode - Algorithms - 1002. Find Common Characters" class="article-share-link">Share</a>
       
       
       
@@ -361,7 +418,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/11/leetcode-algorithms-matrix-diagonal-sum/" data-id="ckijqujot00bn8rjag1gekc8r" data-title="LeetCode - Algorithms - 1572. Matrix Diagonal Sum" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/11/leetcode-algorithms-matrix-diagonal-sum/" data-id="ckil90pqs00bkncjatp664rdm" data-title="LeetCode - Algorithms - 1572. Matrix Diagonal Sum" class="article-share-link">Share</a>
       
       
       
@@ -417,7 +474,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/09/imagine-john-lennon/" data-id="ckijqujlq00a48rjawxl6omil" data-title="Imagine (John Lennon song)" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/09/imagine-john-lennon/" data-id="ckil90pq500amncjaws7ep5ks" data-title="Imagine (John Lennon song)" class="article-share-link">Share</a>
       
       
       
@@ -503,7 +560,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/08/the-hunt-for-a-supermassive-black-hole-andrea-ghez-tedglobal/" data-id="ckijquk1p00xd8rjaksc7235n" data-title="The hunt for a supermassive black hole - Andrea Ghez - TEDGlobal 2009 - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/08/the-hunt-for-a-supermassive-black-hole-andrea-ghez-tedglobal/" data-id="ckil90q4900yvncja2qp3uhvo" data-title="The hunt for a supermassive black hole - Andrea Ghez - TEDGlobal 2009 - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -560,7 +617,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/08/mother-and-child-louise-gluck/" data-id="ckijqujqr00e08rjawg7jpg9h" data-title="Mother and Child" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/08/mother-and-child-louise-gluck/" data-id="ckil90psi00dzncjalt4etbyd" data-title="Mother and Child" class="article-share-link">Share</a>
       
       
       
@@ -640,139 +697,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/07/how-crispr-lets-us-edit-our-dna-jennifer-doudna-tedglobal-london/" data-id="ckijqujzj00v38rja65rejmbo" data-title="How CRISPR lets us edit our DNA - Jennifer Doudna - TEDGlobal&gt;London - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/07/how-crispr-lets-us-edit-our-dna-jennifer-doudna-tedglobal-london/" data-id="ckil90q1m00wqncjakd7hnrpi" data-title="How CRISPR lets us edit our DNA - Jennifer Doudna - TEDGlobal&gt;London - Transcript" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TED/">TED</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-eight-stages-psychosocial-development" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/07/eight-stages-psychosocial-development/" class="article-date">
-  <time datetime="2020-10-07T17:47:22.000Z" itemprop="datePublished">2020-10-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/07/eight-stages-psychosocial-development/">Erikson&#39;s stages of psychosocial development</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>Man is by nature a social animal; an individual who is unsocial naturally and not accidentally is either beneath our notice or more than human. Society is something that precedes the individual. Anyone who either cannot lead the common life or is so self-sufficient as not to need to, and therefore does not partake of society, is either a beast or a god. – Aristotle</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>Approximate Age</th>
-<th>Virtues</th>
-<th>Psychosocial crisis</th>
-<th>Significant relationship</th>
-<th>Existential question</th>
-<th>Examples</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Infancy <br> Under 2 years</td>
-<td><strong>Hope</strong></td>
-<td><strong>Trust</strong> <br> &nbsp;&nbsp;&nbsp;&nbsp;vs. <br> <em>Mistrust</em></td>
-<td>Mother</td>
-<td>Can I trust the world?</td>
-<td>Feeding, abandonment</td>
-</tr>
-<tr>
-<td>Toddlerhood <br> 2–4 years</td>
-<td><strong>Will</strong></td>
-<td><strong>Autonomy</strong> <br> &nbsp;&nbsp;&nbsp;&nbsp;vs. <br> <em>Shame/Doubt</em></td>
-<td>Parents</td>
-<td>Is it okay to be me?</td>
-<td>Toilet training, clothing themselves</td>
-</tr>
-<tr>
-<td>Early childhood <br> 5–8 years</td>
-<td><strong>Purpose</strong></td>
-<td><strong>Initiative</strong> <br> &nbsp;&nbsp;&nbsp;&nbsp;vs. <br> <em>Guilt</em></td>
-<td>Family</td>
-<td>Is it okay for me to do, move, and act?</td>
-<td>Exploring, using tools or making art</td>
-</tr>
-<tr>
-<td>Middle Childhood <br> 9–12 years</td>
-<td><strong>Competence</strong></td>
-<td><strong>Industry</strong> <br> &nbsp;&nbsp;&nbsp;&nbsp;vs. <br> <em>Inferiority</em></td>
-<td>Neighbors, School</td>
-<td>Can I make it in the world of people and things?</td>
-<td>School, sports</td>
-</tr>
-<tr>
-<td>Adolescence <br> 13–19 years</td>
-<td><strong>Fidelity</strong></td>
-<td><strong>Identity</strong> <br> &nbsp;&nbsp;&nbsp;&nbsp;vs. <br> <em>Role Confusion</em></td>
-<td>Peers, Role Model</td>
-<td>Who am I? Who can I be?</td>
-<td>Social relationships</td>
-</tr>
-<tr>
-<td>Early adulthood <br> 20–39 years</td>
-<td><strong>Love</strong></td>
-<td><strong>Intimacy</strong> <br> &nbsp;&nbsp;&nbsp;&nbsp;vs. <br> <em>Isolation</em></td>
-<td>Friends, Partners</td>
-<td>Can I love?</td>
-<td>Romantic relationships</td>
-</tr>
-<tr>
-<td>Middle Adulthood <br> 40–59 years</td>
-<td><strong>Care</strong></td>
-<td><strong>Generativity</strong> <br> &nbsp;&nbsp;&nbsp;&nbsp;vs. <br> <em>Stagnation</em></td>
-<td>Household, Workmates</td>
-<td>Can I make my life count?</td>
-<td>Work, parenthood</td>
-</tr>
-<tr>
-<td>Late Adulthood <br> 60 and above</td>
-<td><strong>Wisdom</strong></td>
-<td><strong>Ego Integrity</strong> <br> &nbsp;&nbsp;&nbsp;&nbsp;vs. <br> <em>Despair</em></td>
-<td>Mankind, My kind</td>
-<td>Is it okay to have been me?</td>
-<td>Reflection on life</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Erikson%27s_stages_of_psychosocial_development" target="_blank" rel="noopener">Erikson’s stages of psychosocial development</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Erik_Erikson" target="_blank" rel="noopener">Erik Erikson</a> was a student of <a href="https://en.wikipedia.org/wiki/Anna_Freud" target="_blank" rel="noopener">Anna Freud</a>, the daughter of <a href="https://en.wikipedia.org/wiki/Sigmund_Freud" target="_blank" rel="noopener">Sigmund Freud</a>.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/07/eight-stages-psychosocial-development/" data-id="ckijqujjd007x8rja73es9v8y" data-title="Erikson&#39;s stages of psychosocial development" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/心理学与生活/">心理学与生活</a></li></ul>
 
     </footer>
   </div>
@@ -834,6 +763,10 @@
       <ul>
         
           <li>
+            <a href="/2020/12/11/leetcode-algorithms-number-of-days-between-two-dates/">LeetCode - Algorithms - 1360. Number of Days Between Two Dates</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/10/language-difficulty-ranking-for-english-speaker/">Language difficulty ranking for English speaker by FSI</a>
           </li>
         
@@ -847,10 +780,6 @@
         
           <li>
             <a href="/2020/12/03/word-of-the-year-2020/">Word of the year 2020 - Pandemic, Lockdown, Covid-19, •••</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/01/phd-song-by-hurwitz/">Ph.D.</a>
           </li>
         
       </ul>
