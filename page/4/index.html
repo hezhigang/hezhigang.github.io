@@ -70,6 +70,66 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-algorithms-intersection-of-two-linked-lists" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/24/leetcode-algorithms-intersection-of-two-linked-lists/" class="article-date">
+  <time datetime="2020-10-25T01:33:18.000Z" itemprop="datePublished">2020-10-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/24/leetcode-algorithms-intersection-of-two-linked-lists/">LeetCode - Algorithms - 160. Intersection of Two Linked Lists</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/intersection-of-two-linked-lists/" target="_blank" rel="noopener">160. Intersection of Two Linked Lists</a></p>
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><ul>
+<li>If the two linked lists have no intersection at all, return null.</li>
+<li>The linked lists must retain their original structure after the function returns.</li>
+<li>Your code should preferably run in O(n) time and use only O(1) memory.</li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="my-solution-of-O-n-time-and-O-1-memory"><a href="#my-solution-of-O-n-time-and-O-1-memory" class="headerlink" title="my solution of O(n) time and O(1) memory"></a>my solution of O(n) time and O(1) memory</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123;</span></span><br><span class="line"><span class="comment"> *         val = x;</span></span><br><span class="line"><span class="comment"> *         next = null;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (headA == <span class="keyword">null</span> || headB == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        ListNode nodeA = headA;</span><br><span class="line">        <span class="keyword">int</span> lenA = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (nodeA != <span class="keyword">null</span>) &#123;</span><br><span class="line">            lenA++;</span><br><span class="line">            nodeA = nodeA.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> lenB = <span class="number">0</span>;</span><br><span class="line">        ListNode nodeB = headB;</span><br><span class="line">        <span class="keyword">while</span> (nodeB != <span class="keyword">null</span>) &#123;</span><br><span class="line">            lenB++;</span><br><span class="line">            nodeB = nodeB.next;</span><br><span class="line">        &#125;</span><br><span class="line">        nodeA = headA;</span><br><span class="line">        nodeB = headB;</span><br><span class="line">        <span class="keyword">if</span> (lenA &lt; lenB) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lenB - lenA; i++) &#123;</span><br><span class="line">                nodeB = nodeB.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (lenA &gt; lenB) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lenA - lenB; i++) &#123;</span><br><span class="line">                nodeA = nodeA.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode node = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (nodeA == nodeB)</span><br><span class="line">            node = nodeA;</span><br><span class="line">        <span class="keyword">while</span> (nodeA != nodeB) &#123;</span><br><span class="line">            nodeA = nodeA.next;</span><br><span class="line">            nodeB = nodeB.next;</span><br><span class="line">            node = nodeA;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>46 / 46 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 98.53% of Java online submissions for Intersection of Two Linked Lists.</li>
+<li>Memory Usage: 41.7 MB, less than 10.90% of Java online submissions for Intersection of Two Linked Lists.</li>
+</ul>
+<h2 id="stack"><a href="#stack" class="headerlink" title="stack"></a>stack</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Deque;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123;</span></span><br><span class="line"><span class="comment"> *         val = x;</span></span><br><span class="line"><span class="comment"> *         next = null;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (headA == <span class="keyword">null</span> || headB == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        Deque&lt;ListNode&gt; stkA = <span class="keyword">new</span> LinkedList&lt;ListNode&gt;();</span><br><span class="line">        ListNode node = headA;</span><br><span class="line">        <span class="keyword">while</span> (node != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stkA.push(node);</span><br><span class="line">            node = node.next;</span><br><span class="line">        &#125;</span><br><span class="line">        Deque&lt;ListNode&gt; stkB = <span class="keyword">new</span> LinkedList&lt;ListNode&gt;();</span><br><span class="line">        node = headB;</span><br><span class="line">        <span class="keyword">while</span> (node != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stkB.push(node);</span><br><span class="line">            node = node.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (!stkA.isEmpty() &amp;&amp; !stkB.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (stkA.peek() == stkB.peek()) &#123;</span><br><span class="line">                node = stkA.pop();</span><br><span class="line">                stkB.pop();</span><br><span class="line">            &#125; <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>46 / 46 test cases passed.</li>
+<li>Runtime: 2 ms, faster than 38.55% of Java online submissions for Intersection of Two Linked Lists.</li>
+<li>Memory Usage: 42.6 MB, less than 11.53% of Java online submissions for Intersection of Two Linked Lists.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/24/leetcode-algorithms-intersection-of-two-linked-lists/" data-id="ckim5pp3o00bfr9jaxr5gmz8j" data-title="LeetCode - Algorithms - 160. Intersection of Two Linked Lists" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/">Linked List</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-let-us-now-praise-prime-numbers-helen-spalding" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/10/23/let-us-now-praise-prime-numbers-helen-spalding/" class="article-date">
@@ -107,7 +167,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/23/let-us-now-praise-prime-numbers-helen-spalding/" data-id="ckil90pse00dsncjaiqh5l4xt" data-title="Let Us Now Praise Prime Numbers" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/23/let-us-now-praise-prime-numbers-helen-spalding/" data-id="ckim5pp5u00dpr9jariepnwm9" data-title="Let Us Now Praise Prime Numbers" class="article-share-link">Share</a>
       
       
       
@@ -160,7 +220,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/22/leetcode-algorithms-remove-duplicates-from-sorted-list/" data-id="ckil90prk00cjncjay35fugz8" data-title="LeetCode - Algorithms - 83. Remove Duplicates from Sorted List" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/22/leetcode-algorithms-remove-duplicates-from-sorted-list/" data-id="ckim5pp4o00cor9jaq9wvx114" data-title="LeetCode - Algorithms - 83. Remove Duplicates from Sorted List" class="article-share-link">Share</a>
       
       
       
@@ -221,7 +281,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/21/leetcode-algorithms-middle-of-the-linked-list/" data-id="ckil90pqz00bxncjapko0gyyw" data-title="LeetCode - Algorithms - 876. Middle of the Linked List" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/21/leetcode-algorithms-middle-of-the-linked-list/" data-id="ckim5pp3z00brr9jam0n744k0" data-title="LeetCode - Algorithms - 876. Middle of the Linked List" class="article-share-link">Share</a>
       
       
       
@@ -270,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/21/leetcode-algorithms-remove-linked-list-elements/" data-id="ckil90prf00cencjai3n4kdur" data-title="LeetCode - Algorithms - 203. Remove Linked List Elements" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/21/leetcode-algorithms-remove-linked-list-elements/" data-id="ckim5pp4q00cqr9jagmj6p5e4" data-title="LeetCode - Algorithms - 203. Remove Linked List Elements" class="article-share-link">Share</a>
       
       
       
@@ -421,7 +481,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/21/english-idioms/" data-id="ckil90po3007wncja4uiijg15" data-title="English-language idioms" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/21/english-idioms/" data-id="ckim5pp0e008br9jajop9sw79" data-title="English-language idioms" class="article-share-link">Share</a>
       
       
       
@@ -492,7 +552,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/20/leetcode-algorithms-third-maximum-number/" data-id="ckil90ps100d5ncja5zz5dyki" data-title="LeetCode - Algorithms - 414. Third Maximum Number" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/20/leetcode-algorithms-third-maximum-number/" data-id="ckim5pp5l00dfr9jakl7c88aj" data-title="LeetCode - Algorithms - 414. Third Maximum Number" class="article-share-link">Share</a>
       
       
       
@@ -555,7 +615,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/19/the-best-known-quantum-algorithms/" data-id="ckil90ptm00funcja1co36apk" data-title="The best-known quantum algorithms" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/19/the-best-known-quantum-algorithms/" data-id="ckim5pp7v00g1r9jab5thdlu5" data-title="The best-known quantum algorithms" class="article-share-link">Share</a>
       
       
       
@@ -611,7 +671,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/18/leetcode-algorithms-monotonic-array/" data-id="ckil90pqx00buncja0519uyhd" data-title="LeetCode - Algorithms - 896. Monotonic Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/18/leetcode-algorithms-monotonic-array/" data-id="ckim5pp4b00c6r9ja8uaklh0e" data-title="LeetCode - Algorithms - 896. Monotonic Array" class="article-share-link">Share</a>
       
       
       
@@ -676,61 +736,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/17/leetcode-algorithms-check-if-it-is-a-straight-line/" data-id="ckil90pqa00avncjaedsnpe4r" data-title="LeetCode - Algorithms - 1232. Check If It Is a Straight Line" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/17/leetcode-algorithms-check-if-it-is-a-straight-line/" data-id="ckim5pp2t00b0r9ja8o7fgelj" data-title="LeetCode - Algorithms - 1232. Check If It Is a Straight Line" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/geometry/">geometry</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-leetcode-algorithms-flipping-an-image" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/16/leetcode-algorithms-flipping-an-image/" class="article-date">
-  <time datetime="2020-10-17T03:07:25.000Z" itemprop="datePublished">2020-10-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/16/leetcode-algorithms-flipping-an-image/">LeetCode - Algorithms - 832. Flipping an Image</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/flipping-an-image/" target="_blank" rel="noopener">832. Flipping an Image</a></p>
-<p>similar question : <a href="https://leetcode.com/problems/rotate-image/" target="_blank" rel="noopener">48. Rotate Image</a></p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[][] flipAndInvertImage(<span class="keyword">int</span>[][] A) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = A.length;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> M = A[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span> tmp;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;M/<span class="number">2</span>; j++) &#123;</span><br><span class="line">                tmp = A[i][j];</span><br><span class="line">                A[i][j] = A[i][N-<span class="number">1</span>-j];</span><br><span class="line">                A[i][N-<span class="number">1</span>-j] = tmp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;M; j++) &#123;</span><br><span class="line">                A[i][j] = A[i][j]==<span class="number">0</span>?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> A;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>82 / 82 test cases passed.</li>
-<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Flipping an Image.</li>
-<li>Memory Usage: 39.1 MB, less than 16.27% of Java online submissions for Flipping an Image.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/16/leetcode-algorithms-flipping-an-image/" data-id="ckil90pqf00b5ncja6wlkicef" data-title="LeetCode - Algorithms - 832. Flipping an Image" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
     </footer>
   </div>
@@ -770,7 +780,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 18.33px;">Array</a> <a href="/tags/BFS/" style="font-size: 14.44px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.56px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 13.89px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 13.33px;">DFS</a> <a href="/tags/DP/" style="font-size: 13.89px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.11px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.22px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.89px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 11.11px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.44px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.56px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.67px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.56px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.56px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 10.56px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 11.67px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.56px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 10.56px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 11.67px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.67px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.56px;">Topological Sort</a> <a href="/tags/Two-Pointers/" style="font-size: 15px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.67px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.56px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.11px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.89px;">english</a> <a href="/tags/essay/" style="font-size: 11.11px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.22px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.67px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.89px;">java</a> <a href="/tags/javascript/" style="font-size: 10.56px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.56px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.11px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.11px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 17.78px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 10px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.56px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.78px;">regex</a> <a href="/tags/song/" style="font-size: 12.78px;">song</a> <a href="/tags/sql/" style="font-size: 10.56px;">sql</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.56px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/中文经典/" style="font-size: 10px;">中文经典</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 12.22px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10.56px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10.56px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 11.67px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 12.22px;">英语</a> <a href="/tags/译言/" style="font-size: 10.56px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 18.33px;">Array</a> <a href="/tags/BFS/" style="font-size: 14.44px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.56px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 13.89px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 13.33px;">DFS</a> <a href="/tags/DP/" style="font-size: 13.89px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.11px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.22px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.89px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 11.11px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.44px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.56px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.67px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.56px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.56px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.11px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 11.67px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.56px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 10.56px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 11.67px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.67px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.56px;">Topological Sort</a> <a href="/tags/Two-Pointers/" style="font-size: 15px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.67px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.56px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.11px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.89px;">english</a> <a href="/tags/essay/" style="font-size: 11.11px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.22px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.67px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.89px;">java</a> <a href="/tags/javascript/" style="font-size: 10.56px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.56px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.11px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.11px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 17.78px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 10px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.56px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.78px;">regex</a> <a href="/tags/song/" style="font-size: 12.78px;">song</a> <a href="/tags/sql/" style="font-size: 10.56px;">sql</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.56px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/中文经典/" style="font-size: 10px;">中文经典</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 12.22px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10.56px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10.56px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 11.67px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 12.22px;">英语</a> <a href="/tags/译言/" style="font-size: 10.56px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -792,6 +802,10 @@
       <ul>
         
           <li>
+            <a href="/2020/12/12/leetcode-algorithms-n-th-tribonacci-number/">LeetCode - Algorithms - 1137. N-th Tribonacci Number</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/11/leetcode-algorithms-number-of-days-between-two-dates/">LeetCode - Algorithms - 1360. Number of Days Between Two Dates</a>
           </li>
         
@@ -805,10 +819,6 @@
         
           <li>
             <a href="/2020/12/04/this-land-is-your-land-canadian-version/">This Land is Your Land (Canadian version)</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/03/word-of-the-year-2020/">Word of the year 2020 - Pandemic, Lockdown, Covid-19, •••</a>
           </li>
         
       </ul>
