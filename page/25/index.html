@@ -70,6 +70,181 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Maven" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/22/Maven/" class="article-date">
+  <time datetime="2018-10-23T02:48:02.000Z" itemprop="datePublished">2018-10-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/22/Maven/">Maven</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="POM"><a href="#POM" class="headerlink" title="POM"></a>POM</h1><p>Project Object Model（项目对象模型）</p>
+<h2 id="坐标"><a href="#坐标" class="headerlink" title="坐标"></a>坐标</h2><p>在 POM 中，groupId, artifactId, packaging, version 叫作 maven 坐标，它能唯一的确定一个项目。有了 maven 坐标，我们就可以用它来指定我们的项目所依赖的其他项目，插件，或者父项目。一般 maven 坐标写成如下的格式：</p>
+<pre><code>groupId:artifactId:packaging:version
+</code></pre><ul>
+<li>groupId 定义了项目属于哪个组，这有助于在大的范围上区别项目</li>
+<li>artifactId 定义了这个项目在组中唯一的 ID</li>
+<li>version 指明当前项目的版本</li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>name 是一个用户友好的项目名称</li>
+<li>modelVersion 指定 POM 模型的版本</li>
+<li>packaging 指定了项目发布时的打包类型</li>
+</ul>
+<h1 id="Maven项目结构"><a href="#Maven项目结构" class="headerlink" title="Maven项目结构"></a>Maven项目结构</h1><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>${basedir}</td>
+<td>存放 pom.xml和所有的子目录</td>
+</tr>
+<tr>
+<td>${basedir}/src/main/java</td>
+<td>项目的 java源代码</td>
+</tr>
+<tr>
+<td>${basedir}/src/main/resources</td>
+<td>项目的资源，比如说 property文件</td>
+</tr>
+<tr>
+<td>${basedir}/src/test/java</td>
+<td>项目的测试类，比如说 JUnit代码</td>
+</tr>
+<tr>
+<td>${basedir}/src/test/resources</td>
+<td>测试使用的资源</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>编译后 的 classes 会放在 ${basedir}/target/classes 下面</li>
+<li>JAR 文件会放在 ${basedir}/target 下面（默认情况下会产生 JAR 文件）</li>
+</ul>
+<h1 id="Maven-插件"><a href="#Maven-插件" class="headerlink" title="Maven 插件"></a>Maven 插件</h1><p>mvn 本身不会做太多的事情，它不知道怎么样编译或者怎么样打包。它把构建的任务交给插件去做。插件定义了常用的构建逻辑，能够被重复利用。这样做的好处是，一旦插件有了更新，那么所有的 maven 用户都能得到更新。</p>
+<h1 id="Maven-生命周期"><a href="#Maven-生命周期" class="headerlink" title="Maven 生命周期"></a>Maven 生命周期</h1><p>生命周期指项目的构建过程，它包含了一系列的有序的阶段 (phase)，而一个阶段就是构建过程中的一个步骤。</p>
+<p>maven 能支持不同的生命周期，但是最常用的是默认的Maven生命周期 (default Maven lifecycle )。如果你没有对它进行任何的插件配置或者定制的话，那么上面的命令 mvn package 会依次执行默认生命周期中直到包括 package 阶段前的所有阶段的插件目标：</p>
+<ol>
+<li>process-resources 阶段：resources:resources</li>
+<li>compile 阶段：compiler:compile</li>
+<li>process-classes 阶段：(默认无目标)</li>
+<li>process-test-resources 阶段：resources:testResources</li>
+<li>test-compile 阶段：compiler:testCompile</li>
+<li>test 阶段：surefire:test</li>
+<li>prepare-package 阶段：(默认无目标)</li>
+<li>package 阶段：jar:jar</li>
+</ol>
+<h1 id="dependencies"><a href="#dependencies" class="headerlink" title="dependencies"></a>dependencies</h1><ul>
+<li>在 POM 中，依赖关系是在 dependencies 部分中定义的。</li>
+<li>maven 提供了传递依赖的特性，所谓传递依赖是指 maven 会检查被依赖的 jar 文件，把它的依赖关系纳入最终解决的依赖关系链中。</li>
+<li>在 POM 的 dependencies 部分中，scope 决定了依赖关系的适用范围。<ul>
+<li>我们还可以指定 scope 为 provided，意思是 JDK 或者容器会提供所需的jar文件。</li>
+<li>scope 的默认值是 compile，即任何时候都会被包含在 classpath 中，在打包的时候也会被包括进去。</li>
+</ul>
+</li>
+</ul>
+<h1 id="Maven-库"><a href="#Maven-库" class="headerlink" title="Maven 库"></a>Maven 库</h1><h2 id="远程库"><a href="#远程库" class="headerlink" title="远程库"></a>远程库</h2><p>maven 默认的远程库(<a href="http://repo1.maven.org/maven2" target="_blank" rel="noopener">http://repo1.maven.org/maven2</a>)</p>
+<h2 id="本地库"><a href="#本地库" class="headerlink" title="本地库"></a>本地库</h2><p>本地库是指 maven 下载了插件或者 jar 文件后存放在本地机器上的拷贝。在 Linux 上，它的位置在 ~/.m2/repository，在 Windows XP 上，在 C:\Documents and Settings\username.m2\repository ，在 Windows 7 上，在 C:\Users\username.m2\repository。</p>
+<p>当 maven 查找需要的 jar 文件时，它会先在本地库中寻找，只有在找不到的情况下，才会去远程库中找。</p>
+<h1 id="mvn"><a href="#mvn" class="headerlink" title="mvn"></a>mvn</h1><ul>
+<li>mvn install -DskipTests</li>
+<li>mvn clean install : executes the clean build life cycle and the install build phase in the default build life cycle.</li>
+<li>mvn install:install-file -Dfile=xxx.jar -DgroupId=xxx -DartifactId=xxx -Dversion=xxx -Dpackaging=jar</li>
+</ul>
+<h2 id="common"><a href="#common" class="headerlink" title="common"></a>common</h2><ul>
+<li>mvn clean : Clears the target directory into which Maven normally builds your project.</li>
+<li>mvn package : Builds the project and packages the resulting JAR file into the target directory.</li>
+<li>mvn package -Dmaven.test.skip=true : Builds the project and packages the resulting JAR file into the target directory - without running the unit tests during the build.</li>
+<li>mvn install : Builds the project described by your Maven POM file and installs the resulting artifact (JAR) into your local Maven repository</li>
+</ul>
+<h1 id="build-phase-command"><a href="#build-phase-command" class="headerlink" title="build phase command"></a>build phase command</h1><ul>
+<li>mvn pre-clean</li>
+<li>mvn compile</li>
+<li>mvn package</li>
+</ul>
+<h1 id="build-phases"><a href="#build-phases" class="headerlink" title="build phases"></a>build phases</h1><p>The most commonly used build phases in the default build life cycle are:</p>
+<table>
+<thead>
+<tr>
+<th>Build Phase</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>validate</td>
+<td>Validates that the project is correct and all necessary information is available. This also makes sure the dependencies are downloaded.</td>
+</tr>
+<tr>
+<td>compile</td>
+<td>Compiles the source code of the project.</td>
+</tr>
+<tr>
+<td>test</td>
+<td>Runs the tests against the compiled source code using a suitable unit testing framework. These tests should not require the code be packaged or deployed.</td>
+</tr>
+<tr>
+<td>package</td>
+<td>Packs the compiled code in its distributable format, such as a JAR.</td>
+</tr>
+<tr>
+<td>install</td>
+<td>Install the package into the local repository, for use as a dependency in other projects locally.</td>
+</tr>
+<tr>
+<td>deploy</td>
+<td>Copies the final package to the remote repository for sharing with other developers and projects.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="https://spring.io/guides/gs/maven/" title="This guide walks you through using Maven to build a simple Java project." target="_blank" rel="noopener">Building Java Projects with Maven</a></li>
+<li><a href="https://www.oracle.com/technetwork/cn/community/java/apache-maven-getting-started-1-406235-zhs.html" target="_blank" rel="noopener">Apache Maven 入门篇 ( 上 )</a></li>
+<li><a href="https://www.oracle.com/technetwork/cn/community/java/apache-maven-getting-started-2-405568-zhs.html" target="_blank" rel="noopener">Apache Maven 入门篇(下)</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/java/j-lo-maven/" target="_blank" rel="noopener">用 Maven 做项目构建</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/opensource/os-maven/index.html?mhq=maven&amp;mhsrc=ibmsearch_a" title="充分使用这些工具" target="_blank" rel="noopener">在 Eclipse 中利用 Maven</a></li>
+<li><a href="https://developer.ibm.com/articles/j-5things16/" title="Tips for mastering modern Maven plugins" target="_blank" rel="noopener">Apache Maven plugins</a></li>
+<li><a href="https://maven.apache.org/" target="_blank" rel="noopener">Apache Maven</a></li>
+<li><a href="https://mvnrepository.com/" target="_blank" rel="noopener">MvnRepository</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/22/Maven/" data-id="ckiq76wdv005x06jaebsczvql" data-title="Maven" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Valid-Parentheses" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" class="article-date">
@@ -114,7 +289,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" data-id="ckio55z5m004lz1jatgxxfcg9" data-title="LeetCode - Algorithms - 20. Valid Parentheses" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" data-id="ckiq76wd0004h06jai88nac3c" data-title="LeetCode - Algorithms - 20. Valid Parentheses" class="article-share-link">Share</a>
       
       
       
@@ -223,7 +398,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="ckio55z8u007pz1jametc8uch" data-title="Knowlege points of database especially mysql" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="ckiq76wf3007n06jagdjohdwq" data-title="Knowlege points of database especially mysql" class="article-share-link">Share</a>
       
       
       
@@ -275,7 +450,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="ckio55z1w001bz1ja39ou6jrc" data-title="LeetCode - Algorithms - 106. Construct Binary Tree from Inorder and Postorder Traversal" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="ckiq76wa9001d06ja64hrynxl" data-title="LeetCode - Algorithms - 106. Construct Binary Tree from Inorder and Postorder Traversal" class="article-share-link">Share</a>
       
       
       
@@ -327,7 +502,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="ckio55z25001gz1jazqqym3px" data-title="LeetCode - Algorithms - 105. Construct Binary Tree from Preorder and Inorder Traversal" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="ckiq76waa001f06ja79s180zw" data-title="LeetCode - Algorithms - 105. Construct Binary Tree from Preorder and Inorder Traversal" class="article-share-link">Share</a>
       
       
       
@@ -394,7 +569,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="ckio55z1t0019z1ja92plq4ry" data-title="LeetCode - Algorithms - 518. Coin Change 2" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" data-id="ckiq76wa7001b06jau5brvjas" data-title="LeetCode - Algorithms - 518. Coin Change 2" class="article-share-link">Share</a>
       
       
       
@@ -463,7 +638,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="ckio55z20001dz1jap1a30d41" data-title="LeetCode - Algorithms - 322. Coin Change" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/25/LeetCode-Algorithms-Coin-Change/" data-id="ckiq76wa6001806ja3ycd6i9r" data-title="LeetCode - Algorithms - 322. Coin Change" class="article-share-link">Share</a>
       
       
       
@@ -522,7 +697,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="ckio55z1b000sz1jan8vpx19s" data-title="LeetCode - Algorithms - 224. Basic Calculator" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator/" data-id="ckiq76w9u000r06jam2u6rnal" data-title="LeetCode - Algorithms - 224. Basic Calculator" class="article-share-link">Share</a>
       
       
       
@@ -581,7 +756,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="ckio55z1c000vz1jalakg8j8o" data-title="LeetCode - Algorithms - 227. Basic Calculator II" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/13/LeetCode-Algorithms-Basic-Calculator-II/" data-id="ckiq76w9v000u06jarzpkddpe" data-title="LeetCode - Algorithms - 227. Basic Calculator II" class="article-share-link">Share</a>
       
       
       
@@ -643,75 +818,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="ckio55z1e000xz1ja1dld6jkg" data-title="LeetCode - Algorithms - 122. Best Time to Buy and Sell Stock II" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/09/11/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock-II/" data-id="ckiq76wa0001006ja0rgs98k8" data-title="LeetCode - Algorithms - 122. Best Time to Buy and Sell Stock II" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" class="article-date">
-  <time datetime="2018-09-09T19:33:12.000Z" itemprop="datePublished">2018-09-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/">LeetCode - Algorithms - 121. Best Time to Buy and Sell Stock</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>虽然难度标为Easy，但自己居然提交了好几次才通过了，而且是因为犯了逻辑错误。最后用个二重循环，倒也简单，但性能不好，不知道高效算法是如何做的？</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (prices==<span class="keyword">null</span> || prices.length==<span class="number">0</span>)</span><br><span class="line">    		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;prices.length-<span class="number">1</span>;i++) &#123;</span><br><span class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> j=prices.length-<span class="number">1</span>;j&gt;i;j--) &#123;</span><br><span class="line">        		<span class="keyword">if</span> (prices[j]-prices[i]&gt;r) &#123;</span><br><span class="line">        			r = prices[j]-prices[i];</span><br><span class="line">        		&#125;</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>200 / 200 test cases passed.</li>
-<li>Your runtime beats 4.30 % of java submissions.</li>
-</ul>
-<p>在网上人家的一个O(n)时间复杂度的算法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (prices==<span class="keyword">null</span> || prices.length&lt;=<span class="number">1</span>)</span><br><span class="line">    		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> minPrice = prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;prices.length;i++) &#123;</span><br><span class="line">        	r = Math.max(r, prices[i]-minPrice);</span><br><span class="line">        	minPrice = Math.min(minPrice, prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>200 / 200 test cases passed.</li>
-<li>Your runtime beats 32.88 % of java submissions.</li>
-</ul>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><h2 id="O-n2"><a href="#O-n2" class="headerlink" title="O(n2)"></a>O(n<sup>2</sup>)</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; prices</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span>(<span class="params">prices</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (prices==<span class="literal">null</span> || prices.length==<span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> r=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> x = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;prices.length<span class="number">-1</span>;i++) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> j=prices.length<span class="number">-1</span>;j&gt;i;j--) &#123;</span><br><span class="line">			x = prices[j]-prices[i];</span><br><span class="line">			<span class="keyword">if</span> (x&gt;r)</span><br><span class="line">				r = x;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> r;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>200 / 200 test cases passed.</li>
-<li>Your runtime beats 7.71 % of javascript submissions.</li>
-</ul>
-<h2 id="O-n"><a href="#O-n" class="headerlink" title="O(n)"></a>O(n)</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; prices</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span>(<span class="params">prices</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (prices==<span class="literal">null</span> || prices.length&lt;=<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> r=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> minPrice = prices[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">1</span>;i&lt;prices.length;i++) &#123;</span><br><span class="line">		r = <span class="built_in">Math</span>.max(r,prices[i]-minPrice);</span><br><span class="line">		minPrice = <span class="built_in">Math</span>.min(minPrice,prices[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> r;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail-3"><a href="#Submission-Detail-3" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>200 / 200 test cases passed.</li>
-<li>Your runtime beats 84.89 % of javascript submissions.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="ckio55z1f000zz1ja7bxa2lyj" data-title="LeetCode - Algorithms - 121. Best Time to Buy and Sell Stock" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
     </footer>
   </div>
@@ -751,7 +862,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 18.24px;">Array</a> <a href="/tags/BFS/" style="font-size: 14.71px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.59px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15.29px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 14.12px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 13.53px;">DFS</a> <a href="/tags/DP/" style="font-size: 14.12px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.18px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.06px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 14.12px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 11.18px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.41px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.88px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.76px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.59px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.59px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.18px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.35px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.18px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.59px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 10.59px;">String</a> <a href="/tags/TED/" style="font-size: 16.47px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 11.76px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.76px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.59px;">Topological Sort</a> <a href="/tags/Two-Pointers/" style="font-size: 15.29px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.76px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.59px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.18px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.82px;">english</a> <a href="/tags/essay/" style="font-size: 11.18px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.76px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.35px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.76px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 14.12px;">java</a> <a href="/tags/javascript/" style="font-size: 10.59px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.59px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.47px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.18px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 17.65px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 10px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.59px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.94px;">regex</a> <a href="/tags/song/" style="font-size: 12.94px;">song</a> <a href="/tags/sql/" style="font-size: 10.59px;">sql</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.59px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/中文经典/" style="font-size: 10px;">中文经典</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 12.35px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10.59px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10.59px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 11.76px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 12.35px;">英语</a> <a href="/tags/译言/" style="font-size: 10.59px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 18.24px;">Array</a> <a href="/tags/BFS/" style="font-size: 14.71px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.59px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15.29px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 14.71px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 13.53px;">DFS</a> <a href="/tags/DP/" style="font-size: 14.12px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.18px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.06px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 14.12px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 11.76px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 10px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.41px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.88px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.76px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.59px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.59px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.18px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.35px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.18px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.59px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 10.59px;">String</a> <a href="/tags/TED/" style="font-size: 16.47px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 11.76px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.76px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.59px;">Topological Sort</a> <a href="/tags/Two-Pointers/" style="font-size: 15.29px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.76px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.59px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.18px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.82px;">english</a> <a href="/tags/essay/" style="font-size: 11.18px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.76px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.35px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.76px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 14.12px;">java</a> <a href="/tags/javascript/" style="font-size: 10.59px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.59px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.47px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.18px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 17.65px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 10px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.59px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.94px;">regex</a> <a href="/tags/song/" style="font-size: 12.94px;">song</a> <a href="/tags/sql/" style="font-size: 10.59px;">sql</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.59px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/中文经典/" style="font-size: 10px;">中文经典</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 12.35px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10.59px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10.59px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 11.76px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 12.35px;">英语</a> <a href="/tags/译言/" style="font-size: 10.59px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -773,6 +884,10 @@
       <ul>
         
           <li>
+            <a href="/2020/12/15/leetcode-algorithms-single-number/">LeetCode - Algorithms - 136. Single Number</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/14/leetcode-algorithms-largest-perimeter-triangle/">LeetCode - Algorithms - 976. Largest Perimeter Triangle</a>
           </li>
         
@@ -786,10 +901,6 @@
         
           <li>
             <a href="/2020/12/10/language-difficulty-ranking-for-english-speaker/">Language difficulty ranking for English speaker by FSI</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/09/leetcode-algorithms-two-sum-ii-input-array-is-sorted/">LeetCode - Algorithms - 167. Two Sum II - Input array is sorted</a>
           </li>
         
       </ul>
