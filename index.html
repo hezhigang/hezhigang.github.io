@@ -70,6 +70,67 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-algorithms-longest-continuous-increasing-subsequence" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/24/leetcode-algorithms-longest-continuous-increasing-subsequence/" class="article-date">
+  <time datetime="2020-12-24T12:38:31.000Z" itemprop="datePublished">2020-12-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/24/leetcode-algorithms-longest-continuous-increasing-subsequence/">LeetCode - Algorithms - 674. Longest Continuous Increasing Subsequence</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/longest-continuous-increasing-subsequence/" target="_blank" rel="noopener">674. Longest Continuous Increasing Subsequence</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Sliding-Window"><a href="#Sliding-Window" class="headerlink" title="Sliding Window"></a>Sliding Window</h2><p>Sliding Window problems are a subset of dynamic programming problems, though the approach to solving them is quite different from the one used in solving tabulation or memoization problems.</p>
+<p>© <a href="https://leetcode.com/problems/longest-continuous-increasing-subsequence/solution/" target="_blank" rel="noopener">Approach 1: Sliding Window</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findLengthOfLCIS</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> maxLen = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> anchor = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i] &lt;= nums[i - <span class="number">1</span>]) anchor = i;</span><br><span class="line">            maxLen = Math.max(maxLen, i - anchor + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxLen;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>36 / 36 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 98.29% of Java online submissions for Longest Continuous Increasing Subsequence.</li>
+<li>Memory Usage: 39.7 MB, less than 70.15% of Java online submissions for Longest Continuous Increasing Subsequence.</li>
+</ul>
+<h2 id="my-solution"><a href="#my-solution" class="headerlink" title="my solution"></a>my solution</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findLengthOfLCIS</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = nums.length;</span><br><span class="line">        <span class="keyword">if</span> (N &lt; <span class="number">2</span>)</span><br><span class="line">            <span class="keyword">return</span> N;</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">1</span>, tempLen = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] &gt; nums[i - <span class="number">1</span>]) &#123;</span><br><span class="line">                tempLen++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (tempLen &gt; len)</span><br><span class="line">                    len = tempLen;</span><br><span class="line">                tempLen = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (tempLen &gt; len)</span><br><span class="line">            len = tempLen;</span><br><span class="line">        <span class="keyword">return</span> len;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>36 / 36 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 98.29% of Java online submissions for Longest Continuous Increasing Subsequence.</li>
+<li>Memory Usage: 39.9 MB, less than 41.25% of Java online submissions for Longest Continuous Increasing Subsequence.</li>
+</ul>
+<hr>
+<ul>
+<li><a href="https://medium.com/outco/how-to-solve-sliding-window-problems-28d67601a66" target="_blank" rel="noopener">How to Solve Sliding Window Problems</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/12/24/leetcode-algorithms-longest-continuous-increasing-subsequence/" data-id="ckj2uqs4p00bs3yjaya7izppg" data-title="LeetCode - Algorithms - 674. Longest Continuous Increasing Subsequence" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-what-we-are-learning-from-online-education-daphne-koller-tedglobal2012" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/23/what-we-are-learning-from-online-education-daphne-koller-tedglobal2012/" class="article-date">
@@ -148,7 +209,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/23/what-we-are-learning-from-online-education-daphne-koller-tedglobal2012/" data-id="ckj1f4ghu00yo8vjamyaq61ib" data-title="What we&#39;re learning from online education - Daphne Koller - TEDGlobal 2012 - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/23/what-we-are-learning-from-online-education-daphne-koller-tedglobal2012/" data-id="ckj2uqsej00yr3yja2h5raso5" data-title="What we&#39;re learning from online education - Daphne Koller - TEDGlobal 2012 - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -208,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/22/leetcode-algorithms-single-number-ii/" data-id="ckj1f4g8000d88vjajnapxugo" data-title="LeetCode - Algorithms - 137. Single Number II" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/22/leetcode-algorithms-single-number-ii/" data-id="ckj2uqs5z00dl3yjadr8nj87n" data-title="LeetCode - Algorithms - 137. Single Number II" class="article-share-link">Share</a>
       
       
       
@@ -296,7 +357,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/21/leetcode-algorithms-remove-element/" data-id="ckj1f4g7q00cw8vjah5xsk89w" data-title="LeetCode - Algorithms - 27. Remove Element" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/21/leetcode-algorithms-remove-element/" data-id="ckj2uqs5j00d13yjaj1b1zry0" data-title="LeetCode - Algorithms - 27. Remove Element" class="article-share-link">Share</a>
       
       
       
@@ -375,7 +436,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/20/leetcode-algorithms-longest-common-subsequence/" data-id="ckj1f4gg000wg8vja05jlh7ia" data-title="LeetCode - Algorithms - 1143. Longest Common Subsequence" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/20/leetcode-algorithms-longest-common-subsequence/" data-id="ckj2uqscx00wj3yjabt4h6e5p" data-title="LeetCode - Algorithms - 1143. Longest Common Subsequence" class="article-share-link">Share</a>
       
       
       
@@ -424,7 +485,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/18/leetcode-algorithms-kth-largest-element-in-a-stream/" data-id="ckj1f4g6f00bi8vjasmjgr8wg" data-title="LeetCode - Algorithms - 703. Kth Largest Element in a Stream" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/18/leetcode-algorithms-kth-largest-element-in-a-stream/" data-id="ckj2uqs4g00bi3yja0m9b2cbl" data-title="LeetCode - Algorithms - 703. Kth Largest Element in a Stream" class="article-share-link">Share</a>
       
       
       
@@ -475,7 +536,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/17/on-hearing-a-symphony-of-beethoven-edna-millay/" data-id="ckj1f4g9g00ey8vjatnzyjyfc" data-title="On Hearing a Symphony of Beethoven" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/17/on-hearing-a-symphony-of-beethoven-edna-millay/" data-id="ckj2uqs6y00f33yjaqf0umrli" data-title="On Hearing a Symphony of Beethoven" class="article-share-link">Share</a>
       
       
       
@@ -532,7 +593,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/16/leetcode-algorithms-missing-number/" data-id="ckj1f4g6y00c28vjadbtsptb0" data-title="LeetCode - Algorithms - 268. Missing Number" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/16/leetcode-algorithms-missing-number/" data-id="ckj2uqs4y00c23yjavudhzb1l" data-title="LeetCode - Algorithms - 268. Missing Number" class="article-share-link">Share</a>
       
       
       
@@ -601,7 +662,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/15/leetcode-algorithms-single-number/" data-id="ckj1f4g8400dd8vja23ez80mt" data-title="LeetCode - Algorithms - 136. Single Number" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/15/leetcode-algorithms-single-number/" data-id="ckj2uqs5v00dd3yjaxi7t0t8z" data-title="LeetCode - Algorithms - 136. Single Number" class="article-share-link">Share</a>
       
       
       
@@ -650,60 +711,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/14/leetcode-algorithms-largest-perimeter-triangle/" data-id="ckj1f4g6h00bl8vja7cr3020b" data-title="LeetCode - Algorithms - 976. Largest Perimeter Triangle" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/14/leetcode-algorithms-largest-perimeter-triangle/" data-id="ckj2uqs4i00bn3yjak2o3yeb5" data-title="LeetCode - Algorithms - 976. Largest Perimeter Triangle" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sort/">Sort</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-leetcode-algorithms-n-th-tribonacci-number" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/12/leetcode-algorithms-n-th-tribonacci-number/" class="article-date">
-  <time datetime="2020-12-12T20:28:14.000Z" itemprop="datePublished">2020-12-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/12/leetcode-algorithms-n-th-tribonacci-number/">LeetCode - Algorithms - 1137. N-th Tribonacci Number</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/n-th-tribonacci-number/" target="_blank" rel="noopener">1137. N-th Tribonacci Number</a></p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="DP"><a href="#DP" class="headerlink" title="DP"></a>DP</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">tribonacci</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> T = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> T1 = <span class="number">0</span>, T2 = <span class="number">1</span>, T3 = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">0</span>)</span><br><span class="line">            T = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">1</span>)</span><br><span class="line">            T = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">2</span>)</span><br><span class="line">            T = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            T = T1 + T2 + T3;</span><br><span class="line">            T1 = T2;</span><br><span class="line">            T2 = T3;</span><br><span class="line">            T3 = T;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> T;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>39 / 39 test cases passed.</li>
-<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for N-th Tribonacci Number.</li>
-<li>Memory Usage: 35.8 MB, less than 47.18% of Java online submissions for N-th Tribonacci Number.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/12/leetcode-algorithms-n-th-tribonacci-number/" data-id="ckj1f4g7300c78vjazk8ckezy" data-title="LeetCode - Algorithms - 1137. N-th Tribonacci Number" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recursion/">Recursion</a></li></ul>
 
     </footer>
   </div>
@@ -765,6 +777,10 @@
       <ul>
         
           <li>
+            <a href="/2020/12/24/leetcode-algorithms-longest-continuous-increasing-subsequence/">LeetCode - Algorithms - 674. Longest Continuous Increasing Subsequence</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/23/what-we-are-learning-from-online-education-daphne-koller-tedglobal2012/">What we&#39;re learning from online education - Daphne Koller - TEDGlobal 2012 - Transcript</a>
           </li>
         
@@ -778,10 +794,6 @@
         
           <li>
             <a href="/2020/12/20/leetcode-algorithms-longest-common-subsequence/">LeetCode - Algorithms - 1143. Longest Common Subsequence</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/18/leetcode-algorithms-kth-largest-element-in-a-stream/">LeetCode - Algorithms - 703. Kth Largest Element in a Stream</a>
           </li>
         
       </ul>
