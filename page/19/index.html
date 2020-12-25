@@ -70,6 +70,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-binary-matrix-01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/21/binary-matrix-01/" class="article-date">
+  <time datetime="2020-02-21T05:05:53.000Z" itemprop="datePublished">2020-02-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/21/binary-matrix-01/">LeetCode - Algorithms - 542. 01 Matrix</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/01-matrix/" target="_blank" rel="noopener">542. 01 Matrix</a></p>
+<p>Given a matrix consists of 0 and 1, find the distance of the nearest 0 for each cell.</p>
+<p>The distance between two adjacent cells is 1.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> d[][] = &#123;</span><br><span class="line">            &#123;<span class="number">0</span>,<span class="number">1</span>&#125;,</span><br><span class="line">            &#123;<span class="number">1</span>,<span class="number">0</span>&#125;,</span><br><span class="line">            &#123;<span class="number">0</span>,-<span class="number">1</span>&#125;,</span><br><span class="line">            &#123;-<span class="number">1</span>,<span class="number">0</span>&#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[][] updateMatrix(<span class="keyword">int</span>[][] matrix) &#123;</span><br><span class="line">        <span class="keyword">int</span> h = matrix.length;</span><br><span class="line">        <span class="keyword">int</span> w = matrix[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span>[][] dist = <span class="keyword">new</span> <span class="keyword">int</span>[h][w];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;h;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;w;j++) &#123;</span><br><span class="line">                dist[i][j]=Integer.MAX_VALUE;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Queue&lt;<span class="keyword">int</span>[]&gt; queue = <span class="keyword">new</span> LinkedList&lt;<span class="keyword">int</span>[]&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;h;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;w;j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j]==<span class="number">0</span>) &#123;</span><br><span class="line">                    dist[i][j]=<span class="number">0</span>;</span><br><span class="line">                    queue.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i,j&#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] curr = queue.poll();</span><br><span class="line">            <span class="keyword">int</span> row = curr[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">int</span> col = curr[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">                <span class="keyword">int</span> x = row + d[i][<span class="number">0</span>];</span><br><span class="line">                <span class="keyword">int</span> y = col + d[i][<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (isValid(matrix, h, w, x, y)) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (dist[x][y]&gt;dist[row][col]+<span class="number">1</span>) &#123;</span><br><span class="line">                        dist[x][y] = dist[row][col]+<span class="number">1</span>;</span><br><span class="line">                        queue.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;x,y&#125;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dist;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isValid</span><span class="params">(<span class="keyword">int</span>[][] grid, <span class="keyword">int</span> width, <span class="keyword">int</span> height, <span class="keyword">int</span> row, <span class="keyword">int</span> col)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (row &gt;= <span class="number">0</span>) &amp;&amp; (row &lt; width) &amp;&amp; (col &gt;= <span class="number">0</span>) &amp;&amp; (col &lt; height);</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>48 / 48 test cases passed.</li>
+<li>Runtime: 14 ms, faster than 64.69% of Java online submissions for 01 Matrix.</li>
+<li>Memory Usage: 44 MB, less than 100.00% of Java online submissions for 01 Matrix.</li>
+</ul>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="https://leetcode.com/problems/01-matrix/solution/" target="_blank" rel="noopener">Approach 2 Using BFS</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/02/21/binary-matrix-01/" data-id="ckj48x271007cbfjav4058flh" data-title="LeetCode - Algorithms - 542. 01 Matrix" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BFS/">BFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DFS/">DFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/graph/">graph</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-intellij-idea-cheat-sheet" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/20/intellij-idea-cheat-sheet/" class="article-date">
@@ -143,7 +197,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/20/intellij-idea-cheat-sheet/" data-id="ckj2uqs3l00aj3yjawk5x5qfp" data-title="IntelliJ IDEA Cheat Sheet" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/20/intellij-idea-cheat-sheet/" data-id="ckj48x28o00a8bfjajrap5b8m" data-title="IntelliJ IDEA Cheat Sheet" class="article-share-link">Share</a>
       
       
       
@@ -204,7 +258,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/19/LeetCode-Algorithms-Employee-Importance/" data-id="ckj2uqrxd001w3yjactwtxdqc" data-title="LeetCode - Algorithms - 690. Employee Importance" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/19/LeetCode-Algorithms-Employee-Importance/" data-id="ckj48x232001zbfjaazlvmexy" data-title="LeetCode - Algorithms - 690. Employee Importance" class="article-share-link">Share</a>
       
       
       
@@ -256,7 +310,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/18/LeetCode-Algorithms-Rotting-Oranges/" data-id="ckj2uqrz3003x3yjaxfi613xc" data-title="LeetCode - Algorithms - 994. Rotting Oranges" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/18/LeetCode-Algorithms-Rotting-Oranges/" data-id="ckj48x24o0040bfja5hbpmx27" data-title="LeetCode - Algorithms - 994. Rotting Oranges" class="article-share-link">Share</a>
       
       
       
@@ -311,7 +365,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/12/josephus-problem/" data-id="ckj2uqs3i00ae3yja19889xll" data-title="Josephus problem" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/12/josephus-problem/" data-id="ckj48x28u00aibfjapk0fj6za" data-title="Josephus problem" class="article-share-link">Share</a>
       
       
       
@@ -484,7 +538,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/02/what-you-eat-matters-hope/" data-id="ckj2uqsfk00zq3yjardwp70kc" data-title="H.O.P.E. What You Eat Matters (2018) – Full Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/02/what-you-eat-matters-hope/" data-id="ckj48x2of00zkbfjajfpq3f5t" data-title="H.O.P.E. What You Eat Matters (2018) – Full Transcript" class="article-share-link">Share</a>
       
       
       
@@ -540,7 +594,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/01/30/shortest-path-in-a-binary-maze/" data-id="ckj2uqs7d00fx3yjalpw8w9fi" data-title="Shortest path in a binary maze" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/01/30/shortest-path-in-a-binary-maze/" data-id="ckj48x2cq00fvbfjaz356fws1" data-title="Shortest path in a binary maze" class="article-share-link">Share</a>
       
       
       
@@ -588,7 +642,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/01/27/nth-root/" data-id="ckj2uqs6w00ey3yjax37ktqup" data-title="The principal nth root of a positive real number" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/01/27/nth-root/" data-id="ckj48x2c500ewbfjabwbqgqh6" data-title="The principal nth root of a positive real number" class="article-share-link">Share</a>
       
       
       
@@ -636,7 +690,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/01/24/do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye/" data-id="ckj2uqs1v007q3yjalgu11q7o" data-title="Do not stand at my grave and weep" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/01/24/do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye/" data-id="ckj48x278007rbfjane7450dk" data-title="Do not stand at my grave and weep" class="article-share-link">Share</a>
       
       
       
@@ -687,76 +741,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/01/24/no-man-is-an-island-John-Donne/" data-id="ckj2uqs6v00ew3yja2sx99xxu" data-title="No man is an island" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/01/24/no-man-is-an-island-John-Donne/" data-id="ckj48x2c700ezbfja7qsk5g2z" data-title="No man is an island" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poem/">poem</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-postgres-cheatsheet" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/20/postgres-cheatsheet/" class="article-date">
-  <time datetime="2020-01-20T19:01:25.000Z" itemprop="datePublished">2020-01-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/20/postgres-cheatsheet/">Postgres Cheatsheet</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="commands"><a href="#commands" class="headerlink" title="commands"></a>commands</h1><h2 id="psql"><a href="#psql" class="headerlink" title="psql"></a>psql</h2><p><code>psql -U user -d db -h 127.0.0.1 -p 5432</code></p>
-<p><code>SET CLIENT_ENCODING TO &#39;utf8&#39;;</code></p>
-<ul>
-<li>\q: quit more and return back psql</li>
-<li>\l：List of databases</li>
-<li>\c: connect to database</li>
-<li>\d: list all database objects</li>
-<li>\d tbname: view table structure</li>
-<li>\d+ tbname: view table structure</li>
-<li>\dt: list all tables, such as \dt public.*</li>
-<li>\ds: list all sequences</li>
-<li>\i xxx.sql: excute sql from file</li>
-</ul>
-<h3 id="psql-import-sql-file"><a href="#psql-import-sql-file" class="headerlink" title="psql import sql file"></a>psql import sql file</h3><p><code>psql -h 127.0.0.1 -p 5432 -d dbname -U user -f sqlfilewithfullpath</code></p>
-<p><code>psql uxerp &lt; sqlfilewithfullpath</code></p>
-<h2 id="pg-dump"><a href="#pg-dump" class="headerlink" title="pg_dump"></a>pg_dump</h2><p><code>pg_dump -d database_name -t table_name -U username &gt;</code>dumpfile_with_fullpath.sql</p>
-<h2 id="pg-ctl"><a href="#pg-ctl" class="headerlink" title="pg_ctl"></a>pg_ctl</h2><p>start PostgreSQL servie: pg_ctl -D “D:\data\pg11” start</p>
-<p>stop PostgreSQL service: pg_ctl -D “D:\data\pg11” stop</p>
-<h3 id="view-tcp-port-of-pg-service"><a href="#view-tcp-port-of-pg-service" class="headerlink" title="view tcp port of pg service"></a>view tcp port of pg service</h3><p>netstat -aon|findstr “5432”</p>
-<p>tasklist|findstr “pid”</p>
-<h1 id="ddl"><a href="#ddl" class="headerlink" title="ddl"></a>ddl</h1><h2 id="foreign-key"><a href="#foreign-key" class="headerlink" title="foreign key"></a>foreign key</h2><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fk_id INTEGER REFERENCES main_tb(id),</span><br></pre></td></tr></table></figure>
-<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fk_id INTEGER,</span><br><span class="line">FOREIGN KEY (fk_id) REFERENCES main_tb (id)</span><br></pre></td></tr></table></figure>
-<h2 id="sequence"><a href="#sequence" class="headerlink" title="sequence"></a>sequence</h2><p>When creating a new table, the sequence can be created through the <strong>SERIAL</strong> <em>pseudo-type</em> as follows:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name(</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">SERIAL</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/01/20/postgres-cheatsheet/" data-id="ckj2uqs6x00f13yjamyp7bbt7" data-title="Postgres Cheatsheet" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li></ul>
 
     </footer>
   </div>
@@ -818,6 +807,10 @@
       <ul>
         
           <li>
+            <a href="/2020/12/25/quotes-of-isaac-newton/">Quotes - Isaac Newton</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/24/leetcode-algorithms-longest-continuous-increasing-subsequence/">LeetCode - Algorithms - 674. Longest Continuous Increasing Subsequence</a>
           </li>
         
@@ -831,10 +824,6 @@
         
           <li>
             <a href="/2020/12/21/leetcode-algorithms-remove-element/">LeetCode - Algorithms - 27. Remove Element</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/20/leetcode-algorithms-longest-common-subsequence/">LeetCode - Algorithms - 1143. Longest Common Subsequence</a>
           </li>
         
       </ul>
