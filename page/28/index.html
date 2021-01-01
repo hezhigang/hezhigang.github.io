@@ -70,6 +70,70 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Longest-Common-Prefix" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" class="article-date">
+  <time datetime="2018-08-22T18:13:33.000Z" itemprop="datePublished">2018-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/">LeetCode - Algorithms - 14. Longest Common Prefix</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>此题在LeetCode上难度标为Easy，LintCode上却标为Medium</p>
+<ul>
+<li><a href="https://leetcode.com/problems/longest-common-prefix/description/" target="_blank" rel="noopener">14. Longest Common Prefix</a></li>
+<li><a href="https://www.lintcode.com/problem/longest-common-prefix/description" target="_blank" rel="noopener">78. Longest Common Prefix</a></li>
+</ul>
+<p>这题虽然不能脱离IDE直接刷题，但没怎么被卡住，一天之内就做完了，还算简单吧。有共同前缀的字符串，它们的首字母肯定一样。</p>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string[]&#125; strs</span></span><br><span class="line"><span class="comment"> * @return &#123;string&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> longestCommonPrefix = <span class="function"><span class="keyword">function</span>(<span class="params">strs</span>) </span>&#123;</span><br><span class="line">	  <span class="keyword">var</span> lcp = <span class="string">""</span>;</span><br><span class="line">	  <span class="keyword">if</span> (strs==<span class="literal">null</span> || strs.length==<span class="number">0</span>)</span><br><span class="line">		  <span class="keyword">return</span> lcp;</span><br><span class="line">	  <span class="keyword">var</span> minLen = strs[<span class="number">0</span>].length;</span><br><span class="line">	  <span class="keyword">var</span> idx = <span class="number">0</span>;</span><br><span class="line">	  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">1</span>;i&lt;strs.length;i++) &#123;</span><br><span class="line">	    <span class="keyword">if</span> (strs[i].length&lt;minLen) &#123;</span><br><span class="line">		  minLen = strs[i].length;</span><br><span class="line">		  idx = i;</span><br><span class="line">		&#125;</span><br><span class="line">	  &#125;</span><br><span class="line">	  <span class="keyword">var</span> lcp = <span class="string">""</span>;</span><br><span class="line">	  <span class="keyword">var</span> ch = strs[idx].charAt(<span class="number">0</span>);</span><br><span class="line">	  <span class="keyword">var</span> b = <span class="literal">true</span>;</span><br><span class="line">	  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;strs.length;i++) &#123;</span><br><span class="line">		  b = b &amp;&amp; strs[i].charAt(<span class="number">0</span>)==ch?<span class="literal">true</span>:<span class="literal">false</span>;</span><br><span class="line">	  &#125;</span><br><span class="line">	  <span class="keyword">if</span> (b) &#123;</span><br><span class="line">		  lcp+=ch;</span><br><span class="line">		  <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">1</span>;j&lt;minLen;j++) &#123;</span><br><span class="line">			    ch = strs[idx].charAt(j);</span><br><span class="line">				b = <span class="literal">true</span>;</span><br><span class="line">			    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;strs.length;i++) &#123;</span><br><span class="line">				    b = b &amp;&amp; (strs[i].charAt(j)==ch?<span class="literal">true</span>:<span class="literal">false</span>);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span> (b)</span><br><span class="line">				  lcp += ch;</span><br><span class="line">			  &#125;	  </span><br><span class="line">	  &#125;</span><br><span class="line">	  <span class="keyword">return</span> lcp;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>118 / 118 test cases passed.</li>
+<li>Your runtime beats 81.84 % of javascript submissions.</li>
+</ul>
+<p>如果在<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if (b)</span><br><span class="line">  lcp += ch;</span><br></pre></td></tr></table></figure></p>
+<p>后面加个break语句用于跳出循环判断，改成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if (b)</span><br><span class="line">  lcp += ch;</span><br><span class="line">else</span><br><span class="line">  break;</span><br></pre></td></tr></table></figure></p>
+<p>性能倒反降低了，这个有点不明白？</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">longestCommonPrefix</span><span class="params">(String[] strs)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (strs==<span class="keyword">null</span> || strs.length==<span class="number">0</span>) <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    	<span class="keyword">int</span> minStrLen = strs[<span class="number">0</span>].length();</span><br><span class="line">    	<span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;strs.length;i++) &#123;</span><br><span class="line">    		<span class="keyword">if</span> (strs[i].length()&lt;minStrLen) &#123;</span><br><span class="line">    			minStrLen = strs[i].length();</span><br><span class="line">    			idx = i;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	StringBuilder lcp = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    	<span class="keyword">if</span> (strs[idx]!=<span class="keyword">null</span> &amp;&amp; strs[idx].length()&gt;<span class="number">0</span>) &#123;</span><br><span class="line">        	<span class="keyword">char</span> ch = strs[idx].charAt(<span class="number">0</span>);</span><br><span class="line">        	<span class="keyword">boolean</span> b = <span class="keyword">true</span>;</span><br><span class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;strs.length;i++) &#123;</span><br><span class="line">        		b = b &amp;&amp; (strs[i].charAt(<span class="number">0</span>)==ch?<span class="keyword">true</span>:<span class="keyword">false</span>);</span><br><span class="line">        	&#125;</span><br><span class="line">        	<span class="keyword">if</span> (b) &#123;</span><br><span class="line">        		lcp.append(ch);</span><br><span class="line">        		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;minStrLen;j++) &#123;</span><br><span class="line">        			ch = strs[idx].charAt(j);</span><br><span class="line">        			b = <span class="keyword">true</span>;</span><br><span class="line">        			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;strs.length;i++) &#123;</span><br><span class="line">        				b = b &amp;&amp; (strs[i].charAt(j)==ch?<span class="keyword">true</span>:<span class="keyword">false</span>);</span><br><span class="line">        			&#125;</span><br><span class="line">        			<span class="keyword">if</span> (b) &#123;</span><br><span class="line">        				lcp.append(ch);</span><br><span class="line">        			&#125;</span><br><span class="line">        			<span class="keyword">else</span> &#123;</span><br><span class="line">        				<span class="keyword">break</span>;</span><br><span class="line">        			&#125;</span><br><span class="line">        		&#125;</span><br><span class="line">        	&#125;    		</span><br><span class="line">    	&#125;</span><br><span class="line">        <span class="keyword">return</span> lcp.toString();        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>118 / 118 test cases passed.</li>
+<li>Your runtime beats 11.84 % of java submissions.</li>
+</ul>
+<p>跟js代码的情况一样，加了跳出循环判断的break语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if (b) &#123;</span><br><span class="line">  lcp.append(ch);</span><br><span class="line">&#125;</span><br><span class="line">else &#123;</span><br><span class="line">  break;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>性能倒反降低，不解？</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/08/22/LeetCode-Algorithms-Longest-Common-Prefix/" data-id="ckje7a2o2002e0wjavzsn7v30" data-title="LeetCode - Algorithms - 14. Longest Common Prefix" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Reverse-String" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/08/21/LeetCode-Algorithms-Reverse-String/" class="article-date">
@@ -135,7 +199,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/21/LeetCode-Algorithms-Reverse-String/" data-id="ckj9voblc003x1mja90226u9f" data-title="LeetCode - Algorithms - 344. Reverse String" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/21/LeetCode-Algorithms-Reverse-String/" data-id="ckje7a2ph003z0wjaq51i7gfa" data-title="LeetCode - Algorithms - 344. Reverse String" class="article-share-link">Share</a>
       
       
       
@@ -209,7 +273,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" data-id="ckj9vobk5002k1mjajc86qq55" data-title="LeetCode - Algorithms - 300. Longest Increasing Subsequence" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/20/LeetCode-Algorithms-Longest-Increasing-Subsequence/" data-id="ckje7a2o6002j0wja9junc5vj" data-title="LeetCode - Algorithms - 300. Longest Increasing Subsequence" class="article-share-link">Share</a>
       
       
       
@@ -258,7 +322,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/17/IT-coder-vocabulary/" data-id="ckj9vobik000j1mjah9jv6chp" data-title="Vocabulary" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/17/IT-coder-vocabulary/" data-id="ckje7a2mp000j0wjaea55rk2j" data-title="Vocabulary" class="article-share-link">Share</a>
       
       
       
@@ -317,7 +381,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/12/LeetCode-Algorithms-Move-Zeroes/" data-id="ckj9vobkb002t1mjas5jyyw8b" data-title="LeetCode - Algorithms - 283. Move Zeroes" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/12/LeetCode-Algorithms-Move-Zeroes/" data-id="ckje7a2oe002v0wja3hwwyrhh" data-title="LeetCode - Algorithms - 283. Move Zeroes" class="article-share-link">Share</a>
       
       
       
@@ -384,7 +448,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/07/what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED/" data-id="ckj9vobzu00wl1mjanz6taxg1" data-title="What makes a good life? Lessons from the longest study on happiness - Robert Waldinger - TEDx talk - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/07/what-makes-a-good-life-lessons-from-the-longest-study-on-happiness-robert-waldinger-TED/" data-id="ckje7a35300wt0wja4547h0f0" data-title="What makes a good life? Lessons from the longest study on happiness - Robert Waldinger - TEDx talk - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -442,7 +506,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/02/english-learning-tips-from-douban-notes/" data-id="ckj9vobod00871mja482ysx7g" data-title="豆瓣日记上的英语经" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/02/english-learning-tips-from-douban-notes/" data-id="ckje7a2sn00860wjacsqg6dju" data-title="豆瓣日记上的英语经" class="article-share-link">Share</a>
       
       
       
@@ -518,7 +582,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/08/01/LeetCode-Algorithms-LRU-Cache/" data-id="ckj9vobk2002f1mjad3h9s5ff" data-title="LeetCode - Algorithms - 146. LRU Cache" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/08/01/LeetCode-Algorithms-LRU-Cache/" data-id="ckje7a2o4002g0wjau676vqu2" data-title="LeetCode - Algorithms - 146. LRU Cache" class="article-share-link">Share</a>
       
       
       
@@ -571,7 +635,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/27/AWS-Certified-Solutions-Architect/" data-id="ckj9vobi200031mjacnj32bsm" data-title="AWS Certified Solutions Architect" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/27/AWS-Certified-Solutions-Architect/" data-id="ckje7a2lv00030wjao3s5meh2" data-title="AWS Certified Solutions Architect" class="article-share-link">Share</a>
       
       
       
@@ -625,62 +689,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Reverse-Integer/" data-id="ckj9vobl4003n1mjambzs5ztg" data-title="LeetCode - Algorithms - 7. Reverse Integer" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Palindrome-Number" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/23/LeetCode-Algorithms-Palindrome-Number/" class="article-date">
-  <time datetime="2018-07-23T11:31:27.000Z" itemprop="datePublished">2018-07-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/23/LeetCode-Algorithms-Palindrome-Number/">LeetCode - Algorithms - 9. Palindrome Number</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一个多月前就看了下，这题label为Easy，跟 <a href="https://leetcode.com/problems/reverse-integer/description/" target="_blank" rel="noopener">7. Reverse Integer</a> 有关系，自己做7. Reverse Intege时就简单把整数转为字符串来解决，而这题提示Coud you solve it without converting the integer to a string，自己对c语言为例的过程化编程还是欠差，google 关键字 Palindrome Number，出来</p>
-<ul>
-<li><a href="https://www.programiz.com/c-programming/examples/palindrome-number" target="_blank" rel="noopener">C Program to Check Whether a Number is Palindrome or Not</a></li>
-<li><a href="https://www.programmingsimplified.com/c/source-code/c-program-palindrome-number" target="_blank" rel="noopener">Palindrome number in C</a></li>
-<li><a href="https://www.geeksforgeeks.org/check-number-palindrome-not-without-using-extra-space/" target="_blank" rel="noopener">To check a number is palindrome or not without using any extra space</a></li>
-<li><a href="https://www.javatpoint.com/palindrome-program-in-java" target="_blank" rel="noopener">Palindrome Program in Java</a></li>
-</ul>
-<p>最后参照 <a href="https://www.programiz.com/c-programming/examples/palindrome-number" target="_blank" rel="noopener">C Program to Check Whether a Number is Palindrome or Not</a> 的写了java代码，在Eclipse里跑了下，结果不对，又看人家的代码，看来自己还是不理解这个求逆序数的步骤</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPalindrome</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">boolean</span> b =  <span class="keyword">false</span>;</span><br><span class="line">    	<span class="keyword">int</span> originalInteger = x;</span><br><span class="line">    	<span class="keyword">int</span> reversedInteger = <span class="number">0</span>, remainder = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> t = x;</span><br><span class="line">        <span class="keyword">while</span> (t&gt;<span class="number">0</span>) &#123;</span><br><span class="line">        	remainder = t%<span class="number">10</span>;</span><br><span class="line">        	reversedInteger = reversedInteger*<span class="number">10</span>+remainder;</span><br><span class="line">        	t /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (originalInteger==reversedInteger)</span><br><span class="line">        	b = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">return</span> b;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>11508 / 11508 test cases passed.</li>
-<li>Your runtime beats 58.36 % of java submissions.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Palindrome-Number/" data-id="ckj9vobkp00331mjang9f2w7x" data-title="LeetCode - Algorithms - 9. Palindrome Number" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/07/23/LeetCode-Algorithms-Reverse-Integer/" data-id="ckje7a2p6003m0wja7x3726qy" data-title="LeetCode - Algorithms - 7. Reverse Integer" class="article-share-link">Share</a>
       
       
       
@@ -733,7 +742,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
     </div>
   </div>
 
@@ -744,6 +753,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/01/01/parrot-hear-parrot-speak/">拾人牙慧，鹦鹉学舌</a>
+          </li>
         
           <li>
             <a href="/2020/12/26/leetcode-algorithms-single-number-iii/">LeetCode - Algorithms - 260. Single Number III</a>
@@ -761,10 +774,6 @@
             <a href="/2020/12/23/what-we-are-learning-from-online-education-daphne-koller-tedglobal2012/">What we&#39;re learning from online education - Daphne Koller - TEDGlobal 2012 - Transcript</a>
           </li>
         
-          <li>
-            <a href="/2020/12/22/leetcode-algorithms-single-number-ii/">LeetCode - Algorithms - 137. Single Number II</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -777,7 +786,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 hezhigang<br>
+      &copy; 2021 hezhigang<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

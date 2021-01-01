@@ -70,6 +70,67 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Merge-Two-Sorted-Lists" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/18/LeetCode-Algorithms-Merge-Two-Sorted-Lists/" class="article-date">
+  <time datetime="2019-01-18T15:25:13.000Z" itemprop="datePublished">2019-01-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/18/LeetCode-Algorithms-Merge-Two-Sorted-Lists/">LeetCode - Algorithms - 21. Merge Two Sorted Lists</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>I am confused with pointer and linked list since I tounched computer as freshman in university.</p>
+<p>just verify solution of other guys.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Iterative"><a href="#Iterative" class="headerlink" title="Iterative"></a>Iterative</h2><p>© <a href="https://www.programcreek.com/2012/12/leetcode-merge-two-sorted-lists-java/" target="_blank" rel="noopener">LeetCode – Merge Two Sorted Lists (Java)</a></p>
+<p>The key to solve the problem is defining a <strong>fake head</strong>. Then compare the first elements from each list. Add the smaller one to the merged list. Finally, when one of them is empty, simply append it to the merged list, since it is already sorted.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeTwoLists</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">		ListNode head = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">		ListNode p = head;</span><br><span class="line"></span><br><span class="line">		ListNode p1 = l1;</span><br><span class="line">		ListNode p2 = l2;</span><br><span class="line">		<span class="keyword">while</span> (p1 != <span class="keyword">null</span> &amp;&amp; p2 != <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (p1.val &lt; p2.val) &#123;</span><br><span class="line">				p.next = p1;</span><br><span class="line">				p1 = p1.next;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				p.next = p2;</span><br><span class="line">				p2 = p2.next;</span><br><span class="line">			&#125;</span><br><span class="line">			p = p.next;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (p1 != <span class="keyword">null</span>) &#123;</span><br><span class="line">			p.next = p1;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (p2 != <span class="keyword">null</span>) &#123;</span><br><span class="line">			p.next = p2;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> head.next;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>208 / 208 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 20.84% of Java online submissions for Merge Two Sorted Lists.</li>
+<li>Memory Usage: 40.2 MB, less than 12.09% of Java online submissions for Merge Two Sorted Lists.</li>
+</ul>
+<h2 id="Recursive"><a href="#Recursive" class="headerlink" title="Recursive"></a>Recursive</h2><blockquote>
+<p><a href="https://leetcode.com/problems/merge-two-sorted-lists/discuss/9715/Java-1-ms-4-lines-codes-using-recursion" target="_blank" rel="noopener">Java, 1 ms, 4 lines codes, using recursion</a></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeTwoLists</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (l1==<span class="keyword">null</span>) <span class="keyword">return</span> l2;</span><br><span class="line">    	<span class="keyword">if</span> (l2==<span class="keyword">null</span>) <span class="keyword">return</span> l1;</span><br><span class="line">    	<span class="keyword">if</span> (l1.val&lt;l2.val) &#123;</span><br><span class="line">    		l1.next = mergeTwoLists(l1.next,l2);</span><br><span class="line">    		<span class="keyword">return</span> l1;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">else</span> &#123;</span><br><span class="line">    		l2.next = mergeTwoLists(l1,l2.next);</span><br><span class="line">    		<span class="keyword">return</span> l2;</span><br><span class="line">    	&#125;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>208 / 208 test cases passed.</li>
+<li>Runtime: 13 ms</li>
+<li>Your runtime beats 34.74 % of java submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/01/18/LeetCode-Algorithms-Merge-Two-Sorted-Lists/" data-id="ckje7a2o9002o0wjayur3xxi4" data-title="LeetCode - Algorithms - 21. Merge Two Sorted Lists" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/">Linked List</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-LeetCode-Algorithms-UTF-8-Validation" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/28/LeetCode-Algorithms-UTF-8-Validation/" class="article-date">
@@ -112,7 +173,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/12/28/LeetCode-Algorithms-UTF-8-Validation/" data-id="ckj9voblv004m1mjar8tlnxk6" data-title="LeetCode - Algorithms - 393. UTF-8 Validation" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/12/28/LeetCode-Algorithms-UTF-8-Validation/" data-id="ckje7a2pw004g0wja0r5nbyd2" data-title="LeetCode - Algorithms - 393. UTF-8 Validation" class="article-share-link">Share</a>
       
       
       
@@ -182,7 +243,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/12/22/LeetCode-Algorithms-Shuffle-an-Array/" data-id="ckj9voblf00421mjazqea718l" data-title="LeetCode - Algorithms - 384. Shuffle an Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/12/22/LeetCode-Algorithms-Shuffle-an-Array/" data-id="ckje7a2pk00410wja84htw81c" data-title="LeetCode - Algorithms - 384. Shuffle an Array" class="article-share-link">Share</a>
       
       
       
@@ -231,7 +292,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/12/21/LeetCode-Algorithms-Design-HashMap/" data-id="ckj9vobjn001v1mjavzpz3wnm" data-title="LeetCode - Algorithms - 706. Design HashMap" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/12/21/LeetCode-Algorithms-Design-HashMap/" data-id="ckje7a2nm001s0wjalw6sqwo3" data-title="LeetCode - Algorithms - 706. Design HashMap" class="article-share-link">Share</a>
       
       
       
@@ -293,7 +354,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/12/08/LeetCode-Algorithms-Maximum-Subarray/" data-id="ckj9vobk8002p1mjamhuz3vtr" data-title="LeetCode - Algorithms - 53. Maximum Subarray" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/12/08/LeetCode-Algorithms-Maximum-Subarray/" data-id="ckje7a2oa002q0wja845pcw22" data-title="LeetCode - Algorithms - 53. Maximum Subarray" class="article-share-link">Share</a>
       
       
       
@@ -357,7 +418,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/12/01/LeetCode-Algorithms-Sqrt/" data-id="ckj9voblj00471mjafmg7vjmi" data-title="LeetCode - Algorithms - 69. Sqrt(x)" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/12/01/LeetCode-Algorithms-Sqrt/" data-id="ckje7a2ps00490wjah451jrpk" data-title="LeetCode - Algorithms - 69. Sqrt(x)" class="article-share-link">Share</a>
       
       
       
@@ -412,7 +473,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/29/LeetCode-Algorithms-Contains-Duplicate/" data-id="ckj9vobje001l1mjaqmer1su2" data-title="LeetCode - Algorithms - 217. Contains Duplicate" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/29/LeetCode-Algorithms-Contains-Duplicate/" data-id="ckje7a2nd001f0wjaawy4djbf" data-title="LeetCode - Algorithms - 217. Contains Duplicate" class="article-share-link">Share</a>
       
       
       
@@ -468,7 +529,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/10/AKS-test-for-primes/" data-id="ckj9vobhw00011mjazdq1kwox" data-title="AKS test for primes" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/10/AKS-test-for-primes/" data-id="ckje7a2lo00010wjaklnoz6c2" data-title="AKS test for primes" class="article-share-link">Share</a>
       
       
       
@@ -582,7 +643,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/07/Web-Engineering/" data-id="ckj9vobna006p1mja1gaemtwy" data-title="Web Engineering" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/07/Web-Engineering/" data-id="ckje7a2rl006q0wjamoyptu3t" data-title="Web Engineering" class="article-share-link">Share</a>
       
       
       
@@ -665,71 +726,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/05/Spring-Portfolio/" data-id="ckj9vobyp00va1mja1pqfn5u6" data-title="Spring Portfolio" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/05/Spring-Portfolio/" data-id="ckje7a33e00vi0wjav73ajvdj" data-title="Spring Portfolio" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Validate-Binary-Search-Tree" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/03/LeetCode-Algorithms-Validate-Binary-Search-Tree/" class="article-date">
-  <time datetime="2018-11-03T13:24:40.000Z" itemprop="datePublished">2018-11-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/03/LeetCode-Algorithms-Validate-Binary-Search-Tree/">LeetCode - Algorithms - 98. Validate Binary Search Tree</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>The solution of wikipedia is the elegant answer to this question. It finally passed on LeetCode after I modified and submited six times.</p>
-<blockquote>
-<p>Sometimes we already have a binary tree, and we need to determine whether it is a BST. This problem has a simple recursive solution.</p>
-<p>Essentially we keep creating a valid range (starting from [MIN_VALUE, MAX_VALUE]) and keep shrinking it down for each node as we go down recursively.</p>
-</blockquote>
-<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><blockquote>
-<p>Given a binary tree, determine if it is a valid binary search tree (BST).</p>
-</blockquote>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValidBST</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> isValidBST(root,Long.MIN_VALUE,Long.MAX_VALUE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValidBST</span><span class="params">(TreeNode root, <span class="keyword">long</span> minKey, <span class="keyword">long</span> maxKey)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (root==<span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    	<span class="keyword">if</span> (root.val&lt;=minKey || root.val&gt;=maxKey) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    	<span class="keyword">return</span> isValidBST(root.left,minKey,root.val) &amp;&amp; isValidBST(root.right,root.val,maxKey);</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>75 / 75 test cases passed.</li>
-<li>Runtime: 0 ms</li>
-<li>Your runtime beats 100.00 % of java submissions.</li>
-</ul>
-<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
-<li><a href="https://en.wikipedia.org/wiki/Binary_search_tree" target="_blank" rel="noopener">Binary search tree</a></li>
-<li><a href="https://www.quora.com/How-can-I-check-if-a-binary-tree-is-a-BST-or-not" target="_blank" rel="noopener">How can I check if a binary tree is a BST or not?</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/03/LeetCode-Algorithms-Validate-Binary-Search-Tree/" data-id="ckj9voblq004f1mja1a0fl4x0" data-title="LeetCode - Algorithms - 98. Validate Binary Search Tree" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
     </footer>
   </div>
@@ -778,7 +779,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
     </div>
   </div>
 
@@ -789,6 +790,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/01/01/parrot-hear-parrot-speak/">拾人牙慧，鹦鹉学舌</a>
+          </li>
         
           <li>
             <a href="/2020/12/26/leetcode-algorithms-single-number-iii/">LeetCode - Algorithms - 260. Single Number III</a>
@@ -806,10 +811,6 @@
             <a href="/2020/12/23/what-we-are-learning-from-online-education-daphne-koller-tedglobal2012/">What we&#39;re learning from online education - Daphne Koller - TEDGlobal 2012 - Transcript</a>
           </li>
         
-          <li>
-            <a href="/2020/12/22/leetcode-algorithms-single-number-ii/">LeetCode - Algorithms - 137. Single Number II</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -822,7 +823,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 hezhigang<br>
+      &copy; 2021 hezhigang<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

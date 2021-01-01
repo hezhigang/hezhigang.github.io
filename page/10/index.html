@@ -70,6 +70,73 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-algorithms-squares-of-a-sorted-array" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/leetcode-algorithms-squares-of-a-sorted-array/" class="article-date">
+  <time datetime="2020-07-18T19:42:30.000Z" itemprop="datePublished">2020-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/18/leetcode-algorithms-squares-of-a-sorted-array/">LeetCode - Algorithms - 977. Squares of a Sorted Array</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/squares-of-a-sorted-array/" target="_blank" rel="noopener">977. Squares of a Sorted Array</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortedSquares(<span class="keyword">int</span>[] A) &#123;</span><br><span class="line">        <span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;A.length;i++) &#123;</span><br><span class="line">            tmp = A[i];</span><br><span class="line">            A[i]=tmp*tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        Arrays.sort(A);</span><br><span class="line">        <span class="keyword">return</span> A;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>132 / 132 test cases passed.</li>
+<li>Runtime: 2 ms, faster than 72.59% of Java online submissions for Squares of a Sorted Array.</li>
+<li>Memory Usage: 41.6 MB, less than 24.34% of Java online submissions for Squares of a Sorted Array.</li>
+</ul>
+<h2 id="Two-Pointer"><a href="#Two-Pointer" class="headerlink" title="Two Pointer"></a>Two Pointer</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortedSquares(<span class="keyword">int</span>[] A) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = A.length;</span><br><span class="line">        <span class="keyword">if</span> (A[<span class="number">0</span>] &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">                tmp = A[i];</span><br><span class="line">                A[i] = tmp * tmp;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> A;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span>[] r = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">            <span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> k = N - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = N - <span class="number">1</span>; i &lt;= j; ) &#123;</span><br><span class="line">                left = A[i] * A[i];</span><br><span class="line">                right = A[j] * A[j];</span><br><span class="line">                <span class="keyword">if</span> (left &lt; right) &#123;</span><br><span class="line">                    j--;</span><br><span class="line">                    r[k--] = right;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    i++;</span><br><span class="line">                    r[k--] = left;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> r;</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>132 / 132 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 100.00% of Java online submissions for Squares of a Sorted Array.</li>
+<li>Memory Usage: 41.2 MB, less than 73.53% of Java online submissions for Squares of a Sorted Array.</li>
+</ul>
+<h2 id="3"><a href="#3" class="headerlink" title="3"></a>3</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortedSquares(<span class="keyword">int</span>[] A) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = A.length;</span><br><span class="line">        <span class="keyword">if</span> (A[<span class="number">0</span>] &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">                tmp = A[i];</span><br><span class="line">                A[i] = tmp * tmp;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> A;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (A[N - <span class="number">1</span>] &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] r = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">                r[i] = A[N - <span class="number">1</span> - i] * A[N - <span class="number">1</span> - i];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> r;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span>[] r = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">            <span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> k = N - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = N - <span class="number">1</span>; i &lt;= j; ) &#123;</span><br><span class="line">                left = A[i] * A[i];</span><br><span class="line">                right = A[j] * A[j];</span><br><span class="line">                <span class="keyword">if</span> (left &lt; right) &#123;</span><br><span class="line">                    j--;</span><br><span class="line">                    r[k--] = right;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    i++;</span><br><span class="line">                    r[k--] = left;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> r;</span><br><span class="line">        &#125;       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>132 / 132 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 100.00% of Java online submissions for Squares of a Sorted Array.</li>
+<li>Memory Usage: 41.3 MB, less than 62.05% of Java online submissions for Squares of a Sorted Array.</li>
+</ul>
+<h2 id="4"><a href="#4" class="headerlink" title="4"></a>4</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortedSquares(<span class="keyword">int</span>[] A) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = A.length;</span><br><span class="line">        <span class="keyword">int</span>[] r = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> k = N - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = N - <span class="number">1</span>; i &lt;= j; ) &#123;</span><br><span class="line">            left = A[i] * A[i];</span><br><span class="line">            right = A[j] * A[j];</span><br><span class="line">            <span class="keyword">if</span> (left &lt; right) &#123;</span><br><span class="line">                j--;</span><br><span class="line">                r[k--] = right;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                i++;</span><br><span class="line">                r[k--] = left;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;     </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-3"><a href="#Submission-Detail-3" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>132 / 132 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 100.00% of Java online submissions for Squares of a Sorted Array.</li>
+<li>Memory Usage: 41 MB, less than 85.39% of Java online submissions for Squares of a Sorted Array.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/07/18/leetcode-algorithms-squares-of-a-sorted-array/" data-id="ckje7a2wr00dp0wjaetvi66ud" data-title="LeetCode - Algorithms - 977. Squares of a Sorted Array" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-a-defence-of-poetry-percy-bysshe-shelley" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/07/17/a-defence-of-poetry-percy-bysshe-shelley/" class="article-date">
@@ -156,7 +223,7 @@ And night’s black agents to their preys do rouse.
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/17/a-defence-of-poetry-percy-bysshe-shelley/" data-id="ckj9voc2z01011mjadttzz8go" data-title="A Defence of Poetry" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/17/a-defence-of-poetry-percy-bysshe-shelley/" data-id="ckje7a39501090wja1dudy84w" data-title="A Defence of Poetry" class="article-share-link">Share</a>
       
       
       
@@ -211,7 +278,7 @@ And night’s black agents to their preys do rouse.
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/13/leetcode-algorithms-merge-sorted-array/" data-id="ckj9vobro00c21mja8so8c0g2" data-title="LeetCode - Algorithms - 88. Merge Sorted Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/13/leetcode-algorithms-merge-sorted-array/" data-id="ckje7a2vc00bu0wja0vbqop68" data-title="LeetCode - Algorithms - 88. Merge Sorted Array" class="article-share-link">Share</a>
       
       
       
@@ -280,7 +347,7 @@ And night’s black agents to their preys do rouse.
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/11/leetcode-algorithms-power-of-four/" data-id="ckj9vobsa00cu1mjazn7i61ws" data-title="LeetCode - Algorithms - 342. Power of Four" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/11/leetcode-algorithms-power-of-four/" data-id="ckje7a2w200co0wja60ppaxs2" data-title="LeetCode - Algorithms - 342. Power of Four" class="article-share-link">Share</a>
       
       
       
@@ -348,7 +415,7 @@ And night’s black agents to their preys do rouse.
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/10/leetcode-algorithms-power-of-two/" data-id="ckj9vobsb00cw1mjachnilj48" data-title="LeetCode - Algorithms - 231. Power of Two" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/10/leetcode-algorithms-power-of-two/" data-id="ckje7a2w300cq0wjalviw6rov" data-title="LeetCode - Algorithms - 231. Power of Two" class="article-share-link">Share</a>
       
       
       
@@ -421,7 +488,7 @@ And night’s black agents to their preys do rouse.
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/09/leetcode-algorithms-number-complement/" data-id="ckj9vobrv00cc1mjaz9tihnhe" data-title="LeetCode - Algorithms - 476. Number Complement" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/09/leetcode-algorithms-number-complement/" data-id="ckje7a2vu00c90wja91huexm2" data-title="LeetCode - Algorithms - 476. Number Complement" class="article-share-link">Share</a>
       
       
       
@@ -482,7 +549,7 @@ And night’s black agents to their preys do rouse.
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/08/leetcode-algorithms-plus-one/" data-id="ckj9vobs700cr1mja5a4biq6q" data-title="LeetCode - Algorithms - 66. Plus One" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/08/leetcode-algorithms-plus-one/" data-id="ckje7a2w100cl0wjal9iu5db7" data-title="LeetCode - Algorithms - 66. Plus One" class="article-share-link">Share</a>
       
       
       
@@ -531,7 +598,7 @@ And night’s black agents to their preys do rouse.
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/08/leetcode-algorithms-xor-operation-in-an-array/" data-id="ckj9vobt700e71mja8fxo4v5w" data-title="LeetCode - Algorithms - 1486. XOR Operation in an Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/08/leetcode-algorithms-xor-operation-in-an-array/" data-id="ckje7a2wy00e20wjapfo1ygfe" data-title="LeetCode - Algorithms - 1486. XOR Operation in an Array" class="article-share-link">Share</a>
       
       
       
@@ -592,7 +659,7 @@ And night’s black agents to their preys do rouse.
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/07/leetcode-algorithms-running-sum-of-1d-array/" data-id="ckj9vobsl00d91mjaw4rjdo27" data-title="LeetCode - Algorithms - 1480. Running Sum of 1d Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/07/leetcode-algorithms-running-sum-of-1d-array/" data-id="ckje7a2wd00d50wjanucqtey4" data-title="LeetCode - Algorithms - 1480. Running Sum of 1d Array" class="article-share-link">Share</a>
       
       
       
@@ -647,97 +714,11 @@ And night’s black agents to their preys do rouse.
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/07/leetcode-algorithms-number-of-steps-to-reduce-a-number-to-zero/" data-id="ckj9vobs100ch1mjagbd4kqbi" data-title="LeetCode - Algorithms - 1342. Number of Steps to Reduce a Number to Zero" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/07/leetcode-algorithms-number-of-steps-to-reduce-a-number-to-zero/" data-id="ckje7a2vy00cg0wjam34lrgfh" data-title="LeetCode - Algorithms - 1342. Number of Steps to Reduce a Number to Zero" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bit-Manipulation/">Bit Manipulation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-United-States-Declaration-of-Independence" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/04/United-States-Declaration-of-Independence/" class="article-date">
-  <time datetime="2020-07-04T12:17:01.000Z" itemprop="datePublished">2020-07-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/04/United-States-Declaration-of-Independence/">United States Declaration of Independence</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/United_States_Declaration_of_Independence.jpg" alt="1823 facsimile of the engrossed copy"></p>
-<div style="text-align:center;">In CONGRESS, July 4, 1776.</div>
-
-<div style="text-align:center;">The unanimous Declaration of the thirteen united States of America,</div>
-
-<p>When in the Course of human events, it becomes necessary for one people to dissolve the political bands which have connected them with another, and to assume among the powers of the earth, the separate and equal station to which the Laws of Nature and of Nature’s God entitle them, a decent respect to the opinions of mankind requires that they should declare the causes which impel them to the separation.</p>
-<p><strong>We hold these truths to be self-evident, that all men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty and the pursuit of Happiness.</strong>–That to secure these rights, Governments are instituted among Men, deriving their just powers from the consent of the governed,–That whenever any Form of Government becomes destructive of these ends, it is the Right of the People to alter or to abolish it, and to institute new Government, laying its foundation on such principles and organizing its powers in such form, as to them shall seem most likely to effect their Safety and Happiness. Prudence, indeed, will dictate that Governments long established should not be changed for light and transient causes; and accordingly all experience hath shewn, that mankind are more disposed to suffer, while evils are sufferable, than to right themselves by abolishing the forms to which they are accustomed. But when a long train of abuses and usurpations, pursuing invariably the same Object evinces a design to reduce them under absolute Despotism, it is their right, it is their duty, to throw off such Government, and to provide new Guards for their future security.</p>
-<p>Such has been the patient sufferance of these Colonies; and such is now the necessity which constrains them to alter their former Systems of Government. The history of the present King of Great Britain is a history of repeated injuries and usurpations, all having in direct object the establishment of an absolute Tyranny over these States. To prove this, let Facts be submitted to a candid world.</p>
-<p>He has refused his Assent to Laws, the most wholesome and necessary for the public good.</p>
-<p>He has forbidden his Governors to pass Laws of immediate and pressing importance, unless suspended in their operation till his Assent should be obtained; and when so suspended, he has utterly neglected to attend to them.</p>
-<p>He has refused to pass other Laws for the accommodation of large districts of people, unless those people would relinquish the right of Representation in the Legislature, a right inestimable to them and formidable to tyrants only.</p>
-<p>He has called together legislative bodies at places unusual, uncomfortable, and distant from the depository of their Public Records, for the sole purpose of fatiguing them into compliance with his measures.</p>
-<p>He has dissolved Representative Houses repeatedly, for opposing with manly firmness of his invasions on the rights of the people.</p>
-<p>He has refused for a long time, after such dissolutions, to cause others to be elected, whereby the Legislative Powers, incapable of Annihilation, have returned to the People at large for their exercise; the State remaining in the meantime exposed to all the dangers of invasion from without, and convulsions within.</p>
-<p>He has endeavoured to prevent the population of these States; for that purpose obstructing the Laws for Naturalization of Foreigners; refusing to pass others to encourage their migrations hither, and raising the conditions of new Appropriations of Lands.</p>
-<p>He has obstructed the Administration of Justice by refusing his Assent to Laws for establishing Judiciary Powers.</p>
-<p>He has made Judges dependent on his Will alone for the tenure of their offices, and the amount and payment of their salaries.</p>
-<p>He has erected a multitude of New Offices, and sent hither swarms of Officers to harass our people and eat out their substance.</p>
-<p>He has kept among us, in times of peace, Standing Armies without the Consent of our legislatures.</p>
-<p>He has affected to render the Military independent of and superior to the Civil Power.</p>
-<p>He has combined with others to subject us to a jurisdiction foreign to our constitution, and unacknowledged by our laws; giving his Assent to their Acts of pretended Legislation:</p>
-<p>For quartering large bodies of armed troops among us:</p>
-<p>For protecting them, by a mock Trial from punishment for any Murders which they should commit on the Inhabitants of these States:</p>
-<p>For cutting off our Trade with all parts of the world:</p>
-<p>For imposing Taxes on us without our Consent:</p>
-<p>For depriving us in many cases, of the benefit of Trial by Jury:</p>
-<p>For transporting us beyond Seas to be tried for pretended offences:</p>
-<p>For abolishing the free System of English Laws in a neighbouring Province, establishing therein an Arbitrary government, and enlarging its Boundaries so as to render it at once an example and fit instrument for introducing the same absolute rule into these Colonies:</p>
-<p>For taking away our Charters, abolishing our most valuable Laws and altering fundamentally the Forms of our Governments:</p>
-<p>For suspending our own Legislatures, and declaring themselves invested with power to legislate for us in all cases whatsoever.</p>
-<p>He has abdicated Government here, by declaring us out of his Protection and waging War against us.</p>
-<p>He has plundered our seas, ravaged our coasts, burnt our towns, and destroyed the lives of our people.</p>
-<p>He is at this time transporting large Armies of foreign Mercenaries to compleat the works of death, desolation, and tyranny, already begun with circumstances of Cruelty &amp; Perfidy scarcely paralleled in the most barbarous ages, and totally unworthy the Head of a civilized nation.</p>
-<p>He has constrained our fellow Citizens taken Captive on the high Seas to bear Arms against their Country, to become the executioners of their friends and Brethren, or to fall themselves by their Hands.</p>
-<p>He has excited domestic insurrections amongst us, and has endeavoured to bring on the inhabitants of our frontiers, the merciless Indian Savages whose known rule of warfare, is an undistinguished destruction of all ages, sexes and conditions.</p>
-<p>In every stage of these Oppressions We have Petitioned for Redress in the most humble terms: Our repeated Petitions have been answered only by repeated injury. A Prince, whose character is thus marked by every act which may define a Tyrant, is unfit to be the ruler of a free people.</p>
-<p>Nor have We been wanting in attentions to our British brethren. We have warned them from time to time of attempts by their legislature to extend an unwarrantable jurisdiction over us. We have reminded them of the circumstances of our emigration and settlement here. We have appealed to their native justice and magnanimity, and we have conjured them by the ties of our common kindred to disavow these usurpations, which, would inevitably interrupt our connections and correspondence. They too have been deaf to the voice of justice and of consanguinity. We must, therefore, acquiesce in the necessity, which denounces our Separation, and hold them, as we hold the rest of mankind, Enemies in War, in Peace Friends.</p>
-<p>We, therefore, the Representatives of the united States of America, in General Congress, Assembled, appealing to the Supreme Judge of the world for the rectitude of our intentions, do, in the Name, and by Authority of the good People of these Colonies, solemnly publish and declare, That these united Colonies are, and of Right ought to be Free and Independent States; that they are Absolved from all Allegiance to the British Crown, and that all political connection between them and the State of Great Britain, is and ought to be totally dissolved; and that as Free and Independent States, they have full Power to levy War, conclude Peace, contract Alliances, establish Commerce, and to do all other Acts and Things which Independent States may of right do. And for the support of this Declaration, with a firm reliance on the protection of divine Providence, we mutually pledge to each other our Lives, our Fortunes and our sacred Honor.</p>
-<p>New Hampshire: Josiah Bartlett, William Whipple, Matthew Thornton<br>Massachusetts: Samuel Adams, John Adams, John Hancock, Robert Treat Paine, Elbridge Gerry<br>Rhode Island: Stephen Hopkins, William Ellery<br>Connecticut: Roger Sherman, Samuel Huntington, William Williams, Oliver Wolcott<br>New York: William Floyd, Philip Livingston, Francis Lewis, Lewis Morris<br>New Jersey: Richard Stockton, John Witherspoon, Francis Hopkinson, John Hart, Abraham Clark<br>Pennsylvania: Robert Morris, Benjamin Rush, Benjamin Franklin, John Morton, George Clymer, James Smith, George Taylor, James Wilson, George Ross<br>Delaware: George Read, Caesar Rodney, Thomas McKean<br>Maryland: Samuel Chase, William Paca, Thomas Stone, Charles Carroll of Carrollton<br>Virginia: George Wythe, Richard Henry Lee, Thomas Jefferson, Benjamin Harrison, Thomas Nelson Jr., Francis Lightfoot Lee, Carter Braxton<br>North Carolina: William Hooper, Joseph Hewes, John Penn<br>South Carolina: Edward Rutledge, Thomas Heyward Jr., Thomas Lynch Jr., Arthur Middleton<br>Georgia: Button Gwinnett, Lyman Hall, George Walton</p>
-<hr>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/United_States_Declaration_of_Independence" target="_blank" rel="noopener">United States Declaration of Independence</a></li>
-<li><a href="https://www.ushistory.org/declaration/document/" target="_blank" rel="noopener">The Declaration of Independence</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/04/United-States-Declaration-of-Independence/" data-id="ckj9vobyx00vi1mjazi0dnmze" data-title="United States Declaration of Independence" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
 
     </footer>
   </div>
@@ -786,7 +767,7 @@ And night’s black agents to their preys do rouse.
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
     </div>
   </div>
 
@@ -797,6 +778,10 @@ And night’s black agents to their preys do rouse.
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/01/01/parrot-hear-parrot-speak/">拾人牙慧，鹦鹉学舌</a>
+          </li>
         
           <li>
             <a href="/2020/12/26/leetcode-algorithms-single-number-iii/">LeetCode - Algorithms - 260. Single Number III</a>
@@ -814,10 +799,6 @@ And night’s black agents to their preys do rouse.
             <a href="/2020/12/23/what-we-are-learning-from-online-education-daphne-koller-tedglobal2012/">What we&#39;re learning from online education - Daphne Koller - TEDGlobal 2012 - Transcript</a>
           </li>
         
-          <li>
-            <a href="/2020/12/22/leetcode-algorithms-single-number-ii/">LeetCode - Algorithms - 137. Single Number II</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -830,7 +811,7 @@ And night’s black agents to their preys do rouse.
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 hezhigang<br>
+      &copy; 2021 hezhigang<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
