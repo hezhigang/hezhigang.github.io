@@ -70,6 +70,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-tower-of-hanoi" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/12/tower-of-hanoi/" class="article-date">
+  <time datetime="2020-04-12T15:59:30.000Z" itemprop="datePublished">2020-04-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/12/tower-of-hanoi/">Tower of Hanoi</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p>We are given a tower of n disks, initially stacked in decreasing size on one of three pegs: The objective is to transfer the entire tower to one of the other pegs, moving only one disk at a time and never moving a larger one onto a smaller.</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>The minimal number of moves required to solve a Tower of Hanoi puzzle is \( 2^n-1 \), where n is the number of disks. This is precisely the nth <a href="https://en.wikipedia.org/wiki/Mersenne_prime" target="_blank" rel="noopener">Mersenne number</a>.</p>
+<h2 id="recurrence-relation"><a href="#recurrence-relation" class="headerlink" title="recurrence relation"></a>recurrence relation</h2><p>\( T_0=0, T_1=1 \)<br>\( T_n=2T_{n-1}+1 \)</p>
+<p>if we let \( u_n=T_n+1 \), we have<br>\( u_0=1 \)<br>\( u_n=2u_{n-1} \), for n&gt;0<br>\( u_n=2^n \)<br>hence \( T_n=2^n-1 \)</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="recurrence"><a href="#recurrence" class="headerlink" title="recurrence"></a>recurrence</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HanoiTower</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">char</span> source, <span class="keyword">char</span> target, <span class="keyword">char</span> auxiliary)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n==<span class="number">1</span>)</span><br><span class="line">            System.out.println(<span class="string">"move "</span> + source + <span class="string">" to "</span> + target);</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// Move n - 1 disks from source to auxiliary, so they are out of the way</span></span><br><span class="line">            move(n-<span class="number">1</span>,source,auxiliary,target);</span><br><span class="line">            <span class="comment">// Move the nth disk from source to target</span></span><br><span class="line">            System.out.println(<span class="string">"move "</span> + source + <span class="string">" to "</span> + target);</span><br><span class="line">            <span class="comment">// Move the n - 1 disks that we left on auxiliary onto target</span></span><br><span class="line">            move(n-<span class="number">1</span>,auxiliary,target,source);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        move(<span class="number">3</span>, <span class="string">'A'</span>, <span class="string">'C'</span>, <span class="string">'B'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="resources"><a href="#resources" class="headerlink" title="resources"></a>resources</h1><ul>
+<li><a href="https://en.wikipedia.org/wiki/Tower_of_Hanoi" target="_blank" rel="noopener">Tower of Hanoi</a></li>
+<li><a href="https://mathworld.wolfram.com/TowerofHanoi.html" target="_blank" rel="noopener">Tower of Hanoi</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/04/12/tower-of-hanoi/" data-id="ckjv7ueey00h9sxja4wsdmzph" data-title="Tower of Hanoi" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recurrence/">recurrence</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-why-should-you-listen-to-vivaldi-four-seasons-betsy-schwarm-TED-Ed" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/04/11/why-should-you-listen-to-vivaldi-four-seasons-betsy-schwarm-TED-Ed/" class="article-date">
@@ -104,7 +158,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/11/why-should-you-listen-to-vivaldi-four-seasons-betsy-schwarm-TED-Ed/" data-id="ckjkvt6ex00hrfhjaif8hgxrq" data-title="Why should you listen to Vivaldi&#39;s &quot;Four Seasons&quot;? - Betsy Schwarm - TED-Ed" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/11/why-should-you-listen-to-vivaldi-four-seasons-betsy-schwarm-TED-Ed/" data-id="ckjv7uefb00hxsxjaeutl82to" data-title="Why should you listen to Vivaldi&#39;s &quot;Four Seasons&quot;? - Betsy Schwarm - TED-Ed" class="article-share-link">Share</a>
       
       
       
@@ -159,7 +213,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/10/the-four-seasons-sonnets-Antonio-Vivaldi/" data-id="ckjkvt6e700gnfhjabmg5daw6" data-title="The Four Seasons - Sonnet text - Antonio Vivaldi" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/10/the-four-seasons-sonnets-Antonio-Vivaldi/" data-id="ckjv7ueek00gusxjaxheea82c" data-title="The Four Seasons - Sonnet text - Antonio Vivaldi" class="article-share-link">Share</a>
       
       
       
@@ -223,7 +277,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/09/math-exercise-1/" data-id="ckjkvt6d600eefhja991mgkiw" data-title="数学题 - 1" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/09/math-exercise-1/" data-id="ckjv7ued600edsxja89k8o9ek" data-title="数学题 - 1" class="article-share-link">Share</a>
       
       
       
@@ -273,7 +327,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/07/LeetCode-Algorithms-bus-routes/" data-id="ckjkvt65y004lfhjaejofs9aw" data-title="LeetCode - Algorithms - 815. Bus Routes" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/07/LeetCode-Algorithms-bus-routes/" data-id="ckjv7udxj004ksxja6f7fpckz" data-title="LeetCode - Algorithms - 815. Bus Routes" class="article-share-link">Share</a>
       
       
       
@@ -322,7 +376,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/05/five-tips-to-improve-your-critical-thinking-samantha-agoos-TED-Ed/" data-id="ckjkvt68f008bfhjae2tp7cin" data-title="5 tips to improve your critical thinking - Samantha Agoos - TED-Ed" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/05/five-tips-to-improve-your-critical-thinking-samantha-agoos-TED-Ed/" data-id="ckjv7ue80008dsxjam11837bd" data-title="5 tips to improve your critical thinking - Samantha Agoos - TED-Ed" class="article-share-link">Share</a>
       
       
       
@@ -371,7 +425,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/03/golang-cheat-sheet/" data-id="ckjkvt68s008xfhjan228tntv" data-title="Go Cheat Sheet" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/03/golang-cheat-sheet/" data-id="ckjv7ue8z008xsxjagferln8z" data-title="Go Cheat Sheet" class="article-share-link">Share</a>
       
       
       
@@ -425,7 +479,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/03/31/spring-poem-William-Blake/" data-id="ckjkvt6e200gbfhja4tduw9z1" data-title="Spring" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/03/31/spring-poem-William-Blake/" data-id="ckjv7ueeb00gfsxja24xm8pb4" data-title="Spring" class="article-share-link">Share</a>
       
       
       
@@ -782,7 +836,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/03/24/annus-mirabilis-the-year-of-wonders-1666-John-Dryden/" data-id="ckjkvt6ny010ufhja3xm47v5a" data-title="annus mirabilis" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/03/24/annus-mirabilis-the-year-of-wonders-1666-John-Dryden/" data-id="ckjv7uenk010jsxja1z9j1h2a" data-title="annus mirabilis" class="article-share-link">Share</a>
       
       
       
@@ -891,90 +945,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/03/24/why-covid-19-is-hitting-us-now-and-how-to-prepare-for-the-next-outbreak-Alanna-Shaikh-TED/" data-id="ckjkvt6na010afhjardaneg8l" data-title="Why COVID-19 is hitting us now -- and how to prepare for the next outbreak - Alanna Shaikh - TEDxSMU - Transcript" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TED/">TED</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coronavirus/">coronavirus</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-how-can-we-control-the-coronavirus-pandemic-Adam-Kucharski-TED" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/03/24/how-can-we-control-the-coronavirus-pandemic-Adam-Kucharski-TED/" class="article-date">
-  <time datetime="2020-03-24T11:13:27.000Z" itemprop="datePublished">2020-03-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/24/how-can-we-control-the-coronavirus-pandemic-Adam-Kucharski-TED/">How can we control the coronavirus pandemic? - Adam Kucharski - The TED Interview - Transcript</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>As the threat of COVID-19 continues, infectious disease expert Adam Kucharski answers five key questions about the novel coronavirus, providing necessary perspective on its transmission, how governments have responded and what might need to change about our social behavior to end the pandemic.</p>
-<p><strong>Question 1: What does containment mean when it comes to outbreaks?</strong></p>
-<p><strong>问题1：我们应该怎样控制住流行病的蔓延？</strong></p>
-<blockquote>
-<p>Containment is this idea that you can focus your effort on control very much on the cases and their contacts. So you’re not causing disruption to the wider population, you have a case that comes in, you isolate them, you work out who they’ve come into contact with, who’s potentially these opportunities for exposure and then you can follow up those people, maybe quarantine them, to make sure that no further transmission happens. So it’s a very focused, targeted method, and for SARS, it worked remarkably well. But I think for this infection, because some cases are going to be missed, or undetected, you’ve really got to be capturing a large chunk of people at risk. If a few slip through the net, potentially, you’re going to get an outbreak.</p>
-</blockquote>
-<blockquote>
-<p>对疫情的控制指的是集中精力控制住确诊病例和与他们有接触的人。这样就不会引起人群大规模的混乱，一发现确诊病例，就将他们进行隔离，找出与他们有过接触的人，存在被感染可能性的人，然后持续跟进这群人，或者将他们进行隔离，确保疫情不会进一步蔓延。所以这是一种针对性很强的方法，这种方法对控制非典（SARS）来说很奏效。但我认为对于这次的感染，因为有些病例不会被发现和检测到，就得注意一大群存在被感染风险的人。如果有漏网之鱼，那么就会面临疫情爆发的潜在风险。</p>
-</blockquote>
-<p><strong>Question 2: If containment isn’t enough, what comes next?</strong></p>
-<p><strong>问题2：如果光控制疫情还不够的话，我们下一步应该做什么？</strong></p>
-<blockquote>
-<p>In that respect, it would be about massive changes in our social interactions. And so that would require, of the opportunities that could spread the virus so these kind of close contacts, everybody in the population, on average, will be needing to reduce those interactions potentially by two-thirds to bring it under control. That might be through working from home, from changing lifestyle and kind of where you go in crowded places and dinners. And of course, these measures, things like school closures, and other things that just attempt to reduce the social mixing of a population.</p>
-</blockquote>
-<blockquote>
-<p>那样的话，我们的社交方式需要进行巨大改变。那包括，减少所有可能导致病毒传播的机会，像是近距离接触，平均而言，每个人就得减少大约三分之二这种近接触的机会才能有效控制疫情传播。可以通过在家办公，改变生活方式，不去拥挤的场所与餐厅来实现。当然了，像是关闭学校和其他的措施，只能做到尽量避免人群密集接触。</p>
-</blockquote>
-<p><strong>Question 3: What are the risks that we need people to think about?</strong></p>
-<p><strong>问题3：我们需要考虑到哪些可能被传染的风险？</strong></p>
-<blockquote>
-<p>It’s not just whose hand you shake, it’s whose hand that person goes on to shake. And I think we need to think about these second-degree steps, that you might think you have low risk and you’re in a younger group, but you’re often going to be a very short step away from someone who is going to get hit very hard by this. And I think we really need to be socially minded and think this could be quite dramatic in terms of change of behavior, but it needs to be to reduce the impact that we’re potentially facing.</p>
-</blockquote>
-<blockquote>
-<p>重要的不只是你和哪些人握了手，还有那些人会和哪些人握手。我认为我们应该考虑下这些第二阶段的步骤，你也许会觉得你被感染的风险很低，你比较年轻，但你通常会离那些一旦得病就将面临致命风险的人很近。正因如此，我认为我们应具有社会意识，这将导致我们的行为模式产生重大变化，但为了减少我们可能面临的负面影响，这些是必须要做到的。</p>
-</blockquote>
-<p><strong>Question 4: How far apart should people stay from each other?</strong></p>
-<p><strong>问题4：我们该和他人保持多远的距离？</strong></p>
-<blockquote>
-<p>I think it’s hard to pin down exactly, but I think one thing to bear in mind is that there’s not so much evidence that <strong>this is a kind of aerosol</strong> and it goes really far – it’s reasonably short distances. I don’t think it’s the case that you’re sitting a few meters away from someone and the virus is somehow going to get across. It’s in closer interactions, and it’s why <strong>we’re seeing so many transmission events occur in things like meals and really tight-knit groups</strong>. Because if you imagine that’s where you can get a virus out and onto surfaces and onto hands and onto faces, and it’s really situations like that we’ve got to think more about. </p>
-</blockquote>
-<blockquote>
-<p>要想说出一个具体数字是很困难的，但我认为大家应记住，目前并没有足够证据表明这种包含病毒的气溶胶能传播很远的距离 —— 它理应只能在很短的距离内传播。我并不认为你坐在离另一人几米远的地方病毒还能穿过这么远的距离。我们应该注意的是近距离接触，这是那么多传染案例发生于就餐场所和人员密集的团体中的原因。因为可以想像，在那些地方病毒更容易到达我们手和脸的表面，我们更应关注这些情况。</p>
-</blockquote>
-<p><strong>Question 5: What kind of protective measures should countries put in place?</strong></p>
-<p><strong>问题5：世界各国应落实哪些预防措施？</strong></p>
-<blockquote>
-<p>I think that’s what people are trying to piece together, first in terms of what works. It’s only really in the last sort of few weeks we’ve got a sense that this thing can be controllable with this extent of interventions, but of course, <strong>not all countries can do what China have done, some of these measures incur a huge social, economic, psychological burden on populations</strong>. And of course, there’s the time limit. In China, they’ve had them in for six weeks, it’s tough to maintain that, so we need to think of these tradeoffs of all the things we can ask people to do, what’s going to have the most impact on actually reducing the burden.</p>
-</blockquote>
-<blockquote>
-<p>我认为大家应首先考虑那些被证实有效的措施。我们也是直到前几周才意识到这种病毒在某种程度的国家干预下是可控的，但当然，并不是所有国家都能做到中国所做的那些，有些措施会对全国人民施加 巨大的社会，经济，和心理上的负担。当然了，还要考虑到时间限制。中国仅花了 6 周就控制住了病毒的传播，要做到这点是很难的，所以我们应进行权衡，想想我们能让人民做些什么，哪些措施能最大程度地减少施加于人民身上的负担。</p>
-</blockquote>
-<div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://embed.ted.com/talks/adam_kucharski_how_can_we_control_the_coronavirus_pandemic" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen></iframe></div></div>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/03/24/how-can-we-control-the-coronavirus-pandemic-Adam-Kucharski-TED/" data-id="ckjkvt69l009ufhjaerdfpgwp" data-title="How can we control the coronavirus pandemic? - Adam Kucharski - The TED Interview - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/03/24/why-covid-19-is-hitting-us-now-and-how-to-prepare-for-the-next-outbreak-Alanna-Shaikh-TED/" data-id="ckjv7uemq00zzsxjavjawx40w" data-title="Why COVID-19 is hitting us now -- and how to prepare for the next outbreak - Alanna Shaikh - TEDxSMU - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -1018,7 +989,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 18.33px;">Array</a> <a href="/tags/BFS/" style="font-size: 14.44px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.56px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 16.11px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 13.33px;">DFS</a> <a href="/tags/DP/" style="font-size: 14.44px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.11px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.22px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.89px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 11.67px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 10.56px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.44px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.56px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.67px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.56px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.56px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.11px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.22px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.56px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 10.56px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 11.67px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.67px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.56px;">Topological Sort</a> <a href="/tags/Two-Pointers/" style="font-size: 15.56px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.67px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.56px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.11px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.89px;">english</a> <a href="/tags/essay/" style="font-size: 11.11px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.22px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.67px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.89px;">java</a> <a href="/tags/javascript/" style="font-size: 10.56px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.56px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.67px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.11px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 17.78px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 10px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.56px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.78px;">regex</a> <a href="/tags/song/" style="font-size: 12.78px;">song</a> <a href="/tags/sql/" style="font-size: 10.56px;">sql</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.56px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/中文经典/" style="font-size: 10px;">中文经典</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 12.22px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10.56px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10.56px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 11.67px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 12.22px;">英语</a> <a href="/tags/译言/" style="font-size: 10.56px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 18.33px;">Array</a> <a href="/tags/BFS/" style="font-size: 14.44px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.56px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 16.11px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 13.33px;">DFS</a> <a href="/tags/DP/" style="font-size: 14.44px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.11px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.22px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.89px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 11.67px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 10.56px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.44px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.56px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.67px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.56px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.56px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.11px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.22px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.56px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 10.56px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 11.67px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.67px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.56px;">Topological Sort</a> <a href="/tags/Two-Pointers/" style="font-size: 15.56px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.67px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.56px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.11px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.89px;">english</a> <a href="/tags/essay/" style="font-size: 11.11px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.22px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.67px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.89px;">java</a> <a href="/tags/javascript/" style="font-size: 10.56px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.56px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 17.22px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.11px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 17.78px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 10px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.56px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.78px;">regex</a> <a href="/tags/song/" style="font-size: 12.78px;">song</a> <a href="/tags/sql/" style="font-size: 10.56px;">sql</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.56px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/中文经典/" style="font-size: 10px;">中文经典</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 12.22px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10.56px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10.56px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 11.67px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 12.22px;">英语</a> <a href="/tags/译言/" style="font-size: 10.56px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -1040,6 +1011,10 @@
       <ul>
         
           <li>
+            <a href="/2021/01/13/leetcode-algorithms-the-kth-factor-of-n/">LeetCode - Algorithms - 1492. The kth Factor of n</a>
+          </li>
+        
+          <li>
             <a href="/2021/01/05/canadian-english-slangs-phrases/">Canadian English Slangs &amp; Phrases</a>
           </li>
         
@@ -1053,10 +1028,6 @@
         
           <li>
             <a href="/2020/12/25/quotes-of-isaac-newton/">Quotes - Isaac Newton</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/24/leetcode-algorithms-longest-continuous-increasing-subsequence/">LeetCode - Algorithms - 674. Longest Continuous Increasing Subsequence</a>
           </li>
         
       </ul>
