@@ -70,6 +70,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-algorithms-find-winner-on-a-tic-tac-toe-game" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/02/06/leetcode-algorithms-find-winner-on-a-tic-tac-toe-game/" class="article-date">
+  <time datetime="2021-02-07T03:19:56.000Z" itemprop="datePublished">2021-02-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/06/leetcode-algorithms-find-winner-on-a-tic-tac-toe-game/">LeetCode - Algorithms - 1275. Find Winner on a Tic Tac Toe Game</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/" target="_blank" rel="noopener">1275. Find Winner on a Tic Tac Toe Game</a></p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Tic_tac_toe.svg/400px-Tic_tac_toe.svg.png" alt="Tic-tac-toe"></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="my-solution"><a href="#my-solution" class="headerlink" title="my solution"></a>my solution</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">tictactoe</span><span class="params">(<span class="keyword">int</span>[][] moves)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len = moves.length;</span><br><span class="line">        List&lt;<span class="keyword">int</span>[]&gt; listX = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">int</span>[]&gt;();</span><br><span class="line">        List&lt;<span class="keyword">int</span>[]&gt; listO = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">int</span>[]&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">                listX.add(moves[i]);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                listO.add(moves[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        String r = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">if</span> (hasWin(listX))</span><br><span class="line">            r = <span class="string">"A"</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (hasWin(listO))</span><br><span class="line">            r = <span class="string">"B"</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (len == <span class="number">9</span>)</span><br><span class="line">            r = <span class="string">"Draw"</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            r = <span class="string">"Pending"</span>;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">realContain</span><span class="params">(List&lt;<span class="keyword">int</span>[]&gt; list, <span class="keyword">int</span>[][] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> b = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">            <span class="keyword">boolean</span> b2 = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; list.size(); j++) &#123;</span><br><span class="line">                b2 = b2 || ((arr[i][<span class="number">0</span>] == list.get(j)[<span class="number">0</span>]) &amp;&amp; (arr[i][<span class="number">1</span>] == list.get(j)[<span class="number">1</span>]));</span><br><span class="line">            &#125;</span><br><span class="line">            b = b &amp;&amp; b2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">hasWin</span><span class="params">(List&lt;<span class="keyword">int</span>[]&gt; list)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[][] a1 = &#123;&#123;<span class="number">0</span>, <span class="number">0</span>&#125;,&#123;<span class="number">0</span>, <span class="number">1</span>&#125;,&#123;<span class="number">0</span>, <span class="number">2</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] a2 = &#123;&#123;<span class="number">1</span>, <span class="number">0</span>&#125;,&#123;<span class="number">1</span>, <span class="number">1</span>&#125;,&#123;<span class="number">1</span>, <span class="number">2</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] a3 = &#123;&#123;<span class="number">2</span>, <span class="number">0</span>&#125;,&#123;<span class="number">2</span>, <span class="number">1</span>&#125;,&#123;<span class="number">2</span>, <span class="number">2</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] a4 = &#123;&#123;<span class="number">0</span>, <span class="number">0</span>&#125;,&#123;<span class="number">1</span>, <span class="number">0</span>&#125;,&#123;<span class="number">2</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] a5 = &#123;&#123;<span class="number">0</span>, <span class="number">1</span>&#125;,&#123;<span class="number">1</span>, <span class="number">1</span>&#125;,&#123;<span class="number">2</span>, <span class="number">1</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] a6 = &#123;&#123;<span class="number">0</span>, <span class="number">2</span>&#125;,&#123;<span class="number">1</span>, <span class="number">2</span>&#125;,&#123;<span class="number">2</span>, <span class="number">2</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] a7 = &#123;&#123;<span class="number">0</span>, <span class="number">0</span>&#125;,&#123;<span class="number">1</span>, <span class="number">1</span>&#125;,&#123;<span class="number">2</span>, <span class="number">2</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] a8 = &#123;&#123;<span class="number">0</span>, <span class="number">2</span>&#125;,&#123;<span class="number">1</span>, <span class="number">1</span>&#125;,&#123;<span class="number">2</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">boolean</span> r = realContain(list, a1) || realContain(list, a2) || realContain(list, a3)</span><br><span class="line">                || realContain(list, a4) || realContain(list, a5) || realContain(list, a6)</span><br><span class="line">                || realContain(list, a7) || realContain(list, a8);</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>100 / 100 test cases passed.</li>
+<li>Runtime: 2 ms, faster than 8.21% of Java online submissions for Find Winner on a Tic Tac Toe Game.</li>
+<li>Memory Usage: 38.9 MB, less than 6.40% of Java online submissions for Find Winner on a Tic Tac Toe Game.</li>
+</ul>
+<hr>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Tic-tac-toe" target="_blank" rel="noopener">Tic-tac-toe</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2021/02/06/leetcode-algorithms-find-winner-on-a-tic-tac-toe-game/" data-id="ckkuld09y00b4nzjam4rez5x6" data-title="LeetCode - Algorithms - 1275. Find Winner on a Tic Tac Toe Game" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-the-death-of-the-moth-virginia-woolf" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/01/30/the-death-of-the-moth-virginia-woolf/" class="article-date">
@@ -108,7 +162,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2021/01/30/the-death-of-the-moth-virginia-woolf/" data-id="ckkjoiig000gnj0jait7l7lcq" data-title="The Death of the Moth" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2021/01/30/the-death-of-the-moth-virginia-woolf/" data-id="ckkuld0dz00h1nzjaqyk47jdc" data-title="The Death of the Moth" class="article-share-link">Share</a>
       
       
       
@@ -188,7 +242,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2021/01/19/rules-kids-will-not-learn-in-school-charlie-sykes/" data-id="ckkjoiifk00fwj0jakkv7c9ih" data-title="Rules Kids Won’t Learn in School" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2021/01/19/rules-kids-will-not-learn-in-school-charlie-sykes/" data-id="ckkuld0dh00g5nzjam9w88p92" data-title="Rules Kids Won’t Learn in School" class="article-share-link">Share</a>
       
       
       
@@ -244,7 +298,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2021/01/13/leetcode-algorithms-the-kth-factor-of-n/" data-id="ckkjoiie500dmj0ja2qto6tzb" data-title="LeetCode - Algorithms - 1492. The kth Factor of n" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2021/01/13/leetcode-algorithms-the-kth-factor-of-n/" data-id="ckkuld0c300e0nzja9x76nxry" data-title="LeetCode - Algorithms - 1492. The kth Factor of n" class="article-share-link">Share</a>
       
       
       
@@ -370,7 +424,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2021/01/05/canadian-english-slangs-phrases/" data-id="ckkjoiiz100wwj0jajgze3m5v" data-title="Canadian English Slangs &amp; Phrases" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2021/01/05/canadian-english-slangs-phrases/" data-id="ckkuld0j800wynzja69xwytkp" data-title="Canadian English Slangs &amp; Phrases" class="article-share-link">Share</a>
       
       
       
@@ -442,7 +496,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2021/01/01/parrot-hear-parrot-speak/" data-id="ckkjoiiex00eyj0ja3z74r9xh" data-title="拾人牙慧，鹦鹉学舌" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2021/01/01/parrot-hear-parrot-speak/" data-id="ckkuld0cy00fenzjakc6go3i0" data-title="拾人牙慧，鹦鹉学舌" class="article-share-link">Share</a>
       
       
       
@@ -496,7 +550,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/26/leetcode-algorithms-single-number-iii/" data-id="ckkjoiidu00d5j0jazkpzp4vx" data-title="LeetCode - Algorithms - 260. Single Number III" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/26/leetcode-algorithms-single-number-iii/" data-id="ckkuld0bt00dlnzjaxxj2e3in" data-title="LeetCode - Algorithms - 260. Single Number III" class="article-share-link">Share</a>
       
       
       
@@ -588,7 +642,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/25/quotes-of-isaac-newton/" data-id="ckkjoiizx00xij0jajkbkipni" data-title="Quotes - Isaac Newton" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/25/quotes-of-isaac-newton/" data-id="ckkuld0jr00xknzja9llwkyz0" data-title="Quotes - Isaac Newton" class="article-share-link">Share</a>
       
       
       
@@ -649,7 +703,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/24/leetcode-algorithms-longest-continuous-increasing-subsequence/" data-id="ckkjoiicp00bkj0jarnx66bry" data-title="LeetCode - Algorithms - 674. Longest Continuous Increasing Subsequence" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/24/leetcode-algorithms-longest-continuous-increasing-subsequence/" data-id="ckkuld0al00bvnzjaru2x5wou" data-title="LeetCode - Algorithms - 674. Longest Continuous Increasing Subsequence" class="article-share-link">Share</a>
       
       
       
@@ -743,7 +797,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/23/what-we-are-learning-from-online-education-daphne-koller-tedglobal2012/" data-id="ckkjoij1k00zkj0jasktdo373" data-title="What we&#39;re learning from online education - Daphne Koller - TEDGlobal 2012 - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/23/what-we-are-learning-from-online-education-daphne-koller-tedglobal2012/" data-id="ckkuld0lj00zqnzja7mugumir" data-title="What we&#39;re learning from online education - Daphne Koller - TEDGlobal 2012 - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -759,71 +813,11 @@
 
 
   
-    <article id="post-leetcode-algorithms-single-number-ii" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/22/leetcode-algorithms-single-number-ii/" class="article-date">
-  <time datetime="2020-12-22T11:45:30.000Z" itemprop="datePublished">2020-12-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/22/leetcode-algorithms-single-number-ii/">LeetCode - Algorithms - 137. Single Number II</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/single-number-ii/" target="_blank" rel="noopener">137. Single Number II</a></p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Bitwise"><a href="#Bitwise" class="headerlink" title="Bitwise"></a>Bitwise</h2><blockquote>
-<p>We can design the <strong>digital logic</strong> what we need so the only one can still be extracted.</p>
-</blockquote>
-<p>© <a href="https://gist.githubusercontent.com/lenchen1112/77dfd4afae0098dbe3199e4b70fa6a2b/raw/ceb58d8d505ddab95b133eb527235eaa77be2a1a/137_single_number_II.py" target="_blank" rel="noopener">https://gist.githubusercontent.com/lenchen1112/77dfd4afae0098dbe3199e4b70fa6a2b/raw/ceb58d8d505ddab95b133eb527235eaa77be2a1a/137_single_number_II.py</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">singleNumber</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> lowBits = <span class="number">0</span>, highBits = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            lowBits = ~highBits &amp; (lowBits ^ num);</span><br><span class="line">            highBits = ~lowBits &amp; (highBits ^ num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lowBits;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>14 / 14 test cases passed.</li>
-<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Single Number II.</li>
-<li>Memory Usage: 38.8 MB, less than 49.17% of Java online submissions for Single Number II.</li>
-</ul>
-<hr>
-<ul>
-<li><a href="https://lenchen.medium.com/leetcode-137-single-number-ii-31af98b0f462" target="_blank" rel="noopener">LeetCode #137 Single Number II</a></li>
-<li><a href="https://leetcode.com/problems/single-number-ii/discuss/869698/My-Understanding-on-Bit-Manipulation-Method" target="_blank" rel="noopener">My Understanding on Bit Manipulation Method</a></li>
-<li><a href="https://leetcode.com/problems/single-number-ii/discuss/936917/Python-Bitwise-Solution-with-Explanation" target="_blank" rel="noopener">Python Bitwise Solution with Explanation</a></li>
-<li><a href="http://www.swarthmore.edu/NatSci/echeeve1/Ref/Digital/DigitalIntro.html" target="_blank" rel="noopener">An Introduction to Digital Logic</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/22/leetcode-algorithms-single-number-ii/" data-id="ckkjoiidx00daj0jaz5iakjr3" data-title="LeetCode - Algorithms - 137. Single Number II" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bit-Manipulation/">Bit Manipulation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -856,7 +850,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
     </div>
   </div>
 
@@ -867,6 +861,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/02/06/leetcode-algorithms-find-winner-on-a-tic-tac-toe-game/">LeetCode - Algorithms - 1275. Find Winner on a Tic Tac Toe Game</a>
+          </li>
         
           <li>
             <a href="/2021/01/30/the-death-of-the-moth-virginia-woolf/">The Death of the Moth</a>
@@ -882,10 +880,6 @@
         
           <li>
             <a href="/2021/01/05/canadian-english-slangs-phrases/">Canadian English Slangs &amp; Phrases</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/01/parrot-hear-parrot-speak/">拾人牙慧，鹦鹉学舌</a>
           </li>
         
       </ul>

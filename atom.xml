@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2021-01-30T12:17:47.593Z</updated>
+  <updated>2021-02-07T03:32:53.505Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode - Algorithms - 1275. Find Winner on a Tic Tac Toe Game</title>
+    <link href="https://hezhigang.github.io/2021/02/06/leetcode-algorithms-find-winner-on-a-tic-tac-toe-game/"/>
+    <id>https://hezhigang.github.io/2021/02/06/leetcode-algorithms-find-winner-on-a-tic-tac-toe-game/</id>
+    <published>2021-02-07T03:19:56.000Z</published>
+    <updated>2021-02-07T03:32:53.505Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/" target="_blank" rel="noopener">1275. Find Winner on a Tic Tac Toe Game</a></p><p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Tic_tac_toe.svg/400px-Tic_tac_toe.svg.png" alt="Tic-tac-toe"></p><h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="my-solution"><a href="#my-solution" class="headerlink" title="my solution"></a>my solution</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">tictactoe</span><span class="params">(<span class="keyword">int</span>[][] moves)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len = moves.length;</span><br><span class="line">        List&lt;<span class="keyword">int</span>[]&gt; listX = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">int</span>[]&gt;();</span><br><span class="line">        List&lt;<span class="keyword">int</span>[]&gt; listO = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">int</span>[]&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">                listX.add(moves[i]);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                listO.add(moves[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        String r = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">if</span> (hasWin(listX))</span><br><span class="line">            r = <span class="string">"A"</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (hasWin(listO))</span><br><span class="line">            r = <span class="string">"B"</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (len == <span class="number">9</span>)</span><br><span class="line">            r = <span class="string">"Draw"</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            r = <span class="string">"Pending"</span>;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">realContain</span><span class="params">(List&lt;<span class="keyword">int</span>[]&gt; list, <span class="keyword">int</span>[][] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> b = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">            <span class="keyword">boolean</span> b2 = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; list.size(); j++) &#123;</span><br><span class="line">                b2 = b2 || ((arr[i][<span class="number">0</span>] == list.get(j)[<span class="number">0</span>]) &amp;&amp; (arr[i][<span class="number">1</span>] == list.get(j)[<span class="number">1</span>]));</span><br><span class="line">            &#125;</span><br><span class="line">            b = b &amp;&amp; b2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">hasWin</span><span class="params">(List&lt;<span class="keyword">int</span>[]&gt; list)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[][] a1 = &#123;&#123;<span class="number">0</span>, <span class="number">0</span>&#125;,&#123;<span class="number">0</span>, <span class="number">1</span>&#125;,&#123;<span class="number">0</span>, <span class="number">2</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] a2 = &#123;&#123;<span class="number">1</span>, <span class="number">0</span>&#125;,&#123;<span class="number">1</span>, <span class="number">1</span>&#125;,&#123;<span class="number">1</span>, <span class="number">2</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] a3 = &#123;&#123;<span class="number">2</span>, <span class="number">0</span>&#125;,&#123;<span class="number">2</span>, <span class="number">1</span>&#125;,&#123;<span class="number">2</span>, <span class="number">2</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] a4 = &#123;&#123;<span class="number">0</span>, <span class="number">0</span>&#125;,&#123;<span class="number">1</span>, <span class="number">0</span>&#125;,&#123;<span class="number">2</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] a5 = &#123;&#123;<span class="number">0</span>, <span class="number">1</span>&#125;,&#123;<span class="number">1</span>, <span class="number">1</span>&#125;,&#123;<span class="number">2</span>, <span class="number">1</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] a6 = &#123;&#123;<span class="number">0</span>, <span class="number">2</span>&#125;,&#123;<span class="number">1</span>, <span class="number">2</span>&#125;,&#123;<span class="number">2</span>, <span class="number">2</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] a7 = &#123;&#123;<span class="number">0</span>, <span class="number">0</span>&#125;,&#123;<span class="number">1</span>, <span class="number">1</span>&#125;,&#123;<span class="number">2</span>, <span class="number">2</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] a8 = &#123;&#123;<span class="number">0</span>, <span class="number">2</span>&#125;,&#123;<span class="number">1</span>, <span class="number">1</span>&#125;,&#123;<span class="number">2</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">boolean</span> r = realContain(list, a1) || realContain(list, a2) || realContain(list, a3)</span><br><span class="line">                || realContain(list, a4) || realContain(list, a5) || realContain(list, a6)</span><br><span class="line">                || realContain(list, a7) || realContain(list, a8);</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul><li>100 / 100 test cases passed.</li><li>Runtime: 2 ms, faster than 8.21% of Java online submissions for Find Winner on a Tic Tac Toe Game.</li><li>Memory Usage: 38.9 MB, less than 6.40% of Java online submissions for Find Winner on a Tic Tac Toe Game.</li></ul><hr><ul><li><a href="https://en.wikipedia.org/wiki/Tic-tac-toe" target="_blank" rel="noopener">Tic-tac-toe</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;Problem&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/find-winner
+      
+    
+    </summary>
+    
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+      <category term="Array" scheme="https://hezhigang.github.io/tags/Array/"/>
+    
+  </entry>
   
   <entry>
     <title>The Death of the Moth</title>
@@ -87,9 +114,9 @@
     </summary>
     
     
-      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
-    
       <category term="math" scheme="https://hezhigang.github.io/tags/math/"/>
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
     
       <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
     
@@ -406,9 +433,9 @@
     </summary>
     
     
-      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
-    
       <category term="math" scheme="https://hezhigang.github.io/tags/math/"/>
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
     
       <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
     
@@ -466,9 +493,9 @@
     </summary>
     
     
-      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
-    
       <category term="math" scheme="https://hezhigang.github.io/tags/math/"/>
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
     
       <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
     
@@ -525,29 +552,6 @@
       <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
     
       <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Language difficulty ranking for English speaker by FSI</title>
-    <link href="https://hezhigang.github.io/2020/12/10/language-difficulty-ranking-for-english-speaker/"/>
-    <id>https://hezhigang.github.io/2020/12/10/language-difficulty-ranking-for-english-speaker/</id>
-    <published>2020-12-11T03:44:02.000Z</published>
-    <updated>2020-12-12T05:34:32.086Z</updated>
-    
-    <content type="html"><![CDATA[<p>© <a href="https://www.state.gov/foreign-language-training/" target="_blank" rel="noopener">FSI’s Experience with Language Learning</a></p><p>The following language learning timelines reflect 70 years of experience in teaching languages to U.S. diplomats, and illustrate the time usually required for a student to reach “Professional Working Proficiency” in the language, or a score of “Speaking-3/Reading-3” on the Interagency Language Roundtable scale. These timelines are based on what FSI has observed as the average length of time for a student to achieve proficiency, though the actual time can vary based on a number of factors, including the language learner’s natural ability, prior linguistic experience, and time spent in the classroom.</p><h1 id="Category-I-Languages-24-30-weeks-600-750-class-hours"><a href="#Category-I-Languages-24-30-weeks-600-750-class-hours" class="headerlink" title="Category I Languages: 24-30 weeks (600-750 class hours)"></a>Category I Languages: 24-30 weeks (600-750 class hours)</h1><p>Languages more similar to English.</p><ul><li>Danish (24 weeks)</li><li>Dutch (24 weeks)</li><li>French (30 weeks)</li><li>Italian (24 weeks)</li><li>Norwegian (24 weeks)</li><li>Portuguese (24 weeks)</li><li>Romanian (24 weeks)</li><li>Spanish (24 weeks)</li><li>Swedish (24 weeks)</li></ul><h1 id="Category-II-Languages-Approximately-36-weeks-900-class-hours"><a href="#Category-II-Languages-Approximately-36-weeks-900-class-hours" class="headerlink" title="Category II Languages: Approximately 36 weeks (900 class hours)"></a>Category II Languages: Approximately 36 weeks (900 class hours)</h1><ul><li>German</li><li>Haitian Creole</li><li>Indonesian</li><li>Malay</li><li>Swahili</li></ul><h1 id="Category-III-Languages-Approximately-44-weeks-1100-class-hours"><a href="#Category-III-Languages-Approximately-44-weeks-1100-class-hours" class="headerlink" title="Category III Languages: Approximately 44 weeks (1100 class hours)"></a>Category III Languages: Approximately 44 weeks (1100 class hours)</h1><p>“Hard languages” – Languages with significant linguistic and/or cultural differences from English. This list is not exhaustive.</p><ul><li>Albanian</li><li>Amharic</li><li>Armenian</li><li>Azerbaijani</li><li>Bengali</li><li>Bulgarian</li><li>Burmese</li><li>Czech</li><li>Dari</li><li>Estonian</li><li>Farsi</li><li>Finnish</li><li>Georgian</li><li>Greek</li><li>Hebrew</li><li>Hindi</li><li>Hungarian</li><li>Icelandic</li><li>Kazakh</li><li>Khmer</li><li>Kurdish</li><li>Kyrgyz</li><li>Lao</li><li>Latvian</li><li>Lithuanian</li><li>Macedonian</li><li>Mongolian</li><li>Nepali</li><li>Polish</li><li>Russian</li><li>Serbo-Croatian</li><li>Sinhala</li><li>Slovak</li><li>Slovenian</li><li>Somali</li><li>Tagalog</li><li>Tajiki</li><li>Tamil</li><li>Telugu</li><li>Thai</li><li>Tibetan</li><li>Turkish</li><li>Turkmen</li><li>Ukrainian</li><li>Urdu</li><li>Uzbek</li><li>Vietnamese</li></ul><h1 id="Category-IV-Languages-88-weeks-2200-class-hours"><a href="#Category-IV-Languages-88-weeks-2200-class-hours" class="headerlink" title="Category IV Languages: 88 weeks (2200 class hours)"></a>Category IV Languages: 88 weeks (2200 class hours)</h1><p>“Super-hard languages” – Languages which are exceptionally difficult for native English speakers.</p><ul><li>Arabic</li><li>Chinese – Cantonese</li><li>Chinese – Mandarin</li><li>Japanese</li><li>Korean</li></ul><hr><h1 id="IELTS-Academic-mean-performance-by-first-language"><a href="#IELTS-Academic-mean-performance-by-first-language" class="headerlink" title="IELTS Academic mean performance by first language"></a>IELTS Academic mean performance by first language</h1><table><thead><tr><th></th><th>Reading</th><th>Listening</th><th>Writing</th><th>Speaking</th><th>Overall</th></tr></thead><tbody><tr><td>English</td><td>6.7</td><td>7.2</td><td>6.2</td><td>7.1</td><td>6.9</td></tr><tr><td>Italian</td><td>7.4</td><td>7.0</td><td>5.9</td><td>6.6</td><td>6.8</td></tr><tr><td>French</td><td>6.9</td><td>6.9</td><td>5.9</td><td>6.6</td><td>6.7</td></tr><tr><td>German</td><td>7.7</td><td>7.9</td><td>6.3</td><td>7.4</td><td>7.4</td></tr><tr><td>Indonesian</td><td>6.7</td><td>6.7</td><td>5.8</td><td>6.3</td><td>6.4</td></tr><tr><td>Russian</td><td>6.7</td><td>6.8</td><td>5.9</td><td>6.5</td><td>6.5</td></tr><tr><td>Chinese</td><td>6.2</td><td>6.0</td><td>5.5</td><td>5.5</td><td>5.9</td></tr><tr><td>Japanese</td><td>6.1</td><td>5.9</td><td>5.5</td><td>5.5</td><td>5.8</td></tr><tr><td>Korean</td><td>6.3</td><td>6.3</td><td>5.6</td><td>5.8</td><td>6.0</td></tr></tbody></table><h1 id="IELTS-Academic-mean-performance-by-nationality"><a href="#IELTS-Academic-mean-performance-by-nationality" class="headerlink" title="IELTS Academic mean performance by nationality"></a>IELTS Academic mean performance by nationality</h1><table><thead><tr><th></th><th>Reading</th><th>Listening</th><th>Writing</th><th>Speaking</th><th>Overall</th></tr></thead><tbody><tr><td>Canada</td><td>6.9</td><td>7.2</td><td>6.1</td><td>7.2</td><td>6.9</td></tr><tr><td>Italy</td><td>7.3</td><td>7.0</td><td>5.9</td><td>6.6</td><td>6.8</td></tr><tr><td>France</td><td>7.1</td><td>7.0</td><td>5.9</td><td>6.6</td><td>6.7</td></tr><tr><td>Germany</td><td>7.7</td><td>7.9</td><td>6.3</td><td>7.4</td><td>7.4</td></tr><tr><td>Russian Federation</td><td>6.9</td><td>7.0</td><td>6.0</td><td>6.7</td><td>6.7</td></tr><tr><td>Indonesia</td><td>6.7</td><td>6.8</td><td>5.8</td><td>6.3</td><td>6.5</td></tr><tr><td>Malaysia</td><td>7.1</td><td>7.4</td><td>6.1</td><td>6.8</td><td>6.9</td></tr><tr><td>Philippines</td><td>6.8</td><td>7.3</td><td>6.1</td><td>6.8</td><td>6.8</td></tr><tr><td>India</td><td>5.9</td><td>6.5</td><td>5.8</td><td>6.0</td><td>6.1</td></tr><tr><td>Japan</td><td>6.1</td><td>5.9</td><td>5.5</td><td>5.5</td><td>5.8</td></tr><tr><td>Korea, Republic of</td><td>6.3</td><td>6.3</td><td>5.6</td><td>5.8</td><td>6.0</td></tr><tr><td>Hong Kong. SAR of China</td><td>6.9</td><td>7.1</td><td>6.0</td><td>6.3</td><td>6.6</td></tr><tr><td>Taiwan, China</td><td>6.3</td><td>6.3</td><td>5.6</td><td>6.0</td><td>6.1</td></tr><tr><td>China</td><td>6.2</td><td>5.9</td><td>5.5</td><td>5.4</td><td>5.8</td></tr></tbody></table><hr><ul><li><a href="https://www.ielts.org/research/test-taker-performance" target="_blank" rel="noopener">IELTS Test taker performance 2019</a></li><li><a href="https://www.ielts.org/research/demographic-data" target="_blank" rel="noopener">IELTS Demographic data 2019</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;© &lt;a href=&quot;https://www.state.gov/foreign-language-training/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;FSI’s Experience with Language Learning&lt;/a&gt;&lt;/
-      
-    
-    </summary>
-    
-    
-      <category term="english" scheme="https://hezhigang.github.io/tags/english/"/>
     
   </entry>
   
