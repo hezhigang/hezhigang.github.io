@@ -70,6 +70,63 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-extended-euclidean-algorithm-and-modular-multiplicative-inverse" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/24/extended-euclidean-algorithm-and-modular-multiplicative-inverse/" class="article-date">
+  <time datetime="2020-09-24T18:06:24.000Z" itemprop="datePublished">2020-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/24/extended-euclidean-algorithm-and-modular-multiplicative-inverse/">Extended Euclidean algorithm and Modular multiplicative inverse</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<p>The computation of the <a href="https://en.wikipedia.org/wiki/Modular_multiplicative_inverse" target="_blank" rel="noopener">modular multiplicative inverse</a> is an essential step in the derivation of key-pairs in the RSA public-key encryption method. A benefit for the computer implementation of these applications is that there exists a very fast algorithm (the <a href="https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm" target="_blank" rel="noopener">extended Euclidean algorithm</a>) that can be used for the calculation of modular multiplicative inverses.</p>
+<h1 id="Extended-Euclidean-algorithm"><a href="#Extended-Euclidean-algorithm" class="headerlink" title="Extended Euclidean algorithm"></a>Extended Euclidean algorithm</h1><p><a href="https://en.wikipedia.org/wiki/B%C3%A9zout%27s_identity" target="_blank" rel="noopener">Bézout’s identity</a> — Let a and b be integers with greatest common divisor d. Then, there exist integers x and y such that ax + by = d. More generally, the integers of the form ax + by are exactly the multiples of d.</p>
+<p>The integers x and y are called <strong>Bézout coefficients</strong> for (a, b); they are not unique. A pair of Bézout coefficients can be computed by the extended Euclidean algorithm.</p>
+<p>\( m’m + n’n = gcd(m, n) \)</p>
+<p>\(<br>    \begin{align*}<br>    \begin{cases} \text{if }m = 0, \text{we simply take } m’=0 \text{ and } n’=1 \text{ as } gcd(0, n)=n \\<br>    \text{Otherwise }m \neq 0, \text{we let }r=n \bmod m=n-\lfloor \frac{n}{m} \rfloor m<br>    \end{cases}<br>    \end{align*}<br>\)</p>
+<p>\( \overline{r}r + \overline{m}m = gcd(r,m) \)</p>
+<p>\( \text{ as } gcd(m, n) = gcd(r, m) \)<br>\( \overline{r}(n-\lfloor \frac{n}{m} \rfloor m) + \overline{m}m = m’m + n’n \implies \)<br>\( (\overline{m}-\lfloor \frac{n}{m} \rfloor \overline{r})m + \overline{r}n = m’m + n’n \implies \)</p>
+<p>\(<br>    \begin{align*}<br>    \begin{cases} m’ = \overline{m}-\lfloor \frac{n}{m} \rfloor \overline{r} \\<br>    n’ = \overline{r}<br>    \end{cases}<br>    \end{align*}<br>\)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExtendedEuclid</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = <span class="number">12</span>, n = <span class="number">18</span>;</span><br><span class="line">        EEResult re = extendedEuclid(m, n);</span><br><span class="line">        System.out.printf(<span class="string">"%d*%d + %d*%d = %d"</span>, re.a, m, re.b, n, re.d);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> EEResult <span class="title">extendedEuclid</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        EEResult re = <span class="keyword">new</span> EEResult();</span><br><span class="line">        <span class="keyword">if</span> (m==<span class="number">0</span>) &#123;</span><br><span class="line">            re.d = n;</span><br><span class="line">            re.a = <span class="number">0</span>;</span><br><span class="line">            re.b = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">return</span> re;</span><br><span class="line">        &#125;</span><br><span class="line">        re = extendedEuclid(n%m, m);</span><br><span class="line">        <span class="keyword">int</span> d = re.d;</span><br><span class="line">        <span class="keyword">int</span> a = re.b - (n/m)*re.a;</span><br><span class="line">        <span class="keyword">int</span> b = re.a;</span><br><span class="line">        re.d = d;</span><br><span class="line">        re.a = a;</span><br><span class="line">        re.b = b;</span><br><span class="line">        <span class="keyword">return</span> re;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">EEResult</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> d;</span><br><span class="line">        <span class="keyword">int</span> a;</span><br><span class="line">        <span class="keyword">int</span> b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Modular-multiplicative-inverse"><a href="#Modular-multiplicative-inverse" class="headerlink" title="Modular multiplicative inverse"></a>Modular multiplicative inverse</h1><p>Finding modular multiplicative inverses also has practical applications in the field of cryptography, i.e. public-key cryptography and the RSA Algorithm.</p>
+<p>\( \displaystyle ax\equiv b{\pmod {m}} \)</p>
+<p>\( \displaystyle x\equiv a^{-1}{\pmod {m}} \)</p>
+<p>\(<br>    \begin{align*}<br>    \begin{cases} d_1 \equiv 35^{-1}{\pmod {3}} = 2 \\<br>    d_2 \equiv 21^{-1}{\pmod {5}} = 1 \\<br>    d_3 \equiv 15^{-1}{\pmod {7}} = 1<br>    \end{cases}<br>    \end{align*}<br>\)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.math.BigInteger;</span><br><span class="line"></span><br><span class="line">BigInteger.valueOf(<span class="number">35</span>).modInverse(BigInteger.valueOf(<span class="number">3</span>));</span><br><span class="line">BigInteger.valueOf(<span class="number">21</span>).modInverse(BigInteger.valueOf(<span class="number">5</span>));</span><br><span class="line">BigInteger.valueOf(<span class="number">15</span>).modInverse(BigInteger.valueOf(<span class="number">7</span>));</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/09/24/extended-euclidean-algorithm-and-modular-multiplicative-inverse/" data-id="ckkzkigen008cojja6ya13bww" data-title="Extended Euclidean algorithm and Modular multiplicative inverse" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-common-vocabulary-ielts-listening" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/09/23/common-vocabulary-ielts-listening/" class="article-date">
@@ -147,7 +204,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/09/23/common-vocabulary-ielts-listening/" data-id="ckkuld0ja00x0nzja7blkg2qy" data-title="Build your IELTS Listening test vocabulary" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/09/23/common-vocabulary-ielts-listening/" data-id="ckkzkigz500wuojjaepcakw5r" data-title="Build your IELTS Listening test vocabulary" class="article-share-link">Share</a>
       
       
       
@@ -213,7 +270,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/09/22/leetcode-algorithms-valid-anagram/" data-id="ckkuld0c800e8nzjat8y3cw75" data-title="LeetCode - Algorithms - 242. Valid Anagram" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/09/22/leetcode-algorithms-valid-anagram/" data-id="ckkzkiglg00e7ojja4hrh8ln0" data-title="LeetCode - Algorithms - 242. Valid Anagram" class="article-share-link">Share</a>
       
       
       
@@ -336,7 +393,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/09/21/why-you-will-fail-to-have-a-great-career-larry-smith-ted/" data-id="ckkuld0kc00y4nzja4csjnq1w" data-title="Why you will fail to have a great career - Larry Smith - TEDxUW | November 2011 - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/09/21/why-you-will-fail-to-have-a-great-career-larry-smith-ted/" data-id="ckkzkih0b00xvojjak3btux7a" data-title="Why you will fail to have a great career - Larry Smith - TEDxUW | November 2011 - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -395,7 +452,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/09/18/leetcode-algorithms-rotate-string/" data-id="ckkuld0bo00dbnzja3advbpxe" data-title="LeetCode - Algorithms - 796. Rotate String" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/09/18/leetcode-algorithms-rotate-string/" data-id="ckkzkigkg00dbojjariggwhm0" data-title="LeetCode - Algorithms - 796. Rotate String" class="article-share-link">Share</a>
       
       
       
@@ -447,7 +504,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/09/14/leetcode-algorithms-perfect-number/" data-id="ckkuld0ba00csnzja8qikub5b" data-title="LeetCode - Algorithms - 507. Perfect Number" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/09/14/leetcode-algorithms-perfect-number/" data-id="ckkzkigjw00crojja4q7evevj" data-title="LeetCode - Algorithms - 507. Perfect Number" class="article-share-link">Share</a>
       
       
       
@@ -503,7 +560,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/09/10/leetcode-algorithms-is-subsequence/" data-id="ckkuld0aa00bjnzja60p79qr5" data-title="LeetCode - Algorithms - 392. Is Subsequence" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/09/10/leetcode-algorithms-is-subsequence/" data-id="ckkzkigip00blojjaji88r2jx" data-title="LeetCode - Algorithms - 392. Is Subsequence" class="article-share-link">Share</a>
       
       
       
@@ -580,7 +637,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/09/09/why-tech-needs-the-humanities-eric-berridge-ted/" data-id="ckkuld0k900y1nzjaryqcym1k" data-title="Why tech needs the humanities - Eric Berridge - TED@IBM - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/09/09/why-tech-needs-the-humanities-eric-berridge-ted/" data-id="ckkzkih0e00xyojjatx8j984v" data-title="Why tech needs the humanities - Eric Berridge - TED@IBM - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -641,7 +698,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/09/06/code-monkey-song-jonathan-coulton/" data-id="ckkuld07a007jnzjazq56cd6s" data-title="Code Monkey (song)" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/09/06/code-monkey-song-jonathan-coulton/" data-id="ckkzkigdy007iojja49q19x0x" data-title="Code Monkey (song)" class="article-share-link">Share</a>
       
       
       
@@ -736,98 +793,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/08/17/workings-of-git/" data-id="ckkuld0eq00icnzjaqdvoioq0" data-title="The workings and concepts of Git - Reader&#39;s Digest" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/08/17/workings-of-git/" data-id="ckkzkigqn00idojjasqm7xr4s" data-title="The workings and concepts of Git - Reader&#39;s Digest" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-the-speed-of-darkness-muriel-rukeyser" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/16/the-speed-of-darkness-muriel-rukeyser/" class="article-date">
-  <time datetime="2020-08-16T11:15:37.000Z" itemprop="datePublished">2020-08-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/16/the-speed-of-darkness-muriel-rukeyser/">The Speed of Darkness</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>by <a href="https://en.wikipedia.org/wiki/Muriel_Rukeyser" target="_blank" rel="noopener">Muriel Rukeyser</a></p>
-<p>I</p>
-<p>Whoever despises the clitoris despises the penis<br>Whoever despises the penis despises the cunt<br>Whoever despises the cunt despises the life of the child.</p>
-<p>Resurrection music, silence, and surf.</p>
-<p>II</p>
-<p>No longer speaking<br>Listening with the whole body<br>And with every drop of blood<br>Overtaken by silence</p>
-<p>But this same silence is become speech<br>With the speed of darkness.</p>
-<p>III</p>
-<p>Stillness during war, the lake.<br>The unmoving spruces.<br>Glints over the water.<br>Faces, voices. You are far away.<br>A tree that trembles.</p>
-<p>I am the tree that trembles and trembles.</p>
-<p>IV</p>
-<p>After the lifting of the mist<br>after the lift of the heavy rains<br>the sky stands clear<br>and the cries of the city risen in day<br>I remember the buildings are space<br>walled, to let space be used for living<br>I mind this room is space<br>this drinking glass is space<br>whose boundary of glass<br>lets me give you drink and space to drink<br>your hand, my hand being space<br>containing skies and constellations<br>your face<br>carries the reaches of air<br>I know I am space<br>my words are air.</p>
-<p>V</p>
-<p>Between between<br>the man : act exact<br>woman : in curve senses in their maze<br>frail orbits, green tries, games of stars<br>shape of the body speaking its evidence</p>
-<p>VI</p>
-<p>I look across at the real<br>vulnerable involved naked<br>devoted to the present of all I care for<br>the world of its history leading to this moment.</p>
-<p>VII</p>
-<p>Life the announcer.<br>I assure you<br>there are many ways to have a child.<br>I bastard mother<br>promise you<br>there are many ways to be born.<br>They all come forth<br>in their own grace.</p>
-<p>VIII</p>
-<p>Ends of the earth join tonight<br>with blazing stars upon their meeting.<br>These sons, these sons<br>fall burning into Asia.</p>
-<p>IX</p>
-<p>Time comes into it.<br>Say it. Say it.</p>
-<blockquote>
-<p>The universe is made of stories,<br>not of atoms.</p>
-</blockquote>
-<p>X</p>
-<p>Lying<br>blazing beside me<br>you rear beautifully and up—<br>your thinking face—<br>erotic body reaching<br>in all its colors and lights—<br>your erotic face<br>colored and lit—<br>not colored body-and-face<br>but now entire,<br>colors lights the world thinking and reaching.</p>
-<p>XI</p>
-<p>The river flows past the city.</p>
-<p>Water goes down to tomorrow<br>making its children I hear their unborn voices<br>I am working out the vocabulary of my silence.</p>
-<p>XII</p>
-<p>Big-boned man young and of my dream<br>Struggles to get the live bird out of his throat.<br>I am he am I? Dreaming?<br>I am the bird am I? I am the throat?</p>
-<p>A bird with a curved beak.<br>It could slit anything, the throat-bird.<br>Drawn up slowly. The curved blades, not large.<br>Bird emerges wet being born<br>Begins to sing.</p>
-<p>XIII</p>
-<p>My night awake<br>staring at the broad rough jewel<br>the copper roof across the way<br>thinking of the poet<br>yet unborn in this dark<br>who will be the throat of these hours.<br>No. Of those hours.<br>Who will speak these days,<br>if not I,<br>if not you?</p>
-<hr>
-<ul>
-<li>Muriel Rukeyser, “The Speed of Darkness” from The Collected Poems of Muriel Rukeyser. Copyright © 2006 by Muriel Rukeyser. Reprinted by permission of International Creative Management.</li>
-<li>Source: Out of Silence: Selected Poems (TriQuarterly Books, 1992)</li>
-</ul>
-<hr>
-<ul>
-<li><a href="https://www.poetryfoundation.org/poems/56287/the-speed-of-darkness" target="_blank" rel="noopener">The Speed of Darkness</a></li>
-<li><a href="https://en.wikiquote.org/wiki/Muriel_Rukeyser" target="_blank" rel="noopener">Muriel Rukeyser</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/08/16/the-speed-of-darkness-muriel-rukeyser/" data-id="ckkuld0e700hdnzjayh9014wg" data-title="The Speed of Darkness" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poem/">poem</a></li></ul>
 
     </footer>
   </div>
@@ -889,6 +859,10 @@
       <ul>
         
           <li>
+            <a href="/2021/02/10/in-the-time-of-pandemic-kitty-o-meara/">【repost】In the Time of Pandemic</a>
+          </li>
+        
+          <li>
             <a href="/2021/02/06/leetcode-algorithms-find-winner-on-a-tic-tac-toe-game/">LeetCode - Algorithms - 1275. Find Winner on a Tic Tac Toe Game</a>
           </li>
         
@@ -902,10 +876,6 @@
         
           <li>
             <a href="/2021/01/13/leetcode-algorithms-the-kth-factor-of-n/">LeetCode - Algorithms - 1492. The kth Factor of n</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/05/canadian-english-slangs-phrases/">Canadian English Slangs &amp; Phrases</a>
           </li>
         
       </ul>
