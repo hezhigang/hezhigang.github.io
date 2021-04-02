@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hezhigang.github.io/"/>
-  <updated>2021-03-31T15:09:46.345Z</updated>
+  <updated>2021-04-02T00:29:23.154Z</updated>
   <id>https://hezhigang.github.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode - Algorithms - 111. Minimum Depth of Binary Tree</title>
+    <link href="https://hezhigang.github.io/2021/04/01/leetcode-algorithms-minimum-depth-of-binary-tree/"/>
+    <id>https://hezhigang.github.io/2021/04/01/leetcode-algorithms-minimum-depth-of-binary-tree/</id>
+    <published>2021-04-02T00:24:07.000Z</published>
+    <updated>2021-04-02T00:29:23.154Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/minimum-depth-of-binary-tree/" target="_blank" rel="noopener">111. Minimum Depth of Binary Tree</a></p><h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span></span><br><span class="line"><span class="comment"> *         this.val = val;</span></span><br><span class="line"><span class="comment"> *         this.left = left;</span></span><br><span class="line"><span class="comment"> *         this.right = right;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> h = <span class="number">0</span>;</span><br><span class="line">        TreeNode node = <span class="keyword">null</span>;</span><br><span class="line">        Queue&lt;TreeNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;TreeNode&gt;();</span><br><span class="line">        queue.offer(root);</span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> size = queue.size();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">                node = queue.poll();</span><br><span class="line">                <span class="keyword">if</span> (node.left != <span class="keyword">null</span>) queue.add(node.left);</span><br><span class="line">                <span class="keyword">if</span> (node.right != <span class="keyword">null</span>) queue.add(node.right);</span><br><span class="line">                <span class="keyword">if</span> (node.left == <span class="keyword">null</span> &amp;&amp; node.right == <span class="keyword">null</span>)</span><br><span class="line">                    <span class="keyword">return</span> h+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            h++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> h;       </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul><li>52 / 52 test cases passed.</li><li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Minimum Depth of Binary Tree.</li><li>Memory Usage: 59.3 MB, less than 77.17% of Java online submissions for Minimum Depth of Binary Tree.</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;Problem&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/minimum-dep
+      
+    
+    </summary>
+    
+    
+      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
+    
+      <category term="DFS" scheme="https://hezhigang.github.io/tags/DFS/"/>
+    
+      <category term="BFS" scheme="https://hezhigang.github.io/tags/BFS/"/>
+    
+      <category term="Tree" scheme="https://hezhigang.github.io/tags/Tree/"/>
+    
+  </entry>
   
   <entry>
     <title>Discourse on the Method of Rightly Conducting One&#39;s Reason and of Seeking Truth in the Sciences</title>
@@ -133,9 +164,9 @@
     </summary>
     
     
-      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
-    
       <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
     
       <category term="DFS" scheme="https://hezhigang.github.io/tags/DFS/"/>
     
@@ -262,9 +293,9 @@
     </summary>
     
     
-      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
-    
       <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
     
       <category term="Array" scheme="https://hezhigang.github.io/tags/Array/"/>
     
@@ -343,9 +374,9 @@
     
       <category term="math" scheme="https://hezhigang.github.io/tags/math/"/>
     
-      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
-    
       <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
     
   </entry>
   
@@ -419,9 +450,9 @@
     </summary>
     
     
-      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
-    
       <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
     
       <category term="Bit Manipulation" scheme="https://hezhigang.github.io/tags/Bit-Manipulation/"/>
     
@@ -470,9 +501,9 @@
     </summary>
     
     
-      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
-    
       <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
+    
+      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
     
       <category term="Array" scheme="https://hezhigang.github.io/tags/Array/"/>
     
@@ -500,33 +531,6 @@
       <category term="english" scheme="https://hezhigang.github.io/tags/english/"/>
     
       <category term="TED" scheme="https://hezhigang.github.io/tags/TED/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode - Algorithms - 137. Single Number II</title>
-    <link href="https://hezhigang.github.io/2020/12/22/leetcode-algorithms-single-number-ii/"/>
-    <id>https://hezhigang.github.io/2020/12/22/leetcode-algorithms-single-number-ii/</id>
-    <published>2020-12-22T11:45:30.000Z</published>
-    <updated>2020-12-22T12:04:54.325Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/single-number-ii/" target="_blank" rel="noopener">137. Single Number II</a></p><h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Bitwise"><a href="#Bitwise" class="headerlink" title="Bitwise"></a>Bitwise</h2><blockquote><p>We can design the <strong>digital logic</strong> what we need so the only one can still be extracted.</p></blockquote><p>© <a href="https://gist.githubusercontent.com/lenchen1112/77dfd4afae0098dbe3199e4b70fa6a2b/raw/ceb58d8d505ddab95b133eb527235eaa77be2a1a/137_single_number_II.py" target="_blank" rel="noopener">https://gist.githubusercontent.com/lenchen1112/77dfd4afae0098dbe3199e4b70fa6a2b/raw/ceb58d8d505ddab95b133eb527235eaa77be2a1a/137_single_number_II.py</a></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">singleNumber</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> lowBits = <span class="number">0</span>, highBits = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            lowBits = ~highBits &amp; (lowBits ^ num);</span><br><span class="line">            highBits = ~lowBits &amp; (highBits ^ num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lowBits;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul><li>14 / 14 test cases passed.</li><li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Single Number II.</li><li>Memory Usage: 38.8 MB, less than 49.17% of Java online submissions for Single Number II.</li></ul><hr><ul><li><a href="https://lenchen.medium.com/leetcode-137-single-number-ii-31af98b0f462" target="_blank" rel="noopener">LeetCode #137 Single Number II</a></li><li><a href="https://leetcode.com/problems/single-number-ii/discuss/869698/My-Understanding-on-Bit-Manipulation-Method" target="_blank" rel="noopener">My Understanding on Bit Manipulation Method</a></li><li><a href="https://leetcode.com/problems/single-number-ii/discuss/936917/Python-Bitwise-Solution-with-Explanation" target="_blank" rel="noopener">Python Bitwise Solution with Explanation</a></li><li><a href="http://www.swarthmore.edu/NatSci/echeeve1/Ref/Digital/DigitalIntro.html" target="_blank" rel="noopener">An Introduction to Digital Logic</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;Problem&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://leetcode.com/problems/single-numb
-      
-    
-    </summary>
-    
-    
-      <category term="LeetCode" scheme="https://hezhigang.github.io/tags/LeetCode/"/>
-    
-      <category term="Algorithms" scheme="https://hezhigang.github.io/tags/Algorithms/"/>
-    
-      <category term="Bit Manipulation" scheme="https://hezhigang.github.io/tags/Bit-Manipulation/"/>
     
   </entry>
   
