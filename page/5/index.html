@@ -68,6 +68,74 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-algorithms-sum-of-square-numbers" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/11/26/leetcode-algorithms-sum-of-square-numbers/" class="article-date">
+  <time datetime="2020-11-27T03:15:07.000Z" itemprop="datePublished">2020-11-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/26/leetcode-algorithms-sum-of-square-numbers/">LeetCode - Algorithms - 633. Sum of Square Numbers</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/sum-of-square-numbers/" target="_blank" rel="noopener">633. Sum of Square Numbers</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">judgeSquareSum</span><span class="params">(<span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (c == <span class="number">0</span> || c == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">int</span> root = mySqrt(c);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = root; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">int</span> re = c - i * i;</span><br><span class="line">            <span class="keyword">if</span> (isPerfectSquare(re)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (x == <span class="number">0</span> || x == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> start = <span class="number">1</span>, end = x, ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (start &lt;= end) &#123;</span><br><span class="line">            <span class="keyword">long</span> mid = (start + end) / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (mid * mid == x)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> Long(mid).intValue();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (mid * mid &lt; x) &#123;</span><br><span class="line">                start = mid + <span class="number">1</span>;</span><br><span class="line">                ans = mid;</span><br><span class="line">            &#125; <span class="keyword">else</span></span><br><span class="line">                end = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Long(ans).intValue();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isPerfectSquare</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> lo = <span class="number">1</span>, hi = num;</span><br><span class="line">        <span class="keyword">while</span> (lo &lt;= hi) &#123;</span><br><span class="line">            <span class="keyword">long</span> mid = (lo + hi) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (mid * mid == num)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">if</span> (mid * mid &gt; num) &#123;</span><br><span class="line">                hi = mid - <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span></span><br><span class="line">                lo = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>124 / 124 test cases passed.</li>
+<li>Runtime: 242 ms, faster than 5.54% of Java online submissions for Sum of Square Numbers.</li>
+<li>Memory Usage: 37.6 MB, less than 14.48% of Java online submissions for Sum of Square Numbers.</li>
+</ul>
+<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">judgeSquareSum</span><span class="params">(<span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (c == <span class="number">0</span> || c == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= c/<span class="number">2</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> re = c - i * i;</span><br><span class="line">            <span class="keyword">if</span> (re &lt; <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span> (isPerfectSquare(re)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isPerfectSquare</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> lo = <span class="number">1</span>, hi = num;</span><br><span class="line">        <span class="keyword">while</span> (lo &lt;= hi) &#123;</span><br><span class="line">            <span class="keyword">long</span> mid = (lo + hi) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (mid * mid == num)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">if</span> (mid * mid &gt; num) &#123;</span><br><span class="line">                hi = mid - <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span></span><br><span class="line">                lo = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>124 / 124 test cases passed.</li>
+<li>Runtime: 206 ms, faster than 7.18% of Java online submissions for Sum of Square Numbers.</li>
+<li>Memory Usage: 35.5 MB, less than 93.83% of Java online submissions for Sum of Square Numbers.</li>
+</ul>
+<h2 id="number-theory"><a href="#number-theory" class="headerlink" title="number theory"></a>number theory</h2><p>An integer greater than one can be written as a sum of two squares if and only if its prime decomposition contains no term \( p^k \), where prime \( p \equiv 3{\pmod {4}} \) and k is odd.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">judgeSquareSum</span><span class="params">(<span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (c == <span class="number">0</span> || c == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (c % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">            c = c &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> p = <span class="number">3</span>; p * p &lt;= c; p += <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (c % p == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">while</span> (c % p == <span class="number">0</span>) &#123;</span><br><span class="line">                    k++;</span><br><span class="line">                    c /= p;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (p % <span class="number">4</span> == <span class="number">3</span> &amp;&amp; (k &amp; <span class="number">1</span>) == <span class="number">1</span>)</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> c % <span class="number">4</span> != <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>124 / 124 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Sum of Square Numbers.</li>
+<li>Memory Usage: 35.7 MB, less than 74.91% of Java online submissions for Sum of Square Numbers.</li>
+</ul>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://en.wikipedia.org/wiki/Sum_of_two_squares_theorem" target="_blank" rel="noopener">Sum of two squares theorem</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Trial_division" target="_blank" rel="noopener">Trial division</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Fermat%27s_theorem_on_sums_of_two_squares" target="_blank" rel="noopener">Fermat’s theorem on sums of two squares</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/11/26/leetcode-algorithms-sum-of-square-numbers/" data-id="ckn36eqyr00ea60jaegcehhq2" data-title="LeetCode - Algorithms - 633. Sum of Square Numbers" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-leetcode-algorithms-valid-perfect-square" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/11/26/leetcode-algorithms-valid-perfect-square/" class="article-date">
@@ -101,7 +169,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/11/26/leetcode-algorithms-valid-perfect-square/" data-id="ckmzkktrm00ews6jaubf929xi" data-title="LeetCode - Algorithms - 367. Valid Perfect Square" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/11/26/leetcode-algorithms-valid-perfect-square/" data-id="ckn36eqza00eo60ja6433eayb" data-title="LeetCode - Algorithms - 367. Valid Perfect Square" class="article-share-link">Share</a>
       
       
       
@@ -158,7 +226,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/11/25/the-final-speech-from-the-great-dictator/" data-id="ckmzkktt600hps6ja2frukwih" data-title="The Final Speech from The Great Dictator" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/11/25/the-final-speech-from-the-great-dictator/" data-id="ckn36er1f00hr60jacy11vsfo" data-title="The Final Speech from The Great Dictator" class="article-share-link">Share</a>
       
       
       
@@ -215,7 +283,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/11/24/leetcode-algorithms-average-salary-excluding-the-minimum-and-maximum-salary/" data-id="ckmzkktp400b6s6jalp96ub0x" data-title="LeetCode - Algorithms - 1491. Average Salary Excluding the Minimum and Maximum Salary" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/11/24/leetcode-algorithms-average-salary-excluding-the-minimum-and-maximum-salary/" data-id="ckn36eqwf00b660jagjpgsy73" data-title="LeetCode - Algorithms - 1491. Average Salary Excluding the Minimum and Maximum Salary" class="article-share-link">Share</a>
       
       
       
@@ -266,7 +334,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/11/23/love-is-not-all-edna-millay/" data-id="ckmzkktrw00fds6jamcwsw6w9" data-title="Love is Not All" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/11/23/love-is-not-all-edna-millay/" data-id="ckn36eqzn00f660jaiwbrm37b" data-title="Love is Not All" class="article-share-link">Share</a>
       
       
       
@@ -316,7 +384,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/11/22/sonnet-97-william-shakespeare/" data-id="ckmzkktsw00has6jaee6qy33j" data-title="Sonnet 97" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/11/22/sonnet-97-william-shakespeare/" data-id="ckn36er0v00h060ja3uahytf7" data-title="Sonnet 97" class="article-share-link">Share</a>
       
       
       
@@ -432,7 +500,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/11/20/fractals-and-the-art-of-roughness-benoit-mandelbrot-ted2010/" data-id="ckmzkku0q00zus6jaq9rrdf82" data-title="Fractals and the art of roughness - Benoit Mandelbrot - TED2010 - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/11/20/fractals-and-the-art-of-roughness-benoit-mandelbrot-ted2010/" data-id="ckn36er9v00zs60janh1ffd15" data-title="Fractals and the art of roughness - Benoit Mandelbrot - TED2010 - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -574,7 +642,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/11/19/the-coming-of-the-new-organization-peter-drucker/" data-id="ckmzkku1s010ms6jac37kdem1" data-title="The Coming of the New Organization - Harvard Business Review - January 1988 Issue" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/11/19/the-coming-of-the-new-organization-peter-drucker/" data-id="ckn36erb1010m60jac2up9rcn" data-title="The Coming of the New Organization - Harvard Business Review - January 1988 Issue" class="article-share-link">Share</a>
       
       
       
@@ -626,7 +694,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/11/05/gettysburg-address/" data-id="ckmzkktnw0098s6ja4e51ec9j" data-title="Gettysburg Address" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/11/05/gettysburg-address/" data-id="ckn36equt008w60jadqdgyykc" data-title="Gettysburg Address" class="article-share-link">Share</a>
       
       
       
@@ -676,66 +744,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/11/01/a-father-to-his-son-carl-sandburg/" data-id="ckmzkktmm0073s6ja1sutgw7l" data-title="A Father To His Son" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/11/01/a-father-to-his-son-carl-sandburg/" data-id="ckn36eqtj007360jag3srezqg" data-title="A Father To His Son" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poem/">poem</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-elegy-by-tao-yuanming" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/31/elegy-by-tao-yuanming/" class="article-date">
-  <time datetime="2020-10-31T22:01:25.000Z" itemprop="datePublished">2020-10-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/31/elegy-by-tao-yuanming/">擬輓歌辭</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者：<a href="https://en.wikipedia.org/wiki/Tao_Yuanming" target="_blank" rel="noopener">陶淵明</a></p>
-</blockquote>
-<blockquote>
-<p>有生必有死，早終非命促。<br>昨暮同為人，今旦在鬼錄。<br>魂氣散何之？枯形寄空木。<br>嬌兒索父啼，良友撫我哭。<br>得失不復知，是非安能覺？<br>千秋萬歲後，誰知榮與辱！<br>但恨在世時，飲酒不得足。</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>在昔無酒飲，今但湛空觴。<br>春醪生浮蟻，何時更能嘗？<br>餚案盈我前，親舊哭我傍。<br>欲語口無音，欲視眼無光。<br>昔在高堂寢，今宿荒草鄉。<br>荒草無人眠，極視正茫茫。<br>一朝出門去，歸來良未央。</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>荒草何茫茫，白楊亦蕭蕭！<br>嚴霜九月中，送我出遠郊。<br>四面無人居，高墳正嶕嶢。<br>馬為仰天鳴，風為自蕭條。<br>幽室一已閉，千年不復朝。<br>千年不復朝，賢達無奈何！<br>向來相送人，各自還其家。<br>親戚或餘悲，他人亦已歌。<br>死去何所道，托體同山阿。</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/31/elegy-by-tao-yuanming/" data-id="ckmzkktnd008as6jaxi0otp97" data-title="擬輓歌辭" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/古文/">古文</a></li></ul>
 
     </footer>
   </div>
@@ -796,6 +809,10 @@
       <ul>
         
           <li>
+            <a href="/2021/04/04/the-fir-tree/">The Fir Tree</a>
+          </li>
+        
+          <li>
             <a href="/2021/04/01/leetcode-algorithms-minimum-depth-of-binary-tree/">LeetCode - Algorithms - 111. Minimum Depth of Binary Tree</a>
           </li>
         
@@ -809,10 +826,6 @@
         
           <li>
             <a href="/2021/03/23/exclusive-or/">Exclusive or</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/14/euclid-alone-has-looked-on-beauty-bare-edna-millay/">Euclid alone has looked on Beauty bare</a>
           </li>
         
       </ul>

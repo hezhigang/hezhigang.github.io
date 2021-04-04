@@ -68,6 +68,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-algorithms-number-of-days-between-two-dates" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/11/leetcode-algorithms-number-of-days-between-two-dates/" class="article-date">
+  <time datetime="2020-12-12T02:50:43.000Z" itemprop="datePublished">2020-12-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/11/leetcode-algorithms-number-of-days-between-two-dates/">LeetCode - Algorithms - 1360. Number of Days Between Two Dates</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/number-of-days-between-two-dates/" target="_blank" rel="noopener">1360. Number of Days Between Two Dates</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Origin-based-algorithm"><a href="#Origin-based-algorithm" class="headerlink" title="Origin-based algorithm"></a>Origin-based algorithm</h2><p>© <a href="http://www.sunshine2k.de/articles/coding/datediffindays/calcdiffofdatesindates.html" target="_blank" rel="noopener">Algorithms for calculating the difference of dates in days - 4. Origin-based Algorithm</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span>[] daysUpToMonth = &#123;<span class="number">0</span>, <span class="number">31</span>, <span class="number">59</span>, <span class="number">90</span>, <span class="number">120</span>, <span class="number">151</span>, <span class="number">181</span>, <span class="number">212</span>, <span class="number">243</span>, <span class="number">273</span>, <span class="number">304</span>, <span class="number">334</span>&#125;;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span>[] daysUpToMonthLeapYear = &#123;<span class="number">0</span>, <span class="number">31</span>, <span class="number">60</span>, <span class="number">91</span>, <span class="number">121</span>, <span class="number">152</span>, <span class="number">182</span>, <span class="number">213</span>, <span class="number">244</span>, <span class="number">274</span>, <span class="number">305</span>, <span class="number">335</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isLeapYear</span><span class="params">(<span class="keyword">int</span> year)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (year % <span class="number">4</span> == <span class="number">0</span>) &amp;&amp; ((year % <span class="number">100</span> != <span class="number">0</span>) || (year % <span class="number">400</span> == <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">GetDaysOffsetFromOrigin</span><span class="params">(<span class="keyword">int</span> year, <span class="keyword">int</span> month, <span class="keyword">int</span> day)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isLeapYear(year)) &#123;</span><br><span class="line">            year--;</span><br><span class="line">            <span class="keyword">int</span> numOfLeapsYear = year / <span class="number">4</span> - year / <span class="number">100</span> + year / <span class="number">400</span>;</span><br><span class="line">            <span class="keyword">return</span> year * <span class="number">365</span> + numOfLeapsYear + daysUpToMonthLeapYear[month - <span class="number">1</span>] + day - <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            year--;</span><br><span class="line">            <span class="keyword">int</span> numOfLeapsYear = year / <span class="number">4</span> - year / <span class="number">100</span> + year / <span class="number">400</span>;</span><br><span class="line">            <span class="keyword">return</span> year * <span class="number">365</span> + numOfLeapsYear + daysUpToMonth[month - <span class="number">1</span>] + day - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">daysBetweenDates</span><span class="params">(String date1, String date2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> y1 = Integer.parseInt(date1.substring(<span class="number">0</span>, <span class="number">4</span>));</span><br><span class="line">        <span class="keyword">int</span> m1 = Integer.parseInt(date1.substring(<span class="number">5</span>, <span class="number">7</span>));</span><br><span class="line">        <span class="keyword">int</span> d1 = Integer.parseInt(date1.substring(<span class="number">8</span>, <span class="number">10</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> y2 = Integer.parseInt(date2.substring(<span class="number">0</span>, <span class="number">4</span>));</span><br><span class="line">        <span class="keyword">int</span> m2 = Integer.parseInt(date2.substring(<span class="number">5</span>, <span class="number">7</span>));</span><br><span class="line">        <span class="keyword">int</span> d2 = Integer.parseInt(date2.substring(<span class="number">8</span>, <span class="number">10</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> daysOffset = GetDaysOffsetFromOrigin(y1, m1, d1);</span><br><span class="line">        <span class="keyword">int</span> daysOffset2 = GetDaysOffsetFromOrigin(y2, m2, d2);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> diff = daysOffset2 - daysOffset;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> diff &gt;= <span class="number">0</span> ? diff : -diff;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>105 / 105 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Number of Days Between Two Dates.</li>
+<li>Memory Usage: 37.1 MB, less than 71.69% of Java online submissions for Number of Days Between Two Dates.</li>
+</ul>
+<h2 id="jdk"><a href="#jdk" class="headerlink" title="jdk"></a>jdk</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.time.LocalDate;</span><br><span class="line"><span class="keyword">import</span> java.time.format.DateTimeFormatter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.time.temporal.ChronoUnit.DAYS;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">daysBetweenDates</span><span class="params">(String date1, String date2)</span> </span>&#123;</span><br><span class="line">        DateTimeFormatter dft = DateTimeFormatter.ofPattern(<span class="string">"yyyy-MM-dd"</span>);</span><br><span class="line">        LocalDate d1 = LocalDate.parse(date1, dft);</span><br><span class="line">        LocalDate d2 = LocalDate.parse(date2, dft);</span><br><span class="line">        <span class="keyword">long</span> diff = DAYS.between(d1, d2);</span><br><span class="line">        <span class="keyword">int</span> d = <span class="keyword">new</span> Long(diff).intValue();</span><br><span class="line">        <span class="keyword">return</span> d &gt;= <span class="number">0</span> ? d : -d;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>105 / 105 test cases passed.</li>
+<li>Runtime: 14 ms, faster than 13.23% of Java online submissions for Number of Days Between Two Dates.</li>
+<li>Memory Usage: 38.4 MB, less than 21.16% of Java online submissions for Number of Days Between Two Dates.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/12/11/leetcode-algorithms-number-of-days-between-two-dates/" data-id="ckn36eqxv00cy60jaw1pbvk7d" data-title="LeetCode - Algorithms - 1360. Number of Days Between Two Dates" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-language-difficulty-ranking-for-english-speaker" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/10/language-difficulty-ranking-for-english-speaker/" class="article-date">
@@ -391,7 +446,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/10/language-difficulty-ranking-for-english-speaker/" data-id="ckmzkktp200b3s6jaqoq57qt9" data-title="Language difficulty ranking for English speaker by FSI" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/10/language-difficulty-ranking-for-english-speaker/" data-id="ckn36eqwc00b160ja732d6haz" data-title="Language difficulty ranking for English speaker by FSI" class="article-share-link">Share</a>
       
       
       
@@ -455,7 +510,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/09/leetcode-algorithms-two-sum-ii-input-array-is-sorted/" data-id="ckmzkktre00eks6janw9fo3ep" data-title="LeetCode - Algorithms - 167. Two Sum II - Input array is sorted" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/09/leetcode-algorithms-two-sum-ii-input-array-is-sorted/" data-id="ckn36eqz100eh60ja8scbufpo" data-title="LeetCode - Algorithms - 167. Two Sum II - Input array is sorted" class="article-share-link">Share</a>
       
       
       
@@ -514,7 +569,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/04/this-land-is-your-land-canadian-version/" data-id="ckmzkkttg00i8s6ja0ljk80wl" data-title="This Land is Your Land (Canadian version)" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/04/this-land-is-your-land-canadian-version/" data-id="ckn36er1i00hw60ja8jkzzu5m" data-title="This Land is Your Land (Canadian version)" class="article-share-link">Share</a>
       
       
       
@@ -591,7 +646,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/03/word-of-the-year-2020/" data-id="ckmzkkttv00izs6jao6yx8hfb" data-title="Word of the year 2020 - Pandemic, Lockdown, Covid-19, •••" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/03/word-of-the-year-2020/" data-id="ckn36er2700iu60jar2075x3t" data-title="Word of the year 2020 - Pandemic, Lockdown, Covid-19, •••" class="article-share-link">Share</a>
       
       
       
@@ -665,7 +720,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/01/phd-song-by-hurwitz/" data-id="ckmzkkts400fss6jaeniwbk93" data-title="Ph.D." class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/01/phd-song-by-hurwitz/" data-id="ckn36er0300fu60ja5tnnitib" data-title="Ph.D." class="article-share-link">Share</a>
       
       
       
@@ -739,7 +794,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/11/30/quotes-of-winston-churchill/" data-id="ckmzkktsb00g9s6ja6qoxendi" data-title="Quotes - Winston Churchill" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/11/30/quotes-of-winston-churchill/" data-id="ckn36er0a00g460jaw3ym56ys" data-title="Quotes - Winston Churchill" class="article-share-link">Share</a>
       
       
       
@@ -846,7 +901,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/11/29/painting-as-a-pastime-winston-churchill/" data-id="ckmzkku2e0115s6jaie3c6158" data-title="Painting as a Pastime" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/11/29/painting-as-a-pastime-winston-churchill/" data-id="ckn36erbn011560jai6mhbkfc" data-title="Painting as a Pastime" class="article-share-link">Share</a>
       
       
       
@@ -901,7 +956,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/11/28/leetcode-algorithms-super-palindromes/" data-id="ckmzkktr300e7s6jaivug8jyy" data-title="LeetCode - Algorithms - 906. Super Palindromes" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/11/28/leetcode-algorithms-super-palindromes/" data-id="ckn36eqyo00e760jabpytevvi" data-title="LeetCode - Algorithms - 906. Super Palindromes" class="article-share-link">Share</a>
       
       
       
@@ -968,79 +1023,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/11/27/covid-19-outlooks-a-reverse-poem-britt-mackinnon/" data-id="ckmzkktn7007xs6jaizby6u8w" data-title="COVID-19 Outlooks" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/11/27/covid-19-outlooks-a-reverse-poem-britt-mackinnon/" data-id="ckn36eqtz007n60jaexbqazb1" data-title="COVID-19 Outlooks" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poem/">poem</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-leetcode-algorithms-sum-of-square-numbers" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/11/26/leetcode-algorithms-sum-of-square-numbers/" class="article-date">
-  <time datetime="2020-11-27T03:15:07.000Z" itemprop="datePublished">2020-11-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/11/26/leetcode-algorithms-sum-of-square-numbers/">LeetCode - Algorithms - 633. Sum of Square Numbers</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/sum-of-square-numbers/" target="_blank" rel="noopener">633. Sum of Square Numbers</a></p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">judgeSquareSum</span><span class="params">(<span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (c == <span class="number">0</span> || c == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">int</span> root = mySqrt(c);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = root; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">int</span> re = c - i * i;</span><br><span class="line">            <span class="keyword">if</span> (isPerfectSquare(re)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (x == <span class="number">0</span> || x == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> start = <span class="number">1</span>, end = x, ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (start &lt;= end) &#123;</span><br><span class="line">            <span class="keyword">long</span> mid = (start + end) / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (mid * mid == x)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> Long(mid).intValue();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (mid * mid &lt; x) &#123;</span><br><span class="line">                start = mid + <span class="number">1</span>;</span><br><span class="line">                ans = mid;</span><br><span class="line">            &#125; <span class="keyword">else</span></span><br><span class="line">                end = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Long(ans).intValue();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isPerfectSquare</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> lo = <span class="number">1</span>, hi = num;</span><br><span class="line">        <span class="keyword">while</span> (lo &lt;= hi) &#123;</span><br><span class="line">            <span class="keyword">long</span> mid = (lo + hi) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (mid * mid == num)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">if</span> (mid * mid &gt; num) &#123;</span><br><span class="line">                hi = mid - <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span></span><br><span class="line">                lo = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>124 / 124 test cases passed.</li>
-<li>Runtime: 242 ms, faster than 5.54% of Java online submissions for Sum of Square Numbers.</li>
-<li>Memory Usage: 37.6 MB, less than 14.48% of Java online submissions for Sum of Square Numbers.</li>
-</ul>
-<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">judgeSquareSum</span><span class="params">(<span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (c == <span class="number">0</span> || c == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= c/<span class="number">2</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> re = c - i * i;</span><br><span class="line">            <span class="keyword">if</span> (re &lt; <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span> (isPerfectSquare(re)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isPerfectSquare</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> lo = <span class="number">1</span>, hi = num;</span><br><span class="line">        <span class="keyword">while</span> (lo &lt;= hi) &#123;</span><br><span class="line">            <span class="keyword">long</span> mid = (lo + hi) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (mid * mid == num)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">if</span> (mid * mid &gt; num) &#123;</span><br><span class="line">                hi = mid - <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span></span><br><span class="line">                lo = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>124 / 124 test cases passed.</li>
-<li>Runtime: 206 ms, faster than 7.18% of Java online submissions for Sum of Square Numbers.</li>
-<li>Memory Usage: 35.5 MB, less than 93.83% of Java online submissions for Sum of Square Numbers.</li>
-</ul>
-<h2 id="number-theory"><a href="#number-theory" class="headerlink" title="number theory"></a>number theory</h2><p>An integer greater than one can be written as a sum of two squares if and only if its prime decomposition contains no term \( p^k \), where prime \( p \equiv 3{\pmod {4}} \) and k is odd.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">judgeSquareSum</span><span class="params">(<span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (c == <span class="number">0</span> || c == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (c % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">            c = c &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> p = <span class="number">3</span>; p * p &lt;= c; p += <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (c % p == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">while</span> (c % p == <span class="number">0</span>) &#123;</span><br><span class="line">                    k++;</span><br><span class="line">                    c /= p;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (p % <span class="number">4</span> == <span class="number">3</span> &amp;&amp; (k &amp; <span class="number">1</span>) == <span class="number">1</span>)</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> c % <span class="number">4</span> != <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>124 / 124 test cases passed.</li>
-<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Sum of Square Numbers.</li>
-<li>Memory Usage: 35.7 MB, less than 74.91% of Java online submissions for Sum of Square Numbers.</li>
-</ul>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://en.wikipedia.org/wiki/Sum_of_two_squares_theorem" target="_blank" rel="noopener">Sum of two squares theorem</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Trial_division" target="_blank" rel="noopener">Trial division</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Fermat%27s_theorem_on_sums_of_two_squares" target="_blank" rel="noopener">Fermat’s theorem on sums of two squares</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/11/26/leetcode-algorithms-sum-of-square-numbers/" data-id="ckmzkktr900efs6jameqwty30" data-title="LeetCode - Algorithms - 633. Sum of Square Numbers" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li></ul>
 
     </footer>
   </div>
@@ -1101,6 +1088,10 @@
       <ul>
         
           <li>
+            <a href="/2021/04/04/the-fir-tree/">The Fir Tree</a>
+          </li>
+        
+          <li>
             <a href="/2021/04/01/leetcode-algorithms-minimum-depth-of-binary-tree/">LeetCode - Algorithms - 111. Minimum Depth of Binary Tree</a>
           </li>
         
@@ -1114,10 +1105,6 @@
         
           <li>
             <a href="/2021/03/23/exclusive-or/">Exclusive or</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/14/euclid-alone-has-looked-on-beauty-bare-edna-millay/">Euclid alone has looked on Beauty bare</a>
           </li>
         
       </ul>
