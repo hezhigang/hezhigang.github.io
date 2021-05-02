@@ -68,6 +68,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Contains-Duplicate" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/29/LeetCode-Algorithms-Contains-Duplicate/" class="article-date">
+  <time datetime="2018-11-30T02:00:33.000Z" itemprop="datePublished">2018-11-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/29/LeetCode-Algorithms-Contains-Duplicate/">LeetCode - Algorithms - 217. Contains Duplicate</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Tag easy as it is. This problem is like <a href="https://leetcode.com/problems/first-unique-character-in-a-string/description/" target="_blank" rel="noopener">387. First Unique Character in a String</a>.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">containsDuplicate</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">boolean</span> r = <span class="keyword">false</span>;</span><br><span class="line">    	Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> HashMap&lt;Integer,Integer&gt;();</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">    		<span class="keyword">if</span> (map.containsKey(nums[i])) &#123;</span><br><span class="line">    			<span class="keyword">int</span> val = map.get(nums[i]);</span><br><span class="line">    			map.put(nums[i], val+<span class="number">1</span>);</span><br><span class="line">    		&#125;</span><br><span class="line">    		<span class="keyword">else</span> &#123;</span><br><span class="line">    			map.put(nums[i], <span class="number">1</span>);</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	Iterator&lt;Integer&gt; itr = map.values().iterator();</span><br><span class="line">    	<span class="keyword">while</span>(itr.hasNext()) &#123;</span><br><span class="line">    		<span class="keyword">if</span> (itr.next().intValue()&gt;<span class="number">1</span>) &#123;</span><br><span class="line">    			r = <span class="keyword">true</span>;</span><br><span class="line">    			<span class="keyword">break</span>;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>18 / 18 test cases passed.</li>
+<li>Runtime: 13 ms</li>
+<li>Your runtime beats 48.76 % of java submissions.</li>
+</ul>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums</span></span><br><span class="line"><span class="comment"> * @return &#123;boolean&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> containsDuplicate = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> r = <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">var</span> count = &#123;&#125;;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">typeof</span> count[nums[i]]!=<span class="string">"undefined"</span> &amp;&amp; count[nums[i]]!=<span class="literal">null</span>) &#123;</span><br><span class="line">			count[nums[i]]++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			count[nums[i]]=<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> count) &#123;</span><br><span class="line">		<span class="keyword">if</span> (count[i]&gt;<span class="number">1</span>) &#123;</span><br><span class="line">			r = <span class="literal">true</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> r;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>18 / 18 test cases passed.</li>
+<li>Runtime: 92 ms</li>
+<li>Your runtime beats 35.80 % of javascript submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/11/29/LeetCode-Algorithms-Contains-Duplicate/" data-id="cko6hnx0r001db1javnezbnjo" data-title="LeetCode - Algorithms - 217. Contains Duplicate" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-AKS-test-for-primes" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/11/10/AKS-test-for-primes/" class="article-date">
@@ -108,7 +162,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/10/AKS-test-for-primes/" data-id="cko63w4aw0001u0jaydati2c7" data-title="AKS test for primes" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/10/AKS-test-for-primes/" data-id="cko6hnwzb0003b1jaqy9e699w" data-title="AKS test for primes" class="article-share-link">Share</a>
       
       
       
@@ -221,7 +275,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/07/Web-Engineering/" data-id="cko63w4hn006gu0japq8cg3ks" data-title="Web Engineering" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/07/Web-Engineering/" data-id="cko6hnx51006mb1jaeimij0j1" data-title="Web Engineering" class="article-share-link">Share</a>
       
       
       
@@ -303,7 +357,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/05/Spring-Portfolio/" data-id="cko63w4w300xfu0jaoivtshh0" data-title="Spring Portfolio" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/05/Spring-Portfolio/" data-id="cko6hnxkm00xab1jaud755ltb" data-title="Spring Portfolio" class="article-share-link">Share</a>
       
       
       
@@ -362,7 +416,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/03/LeetCode-Algorithms-Validate-Binary-Search-Tree/" data-id="cko63w4g3004du0jajih57pug" data-title="LeetCode - Algorithms - 98. Validate Binary Search Tree" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/03/LeetCode-Algorithms-Validate-Binary-Search-Tree/" data-id="cko6hnx3c004hb1jaspiqskg6" data-title="LeetCode - Algorithms - 98. Validate Binary Search Tree" class="article-share-link">Share</a>
       
       
       
@@ -410,7 +464,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/02/LeetCode-Algorithms-Binary-Tree-Postorder-Traversal/" data-id="cko63w4cm0011u0jaovwnq7o6" data-title="LeetCode - Algorithms - 145. Binary Tree Postorder Traversal" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/02/LeetCode-Algorithms-Binary-Tree-Postorder-Traversal/" data-id="cko6hnx0i0017b1jamloprg8b" data-title="LeetCode - Algorithms - 145. Binary Tree Postorder Traversal" class="article-share-link">Share</a>
       
       
       
@@ -458,7 +512,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/02/LeetCode-Algorithms-Binary-Tree-Preorder-Traversal/" data-id="cko63w4cr0016u0jaaqb53yhg" data-title="LeetCode - Algorithms - 144. Binary Tree Preorder Traversal" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/02/LeetCode-Algorithms-Binary-Tree-Preorder-Traversal/" data-id="cko6hnx0k0019b1jarqugndbp" data-title="LeetCode - Algorithms - 144. Binary Tree Preorder Traversal" class="article-share-link">Share</a>
       
       
       
@@ -506,7 +560,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/11/01/LeetCode-Algorithms-Binary-Tree-Level-Order-Traversal/" data-id="cko63w4cj000zu0ja35s2c7em" data-title="LeetCode - Algorithms - 102. Binary Tree Level Order Traversal" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/11/01/LeetCode-Algorithms-Binary-Tree-Level-Order-Traversal/" data-id="cko6hnx0g0016b1jamty847qb" data-title="LeetCode - Algorithms - 102. Binary Tree Level Order Traversal" class="article-share-link">Share</a>
       
       
       
@@ -563,7 +617,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/" data-id="cko63w4cg000wu0jaa3rza3ug" data-title="LeetCode - Algorithms - 94. Binary Tree Inorder Traversal" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/" data-id="cko6hnx0a000xb1jarwiyiwha" data-title="LeetCode - Algorithms - 94. Binary Tree Inorder Traversal" class="article-share-link">Share</a>
       
       
       
@@ -615,64 +669,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/" data-id="cko63w4di001qu0jasfdheaas" data-title="LeetCode - Algorithms - 29. Divide Two Integers" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Min-Stack" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/30/LeetCode-Algorithms-Min-Stack/" class="article-date">
-  <time datetime="2018-10-30T14:42:08.000Z" itemprop="datePublished">2018-10-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/30/LeetCode-Algorithms-Min-Stack/">LeetCode - Algorithms - 155. Min Stack</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>The solution of two stack is clear for me.</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinStack</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Stack&lt;Integer&gt; stack;</span><br><span class="line">	<span class="keyword">private</span> Stack&lt;Integer&gt; minStack;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** initialize your data structure here. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MinStack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    	stack = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    	minStack = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    	stack.push(x);</span><br><span class="line">    	<span class="keyword">if</span> (minStack.isEmpty() || minStack.peek()&gt;=x)</span><br><span class="line">    		minStack.push(x);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = stack.pop();</span><br><span class="line">        <span class="keyword">if</span> (x==minStack.peek())</span><br><span class="line">        	minStack.pop();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">top</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> stack.peek();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> minStack.peek();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your MinStack object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * MinStack obj = new MinStack();</span></span><br><span class="line"><span class="comment"> * obj.push(x);</span></span><br><span class="line"><span class="comment"> * obj.pop();</span></span><br><span class="line"><span class="comment"> * int param_3 = obj.top();</span></span><br><span class="line"><span class="comment"> * int param_4 = obj.getMin();</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>18 / 18 test cases passed.</li>
-<li>Runtime: 64 ms</li>
-<li>Your runtime beats 96.51 % of java submissions.</li>
-</ul>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * initialize your data structure here.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> MinStack = <span class="function"><span class="keyword">function</span>(<span class="params">stk,minStk</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.stk = [];</span><br><span class="line">	<span class="keyword">this</span>.minStk = [];    </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; x</span></span><br><span class="line"><span class="comment"> * @return &#123;void&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">MinStack.prototype.push = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.stk.push(x);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.minStk.length==<span class="number">0</span> || <span class="keyword">this</span>.minStk[<span class="keyword">this</span>.minStk.length<span class="number">-1</span>]&gt;=x)</span><br><span class="line">    	<span class="keyword">this</span>.minStk.push(x);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @return &#123;void&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">MinStack.prototype.pop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> x = <span class="keyword">this</span>.stk.pop();</span><br><span class="line">    <span class="keyword">if</span> (x==<span class="keyword">this</span>.minStk[<span class="keyword">this</span>.minStk.length<span class="number">-1</span>])</span><br><span class="line">    	<span class="keyword">this</span>.minStk.pop();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">MinStack.prototype.top = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.stk[<span class="keyword">this</span>.stk.length<span class="number">-1</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">MinStack.prototype.getMin = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.minStk[<span class="keyword">this</span>.minStk.length<span class="number">-1</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your MinStack object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * var obj = Object.create(MinStack).createNew()</span></span><br><span class="line"><span class="comment"> * obj.push(x)</span></span><br><span class="line"><span class="comment"> * obj.pop()</span></span><br><span class="line"><span class="comment"> * var param_3 = obj.top()</span></span><br><span class="line"><span class="comment"> * var param_4 = obj.getMin()</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>18 / 18 test cases passed.</li>
-<li>Runtime: 68 ms</li>
-<li>Your runtime beats 100.00 % of javascript submissions.</li>
-</ul>
-<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
-<li><a href="http://www.cnblogs.com/grandyang/p/4091064.html" target="_blank" rel="noopener">Min Stack 最小栈</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/10/30/LeetCode-Algorithms-Min-Stack/" data-id="cko63w4ej002iu0ja93cqexug" data-title="LeetCode - Algorithms - 155. Min Stack" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/" data-id="cko6hnx1h002ab1jaf8veui6c" data-title="LeetCode - Algorithms - 29. Divide Two Integers" class="article-share-link">Share</a>
       
       
       
@@ -737,6 +734,10 @@
       <ul>
         
           <li>
+            <a href="/2021/05/01/leetcode-algorithms-increasing-triplet-subsequence/">LeetCode - Algorithms - 334. Increasing Triplet Subsequence</a>
+          </li>
+        
+          <li>
             <a href="/2021/05/01/sonnet-3-william-shakespeare/">Sonnet 3</a>
           </li>
         
@@ -750,10 +751,6 @@
         
           <li>
             <a href="/2021/04/27/path-finding/">Path Finding</a>
-          </li>
-        
-          <li>
-            <a href="/2021/04/16/leetcode-algorithms-length-of-last-word/">LeetCode - Algorithms - 58. Length of Last Word</a>
           </li>
         
       </ul>
