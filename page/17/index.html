@@ -68,6 +68,126 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-sort-an-array" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/23/LeetCode-Algorithms-sort-an-array/" class="article-date">
+  <time datetime="2020-04-23T05:34:30.000Z" itemprop="datePublished">2020-04-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/23/LeetCode-Algorithms-sort-an-array/">LeetCode - Algorithms - 912. Sort an Array</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><blockquote>
+<p>Given an array of integers nums, sort the array in ascending order.</p>
+</blockquote>
+<p><a href="https://leetcode.com/problems/sort-an-array/" target="_blank" rel="noopener">912. Sort an Array</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Insertion-sort"><a href="#Insertion-sort" class="headerlink" title="Insertion sort"></a>Insertion sort</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArray(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="keyword">int</span> temp;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &gt; <span class="number">0</span>; j--) &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[j] &lt; nums[j - <span class="number">1</span>]) &#123;</span><br><span class="line">                    temp = nums[j];</span><br><span class="line">                    nums[j] = nums[j-<span class="number">1</span>];</span><br><span class="line">                    nums[j-<span class="number">1</span>] = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>10 / 10 test cases passed.</li>
+<li>Runtime: 1323 ms, faster than 5.01% of Java online submissions for Sort an Array.</li>
+<li>Memory Usage: 47.2 MB, less than 6.12% of Java online submissions for Sort an Array.</li>
+</ul>
+<h2 id="Mergesort"><a href="#Mergesort" class="headerlink" title="Mergesort"></a>Mergesort</h2><h3 id="bottom-up-mergesort"><a href="#bottom-up-mergesort" class="headerlink" title="bottom-up mergesort"></a>bottom-up mergesort</h3><p>This method requires even less code than the standard recursive implementation.</p>
+<p>© Robert Sedgewick and Kevin Wayne</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span>[] aux, <span class="keyword">int</span> lo, <span class="keyword">int</span> mid, <span class="keyword">int</span> hi)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// copy to aux[]</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = lo; k &lt;= hi; k++) &#123;</span><br><span class="line">            aux[k] = a[k];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// merge back to a[]</span></span><br><span class="line">        <span class="keyword">int</span> i = lo, j = mid + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = lo; k &lt;= hi; k++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &gt; mid) a[k] = aux[j++];</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (j &gt; hi) a[k] = aux[i++];</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (aux[j] &lt; aux[i]) a[k] = aux[j++];</span><br><span class="line">            <span class="keyword">else</span> a[k] = aux[i++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArray(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = nums.length;</span><br><span class="line">        <span class="keyword">int</span>[] aux = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> len = <span class="number">1</span>; len &lt; N; len *= <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> lo = <span class="number">0</span>; lo &lt; N - len; lo += len + len) &#123;</span><br><span class="line">                <span class="keyword">int</span> mid = lo + len - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">int</span> hi = Math.min(lo + len + len - <span class="number">1</span>, N - <span class="number">1</span>);</span><br><span class="line">                merge(nums, aux, lo, mid, hi);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>11 / 11 test cases passed.</li>
+<li>Runtime: 7 ms, faster than 34.85% of Java online submissions for Sort an Array.</li>
+<li>Memory Usage: 46.7 MB, less than 12.67% of Java online submissions for Sort an Array.</li>
+</ul>
+<h3 id="Top-down-mergesort"><a href="#Top-down-mergesort" class="headerlink" title="Top-down mergesort"></a>Top-down mergesort</h3><p>recursive method</p>
+<p>© Robert Sedgewick and Kevin Wayne</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span>[] aux, <span class="keyword">int</span> lo, <span class="keyword">int</span> mid, <span class="keyword">int</span> hi)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// copy to aux[]</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = lo; k &lt;= hi; k++) &#123;</span><br><span class="line">            aux[k] = a[k];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// merge back to a[]</span></span><br><span class="line">        <span class="keyword">int</span> i = lo, j = mid + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = lo; k &lt;= hi; k++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &gt; mid) a[k] = aux[j++];</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (j &gt; hi) a[k] = aux[i++];</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (aux[j] &lt; aux[i]) a[k] = aux[j++];</span><br><span class="line">            <span class="keyword">else</span> a[k] = aux[i++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span>[] aux, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (hi &lt;= lo) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">int</span> mid = lo + (hi - lo) / <span class="number">2</span>;</span><br><span class="line">        sort(a, aux, lo, mid);</span><br><span class="line">        sort(a, aux, mid + <span class="number">1</span>, hi);</span><br><span class="line">        merge(a, aux, lo, mid, hi);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArray(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = nums.length;</span><br><span class="line">        <span class="keyword">int</span>[] aux = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">        sort(nums, aux, <span class="number">0</span>, N - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>11 / 11 test cases passed.</li>
+<li>Runtime: 6 ms, faster than 57.85% of Java online submissions for Sort an Array.</li>
+<li>Memory Usage: 46.3 MB, less than 14.62% of Java online submissions for Sort an Array.</li>
+</ul>
+<h2 id="Shellsort"><a href="#Shellsort" class="headerlink" title="Shellsort"></a>Shellsort</h2><p>© Robert Sedgewick and Kevin Wayne</p>
+<blockquote>
+<p>Example of simple idea leading to substantial performance gains.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArray(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = nums.length;</span><br><span class="line">        <span class="keyword">int</span> h = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (; h &lt; N / <span class="number">3</span>; h = <span class="number">3</span> * h + <span class="number">1</span>) ;</span><br><span class="line">        <span class="keyword">int</span> temp;</span><br><span class="line">        <span class="keyword">for</span> (; h &gt;= <span class="number">1</span>; h /= <span class="number">3</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = h; i &lt; N; i++) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &gt;= h; j -= h) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (nums[j] &lt; nums[j - h]) &#123;</span><br><span class="line">                        temp = nums[j];</span><br><span class="line">                        nums[j] = nums[j - h];</span><br><span class="line">                        nums[j - h] = temp;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-3"><a href="#Submission-Detail-3" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>11 / 11 test cases passed.</li>
+<li>Runtime: 1865 ms, faster than 5.04% of Java online submissions for Sort an Array.</li>
+<li>Memory Usage: 46.2 MB, less than 18.92% of Java online submissions for Sort an Array.</li>
+</ul>
+<h2 id="Quicksort"><a href="#Quicksort" class="headerlink" title="Quicksort"></a>Quicksort</h2><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>© John Bentley, <em>Programming Pearls</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArray(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        qsort(<span class="number">0</span>,nums.length-<span class="number">1</span>, nums);</span><br><span class="line">        <span class="keyword">return</span> nums;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Quicksort</span></span><br><span class="line"><span class="comment">     * Programming Pearls</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@author</span> John Bentley</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> l</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> u</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> inArr</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">qsort</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> u, <span class="keyword">int</span>[] inArr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (l&gt;=u) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">int</span> m=l;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=l+<span class="number">1</span>;i&lt;=u; i++)</span><br><span class="line">            <span class="keyword">if</span> (inArr[i]&lt;inArr[l])</span><br><span class="line">                swap(inArr, ++m, i);</span><br><span class="line">        swap(inArr, l, m);</span><br><span class="line">        qsort(l,m-<span class="number">1</span>,inArr);</span><br><span class="line">        qsort(m+<span class="number">1</span>,u,inArr);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> temp = arr[i];</span><br><span class="line">        arr[i] = arr[j];</span><br><span class="line">        arr[j] = temp;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Submission-Detail-4"><a href="#Submission-Detail-4" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>10 / 10 test cases passed.</li>
+<li>Runtime: 4 ms, faster than 91.33% of Java online submissions for Sort an Array.</li>
+<li>Memory Usage: 46.8 MB, less than 6.12% of Java online submissions for Sort an Array.</li>
+</ul>
+<h3 id="quicksort-with-3-way-partitioning"><a href="#quicksort-with-3-way-partitioning" class="headerlink" title="quicksort with 3-way partitioning"></a>quicksort with 3-way partitioning</h3><p>© Robert Sedgewick and Kevin Wayne</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">exch</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> swap = a[i];</span><br><span class="line">        a[i] = a[j];</span><br><span class="line">        a[j] = swap;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (hi &lt;= lo) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">int</span> lt = lo, gt = hi;</span><br><span class="line">        <span class="keyword">int</span> v = a[lo];</span><br><span class="line">        <span class="keyword">int</span> i = lo + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt;= gt) &#123;</span><br><span class="line">            <span class="keyword">if</span> (a[i] &lt; v) exch(a, lt++, i++);</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (a[i] &gt; v) exch(a, i, gt--);</span><br><span class="line">            <span class="keyword">else</span> i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// a[lo..lt-1] &lt; v = a[lt..gt] &lt; a[gt+1..hi].</span></span><br><span class="line">        sort(a, lo, lt - <span class="number">1</span>);</span><br><span class="line">        sort(a, gt + <span class="number">1</span>, hi);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArray(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = nums.length;</span><br><span class="line">        sort(nums, <span class="number">0</span>, N - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Submission-Detail-5"><a href="#Submission-Detail-5" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>11 / 11 test cases passed.</li>
+<li>Runtime: 4 ms, faster than 89.87% of Java online submissions for Sort an Array.</li>
+<li>Memory Usage: 46.9 MB, less than 12.99% of Java online submissions for Sort an Array.</li>
+</ul>
+<h2 id="selection-sort"><a href="#selection-sort" class="headerlink" title="selection sort"></a>selection sort</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArray(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = nums.length;</span><br><span class="line">        <span class="keyword">int</span> temp;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> min = i;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; N; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[j] &lt; nums[min])</span><br><span class="line">                    min = j;</span><br><span class="line">            &#125;</span><br><span class="line">            temp = nums[min];</span><br><span class="line">            nums[min] = nums[i];</span><br><span class="line">            nums[i] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-6"><a href="#Submission-Detail-6" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>11 / 11 test cases passed.</li>
+<li>Runtime: 1169 ms, faster than 5.10% of Java online submissions for Sort an Array.</li>
+<li>Memory Usage: 46.3 MB, less than 86.77% of Java online submissions for Sort an Array.</li>
+</ul>
+<h2 id="heap-sort"><a href="#heap-sort" class="headerlink" title="heap sort"></a>heap sort</h2><h3 id="iterative"><a href="#iterative" class="headerlink" title="iterative"></a>iterative</h3><p>© Robert Sedgewick and Kevin Wayne</p>
+<p>Heapsort breaks into two phases: <code>heap construction</code>, where we reorganize the original array into a heap, and the <code>sortdown</code>, where we pull the items out of the heap in decreasing order to build the sorted result.</p>
+<p>Q. Why not use a[0] in the heap representation?</p>
+<p>A. Doing so simplifies the arithmetic a bit. It is not difficult to implement the heap methods based on a 0-based heap where the children of a[0] are a[1] and a[2], the children of a[1] are a[3] and a[4], the children of a[2] are a[5] and a[6], and so forth, but most programmers prefer the simpler arithmetic that we use. Also, using a[0] as a sentinel value (in the parent of a[1]) is useful in some heap applications.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">exch</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> swap = a[i];</span><br><span class="line">        a[i] = a[j];</span><br><span class="line">        a[j] = swap;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sink</span><span class="params">(<span class="keyword">int</span>[] pq, <span class="keyword">int</span> k, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="number">2</span> * k &lt;= (n - <span class="number">1</span>)) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = <span class="number">2</span> * k;</span><br><span class="line">            <span class="keyword">if</span> (j &lt; (n - <span class="number">1</span>) &amp;&amp; pq[j] &lt; pq[j + <span class="number">1</span>]) j++;</span><br><span class="line">            <span class="keyword">if</span> (!(pq[k] &lt; pq[j])) <span class="keyword">break</span>;</span><br><span class="line">            exch(pq, k, j);</span><br><span class="line">            k = j;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArray(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = (n - <span class="number">1</span>) / <span class="number">2</span>; k &gt;= <span class="number">0</span>; k--)</span><br><span class="line">            sink(nums, k, n);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = n - <span class="number">1</span>; k &gt; <span class="number">0</span>; k--) &#123;</span><br><span class="line">            exch(nums, <span class="number">0</span>, k);</span><br><span class="line">            sink(nums, <span class="number">0</span>, k);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Submission-Detail-7"><a href="#Submission-Detail-7" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>11 / 11 test cases passed.</li>
+<li>Runtime: 6 ms, faster than 53.50% of Java online submissions for Sort an Array.</li>
+<li>Memory Usage: 46.6 MB, less than 48.27% of Java online submissions for Sort an Array.</li>
+</ul>
+<h3 id="recursion"><a href="#recursion" class="headerlink" title="recursion"></a>recursion</h3><p>© <a href="https://www.geeksforgeeks.org/heap-sort/" target="_blank" rel="noopener">HeapSort</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">exch</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> swap = a[i];</span><br><span class="line">        a[i] = a[j];</span><br><span class="line">        a[j] = swap;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sink</span><span class="params">(<span class="keyword">int</span>[] pq, <span class="keyword">int</span> k, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> largest = k;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">2</span> * k + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">2</span> * k + <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (l &lt; n &amp;&amp; pq[l] &gt; pq[largest])</span><br><span class="line">            largest = l;</span><br><span class="line">        <span class="keyword">if</span> (r &lt; n &amp;&amp; pq[r] &gt; pq[largest])</span><br><span class="line">            largest = r;</span><br><span class="line">        <span class="keyword">if</span> (largest != k) &#123;</span><br><span class="line">            exch(pq, k, largest);</span><br><span class="line">            sink(pq, largest, n);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArray(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = n / <span class="number">2</span> - <span class="number">1</span>; k &gt;= <span class="number">0</span>; k--)</span><br><span class="line">            sink(nums, k, n);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = n - <span class="number">1</span>; k &gt; <span class="number">0</span>; k--) &#123;</span><br><span class="line">            exch(nums, <span class="number">0</span>, k);</span><br><span class="line">            sink(nums, <span class="number">0</span>, k);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Submission-Detail-8"><a href="#Submission-Detail-8" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>11 / 11 test cases passed.</li>
+<li>Runtime: 7 ms, faster than 30.29% of Java online submissions for Sort an Array.</li>
+<li>Memory Usage: 46.7 MB, less than 32.93% of Java online submissions for Sort an Array.</li>
+</ul>
+<h3 id="jdk-PriorityQueue"><a href="#jdk-PriorityQueue" class="headerlink" title="jdk PriorityQueue"></a>jdk PriorityQueue</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.PriorityQueue;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArray(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        Queue&lt;Integer&gt; q = <span class="keyword">new</span> PriorityQueue&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            q.add(num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (q.size() &gt; <span class="number">0</span>)</span><br><span class="line">            nums[i++] = q.poll();</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Submission-Detail-9"><a href="#Submission-Detail-9" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>11 / 11 test cases passed.</li>
+<li>Runtime: 18 ms, faster than 16.69% of Java online submissions for Sort an Array.</li>
+<li>Memory Usage: 47.7 MB, less than 11.36% of Java online submissions for Sort an Array.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/04/23/LeetCode-Algorithms-sort-an-array/" data-id="ckoe9su6z00x9ncja12uu86br" data-title="LeetCode - Algorithms - 912. Sort an Array" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-LeetCode-Algorithms-friend-circles" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/04/21/LeetCode-Algorithms-friend-circles/" class="article-date">
@@ -113,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/21/LeetCode-Algorithms-friend-circles/" data-id="cko92xhvt0054m2javcsvvg1k" data-title="LeetCode - Algorithms - 547. Friend Circles" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/21/LeetCode-Algorithms-friend-circles/" data-id="ckoe9sts40058ncjasfuuxy52" data-title="LeetCode - Algorithms - 547. Friend Circles" class="article-share-link">Share</a>
       
       
       
@@ -167,7 +287,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/18/LeetCode-Algorithms-transpose-matrix/" data-id="cko92xhw3005hm2jabn9mpogp" data-title="LeetCode - Algorithms - 867. Transpose Matrix" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/18/LeetCode-Algorithms-transpose-matrix/" data-id="ckoe9stsj005rncjaugzcoisw" data-title="LeetCode - Algorithms - 867. Transpose Matrix" class="article-share-link">Share</a>
       
       
       
@@ -228,7 +348,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/15/a-response-to-bell-conjecture-charlie-marion-and-william-dunham/" data-id="cko92xhx3006pm2jaje2wi81w" data-title="A Response to &quot;Bell&#39;s Conjecture&quot;" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/15/a-response-to-bell-conjecture-charlie-marion-and-william-dunham/" data-id="ckoe9sttm006qncjalhy500qg" data-title="A Response to &quot;Bell&#39;s Conjecture&quot;" class="article-share-link">Share</a>
       
       
       
@@ -281,7 +401,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/12/tower-of-hanoi/" data-id="cko92xi5b00ilm2jah9tvg990" data-title="Tower of Hanoi" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/12/tower-of-hanoi/" data-id="ckoe9su3000ikncjafkg0vjs3" data-title="Tower of Hanoi" class="article-share-link">Share</a>
       
       
       
@@ -330,7 +450,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/11/why-should-you-listen-to-vivaldi-four-seasons-betsy-schwarm-TED-Ed/" data-id="cko92xi5o00j7m2jafah8leas" data-title="Why should you listen to Vivaldi&#39;s &quot;Four Seasons&quot;? - Betsy Schwarm - TED-Ed" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/11/why-should-you-listen-to-vivaldi-four-seasons-betsy-schwarm-TED-Ed/" data-id="ckoe9su3h00jbncjazodpxp01" data-title="Why should you listen to Vivaldi&#39;s &quot;Four Seasons&quot;? - Betsy Schwarm - TED-Ed" class="article-share-link">Share</a>
       
       
       
@@ -384,7 +504,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/10/the-four-seasons-sonnets-Antonio-Vivaldi/" data-id="cko92xi5200i4m2jahk4cpgst" data-title="The Four Seasons - Sonnet text - Antonio Vivaldi" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/10/the-four-seasons-sonnets-Antonio-Vivaldi/" data-id="ckoe9su2l00i0ncjazjuntjzq" data-title="The Four Seasons - Sonnet text - Antonio Vivaldi" class="article-share-link">Share</a>
       
       
       
@@ -447,7 +567,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/09/math-exercise-1/" data-id="cko92xi3c00fem2jahy3sxo5m" data-title="数学题 - 1" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/09/math-exercise-1/" data-id="ckoe9su0r00fancjaocigknxe" data-title="数学题 - 1" class="article-share-link">Share</a>
       
       
       
@@ -496,7 +616,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/07/LeetCode-Algorithms-bus-routes/" data-id="cko92xhvh004nm2jaz2dy2eva" data-title="LeetCode - Algorithms - 815. Bus Routes" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/07/LeetCode-Algorithms-bus-routes/" data-id="ckoe9strr004qncjanhhfvv7j" data-title="LeetCode - Algorithms - 815. Bus Routes" class="article-share-link">Share</a>
       
       
       
@@ -544,59 +664,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/05/five-tips-to-improve-your-critical-thinking-samantha-agoos-TED-Ed/" data-id="cko92xhye008km2jagmsgekk4" data-title="5 tips to improve your critical thinking - Samantha Agoos - TED-Ed" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/04/05/five-tips-to-improve-your-critical-thinking-samantha-agoos-TED-Ed/" data-id="ckoe9stv5008qncjazmgw1cc2" data-title="5 tips to improve your critical thinking - Samantha Agoos - TED-Ed" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TED/">TED</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TED-Ed/">TED-Ed</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-golang-cheat-sheet" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/04/03/golang-cheat-sheet/" class="article-date">
-  <time datetime="2020-04-03T11:22:11.000Z" itemprop="datePublished">2020-04-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/03/golang-cheat-sheet/">Go Cheat Sheet</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="cmd"><a href="#cmd" class="headerlink" title="cmd"></a>cmd</h1><h2 id="go-version"><a href="#go-version" class="headerlink" title="go version"></a>go version</h2><h2 id="go-env"><a href="#go-env" class="headerlink" title="go env"></a>go env</h2><h1 id="gopath"><a href="#gopath" class="headerlink" title="gopath"></a>gopath</h1><p> The Go path is used to resolve import statements.</p>
-<p> GOPATH is a list of directories (like PATH). Run <code>go help gopath</code> for details. </p>
-<p> The GOPATH environment variable lists places to look for Go code.</p>
-<ul>
-<li>On Unix, the value is a colon-separated string.</li>
-<li>On Windows, the value is a semicolon-separated string.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/04/03/golang-cheat-sheet/" data-id="cko92xhyr0097m2jar8sanb05" data-title="Go Cheat Sheet" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/golang/">golang</a></li></ul>
 
     </footer>
   </div>
@@ -657,6 +729,10 @@
       <ul>
         
           <li>
+            <a href="/2021/05/07/what-is-so-sexy-about-math-cedric-villani-ted2016/">What&#39;s so sexy about math? - Cédric Villani - TED2016</a>
+          </li>
+        
+          <li>
             <a href="/2021/05/03/leetcode-algorithms-complex-number-multiplication/">LeetCode - Algorithms - 537. Complex Number Multiplication</a>
           </li>
         
@@ -670,10 +746,6 @@
         
           <li>
             <a href="/2021/04/30/spelling-rules/">Spelling Rules</a>
-          </li>
-        
-          <li>
-            <a href="/2021/04/28/english-smart-grade-2-note/">English Smart - Grade 2 - Note</a>
           </li>
         
       </ul>
