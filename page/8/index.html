@@ -68,6 +68,65 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-algorithms-intersection-of-two-linked-lists" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/24/leetcode-algorithms-intersection-of-two-linked-lists/" class="article-date">
+  <time datetime="2020-10-25T01:33:18.000Z" itemprop="datePublished">2020-10-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/24/leetcode-algorithms-intersection-of-two-linked-lists/">LeetCode - Algorithms - 160. Intersection of Two Linked Lists</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/intersection-of-two-linked-lists/" target="_blank" rel="noopener">160. Intersection of Two Linked Lists</a></p>
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><ul>
+<li>If the two linked lists have no intersection at all, return null.</li>
+<li>The linked lists must retain their original structure after the function returns.</li>
+<li>Your code should preferably run in O(n) time and use only O(1) memory.</li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="my-solution-of-O-n-time-and-O-1-memory"><a href="#my-solution-of-O-n-time-and-O-1-memory" class="headerlink" title="my solution of O(n) time and O(1) memory"></a>my solution of O(n) time and O(1) memory</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123;</span></span><br><span class="line"><span class="comment"> *         val = x;</span></span><br><span class="line"><span class="comment"> *         next = null;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (headA == <span class="keyword">null</span> || headB == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        ListNode nodeA = headA;</span><br><span class="line">        <span class="keyword">int</span> lenA = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (nodeA != <span class="keyword">null</span>) &#123;</span><br><span class="line">            lenA++;</span><br><span class="line">            nodeA = nodeA.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> lenB = <span class="number">0</span>;</span><br><span class="line">        ListNode nodeB = headB;</span><br><span class="line">        <span class="keyword">while</span> (nodeB != <span class="keyword">null</span>) &#123;</span><br><span class="line">            lenB++;</span><br><span class="line">            nodeB = nodeB.next;</span><br><span class="line">        &#125;</span><br><span class="line">        nodeA = headA;</span><br><span class="line">        nodeB = headB;</span><br><span class="line">        <span class="keyword">if</span> (lenA &lt; lenB) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lenB - lenA; i++) &#123;</span><br><span class="line">                nodeB = nodeB.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (lenA &gt; lenB) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lenA - lenB; i++) &#123;</span><br><span class="line">                nodeA = nodeA.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode node = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (nodeA == nodeB)</span><br><span class="line">            node = nodeA;</span><br><span class="line">        <span class="keyword">while</span> (nodeA != nodeB) &#123;</span><br><span class="line">            nodeA = nodeA.next;</span><br><span class="line">            nodeB = nodeB.next;</span><br><span class="line">            node = nodeA;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>46 / 46 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 98.53% of Java online submissions for Intersection of Two Linked Lists.</li>
+<li>Memory Usage: 41.7 MB, less than 10.90% of Java online submissions for Intersection of Two Linked Lists.</li>
+</ul>
+<h2 id="stack"><a href="#stack" class="headerlink" title="stack"></a>stack</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Deque;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123;</span></span><br><span class="line"><span class="comment"> *         val = x;</span></span><br><span class="line"><span class="comment"> *         next = null;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (headA == <span class="keyword">null</span> || headB == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        Deque&lt;ListNode&gt; stkA = <span class="keyword">new</span> LinkedList&lt;ListNode&gt;();</span><br><span class="line">        ListNode node = headA;</span><br><span class="line">        <span class="keyword">while</span> (node != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stkA.push(node);</span><br><span class="line">            node = node.next;</span><br><span class="line">        &#125;</span><br><span class="line">        Deque&lt;ListNode&gt; stkB = <span class="keyword">new</span> LinkedList&lt;ListNode&gt;();</span><br><span class="line">        node = headB;</span><br><span class="line">        <span class="keyword">while</span> (node != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stkB.push(node);</span><br><span class="line">            node = node.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (!stkA.isEmpty() &amp;&amp; !stkB.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (stkA.peek() == stkB.peek()) &#123;</span><br><span class="line">                node = stkA.pop();</span><br><span class="line">                stkB.pop();</span><br><span class="line">            &#125; <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>46 / 46 test cases passed.</li>
+<li>Runtime: 2 ms, faster than 38.55% of Java online submissions for Intersection of Two Linked Lists.</li>
+<li>Memory Usage: 42.6 MB, less than 11.53% of Java online submissions for Intersection of Two Linked Lists.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/24/leetcode-algorithms-intersection-of-two-linked-lists/" data-id="ckok69chm00bp94jauafoean0" data-title="LeetCode - Algorithms - 160. Intersection of Two Linked Lists" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/">Linked List</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-let-us-now-praise-prime-numbers-helen-spalding" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/10/23/let-us-now-praise-prime-numbers-helen-spalding/" class="article-date">
@@ -105,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/23/let-us-now-praise-prime-numbers-helen-spalding/" data-id="ckoe9su0x00fhncjag4z671v8" data-title="Let Us Now Praise Prime Numbers" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/23/let-us-now-praise-prime-numbers-helen-spalding/" data-id="ckok69cko00fd94jauwjj0rnz" data-title="Let Us Now Praise Prime Numbers" class="article-share-link">Share</a>
       
       
       
@@ -157,7 +216,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/22/leetcode-algorithms-remove-duplicates-from-sorted-list/" data-id="ckoe9stz700dpncjayt4v9vi3" data-title="LeetCode - Algorithms - 83. Remove Duplicates from Sorted List" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/22/leetcode-algorithms-remove-duplicates-from-sorted-list/" data-id="ckok69cj400df94jabiou7w2p" data-title="LeetCode - Algorithms - 83. Remove Duplicates from Sorted List" class="article-share-link">Share</a>
       
       
       
@@ -217,7 +276,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/21/leetcode-algorithms-middle-of-the-linked-list/" data-id="ckoe9styh00ctncjablf8we4w" data-title="LeetCode - Algorithms - 876. Middle of the Linked List" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/21/leetcode-algorithms-middle-of-the-linked-list/" data-id="ckok69cik00cq94ja0tiiz5v8" data-title="LeetCode - Algorithms - 876. Middle of the Linked List" class="article-share-link">Share</a>
       
       
       
@@ -265,7 +324,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/21/leetcode-algorithms-remove-linked-list-elements/" data-id="ckoe9stz900dsncjat32dyowu" data-title="LeetCode - Algorithms - 203. Remove Linked List Elements" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/21/leetcode-algorithms-remove-linked-list-elements/" data-id="ckok69cj600dh94jacodxm7e7" data-title="LeetCode - Algorithms - 203. Remove Linked List Elements" class="article-share-link">Share</a>
       
       
       
@@ -415,7 +474,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/21/english-idioms/" data-id="ckoe9stux008encjad20wfrew" data-title="English-language idioms" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/21/english-idioms/" data-id="ckok69cew008694jahqzlc5al" data-title="English-language idioms" class="article-share-link">Share</a>
       
       
       
@@ -485,7 +544,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/20/leetcode-algorithms-third-maximum-number/" data-id="ckoe9su0300enncja90wunk85" data-title="LeetCode - Algorithms - 414. Third Maximum Number" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/20/leetcode-algorithms-third-maximum-number/" data-id="ckok69ck800eo94jaabpr2hdr" data-title="LeetCode - Algorithms - 414. Third Maximum Number" class="article-share-link">Share</a>
       
       
       
@@ -547,7 +606,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/19/the-best-known-quantum-algorithms/" data-id="ckoe9su2m00i2ncjakw1bv7pr" data-title="The best-known quantum algorithms" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/19/the-best-known-quantum-algorithms/" data-id="ckok69cm900hq94ja0oz25a88" data-title="The best-known quantum algorithms" class="article-share-link">Share</a>
       
       
       
@@ -602,7 +661,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/18/leetcode-algorithms-monotonic-array/" data-id="ckoe9stym00d0ncjahcx3mv15" data-title="LeetCode - Algorithms - 896. Monotonic Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/18/leetcode-algorithms-monotonic-array/" data-id="ckok69cir00d094ja4yucfprq" data-title="LeetCode - Algorithms - 896. Monotonic Array" class="article-share-link">Share</a>
       
       
       
@@ -666,60 +725,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/17/leetcode-algorithms-check-if-it-is-a-straight-line/" data-id="ckoe9stxl00bkncjabrtxz4ty" data-title="LeetCode - Algorithms - 1232. Check If It Is a Straight Line" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/10/17/leetcode-algorithms-check-if-it-is-a-straight-line/" data-id="ckok69cha00bc94jaqsi52g19" data-title="LeetCode - Algorithms - 1232. Check If It Is a Straight Line" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/geometry/">geometry</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-leetcode-algorithms-flipping-an-image" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/16/leetcode-algorithms-flipping-an-image/" class="article-date">
-  <time datetime="2020-10-17T03:07:25.000Z" itemprop="datePublished">2020-10-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/16/leetcode-algorithms-flipping-an-image/">LeetCode - Algorithms - 832. Flipping an Image</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/flipping-an-image/" target="_blank" rel="noopener">832. Flipping an Image</a></p>
-<p>similar question : <a href="https://leetcode.com/problems/rotate-image/" target="_blank" rel="noopener">48. Rotate Image</a></p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[][] flipAndInvertImage(<span class="keyword">int</span>[][] A) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = A.length;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> M = A[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span> tmp;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;M/<span class="number">2</span>; j++) &#123;</span><br><span class="line">                tmp = A[i][j];</span><br><span class="line">                A[i][j] = A[i][N-<span class="number">1</span>-j];</span><br><span class="line">                A[i][N-<span class="number">1</span>-j] = tmp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;M; j++) &#123;</span><br><span class="line">                A[i][j] = A[i][j]==<span class="number">0</span>?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> A;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>82 / 82 test cases passed.</li>
-<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Flipping an Image.</li>
-<li>Memory Usage: 39.1 MB, less than 16.27% of Java online submissions for Flipping an Image.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/16/leetcode-algorithms-flipping-an-image/" data-id="ckoe9stxr00brncja07gm4rr2" data-title="LeetCode - Algorithms - 832. Flipping an Image" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
     </footer>
   </div>
@@ -780,6 +790,10 @@
       <ul>
         
           <li>
+            <a href="/2021/05/11/an-atom-in-the-universe-richard-feynman/">A Universe of Atoms, An Atom In The Universe</a>
+          </li>
+        
+          <li>
             <a href="/2021/05/07/what-is-so-sexy-about-math-cedric-villani-ted2016/">What&#39;s so sexy about math? - Cédric Villani - TED2016</a>
           </li>
         
@@ -793,10 +807,6 @@
         
           <li>
             <a href="/2021/05/01/sonnet-3-william-shakespeare/">Sonnet 3</a>
-          </li>
-        
-          <li>
-            <a href="/2021/04/30/spelling-rules/">Spelling Rules</a>
           </li>
         
       </ul>
