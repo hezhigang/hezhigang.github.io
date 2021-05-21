@@ -68,6 +68,53 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-nth-root" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/27/nth-root/" class="article-date">
+  <time datetime="2020-01-27T20:48:27.000Z" itemprop="datePublished">2020-01-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/27/nth-root/">The principal nth root of a positive real number</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="java"><a href="#java" class="headerlink" title="java"></a>java</h1><h2 id="Newton’s-method"><a href="#Newton’s-method" class="headerlink" title="Newton’s method"></a>Newton’s method</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">nthroot</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">double</span> A)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">double</span> r = nthroot(n, A, .<span class="number">001</span>);</span><br><span class="line">  <span class="keyword">return</span> BigDecimal.valueOf(r).setScale(<span class="number">3</span>, RoundingMode.HALF_DOWN).doubleValue();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">nthroot</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">double</span> A, <span class="keyword">double</span> p)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(A &lt; <span class="number">0</span>) &#123;</span><br><span class="line">    System.err.println(<span class="string">"A &lt; 0"</span>);<span class="comment">// we handle only real positive numbers</span></span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span>(A == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">double</span> x_prev = A;</span><br><span class="line">  <span class="keyword">double</span> x = A / n;  <span class="comment">// starting "guessed" value...</span></span><br><span class="line">  <span class="keyword">while</span>(Math.abs(x - x_prev) &gt; p) &#123;</span><br><span class="line">    x_prev = x;</span><br><span class="line">    x = ((n - <span class="number">1.0</span>) * x + A / Math.pow(x, n - <span class="number">1.0</span>)) / n;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Binary-search-strategy"><a href="#Binary-search-strategy" class="headerlink" title="Binary search strategy"></a>Binary search strategy</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">root</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">double</span> lower = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">double</span> upper = x;</span><br><span class="line">  <span class="keyword">double</span> r = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">double</span> temp = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (upper - lower &gt;= <span class="number">0.001</span>) &#123;</span><br><span class="line">    r = (upper + lower) / <span class="number">2</span>;</span><br><span class="line">    temp = Math.pow(r, n);</span><br><span class="line">    <span class="keyword">if</span> (temp &gt; x) &#123;</span><br><span class="line">      upper = r;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      lower = r;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> BigDecimal.valueOf(r).setScale(<span class="number">3</span>, RoundingMode.HALF_DOWN).doubleValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="https://en.wikipedia.org/wiki/Nth_root_algorithm" target="_blank" rel="noopener">nth root algorithm</a></li>
+<li><a href="https://rosettacode.org/wiki/Nth_root" target="_blank" rel="noopener">Nth root</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/01/27/nth-root/" data-id="ckoymz5hv00g2rnjabdb7bdxq" data-title="The principal nth root of a positive real number" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/01/24/do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye/" class="article-date">
@@ -100,7 +147,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/01/24/do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye/" data-id="ckoue369y007y58jab0o23mj9" data-title="Do not stand at my grave and weep" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/01/24/do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye/" data-id="ckoymz5a8007yrnja29sovnjb" data-title="Do not stand at my grave and weep" class="article-share-link">Share</a>
       
       
       
@@ -152,7 +199,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/01/24/no-man-is-an-island-John-Donne/" data-id="ckoue36eu00fy58jacgut36fv" data-title="No man is an island" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/01/24/no-man-is-an-island-John-Donne/" data-id="ckoymz5hw00g5rnjau2yiqtm0" data-title="No man is an island" class="article-share-link">Share</a>
       
       
       
@@ -216,7 +263,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/01/20/postgres-cheatsheet/" data-id="ckoue36f400gg58ja6d75z6ph" data-title="Postgres Cheatsheet" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/01/20/postgres-cheatsheet/" data-id="ckoymz5i500ghrnjad8qhg5r8" data-title="Postgres Cheatsheet" class="article-share-link">Share</a>
       
       
       
@@ -277,7 +324,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/01/18/LeetCode-Algorithms-Pancake-Sorting/" data-id="ckoue3664002w58javcz95xl0" data-title="LeetCode - Algorithms - 969. Pancake Sorting" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/01/18/LeetCode-Algorithms-Pancake-Sorting/" data-id="ckoymz54i0031rnja8e99evhn" data-title="LeetCode - Algorithms - 969. Pancake Sorting" class="article-share-link">Share</a>
       
       
       
@@ -602,7 +649,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/01/14/The-Way-and-its-Power-Lao-Tzu/" data-id="ckoue36m000zk58ja0cu97n0g" data-title="道德經(老子) - The Way and its Power(Lao Tzu)" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/01/14/The-Way-and-its-Power-Lao-Tzu/" data-id="ckoymz5p000xzrnja5ymepwc6" data-title="道德經(老子) - The Way and its Power(Lao Tzu)" class="article-share-link">Share</a>
       
       
       
@@ -662,7 +709,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/01/01/The-Year-Ella-Wheeler-Wilcox/" data-id="ckoue368r006i58jaowc7gtvp" data-title="The Year" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/01/01/The-Year-Ella-Wheeler-Wilcox/" data-id="ckoymz58c006nrnja0r088q33" data-title="The Year" class="article-share-link">Share</a>
       
       
       
@@ -731,7 +778,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/12/31/LeetCode-Algorithms-Number-of-Islands/" data-id="ckoue3663002u58janqewq3hp" data-title="LeetCode - Algorithms - 200. Number of Islands" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/12/31/LeetCode-Algorithms-Number-of-Islands/" data-id="ckoymz547002xrnjai6ttmlxg" data-title="LeetCode - Algorithms - 200. Number of Islands" class="article-share-link">Share</a>
       
       
       
@@ -789,7 +836,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/12/24/the-majesty-of-light-from-pagan-to-christian-lin-yutang/" data-id="ckoue36gf00ik58jatdxzcxan" data-title="Chapter 8 - The Majesty of Light - From Pagan to Christian - Lin Yutang" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/12/24/the-majesty-of-light-from-pagan-to-christian-lin-yutang/" data-id="ckoymz5k000ijrnjambjhh98l" data-title="Chapter 8 - The Majesty of Light - From Pagan to Christian - Lin Yutang" class="article-share-link">Share</a>
       
       
       
@@ -863,67 +910,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/12/17/maxim/" data-id="ckoue36eo00fm58jan5c5h8l2" data-title="Maxim（至理名言）" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/12/17/maxim/" data-id="ckoymz5hm00fqrnjazbu8wixi" data-title="Maxim（至理名言）" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/英语/">英语</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-how-Terence-Tao-learn-javascript-and-gamify-logic" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/11/27/how-Terence-Tao-learn-javascript-and-gamify-logic/" class="article-date">
-  <time datetime="2019-11-27T16:28:20.000Z" itemprop="datePublished">2019-11-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/27/how-Terence-Tao-learn-javascript-and-gamify-logic/">How Terence Tao learn Javascript and gamify logic</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://teorth.github.io/QED/" target="_blank" rel="noopener">QED - an interactive textbook</a></p>
-<hr>
-<p><img src="https://www.math.ucla.edu/~tao/images/image1.jpg" alt="Terence Tao"></p>
-<p><a href="https://terrytao.wordpress.com/" target="_blank" rel="noopener">Terence Tao</a> is a starlike mathematician of our time. he is also a geek mathematician.</p>
-<hr>
-<p>Repository for the QED interactive text and possible extensions<br><a href="https://github.com/teorth/QED" target="_blank" rel="noopener">https://github.com/teorth/QED</a></p>
-<hr>
-<p><a href="https://terrytao.wordpress.com/2018/07/28/gamifying-propositional-logic-qed-an-interactive-textbook/" target="_blank" rel="noopener">Gamifying propositional logic: QED, an interactive textbook</a></p>
-<blockquote>
-<p>It took a while for me to come up with a workable game-like graphical interface for all of this, but I finally managed to set one up, now using Javascript instead of Scratch (which would be hopelessly inadequate for this task); indeed, part of the motivation of this project was to finally learn how to program in Javascript, which turned out to be not as formidable as I had feared (certainly having experience with other C-like languages like C++, Java, or lua, as well as some prior knowledge of HTML, was very helpful).</p>
-</blockquote>
-<p><a href="https://terrytao.wordpress.com/2018/08/18/qed-version-2-0-an-interactive-text-in-first-order-logic/" target="_blank" rel="noopener">QED version 2.0: an interactive text in first-order logic</a></p>
-<blockquote>
-<p>I feel though that there could be more that could be done with this sort of framework (e.g., improved GUI, modification to other logics, developing the ability to write one’s own texts and libraries, exploring mathematical theories such as Peano arithmetic, etc.).  But writing this text (particularly the first-order logic sections) has brought me close to the limit of my programming ability, as the number of bugs introduced with each new feature implemented has begun to grow at an alarming rate.  I would like to repackage the code so that it can be re-used by more adept programmers for further possible applications, though I have never done something like this before and would appreciate advice on how to do so.</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/11/27/how-Terence-Tao-learn-javascript-and-gamify-logic/" data-id="ckoue36bj00a858ja5d5kx7rj" data-title="How Terence Tao learn Javascript and gamify logic" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Javascript/">Javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mathematics/">Mathematics</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Terence-Tao/">Terence Tao</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/logic/">logic</a></li></ul>
 
     </footer>
   </div>
@@ -984,6 +975,10 @@
       <ul>
         
           <li>
+            <a href="/2021/05/21/leetcode-algorithms-base-7/">LeetCode - Algorithms - 504. Base 7</a>
+          </li>
+        
+          <li>
             <a href="/2021/05/18/why-every-student-should-study-computer-science-robert-sedgewick/">Why every student should study computer science</a>
           </li>
         
@@ -997,10 +992,6 @@
         
           <li>
             <a href="/2021/05/11/an-atom-in-the-universe-richard-feynman/">A Universe of Atoms, An Atom In The Universe</a>
-          </li>
-        
-          <li>
-            <a href="/2021/05/07/what-is-so-sexy-about-math-cedric-villani-ted2016/">What&#39;s so sexy about math? - Cédric Villani - TED2016</a>
           </li>
         
       </ul>
