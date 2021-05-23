@@ -68,6 +68,123 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Course-Schedule" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/21/LeetCode-Algorithms-Course-Schedule/" class="article-date">
+  <time datetime="2019-11-22T02:52:37.000Z" itemprop="datePublished">2019-11-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/21/LeetCode-Algorithms-Course-Schedule/">LeetCode - Algorithms - 207. Course Schedule</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>my exercises is to find solutions which can help me to understand these puzzle algorithms.</p>
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/course-schedule/" target="_blank" rel="noopener">207. Course Schedule</a></p>
+<p>scheduling problem with precedence constraints.</p>
+<h2 id="key"><a href="#key" class="headerlink" title="key"></a>key</h2><ul>
+<li>DAG: a digraph with no directed cycles.</li>
+<li>A digraph has a topological order if and only if it is a DAG.</li>
+<li>Is a given digraph a DAG ?</li>
+<li>Depth-first search</li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canFinish</span><span class="params">(<span class="keyword">int</span> numCourses, <span class="keyword">int</span>[][] prerequisites)</span> </span>&#123;</span><br><span class="line">    	List&lt;Edge&gt; edges = <span class="keyword">new</span> ArrayList&lt;Edge&gt;();</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;prerequisites.length; i++) &#123;</span><br><span class="line">    		edges.add(<span class="keyword">new</span> Edge(prerequisites[i][<span class="number">0</span>],prerequisites[i][<span class="number">1</span>]));</span><br><span class="line">    	&#125;</span><br><span class="line">    	Graph graph = <span class="keyword">new</span> Graph(edges, numCourses);</span><br><span class="line">        <span class="keyword">return</span> isDAG(graph, numCourses);        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isDAG</span><span class="params">(Graph graph, <span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">  		<span class="keyword">boolean</span>[] discovered = <span class="keyword">new</span> <span class="keyword">boolean</span>[N];</span><br><span class="line"></span><br><span class="line">  		<span class="keyword">int</span>[] departure = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line"></span><br><span class="line">  		<span class="keyword">int</span> time = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">  			<span class="keyword">if</span> (discovered[i] == <span class="keyword">false</span>)</span><br><span class="line">  				time = DFS(graph, i, discovered, departure, time);</span><br><span class="line"></span><br><span class="line">  		<span class="keyword">for</span> (<span class="keyword">int</span> u = <span class="number">0</span>; u &lt; N; u++) &#123;</span><br><span class="line">  			<span class="keyword">for</span> (<span class="keyword">int</span> v : graph.adjList.get(u)) &#123;</span><br><span class="line">  				<span class="keyword">if</span> (departure[u] &lt;= departure[v])</span><br><span class="line">  					<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">  			&#125;</span><br><span class="line">  		&#125;</span><br><span class="line">  		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">DFS</span><span class="params">(Graph graph, <span class="keyword">int</span> v, <span class="keyword">boolean</span>[] discovered, <span class="keyword">int</span>[] departure, <span class="keyword">int</span> time)</span> </span>&#123;</span><br><span class="line">		discovered[v] = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> u : graph.adjList.get(v)) &#123;</span><br><span class="line">			<span class="keyword">if</span> (!discovered[u])</span><br><span class="line">				time = DFS(graph, u, discovered, departure, time);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		departure[v] = time++;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> time;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Edge</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> source, dest;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Edge</span><span class="params">(<span class="keyword">int</span> source, <span class="keyword">int</span> dest)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.source = source;</span><br><span class="line">		<span class="keyword">this</span>.dest = dest;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Graph</span> </span>&#123;</span><br><span class="line">	List&lt;List&lt;Integer&gt;&gt; adjList = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">	Graph(List&lt;Edge&gt; edges, <span class="keyword">int</span> N) &#123;</span><br><span class="line">		adjList = <span class="keyword">new</span> ArrayList&lt;&gt;(N);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">			adjList.add(i, <span class="keyword">new</span> ArrayList&lt;&gt;());</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (Edge edge : edges) &#123;</span><br><span class="line">			adjList.get(edge.source).add(edge.dest);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>42 / 42 test cases passed.</li>
+<li>Runtime: 5 ms, faster than 69.31% of Java online submissions for Course Schedule.</li>
+<li>Memory Usage: 44.6 MB, less than 94.62% of Java online submissions for Course Schedule.</li>
+</ul>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="https://www.techiedelight.com/check-given-digraph-dag-directed-acyclic-graph-not/" target="_blank" rel="noopener">Check if given digraph is a DAG or not</a></li>
+<li><a href="https://www.khanacademy.org/computing/computer-science/algorithms/graph-representation/a/representing-graphs" target="_blank" rel="noopener">Representing graphs</a></li>
+<li><a href="https://algs4.cs.princeton.edu/42digraph/" target="_blank" rel="noopener">4.2 Directed Graphs</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/11/21/LeetCode-Algorithms-Course-Schedule/" data-id="ckp17ceg0001o3nja777buu1c" data-title="LeetCode - Algorithms - 207. Course Schedule" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BFS/">BFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DFS/">DFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Topological-Sort/">Topological Sort</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/graph/">graph</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Combinations" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/20/LeetCode-Algorithms-Combinations/" class="article-date">
+  <time datetime="2019-11-20T21:14:08.000Z" itemprop="datePublished">2019-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/20/LeetCode-Algorithms-Combinations/">LeetCode - Algorithms - 77. Combinations</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>just run code of others.</p>
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/combinations/" target="_blank" rel="noopener">77. Combinations</a></p>
+<blockquote>
+<p>Given two integers n and k, return all possible combinations of k numbers out of 1 … n.</p>
+</blockquote>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Iterative-Algorithm"><a href="#Iterative-Algorithm" class="headerlink" title="Iterative Algorithm"></a>Iterative Algorithm</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; combine(<span class="keyword">int</span> n, <span class="keyword">int</span> k) &#123;</span><br><span class="line">		List&lt;List&lt;Integer&gt;&gt; combinations = <span class="keyword">new</span> ArrayList&lt;List&lt;Integer&gt;&gt;();</span><br><span class="line"></span><br><span class="line">		<span class="keyword">int</span>[] combination = <span class="keyword">new</span> <span class="keyword">int</span>[k];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++) &#123;</span><br><span class="line">			combination[i] = i;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">while</span> (combination[k - <span class="number">1</span>] &lt; n) &#123;</span><br><span class="line">			List&lt;Integer&gt; comblist = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;combination.length; i++) &#123;</span><br><span class="line">				comblist.add(combination[i]+<span class="number">1</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			combinations.add(comblist);</span><br><span class="line">			<span class="keyword">int</span> t = k - <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">while</span> (t != <span class="number">0</span> &amp;&amp; combination[t] == n - k + t) &#123;</span><br><span class="line">				t--;</span><br><span class="line">			&#125;</span><br><span class="line">			combination[t]++;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = t + <span class="number">1</span>; i &lt; k; i++) &#123;</span><br><span class="line">				combination[i] = combination[i - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> combinations;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>27 / 27 test cases passed.</li>
+<li>Runtime: 3 ms, faster than 88.15% of Java online submissions for Combinations.</li>
+<li>Memory Usage: 39.7 MB, less than 80.43% of Java online submissions for Combinations.</li>
+</ul>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="https://www.baeldung.com/java-combinations-algorithm" target="_blank" rel="noopener">Generate Combinations in Java</a></li>
+<li><a href="https://rosettacode.org/wiki/Combinations" target="_blank" rel="noopener">Combinations</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/11/20/LeetCode-Algorithms-Combinations/" data-id="ckp17cefr001l3njabkkpm0q3" data-title="LeetCode - Algorithms - 77. Combinations" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backtracking/">backtracking</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Permutations" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/11/19/LeetCode-Algorithms-Permutations/" class="article-date">
@@ -115,7 +232,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/11/19/LeetCode-Algorithms-Permutations/" data-id="ckp0f9voz003f0hja8a0r3qyp" data-title="LeetCode - Algorithms - 46. Permutations" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/11/19/LeetCode-Algorithms-Permutations/" data-id="ckp17cehf00393nja5kpx8ba6" data-title="LeetCode - Algorithms - 46. Permutations" class="article-share-link">Share</a>
       
       
       
@@ -176,7 +293,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/11/14/LeetCode-Algorithms-Group-Anagrams/" data-id="ckp0f9vnz00290hjart91j4f4" data-title="LeetCode - Algorithms - 49. Group Anagrams" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/11/14/LeetCode-Algorithms-Group-Anagrams/" data-id="ckp17cegf001z3njadmw2c51i" data-title="LeetCode - Algorithms - 49. Group Anagrams" class="article-share-link">Share</a>
       
       
       
@@ -268,7 +385,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/11/02/interesting-titles-in-memory-of-scientists/" data-id="ckp0f9vv300b10hjatc31bbx8" data-title="Interesting titles in memory of scientists" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/11/02/interesting-titles-in-memory-of-scientists/" data-id="ckp17cemx00av3nja4hph9de4" data-title="Interesting titles in memory of scientists" class="article-share-link">Share</a>
       
       
       
@@ -327,7 +444,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/11/01/LeetCode-Algorithms-Spiral-Matrix/" data-id="ckp0f9vpm00470hjazi8og9mu" data-title="LeetCode - Algorithms - 54. Spiral Matrix" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/11/01/LeetCode-Algorithms-Spiral-Matrix/" data-id="ckp17cei800433njaxlve4ycs" data-title="LeetCode - Algorithms - 54. Spiral Matrix" class="article-share-link">Share</a>
       
       
       
@@ -378,7 +495,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/10/31/Why-we-struggle-learning-languages-Gabriel-Wyner-TEDxNewBedford/" data-id="ckp0f9w5700z90hjacjsgzwb9" data-title="Why We Struggle Learning Languages - Gabriel Wyner - TEDxNewBedford - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/10/31/Why-we-struggle-learning-languages-Gabriel-Wyner-TEDxNewBedford/" data-id="ckp17cewu00zq3njahiq6ytm5" data-title="Why We Struggle Learning Languages - Gabriel Wyner - TEDxNewBedford - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -439,7 +556,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/10/31/What-Bruce-Lee-can-teach-us-about-living-fully-Shannon-Lee-TED/" data-id="ckp0f9w5500z60hjarpdh26f1" data-title="What Bruce Lee can teach us about living fully - Shannon Lee - TED Salon - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/10/31/What-Bruce-Lee-can-teach-us-about-living-fully-Shannon-Lee-TED/" data-id="ckp17cewr00zn3nja3pa3e2yl" data-title="What Bruce Lee can teach us about living fully - Shannon Lee - TED Salon - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -624,7 +741,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/08/16/Conceptual-Blockbusting-A-Guide-To-Better-Ideas/" data-id="ckp0f9vm7000e0hjavwqynph7" data-title="Conceptual Blockbusting - A Guide To Better Ideas" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/08/16/Conceptual-Blockbusting-A-Guide-To-Better-Ideas/" data-id="ckp17ceep000c3njal9hn3yxr" data-title="Conceptual Blockbusting - A Guide To Better Ideas" class="article-share-link">Share</a>
       
       
       
@@ -711,306 +828,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/08/08/LeetCode-Concurrency-Print-in-Order/" data-id="ckp0f9w4p00yr0hjaiu2oe2ao" data-title="LeetCode - Concurrency - 1114. Print in Order" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2019/08/08/LeetCode-Concurrency-Print-in-Order/" data-id="ckp17cewb00z63njam88zwmgf" data-title="LeetCode - Concurrency - 1114. Print in Order" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-my-social-media-tweets" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/31/my-social-media-tweets/" class="article-date">
-  <time datetime="2019-07-31T16:26:30.000Z" itemprop="datePublished">2019-07-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/31/my-social-media-tweets/">网络社区自媒体胡言乱语</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Twitter"><a href="#Twitter" class="headerlink" title="Twitter"></a>Twitter</h1><p>科学家推动世界，发明家改变世界。<br>Scientists like Michael Faraday and James Clerk Maxwell pull the world, inventors like Thomas Edison and Nikola Tesla push the world.</p>
-<p>Many men have had intuitions well ahead of their time … Gibbs rather than Einstein or Heisenberg or Planck to whom we must attribute the first great revolution of twentieth-century physics. (Norbert Wiener)</p>
-<p>A fellow professor called me a virgin, which I was till my marriage. That is why I love so much the nude shows of Parisian nightclubs. No one can properly appreciate nude shows so well as a good Puritan. (Lin Yutang, From Pagan to Christian)</p>
-<p>Science has no national borders. National boundaries are not evident when we view the Earth from space. (Carl Sagan)</p>
-<p>There are two avenues by which opinions are received into the soul, which are its two principal powers: the understanding and the will. (Blaise Pascal)</p>
-<p>Two things fill the mind with ever-increasing wonder and awe, the more often and the more intensely the mind of thought is drawn to them: <strong>the starry heavens above me</strong> and <strong>the moral law within me</strong>. — Immanuel Kant, Critique of Practical Reason (1788)</p>
-<blockquote>
-<p>The world won’t care about your self-esteem. The world will expect you to accomplish something before you feel good about yourself. (Charlie Sykes)</p>
-</blockquote>
-<p>whereas in thinking of God, a man must abstract Him from all substance, and not think of Him as a form of extension, but as an order of events. God was no Being, but pure Act — the principle of a transcendental world-order. — Heinrich Heine, Reisebilder</p>
-<p>人念及上帝时，应该把祂抽离一切实在，而不将祂想象为占空间的形式，上帝不是存在，而是世易时移之力，一个形而上世界的秩序的原素。— 海涅，《游记》</p>
-<blockquote>
-<p>For we are mistaken when we look forward to death; the major portion of death has already passed. Whatever years be behind us are in death’s hands. (Seneca the Younger)</p>
-</blockquote>
-<p>Before you were born your parents weren’t as boring as they are now. They got that way paying bills, cleaning your room, and listening to you tell them how idealistic you are. … — Charles Sykes(author of DUMBING DOWN  OUR KIDS)</p>
-<p>Democracy is the worst form of government, except for all the others. ― Winston S. Churchill</p>
-<p>Winston Churchill: The empires of the future are the empires of the mind.</p>
-<p>Winston Churchill: The price of greatness is responsibility.</p>
-<p>Winston Churchill: Where there is great power there is great responsibility.</p>
-<p>责任体现伟大之价值（丘吉尔）</p>
-<p>American Dream: that dream of a land in which life should be better and richer and fuller for everyone, with opportunity for each according to ability or achievement. - The Epic of America, James Truslow Adams</p>
-<blockquote>
-<p>To die is only to be as we were before we were born; [on the fear of death] (William Hazlitt)</p>
-</blockquote>
-<p>司马贺：实践和思考，是学生学到知识的途径，也是唯一的途径。</p>
-<p>When you’ve lived as long as I’ve lived, every election is important. — 105-year-old Mrs. Julia Ray, North Carolina voter</p>
-<p>Edward Witten, physicist to be awarded a Fields Medal. Roger Penrose, professor of Mathematics won Nobel Prize in Physics.</p>
-<p>金钱的罪恶，似乎在于金钱是最通用的价值媒介，而人一旦最感兴趣的是钱本身，这个人就没了真正的有价值的兴趣，他就很难创造什么真正的价值，因为钱只是价值的媒介，钱本身并没有真正的价值。</p>
-<p>Anyone who is not shocked by quantum theory has not understood it. - Niels Bohr</p>
-<p>Debugging sucks. Testing rocks!</p>
-<blockquote>
-<p>A wealth of information creates a poverty of attention. — Herbert A. Simon</p>
-</blockquote>
-<p>We are all of us more or less the slaves of opinion. - William Hazlitt</p>
-<p>Mathematics is the glory of the human mind. In memory of Bernhard Riemann, the great mathematician after Gauss, math saint before Henri Poincaré and David Hilbert.</p>
-<p>Newton was far from the crude thought that explanation of phenomena could be attained by abstraction. — Bernhard Riemann</p>
-<p>The word hypothesis has now a somewhat different significance from that given it by Newton. We are now accustomed to understand by hypothesis all thoughts connected with the phenomena. — Bernhard Riemann</p>
-<p>Natural science is the attempt to comprehend nature by precise concepts. — Bernhard Riemann</p>
-<blockquote>
-<p>I have always depended on the kindness of strangers. — Blanche DuBois in play A Streetcar Named Desire</p>
-</blockquote>
-<p>When I viewed science fiction film such as Terminator other than E.T., I wonder why machine without cells and organize can have intelligence even ego.</p>
-<p>Nothing will work unless you do. — Maya Angelou</p>
-<blockquote>
-<p>I started to realize that maybe Thomas Edison did a lot more to improve the world than Karl Marx and Neem Karoli Baba put together. — Steve Jobs</p>
-</blockquote>
-<blockquote>
-<p>万般带不走，唯有业随身<br>Men are judged by what they do. A man must take the consequence of his own deeds.</p>
-</blockquote>
-<p>There isn’t time, so brief is life, for bickerings, apologies, heartburnings, callings to account. There is only time for loving, and but an instant, so to speak, for that. — Mark Twain</p>
-<p>Here is my secret. It is very simple: It is only with the heart that one can see rightly; what is essential is invisible to the eye.<br>But the eyes are blind. One must look with the heart…<br>— The Little Prince</p>
-<p>Plato is dear to me, but dearer still is truth. — Aristotle</p>
-<p>I don’t know who my grandfather was; I am much more concerned to know what his grandson will be. - Abraham Lincoln</p>
-<p>Aristotle: The totality is not, as it were, a mere heap, but the whole is something besides the parts. Euclid: The whole is greater than the part.</p>
-<p>Only the advancement of science can benefit all people like sun light. The improvement of life depends on the progress of engineering technology promoted by science</p>
-<p>It’s rare that both father and son(or daughter) are mathematicians, as I know, They are Élie Cartan and Henri Cartan, Emile Artin and Michael Artin, Johann Bernoulli and Daniel Bernoulli, Max Noether and Emmy Noether.</p>
-<blockquote>
-<p>人的情绪有一种类似植物顶端优势的机制，一旦一种情绪盘踞心头，别的情绪在当下就被边缘化。调节情绪就像认识自我一样不容易。性格，它左右我这一生。情绪，它主宰我每一天。</p>
-</blockquote>
-<p>Cedric Villani @VillaniCedric, an interesting mathematician, His spider brooch might has something in common with Maman sculpture at the National Gallery of Canada. He respect his mum sincerely, maybe.</p>
-<p>From Sarnia bridge on the Grand Trunk Trail, have a panoramic views over the St. Marys Stonetown.</p>
-<blockquote>
-<p>居里夫人在给她女儿的信中写道：我的亲爱的女儿，愿你们每天都愉快地过着生活，不要等到日子过去了才找出它们的可爱之点，也不要把所有特别合意的希望都放在将来。</p>
-</blockquote>
-<p>we are blind with familiar things<br>and they look so kind as old friends<br>A little bridge<br>in columbia forest</p>
-<p>人生无聊，刷屏自娱，智能手机加社交媒体应用是精神鸦片<br>Life tend to be boring, screen time as pastime. Social media apps on smartphone is like cocaine.</p>
-<p>Lake Erie, one eye shared by Canada and America. Lake water lapping by the shore. Beach is very popular, full of people on vacation.</p>
-<p>I know not with what weapons World War III will be fought, but World War IV will be fought with sticks and stones.<br>― Albert Einstein</p>
-<p>第三次世界大戰將要使用的武器我並不知道，但是第四次世界大戰將會用木棍和石頭開戰。（愛因斯坦）</p>
-<p>Forest, Beach, Facing South Lake Huron, relaxed and happy.</p>
-<blockquote>
-<p>Internet的确产生了大众文化，但是我们不应该忽略，它也可能降低创造性，因为许多人在寻求信息，而自己却没有时间进行思考。 – Ilya Prigogine</p>
-</blockquote>
-<p>I came, I saw, Niagara Falls,grand waterfall. August 1st.</p>
-<p>前乌克兰党魁伽弗里洛夫是个业余数学家，20世纪60年代利用大权在握，设法让他给出的黎曼假设的错误证明发表出来，蓋爾范德为此差点心脏病发作，因为他认为这一黎曼假设错误证明的发表，对苏联的数学造成了很大的伤害。</p>
-<p>Boring topic: Henry Poincaré died on July 17, 1912. Terence Tao, born on July 17, 1975. Flower fell, flower bloom. Holy Spirit of mathematics, immortal.</p>
-<p>‘It’s really hard to find maintainers…’ Linus Torvalds ponders the future of Linux</p>
-<p>Although I invented it and designed it so that it could be flexible, the ability to add new top-level domains &#91;TLDs&#93; has always been a game of political football.</p>
-<p>Sergey took his father aside, looked him in the eye and said, “Thank you for taking us all out of Russia.”</p>
-<p>Information like seawater<br>信息浩如烟海<br>Our time and energy is bounded<br>时间与精力有限<br>The less, the better<br>少则得</p>
-<blockquote>
-<p>Science is the only news.  — Stewart Brand</p>
-</blockquote>
-<p>I am a jigsaw puzzle piece of the world. although my body may be insignificant, my personality may be unique.</p>
-<p>To prove Gauss’s conjecture on distribution of prime numbers, Riemann extended Euler product formula to complex number, created Riemann zeta function, proved its meromorphic continuation and functional equation, and clarified the way for the proof of the prime number theorem.</p>
-<p>Opera Omnia of Leonhard Euler, six dozen volumes. Collected works of Bernhard Riemann, just one volume. Euler as grandfather of Gauss, for Euler is 70 years older than Gauss. Gauss as uncle of Riemann, for Gauss is 49 years older than Riemann.</p>
-<p>Chinese zodiac of genius: 1st math: Euler Pig, Gauss Rooster, Galois Goat, Riemann Dog, Poincaré Tiger, Hilbert Dog; 2st phy: Newton Horse, Maxwell Rabit, Einstein Rabit, Dirac Tiger; 3rd music: Bach Ox, Mozart Mouse, Beethoven Tiger</p>
-<p>The scientific equations that evolved in the minds of scientific geniuses are the sonnets of the God. Newton’s law of universal gravitation superseded by Einstein field equations; Dirac equation was as prophetic as Maxwell’s equations.</p>
-<p><a href="https://en.wikipedia.org/wiki/John_Polkinghorne" target="_blank" rel="noopener">John Polkinghorne</a> suggests that <strong>the mechanistic explanations of the world</strong> that have continued from <a href="https://en.wikipedia.org/wiki/Pierre-Simon_Laplace" target="_blank" rel="noopener">Laplace</a> to <a href="https://en.wikipedia.org/wiki/Richard_Dawkins" target="_blank" rel="noopener">Richard Dawkins</a> should be replaced by an understanding that <strong>most of nature is cloud-like rather than clock-like</strong>.</p>
-<p>Mathematicians who have an influence on society are Timothy Gowers @wtgowers in Britain and Cédric Villani @VillaniCedric in France.  Britain and France are senior mathematical powers.</p>
-<p>Isaac Newton lost a fortune on England’s hottest stock</p>
-<p>Three eminent mathematicians, Timothy Gowers who was born on 20 November 1963, Terence Tao who was born on 17 July 1975, Peter Scholze who was born on 11 December 1987, their Chinese zodiac sign are all Rabbit, their years of birth form an arithmetic sequence. Interesting.</p>
-<p>René Descartes is a philosopher who created analytic geometry, by contrast, Hegel is just a philosopher who was ignorant in mathematics, ‘Such things are nowhere more at home than among philosophers who are not mathematicians’,as Gauss put it. Schopenhauer is better than Hegel.</p>
-<p>A Time for Leadership by Margaret Thatcher - China will not become a superpower to match the United States — at least, not while it is held back by the deadweight of socialism.</p>
-<p><strong>The tides caused by the moon are key to life forming on earth</strong>. As Maggie concluded “<strong>the moon is the mother of us all</strong>”</p>
-<blockquote>
-<p>Your smartphone is making you stupid, antisocial and unhealthy. So why can’t you put it down?</p>
-</blockquote>
-<p>In the fight against climate change, we pay now or our children pay later</p>
-<p>Edward Witten reinterpreted John Wheeler’s final catchphrase “<strong>it from bit</strong>“ as “<strong>it from qubit</strong>“.</p>
-<h1 id="Facebook"><a href="#Facebook" class="headerlink" title="Facebook"></a>Facebook</h1><blockquote>
-<p>Our main business is not to see what lies dimly at a distance, but to do what lies clearly at hand.</p>
-</blockquote>
-<p>吾生也有涯，而知也无涯，以有涯随无涯，殆矣。<br>少则得，多则惑。</p>
-<p>在时间这条路上，我们回不去</p>
-<p>后天习得对人类有更大的作用，先天本能对动物更为重要。</p>
-<p>两点一线上的提线木偶，<br>在四维一体的时空流形中穿梭，<br>碌碌繁忙如蚂蚁<br>丢魂落魄的行尸走肉在游街示众</p>
-<p>人总是会在某种意义上得到他想要的，因为人本来就不清楚他想要的是什么，所谓的奋斗，最终被证明不过是冲动，但如果连冲动都没有了，那不就成了废人一个，更无可救药了。</p>
-<p>希望与洞察力是照亮我们生活的阳光，世界是概率驱动的，现在独一无二，未来却是平行宇宙</p>
-<p>今天的我是昨天的我选择的结果，明天的我将是今天的我选择的结果，我们就这样在一天天地选择着未来的自己，我的选择就是我的未来，我的习性就是我的选择。</p>
-<blockquote>
-<p>大多数人，都是自己的热情和欲念的奴隶。</p>
-</blockquote>
-<p>所谓的活着，不过是在浪费粮食污染环境。</p>
-<p>心肠硬的人信仰唯物论，心肠软的信仰唯心论</p>
-<p>这是一个马太效应、赢家通吃的社会</p>
-<h1 id="豆瓣"><a href="#豆瓣" class="headerlink" title="豆瓣"></a>豆瓣</h1><p>“我希望他们不要和我讨论这个问题，这个问题我已经几十年不做了，因为我觉得没有什么希望再做下去了。不要认为陈景润做出‘1＋2’，还差一步就做出‘1＋1’。是的，就是这一步；但这一步根本就大得不得了，这一步比90年来走过的路还要长。”王元说。<br>美国加州大学洛杉矶分校的华裔数学家陶哲轩是2006年数学菲尔茨奖获得者之一。王元说：“陶哲轩应该是最近几十年来全世界做得最好的两位数学家之一，他的目标之一就是要证明‘1＋1’，他现在做出来的结果也很好，但他在很多次报告中都讲，他的方法不可能证明‘1＋1’。”</p>
-<p>“民科”和“民哲”不仅在思维、心理上高度相似，就像是同一个心理物种，而且甚至可以相互转化，成为相同的社会物种。</p>
-<p>我是宇宙的一块拼图，体量上也许微不足道，但个性上可能独一无二。</p>
-<p>伽罗瓦：扩域。黎曼：解析延拓。Cohen：力迫，扩张模型。朗兰兹：数学分支奇妙的内在联系</p>
-<p>囤书如山倒，读书如抽丝，我早已经囤下后半辈子都读不完的书，但出于占有欲，我还是不断在买书。——《人生有什么非占有不可的吗》静岛</p>
-<p>电视时代，沙发上的土豆。触屏时代，低头的屏奴。娱乐至死的时代。唯一能安慰我们之可悲的东西就是消遣，可是它也是我们可悲之中的最大的可悲。……若是没有它，我们就会陷于无聊，而这种无聊就会推动我们去寻找一种更牢靠的解脱办法了。可是消遣却使得我们开心，并使我们不知不觉地走到死亡。</p>
-<p>一位北大数学系某级专业成绩第一名的毕业生告诉我，当年他之所以没有选择做职业数学家，正是因为从数学家的故事里听出了高风险性，他从而决定选择金融——可见数学这个行业的风险性高于金融业。</p>
-<blockquote>
-<p>乔治·华盛顿曾经说过：”如果被剥夺了言论自由，我们就会变得愚笨沉默，如绵羊般被拉向屠宰场。”</p>
-</blockquote>
-<p>第一性原理（First principle thinking，又称“第一原理”）由亚里士多德表述：在每一系统的探索中，存在第一原理，是一个最基本的命题或假设，不能被省略或删除，也不能被违反。</p>
-<p>我们这些没本事的平庸之人，只能堕入“拿命换钱，拿钱续命”的有限循环螺旋式死亡之旅。</p>
-<p>衰老是慢性病？</p>
-<blockquote>
-<p>约西亚·威拉德·吉布斯：科学存在一种建设力，能从混沌中重建次序；科学存在一种分析力，能够区分真实与虚假；科学存在一种整合力，能看到一个真理而没哟忘记另一个真理；拥有这三种才能的，才是真正的科学家。 天才敬天才，麦克斯韦和爱因斯坦都赞赏吉布斯。</p>
-</blockquote>
-<p>Bitcoin has evolved to become better-suited to being an asset than being a means of exchange.</p>
-<p>手游让我们娱乐至死</p>
-<p>你的兴趣，是痴心迷恋的真兴趣？还是叶公好龙的假爱好？</p>
-<p>在朋友圈装逼，在微信群卖傻</p>
-<p>Well-being and happiness never appeared to me as an absolute aim. I am even inclined to compare such moral aims to the ambitions of a pig.</p>
-<p>苏东坡：<br>人生到处知何似，应似飞鸿踏雪泥。<br>泥上偶然留指爪，鸿飞那复计东西。<br>纳兰性德：<br>人生若只如初见，何事秋风悲画扇。等闲变却故人心，却道故人心易变。</p>
-<p>希尔伯特：哥廷根随便找个学数学的小孩都比爱因斯坦更懂黎曼几何，但广义相对论只有爱因斯坦才能想得明白。<br>陈省身：我不久即看到爱因斯坦所遭遇的问题之极度困难与数学及物理学的不同。不知道他的物理如何？数学也就那样。丛和联络的概念都很简洁，爱因斯坦会喜欢的。</p>
-<p>余英时： 西方经典《赞愚》中就说，<strong>越是愚钝的人越有智慧，愚钝的人不是言词辩诘，而是对人生有某些很深的体验</strong>。越聪明的人越是糟糕，聪明等于是一个工具，就像科技一样… - 精神空虚的中国没有大师</p>
-<p>看来对阮一峰、李笑来这样的知识精英来说，彼得·德鲁克预言的知识社会已经来临</p>
-<p>许知远： 利润，如今变成了连接这个国家的纽带，看看今天中国人信仰的庸俗哲学吧：一切都是利益驱动的，一切现象都可以通过利益来解释。 - 价值的真空</p>
-<p>欧拉全集75卷，黎曼全集1卷，欧拉是高斯的祖父辈，欧拉比高斯大了整整七十岁，高斯是黎曼的伯父辈，高斯比黎曼大四十九岁。黎曼为了证明高斯关于素数密度可以用对数积分来估计的猜想，把欧拉乘积恒等式推广到复域，提出了zeta函数及其函数方程，为素数定理的证明理清了理路。</p>
-<p>浮生若梦，人生几何？有首流行歌曲叫《光阴的故事》，有部情景喜剧叫《成长的烦恼》</p>
-<p>高科技就是银弹?</p>
-<p>最常用的聊天语气词：嗯嗯，哈哈和呵呵。嗯是冷漠，嗯嗯是温柔，嗯嗯嗯是不耐烦。</p>
-<p>天才通常被认为都有点怪僻：牛顿，脾气暴躁；纳什（John Nash），妄想狂；佩雷尔曼（Grigory Perelman），喜欢留长指甲。然而，陶哲轩却是“超级正常”，以至于他的学生开玩笑的说，在许多方面陶哲轩违背了好莱坞的疯狂天才定义，好莱坞不会拍任何陶的电影。</p>
-<p>耶稣会的教士都接受过良好的欧洲人文教育并经受过准军事训练，利玛窦、汤若望、南怀仁都是这一组织中出类拔萃的人才，他们身后有足够的支持，供他们以精密的仪器、华美的书籍、先进的技术赢得中国上流社会的青睐。</p>
-<blockquote>
-<p>有时我觉得自己学习中文非常有益，陶冶性灵，但更多的时候，我觉得自己是中毒太深，不敢再把情绪放纵到诗与文里面，以免如梦如幻，贻误终身。</p>
-</blockquote>
-<p>志大才疏，眼高手低。<br>心比天高，命如纸薄。<br>平淡是真，从容难能。<br>心态平和，神清气爽。</p>
-<p>西奥多·罗斯福把这些喜欢揭露社会阴暗面的记者称为“扒粪者”（muckraker），但他肯定了这些揭露社会黑暗的记者们的价值，认为只有把丑恶暴露在阳光下，社会才可能改善。前后持续十几年的“扒粪运动”,有效地净化了美国的政治和商务生态，也给美国新闻行业建立了“调查”和“批评”的传统。</p>
-<p>如果世界有本源的话，世界的大本大源必定是守恒的吧，能量守恒、动量守恒、角动量守恒，麦克斯韦妖、拉普拉斯妖、黑洞熵，负熵之秩序的原素或许也是守恒的。</p>
-<p>弗里曼·戴森认为博士制度令人讨厌, Freeman Dyson没有博士学位。<br>博士制度是在19世纪为了教育德国教授而发明的，它适合那些少数将要终身当教授的人，但现在却变成了为了工作而必须获得的某种会员卡，无论是成为教授还是从事其它职业。它迫使人们浪费许多年的时间和生命，去假装做一些他们其实完全不适合的研究。</p>
-<p>民科的命操牛顿的心</p>
-<blockquote>
-<p>工作撵跑三个魔鬼：无聊、堕落和贫穷。</p>
-</blockquote>
-<blockquote>
-<p>浮生若梦，人生最大的痛苦是梦醒了发现自己无路可走。</p>
-</blockquote>
-<h1 id="微博"><a href="#微博" class="headerlink" title="微博"></a>微博</h1><p>元旦紧随圣诞节，环球都在辞旧迎新。浩瀚的宇宙中，地球母亲环抱着我们这些个天天制造垃圾的坏儿女，又绕着太阳这个生养万物的核反应堆转了一圈。老丁把一袋生活垃圾投进公寓楼前的不可回收垃圾桶里，有些自责，又明知故犯地对生态下了次毒手，感到所谓的活着，似乎不过是在浪费粮食污染环境。</p>
-<p>社会是最高的那所大学，没有围墙的、最open的大学。自学能力是最高的那个学位，无冕的、最high的学位。</p>
-<p>《道德经》中“修之于身，其德乃真”的本义，似乎不是在嘲笑那些伪君子言行不一“说一套、做一套”、仁义道德嘴把式，而是：尽管你认同那些更有利于使你“做最好的自己”的种种道理，你却不能够把它们身体力行，这些能够“德润身”的道理就只是些虚的道理，而坏习惯依旧像鬼魂一样形影不离地笼罩着你。 ​​​​</p>
-<p>明-洪应明-菜根谭：迷则乐境成苦海，悟则苦海为乐境。John Milton, Paradise Lost: The mind is its own place, and in it self Can make a Heav’n of Hell, a Hell of Heav’n.</p>
-<p>“饭吃七分饱”的富兰克林表达法：在我见到的人中，饿死的人寥寥无几，撑死的人倒有成千上万。 Eat not to Dulness. Drink not to Elevation.</p>
-<p>相当一部分中国公民以经济为惟一生活目标。科名之心不可有，经济之才不可无。Money talks. In God we trust, the rest pay cash. Money changed hands. ​​​​</p>
-<p>有没有一个科学的价值观？什么样的价值观能让我不卑不亢？什么样的价值观能让我心平气和？什么样的价值观能让我泰然自若？内隐的价值观，挥之不去的内心指令，根深蒂固的核心假设，心理捷径累积成思维定势，生活的磨砺在内心深处的沉淀，价值的迷失是全盘的迷失，是注定要误入歧途、无可救药的迷失。</p>
-<p>子不语怪、力、乱、神。知之为知之，不知为不知，是知也。子曰：未知生，焉知死？未能事人，焉能事鬼？敬鬼神而远之。～ 疑邻偷斧，疑心生暗鬼。～ 精气为物，游魂为变。～ 一念之善，吉神随之；一念之恶，厉鬼尾之。～ 暗示能作用于心理，人的知觉伴生错觉甚至幻觉，居心不良的人就有可能在其中搞鬼。 ​​​​</p>
-<p>十大讨厌鬼：① 烈火战车：他怕是吃着炸药了！② 暗箭伤人 的“狙击手”： 玩阴的！③ 万事通先生：什么都懂，又什么都不懂！④ 自以为是的半瓶醋：一瓶不摇半瓶摇，一知半解危害大！⑤ 一触即发的手榴弹：惹不起啊，离他远点！ ⑥ 满口应承的好好先生：口是心非，请你别敷衍我！⑦ 犹豫不决的或许先生：布利丹的驴，你倒是拿个主意呀！⑧ 闷不吭声的没事先生：有嘴巴不能光用来吃饭，你倒是开口说话呀！⑨ 负面思考者：一个人，就是他整天所想的那些，他怎可能是别种样子呢？⑩ 牢骚大王：听其言，即知其人。</p>
-<p>德裔美籍数学家 Hans Lewy（烈伟，1904～1988，R.柯朗（D.希尔伯特的学生）的学生）曾以数学家的口吻说道：“在许多方面分析（即逻辑严谨的微积分）比其它一些数学分支更接近于生活。”意思好像是说数学分析的问题不管是陈述、前提，还是结论、趋势都不是那么清晰明了，需要下功夫，如同生活的真面目。</p>
-<p>E.T.BELL数学三清最得意的成就：① Αρχιμήδης：球的体积计算公式，被刻在其墓碑上和菲尔兹奖章背面；② Newton：用三棱镜发现光的色散，牛顿自称：“在我看来，如果那不是迄今对自然的演变所作的最重要的发现，也是最有趣的发现。” ③  Gauß：高斯-博内公式，高斯称其为Theorema Egregium。</p>
-<p>19世纪并肩齐名的数学与物理的集大成者：黎曼（G.F.B.Riemann, 1826～1866），师承高斯、狄利克雷，黎曼几何、黎曼zeta函数等关键数学概念的首创者，堪称现代数学的摩西；麦克斯韦（James Clerk Maxwell，1831～1879），师承开尔文勋爵、斯托克斯爵士，巨著《电磁通论》指引人类步入电气时代的康庄大道。 ​​​​</p>
-<p>德鲁克（管理学的Guru）针对知识社会的重要课题【自我管理】提了几个问题：1. 我的优势是什么？不要试图改变自己，这样做是不能成功的。相反，你需要用心改进做事的方式方法。不要采用你做不到或做得不好的方法来做事。2. 做事的方式方法？3. 价值观？4. 取舍？5. 我能贡献什么？6. 建设性的人际关系</p>
-<p>科学精神希冀人类的理性能够逼近三位一体的神所走的无穷的道路，于是有了集合论中的悖论和量子力学中的佯谬。罗素理发师悖论：朴素集合论经不起推敲；巴拿赫-塔斯基悖论：选择公理会变魔术；波粒二象性佯谬：实相无相，微妙法门；测量佯谬：波包一测就塌缩。薛定谔的猫到底是活着还是死了？这很难说。 ​​​​</p>
-<p>科学家的临终憾事：爱因斯坦：统一场论，规范场纲领已经形式上统一了电弱强这三种基本力，但引力很难纳入规范场纲领；海森堡：湍流，虽然以测不准原理而闻名于世，但海森堡的博士论文却是 -《关于流体运动的层流和湍流》；哈代：黎曼假设，我敢说没有一种微积分和伽罗瓦理论那样的新思想新方法，甭想证明RH。</p>
-<p>美国很有创造性的微分几何学家 H.惠特尼对数学的研究与学习的方法论方面有相当独到的见解，他认为最好的学习方法是学以致用，没有自己的想法那不是真正的学习，他对研究过程的描述相当吻合认知心理学关于知识的心理表征、认知地图、图式、问题解决与创造性的观点。 ​​​​</p>
-<p>在科学天才的头脑中进化着的科学方程，是造物主的十四行诗。牛顿以横绝一世的数学才能综合出让天文学家奉为圭皋的万有引力定律，爱因斯坦以最能体现理性思维张力的广义相对论引力场方程超越之；麦克斯韦提炼整理出以对称之美著称的电磁场方程组，狄拉克以魔法般的相对论性量子电动力学方程组逾越之。</p>
-<p>微积分的书何其多矣，但最好的两套恐怕是：① 纯数学家哈代的分析学名著《纯数学》，哈代及其剑桥分析学派主要研究分析和数论，所以偏于纯粹数学，第一章是永恒的名篇；② 应用数学家柯朗的《微积分和数学分析引论》，多元微积分、微分方程部分更为精彩。最好是两套都学一学，纯粹数学与应用数学并举。</p>
-<p>《社会的管理》结尾写道：从机械的宇宙向生物的宇宙的转变，最终将需要一种新的哲学综合。康德也许会把它叫做Einsicht或叫做一种“纯粹洞察批判”。这是Peter F. Drucker的原话，还是选编者 Atsuo Ueda（笃男植田）添油加醋的话？</p>
-<p>爱因斯坦是有哲学气质的大科学家：① 使一切尽可能简单，但不要超过简单性的极限。② 任何事情都是相对的，有些事情，特别是光速，不是相对的。③ 提问题的思维水平不足以解决问题，但提出一个问题往往比解决一个问题更重要，因为提出新的问题、新的可能性，从新的角度看旧问题，需要创造性的想像力。</p>
-<p>［杏花］暖气潜催次第春，梅花已谢杏花新。赵村红杏每年开，十五年来看几回？又是一年芳草绿，依然十里杏花红。纵被春风吹作雪，绝胜南陌碾成尘。 ［玉兰］如此高花白于雪，年年偏是斗风开。绰约新妆玉有辉，素娥千队雪成围。翠条多力引风长，点破银花玉雪香。年年岁岁花相似，岁岁年年人不同。</p>
-<p>针对物理学家 Eugene Wigner（尤金·维格纳，1902—1995）“数学在物理学中不可思议的有效性”的说法，数学家 Israïl Moseevich Gelfand（I.M.盖尔范德，1913—2009）说了句饶舌的俏皮话：这世上惟一比“数学在物理学中不可思议的有效性”更加不可思议的是“数学在生物学中不可思议的无效性”。</p>
-<p>公理化的祖师爷Εὐκλείδης的传说（文学色彩浓郁，但不乏可信度）：① 柏拉图学院标榜“不懂几何者勿入”，托勒密王欲学几何，咨询祖师有无捷径，答曰：“几何学无王道”。② 某生问几何何利之有？祖师嘱其仆予此生一金币，耻之曰：“孺子欲图利于几何”，谓众人曰：“是知识就值得学习”。</p>
-<p>科学精神的理念旨在寻求自洽、贯通、循序的理路，它的困难在于要借助最终展现为逻辑链路的思维去探究一个非线性的、无穷维自由度的、混沌的世界，它的稳妥、公信力与继往开来式发展使它永远存在着揭不开的谜团，它寻求的是“人同此心，心同此理”的道与理，而非“只可意会，不可言传”的感与悟。</p>
-<p>微分方程之于物理，如同微积分之于数学。在理论物理中，微分方程几乎就是数学模型的同义词。① 按海森堡的说法，现代流体力学的奠基人普朗特无需计算就能“看出”微分方程的解；② 狄拉克：当我无需实际去解就可以预见方程的解的行为时，我算是理解了这个方程。③  狄拉克：我大量的工作花在玩方程上。</p>
-<p>阔气的数学家：① 朗道：有人问如何在哥廷根找到他家，他漫不经心地说：“很好找，就是城里最好的那座房子”。② 邦别艾里：年轻时开着炫目的跑车参加欧洲学术会议，他的父亲答应他如果他能解决黎曼假设，就给他买辆法拉利。③ 西蒙斯：身家几十亿的富翁数学家，与陈省身合作提出陈-西蒙斯拓扑不变式。</p>
-<p>① 德鲁克：杯子“半满”与“半空”描述的是同一现象，含义却迥然不同，从“半满”看到“半空”意味着看到潜藏的机会。② 陈省身：三角形的“内角和等于π”与“外角和等于2π”等价，但从“为了正确的推广而表现出的形式适应性”而言后者更优越，后者适用于任何多边形，外角和是多边形的一个不变量。</p>
-<p>“一切都是命，半点不由人”那是消极的宿命论，但世界亦非测不准原理衍生出的骰子般完全随机，世界的本相更接近于素数序列内蕴的伪随机，整体正则而局部近乎随机，蕴自由于法则，素数序列似乎是伪随机的极限，即素数没有生成公式，素数从点上而言是测不准的，能估计的只有它的拟对数积分变化的密度。</p>
-<p>胆识决定选择，选择铸就未来。</p>
-<p>发扬光大分形几何的曼德勃罗和发现耗散结构的普里高津有点像，都有首创性的贡献，又都喜欢兜售他们的创见。</p>
-<p>只有科学的进步才像太阳的光辉一样普照芸芸众生，我想把人类的希望寄托在以Clay千年难题为代表的越来越难啃的科学难题身上。</p>
-<p>工作是银，健康是金。1992年世界卫生组织在加拿大维多利亚召开的国际心脏健康会议上发表的关于保健的《维多利亚宣言》认为健康的四大基石是：1、均衡膳食，2、戒烟限酒，3、适量运动，4、心理平衡。 ​​​​</p>
-<p>1976年愚人节，乔布斯和沃兹尼克、Ron Wayne一起创建了苹果公司，11天后Ron Wayne选择了退出，并把他名下如今价值220亿美元的10%股权以800美元卖给了乔布斯和沃兹尼克。 ​​​​有个CNN记者采访了与巨额财富失之交臂的Ron Wayne，Ron Wayne说道:”What can I say? You make a decision based on your understanding of the circumstances, and you live with it, But when you’re at a focal point of history, you don’t realize you’re at a focal point of history.” ​​​​</p>
-<p>在不知不觉中，我们身不由己地被无认知而显神秘的未知之合力所冲撞，事后联想前因后果，自我宽慰说，命运捉弄人，缘份说不清。生有涯而知无涯，难得糊涂。 ​​​​</p>
-<p>生命是上帝在四维时空流形中吹起的负熵的气泡，终将因按对数函数变化的熵增而回归死寂的平衡态。人得气之全，物得气之偏。</p>
-<p>周鸿祎：Overture是付费点击模式的鼻祖，Overture创造的付费点击模式确实为广告客户创造了商业价值，但是作为寄生于搜索引擎的企业，Overture却并没有为用户创造价值，最后落入被雅虎收购的命运。最后是Google的AdWords将搜索引擎的用户价值和Overture的付费点击模式完美地结合在一起。 ​​​​</p>
-<p>1941年秋，傅斯年（ 中研院史语所所长，兼任北大文科研究所所长）对王叔岷（川大中文系毕业生）说：＂要把才子气洗干净，三年之内不许发表文章！＂​​​​​​​​​​​​​​​​​​​​</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/07/31/my-social-media-tweets/" data-id="ckp0f9w8x013a0hja241s7mge" data-title="网络社区自媒体胡言乱语" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-react-native-cheat-sheet" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/30/react-native-cheat-sheet/" class="article-date">
-  <time datetime="2019-06-30T22:36:53.000Z" itemprop="datePublished">2019-06-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/30/react-native-cheat-sheet/">React Native Cheat Sheet</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Accessing-console-logs"><a href="#Accessing-console-logs" class="headerlink" title="Accessing console logs"></a>Accessing console logs</h2><ul>
-<li>react-native log-ios</li>
-<li>react-native log-android</li>
-</ul>
-<p>xcrun simctl list devices</p>
-<ul>
-<li>react-native run-ios –simulator “iPhone 8”</li>
-<li>react-native run-android</li>
-</ul>
-<p>Sometimes you may need to reset or clear the React Native packager’s cache. To do so, you can pass the –reset-cache flag to the start script:</p>
-<ul>
-<li>npm start – –reset-cache</li>
-<li>yarn start – –reset-cache</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2019/06/30/react-native-cheat-sheet/" data-id="ckp0f9vzl00h70hjamk6lzec3" data-title="React Native Cheat Sheet" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React Native</a></li></ul>
 
     </footer>
   </div>
@@ -1071,6 +893,14 @@
       <ul>
         
           <li>
+            <a href="/2021/05/23/leetcode-algorithms-find-all-duplicates-in-an-array/">LeetCode - Algorithms - 442. Find All Duplicates in an Array</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/23/leetcode-algorithms-find-all-numbers-disappeared-in-an-array/">LeetCode - Algorithms - 448. Find All Numbers Disappeared in an Array</a>
+          </li>
+        
+          <li>
             <a href="/2021/05/22/leetcode-algorithms-check-if-two-string-arrays-are-equivalent/">LeetCode - Algorithms - 1662. Check If Two String Arrays are Equivalent</a>
           </li>
         
@@ -1080,14 +910,6 @@
         
           <li>
             <a href="/2021/05/22/leetcode-algorithms-how-many-numbers-are-smaller-than-the-current-number/">LeetCode - Algorithms - 1365. How Many Numbers Are Smaller Than the Current Number</a>
-          </li>
-        
-          <li>
-            <a href="/2021/05/22/leetcode-algorithms-jewels-and-stones/">LeetCode - Algorithms - 771. Jewels and Stones</a>
-          </li>
-        
-          <li>
-            <a href="/2021/05/22/leetcode-algorithms-shuffle-string/">LeetCode - Algorithms - 1528. Shuffle String</a>
           </li>
         
       </ul>
