@@ -68,6 +68,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-preimage-size-of-factorial-zeroes-function" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/09/LeetCode-Algorithms-preimage-size-of-factorial-zeroes-function/" class="article-date">
+  <time datetime="2020-06-10T02:58:34.000Z" itemprop="datePublished">2020-06-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/09/LeetCode-Algorithms-preimage-size-of-factorial-zeroes-function/">LeetCode - Algorithms - 793. Preimage Size of Factorial Zeroes Function</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/preimage-size-of-factorial-zeroes-function/" target="_blank" rel="noopener">793. Preimage Size of Factorial Zeroes Function</a></p>
+<h2 id="Relevant-problem"><a href="#Relevant-problem" class="headerlink" title="Relevant problem"></a>Relevant problem</h2><p>An easy problem as <a href="https://leetcode.com/problems/factorial-trailing-zeroes/" target="_blank" rel="noopener">172. Factorial Trailing Zeroes</a> and its solutions: <a href="https://hezhigang.github.io/2020/06/06/LeetCode-Algorithms-factorial-trailing-zeroes/">https://hezhigang.github.io/2020/06/06/LeetCode-Algorithms-factorial-trailing-zeroes/</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Binary-Search-strategy"><a href="#Binary-Search-strategy" class="headerlink" title="Binary Search strategy"></a>Binary Search strategy</h2><p><a href="https://en.wikipedia.org/wiki/Binary_search_algorithm" target="_blank" rel="noopener">Binary search</a>, also known as half-interval search, logarithmic search, or binary chop, is a general algorithm for linearly ordered data structure, and There are numerous variations of binary search.</p>
+<p>Let \( f(x) \) be the number of zeroes at the end of \(x!\). We can observe that \( f(x) \) rise when \( x \equiv 0 \hspace{2mm} (mod \hspace{1mm} 5) \),<br>and \( f(5k)=f(5k+1)=f(5k+2)=f(5k+3)=f(5k+4) \).<br>\( f(x)=\lfloor \frac{x}{5} \rfloor + \lfloor \frac{x}{25} \rfloor + \cdots + \lfloor \frac{x}{5^n} \rfloor \) where \( \lfloor \frac{x}{5^n} \rfloor \geq 1 \)<br>This geometric sequence with common ratio \( r = \frac{1}{5} \) has a limit that can be computed from the finite sum formula \( \sum_{k=1}^{\infty} \frac{x}{5^k} = \lim_{n \to \infty}\sum_{k=1}^{n} \frac{x}{5^k} = \frac{\frac{x}{5}}{1-\frac{1}{5}} = \frac{x}{4} \), so, there is a inequality that \( \frac{x}{5} &lt; f(x) &lt; \frac{x}{4} \), which gives a small upper and lower bound for binary search algorithm.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">preimageSizeFZF</span><span class="params">(<span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">long</span> r = search_rank(K);</span><br><span class="line">        count = r==-<span class="number">1</span>?<span class="number">0</span>:<span class="number">5</span>;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">long</span> <span class="title">search_rank</span><span class="params">(<span class="keyword">long</span> K)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> lo = <span class="number">4</span>*K;</span><br><span class="line">        <span class="keyword">long</span> hi = <span class="number">5</span>*K;</span><br><span class="line">        <span class="keyword">while</span> (lo &lt;= hi) &#123;</span><br><span class="line">            <span class="keyword">long</span> mid = lo + (hi - lo) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">long</span> y = f(mid);</span><br><span class="line">            <span class="keyword">if</span> (K &lt; y)</span><br><span class="line">                hi = mid - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (K &gt; y)</span><br><span class="line">                lo = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">long</span> <span class="title">f</span><span class="params">(<span class="keyword">long</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">5</span>; i &lt;= x; i *= <span class="number">5</span>)</span><br><span class="line">            count += x / i;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>44 / 44 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Preimage Size of Factorial Zeroes Function.</li>
+<li>Memory Usage: 35.6 MB, less than 100.00% of Java online submissions for Preimage Size of Factorial Zeroes Function.</li>
+</ul>
+<h3 id="Complexity-Analysis"><a href="#Complexity-Analysis" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h3><h4 id="Time-Complexity"><a href="#Time-Complexity" class="headerlink" title="Time Complexity"></a>Time Complexity</h4><p>\( O(NlogN) \) where N is the input integer such that \( f(x)=N \)</p>
+<h4 id="Space-Complexity"><a href="#Space-Complexity" class="headerlink" title="Space Complexity"></a>Space Complexity</h4><p>\( O(1) \) as there is no extra space other than local varibles.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/06/09/LeetCode-Algorithms-preimage-size-of-factorial-zeroes-function/" data-id="ckp32e3do005h88jafk3fe3cm" data-title="LeetCode - Algorithms - 793. Preimage Size of Factorial Zeroes Function" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-hackerrank-regex-backreferences" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/07/hackerrank-regex-backreferences/" class="article-date">
@@ -139,7 +194,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/06/07/hackerrank-regex-backreferences/" data-id="ckp21nb8r009nwsjac15n0zxn" data-title="HackerRank - Regex - Backreferences" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/06/07/hackerrank-regex-backreferences/" data-id="ckp32e3gw009q88jag9jhljy4" data-title="HackerRank - Regex - Backreferences" class="article-share-link">Share</a>
       
       
       
@@ -215,7 +270,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/06/06/LeetCode-Algorithms-factorial-trailing-zeroes/" data-id="ckp21nb5b0051wsjacynmtup8" data-title="LeetCode - Algorithms - 172. Factorial Trailing Zeroes" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/06/06/LeetCode-Algorithms-factorial-trailing-zeroes/" data-id="ckp32e3dc004z88jaet1208ft" data-title="LeetCode - Algorithms - 172. Factorial Trailing Zeroes" class="article-share-link">Share</a>
       
       
       
@@ -277,7 +332,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/06/05/LeetCode-Algorithms-majority-element/" data-id="ckp21nb5m005gwsjafaeyb79v" data-title="LeetCode - Algorithms - 169. Majority Element" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/06/05/LeetCode-Algorithms-majority-element/" data-id="ckp32e3dl005c88jajhhiyl8v" data-title="LeetCode - Algorithms - 169. Majority Element" class="article-share-link">Share</a>
       
       
       
@@ -325,7 +380,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/06/01/the-rainbow-christina-rossetti/" data-id="ckp21nbg400j4wsjaim5edblg" data-title="The Rainbow" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/06/01/the-rainbow-christina-rossetti/" data-id="ckp32e3nb00j588jap4yurtvp" data-title="The Rainbow" class="article-share-link">Share</a>
       
       
       
@@ -394,7 +449,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/05/30/hackerrank-regex-grouping-and-capturing/" data-id="ckp21nb8u009swsjadj73favn" data-title="HackerRank - Regex - Grouping and Capturing" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/05/30/hackerrank-regex-grouping-and-capturing/" data-id="ckp32e3gv009o88jan8vfokva" data-title="HackerRank - Regex - Grouping and Capturing" class="article-share-link">Share</a>
       
       
       
@@ -439,7 +494,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/05/29/rain-robert-louis-stevenson/" data-id="ckp21nbf100hhwsja1cwq40h5" data-title="Rain" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/05/29/rain-robert-louis-stevenson/" data-id="ckp32e3m500hb88jajfc53n75" data-title="Rain" class="article-share-link">Share</a>
       
       
       
@@ -495,7 +550,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/05/23/gauss-algorithm-to-the-chinese-remainder-theorem/" data-id="ckp21nb8a008zwsjax5c8wihp" data-title="Gauss&#39;s algorithm and Chinese remainder theorem" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/05/23/gauss-algorithm-to-the-chinese-remainder-theorem/" data-id="ckp32e3gg008x88janrw4wjvw" data-title="Gauss&#39;s algorithm and Chinese remainder theorem" class="article-share-link">Share</a>
       
       
       
@@ -583,7 +638,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/05/22/hackerrank-regex-repetitions/" data-id="ckp21nb90009xwsja6ka2hbfu" data-title="HackerRank - Regex - Repetitions" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/05/22/hackerrank-regex-repetitions/" data-id="ckp32e3gz009v88jatdi3ueop" data-title="HackerRank - Regex - Repetitions" class="article-share-link">Share</a>
       
       
       
@@ -637,59 +692,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/05/17/LeetCode-Algorithms-find-first-and-last-position-of-element-in-sorted-array/" data-id="ckp21nb5g0056wsjafoqeltvz" data-title="LeetCode - Algorithms - 34. Find First and Last Position of Element in Sorted Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/05/17/LeetCode-Algorithms-find-first-and-last-position-of-element-in-sorted-array/" data-id="ckp32e3de005288jaancx2897" data-title="LeetCode - Algorithms - 34. Find First and Last Position of Element in Sorted Array" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-isomorphic-strings" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/05/16/LeetCode-Algorithms-isomorphic-strings/" class="article-date">
-  <time datetime="2020-05-17T03:31:57.000Z" itemprop="datePublished">2020-05-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/16/LeetCode-Algorithms-isomorphic-strings/">LeetCode - Algorithms - 205. Isomorphic Strings</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/isomorphic-strings/" target="_blank" rel="noopener">205. Isomorphic Strings</a></p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isIsomorphic</span><span class="params">(String s, String t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> r = <span class="keyword">true</span>;</span><br><span class="line">        Map&lt;Character,Character&gt; map = <span class="keyword">new</span> HashMap&lt;Character, Character&gt;();</span><br><span class="line">        Map&lt;Character,Character&gt; map2 = <span class="keyword">new</span> HashMap&lt;Character, Character&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;s.length(); i++) &#123;</span><br><span class="line">            <span class="keyword">char</span> k = s.charAt(i);</span><br><span class="line">            <span class="keyword">char</span> x = t.charAt(i);</span><br><span class="line">            <span class="keyword">if</span> (map.containsKey(k)) &#123;</span><br><span class="line">                <span class="keyword">char</span> v = map.get(k);</span><br><span class="line">                <span class="keyword">if</span> (x!=v) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                map.put(k,x);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (map2.containsKey(x)) &#123;</span><br><span class="line">                <span class="keyword">char</span> v = map2.get(x);</span><br><span class="line">                <span class="keyword">if</span> (k!=v) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                map2.put(x, k);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>32 / 32 test cases passed.</li>
-<li>Runtime: 12 ms, faster than 26.96% of Java online submissions for Isomorphic Strings.</li>
-<li>Memory Usage: 39.6 MB, less than 6.14% of Java online submissions for Isomorphic Strings.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/05/16/LeetCode-Algorithms-isomorphic-strings/" data-id="ckp21nb5j005bwsjaxfo4a1t7" data-title="LeetCode - Algorithms - 205. Isomorphic Strings" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HashTable/">HashTable</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
     </footer>
   </div>
@@ -750,6 +757,10 @@
       <ul>
         
           <li>
+            <a href="/2021/05/24/social-norms-in-canada/">Social norms in Canada</a>
+          </li>
+        
+          <li>
             <a href="/2021/05/23/leetcode-algorithms-insert-into-a-binary-search-tree/">LeetCode - Algorithms - 701. Insert into a Binary Search Tree</a>
           </li>
         
@@ -763,10 +774,6 @@
         
           <li>
             <a href="/2021/05/22/leetcode-algorithms-check-if-two-string-arrays-are-equivalent/">LeetCode - Algorithms - 1662. Check If Two String Arrays are Equivalent</a>
-          </li>
-        
-          <li>
-            <a href="/2021/05/22/leetcode-algorithms-search-in-a-binary-search-tree/">LeetCode - Algorithms - 700. Search in a Binary Search Tree</a>
           </li>
         
       </ul>
