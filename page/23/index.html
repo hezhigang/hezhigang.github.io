@@ -68,6 +68,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Surrounded-Regions" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/24/LeetCode-Algorithms-Surrounded-Regions/" class="article-date">
+  <time datetime="2020-02-25T03:06:20.000Z" itemprop="datePublished">2020-02-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/24/LeetCode-Algorithms-Surrounded-Regions/">LeetCode - Algorithms - 130. Surrounded Regions</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/surrounded-regions/" target="_blank" rel="noopener">130. Surrounded Regions</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> d[][] = &#123;</span><br><span class="line">            &#123;<span class="number">0</span>, <span class="number">1</span>&#125;,</span><br><span class="line">            &#123;<span class="number">1</span>, <span class="number">0</span>&#125;,</span><br><span class="line">            &#123;<span class="number">0</span>, -<span class="number">1</span>&#125;,</span><br><span class="line">            &#123;-<span class="number">1</span>, <span class="number">0</span>&#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="keyword">char</span>[][] board)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> h = board.length;</span><br><span class="line">        <span class="keyword">int</span> w = h==<span class="number">0</span> ? <span class="number">0</span> : board[<span class="number">0</span>].length;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (h==<span class="number">0</span> || w==<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; w; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (board[<span class="number">0</span>][j] == <span class="string">'O'</span>) bfs(<span class="number">0</span>, j, board, h, w);</span><br><span class="line">            <span class="keyword">if</span> (board[h - <span class="number">1</span>][j] == <span class="string">'O'</span>) bfs(h - <span class="number">1</span>, j, board, h, w);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; h-<span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (board[i][<span class="number">0</span>] == <span class="string">'O'</span>) bfs(i, <span class="number">0</span>, board, h, w);</span><br><span class="line">            <span class="keyword">if</span> (board[i][w - <span class="number">1</span>] == <span class="string">'O'</span>) bfs(i, w - <span class="number">1</span>, board, h, w);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; h; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; w; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (board[i][j] == <span class="string">'O'</span>) board[i][j] = <span class="string">'X'</span>;</span><br><span class="line">                <span class="keyword">if</span> (board[i][j] == <span class="string">'B'</span>) board[i][j] = <span class="string">'O'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bfs</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">char</span>[][] board, <span class="keyword">int</span> h, <span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">        Queue&lt;Point&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        queue.add(<span class="keyword">new</span> Point(i,j));</span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            Point curr = queue.poll();</span><br><span class="line">            <span class="keyword">int</span> row = curr.x;</span><br><span class="line">            <span class="keyword">int</span> col =  curr.y;</span><br><span class="line">            <span class="keyword">if</span> (isValid(board, h, w, row, col)) &#123;</span><br><span class="line">                board[row][col] = <span class="string">'B'</span>;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span>[] c: d) &#123;</span><br><span class="line">                    <span class="keyword">int</span> x = curr.x + c[<span class="number">0</span>];</span><br><span class="line">                    <span class="keyword">int</span> y = curr.y + c[<span class="number">1</span>];</span><br><span class="line">                    queue.add(<span class="keyword">new</span> Point(x, y));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isValid</span><span class="params">(<span class="keyword">char</span>[][] grid, <span class="keyword">int</span> width, <span class="keyword">int</span> height, <span class="keyword">int</span> row, <span class="keyword">int</span> col)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (row &gt;= <span class="number">0</span>) &amp;&amp; (row &lt; width) &amp;&amp; (col &gt;= <span class="number">0</span>) &amp;&amp; (col &lt; height) &amp;&amp; grid[row][col] == <span class="string">'O'</span>;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    <span class="keyword">int</span> y;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Point</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = x;</span><br><span class="line">        <span class="keyword">this</span>.y = y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>59 / 59 test cases passed.</li>
+<li>Runtime: 2 ms, faster than 55.96% of Java online submissions for Surrounded Regions.</li>
+<li>Memory Usage: 41.7 MB, less than 64.29% of Java online submissions for Surrounded Regions.</li>
+</ul>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a href="https://leetcode-cn.com/problems/surrounded-regions/solution/dfs-bfs-bing-cha-ji-by-powcai/" target="_blank" rel="noopener">powcai ~ DFS + BFS + 并查集</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/02/24/LeetCode-Algorithms-Surrounded-Regions/" data-id="ckp21nb4x004fwsjakg3euvhv" data-title="LeetCode - Algorithms - 130. Surrounded Regions" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BFS/">BFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DFS/">DFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Union-Find/">Union Find</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-what-would-happen-if-you-did-not-drink-water-mia-nacamulli-TED-Ed" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/21/what-would-happen-if-you-did-not-drink-water-mia-nacamulli-TED-Ed/" class="article-date">
@@ -98,7 +149,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/21/what-would-happen-if-you-did-not-drink-water-mia-nacamulli-TED-Ed/" data-id="ckp17cesi00jq3njaeyj76b7g" data-title="What would happen if you didn’t drink water? - Mia Nacamulli - TED-Ed - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/21/what-would-happen-if-you-did-not-drink-water-mia-nacamulli-TED-Ed/" data-id="ckp21nbgn00k1wsjazxazo45c" data-title="What would happen if you didn’t drink water? - Mia Nacamulli - TED-Ed - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -151,7 +202,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/21/binary-matrix-01/" data-id="ckp17cekj007a3nja3ay42z7w" data-title="LeetCode - Algorithms - 542. 01 Matrix" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/21/binary-matrix-01/" data-id="ckp21nb7c007lwsja70rvnucf" data-title="LeetCode - Algorithms - 542. 01 Matrix" class="article-share-link">Share</a>
       
       
       
@@ -239,7 +290,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/20/intellij-idea-cheat-sheet/" data-id="ckp17cemq00ag3njai7j0dw7r" data-title="IntelliJ IDEA Cheat Sheet" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/20/intellij-idea-cheat-sheet/" data-id="ckp21nb9i00amwsja84xj5fw6" data-title="IntelliJ IDEA Cheat Sheet" class="article-share-link">Share</a>
       
       
       
@@ -299,7 +350,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/19/LeetCode-Algorithms-Employee-Importance/" data-id="ckp17ceg5001s3njaykt1kz2x" data-title="LeetCode - Algorithms - 690. Employee Importance" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/19/LeetCode-Algorithms-Employee-Importance/" data-id="ckp21nb2q0020wsjati660e70" data-title="LeetCode - Algorithms - 690. Employee Importance" class="article-share-link">Share</a>
       
       
       
@@ -350,7 +401,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/18/LeetCode-Algorithms-Rotting-Oranges/" data-id="ckp17cehu003r3njaopusab2s" data-title="LeetCode - Algorithms - 994. Rotting Oranges" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/18/LeetCode-Algorithms-Rotting-Oranges/" data-id="ckp21nb4i0040wsjalazms8lo" data-title="LeetCode - Algorithms - 994. Rotting Oranges" class="article-share-link">Share</a>
       
       
       
@@ -404,7 +455,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/12/josephus-problem/" data-id="ckp17cemt00an3njarihoh8ir" data-title="Josephus problem" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/12/josephus-problem/" data-id="ckp21nb9n00auwsjamgtzlm9p" data-title="Josephus problem" class="article-share-link">Share</a>
       
       
       
@@ -576,7 +627,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/02/02/what-you-eat-matters-hope/" data-id="ckp17cf0k01423njaatx9k66f" data-title="H.O.P.E. What You Eat Matters (2018) – Full Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/02/02/what-you-eat-matters-hope/" data-id="ckp21nbon013mwsjandwif5eh" data-title="H.O.P.E. What You Eat Matters (2018) – Full Transcript" class="article-share-link">Share</a>
       
       
       
@@ -631,7 +682,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/01/30/shortest-path-in-a-binary-maze/" data-id="ckp17cerb00hm3njazdoncxjo" data-title="Shortest path in a binary maze" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/01/30/shortest-path-in-a-binary-maze/" data-id="ckp21nbfc00hwwsjaeyj287vg" data-title="Shortest path in a binary maze" class="article-share-link">Share</a>
       
       
       
@@ -678,58 +729,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/01/27/nth-root/" data-id="ckp17ceqo00gi3nja3kc3tugv" data-title="The principal nth root of a positive real number" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/01/27/nth-root/" data-id="ckp21nbek00gqwsjahaci0agp" data-title="The principal nth root of a positive real number" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/24/do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye/" class="article-date">
-  <time datetime="2020-01-25T04:43:48.000Z" itemprop="datePublished">2020-01-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/24/do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye/">Do not stand at my grave and weep</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>by <a href="https://en.wikipedia.org/wiki/Mary_Elizabeth_Frye" target="_blank" rel="noopener">Mary Elizabeth Frye</a></p>
-<blockquote>
-<p>Do not stand at my grave and weep,<br>I am not there; I do not sleep.<br>I am a thousand winds that blow,<br>I am the diamond glints on snow,<br>I am the sun on ripened grain,<br>I am the gentle autumn rain.<br>When you awaken in the morning’s hush<br>I am the swift uplifting rush<br>Of quiet birds in circling flight.<br>I am the soft star-shine at night.<br>Do not stand at my grave and cry,<br>I am not there; I did not die.</p>
-</blockquote>
-<hr>
-<p><a href="https://en.wikipedia.org/wiki/Do_Not_Stand_at_My_Grave_and_Weep" target="_blank" rel="noopener">Do Not Stand at My Grave and Weep</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/01/24/do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye/" data-id="ckp17cel0007u3njaj1yfaaa7" data-title="Do not stand at my grave and weep" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poem/">poem</a></li></ul>
 
     </footer>
   </div>
@@ -768,7 +772,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 18.42px;">Array</a> <a href="/tags/BFS/" style="font-size: 14.74px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.53px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 14.74px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 15.79px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.21px;">DFS</a> <a href="/tags/DP/" style="font-size: 14.21px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.05px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.37px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.68px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 13.68px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 11.05px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.47px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.26px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.58px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.53px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.53px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.58px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.63px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.05px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.53px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 12.11px;">String</a> <a href="/tags/TED/" style="font-size: 16.32px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 12.11px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.58px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.53px;">Topological Sort</a> <a href="/tags/Tree/" style="font-size: 11.05px;">Tree</a> <a href="/tags/Two-Pointers/" style="font-size: 15.26px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.58px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.53px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.05px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.95px;">english</a> <a href="/tags/essay/" style="font-size: 11.58px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.58px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.11px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.58px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.68px;">java</a> <a href="/tags/javascript/" style="font-size: 10.53px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.53px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.84px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.05px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 17.89px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 11.05px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.53px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.63px;">regex</a> <a href="/tags/song/" style="font-size: 13.16px;">song</a> <a href="/tags/sql/" style="font-size: 10.53px;">sql</a> <a href="/tags/stack/" style="font-size: 10.53px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.53px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/中文经典/" style="font-size: 10px;">中文经典</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 12.11px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10.53px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10.53px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 12.11px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 12.11px;">英语</a> <a href="/tags/译言/" style="font-size: 10.53px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 20px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 18.42px;">Array</a> <a href="/tags/BFS/" style="font-size: 14.74px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.53px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 14.74px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 15.79px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.21px;">DFS</a> <a href="/tags/DP/" style="font-size: 14.21px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.05px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.37px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.68px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 13.68px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 11.05px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 19.47px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.26px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.58px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.53px;">Mathematics</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.53px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.58px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.63px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.05px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.53px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 12.11px;">String</a> <a href="/tags/TED/" style="font-size: 16.32px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 12.11px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.58px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.53px;">Topological Sort</a> <a href="/tags/Tree/" style="font-size: 11.58px;">Tree</a> <a href="/tags/Two-Pointers/" style="font-size: 15.26px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.58px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.53px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.05px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 18.95px;">english</a> <a href="/tags/essay/" style="font-size: 11.58px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.58px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.11px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.58px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.68px;">java</a> <a href="/tags/javascript/" style="font-size: 10.53px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.53px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.84px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.05px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 17.89px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 11.05px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 10.53px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.63px;">regex</a> <a href="/tags/song/" style="font-size: 13.16px;">song</a> <a href="/tags/sql/" style="font-size: 10.53px;">sql</a> <a href="/tags/stack/" style="font-size: 10.53px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.53px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/中文经典/" style="font-size: 10px;">中文经典</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/古文/" style="font-size: 12.11px;">古文</a> <a href="/tags/心理学与生活/" style="font-size: 10.53px;">心理学与生活</a> <a href="/tags/数学史/" style="font-size: 10px;">数学史</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/无线网络/" style="font-size: 10px;">无线网络</a> <a href="/tags/李小龙/" style="font-size: 10px;">李小龙</a> <a href="/tags/李笑来/" style="font-size: 10px;">李笑来</a> <a href="/tags/林语堂/" style="font-size: 10.53px;">林语堂</a> <a href="/tags/王小波/" style="font-size: 10px;">王小波</a> <a href="/tags/算法/" style="font-size: 12.11px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/英语/" style="font-size: 12.11px;">英语</a> <a href="/tags/译言/" style="font-size: 10.53px;">译言</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -790,6 +794,10 @@
       <ul>
         
           <li>
+            <a href="/2021/05/23/leetcode-algorithms-insert-into-a-binary-search-tree/">LeetCode - Algorithms - 701. Insert into a Binary Search Tree</a>
+          </li>
+        
+          <li>
             <a href="/2021/05/23/leetcode-algorithms-find-all-duplicates-in-an-array/">LeetCode - Algorithms - 442. Find All Duplicates in an Array</a>
           </li>
         
@@ -803,10 +811,6 @@
         
           <li>
             <a href="/2021/05/22/leetcode-algorithms-search-in-a-binary-search-tree/">LeetCode - Algorithms - 700. Search in a Binary Search Tree</a>
-          </li>
-        
-          <li>
-            <a href="/2021/05/22/leetcode-algorithms-how-many-numbers-are-smaller-than-the-current-number/">LeetCode - Algorithms - 1365. How Many Numbers Are Smaller Than the Current Number</a>
           </li>
         
       </ul>
