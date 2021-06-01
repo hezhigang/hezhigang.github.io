@@ -68,6 +68,84 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-algorithms-longest-common-subsequence" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/20/leetcode-algorithms-longest-common-subsequence/" class="article-date">
+  <time datetime="2020-12-20T10:58:36.000Z" itemprop="datePublished">2020-12-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/20/leetcode-algorithms-longest-common-subsequence/">LeetCode - Algorithms - 1143. Longest Common Subsequence</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/longest-common-subsequence/" target="_blank" rel="noopener">1143. Longest Common Subsequence</a></p>
+<p>The longest common subsequence problem is a classic computer science problem, the basis of <a href="https://en.wikipedia.org/wiki/File_comparison" target="_blank" rel="noopener">data comparison</a> programs such as the <a href="https://en.wikipedia.org/wiki/Diff" target="_blank" rel="noopener">diff utility</a>, and has applications in <a href="https://en.wikipedia.org/wiki/Computational_linguistics" target="_blank" rel="noopener">computational linguistics</a> and <a href="https://en.wikipedia.org/wiki/Bioinformatics" target="_blank" rel="noopener">bioinformatics</a>. It is also widely used by <a href="https://en.wikipedia.org/wiki/Version_control" target="_blank" rel="noopener">revision control systems</a> such as Git for <a href="https://en.wikipedia.org/wiki/Merge_(version_control" target="_blank" rel="noopener">reconciling</a>) multiple changes made to a revision-controlled collection of files.</p>
+<p>For the general case of an arbitrary number of input sequences, the problem is NP-hard. When the number of sequences is constant, the problem is solvable in polynomial time by <a href="https://en.wikipedia.org/wiki/Dynamic_programming" target="_blank" rel="noopener">dynamic programming</a>.</p>
+<p>The LCS problem has an <a href="https://en.wikipedia.org/wiki/Optimal_substructure" target="_blank" rel="noopener">optimal substructure</a>: the problem can be broken down into smaller, simpler subproblems, which can in turn be broken down into simpler subproblems, and so on, until, finally, the solution becomes trivial. LCS in particular has <a href="https://en.wikipedia.org/wiki/Overlapping_subproblems" target="_blank" rel="noopener">overlapping subproblems</a>: the solutions to high-level subproblems often reuse solutions to lower level subproblems. Problems with these two properties are amenable to <a href="https://en.wikipedia.org/wiki/Dynamic_programming" target="_blank" rel="noopener">dynamic programming</a> approaches, in which subproblem solutions are <a href="https://en.wikipedia.org/wiki/Memoization" target="_blank" rel="noopener">memoized</a>, that is, the solutions of subproblems are saved for reuse.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Hunt–Szymanski-algorithm"><a href="#Hunt–Szymanski-algorithm" class="headerlink" title="Hunt–Szymanski algorithm"></a>Hunt–Szymanski algorithm</h2><p>Translation of © <a href="http://par.cse.nsysu.edu.tw/~lcs/Hunt-Szymanski%20Algorithm.php" target="_blank" rel="noopener">Hunt-Szymanski Algorithm(Match-List, 1977)</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestCommonSubsequence</span><span class="params">(String text1, String text2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> LEN1 = text1.length(), LEN2 = text2.length();</span><br><span class="line">        <span class="keyword">return</span> huntSzymanski_lcs(text1.toCharArray(), text2.toCharArray(), LEN1, LEN2);    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">huntSzymanski_lcs</span><span class="params">(<span class="keyword">char</span>[] stringA, <span class="keyword">char</span>[] stringB, <span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> alphabet_size = <span class="number">256</span>;</span><br><span class="line">        <span class="keyword">int</span> i, j, k, LCS, high, low, mid;</span><br><span class="line">        <span class="keyword">int</span>[][] matchlist = <span class="keyword">new</span> <span class="keyword">int</span>[alphabet_size][];</span><br><span class="line">        <span class="keyword">int</span>[] L;</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; alphabet_size; i++) &#123;</span><br><span class="line">            matchlist[i] = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        L = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// make the matchlist</span></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (matchlist[stringA[i]][<span class="number">0</span>] == <span class="number">0</span>) &#123;</span><br><span class="line">                matchlist[stringA[i]][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">for</span> (k = <span class="number">1</span>, j = n - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (stringA[i] == stringB[j]) &#123;</span><br><span class="line">                        matchlist[stringA[i]][k] = j + <span class="number">1</span>;</span><br><span class="line">                        k++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    matchlist[stringA[i]][k] = -<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// finding the LCS</span></span><br><span class="line">        <span class="keyword">for</span> (LCS = <span class="number">0</span>, i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (j = <span class="number">0</span>; matchlist[stringA[i]][j] != -<span class="number">1</span>; j++) &#123;</span><br><span class="line">                <span class="comment">// if the number bigger then the biggest number in the L, LCS + 1</span></span><br><span class="line">                <span class="keyword">if</span> (matchlist[stringA[i]][j] &gt; L[LCS]) &#123;</span><br><span class="line">                    LCS++;</span><br><span class="line">                    L[LCS] = matchlist[stringA[i]][j];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// else, do the binary search to find the place to insert the number</span></span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    high = LCS;</span><br><span class="line">                    low = <span class="number">0</span>;</span><br><span class="line">                    k = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                        mid = low + ((high - low) / <span class="number">2</span>);</span><br><span class="line">                        <span class="keyword">if</span> (L[mid] == matchlist[stringA[i]][j]) &#123;</span><br><span class="line">                            k = <span class="number">1</span>;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">if</span> (high - low &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">                            mid = high;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">if</span> (L[mid] &gt; matchlist[stringA[i]][j]) &#123;</span><br><span class="line">                            high = mid;</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (L[mid] &lt; matchlist[stringA[i]][j]) &#123;</span><br><span class="line">                            low = mid;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> (k == <span class="number">0</span>) &#123;</span><br><span class="line">                        L[mid] = matchlist[stringA[i]][j];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> LCS;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>43 / 43 test cases passed.</li>
+<li>Runtime: 12 ms, faster than 32.13% of Java online submissions for Longest Common Subsequence.</li>
+<li>Memory Usage: 39.2 MB, less than 92.10% of Java online submissions for Longest Common Subsequence.</li>
+</ul>
+<h2 id="Dynamic-Programming"><a href="#Dynamic-Programming" class="headerlink" title="Dynamic Programming"></a>Dynamic Programming</h2><h3 id="bottom-up-approach"><a href="#bottom-up-approach" class="headerlink" title="bottom-up approach"></a>bottom-up approach</h3><p>Oftentimes I found Wikipedia is helpful when doing leetcode algorithm problems.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestCommonSubsequence</span><span class="params">(String text1, String text2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> LEN1 = text1.length(), LEN2 = text2.length();</span><br><span class="line">        <span class="keyword">int</span>[][] C = <span class="keyword">new</span> <span class="keyword">int</span>[LEN1 + <span class="number">1</span>][LEN2 + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= LEN1; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= LEN2; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (text1.charAt(i - <span class="number">1</span>) == text2.charAt(j - <span class="number">1</span>)) &#123;</span><br><span class="line">                    C[i][j] = C[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    C[i][j] = C[i - <span class="number">1</span>][j] &gt; C[i][j - <span class="number">1</span>] ? C[i - <span class="number">1</span>][j] : C[i][j - <span class="number">1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> C[LEN1][LEN2];     </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>43 / 43 test cases passed.</li>
+<li>Runtime: 18 ms, faster than 17.54% of Java online submissions for Longest Common Subsequence.</li>
+<li>Memory Usage: 42.8 MB, less than 51.59% of Java online submissions for Longest Common Subsequence.</li>
+</ul>
+<h3 id="top-down-approach-momoized-version"><a href="#top-down-approach-momoized-version" class="headerlink" title="top-down approach (momoized version)"></a>top-down approach (momoized version)</h3><p>© <a href="https://www.techiedelight.com/longest-common-subsequence/" target="_blank" rel="noopener">https://www.techiedelight.com/longest-common-subsequence/</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestCommonSubsequence</span><span class="params">(String text1, String text2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> LEN1 = text1.length(), LEN2 = text2.length();</span><br><span class="line">        Map&lt;String, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;String, Integer&gt;();</span><br><span class="line">        <span class="keyword">return</span> lcsLength(text1, text2, LEN1, LEN2, map);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">lcsLength</span><span class="params">(String X, String Y, <span class="keyword">int</span> m, <span class="keyword">int</span> n, Map&lt;String, Integer&gt; lookup)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// return if we have reached the end of either string</span></span><br><span class="line">        <span class="keyword">if</span> (m == <span class="number">0</span> || n == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// construct an unique map key from dynamic elements of the input</span></span><br><span class="line">        String key = m + <span class="string">"|"</span> + n;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// if sub-problem is seen for the first time, solve it and</span></span><br><span class="line">        <span class="comment">// store its result in a map</span></span><br><span class="line">        <span class="keyword">if</span> (!lookup.containsKey(key)) &#123;</span><br><span class="line">            <span class="comment">// if last character of X and Y matches</span></span><br><span class="line">            <span class="keyword">if</span> (X.charAt(m - <span class="number">1</span>) == Y.charAt(n - <span class="number">1</span>)) &#123;</span><br><span class="line">                lookup.put(key, lcsLength(X, Y, m - <span class="number">1</span>, n - <span class="number">1</span>, lookup) + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// else if last character of X and Y don't match</span></span><br><span class="line">                lookup.put(key, Integer.max(lcsLength(X, Y, m, n - <span class="number">1</span>, lookup), lcsLength(X, Y, m - <span class="number">1</span>, n, lookup)));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// return the subproblem solution from the map</span></span><br><span class="line">        <span class="keyword">return</span> lookup.get(key);</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>43 / 43 test cases passed.</li>
+<li>Runtime: 295 ms, faster than 5.04% of Java online submissions for Longest Common Subsequence.</li>
+<li>Memory Usage: 167 MB, less than 5.04% of Java online submissions for Longest Common Subsequence.</li>
+</ul>
+<h1 id="javascript"><a href="#javascript" class="headerlink" title="javascript"></a>javascript</h1><h2 id="Dynamic-Programming-1"><a href="#Dynamic-Programming-1" class="headerlink" title="Dynamic Programming"></a>Dynamic Programming</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; text1</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; text2</span></span><br><span class="line"><span class="comment"> * @return &#123;number&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> longestCommonSubsequence = <span class="function"><span class="keyword">function</span>(<span class="params">text1, text2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> LEN1 = text1.length, LEN2 = text2.length;</span><br><span class="line">    <span class="keyword">var</span> C = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt;= LEN1; i++) &#123;</span><br><span class="line">        C.push([]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt;= LEN2; j++) &#123;</span><br><span class="line">            C[i].push(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= LEN1; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">1</span>; j &lt;= LEN2; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (text1[i - <span class="number">1</span>] == text2[j - <span class="number">1</span>]) &#123;</span><br><span class="line">                C[i][j] = C[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                C[i][j] = C[i - <span class="number">1</span>][j] &gt; C[i][j - <span class="number">1</span>] ? C[i - <span class="number">1</span>][j] : C[i][j - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> C[LEN1][LEN2];    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-3"><a href="#Submission-Detail-3" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>43 / 43 test cases passed.</li>
+<li>Runtime: 116 ms, faster than 60.08% of JavaScript online submissions for Longest Common Subsequence.</li>
+<li>Memory Usage: 53.4 MB, less than 22.63% of JavaScript online submissions for Longest Common Subsequence.</li>
+</ul>
+<hr>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Longest_common_subsequence_problem" target="_blank" rel="noopener">Longest common subsequence problem</a></li>
+<li><a href="https://developer.ibm.com/articles/j-seqalign/" target="_blank" rel="noopener">Dynamic programming and sequence alignment - Computer science aids molecular biology</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Hunt%E2%80%93Szymanski_algorithm" target="_blank" rel="noopener">Hunt–Szymanski algorithm</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/12/20/leetcode-algorithms-longest-common-subsequence/" data-id="ckpe1c2ge010ceyjaofaorhh6" data-title="LeetCode - Algorithms - 1143. Longest Common Subsequence" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-leetcode-algorithms-kth-largest-element-in-a-stream" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/18/leetcode-algorithms-kth-largest-element-in-a-stream/" class="article-date">
@@ -101,7 +179,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/18/leetcode-algorithms-kth-largest-element-in-a-stream/" data-id="ckp6cafts00cnwuja7bzu6pae" data-title="LeetCode - Algorithms - 703. Kth Largest Element in a Stream" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/18/leetcode-algorithms-kth-largest-element-in-a-stream/" data-id="ckpe1c24500cteyjaswqkkcx0" data-title="LeetCode - Algorithms - 703. Kth Largest Element in a Stream" class="article-share-link">Share</a>
       
       
       
@@ -151,7 +229,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/17/on-hearing-a-symphony-of-beethoven-edna-millay/" data-id="ckp6cafxm00grwuja7qlp24c6" data-title="On Hearing a Symphony of Beethoven" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/17/on-hearing-a-symphony-of-beethoven-edna-millay/" data-id="ckpe1c27q00gueyja308f6bhy" data-title="On Hearing a Symphony of Beethoven" class="article-share-link">Share</a>
       
       
       
@@ -207,7 +285,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/16/leetcode-algorithms-missing-number/" data-id="ckp6cafu700d7wujanmkycf2p" data-title="LeetCode - Algorithms - 268. Missing Number" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/16/leetcode-algorithms-missing-number/" data-id="ckpe1c24n00dfeyjam5dg4o2d" data-title="LeetCode - Algorithms - 268. Missing Number" class="article-share-link">Share</a>
       
       
       
@@ -275,7 +353,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/15/leetcode-algorithms-single-number/" data-id="ckp6cafvv00exwujavi0dyc72" data-title="LeetCode - Algorithms - 136. Single Number" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/15/leetcode-algorithms-single-number/" data-id="ckpe1c26100f2eyjal820g84i" data-title="LeetCode - Algorithms - 136. Single Number" class="article-share-link">Share</a>
       
       
       
@@ -323,7 +401,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/14/leetcode-algorithms-largest-perimeter-triangle/" data-id="ckp6cafti00cdwujaze2v9gz6" data-title="LeetCode - Algorithms - 976. Largest Perimeter Triangle" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/14/leetcode-algorithms-largest-perimeter-triangle/" data-id="ckpe1c24400cqeyjarw8lqifc" data-title="LeetCode - Algorithms - 976. Largest Perimeter Triangle" class="article-share-link">Share</a>
       
       
       
@@ -371,7 +449,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/12/leetcode-algorithms-n-th-tribonacci-number/" data-id="ckp6cafum00dlwujavt5mx91c" data-title="LeetCode - Algorithms - 1137. N-th Tribonacci Number" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/12/leetcode-algorithms-n-th-tribonacci-number/" data-id="ckpe1c25000dueyjajcg3csnk" data-title="LeetCode - Algorithms - 1137. N-th Tribonacci Number" class="article-share-link">Share</a>
       
       
       
@@ -426,7 +504,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/11/leetcode-algorithms-number-of-days-between-two-dates/" data-id="ckp6cafut00dtwujac3fewwyo" data-title="LeetCode - Algorithms - 1360. Number of Days Between Two Dates" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/11/leetcode-algorithms-number-of-days-between-two-dates/" data-id="ckpe1c25200dxeyja5yybqyhy" data-title="LeetCode - Algorithms - 1360. Number of Days Between Two Dates" class="article-share-link">Share</a>
       
       
       
@@ -764,7 +842,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/10/language-difficulty-ranking-for-english-speaker/" data-id="ckp6cafse00azwujaxemaefa6" data-title="Language difficulty ranking for English speaker by FSI" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/10/language-difficulty-ranking-for-english-speaker/" data-id="ckpe1c22z00b8eyjaid2davpn" data-title="Language difficulty ranking for English speaker by FSI" class="article-share-link">Share</a>
       
       
       
@@ -828,70 +906,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/09/leetcode-algorithms-two-sum-ii-input-array-is-sorted/" data-id="ckp6cafwd00fhwujas1y8ti66" data-title="LeetCode - Algorithms - 167. Two Sum II - Input array is sorted" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/12/09/leetcode-algorithms-two-sum-ii-input-array-is-sorted/" data-id="ckpe1c26j00fjeyjar9fvk35u" data-title="LeetCode - Algorithms - 167. Two Sum II - Input array is sorted" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/">Two Pointers</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-this-land-is-your-land-canadian-version" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/04/this-land-is-your-land-canadian-version/" class="article-date">
-  <time datetime="2020-12-05T02:57:43.000Z" itemprop="datePublished">2020-12-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/04/this-land-is-your-land-canadian-version/">This Land is Your Land (Canadian version)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>This land is your land, This land is my land,<br>From <a href="https://en.wikipedia.org/wiki/Bonavista,_Newfoundland_and_Labrador" target="_blank" rel="noopener">Bonavista</a>, to <a href="https://en.wikipedia.org/wiki/Vancouver_Island" target="_blank" rel="noopener">Vancouver Island</a><br>From the <a href="https://en.wikipedia.org/wiki/Arctic_Circle" target="_blank" rel="noopener">Arctic Circle</a> to the <a href="https://en.wikipedia.org/wiki/Great_Lakes" target="_blank" rel="noopener">Great Lakes</a> waters,<br>This land was made for you and me.</p>
-<p>As I went walking that ribbon of highway,<br>I saw above me that endless skyway;<br>I saw below me that golden valley<br>This land was made for you and me.</p>
-<p>I roamed and I rambled and I followed my footsteps,<br>To the sparkling sands of her diamond deserts;<br>While all around me a voice was sounding,<br>Saying this land was made for you and me.</p>
-<p>The sun came shining, and I was strolling,<br>And the wheat fields waving and the dust clouds rolling;<br>As the fog was lifting, a voice was chanting,<br>This land was made for you and me.</p>
-<p>This land is your land, this land is my land,<br>From Bonavista to Vancouver Island;<br>From the Arctic Circle to the Great Lakes waters,<br>This land was made for you and me.</p>
-<iframe src="https://open.spotify.com/embed/track/3xs21sy4jHFDwiKypHxYyZ" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-<hr>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/This_Land_Is_Your_Land" target="_blank" rel="noopener">This Land Is Your Land</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Woody_Guthrie" target="_blank" rel="noopener">Woody Guthrie</a></li>
-<li>This version was written and popularized by Canadian folk music group <a href="https://en.wikipedia.org/wiki/The_Travellers_%28band%29" target="_blank" rel="noopener">The Travellers</a> in 1955.</li>
-</ul>
-<hr>
-<ul>
-<li><a href="http://education.davidspencer.ca/wiki/This_Land_is_Your_Land_%28Canadian_Lyrics_by_The_Travellers_%29" target="_blank" rel="noopener">This Land is Your Land &#40;Canadian Lyrics by The Travellers&#41;</a></li>
-<li><a href="https://perryjgreenbaum.blogspot.com/2019/11/the-travellers-this-land-is-your-land.html" target="_blank" rel="noopener">The Travellers: This Land is Your Land &#40;Canadian version&#41;</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/12/04/this-land-is-your-land-canadian-version/" data-id="ckp6cafzp00jfwuja0w6omccd" data-title="This Land is Your Land (Canadian version)" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/song/">song</a></li></ul>
 
     </footer>
   </div>
@@ -939,7 +958,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
     </div>
   </div>
 
@@ -950,6 +969,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/06/01/the-road-not-taken-robert-frost/">The Road Not Taken</a>
+          </li>
         
           <li>
             <a href="/2021/05/26/how-to-read-music-tim-hansen-ted-ed/">How to read music - Tim Hansen - TED-Ed - Transcript</a>
@@ -965,10 +988,6 @@
         
           <li>
             <a href="/2021/05/23/leetcode-algorithms-find-all-duplicates-in-an-array/">LeetCode - Algorithms - 442. Find All Duplicates in an Array</a>
-          </li>
-        
-          <li>
-            <a href="/2021/05/23/leetcode-algorithms-find-all-numbers-disappeared-in-an-array/">LeetCode - Algorithms - 448. Find All Numbers Disappeared in an Array</a>
           </li>
         
       </ul>
