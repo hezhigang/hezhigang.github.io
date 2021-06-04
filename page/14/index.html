@@ -68,6 +68,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-algorithms-intersection-of-two-arrays" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/12/leetcode-algorithms-intersection-of-two-arrays/" class="article-date">
+  <time datetime="2020-08-12T15:16:46.000Z" itemprop="datePublished">2020-08-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/12/leetcode-algorithms-intersection-of-two-arrays/">LeetCode - Algorithms - 349. Intersection of Two Arrays</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/intersection-of-two-arrays/" target="_blank" rel="noopener">349. Intersection of Two Arrays</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="brute-force-method"><a href="#brute-force-method" class="headerlink" title="brute force method"></a>brute force method</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] intersection(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len1 = nums1.length;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len2 = nums2.length;</span><br><span class="line"></span><br><span class="line">        Set&lt;Integer&gt; ret = <span class="keyword">new</span> HashSet&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len1; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; len2; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums1[i] == nums2[j])</span><br><span class="line">                    ret.add(nums1[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] r = <span class="keyword">new</span> <span class="keyword">int</span>[ret.size()];</span><br><span class="line">        <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Integer e : ret)</span><br><span class="line">            r[k++] = e.intValue();</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>60 / 60 test cases passed.</li>
+<li>Runtime: 8 ms, faster than 11.36% of Java online submissions for Intersection of Two Arrays.</li>
+<li>Memory Usage: 39.9 MB, less than 54.69% of Java online submissions for Intersection of Two Arrays.</li>
+</ul>
+<h2 id="retainAll-of-HashSet-in-Java-collections-framework"><a href="#retainAll-of-HashSet-in-Java-collections-framework" class="headerlink" title="retainAll of HashSet in Java collections framework"></a>retainAll of HashSet in Java collections framework</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] intersection(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2) &#123;</span><br><span class="line">        Set&lt;Integer&gt; set1 = <span class="keyword">new</span> HashSet&lt;Integer&gt;();</span><br><span class="line">        Set&lt;Integer&gt; set2 = <span class="keyword">new</span> HashSet&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums1.length; i++)</span><br><span class="line">            set1.add(nums1[i]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums2.length; i++)</span><br><span class="line">            set2.add(nums2[i]);</span><br><span class="line">        set1.retainAll(set2);</span><br><span class="line">        <span class="keyword">int</span>[] r = <span class="keyword">new</span> <span class="keyword">int</span>[set1.size()];</span><br><span class="line">        <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Integer e : set1)</span><br><span class="line">            r[k++] = e.intValue();</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>60 / 60 test cases passed.</li>
+<li>Runtime: 2 ms, faster than 99.40% of Java online submissions for Intersection of Two Arrays.</li>
+<li>Memory Usage: 39.4 MB, less than 90.00% of Java online submissions for Intersection of Two Arrays.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/08/12/leetcode-algorithms-intersection-of-two-arrays/" data-id="ckpid124d00ceetja9rgbmj9r" data-title="LeetCode - Algorithms - 349. Intersection of Two Arrays" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sort/">Sort</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-yesterday-today-tomorrow" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/08/11/yesterday-today-tomorrow/" class="article-date">
@@ -114,7 +168,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/08/11/yesterday-today-tomorrow/" data-id="ckpgvwlee00kcmajadj0ib3g1" data-title="《昨日歌》《今日歌》《明日歌》" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/08/11/yesterday-today-tomorrow/" data-id="ckpid12k7011aetjazc174nvu" data-title="《昨日歌》《今日歌》《明日歌》" class="article-share-link">Share</a>
       
       
       
@@ -181,7 +235,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/08/07/leetcode-algorithms-shuffle-the-array/" data-id="ckpgvwl9w00enmajare1j0fjv" data-title="LeetCode - Algorithms - 1470. Shuffle the Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/08/07/leetcode-algorithms-shuffle-the-array/" data-id="ckpid126f00eqetja6dpy1v99" data-title="LeetCode - Algorithms - 1470. Shuffle the Array" class="article-share-link">Share</a>
       
       
       
@@ -239,7 +293,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/08/06/renascence-edna-millay/" data-id="ckpgvwlmy0124majadodsjfwb" data-title="Renascence" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/08/06/renascence-edna-millay/" data-id="ckpid12iy010ketja2cpxpijs" data-title="Renascence" class="article-share-link">Share</a>
       
       
       
@@ -301,7 +355,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/25/how-societies-can-grow-old-better-jared-diamond-ted/" data-id="ckpgvwlom0142majae03cy02n" data-title="How societies can grow old better - Jared Diamond - TED2013 - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/25/how-societies-can-grow-old-better-jared-diamond-ted/" data-id="ckpid12lj012setjasp0zhnml" data-title="How societies can grow old better - Jared Diamond - TED2013 - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -367,7 +421,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/18/leetcode-algorithms-squares-of-a-sorted-array/" data-id="ckpgvwla300exmajas76caztn" data-title="LeetCode - Algorithms - 977. Squares of a Sorted Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/18/leetcode-algorithms-squares-of-a-sorted-array/" data-id="ckpid126p00f5etja96ya29wq" data-title="LeetCode - Algorithms - 977. Squares of a Sorted Array" class="article-share-link">Share</a>
       
       
       
@@ -468,7 +522,7 @@ And night’s black agents to their preys do rouse.
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/17/a-defence-of-poetry-percy-bysshe-shelley/" data-id="ckpgvwlr10162majal9c95im7" data-title="A Defence of Poetry" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/17/a-defence-of-poetry-percy-bysshe-shelley/" data-id="ckpid12p70151etjav1hyjv4c" data-title="A Defence of Poetry" class="article-share-link">Share</a>
       
       
       
@@ -522,7 +576,7 @@ And night’s black agents to their preys do rouse.
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/13/leetcode-algorithms-merge-sorted-array/" data-id="ckpgvwl8h00czmajacsszyu81" data-title="LeetCode - Algorithms - 88. Merge Sorted Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/13/leetcode-algorithms-merge-sorted-array/" data-id="ckpid125000d5etja1lrugurc" data-title="LeetCode - Algorithms - 88. Merge Sorted Array" class="article-share-link">Share</a>
       
       
       
@@ -590,7 +644,7 @@ And night’s black agents to their preys do rouse.
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/11/leetcode-algorithms-power-of-four/" data-id="ckpgvwl9400dtmaja964ohnoy" data-title="LeetCode - Algorithms - 342. Power of Four" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/11/leetcode-algorithms-power-of-four/" data-id="ckpid125o00e1etjaqp7ztgp7" data-title="LeetCode - Algorithms - 342. Power of Four" class="article-share-link">Share</a>
       
       
       
@@ -657,79 +711,7 @@ And night’s black agents to their preys do rouse.
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/10/leetcode-algorithms-power-of-two/" data-id="ckpgvwl9600dwmajau2fm328p" data-title="LeetCode - Algorithms - 231. Power of Two" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bit-Manipulation/">Bit Manipulation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-leetcode-algorithms-number-complement" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/09/leetcode-algorithms-number-complement/" class="article-date">
-  <time datetime="2020-07-09T18:40:24.000Z" itemprop="datePublished">2020-07-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/09/leetcode-algorithms-number-complement/">LeetCode - Algorithms - 476. Number Complement</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/number-complement/" target="_blank" rel="noopener">476. Number Complement</a> This question is the same as 1009</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="naive"><a href="#naive" class="headerlink" title="naive"></a>naive</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findComplement</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        String s = Integer.toBinaryString(num);</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = s.length();</span><br><span class="line">        <span class="keyword">char</span>[] a = <span class="keyword">new</span> <span class="keyword">char</span>[N];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            a[i] = s.charAt(i) == <span class="string">'0'</span> ? <span class="string">'1'</span> : <span class="string">'0'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        r = Integer.parseInt(String.valueOf(a),<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>149 / 149 test cases passed.</li>
-<li>Runtime: 1 ms, faster than 35.06% of Java online submissions for Number Complement.</li>
-<li>Memory Usage: 38.5 MB, less than 5.05% of Java online submissions for Number Complement.</li>
-</ul>
-<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findComplement</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        String s = Integer.toBinaryString(num);</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = s.length();</span><br><span class="line">        <span class="keyword">char</span>[] a = s.toCharArray();</span><br><span class="line">        <span class="keyword">if</span> (a[N - <span class="number">1</span>] == <span class="string">'0'</span>)</span><br><span class="line">            r = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = N - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (a[i] == <span class="string">'0'</span>)</span><br><span class="line">                r += <span class="number">2</span> &lt;&lt; (N - <span class="number">2</span> - i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>149 / 149 test cases passed.</li>
-<li>Runtime: 1 ms, faster than 35.06% of Java online submissions for Number Complement.</li>
-<li>Memory Usage: 37.7 MB, less than 18.78% of Java online submissions for Number Complement.</li>
-</ul>
-<h2 id="3"><a href="#3" class="headerlink" title="3"></a>3</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findComplement</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        String s = Integer.toBinaryString(num);</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = s.length();</span><br><span class="line">        <span class="keyword">if</span> (s.charAt(N - <span class="number">1</span>) == <span class="string">'0'</span>)</span><br><span class="line">            r = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = N - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s.charAt(i) == <span class="string">'0'</span>)</span><br><span class="line">                r += <span class="number">2</span> &lt;&lt; (N - <span class="number">2</span> - i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>149 / 149 test cases passed.</li>
-<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Number Complement.</li>
-<li>Memory Usage: 36.4 MB, less than 49.07% of Java online submissions for Number Complement.</li>
-</ul>
-<h2 id="4"><a href="#4" class="headerlink" title="4"></a>4</h2><p><a href="https://leetcode.com/problems/complement-of-base-10-integer/" target="_blank" rel="noopener">1009. Complement of Base 10 Integer</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">bitwiseComplement</span><span class="params">(<span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">        String s = Integer.toBinaryString(N);</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> LEN = s.length();</span><br><span class="line">        <span class="keyword">if</span> (s.charAt(LEN - <span class="number">1</span>) == <span class="string">'0'</span>)</span><br><span class="line">            r = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = LEN - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s.charAt(i) == <span class="string">'0'</span>)</span><br><span class="line">                r += <span class="number">2</span> &lt;&lt; (LEN - <span class="number">2</span> - i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail-3"><a href="#Submission-Detail-3" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>128 / 128 test cases passed.</li>
-<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Complement of Base 10 Integer.</li>
-<li>Memory Usage: 36.5 MB, less than 29.82% of Java online submissions for Complement of Base 10 Integer.</li>
-</ul>
-<hr>
-<ul>
-<li><a href="https://www.programiz.com/java-programming/bitwise-operators" target="_blank" rel="noopener">Java Bitwise and Bit Shift Operators</a></li>
-<li><a href="https://introcs.cs.princeton.edu/java/61data/" target="_blank" rel="noopener">6.1 Representing Information</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/09/leetcode-algorithms-number-complement/" data-id="ckpgvwl8u00demajaeewf32bi" data-title="LeetCode - Algorithms - 476. Number Complement" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/10/leetcode-algorithms-power-of-two/" data-id="ckpid125q00e4etjaz5hh0ub0" data-title="LeetCode - Algorithms - 231. Power of Two" class="article-share-link">Share</a>
       
       
       
@@ -748,7 +730,7 @@ And night’s black agents to their preys do rouse.
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/13/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><a class="extend next" rel="next" href="/page/15/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/13/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><a class="extend next" rel="next" href="/page/15/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -794,6 +776,10 @@ And night’s black agents to their preys do rouse.
       <ul>
         
           <li>
+            <a href="/2021/06/04/when-i-am-dead-my-dearest-christina-rossetti/">When I am dead, my dearest</a>
+          </li>
+        
+          <li>
             <a href="/2021/06/03/my-english-words-list-june-2021/">My English Words List - June - 2021</a>
           </li>
         
@@ -807,10 +793,6 @@ And night’s black agents to their preys do rouse.
         
           <li>
             <a href="/2021/05/24/social-norms-in-canada/">Social norms in Canada</a>
-          </li>
-        
-          <li>
-            <a href="/2021/05/23/leetcode-algorithms-insert-into-a-binary-search-tree/">LeetCode - Algorithms - 701. Insert into a Binary Search Tree</a>
           </li>
         
       </ul>
