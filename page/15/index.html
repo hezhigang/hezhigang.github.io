@@ -68,6 +68,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-algorithms-merge-sorted-array" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/13/leetcode-algorithms-merge-sorted-array/" class="article-date">
+  <time datetime="2020-07-13T21:57:53.000Z" itemprop="datePublished">2020-07-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/13/leetcode-algorithms-merge-sorted-array/">LeetCode - Algorithms - 88. Merge Sorted Array</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/merge-sorted-array/" target="_blank" rel="noopener">88. Merge Sorted Array</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span> m, <span class="keyword">int</span>[] nums2, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (m == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">                nums1[i] = nums2[i];</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> idx = m + n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> idx1 = m - <span class="number">1</span>, idx2 = n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (; idx1 &gt;= <span class="number">0</span> &amp;&amp; idx2 &gt;= <span class="number">0</span>; ) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums1[idx1] &lt; nums2[idx2]) &#123;</span><br><span class="line">                nums1[idx--] = nums2[idx2];</span><br><span class="line">                idx2--;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                nums1[idx--] = nums1[idx1];</span><br><span class="line">                idx1--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (idx2 &gt;= <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= idx2; i++)</span><br><span class="line">                nums1[i] = nums2[i];       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>59 / 59 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Merge Sorted Array.</li>
+<li>Memory Usage: 39.9 MB, less than 18.03% of Java online submissions for Merge Sorted Array.</li>
+</ul>
+<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span> m, <span class="keyword">int</span>[] nums2, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (m == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">                nums1[i] = nums2[i];</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> idx = m + n - <span class="number">1</span>;</span><br><span class="line">        m--;</span><br><span class="line">        n--;</span><br><span class="line">        <span class="keyword">for</span> (; m &gt;= <span class="number">0</span> &amp;&amp; n &gt;= <span class="number">0</span>; ) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums1[m] &lt; nums2[n]) &#123;</span><br><span class="line">                nums1[idx--] = nums2[n];</span><br><span class="line">                n--;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                nums1[idx--] = nums1[m];</span><br><span class="line">                m--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n &gt;= <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++)</span><br><span class="line">                nums1[i] = nums2[i];       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>59 / 59 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Merge Sorted Array.</li>
+<li>Memory Usage: 40 MB, less than 14.13% of Java online submissions for Merge Sorted Array.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/07/13/leetcode-algorithms-merge-sorted-array/" data-id="ckqkve4bj00de7hjadkvrsktv" data-title="LeetCode - Algorithms - 88. Merge Sorted Array" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-leetcode-algorithms-power-of-four" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/07/11/leetcode-algorithms-power-of-four/" class="article-date">
@@ -121,7 +175,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/11/leetcode-algorithms-power-of-four/" data-id="ckpoc7hkm00eakbjay4x7s1uj" data-title="LeetCode - Algorithms - 342. Power of Four" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/11/leetcode-algorithms-power-of-four/" data-id="ckqkve4cg00e67hjae4r9rtly" data-title="LeetCode - Algorithms - 342. Power of Four" class="article-share-link">Share</a>
       
       
       
@@ -188,7 +242,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/10/leetcode-algorithms-power-of-two/" data-id="ckpoc7hkq00eckbjamk8h5oeu" data-title="LeetCode - Algorithms - 231. Power of Two" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/10/leetcode-algorithms-power-of-two/" data-id="ckqkve4cl00ea7hjazra0vfx7" data-title="LeetCode - Algorithms - 231. Power of Two" class="article-share-link">Share</a>
       
       
       
@@ -260,7 +314,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/09/leetcode-algorithms-number-complement/" data-id="ckpoc7hk400dskbjakn6pzzn8" data-title="LeetCode - Algorithms - 476. Number Complement" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/09/leetcode-algorithms-number-complement/" data-id="ckqkve4bz00dr7hja5dgfoxrx" data-title="LeetCode - Algorithms - 476. Number Complement" class="article-share-link">Share</a>
       
       
       
@@ -320,7 +374,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/08/leetcode-algorithms-plus-one/" data-id="ckpoc7hke00e2kbjayiy4pxua" data-title="LeetCode - Algorithms - 66. Plus One" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/08/leetcode-algorithms-plus-one/" data-id="ckqkve4ce00e37hjawrod8w0i" data-title="LeetCode - Algorithms - 66. Plus One" class="article-share-link">Share</a>
       
       
       
@@ -368,7 +422,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/08/leetcode-algorithms-xor-operation-in-an-array/" data-id="ckpoc7hm800fukbjaif5yplc4" data-title="LeetCode - Algorithms - 1486. XOR Operation in an Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/08/leetcode-algorithms-xor-operation-in-an-array/" data-id="ckqkve4eo00fx7hjaxbigm2km" data-title="LeetCode - Algorithms - 1486. XOR Operation in an Array" class="article-share-link">Share</a>
       
       
       
@@ -428,7 +482,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/07/leetcode-algorithms-running-sum-of-1d-array/" data-id="ckpoc7hky00ekkbjayo5lmbet" data-title="LeetCode - Algorithms - 1480. Running Sum of 1d Array" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/07/leetcode-algorithms-running-sum-of-1d-array/" data-id="ckqkve4d200en7hjaqlsl7t5m" data-title="LeetCode - Algorithms - 1480. Running Sum of 1d Array" class="article-share-link">Share</a>
       
       
       
@@ -482,7 +536,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/07/leetcode-algorithms-number-of-steps-to-reduce-a-number-to-zero/" data-id="ckpoc7hk600dvkbjatjfe6fo9" data-title="LeetCode - Algorithms - 1342. Number of Steps to Reduce a Number to Zero" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/07/leetcode-algorithms-number-of-steps-to-reduce-a-number-to-zero/" data-id="ckqkve4c500dy7hja33t6it6d" data-title="LeetCode - Algorithms - 1342. Number of Steps to Reduce a Number to Zero" class="article-share-link">Share</a>
       
       
       
@@ -567,7 +621,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/04/United-States-Declaration-of-Independence/" data-id="ckpoc7hwa0102kbjabatlqk89" data-title="United States Declaration of Independence" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/04/United-States-Declaration-of-Independence/" data-id="ckqkve4tm00zq7hjag7khgza6" data-title="United States Declaration of Independence" class="article-share-link">Share</a>
       
       
       
@@ -625,61 +679,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/03/leetcode-algorithms-max-points-on-a-line/" data-id="ckpoc7hjc00d3kbjagtphrajv" data-title="LeetCode - Algorithms - 149. Max Points on a Line" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/03/leetcode-algorithms-max-points-on-a-line/" data-id="ckqkve4b700d97hjaokgxhzir" data-title="LeetCode - Algorithms - 149. Max Points on a Line" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-Anthems-of-Canada" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/01/Anthems-of-Canada/" class="article-date">
-  <time datetime="2020-07-02T03:21:30.000Z" itemprop="datePublished">2020-07-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/01/Anthems-of-Canada/">O Canada - Anthems of Canada - English version</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>O Canada!<br>Our home and native land!<br>True patriot love in all of us command.</p>
-<p>With glowing hearts we see thee rise,<br>The True North strong and free!</p>
-<p>From far and wide,<br>O Canada, we stand on guard for thee.</p>
-<p>God keep our land glorious and free!<br>O Canada, we stand on guard for thee.</p>
-<p>O Canada, we stand on guard for thee.</p>
-<iframe src="https://open.spotify.com/embed/track/4X6BMrIdis11Qe8QhAulTl" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-<hr>
-<p><a href="https://www.canada.ca/en/canadian-heritage/services/anthems-canada.html" target="_blank" rel="noopener">Anthems of Canada</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/01/Anthems-of-Canada/" data-id="ckpoc7h3n0001kbjadx1v2d4m" data-title="O Canada - Anthems of Canada - English version" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li></ul>
 
     </footer>
   </div>
@@ -727,7 +731,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
     </div>
   </div>
 
@@ -738,6 +742,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/07/01/the-wild-canadian-year/">The Wild Canadian Year</a>
+          </li>
         
           <li>
             <a href="/2021/06/08/bach-and-the-sentry-ivor-gurney/">Bach and the Sentry</a>
@@ -753,10 +761,6 @@
         
           <li>
             <a href="/2021/06/03/my-english-words-list-june-2021/">My English Words List - June - 2021</a>
-          </li>
-        
-          <li>
-            <a href="/2021/06/01/the-road-not-taken-robert-frost/">The Road Not Taken</a>
           </li>
         
       </ul>
