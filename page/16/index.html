@@ -68,6 +68,64 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-algorithms-max-points-on-a-line" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/03/leetcode-algorithms-max-points-on-a-line/" class="article-date">
+  <time datetime="2020-07-03T21:37:26.000Z" itemprop="datePublished">2020-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/03/leetcode-algorithms-max-points-on-a-line/">LeetCode - Algorithms - 149. Max Points on a Line</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/max-points-on-a-line/" target="_blank" rel="noopener">149. Max Points on a Line</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.math.BigDecimal;</span><br><span class="line"><span class="keyword">import</span> java.math.RoundingMode;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxPoints</span><span class="params">(<span class="keyword">int</span>[][] points)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; points.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> m = maxCollinearPoints(points, i);</span><br><span class="line">            <span class="keyword">if</span> (m &gt; n)</span><br><span class="line">                n = m;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> n;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">maxCollinearPoints</span><span class="params">(<span class="keyword">int</span>[][] points, <span class="keyword">int</span> idx)</span> </span>&#123;</span><br><span class="line">        Map&lt;BigDecimal, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;BigDecimal, Integer&gt;();</span><br><span class="line">        <span class="keyword">int</span> x0 = points[idx][<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> y0 = points[idx][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">0</span>, y = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> duplicate = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> vertical = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; points.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i != idx) &#123;</span><br><span class="line">                x = points[i][<span class="number">0</span>];</span><br><span class="line">                y = points[i][<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (x == x0) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (y == y0) &#123;</span><br><span class="line">                        duplicate++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span> &#123;</span><br><span class="line">                        vertical++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    BigDecimal deltaY = BigDecimal.valueOf(y - y0);</span><br><span class="line">                    BigDecimal deltaX = BigDecimal.valueOf(x - x0);</span><br><span class="line">                    BigDecimal slope = deltaY.divide(deltaX, <span class="number">16</span>, RoundingMode.FLOOR);</span><br><span class="line">                    <span class="keyword">if</span> (map.containsKey(slope)) &#123;</span><br><span class="line">                        map.put(slope, map.get(slope) + <span class="number">1</span>);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        map.put(slope, <span class="number">1</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Integer num : map.values()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (num + duplicate &gt; max)</span><br><span class="line">                max = num + duplicate;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ( (vertical + duplicate) &gt; max )</span><br><span class="line">            max = vertical + duplicate;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>41 / 41 test cases passed.</li>
+<li>Runtime: 14 ms, faster than 72.08% of Java online submissions for Max Points on a Line.</li>
+<li>Memory Usage: 39.6 MB, less than 41.21% of Java online submissions for Max Points on a Line.</li>
+</ul>
+<h2 id="programcreek"><a href="#programcreek" class="headerlink" title="programcreek"></a>programcreek</h2><p>© <a href="https://www.programcreek.com/2014/04/leetcode-max-points-on-a-line-java/" target="_blank" rel="noopener">https://www.programcreek.com/2014/04/leetcode-max-points-on-a-line-java/</a></p>
+<blockquote>
+<p>This problem can be solve by counting points that have the same slope for each point. When counting, we need to be careful about the duplicate points and points on the vertical lines.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.math.BigDecimal;</span><br><span class="line"><span class="keyword">import</span> java.math.RoundingMode;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxPoints</span><span class="params">(<span class="keyword">int</span>[][] points)</span> </span>&#123;</span><br><span class="line">        HashMap&lt;BigDecimal, Integer&gt; result = <span class="keyword">new</span> HashMap&lt;BigDecimal, Integer&gt;();</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; points.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> duplicate = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> vertical = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; points.length; j++) &#123;</span><br><span class="line">                <span class="comment">//handle duplicates and vertical</span></span><br><span class="line">                <span class="keyword">if</span> (points[i][<span class="number">0</span>] == points[j][<span class="number">0</span>]) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (points[i][<span class="number">1</span>] == points[j][<span class="number">1</span>]) &#123;</span><br><span class="line">                        duplicate++;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        vertical++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    BigDecimal slope =</span><br><span class="line">                            points[j][<span class="number">1</span>] == points[i][<span class="number">1</span>] ? BigDecimal.valueOf(<span class="number">0.0</span>) : BigDecimal.valueOf(<span class="number">1.0</span> * (points[j][<span class="number">1</span>] - points[i][<span class="number">1</span>])).divide(BigDecimal.valueOf(points[j][<span class="number">0</span>] - points[i][<span class="number">0</span>]), <span class="number">16</span>,</span><br><span class="line">                                            RoundingMode.FLOOR);</span><br><span class="line">                    <span class="keyword">if</span> (result.get(slope) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        result.put(slope, result.get(slope) + <span class="number">1</span>);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        result.put(slope, <span class="number">1</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (Integer count : result.values()) &#123;</span><br><span class="line">                <span class="keyword">if</span> (count + duplicate &gt; max) &#123;</span><br><span class="line">                    max = count + duplicate;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            max = Math.max(vertical + duplicate, max);</span><br><span class="line">            result.clear();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> max;       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>41 / 41 test cases passed.</li>
+<li>Runtime: 25 ms, faster than 42.00% of Java online submissions for Max Points on a Line.</li>
+<li>Memory Usage: 40.4 MB, less than 20.64% of Java online submissions for Max Points on a Line.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/07/03/leetcode-algorithms-max-points-on-a-line/" data-id="ckqpoi6ha00d26fjayi7u3qfc" data-title="LeetCode - Algorithms - 149. Max Points on a Line" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-Anthems-of-Canada" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/07/01/Anthems-of-Canada/" class="article-date">
@@ -103,7 +161,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/07/01/Anthems-of-Canada/" data-id="ckqkve3q900087hjajaprzpy3" data-title="O Canada - Anthems of Canada - English version" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/07/01/Anthems-of-Canada/" data-id="ckqpoi67y00016fjacbev0zxj" data-title="O Canada - Anthems of Canada - English version" class="article-share-link">Share</a>
       
       
       
@@ -164,7 +222,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/06/27/how-to-get-back-to-work-after-a-career-break-carol-fishman-cohen-ted/" data-id="ckqkve4wk010c7hjawk67omk3" data-title="How to get back to work after a career break - Carol Fishman Cohen - TEDxBeaconStreet - Transcript" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/06/27/how-to-get-back-to-work-after-a-career-break-carol-fishman-cohen-ted/" data-id="ckqpoi6q7010n6fjaexqvt4h7" data-title="How to get back to work after a career break - Carol Fishman Cohen - TEDxBeaconStreet - Transcript" class="article-share-link">Share</a>
       
       
       
@@ -218,7 +276,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/06/26/all-the-world-is-a-stage-william-shakespeare/" data-id="ckqkve437006z7hjajzb9w721" data-title="All the world&#39;s a stage" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/06/26/all-the-world-is-a-stage-william-shakespeare/" data-id="ckqpoi6da006x6fja63at2yy9" data-title="All the world&#39;s a stage" class="article-share-link">Share</a>
       
       
       
@@ -326,7 +384,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/06/25/Chinese-Poems-of-Wang-Shouren/" data-id="ckqkve3qb00097hja5ek3sljf" data-title="王阳明诗十二首" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/06/25/Chinese-Poems-of-Wang-Shouren/" data-id="ckqpoi68a00096fjavi2eq14p" data-title="王阳明诗十二首" class="article-share-link">Share</a>
       
       
       
@@ -383,7 +441,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/06/24/Meeting-With-an-Old-Friend-Ku-Hweng-Ming/" data-id="ckqkve41800607hja2fylu4v4" data-title="贈衛八處士 - Meeting With an Old Friend" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/06/24/Meeting-With-an-Old-Friend-Ku-Hweng-Ming/" data-id="ckqpoi6cj005y6fjaon7c4xi9" data-title="贈衛八處士 - Meeting With an Old Friend" class="article-share-link">Share</a>
       
       
       
@@ -568,7 +626,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/06/19/stray-birds-rabindranath-tagore/" data-id="ckqkve4il00iq7hjazdz1mb4c" data-title="Stray Birds" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/06/19/stray-birds-rabindranath-tagore/" data-id="ckqpoi6kp00ir6fjataoedwgi" data-title="Stray Birds" class="article-share-link">Share</a>
       
       
       
@@ -644,7 +702,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/06/14/hackerrank-regex-assertions/" data-id="ckqkve46p009j7hjan0jv7t4f" data-title="HackerRank - Regex - Assertions" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/06/14/hackerrank-regex-assertions/" data-id="ckqpoi6f0009h6fjaqcs1bgzo" data-title="HackerRank - Regex - Assertions" class="article-share-link">Share</a>
       
       
       
@@ -699,7 +757,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/06/09/LeetCode-Algorithms-preimage-size-of-factorial-zeroes-function/" data-id="ckqkve40k005j7hjaep4xjuho" data-title="LeetCode - Algorithms - 793. Preimage Size of Factorial Zeroes Function" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/06/09/LeetCode-Algorithms-preimage-size-of-factorial-zeroes-function/" data-id="ckqpoi6c7005f6fjalr5bg93p" data-title="LeetCode - Algorithms - 793. Preimage Size of Factorial Zeroes Function" class="article-share-link">Share</a>
       
       
       
@@ -785,87 +843,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/06/07/hackerrank-regex-backreferences/" data-id="ckqkve46t009q7hja2r6wtkmi" data-title="HackerRank - Regex - Backreferences" class="article-share-link">Share</a>
+      <a data-url="https://hezhigang.github.io/2020/06/07/hackerrank-regex-backreferences/" data-id="ckqpoi6f3009p6fjavqn2pqvu" data-title="HackerRank - Regex - Backreferences" class="article-share-link">Share</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HackerRank/">HackerRank</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/regex/">regex</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-factorial-trailing-zeroes" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/06/LeetCode-Algorithms-factorial-trailing-zeroes/" class="article-date">
-  <time datetime="2020-06-06T23:20:21.000Z" itemprop="datePublished">2020-06-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/06/LeetCode-Algorithms-factorial-trailing-zeroes/">LeetCode - Algorithms - 172. Factorial Trailing Zeroes</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a href="https://leetcode.com/problems/factorial-trailing-zeroes/" target="_blank" rel="noopener">172. Factorial Trailing Zeroes</a></p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="solution-of-geeksforgeeks-©-Count-trailing-zeroes-in-factorial-of-a-number"><a href="#solution-of-geeksforgeeks-©-Count-trailing-zeroes-in-factorial-of-a-number" class="headerlink" title="solution of geeksforgeeks © Count trailing zeroes in factorial of a number"></a>solution of geeksforgeeks © <a href="https://www.geeksforgeeks.org/count-trailing-zeroes-factorial-number/" target="_blank" rel="noopener">Count trailing zeroes in factorial of a number</a></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">trailingZeroes</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">5</span>; i &lt;= n; i *= <span class="number">5</span>)</span><br><span class="line">            count += n / i;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>502 / 502 test cases passed.</li>
-<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Factorial Trailing Zeroes.</li>
-<li>Memory Usage: 36.6 MB, less than 31.99% of Java online submissions for Factorial Trailing Zeroes.</li>
-</ul>
-<h2 id="my-solution"><a href="#my-solution" class="headerlink" title="my solution"></a>my solution</h2><p>Accepted until 4th submission.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">trailingZeroes</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        Double d = Math.floor((Math.log(n)) / (Math.log(<span class="number">5</span>)));</span><br><span class="line">        <span class="keyword">int</span> m = d.intValue();</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            x += n / Math.pow(<span class="number">5</span>, i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>502 / 502 test cases passed.</li>
-<li>Runtime: 1 ms, faster than 20.14% of Java online submissions for Factorial Trailing Zeroes.</li>
-<li>Memory Usage: 36.6 MB, less than 39.00% of Java online submissions for Factorial Trailing Zeroes.</li>
-</ul>
-<h2 id="my-solution-2"><a href="#my-solution-2" class="headerlink" title="my solution - 2"></a>my solution - 2</h2><p>a one line function logarithm(n, r) which returns \( \lfloor \log_r n \rfloor \).  © <a href="https://www.geeksforgeeks.org/program-to-compute-log-n/" target="_blank" rel="noopener">Program to compute Log n</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">trailingZeroes</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">5</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> m = logarithm(n,<span class="number">5</span>);</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            x += n / Math.pow(<span class="number">5</span>, i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">logarithm</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (n &gt; r - <span class="number">1</span>) ? <span class="number">1</span> + logarithm(n / r, r) : <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>502 / 502 test cases passed.</li>
-<li>Runtime: 1 ms, faster than 19.86% of Java online submissions for Factorial Trailing Zeroes.</li>
-<li>Memory Usage: 38.6 MB, less than 5.16% of Java online submissions for Factorial Trailing Zeroes.</li>
-</ul>
-<h2 id="my-solution-3"><a href="#my-solution-3" class="headerlink" title="my solution - 3"></a>my solution - 3</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">trailingZeroes</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">5</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">long</span> x = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">long</span> p = <span class="number">5</span>;</span><br><span class="line">        <span class="keyword">while</span> (n &gt;= p) &#123;</span><br><span class="line">            x += n / p;</span><br><span class="line">            p *= <span class="number">5</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Long l = <span class="keyword">new</span> Long(x);</span><br><span class="line">        <span class="keyword">return</span> l.intValue();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail-3"><a href="#Submission-Detail-3" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>502 / 502 test cases passed.</li>
-<li>Runtime: 1 ms, faster than 19.86% of Java online submissions for Factorial Trailing Zeroes.</li>
-<li>Memory Usage: 36 MB, less than 94.80% of Java online submissions for Factorial Trailing Zeroes.</li>
-</ul>
-<h2 id="my-solution-4"><a href="#my-solution-4" class="headerlink" title="my solution - 4"></a>my solution - 4</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">trailingZeroes</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">5</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">long</span> p = <span class="number">5</span>; n &gt;= p; ) &#123;</span><br><span class="line">            x += n / p;</span><br><span class="line">            p *= <span class="number">5</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Submission-Detail-4"><a href="#Submission-Detail-4" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
-<li>502 / 502 test cases passed.</li>
-<li>Runtime: 2 ms, faster than 19.86% of Java online submissions for Factorial Trailing Zeroes.</li>
-<li>Memory Usage: 38.1 MB, less than 10.66% of Java online submissions for Factorial Trailing Zeroes.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/06/06/LeetCode-Algorithms-factorial-trailing-zeroes/" data-id="ckqkve3zo004z7hjaluflq2a5" data-title="LeetCode - Algorithms - 172. Factorial Trailing Zeroes" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li></ul>
 
     </footer>
   </div>
@@ -926,6 +908,10 @@
       <ul>
         
           <li>
+            <a href="/2021/07/04/the-new-colossus-emma-lazarus/">The New Colossus</a>
+          </li>
+        
+          <li>
             <a href="/2021/07/01/the-wild-canadian-year/">The Wild Canadian Year</a>
           </li>
         
@@ -939,10 +925,6 @@
         
           <li>
             <a href="/2021/06/04/when-i-am-dead-my-dearest-christina-rossetti/">When I am dead, my dearest</a>
-          </li>
-        
-          <li>
-            <a href="/2021/06/03/my-english-words-list-june-2021/">My English Words List - June - 2021</a>
           </li>
         
       </ul>
