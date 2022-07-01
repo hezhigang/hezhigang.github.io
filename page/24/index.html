@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>A Humble Programmer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="A Humble Programmer">
+<meta property="og:url" content="https://hezhigang.github.io/page/24/index.html">
+<meta property="og:site_name" content="A Humble Programmer">
+<meta property="og:locale">
+<meta property="article:author" content="hezhigang">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="A Humble Programmer" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">A Humble Programmer</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hezhigang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-gauss-algorithm-to-the-chinese-remainder-theorem" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/23/gauss-algorithm-to-the-chinese-remainder-theorem/" class="article-date">
+  <time datetime="2020-05-24T02:33:30.000Z" itemprop="datePublished">2020-05-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/23/gauss-algorithm-to-the-chinese-remainder-theorem/">Gauss&#39;s algorithm and Chinese remainder theorem</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<p>\(<br>    \begin{align*}<br>    \begin{cases}<br>    x \equiv 2 \hspace{2mm} (mod \hspace{1mm} 3) \hspace{8mm} 2,5,8,11,14,17,20,\textbf{23},\cdots \\<br>    x \equiv 3 \hspace{2mm} (mod \hspace{1mm} 5) \hspace{8mm} 3,8,13,18,\textbf{23},28,\cdots \\<br>    x \equiv 2 \hspace{2mm} (mod \hspace{1mm} 7) \hspace{8mm} 2,9,16,\textbf{23},30,\cdots<br>    \end{cases}<br>    \end{align*}<br>\)</p>
+<p>\( n_1=3, n_2=5, n_3=7 \)<br>\( N = n_1 \times n_2 \times n_3 = 3 \times 5 \times 7 = 105 \)<br>\( a_1=2, a_2=3, a_3=2. \)</p>
+<p>Now \( N_1 = \frac{N}{n_1} = 35 \) and so \(d_1 \equiv 35^{-1} \hspace{2mm} (mod \hspace{1mm} 3) = 2 \),<br>\( N_2 = \frac{N}{n_2} = 21 \) and so \(d_2 \equiv 21^{-1} \hspace{2mm} (mod \hspace{1mm} 5) = 1 \), and<br>\( N_3 = \frac{N}{n_3} = 15 \) and so \(d_3 \equiv 15^{-1} \hspace{2mm} (mod \hspace{1mm} 7) = 1 \). Hence</p>
+<p>\( x \equiv (2 \times 35 \times 2) + (3 \times 21 \times 1) + (2 \times 15 \times 1) = 233 ≡ 23 \hspace{2mm} (mod \hspace{1mm} 105) \)</p>
+<h1 id="The-Chinese-Remainder-Theorem"><a href="#The-Chinese-Remainder-Theorem" class="headerlink" title="The Chinese Remainder Theorem"></a>The Chinese Remainder Theorem</h1><p>If the \(n_i\) are pairwise coprime, and if \(a_1, …, a_k\) are any integers</p>
+<p>\(<br>    \begin{align}<br>    x \equiv a_1 \hspace{2mm} (mod \hspace{1mm} n_1) \\<br>    x \equiv a_2 \hspace{2mm} (mod \hspace{1mm} n_2) \\<br>    x \equiv a_3 \hspace{2mm} (mod \hspace{1mm} n_3) \\<br>    \vdots \\<br>    x \equiv a_k \hspace{2mm} (mod \hspace{1mm} n_k)<br>    \end{align}<br>\)</p>
+<p>has a simultaneous solution which is unique modulo \(n_1n_2⋯n_k\).</p>
+<h1 id="Gauss’s-algorithm"><a href="#Gauss’s-algorithm" class="headerlink" title="Gauss’s algorithm"></a>Gauss’s algorithm</h1><p>Let \(N = \prod_{i=1}^k n_i \) then<br>\(x ≡ \sum_{i=1}^k a_iN_id_i \hspace{2mm} (mod \hspace{1mm} N)\)</p>
+<p>where \(N_i = N/n_i\) and \(d_i ≡ N_i^{-1} \hspace{2mm} (mod \hspace{1mm} n_i).\) </p>
+<p>The latter <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Modular_multiplicative_inverse">modular inverse</a> \(d_i\) is easily calculated by the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm">extended Euclidean algorithm</a>.</p>
+<h1 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.di-mgt.com.au/crt.html">The Chinese Remainder Theorem</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/05/23/gauss-algorithm-to-the-chinese-remainder-theorem/" data-id="cl51yqkow00clcoyzdzlogg0o" data-title="Gauss&#39;s algorithm and Chinese remainder theorem" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/" rel="tag">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-hackerrank-regex-repetitions" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/22/hackerrank-regex-repetitions/" class="article-date">
+  <time datetime="2020-05-23T03:59:04.000Z" itemprop="datePublished">2020-05-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/22/hackerrank-regex-repetitions/">HackerRank - Regex - Repetitions</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>© <a target="_blank" rel="noopener" href="https://www.hackerrank.com/">HackerRank</a></p>
+<h1 id="Matching-x-Repetitions"><a href="#Matching-x-Repetitions" class="headerlink" title="Matching {x} Repetitions"></a>Matching {x} Repetitions</h1><blockquote>
+<p>The tool {x} will match exactly x repetitions of character/character class/groups.</p>
+</blockquote>
+<h2 id="For-Example"><a href="#For-Example" class="headerlink" title="For Example"></a>For Example</h2><ul>
+<li>w{3} : It will match the character w exactly 3 times.</li>
+<li>[xyz]{5} : It will match the string of length 5 consisting of characters {x, y, z}. For example it will match xxxxx, xxxyy and xyxyz.</li>
+<li>\d{4} : It will match any digit exactly 4 times.</li>
+</ul>
+<h2 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h2><p><code>2222222222aaaaaaaaaa2222222222aaaaaaaaaa13 57</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[a-zA-Z02468]&#123;40&#125;[13579\s]&#123;5&#125;$</span><br></pre></td></tr></table></figure>
+
+<h1 id="Matching-x-y-Repetitions"><a href="#Matching-x-y-Repetitions" class="headerlink" title="Matching {x, y} Repetitions"></a>Matching {x, y} Repetitions</h1><blockquote>
+<p>The {x,y} tool will match between x and y (both inclusive) repetitions of character/character class/group.</p>
+</blockquote>
+<h2 id="For-Example-1"><a href="#For-Example-1" class="headerlink" title="For Example"></a>For Example</h2><ul>
+<li>w{3,5} : It will match the character w 3, 4 or 5 times.</li>
+<li>[xyz]{5,} : It will match the character x, y or z 5 or more times.</li>
+<li>\d{1, 4} : It will match any digits 1, 2, 3, or 4 times.</li>
+</ul>
+<h2 id="Task-1"><a href="#Task-1" class="headerlink" title="Task"></a>Task</h2><p><code>3threeormorealphabets.</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^\d&#123;1,2&#125;[a-zA-Z]&#123;3,&#125;\.&#123;0,3&#125;$</span><br></pre></td></tr></table></figure>
+
+<h1 id="Matching-Zero-Or-More-Repetitions"><a href="#Matching-Zero-Or-More-Repetitions" class="headerlink" title="Matching Zero Or More Repetitions"></a>Matching Zero Or More Repetitions</h1><blockquote>
+<p>The * tool will match zero or more repetitions of character/character class/group.</p>
+</blockquote>
+<h2 id="For-Example-2"><a href="#For-Example-2" class="headerlink" title="For Example"></a>For Example</h2><ul>
+<li>w* : It will match the character w 0 or more times.</li>
+<li>[xyz]* : It will match the characters x, y or z 0 or more times.</li>
+<li>\d* : It will match any digit 0 or more times.</li>
+</ul>
+<h2 id="Task-2"><a href="#Task-2" class="headerlink" title="Task"></a>Task</h2><p><code>14</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^\d&#123;2,&#125;[a-z]*[A-Z]*$</span><br></pre></td></tr></table></figure>
+
+<h1 id="Matching-One-Or-More-Repetitions"><a href="#Matching-One-Or-More-Repetitions" class="headerlink" title="Matching One Or More Repetitions"></a>Matching One Or More Repetitions</h1><blockquote>
+<p>The + tool will match one or more repetitions of character/character class/group.</p>
+</blockquote>
+<h2 id="For-Example-3"><a href="#For-Example-3" class="headerlink" title="For Example"></a>For Example</h2><ul>
+<li>w+ : It will match the character w 1 or more times.</li>
+<li>[xyz]+ : It will match the character x, y or z 1 or more times.</li>
+<li>\d+ : It will match any digit 1 or more times.</li>
+</ul>
+<h2 id="Task-3"><a href="#Task-3" class="headerlink" title="Task"></a>Task</h2><p><code>1Qa</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^\d+[A-Z]+[a-z]+$</span><br></pre></td></tr></table></figure>
+
+<h1 id="Matching-Ending-Items"><a href="#Matching-Ending-Items" class="headerlink" title="Matching Ending Items"></a>Matching Ending Items</h1><blockquote>
+<p>The $ boundary matcher matches an occurrence of a character/character class/group at the end of a line.</p>
+</blockquote>
+<h2 id="Task-4"><a href="#Task-4" class="headerlink" title="Task"></a>Task</h2><p><code>Kites</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[a-zA-Z]*s$</span><br></pre></td></tr></table></figure>
+
+<h1 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h1><p><a target="_blank" rel="noopener" href="https://www.hackerrank.com/domains/regex?filters%5Bsubdomains%5D%5B%5D=re-repetitions">Regex - Subdomains - Repetitions</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/05/22/hackerrank-regex-repetitions/" data-id="cl51yqkoy00dkcoyz9yxzhy7q" data-title="HackerRank - Regex - Repetitions" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HackerRank/" rel="tag">HackerRank</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/regex/" rel="tag">regex</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-find-first-and-last-position-of-element-in-sorted-array" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/17/LeetCode-Algorithms-find-first-and-last-position-of-element-in-sorted-array/" class="article-date">
+  <time datetime="2020-05-17T16:40:28.000Z" itemprop="datePublished">2020-05-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/17/LeetCode-Algorithms-find-first-and-last-position-of-element-in-sorted-array/">LeetCode - Algorithms - 34. Find First and Last Position of Element in Sorted Array</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/">34. Find First and Last Position of Element in Sorted Array</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] searchRange(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span> lo = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> hi = nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (lo&lt;=hi) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = lo + (hi - lo) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (target &lt; nums[mid])</span><br><span class="line">                hi = mid-<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (target &gt; nums[mid])</span><br><span class="line">                lo = mid+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">int</span> startPos = mid;</span><br><span class="line">                <span class="keyword">int</span> endPos = mid;</span><br><span class="line">                <span class="keyword">while</span>(startPos&gt;=<span class="number">0</span> &amp;&amp; nums[startPos]==nums[mid]) startPos--;</span><br><span class="line">                <span class="keyword">while</span>(endPos&lt;=nums.length - <span class="number">1</span> &amp;&amp; nums[endPos]==nums[mid]) endPos++;</span><br><span class="line">                <span class="keyword">int</span>[] r = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">                r[<span class="number">0</span>] = startPos+<span class="number">1</span>;</span><br><span class="line">                r[<span class="number">1</span>] = endPos-<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">return</span> r;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[] r = &#123;-<span class="number">1</span>, -<span class="number">1</span>&#125;;</span><br><span class="line">        <span class="keyword">return</span> r;       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>88 / 88 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Find First and Last Position of Element in Sorted Array.</li>
+<li>Memory Usage: 44.5 MB, less than 6.38% of Java online submissions for Find First and Last Position of Element in Sorted Array.</li>
+</ul>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">target</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number[]&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> searchRange = <span class="function"><span class="keyword">function</span>(<span class="params">nums, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> lo = <span class="number">0</span>, hi = nums.length-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (lo&lt;=hi) &#123;</span><br><span class="line">        <span class="keyword">var</span> mid = lo + <span class="built_in">Math</span>.floor((hi-lo)/<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">if</span> (target &lt; nums[mid])</span><br><span class="line">            hi = mid-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (target &gt; nums[mid])</span><br><span class="line">            lo = mid+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">var</span> startPos = mid, endPos = mid;</span><br><span class="line">            <span class="keyword">while</span>(startPos&gt;=<span class="number">0</span> &amp;&amp; nums[startPos]==nums[mid]) startPos--;</span><br><span class="line">            <span class="keyword">while</span>(endPos&lt;=nums.length - <span class="number">1</span> &amp;&amp; nums[endPos]==nums[mid]) endPos++;</span><br><span class="line">            <span class="keyword">return</span> [startPos+<span class="number">1</span>, endPos-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> [-<span class="number">1</span>, -<span class="number">1</span>];    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>88 / 88 test cases passed.</li>
+<li>Runtime: 92 ms, faster than 7.49% of JavaScript online submissions for Find First and Last Position of Element in Sorted Array.</li>
+<li>Memory Usage: 34.9 MB, less than 100.00% of JavaScript online submissions for Find First and Last Position of Element in Sorted Array.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/05/17/LeetCode-Algorithms-find-first-and-last-position-of-element-in-sorted-array/" data-id="cl51yqkoc005rcoyz0x059a4a" data-title="LeetCode - Algorithms - 34. Find First and Last Position of Element in Sorted Array" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-isomorphic-strings" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/16/LeetCode-Algorithms-isomorphic-strings/" class="article-date">
+  <time datetime="2020-05-17T03:31:57.000Z" itemprop="datePublished">2020-05-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/16/LeetCode-Algorithms-isomorphic-strings/">LeetCode - Algorithms - 205. Isomorphic Strings</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/isomorphic-strings/">205. Isomorphic Strings</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isIsomorphic</span><span class="params">(String s, String t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> r = <span class="keyword">true</span>;</span><br><span class="line">        Map&lt;Character,Character&gt; map = <span class="keyword">new</span> HashMap&lt;Character, Character&gt;();</span><br><span class="line">        Map&lt;Character,Character&gt; map2 = <span class="keyword">new</span> HashMap&lt;Character, Character&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;s.length(); i++) &#123;</span><br><span class="line">            <span class="keyword">char</span> k = s.charAt(i);</span><br><span class="line">            <span class="keyword">char</span> x = t.charAt(i);</span><br><span class="line">            <span class="keyword">if</span> (map.containsKey(k)) &#123;</span><br><span class="line">                <span class="keyword">char</span> v = map.get(k);</span><br><span class="line">                <span class="keyword">if</span> (x!=v) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                map.put(k,x);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (map2.containsKey(x)) &#123;</span><br><span class="line">                <span class="keyword">char</span> v = map2.get(x);</span><br><span class="line">                <span class="keyword">if</span> (k!=v) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                map2.put(x, k);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>32 / 32 test cases passed.</li>
+<li>Runtime: 12 ms, faster than 26.96% of Java online submissions for Isomorphic Strings.</li>
+<li>Memory Usage: 39.6 MB, less than 6.14% of Java online submissions for Isomorphic Strings.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/05/16/LeetCode-Algorithms-isomorphic-strings/" data-id="cl51yqkod005wcoyzc09pdb8p" data-title="LeetCode - Algorithms - 205. Isomorphic Strings" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HashTable/" rel="tag">HashTable</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-how-to-read-code" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/15/how-to-read-code/" class="article-date">
+  <time datetime="2020-05-16T03:14:51.000Z" itemprop="datePublished">2020-05-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/15/how-to-read-code/">How to Read Code</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>How to read other people’s code? You will need good code-browsing skills to make sense of the code.</p>
+<blockquote>
+<p>Start by gathering information about which problems the program should solve and which code style to adapt.</p>
+</blockquote>
+<blockquote>
+<p>Don’t spend all your time figuring out how everything works at the beginning. Narrow things down to something you can actually process.</p>
+</blockquote>
+<blockquote>
+<p>Step through behavior that concerns you with a debugger. The stack trace have a lot of information about how events are propogated in the application.</p>
+</blockquote>
+<h1 id="In-Action"><a href="#In-Action" class="headerlink" title="In Action"></a>In Action</h1><h2 id="getting-it-into-a-“smart”-IDE-that-can-make-sense-of-it"><a href="#getting-it-into-a-“smart”-IDE-that-can-make-sense-of-it" class="headerlink" title="getting it into a “smart” IDE that can make sense of it"></a>getting it into a “smart” IDE that can make sense of it</h2><h2 id="try-to-build-and-run-it-preferably-in-a-debugger"><a href="#try-to-build-and-run-it-preferably-in-a-debugger" class="headerlink" title="try to build and run it (preferably in a debugger)"></a>try to build and run it (preferably in a debugger)</h2><ul>
+<li>Find Main, Reading “main”</li>
+</ul>
+<h2 id="Learn-to-Dig"><a href="#Learn-to-Dig" class="headerlink" title="Learn to Dig"></a>Learn to Dig</h2><h3 id="git-blame"><a href="#git-blame" class="headerlink" title="git blame"></a>git blame</h3><p>You can use git blame on a file to get an author name, last modified date, and commit hash for every single line. </p>
+<h3 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h3><p>Use git log to look at the commit history of the overall repo. </p>
+<p>git log can also show you the history of a single file with the -p flag: git log -p index.js.</p>
+<h2 id="breakpoint"><a href="#breakpoint" class="headerlink" title="breakpoint"></a>breakpoint</h2><p>One method the community strongly suggests is to set out breakpoint on methods that triggers behaviours that concerns you. If changing a line of code causes unexpected changes on other places, put a breakpoint on that line, and see what happens. You have a lot of information on the runtime state once the breakpoint hits. Breakpoints stops the execution of the code on a certain line, and from there, you can see from the stacktrace how the code got there. Use the step into and step out functions to see what the different methods does and how events are propogated in the application. This will teach you something about the structure of the codebase.</p>
+<h2 id="Grepping"><a href="#Grepping" class="headerlink" title="Grepping"></a>Grepping</h2><p>the search function in your IDE</p>
+<h3 id="Search-for-Key-Words"><a href="#Search-for-Key-Words" class="headerlink" title="Search for Key Words"></a>Search for Key Words</h3><p>Use your editor’s Find feature (or grep) to search the entire source tree for occurrences of words associated with what you want to know. For example, if you want to figure out how/where the program opens files, search for “open” or “file”. You may get zillions of hits, but that’s not a bad thing–a focused reading of the code will result.<br>Often-useful words for C/C++ programs are “main”, “abort”, “exit”, “catch”, “throw”, “fopen”, “creat”, “signal”, “alarm”, “socket”, “fork”, “select”. Other words are useful in other languages.</p>
+<h2 id="Code-Review"><a href="#Code-Review" class="headerlink" title="Code Review"></a>Code Review</h2><p>Software development is a very <strong>collaborative</strong> work. No one can build a large or a significant software alone. Every software is built in a <strong>team</strong>. In a team, everyone contributes to shaping a project. End of the day, everyone’s contribution get merged and become a good piece of work which has a real value to the customers.</p>
+<p>Besides doing the actual coding, there is another <strong>practice</strong> that every team these days does, which is, review each other’s code making observations, suggestions and learning from one other. This is a powerful tool for building knowledge of a code base, creating strong bonds in a team and improving code quality that leads to fewer bugs in the system, and happy customers.</p>
+<p>Doing code review, you are forced to read someone else’s code in your team which ends up improving your code reading skill.</p>
+<h1 id="Things-to-Remember"><a href="#Things-to-Remember" class="headerlink" title="Things to Remember"></a>Things to Remember</h1><h2 id="Go-Back-in-Time"><a href="#Go-Back-in-Time" class="headerlink" title="Go Back in Time"></a>Go Back in Time</h2><h2 id="Read-the-Specs"><a href="#Read-the-Specs" class="headerlink" title="Read the Specs"></a>Read the Specs</h2><h2 id="Think-of-Comments-as-Hints"><a href="#Think-of-Comments-as-Hints" class="headerlink" title="Think of Comments as Hints"></a>Think of Comments as Hints</h2><p>Commenting your code is incredibly important, for yourself and for your peers reviewing your code.</p>
+<h2 id="Notice-Style"><a href="#Notice-Style" class="headerlink" title="Notice Style"></a>Notice Style</h2><h2 id="Expect-to-Find-Garbage"><a href="#Expect-to-Find-Garbage" class="headerlink" title="Expect to Find Garbage"></a>Expect to Find Garbage</h2><h2 id="Don’t-Get-Lost"><a href="#Don’t-Get-Lost" class="headerlink" title="Don’t Get Lost"></a>Don’t Get Lost</h2><ul>
+<li>Where is this button?</li>
+<li>What do the tests do?</li>
+<li>The graphical layout</li>
+<li>Runtime Investigation</li>
+</ul>
+<h2 id="Find-one-thing-you-know-the-code-does-and-trace-those-actions-backward-starting-at-the-end"><a href="#Find-one-thing-you-know-the-code-does-and-trace-those-actions-backward-starting-at-the-end" class="headerlink" title="Find one thing you know the code does, and trace those actions backward, starting at the end."></a>Find one thing you know the code does, and trace those actions backward, starting at the end.</h2><p>Let’s call those connected pieces of code a “chain of actions.”</p>
+<p>Following input events</p>
+<h2 id="Rinse-and-repeat"><a href="#Rinse-and-repeat" class="headerlink" title="Rinse and repeat."></a>Rinse and repeat.</h2><p>a body of code is designed to tackle one (or more) complex problems. </p>
+<p>the more you can gain an understanding of how different parts of the code are connected, the more you’ll develop an understanding of the entire codebase, as a whole.</p>
+<p>the more (good) code you see, the easier it becomes to read and understand all code, and the faster you can do so.</p>
+<p>“high quality examples of expertise” = good code</p>
+<p>exposure to high quantity, high quality examples of expertise is one of the two main factors that dictate how quickly and effectively people learn new skills. – Badass: Making Users Awesome, Kathy Sierra</p>
+<p>The more you watch (or listen) to expert examples, the better you can become. The less exposure you have to experts or results of expert work, the less likely you are to develop expert skills.</p>
+<p>the longer you’re programming — and thus the more code samples you see, of all different kinds — the easier it gets to understand other people’s code. And the faster you’re able to do it.</p>
+<h2 id="Reading-a-class"><a href="#Reading-a-class" class="headerlink" title="Reading a class"></a>Reading a class</h2><p>Before reading the implementation of a class, however, I recommend you study its interface. </p>
+<p>The public functions will most likely be the command interface for your class.</p>
+<h2 id="Retelling-or-Rubber-Ducking"><a href="#Retelling-or-Rubber-Ducking" class="headerlink" title="Retelling or Rubber Ducking"></a>Retelling or Rubber Ducking</h2><h2 id="Use-know-tools"><a href="#Use-know-tools" class="headerlink" title="Use/know tools"></a>Use/know tools</h2><p>There are plenty of tools out there for reading and exploring source code that can help to visualize code. For example – IntelliJIdea has really a great capability of navigating source code where you can search by words, part of a word or even abbreviation. You should learn the keyboard shortcuts as well. Navigating source code with the mouse can be pretty boring and slow where working with the keyboard shortcuts can be faster. You can jump from one part of the source code to another quickly.</p>
+<p>There is another great software to read code, called <strong>Sourcegraph</strong>, which was created by two Stanford grads, Quinn Slack and Beyang Liu, who, after spending hours hunting through the poorly documented code, decided to build a tool to help them better reading and understanding the code.</p>
+<h2 id="Know-the-language-conventions"><a href="#Know-the-language-conventions" class="headerlink" title="Know the language/conventions"></a>Know the language/conventions</h2><h2 id="Read-the-best-practices-design-patterns"><a href="#Read-the-best-practices-design-patterns" class="headerlink" title="Read the best practices/design patterns"></a>Read the best practices/design patterns</h2><h2 id="Temporary-Refactoring"><a href="#Temporary-Refactoring" class="headerlink" title="Temporary Refactoring"></a>Temporary Refactoring</h2><h1 id="heuristics"><a href="#heuristics" class="headerlink" title="heuristics"></a>heuristics</h1><h2 id="Code-is-not-like-a-novel"><a href="#Code-is-not-like-a-novel" class="headerlink" title="Code is not like a novel"></a>Code is not like a novel</h2><p>if you insist on understanding each and every thing before you understand the next, you will be lost for sure.</p>
+<h2 id="Let-the-machine-help"><a href="#Let-the-machine-help" class="headerlink" title="Let the machine help"></a>Let the machine help</h2><p>Take the time to learn and use the stepper, trace, inspecting and browsing tools.</p>
+<p>Many important relations in a program are non-sequential, and there are tools that will help you find what to look at next.</p>
+<h2 id="Start-with-an-example"><a href="#Start-with-an-example" class="headerlink" title="Start with an example"></a>Start with an example</h2><p>Don’t try to understand what all the code does at once. Instead, start with a specific example, representative of what a new user might try in his or her first session with the program, or an example from the manual primer.<br>Set yourself the task of learning just how that particular example works. Ignore everything else that doesn’t pertain to that example.</p>
+<p>Go just as deep as you have to do to understand it, no deeper. Treat everything else as a black box. Learn about how it works later.</p>
+<p>Become familiar with the user interface from a user’s perspective. For each user-visible action or object, ask: “Where is that implemented”?</p>
+<p>Have a specific goal in mind when you work. Experiment with small changes and extensions to the code to test your understanding.</p>
+<h2 id="If-it-ain’t-broke-fix-it"><a href="#If-it-ain’t-broke-fix-it" class="headerlink" title="If it ain’t broke, fix it"></a>If it ain’t broke, fix it</h2><p>The best attitude to take is to pretend you are debugging the code, even if there is nothing wrong with it. The same tools that are used for debugging the code will be helpful in getting you to understand it in the first place. Even if you aren’t looking for bugs now, if you plan on using, extending or modifying the code, you soon will be.</p>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
+<li>Jump to function definition</li>
+<li>Step the code</li>
+<li>Guess function names</li>
+<li>Trace functions</li>
+<li>Inspect the application’s data structures</li>
+</ul>
+<h2 id="RTFM"><a href="#RTFM" class="headerlink" title="RTFM"></a>RTFM</h2><p>When all else fails, read the documentation.</p>
+<h2 id="Navigating-a-Web-Page’s-Source-Code"><a href="#Navigating-a-Web-Page’s-Source-Code" class="headerlink" title="Navigating a Web Page’s Source Code"></a>Navigating a Web Page’s Source Code</h2><p>another invaluable tool is stored inside your browser: the Developer tools. Knowing how to use the developer tools correctly and effectively can help you quickly locate the source of problems with styling these sections.</p>
+<p>localized JavaScript console, where you can test out code separately from your programs.</p>
+<h2 id="Start-with-what-you-do-know"><a href="#Start-with-what-you-do-know" class="headerlink" title="Start with what you do know"></a>Start with what you do know</h2><p>find one thing you know the code does, and trace those actions backward, starting at the end.</p>
+<h2 id="Believe-that-you-know-what-you’re-looking-at"><a href="#Believe-that-you-know-what-you’re-looking-at" class="headerlink" title="Believe that you know what you’re looking at"></a>Believe that you know what you’re looking at</h2><p>For ultimately effective searching, you’ll want to use something like “language_name function_name” in your Google search, rather than just the function name, as they can be repetitive across multiple coding languages.</p>
+<h2 id="In-the-long-run-expose-yourself-to-high-quality-code"><a href="#In-the-long-run-expose-yourself-to-high-quality-code" class="headerlink" title="In the long run, expose yourself to high-quality code"></a>In the long run, expose yourself to high-quality code</h2><p>By exposing yourself to well-written code made by experienced programmers, you are subconsciously taking in the methodology they follow, as well as their best practices.</p>
+<p>If you read poorly-written, non-semantic code, you will likely emulate the same when writing your own. And yes, although we all start writing garbage code, our ultimate goal is to move on from that point as quickly as possible!</p>
+<h2 id="Try-watching-live-streamed-programming-or-pair-programming-with-a-peer"><a href="#Try-watching-live-streamed-programming-or-pair-programming-with-a-peer" class="headerlink" title="Try watching live-streamed programming (or pair programming with a peer)"></a>Try watching live-streamed programming (or pair programming with a peer)</h2><p>it’s one of the best ways to watch the coding process from start to finish in real time, and ask questions as you encounter them. Watching other people program in real time also gives you insight into other people’s coding processes, and helps you develop good habits, regardless of whether or not they are a master themselves.</p>
+<p>For an excellent resource on the front end (HTML, CSS, JavaScript), try perusing <a target="_blank" rel="noopener" href="https://codepen.io/">Codepen</a>. Free, and very user-friendly, many front-end developers use this site as a sandbox.</p>
+<p>On the back end, I recommend you sign up for GitHub and start digging into some of the most popular repositories. You can view a file from right within your browser, and if you wish to improve on the code, you can edit it in your own forked version and create a “pull request”. If the author likes your improvements, they may choose to implement them into their programs!</p>
+<h2 id="Find-the-high-level-logic"><a href="#Find-the-high-level-logic" class="headerlink" title="Find the high-level logic"></a>Find the high-level logic</h2><p>Starting with the program’s entry point (e.g. main() in C/C++/Java), find out how the program initializes itself, does its thing, and then terminates.</p>
+<p>Basically, skimmed through the whole project and gain a primary idea and then ask a question to yourself where do you want to focus, which part you want to read first.</p>
+<h2 id="Draw-Some-Flowcharts"><a href="#Draw-Some-Flowcharts" class="headerlink" title="Draw Some Flowcharts"></a>Draw Some Flowcharts</h2><p>Yes, we all know flowcharts are a horrible design tool, but they can be useful when analyzing program flow. You can’t keep all that information in your head, so draw some flowcharts or state diagrams while you are reading. Make sure you account for both sides of a two-way branch, and all branches of multi-way branches.</p>
+<h2 id="Examine-Library-Calls"><a href="#Examine-Library-Calls" class="headerlink" title="Examine Library Calls"></a>Examine Library Calls</h2><h2 id="Leverage-the-Power-of-Code-Comprehension-Tools"><a href="#Leverage-the-Power-of-Code-Comprehension-Tools" class="headerlink" title="Leverage the Power of Code Comprehension Tools"></a>Leverage the Power of Code Comprehension Tools</h2><p>Some techniques available with a good text search tool, or better yet a tool that can analyze the source and find references and generate diagrams, allow the following questions to be answered, for object-oriented code:</p>
+<ul>
+<li>Who calls this method?</li>
+<li>Who implements this interface or subclasses this class?</li>
+<li>What are this class’ superclasses?</li>
+<li>Where are instances of this class created, held, and passed as arguments or returned?</li>
+<li>What superclass methods does this class override?</li>
+<li>Where might methods of this class be called polymorphically, i.e. through a base class or interface?</li>
+</ul>
+<h2 id="Print-the-code"><a href="#Print-the-code" class="headerlink" title="Print the code"></a>Print the code</h2><p>developing a “big picture” view of the code</p>
+<h2 id="reading-and-writing-tests"><a href="#reading-and-writing-tests" class="headerlink" title="reading and writing tests"></a>reading and writing tests</h2><p>Although testing is rare, it acts as a wonderful documentation tool, and is a good introduction to a new codebase.</p>
+<h2 id="Comment-the-Code"><a href="#Comment-the-Code" class="headerlink" title="Comment the Code"></a>Comment the Code</h2><p>One of the best ways of reverse-engineering code you’re so unfamiliar with that you cannot even guess to comment is to derive HoareTriples for the code under scrutiny, and to compute a procedure’s WeakestPrecondition. Knowing the invariants of a procedure often gives valuable clues as to its intended purpose, thus letting you derive understanding from the code in a way that merely guessing from reading a number of poorly named procedure names simply cannot. Using this technique, you might even find bugs in the code, despite your lack of understanding thereof (I know this from experience!).</p>
+<h2 id="Clean-Up-the-Code"><a href="#Clean-Up-the-Code" class="headerlink" title="Clean Up the Code"></a>Clean Up the Code</h2><h2 id="Use-Aspect-Browser"><a href="#Use-Aspect-Browser" class="headerlink" title="Use Aspect Browser"></a>Use Aspect Browser</h2><p>Aspect Browser is a tool for viewing cross-cutting code aspects in large amounts of code. I find it indispensable for navigating unfamiliar code, as a kind of super-grep. </p>
+<p>AspectBrowser for Eclipse</p>
+<h1 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://spin.atomicobject.com/2017/06/01/how-to-read-code/">How to Read Code (Eight Things to Remember)</a></li>
+<li><a target="_blank" rel="noopener" href="https://selftaughtcoders.com/how-to-quickly-and-effectively-read-other-peoples-code/">How to quickly and effectively read other people’s code</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.fluentcpp.com/2018/06/05/10-techniques-that-will-make-you-understand-other-peoples-code-better/">10 Techniques That Will Make You Understand Other People’s Code Better</a></li>
+<li><a target="_blank" rel="noopener" href="http://web.media.mit.edu/~lieber/Teaching/IISDW/Read-Code.html">Reading Somebody Else’s Code</a></li>
+<li><a target="_blank" rel="noopener" href="https://dev.to/bazlur_rahman/-7-ways-to-improve-your-code-reading-skill-1b11">7 ways to improve your code reading skill</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.lavieencode.net/blog/coding-101/read-other-peoples-code/">Read Other People’s Code</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.c2.com/?ReadGreatPrograms">Read Great Programs</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.c2.com/?TipsForReadingCode">Tips For Reading Code</a></li>
+<li><a target="_blank" rel="noopener" href="http://cseweb.ucsd.edu/~wgg/Software/AB/">AspectBrowser for Eclipse</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.grok2.com/code_comprehension.html">Source Code Comprehension Tools</a></li>
+<li><a target="_blank" rel="noopener" href="https://dev.to/mathgarb/how-to-read-code-43hh">How To Read Code? </a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/05/15/how-to-read-code/" data-id="cl51yqkp000e6coyza05u1y4b" data-title="How to Read Code" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Programming/" rel="tag">Programming</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-hackerrank-regex-character-class" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/08/hackerrank-regex-character-class/" class="article-date">
+  <time datetime="2020-05-08T13:57:31.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/08/hackerrank-regex-character-class/">HackerRank - Regex - Character Class</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>© <a target="_blank" rel="noopener" href="https://www.hackerrank.com/">HackerRank</a></p>
+<h1 id="Matching-Specific-Characters"><a href="#Matching-Specific-Characters" class="headerlink" title="Matching Specific Characters"></a>Matching Specific Characters</h1><blockquote>
+<p>The character class [ ] matches only one out of several characters placed inside the square brackets.</p>
+</blockquote>
+<h2 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h2><p><code>1203x.</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[123][120][xs0][30Aa][xsu][\.\,]$</span><br></pre></td></tr></table></figure>
+
+<h1 id="Excluding-Specific-Characters"><a href="#Excluding-Specific-Characters" class="headerlink" title="Excluding Specific Characters"></a>Excluding Specific Characters</h1><blockquote>
+<p>The negated character class [^] matches any character that is not in the square brackets.</p>
+</blockquote>
+<h2 id="Task-1"><a href="#Task-1" class="headerlink" title="Task"></a>Task</h2><p><code>think?</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[^\d][^aeiou][^bcDF][^\s][^AEIOU][^\.\,]$</span><br></pre></td></tr></table></figure>
+
+<h1 id="Matching-Character-Ranges"><a href="#Matching-Character-Ranges" class="headerlink" title="Matching Character Ranges"></a>Matching Character Ranges</h1><blockquote>
+<p>In the context of a regular expression (RegEx), a character class is a set of characters enclosed within square brackets that allows you to match one character in the set.</p>
+</blockquote>
+<blockquote>
+<p>A hyphen (-) inside a character class specifies a range of characters where the left and right operands are the respective lower and upper bounds of the range. For example:</p>
+</blockquote>
+<ul>
+<li>[a-z] is the same as [abcdefghijklmnopqrstuvwxyz]</li>
+<li>[A-Z] is the same as [ABCDEFGHIJKLMNOPQRSTUVWXYZ]</li>
+<li>[0-9] is the same as [0123456789]</li>
+</ul>
+<blockquote>
+<p>In addition, if you use a caret (^) as the first character inside a character class, it will match anything that is not in that range. For example, [^0-9] matches any character that is not a digit in the inclusive range from 0 to 9. </p>
+</blockquote>
+<blockquote>
+<p>It’s important to note that, when used outside of (immediately preceding) a character or character class, the caret matches the first character in the string against that character or set of characters.</p>
+</blockquote>
+<h2 id="Task-2"><a href="#Task-2" class="headerlink" title="Task"></a>Task</h2><p><code>h4CkR</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[a-z][1-9][^a-z][^A-Z][A-Z]*</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h1><p><a target="_blank" rel="noopener" href="https://www.hackerrank.com/domains/regex?filters%5Bsubdomains%5D%5B%5D=re-character-class">Regex - Subdomains - Character Class</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/05/08/hackerrank-regex-character-class/" data-id="cl51yqkox00dacoyzfs2ee5xx" data-title="HackerRank - Regex - Character Class" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HackerRank/" rel="tag">HackerRank</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/regex/" rel="tag">regex</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-If-Rudyard-Kipling" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/07/If-Rudyard-Kipling/" class="article-date">
+  <time datetime="2020-05-07T20:05:49.000Z" itemprop="datePublished">2020-05-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/07/If-Rudyard-Kipling/">If—</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>by <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Rudyard_Kipling">Rudyard Kipling</a></p>
+<p>If you can keep your head when all about you<br>   Are losing theirs and blaming it on you;<br>If you can trust yourself when all men doubt you,<br>   But make allowance for their doubting too;<br>If you can wait and not be tired by waiting,<br>   Or, being lied about, don’t deal in lies,<br>Or being hated, don’t give way to hating,<br>   And yet don’t look too good, nor talk too wise;</p>
+<p>If you can dream—and not make dreams your master;<br>   If you can think—and not make thoughts your aim;<br>If you can meet with Triumph and Disaster<br>   And treat those two impostors just the same;<br>If you can bear to hear the truth you’ve spoken<br>   Twisted by knaves to make a trap for fools,<br>Or watch the things you gave your life to, broken,<br>   And stoop and build ’em up with worn-out tools;</p>
+<p>If you can make one heap of all your winnings<br>   And risk it on one turn of pitch-and-toss,<br>And lose, and start again at your beginnings<br>   And never breathe a word about your loss;<br>If you can force your heart and nerve and sinew<br>   To serve your turn long after they are gone,<br>And so hold on when there is nothing in you<br>   Except the Will which says to them: “Hold on!”</p>
+<p>If you can talk with crowds and keep your virtue,<br>   Or walk with kings—nor lose the common touch,<br>If neither foes nor loving friends can hurt you,<br>   If all men count with you, but none too much;<br>If you can fill the unforgiving minute<br>With sixty seconds’ worth of distance run,<br>   Yours is the Earth and everything that’s in it,<br>And—which is more—you’ll be a Man, my son!</p>
+<hr>
+<ul>
+<li>In a poll conducted in 1995 by the BBC Radio 4 Bookworm programme to determine the nation’s favourite poems, If— came first.</li>
+<li>The poem If of Kipling is written as if a father is talking to his son, giving him advices on the way to behave to obtain the reputation of being a mature and an outstanding citizen of the community and the world. It has been written in 1895 and published in his collection Rewards and Fairies in 1909. Throughout the poem, Kipling illustrates ideal behaviour and virtue through the use of paradox: righteousness without smugness; detachment while practicing determination; and noble life blended with commonality. The employment of these contradictory extremes throughout the poem serves to illustrate a central theme of striving for an idealized “golden mean” in all facets of life.</li>
+</ul>
+<hr>
+<h1 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/If%E2%80%94">If—</a></li>
+<li><a target="_blank" rel="noopener" href="https://web.archive.org/web/20170210080229/http://www.poems007.com/poem/if.html">If, poem by Rudyard Kipling</a></li>
+<li><a target="_blank" rel="noopener" href="https://poets.org/poem/if">If—</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.poetryfoundation.org/poems/46473/if---">If—</a></li>
+<li><a target="_blank" rel="noopener" href="http://momobookblog.blogspot.com/2017/02/bbc-nations-favourite-poems.html">BBC “The Nation’s Favourite Poems”</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/05/07/If-Rudyard-Kipling/" data-id="cl51yqknt0015coyz7gvf1wss" data-title="If—" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poem/" rel="tag">poem</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-hackerrank-regex-introduction" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/07/hackerrank-regex-introduction/" class="article-date">
+  <time datetime="2020-05-07T13:39:49.000Z" itemprop="datePublished">2020-05-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/07/hackerrank-regex-introduction/">HackerRank - Regex - Introduction</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>© <a target="_blank" rel="noopener" href="https://www.hackerrank.com/">HackerRank</a></p>
+<h1 id="Matching-Anything-But-a-Newline"><a href="#Matching-Anything-But-a-Newline" class="headerlink" title="Matching Anything But a Newline"></a>Matching Anything But a Newline</h1><blockquote>
+<p>The dot (.) matches anything (except for a newline).</p>
+</blockquote>
+<h2 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h2><p><code>123.456.abc.def</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(.&#123;3&#125;\.)&#123;3&#125;.&#123;3&#125;$</span><br></pre></td></tr></table></figure>
+
+<h1 id="Matching-Digits-amp-Non-Digit-Characters"><a href="#Matching-Digits-amp-Non-Digit-Characters" class="headerlink" title="Matching Digits &amp; Non-Digit Characters"></a>Matching Digits &amp; Non-Digit Characters</h1><h2 id="d"><a href="#d" class="headerlink" title="\d"></a>\d</h2><blockquote>
+<p>The expression \d matches any digit [0-9].</p>
+</blockquote>
+<h2 id="D"><a href="#D" class="headerlink" title="\D"></a>\D</h2><blockquote>
+<p>The expression \D matches any character that is not a digit.</p>
+</blockquote>
+<h2 id="Task-1"><a href="#Task-1" class="headerlink" title="Task"></a>Task</h2><p><code>06-11-2015</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(\d)&#123;2&#125;(\D)&#123;1&#125;(\d)&#123;2&#125;(\D)&#123;1&#125;(\d)&#123;4&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Matching-Whitespace-amp-Non-Whitespace-Character"><a href="#Matching-Whitespace-amp-Non-Whitespace-Character" class="headerlink" title="Matching Whitespace &amp; Non-Whitespace Character"></a>Matching Whitespace &amp; Non-Whitespace Character</h1><h2 id="s"><a href="#s" class="headerlink" title="\s"></a>\s</h2><blockquote>
+<p>\s matches any whitespace character [ \r\n\t\f ].</p>
+</blockquote>
+<h2 id="S"><a href="#S" class="headerlink" title="\S"></a>\S</h2><blockquote>
+<p>\S matches any non-white space character.</p>
+</blockquote>
+<h2 id="For-Example"><a href="#For-Example" class="headerlink" title="For Example"></a>For Example</h2><p>match blank line</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\r\n</span><br></pre></td></tr></table></figure>
+
+<h2 id="Task-2"><a href="#Task-2" class="headerlink" title="Task"></a>Task</h2><p><code>12 11 15</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(\S)&#123;2&#125;(\s)&#123;1&#125;(\S)&#123;2&#125;(\s)&#123;1&#125;(\S)&#123;2&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Matching-Word-amp-Non-Word-Character"><a href="#Matching-Word-amp-Non-Word-Character" class="headerlink" title="Matching Word &amp; Non-Word Character"></a>Matching Word &amp; Non-Word Character</h1><h2 id="w"><a href="#w" class="headerlink" title="\w"></a>\w</h2><blockquote>
+<p>The expression \w will match any word character.<br>Word characters include alphanumeric characters (a-z, A-Z and 0-9) and underscores (_).</p>
+</blockquote>
+<h2 id="W"><a href="#W" class="headerlink" title="\W"></a>\W</h2><blockquote>
+<p>\W matches any non-word character.<br>Non-word characters include characters other than alphanumeric characters (a-z, A-Z and 0-9) and underscore (_).</p>
+</blockquote>
+<h2 id="Task-3"><a href="#Task-3" class="headerlink" title="Task"></a>Task</h2><p><code>www.hackerrank.com</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(\w)&#123;3&#125;(\W)&#123;1&#125;(\w)&#123;10&#125;(\W)&#123;1&#125;(\w)&#123;3&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Matching-Start-amp-End"><a href="#Matching-Start-amp-End" class="headerlink" title="Matching Start &amp; End"></a>Matching Start &amp; End</h1><h2 id=""><a href="#" class="headerlink" title="^"></a>^</h2><blockquote>
+<p>The ^ symbol matches the position at the start of a string.</p>
+</blockquote>
+<h2 id="-1"><a href="#-1" class="headerlink" title="$"></a>$</h2><blockquote>
+<p>The $ symbol matches the position at the end of a string.</p>
+</blockquote>
+<h2 id="Task-4"><a href="#Task-4" class="headerlink" title="Task"></a>Task</h2><p><code>0qwer.</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(\d)&#123;1&#125;(\w)&#123;4&#125;(\.)&#123;1&#125;$</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h1><p><a target="_blank" rel="noopener" href="https://www.hackerrank.com/domains/regex?filters%5Bsubdomains%5D%5B%5D=re-introduction">Regex - Subdomains - Introduction</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/05/07/hackerrank-regex-introduction/" data-id="cl51yqkoy00dccoyz7witdwhq" data-title="HackerRank - Regex - Introduction" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HackerRank/" rel="tag">HackerRank</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/regex/" rel="tag">regex</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-longest-consecutive-sequence" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/05/LeetCode-Algorithms-longest-consecutive-sequence/" class="article-date">
+  <time datetime="2020-05-06T03:47:05.000Z" itemprop="datePublished">2020-05-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/05/LeetCode-Algorithms-longest-consecutive-sequence/">LeetCode - Algorithms - 128. Longest Consecutive Sequence</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Hard problem. Exercise for union-find. Almost done by myself, with help of union-find by Robert Sedgewick and Kevin Wayne.</p>
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/longest-consecutive-sequence/">128. Longest Consecutive Sequence</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="union–find"><a href="#union–find" class="headerlink" title="union–find"></a>union–find</h2><p>© <a target="_blank" rel="noopener" href="https://algs4.cs.princeton.edu/15uf/">1.5 Case Study: Union-Find</a> Copyright © 2000–2019 <a target="_blank" rel="noopener" href="https://www.cs.princeton.edu/~rs">Robert Sedgewick</a> and <a target="_blank" rel="noopener" href="https://www.cs.princeton.edu/~wayne">Kevin Wayne</a>. All rights reserved.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestConsecutive</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] arr = removeDuplicates(nums);</span><br><span class="line">        <span class="keyword">int</span> N = arr.length;</span><br><span class="line">        Map&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;Integer, Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!map.containsKey(arr[i]-<span class="number">1</span>)) map.put(arr[i]-<span class="number">1</span>, i);</span><br><span class="line">            <span class="keyword">if</span> (!map.containsKey(arr[i]+<span class="number">1</span>)) map.put(arr[i]+<span class="number">1</span>, i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">        UF uf = <span class="keyword">new</span> UF(N);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (map.containsKey(arr[i])) &#123;</span><br><span class="line">                uf.union(i, map.get(arr[i]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] parent = uf.parent();</span><br><span class="line">        Map&lt;Integer,Integer&gt; tmpMap = <span class="keyword">new</span> HashMap&lt;Integer, Integer&gt;();</span><br><span class="line">        <span class="keyword">int</span> k;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;parent.length; i++) &#123;</span><br><span class="line">            k = parent[i];</span><br><span class="line">            <span class="keyword">if</span> (tmpMap.containsKey(parent[i]))</span><br><span class="line">                tmpMap.put(k, tmpMap.get(k)+<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                tmpMap.put(k, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(Integer n : tmpMap.values()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (n&gt;len)</span><br><span class="line">                len = n;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> len;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] removeDuplicates(<span class="keyword">int</span>[] input) &#123;</span><br><span class="line">        <span class="keyword">if</span> (input == <span class="keyword">null</span> || input.length &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> input;</span><br><span class="line">        &#125;</span><br><span class="line">        Set&lt;Integer&gt; aSet = <span class="keyword">new</span> HashSet&lt;&gt;(input.length);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : input) &#123;</span><br><span class="line">            aSet.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[aSet.size()];</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(Integer x : aSet)</span><br><span class="line">            a[i++] = x;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Weighted quick-union by rank with path compression by halving.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Robert Sedgewick</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Kevin Wayne</span></span><br><span class="line"><span class="comment"> * Algorithms, 4th edition textbook code and libraries</span></span><br><span class="line"><span class="comment"> * https://github.com/kevin-wayne/algs4</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UF</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] parent;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] rank;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> count;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UF</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>) <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line">        count = n;</span><br><span class="line">        parent = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        rank = <span class="keyword">new</span> <span class="keyword">byte</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">            rank[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">        validate(p);</span><br><span class="line">        <span class="keyword">while</span> (p != parent[p]) &#123;</span><br><span class="line">            parent[p] = parent[parent[p]];</span><br><span class="line">            p = parent[p];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">count</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">union</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootP = find(p);</span><br><span class="line">        <span class="keyword">int</span> rootQ = find(q);</span><br><span class="line">        <span class="keyword">if</span> (rootP == rootQ) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>      (rank[rootP] &lt; rank[rootQ]) parent[rootP] = rootQ;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (rank[rootP] &gt; rank[rootQ]) parent[rootQ] = rootP;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            parent[rootQ] = rootP;</span><br><span class="line">            rank[rootP]++;</span><br><span class="line">        &#125;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">validate</span><span class="params">(<span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = parent.length;</span><br><span class="line">        <span class="keyword">if</span> (p &lt; <span class="number">0</span> || p &gt;= n) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;index &quot;</span> + p + <span class="string">&quot; is not between 0 and &quot;</span> + (n-<span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] parent() &#123;<span class="keyword">return</span> parent;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>68 / 68 test cases passed.</li>
+<li>Runtime: 8 ms, faster than 23.72% of Java online submissions for Longest Consecutive Sequence.</li>
+<li>Memory Usage: 40.8 MB, less than 8.62% of Java online submissions for Longest Consecutive Sequence.</li>
+</ul>
+<h1 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://algs4.cs.princeton.edu/15uf/">1.5 Case Study: Union-Find</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kevin-wayne/algs4">Algorithms, 4th edition textbook code and libraries</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/05/05/LeetCode-Algorithms-longest-consecutive-sequence/" data-id="cl51yqkod0061coyza20hgbci" data-title="LeetCode - Algorithms - 128. Longest Consecutive Sequence" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-some-differences-between-British-and-American-English" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/04/some-differences-between-British-and-American-English/" class="article-date">
+  <time datetime="2020-05-04T20:30:48.000Z" itemprop="datePublished">2020-05-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/04/some-differences-between-British-and-American-English/">Some Differences between British and American English</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>England and America are two countries divided by a common language. — George Bernard Shaw</p>
+<h1 id="vocabulary"><a href="#vocabulary" class="headerlink" title="vocabulary"></a>vocabulary</h1><table>
+<thead>
+<tr>
+<th>American English</th>
+<th>British English</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>airplane</td>
+<td>aeroplane</td>
+</tr>
+<tr>
+<td>anyplace, anywhere</td>
+<td>anywhere</td>
+</tr>
+<tr>
+<td>apartment</td>
+<td>flat, apartment</td>
+</tr>
+<tr>
+<td>area code</td>
+<td>dialing code (phone)</td>
+</tr>
+<tr>
+<td>attorney, lawyer</td>
+<td>barrister, solicitor, lawyer</td>
+</tr>
+<tr>
+<td>bar</td>
+<td>pub</td>
+</tr>
+<tr>
+<td>billfold</td>
+<td>wallet</td>
+</tr>
+<tr>
+<td>busy</td>
+<td>engaged (phone)</td>
+</tr>
+<tr>
+<td>cab</td>
+<td>taxi</td>
+</tr>
+<tr>
+<td>call collect</td>
+<td>reverse the charges (phone)</td>
+</tr>
+<tr>
+<td>can</td>
+<td>tin, can</td>
+</tr>
+<tr>
+<td>candy</td>
+<td>sweets</td>
+</tr>
+<tr>
+<td>cellphone</td>
+<td>mobile</td>
+</tr>
+<tr>
+<td>check/bill</td>
+<td>bill (in a restaurant)</td>
+</tr>
+<tr>
+<td>coin-purse</td>
+<td>purse</td>
+</tr>
+<tr>
+<td>cookie, cracker</td>
+<td>biscuit</td>
+</tr>
+<tr>
+<td>corn</td>
+<td>sweet corn, maize</td>
+</tr>
+<tr>
+<td>crib</td>
+<td>cot</td>
+</tr>
+<tr>
+<td>crazy</td>
+<td>mad</td>
+</tr>
+<tr>
+<td>crosswalk</td>
+<td>pedestrian, zebra crossing</td>
+</tr>
+<tr>
+<td>cuffs</td>
+<td>turn-ups (on trousers)</td>
+</tr>
+<tr>
+<td>diaper</td>
+<td>nappy</td>
+</tr>
+<tr>
+<td>doctor’s office</td>
+<td>doctor’s surgery</td>
+</tr>
+<tr>
+<td>drugstore</td>
+<td>chemist</td>
+</tr>
+<tr>
+<td>dumb, stupid</td>
+<td>stupid</td>
+</tr>
+<tr>
+<td>elevator</td>
+<td>lift</td>
+</tr>
+<tr>
+<td>eraser</td>
+<td>rubber, eraser</td>
+</tr>
+<tr>
+<td>fall, autumn</td>
+<td>autumn</td>
+</tr>
+<tr>
+<td>faucet, tap</td>
+<td>tap (indoors)</td>
+</tr>
+<tr>
+<td>first floor, second floor etc</td>
+<td>ground floor, first floor etc</td>
+</tr>
+<tr>
+<td>flashlight</td>
+<td>torch</td>
+</tr>
+<tr>
+<td>flat (tire)</td>
+<td>flat tyre, puncture</td>
+</tr>
+<tr>
+<td>french fries</td>
+<td>chips</td>
+</tr>
+<tr>
+<td>garbage, trash</td>
+<td>rubbish</td>
+</tr>
+<tr>
+<td>garbage can, trashcan</td>
+<td>dustbin, rubbish bin</td>
+</tr>
+<tr>
+<td>gas(oline)</td>
+<td>Petrol</td>
+</tr>
+<tr>
+<td>gear shift</td>
+<td>gear lever (on a car)</td>
+</tr>
+<tr>
+<td>highway, freeway</td>
+<td>main road, motorway</td>
+</tr>
+<tr>
+<td>hood</td>
+<td>bonnet (of a car, at the front)</td>
+</tr>
+<tr>
+<td>intersection</td>
+<td>crossroads</td>
+</tr>
+<tr>
+<td>mad</td>
+<td>angry</td>
+</tr>
+<tr>
+<td>mail</td>
+<td>post</td>
+</tr>
+<tr>
+<td>mean</td>
+<td>nasty</td>
+</tr>
+<tr>
+<td>movie, film</td>
+<td>film</td>
+</tr>
+<tr>
+<td>movies</td>
+<td>cinema</td>
+</tr>
+<tr>
+<td>one-way (ticket)</td>
+<td>single (ticket)</td>
+</tr>
+<tr>
+<td>pants, trousers</td>
+<td>trousers</td>
+</tr>
+<tr>
+<td>parking lot</td>
+<td>car park</td>
+</tr>
+<tr>
+<td>pavement</td>
+<td>road surface</td>
+</tr>
+<tr>
+<td>pitcher</td>
+<td>jug</td>
+</tr>
+<tr>
+<td>pocketbook, purse, handbag</td>
+<td>handbag</td>
+</tr>
+<tr>
+<td>(potato) chips</td>
+<td>crisps</td>
+</tr>
+<tr>
+<td>railroad</td>
+<td>railway</td>
+</tr>
+<tr>
+<td>raise</td>
+<td>rise (in salary)</td>
+</tr>
+<tr>
+<td>rest room, bathroom</td>
+<td>(public) toilet</td>
+</tr>
+<tr>
+<td>resume</td>
+<td>cv</td>
+</tr>
+<tr>
+<td>round trip</td>
+<td>return (journey / ticket)</td>
+</tr>
+<tr>
+<td>schedule, timetable</td>
+<td>timetable</td>
+</tr>
+<tr>
+<td>shorts</td>
+<td>pants</td>
+</tr>
+<tr>
+<td>sidewalk</td>
+<td>pavement</td>
+</tr>
+<tr>
+<td>sneakers</td>
+<td>trainers (=sports shoes)</td>
+</tr>
+<tr>
+<td>spigot, faucet</td>
+<td>tap (outdoors)</td>
+</tr>
+<tr>
+<td>stand in line</td>
+<td>queue</td>
+</tr>
+<tr>
+<td>stingy</td>
+<td>mean (opposite of generous)</td>
+</tr>
+<tr>
+<td>store, shop</td>
+<td>shop</td>
+</tr>
+<tr>
+<td>subway</td>
+<td>underground, tube (train)</td>
+</tr>
+<tr>
+<td>truck</td>
+<td>van, lorry</td>
+</tr>
+<tr>
+<td>trunk</td>
+<td>boot (of a car, at the back)</td>
+</tr>
+<tr>
+<td>two weeks</td>
+<td>fortnight, two weeks</td>
+</tr>
+<tr>
+<td>undershirt</td>
+<td>vest</td>
+</tr>
+<tr>
+<td>vacation</td>
+<td>holiday(s)</td>
+</tr>
+<tr>
+<td>windshield</td>
+<td>windscreen (on a car)</td>
+</tr>
+<tr>
+<td>zee</td>
+<td>zed (the name of the letter z)</td>
+</tr>
+<tr>
+<td>zip code</td>
+<td>postcode</td>
+</tr>
+<tr>
+<td>zipper</td>
+<td>zip</td>
+</tr>
+</tbody></table>
+<h1 id="spelling"><a href="#spelling" class="headerlink" title="spelling"></a>spelling</h1><table>
+<thead>
+<tr>
+<th>American English</th>
+<th>British English</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>center</td>
+<td>centre</td>
+</tr>
+<tr>
+<td>analyze</td>
+<td>analyse</td>
+</tr>
+<tr>
+<td>tire</td>
+<td>tyre(on a wheel)</td>
+</tr>
+<tr>
+<td>neighbor</td>
+<td>neighbour</td>
+</tr>
+</tbody></table>
+<h1 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h1><ul>
+<li>Practical English Usage, by Michael Swan</li>
+<li>Learning English as a Foreign Language FOR DUMmIES, By Gavin Dudeney and Nicky Hockly</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/05/04/some-differences-between-British-and-American-English/" data-id="cl51yqkq200oqcoyz3s84go8x" data-title="Some Differences between British and American English" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/23/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/25/">Next »</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/" rel="tag">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bit-Manipulation/" rel="tag">Bit Manipulation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/" rel="tag">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bruce-Lee/" rel="tag">Bruce Lee</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CEMC/" rel="tag">CEMC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/" rel="tag">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/" rel="tag">Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Divide-and-Conquer/" rel="tag">Divide and Conquer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFmpeg/" rel="tag">FFmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/" rel="tag">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/" rel="tag">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HackerRank/" rel="tag">HackerRank</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/" rel="tag">Hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashTable/" rel="tag">HashTable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/" rel="tag">Heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IELTS/" rel="tag">IELTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/" rel="tag">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/" rel="tag">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/" rel="tag">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lin-Yutang/" rel="tag">Lin Yutang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/" rel="tag">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marcus-Du-Sautoy/" rel="tag">Marcus Du Sautoy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathematics/" rel="tag">Mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/" rel="tag">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/" rel="tag">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programming/" rel="tag">Programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/" rel="tag">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/" rel="tag">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/" rel="tag">Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEDx/" rel="tag">TEDx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terence-Tao/" rel="tag">Terence Tao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/" rel="tag">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Topological-Sort/" rel="tag">Topological Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/" rel="tag">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/" rel="tag">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/" rel="tag">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backtracking/" rel="tag">backtracking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/" rel="tag">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bilingual/" rel="tag">bilingual</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/" rel="tag">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrency/" rel="tag">concurrency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coronavirus/" rel="tag">coronavirus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/creative-thinking/" rel="tag">creative thinking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/" rel="tag">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/" rel="tag">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/essay/" rel="tag">essay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firefox/" rel="tag">firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/geometry/" rel="tag">geometry</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/" rel="tag">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graph/" rel="tag">graph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/" rel="tag">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history-of-mathematics/" rel="tag">history of mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ide/" rel="tag">ide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/" rel="tag">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/" rel="tag">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/logic/" rel="tag">logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/" rel="tag">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/" rel="tag">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/physics/" rel="tag">physics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/popscience/" rel="tag">popscience</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programmer/" rel="tag">programmer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quantum/" rel="tag">quantum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recurrence/" rel="tag">recurrence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/song/" rel="tag">song</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/" rel="tag">stack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/" rel="tag">vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/" rel="tag">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wolfram/" rel="tag">wolfram</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" rel="tag">中文经典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E6%96%87/" rel="tag">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" rel="tag">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" rel="tag">数学史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" rel="tag">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" rel="tag">李小龙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" rel="tag">李笑来</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" rel="tag">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" rel="tag">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8B%B1%E8%AF%AD/" rel="tag">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%91%E8%A8%80/" rel="tag">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 19.44px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.22px;">Array</a> <a href="/tags/BFS/" style="font-size: 15px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.56px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15.56px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 16.11px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.44px;">DFS</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.11px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.78px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.89px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 13.89px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 11.11px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.89px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.56px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.67px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.56px;">Mathematics</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10.56px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.56px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.67px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.78px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.56px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 13.33px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 14.44px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.67px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.56px;">Topological Sort</a> <a href="/tags/Tree/" style="font-size: 11.67px;">Tree</a> <a href="/tags/Two-Pointers/" style="font-size: 15.56px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.67px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.56px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.11px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 20px;">english</a> <a href="/tags/essay/" style="font-size: 11.67px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.22px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.67px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.89px;">java</a> <a href="/tags/javascript/" style="font-size: 10.56px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.56px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.67px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.11px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 18.33px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 11.67px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 11.11px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.78px;">regex</a> <a href="/tags/song/" style="font-size: 13.33px;">song</a> <a href="/tags/sql/" style="font-size: 10.56px;">sql</a> <a href="/tags/stack/" style="font-size: 10.56px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.56px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 12.22px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10.56px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 10.56px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12.22px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 12.22px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 10.56px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/01/Canada-Billy-Collins/">Canada</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/30/An-Essay-on-Criticism-Part-3-Alexander-Pope/">An Essay on Criticism Part 3</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/29/An-Essay-on-Criticism-Part-2-Alexander-Pope/">An Essay on Criticism Part 2</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/28/An-Essay-on-Criticism-Part-1-Alexander-Pope/">An Essay on Criticism Part 1</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/24/a-question-robert-frost/">A Question</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 hezhigang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

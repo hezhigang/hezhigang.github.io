@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>A Humble Programmer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="A Humble Programmer">
+<meta property="og:url" content="https://hezhigang.github.io/page/20/index.html">
+<meta property="og:site_name" content="A Humble Programmer">
+<meta property="og:locale">
+<meta property="article:author" content="hezhigang">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="A Humble Programmer" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">A Humble Programmer</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hezhigang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-leetcode-algorithms-valid-anagram" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/22/leetcode-algorithms-valid-anagram/" class="article-date">
+  <time datetime="2020-09-22T16:05:55.000Z" itemprop="datePublished">2020-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/22/leetcode-algorithms-valid-anagram/">LeetCode - Algorithms - 242. Valid Anagram</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/valid-anagram/">242. Valid Anagram</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAnagram</span><span class="params">(String s, String t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len_s = s.length();</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len_t = t.length();</span><br><span class="line">        <span class="keyword">if</span> (len_s != len_t)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        Map&lt;Character, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;Character, Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++) &#123;</span><br><span class="line">            Character k = s.charAt(i);</span><br><span class="line">            <span class="keyword">if</span> (map.containsKey(k)) &#123;</span><br><span class="line">                Integer num = map.get(k);</span><br><span class="line">                map.put(k, ++num);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                map.put(k, <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; t.length(); i++) &#123;</span><br><span class="line">            Character k = t.charAt(i);</span><br><span class="line">            <span class="keyword">if</span> (map.containsKey(k)) &#123;</span><br><span class="line">                Integer num = map.get(k);</span><br><span class="line">                map.put(k, --num);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (Integer count : map.values()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (count.intValue() != <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>34 / 34 test cases passed.</li>
+<li>Runtime: 12 ms, faster than 22.04% of Java online submissions for Valid Anagram.</li>
+<li>Memory Usage: 40.6 MB, less than 28.82% of Java online submissions for Valid Anagram.</li>
+</ul>
+<h2 id="Sorting"><a href="#Sorting" class="headerlink" title="Sorting"></a>Sorting</h2><p>© <a target="_blank" rel="noopener" href="https://dev.to/javinpaul/20-basic-algorithms-problems-from-coding-interviews-4o76">20+ basic Algorithms Problems from Coding Interviews</a> 16. Write Algorithms to Check if Two String are Anagram</p>
+<blockquote>
+<p>One trick to solve this problem is to sort the character array and check if they are the same or not.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAnagram</span><span class="params">(String s, String t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len_s = s.length();</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len_t = t.length();</span><br><span class="line">        <span class="keyword">if</span> (len_s != len_t)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">char</span>[] arr_s = s.toCharArray();</span><br><span class="line">        <span class="keyword">char</span>[] arr_t = t.toCharArray();</span><br><span class="line">        Arrays.sort(arr_s);</span><br><span class="line">        Arrays.sort(arr_t);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len_s; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr_s[i] != arr_t[i])</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>34 / 34 test cases passed.</li>
+<li>Runtime: 4 ms, faster than 51.35% of Java online submissions for Valid Anagram.</li>
+<li>Memory Usage: 42.2 MB, less than 9.92% of Java online submissions for Valid Anagram.</li>
+</ul>
+<h2 id="leetcode-solution-Hash-Table"><a href="#leetcode-solution-Hash-Table" class="headerlink" title="leetcode solution - Hash Table"></a>leetcode solution - Hash Table</h2><p>It seemed that no 0ms solution by java.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAnagram</span><span class="params">(String s, String t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (s.length() != t.length()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] counter = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++) &#123;</span><br><span class="line">            counter[s.charAt(i) - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">            counter[t.charAt(i) - <span class="string">&#x27;a&#x27;</span>]--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> count : counter) &#123;</span><br><span class="line">            <span class="keyword">if</span> (count != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>34 / 34 test cases passed.</li>
+<li>Runtime: 3 ms, faster than 79.53% of Java online submissions for Valid Anagram.</li>
+<li>Memory Usage: 39.4 MB, less than 84.32% of Java online submissions for Valid Anagram.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/09/22/leetcode-algorithms-valid-anagram/" data-id="cl51yqkpm00k7coyz3pjt0bim" data-title="LeetCode - Algorithms - 242. Valid Anagram" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sort/" rel="tag">Sort</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-why-you-will-fail-to-have-a-great-career-larry-smith-ted" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/21/why-you-will-fail-to-have-a-great-career-larry-smith-ted/" class="article-date">
+  <time datetime="2020-09-21T14:12:47.000Z" itemprop="datePublished">2020-09-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/21/why-you-will-fail-to-have-a-great-career-larry-smith-ted/">Why you will fail to have a great career - Larry Smith - TEDxUW | November 2011 - Transcript</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>What you see in the TED talk is essentially thirty years of Smith’s frustrations reaching a boiling point. “Wasted talent is a waste I cannot stand,” Smith told me. “My students want to create technology. I want them to create really ‘kick-ass’ technology. I want them to be passionate about what they’re doing.” — <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Carmine_Gallo">Carmine Gallo</a></p>
+</blockquote>
+<hr>
+<p>I want to discuss with you this afternoon why you’re going to fail to have a great career.</p>
+<p>(Laughter)</p>
+<p>I’m an economist.</p>
+<p>I do dismal. End of the day, it’s ready for dismal remarks. I only want to talk to those of you who want a great career. I know some of you have already decided you want a good career. You’re going to fail, too. </p>
+<p>(Laughter) </p>
+<p>Because – goodness, you’re all cheery about failing. </p>
+<p>(Laughter) </p>
+<p>Canadian group, undoubtedly. </p>
+<p>(Laughter) </p>
+<p>Those trying to have good careers are going to fail, because, really, good jobs are now disappearing. <strong>There are great jobs and great careers, and then there are the high-workload, high-stress, bloodsucking, soul-destroying kinds of jobs, and practically nothing in-between.</strong> </p>
+<p>So people looking for good jobs are going to fail. I want to talk about those looking for great jobs, great careers, and why you’re going to fail. First reason is that no matter how many times people tell you, “If you want a great career, you have to <strong>pursue your passion</strong>, you have to <strong>pursue your dreams</strong>, you have to <strong>pursue the greatest fascination in your life</strong>,” you hear it again and again, and then you decide not to do it. It doesn’t matter how many times you download <strong>Steven J.’s Stanford commencement address</strong>, you still look at it and decide not to do it. </p>
+<p>I’m not quite sure why you decide not to do it. You’re too lazy to do it. It’s too hard. You’re afraid if you look for your passion and don’t find it, you’ll feel like you’re an idiot, so then you make excuses about why you’re not going to look for your passion. They are excuses, ladies and gentlemen. We’re going to go through a whole long list – your creativity in thinking of excuses not to do what you really need to do if you want to have a great career. </p>
+<p>So, for example, one of your great excuses is: </p>
+<p>(Sigh) </p>
+<p>“Well, great careers are really and truly, for most people, just a matter of luck. So I’m going to stand around, I’m going to try to be lucky, and if I’m lucky, I’ll have a great career. If not, I’ll have a good career.” But a good career is an impossibility, so that’s not going to work. </p>
+<p>Then, your other excuse is, “Yes, there are special people who pursue their passions, but they are geniuses. They are Steven J. I’m not a genius. When I was five, I thought I was a genius, but my professors have beaten that idea out of my head long since.” </p>
+<p>(Laughter) </p>
+<p>“And now I know I am completely competent.” Now, you see, if this was 1950, being completely competent – that would have given you a great career. But guess what? This is almost 2012, and saying to the world, “I am totally, completely competent,” is damning yourself with the faintest of praise. </p>
+<p>And then, of course, another excuse: “Well, I would do this, I would do this, but, but – well, after all, I’m not weird. Everybody knows that people who pursue their passions are somewhat obsessive. A little strange. Hmm? Hmm? Okay? You know, a fine line between madness and genius. “I’m not weird. I’ve read Steven J.’s biography. Oh my goodness – I’m not that person. I am nice. I am normal. I’m a nice, normal person, and nice, normal people – don’t have passion.” </p>
+<p>(Laughter) </p>
+<p>“Ah, but I still want a great career. I’m not prepared to pursue my passion, so I know what I’m going to do, because I have a solution. I have a strategy. It’s the one Mommy and Daddy told me about. Mommy and Daddy told me that if I worked hard, I’d have a good career. So, if you work hard and have a good career, if you work really, really, really hard, you’ll have a great career. Doesn’t that, like, mathematically make sense?” Hmm. Not. But you’ve managed to talk yourself into that. </p>
+<p>You know what? Here’s a little secret: You want to work? You want to work really, really, really hard? You know what? You’ll succeed. The world will give you the opportunity to work really, really, really, really hard. But, are you so sure that that’s going to give you a great career, when all the evidence is to the contrary? </p>
+<p>So let’s deal with those of you who are trying to find your passion. You actually understand that you really had better do it, never mind the excuses. You’re trying to find your passion – </p>
+<p>(Sigh) </p>
+<p>and you’re so happy. You found something you’re interested in. </p>
+<p>“I have an interest! I have an interest!” </p>
+<p>You tell me. You say, “I have an interest!” I say, “That’s wonderful! And what are you trying to tell me?” “Well, I have an interest.” I say, “Do you have passion?” “I have an interest,” you say. “Your interest is compared to what?” “Well, I’m interested in this.” “And what about the rest of humanity’s activities?” “I’m not interested in them.” “You’ve looked at them all, have you?” “No. Not exactly.” </p>
+<p><strong>Passion is your greatest love. Passion is the thing that will help you create the highest expression of your talent. Passion, interest – it’s not the same thing.</strong> Are you really going to go to your sweetie and say, “Marry me! You’re interesting.” </p>
+<p>(Laughter) </p>
+<p>Won’t happen. Won’t happen, and you will die alone. </p>
+<p>(Laughter) </p>
+<p><strong>What you want, what you want, what you want, is passion. It is beyond interest.</strong> You need 20 interests, and then one of them, one of them might grab you, one of them might engage you more than anything else, and then you may have found your greatest love, in comparison to all the other things that interest you, and that’s what <strong>passion</strong> is. </p>
+<p>I have a friend, proposed to his sweetie. He was an economically rational person. He said to his sweetie, “Let us marry. Let us merge our interests.” </p>
+<p>(Laughter) </p>
+<p>Yes, he did. </p>
+<p>“I love you truly,” he said. “I love you deeply. I love you more than any other woman I’ve ever encountered. I love you more than Mary, Jane, Susie, Penelope, Ingrid, Gertrude, Gretel – I was on a German exchange program then. I love you more than –” All right. She left the room halfway through his enumeration of his love for her. After he got over his surprise at being, you know, turned down, he concluded he’d had a narrow escape from marrying an irrational person. Although, he did make a note to himself that the next time he proposed, it was perhaps not necessary to enumerate all of the women he had auditioned for the part. </p>
+<p>(Laughter) </p>
+<p>But the point stands. You must look for alternatives so that you find your destiny, or are you afraid of the word “destiny”? Does the word “destiny” scare you? That’s what we’re talking about. And if you don’t find the highest expression of your talent, if you settle for “interesting,” what the hell ever that means, do you know what will happen at the end of your long life? Your friends and family will be gathered in the cemetery, and there beside your gravesite will be a tombstone, and inscribed on that tombstone it will say, “Here lies a distinguished engineer, who invented Velcro.” But what that tombstone should have said, in an alternative lifetime, what it should have said if it was your highest expression of talent, was, “Here lies the last Nobel Laureate in Physics, who formulated the Grand Unified Field Theory and demonstrated the practicality of warp drive.” </p>
+<p>(Laughter) </p>
+<p>Velcro, indeed! </p>
+<p>(Laughter) </p>
+<p>One was a great career. One was a missed opportunity. But then, there are some of you who, in spite of all these excuses, you will find, you will find your passion. And you’ll still fail. </p>
+<p>You’re going to fail, because – because you’re not going to do it, because you will have invented a new excuse, any excuse to fail to take action, and this excuse, I’ve heard so many times: “Yes, I would pursue a great career, but, I value human relationships – </p>
+<p>(Laughter) </p>
+<p>more than accomplishment. I want to be a great friend. I want to be a great spouse. I want to be a great parent, and I will not sacrifice them on the altar of great accomplishment.” </p>
+<p>(Laughter) </p>
+<p>What do you want me to say? Now, do you really want me to say now, tell you, “Really, I swear I don’t kick children.” </p>
+<p>(Laughter) </p>
+<p>Look at the worldview you’ve given yourself. You’re a hero no matter what. And I, by suggesting ever so delicately that you might want a great career, must hate children. I don’t hate children. I don’t kick them. Yes, there was a little kid wandering through this building when I came here, and no, I didn’t kick him. </p>
+<p>(Laughter) </p>
+<p>Course, I had to tell him the building was for adults only, and to get out. He mumbled something about his mother, and I told him she’d probably find him outside anyway. Last time I saw him, he was on the stairs crying. </p>
+<p>(Laughter) </p>
+<p>What a wimp. </p>
+<p>(Laughter) </p>
+<p>But what do you mean? That’s what you expect me to say. Do you really think it’s appropriate that you should actually take children and use them as a shield? You know what will happen someday, you ideal parent, you? The kid will come to you someday and say, “I know what I want to be. I know what I’m going to do with my life.” You are so happy. It’s the conversation a parent wants to hear, because your kid’s good in math, and you know you’re going to like what comes next. Says your kid, “I have decided I want to be a magician. I want to perform magic tricks on the stage.” </p>
+<p>(Laughter) </p>
+<p>And what do you say? You say, you say, “That’s risky, kid. Might fail, kid. Don’t make a lot of money at that, kid. I don’t know, kid, you should think about that again, kid. You’re so good at math, why don’t you –” </p>
+<p>The kid interrupts you and says, “But it is my dream. It is my dream to do this.” And what are you going to say? You know what you’re going to say? “Look kid. I had a dream once, too, but – But –” So how are you going to finish the sentence with your “but”? “But. I had a dream too, once, kid, but I was afraid to pursue it.” Or are you going to tell him this: “I had a dream once, kid. But then, you were born.” </p>
+<p>(Laughter) </p>
+<p>(Applause) </p>
+<p>Do you really want to use your family, do you really ever want to look at your spouse and your kid, and see your jailers? There was something you could have said to your kid, when he or she said, “I have a dream.” You could have said – looked the kid in the face and said, “Go for it, kid! Just like I did.” But you won’t be able to say that, because you didn’t. So you can’t. </p>
+<p>(Laughter) </p>
+<p>And so the sins of the parents are visited on the poor children. Why will you seek refuge in human relationships as your excuse not to find and pursue your passion? You know why. In your heart of hearts, you know why, and I’m being deadly serious. You know why you would get all warm and fuzzy and wrap yourself up in human relationships. It is because you are – you know what you are. </p>
+<p><strong>You’re afraid to pursue your passion. You’re afraid to look ridiculous. You’re afraid to try. You’re afraid you may fail.</strong> Great friend, great spouse, great parent, great career. Is that not a package? Is that not who you are? How can you be one without the other? But you’re afraid. </p>
+<p>And that’s why you’re not going to have a great career. Unless – “unless,” that most evocative of all English words – “unless.” But the “unless” word is also attached to that other, most terrifying phrase, “If only I had …” “If only I had …” If you ever have that thought ricocheting in your brain, it will hurt a lot. </p>
+<p>So, those are the many reasons why you are going to fail to have a great career. Unless – </p>
+<p>Unless. </p>
+<p>Thank you. </p>
+<p>(Applause) </p>
+<div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://embed.ted.com/talks/larry_smith_why_you_will_fail_to_have_a_great_career" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen></iframe></div></div>
+
+<hr>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://uwaterloo.ca/economics/people-profiles/larry-smith">Larry Smith</a> is a professor of economics at University of Waterloo. A well-known storyteller and advocate for youth leadership, he has also mentored many of his students on start-up business management and career development. The most notable start-up he advised in its infancy is Research in Motion (RIM), maker of the BlackBerry.</li>
+<li><a target="_blank" rel="noopener" href="https://blog.ted.com/a-tedx-playlist-6-talks-that-became-phenomena/">A TEDx playlist: 6 talks that became phenomena</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.forbes.com/sites/carminegallo/2012/07/09/why-you-will-fail-to-have-a-great-career-the-interview/#2b6d25ea4466">Why You Will Fail to Have a Great Career - The Interview</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/09/21/why-you-will-fail-to-have-a-great-career-larry-smith-ted/" data-id="cl51yqkqk00tacoyzdv34g8g9" data-title="Why you will fail to have a great career - Larry Smith - TEDxUW | November 2011 - Transcript" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-leetcode-algorithms-rotate-string" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/18/leetcode-algorithms-rotate-string/" class="article-date">
+  <time datetime="2020-09-19T03:21:43.000Z" itemprop="datePublished">2020-09-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/18/leetcode-algorithms-rotate-string/">LeetCode - Algorithms - 796. Rotate String</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/rotate-string/">796. Rotate String</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="my-solution-brute-method"><a href="#my-solution-brute-method" class="headerlink" title="my solution - brute method"></a>my solution - brute method</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">rotateString</span><span class="params">(String A, String B)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len_A = A.length();</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len_B = B.length();</span><br><span class="line">        <span class="keyword">if</span> (len_A != len_B)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (A.isEmpty() &amp;&amp; B.isEmpty())</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;len_A; i++) &#123;</span><br><span class="line">            A = A.substring(<span class="number">1</span>)+A.charAt(<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">if</span> (B.equals(A))</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>45 / 45 test cases passed.</li>
+<li>Runtime: 5 ms, faster than 9.75% of Java online submissions for Rotate String.</li>
+<li>Memory Usage: 38.4 MB, less than 32.29% of Java online submissions for Rotate String.</li>
+</ul>
+<h2 id="trick-method"><a href="#trick-method" class="headerlink" title="trick method"></a>trick method</h2><p>© <a target="_blank" rel="noopener" href="https://dev.to/javinpaul/20-basic-algorithms-problems-from-coding-interviews-4o76">20+ basic Algorithms Problems from Coding Interviews</a> 19. How to check if two String is rotations of each other?</p>
+<blockquote>
+<p>There is a simple trick to solve this problem, just concatenate the String with itself and check if the rotation exists there. You can do that by using indexOf or substring method. If the concatenated String contains rotation then given String is a rotation of former.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">rotateString</span><span class="params">(String A, String B)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len_A = A.length();</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len_B = B.length();</span><br><span class="line">        <span class="keyword">if</span> (len_A != len_B)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        String s = A + A;</span><br><span class="line">        <span class="keyword">return</span> s.indexOf(B) != -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>45 / 45 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Rotate String.</li>
+<li>Memory Usage: 37.2 MB, less than 75.85% of Java online submissions for Rotate String.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/09/18/leetcode-algorithms-rotate-string/" data-id="cl51yqkph00j2coyz2jgf9vse" data-title="LeetCode - Algorithms - 796. Rotate String" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-leetcode-algorithms-perfect-number" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/14/leetcode-algorithms-perfect-number/" class="article-date">
+  <time datetime="2020-09-14T18:23:59.000Z" itemprop="datePublished">2020-09-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/14/leetcode-algorithms-perfect-number/">LeetCode - Algorithms - 507. Perfect Number</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/perfect-number/">507. Perfect Number</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="my-solution"><a href="#my-solution" class="headerlink" title="my solution"></a>my solution</h2><p>There is one fact that odd perfect numbers are greater than \( 10^{1500} \) if exist. By <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Euclid%E2%80%93Euler_theorem">Euclid–Euler theorem</a>, there is a one-to-one relationship between even perfect numbers and Mersenne primes. Even perfect number have the form as \( 2^{p−1}(2^p−1) \).</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkPerfectNumber</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> ((num &amp; <span class="number">1</span>) == <span class="number">1</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> (num == <span class="number">0</span>)</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">			<span class="keyword">int</span> n = num;</span><br><span class="line">			<span class="keyword">int</span> p = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (; (n &amp; <span class="number">1</span>) == <span class="number">0</span>; p++) &#123;</span><br><span class="line">				n = n &gt;&gt; <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">int</span> x = (<span class="number">2</span> &lt;&lt; (p - <span class="number">1</span>)) * ((<span class="number">2</span> &lt;&lt; p) - <span class="number">1</span>);</span><br><span class="line">			<span class="keyword">return</span> num == x;</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>156 / 156 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Perfect Number.</li>
+<li>Memory Usage: 37.7 MB, less than 23.24% of Java online submissions for Perfect Number.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/09/14/leetcode-algorithms-perfect-number/" data-id="cl51yqkpf00igcoyzekskch2p" data-title="LeetCode - Algorithms - 507. Perfect Number" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/" rel="tag">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-leetcode-algorithms-is-subsequence" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/10/leetcode-algorithms-is-subsequence/" class="article-date">
+  <time datetime="2020-09-10T04:09:37.000Z" itemprop="datePublished">2020-09-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/10/leetcode-algorithms-is-subsequence/">LeetCode - Algorithms - 392. Is Subsequence</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/is-subsequence/">392. Is Subsequence</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Recursion"><a href="#Recursion" class="headerlink" title="Recursion"></a>Recursion</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSubsequence</span><span class="params">(String s, String t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> b = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len_s = s.length();</span><br><span class="line">        <span class="keyword">if</span> (len_s &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> i = t.indexOf(s.charAt(<span class="number">0</span>));</span><br><span class="line">            <span class="keyword">if</span> (i != -<span class="number">1</span>)</span><br><span class="line">                <span class="keyword">return</span> isSubsequence(s.substring(<span class="number">1</span>), t.substring(++i));</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>15 / 15 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Is Subsequence.</li>
+<li>Memory Usage: 37.5 MB, less than 62.77% of Java online submissions for Is Subsequence.</li>
+</ul>
+<h2 id="Iterative"><a href="#Iterative" class="headerlink" title="Iterative"></a>Iterative</h2><p>© <a target="_blank" rel="noopener" href="https://leetcode.com/problems/is-subsequence/discuss/957128/JAVA-clean-quick-concise-solution">JAVA clean, quick, concise solution.</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSubsequence</span><span class="params">(String s, String t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len_s = s.length();</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len_t = t.length();</span><br><span class="line">        <span class="keyword">if</span> (len_s &gt; len_t)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; len_t &amp;&amp; i &lt; len_s; ) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s.charAt(i) == t.charAt(j)) i++;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> i &gt;= len_s;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>15 / 15 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Is Subsequence.</li>
+<li>Memory Usage: 37.1 MB, less than 39.06% of Java online submissions for Is Subsequence.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/09/10/leetcode-algorithms-is-subsequence/" data-id="cl51yqkpa00gtcoyz12vg8xug" data-title="LeetCode - Algorithms - 392. Is Subsequence" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-why-tech-needs-the-humanities-eric-berridge-ted" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/09/why-tech-needs-the-humanities-eric-berridge-ted/" class="article-date">
+  <time datetime="2020-09-09T12:25:54.000Z" itemprop="datePublished">2020-09-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/09/why-tech-needs-the-humanities-eric-berridge-ted/">Why tech needs the humanities - Eric Berridge - TED@IBM - Transcript</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>It is in Apple’s DNA that <strong>technology alone is not enough</strong> — it’s technology married with liberal arts, married with the humanities, that yields us the results that make our heart sing. — <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Steve_Jobs">Steve Jobs</a></p>
+</blockquote>
+<hr>
+<p>You’ve all been in a bar, right? </p>
+<p>(Laughter) </p>
+<p>But have you ever gone to a bar and come out with a $200 million business? That’s what happened to us about 10 years ago. We’d had a terrible day. We had this huge client that was killing us. We’re a software consulting firm, and we couldn’t find a very specific programming skill to help this client deploy a cutting-edge cloud system. We have a bunch of engineers, but none of them could please this client. And we were about to be fired. </p>
+<p>So we go out to the bar, and we’re hanging out with our bartender friend Jeff, and he’s doing what all good bartenders do: he’s commiserating with us, making us feel better, relating to our pain, saying, “Hey, these guys are overblowing it. Don’t worry about it.” And finally, he deadpans us and says, “Why don’t you send me in there? I can figure it out.” So the next morning, we’re hanging out in our team meeting, and we’re all a little hazy … </p>
+<p>(Laughter) </p>
+<p>and I half-jokingly throw it out there. I say, “Hey, I mean, we’re about to be fired.” So I say, “Why don’t we send in Jeff, the bartender?” </p>
+<p>(Laughter) </p>
+<p>And there’s some silence, some quizzical looks. Finally, my chief of staff says, “That is a great idea.” </p>
+<p>(Laughter) </p>
+<p>“Jeff is wicked smart. He’s brilliant. He’ll figure it out. Let’s send him in there.” </p>
+<p>Now, <strong>Jeff was not a programmer. In fact, he had dropped out of Penn as a philosophy major</strong>. But he was brilliant, and he could go deep on topics, and we were about to be fired. So we sent him in. After a couple days of suspense, Jeff was still there. They hadn’t sent him home. I couldn’t believe it. What was he doing? </p>
+<p>Here’s what I learned. He had completely disarmed their fixation on the programming skill. And he had changed the conversation, even changing what we were building. The conversation was now about what we were going to build and why. And yes, Jeff figured out how to program the solution, and the client became one of our best references. </p>
+<p>Back then, we were 200 people, and half of our company was made up of computer science majors or engineers, but our experience with Jeff left us wondering: Could we repeat this through our business? So we changed the way we recruited and trained. And while we still sought after computer engineers and computer science majors, we sprinkled in artists, musicians, writers … and Jeff’s story started to multiply itself throughout our company. Our chief technology officer is an English major, and he was a bike messenger in Manhattan. And today, we’re a thousand people, yet still less than a hundred have degrees in computer science or engineering. And yes, we’re still a computer consulting firm. We’re the number one player in our market. We work with the fastest-growing software package to ever reach 10 billion dollars in annual sales. So it’s working. </p>
+<p>Meanwhile, the push for STEM-based education in this country – science, technology, engineering, mathematics – is fierce. It’s in all of our faces. And this is a colossal mistake. Since 2009, STEM majors in the United States have increased by 43 percent, while the humanities have stayed flat. Our past president dedicated over a billion dollars towards STEM education at the expense of other subjects, and our current president recently redirected 200 million dollars of Department of Education funding into computer science. And CEOs are continually complaining about an engineering-starved workforce. These campaigns, coupled with the undeniable success of the tech economy – I mean, let’s face it, seven out of the 10 most valuable companies in the world by market cap are technology firms – these things create an assumption that the path of our future workforce will be dominated by STEM. </p>
+<p>I get it. On paper, it makes sense. It’s tempting. But it’s totally overblown. It’s like, the entire soccer team chases the ball into the corner, because that’s where the ball is. We shouldn’t overvalue STEM. <strong>We shouldn’t value the sciences any more than we value the humanities</strong>. And there are a couple of reasons. </p>
+<p>Number one, today’s technologies are incredibly intuitive. The reason we’ve been able to recruit from all disciplines and swivel into specialized skills is because <strong>modern systems can be manipulated without writing code. They’re like LEGO: easy to put together, easy to learn, even easy to program, given the vast amounts of information that are available for learning. Yes, our workforce needs specialized skill, but that skill requires a far less rigorous and formalized education than it did in the past</strong>. </p>
+<p>Number two, the skills that are imperative and differentiated in a world with intuitive technology are <strong>the skills that help us to work together as humans</strong>, where the hard work is envisioning the end product and its usefulness, which requires real-world experience and judgment and historical context. What Jeff’s story taught us is that <strong>the customer was focused on the wrong thing</strong>. It’s the classic case: <strong>the technologist struggling to communicate with the business and the end user, and the business failing to articulate their needs</strong>. I see it every day. <strong>We are scratching the surface in our ability as humans to communicate and invent together, and while the sciences teach us how to build things, it’s the humanities that teach us what to build and why to build them</strong>. And they’re equally as important, and they’re just as hard. </p>
+<p>It irks me … when I hear people treat the humanities as a lesser path, as the easier path. Come on! <strong>The humanities give us the context of our world. They teach us how to think critically. They are purposely unstructured, while the sciences are purposely structured. They teach us to persuade, they give us our language, which we use to convert our emotions to thought and action. And they need to be on equal footing with the sciences</strong>. And yes, you can hire a bunch of artists and build a tech company and have an incredible outcome. </p>
+<p>Now, I’m not here today to tell you that STEM’s bad. I’m not here today to tell you that girls shouldn’t code. </p>
+<p>(Laughter) </p>
+<p>Please. And that next bridge I drive over or that next elevator we all jump into – let’s make sure there’s an engineer behind it. </p>
+<p>(Laughter) </p>
+<p>But to fall into this paranoia that our future jobs will be dominated by STEM, that’s just folly. If you have friends or kids or relatives or grandchildren or nieces or nephews … encourage them to be whatever they want to be. </p>
+<p>(Applause) </p>
+<p>The jobs will be there. Those tech CEOs that are clamoring for STEM grads, you know what they’re hiring for? Google, Apple, Facebook. Sixty-five percent of their open job opportunities are non-technical: marketers, designers, project managers, program managers, product managers, lawyers, HR specialists, trainers, coaches, sellers, buyers, on and on. These are the jobs they’re hiring for. And if there’s one thing that our future workforce needs – and I think we can all agree on this – it’s diversity. But that diversity shouldn’t end with gender or race. We need a diversity of backgrounds and skills, with introverts and extroverts and leaders and followers. That is our future workforce. And the fact that the technology is getting easier and more accessible frees that workforce up to study whatever they damn well please. </p>
+<p>Thank you. </p>
+<p>(Applause) </p>
+<div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://embed.ted.com/talks/eric_berridge_why_tech_needs_the_humanities" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen></iframe></div></div>
+
+<hr>
+<p><a target="_blank" rel="noopener" href="https://www.newyorker.com/news/news-desk/steve-jobs-technology-alone-is-not-enough">Steve Jobs: “Technology Alone Is Not Enough”</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/09/09/why-tech-needs-the-humanities-eric-berridge-ted/" data-id="cl51yqkqj00t0coyz5unp4rtw" data-title="Why tech needs the humanities - Eric Berridge - TED@IBM - Transcript" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-code-monkey-song-jonathan-coulton" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/06/code-monkey-song-jonathan-coulton/" class="article-date">
+  <time datetime="2020-09-06T19:10:09.000Z" itemprop="datePublished">2020-09-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/06/code-monkey-song-jonathan-coulton/">Code Monkey (song)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>by <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Jonathan_Coulton">Jonathan Coulton</a></p>
+<h1 id="Verse-1"><a href="#Verse-1" class="headerlink" title="Verse 1"></a>Verse 1</h1><p>Code Monkey get up, get coffee<br>Code Monkey go to job<br>Code Monkey have boring meeting<br>With boring manager Rob<br>Rob say Code Monkey very diligent<br>But his output stink<br>His code not “functional” or “elegant”<br>What do Code Monkey think?</p>
+<h1 id="Pre-Chorus-1"><a href="#Pre-Chorus-1" class="headerlink" title="Pre-Chorus 1"></a>Pre-Chorus 1</h1><p>Code Monkey think maybe manager want to write god-damned login page himself<br>Code Monkey not say it out loud<br>Code Monkey not crazy, just proud</p>
+<h1 id="Chorus"><a href="#Chorus" class="headerlink" title="Chorus"></a>Chorus</h1><p>Code Monkey like Fritos<br>Code Monkey like Tab and Mountain Dew<br>Code Monkey very simple man<br>With big warm fuzzy secret heart<br>Code Monkey like you<br>Code Monkey like you</p>
+<h1 id="Verse-2"><a href="#Verse-2" class="headerlink" title="Verse 2"></a>Verse 2</h1><p>Code Monkey hang around at front desk<br>Tell you sweater look nice<br>Code Monkey offer buy you soda<br>Bring you cup, bring you ice<br>You say no thank you for the soda cause<br>Soda make you fat<br>Anyway you busy with the telephone<br>No time for chat</p>
+<h1 id="Pre-Chorus-2"><a href="#Pre-Chorus-2" class="headerlink" title="Pre-Chorus 2"></a>Pre-Chorus 2</h1><p>Code Monkey have long walk back to cubicle<br>He sit down pretend to work<br>Code Monkey not thinking so straight<br>Code Monkey not feeling so great</p>
+<h1 id="Chorus-1"><a href="#Chorus-1" class="headerlink" title="Chorus"></a>Chorus</h1><p>Code Monkey like Fritos<br>Code Monkey like Tab and Mountain Dew<br>Code Monkey very simple man<br>With big warm fuzzy secret heart<br>Code Monkey like you<br>Code Monkey like you a lot</p>
+<h1 id="Verse-3"><a href="#Verse-3" class="headerlink" title="Verse 3"></a>Verse 3</h1><p>Code Monkey have every reason<br>To get out this place<br>Code Monkey just keep on working<br>See your soft pretty face<br>Much rather wake up, eat a coffee cake<br>Take bath, take nap<br>This job “fulfilling in creative way”<br>Such a load of crap</p>
+<h1 id="Pre-Chorus-3"><a href="#Pre-Chorus-3" class="headerlink" title="Pre-Chorus 3"></a>Pre-Chorus 3</h1><p>Code Monkey think someday he have everything<br>Even pretty girl like you<br>Code Monkey just waiting for now<br>Code Monkey say someday, somehow</p>
+<h1 id="Chorus-2"><a href="#Chorus-2" class="headerlink" title="Chorus"></a>Chorus</h1><p>Code Monkey like Fritos<br>Code Monkey like Tab and Mountain Dew<br>Code Monkey very simple man<br>With big warm fuzzy secret heart<br>Code Monkey like you<br>Code Monkey like you</p>
+<hr>
+<iframe src="https://open.spotify.com/embed/track/3cLqK3LPVrTIzfENVmYLoU" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+<hr>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Code_Monkey_(song)">Code Monkey (song)</a></li>
+<li><a target="_blank" rel="noopener" href="https://genius.com/Jonathan-coulton-code-monkey-lyrics">Code Monkey</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiki.jonathancoulton.com/Code_Monkey/Lyrics">Code Monkey/Lyrics</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/09/06/code-monkey-song-jonathan-coulton/" data-id="cl51yqkoo009wcoyzcxr8ctye" data-title="Code Monkey (song)" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/song/" rel="tag">song</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-workings-of-git" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/17/workings-of-git/" class="article-date">
+  <time datetime="2020-08-17T14:42:31.000Z" itemprop="datePublished">2020-08-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/17/workings-of-git/">The workings and concepts of Git - Reader&#39;s Digest</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="concepts"><a href="#concepts" class="headerlink" title="concepts"></a>concepts</h1><p>The <code>repository</code> holds all versions of the content, while the <code>working directory</code> is the place where you modify the code. You <code>checkout</code> code from the repository to the working directory and <code>commit</code> changes you’ve made in this working directory back into a new version of the content in the repository.</p>
+<h2 id="The-main-principle-of-Git"><a href="#The-main-principle-of-Git" class="headerlink" title="The main principle of Git"></a>The main principle of Git</h2><p>First, Git handles content in <code>snapshots</code>, one for each commit, and knows how to apply or roll back the <code>change sets</code> between two snapshots. This is an important concept. In my opinion, understanding the concept of <strong>applying and rolling back change sets</strong> makes Git much easier to understand and work with. This is the real basic principle. Anything else follows from this.</p>
+<h2 id="Naming"><a href="#Naming" class="headerlink" title="Naming"></a>Naming</h2><p>Snapshots are the main elements in Git. They are named with the <code>commit ID</code>, which is a <strong>hash ID</strong> like “c69e0cc32f3c1c8f2730cade36a8f75dc8e3d480” for example.</p>
+<p>Note that the term <code>commit</code>, is used both as verb for creating a snapshot and as name for the resulting snapshot.</p>
+<p>Normally you don’t have to work with the commit IDs; instead you work with branches.</p>
+<p>In Git, a stream of changes is an ordered list of <code>change sets</code> as they are applied one after another to go from one <code>snapshot</code> to the next. A <code>branch</code> in Git is only <strong>a named pointer to a specific snapshot</strong>. It notes the place where new changes should be applied to when this branch is used. When a change is applied to a branch, then also the branch label moves to the new commit.</p>
+<p>How does Git know where to put the change from a workspace? That is where <strong>HEAD</strong> points. The HEAD of the development is where you last checked out your workspace and, more importantly, where to commit the changes. It usually points to the branch you last checked out.</p>
+<p>The <code>tag</code> command names a commit and allows you to address the individual commit with a readable name. Basically, a <code>tag</code> is an alias for a <code>commit ID</code> but commits can also be addressed with some shortcuts.</p>
+<p><code>gitrevisions</code> is a revision parameter typically, but not necessarily, names a commit object.</p>
+<p>Because names like tags or branch names are references to commits, they are called <code>refnames</code>. A <strong>reflog</strong> shows what has been changed during the lifetime of the name, from when it was created (usually by a branch) until the current state.</p>
+<h2 id="Branching"><a href="#Branching" class="headerlink" title="Branching"></a>Branching</h2><p>The concept behind branching is that each <strong>snapshot</strong> can have more than one child. Applying a second change set to the same snapshot creates a new, separate stream of development. And if it is named, it is called a <strong>branch</strong>.</p>
+<p>Branches are created with the <code>git branch &lt;branch name&gt;</code> command on the current <code>HEAD</code>, or <code>git branch &lt;branch name&gt; &lt;commit id&gt;</code> on any valid snapshot version. This creates a new branch pointer in the repository. Be careful, branching this way leaves your workspace at the old branch. You need to checkout the new branch first. With <code>git checkout -b &lt;branch name&gt;</code> the new branch is created, and your workspace is also moved to the new branch.</p>
+<p>Two other commands are rather useful:</p>
+<ul>
+<li><code>git diff &lt;branch&gt; -- &lt;path&gt;</code> as already mentioned above prints a diff of the given path (file or directory) between the current working directory and the specified branch.</li>
+<li><code>git checkout &lt;branch&gt; -- &lt;path&gt;</code> checks out files from a different branch into the working directory, so you can pick changes from another branch.</li>
+</ul>
+<h3 id="useful-commands-concerning-to-branch"><a href="#useful-commands-concerning-to-branch" class="headerlink" title="useful commands concerning to branch"></a>useful commands concerning to branch</h3><ul>
+<li><code>git branch</code> — creates a new branch from the current HEAD (working directory).</li>
+<li><code>git checkout -b</code> — creates a new branch from the current HEAD, and switches the working directory to the new branch.</li>
+<li><code>git diff –</code> — shows the difference of between the working directory and the given branch.</li>
+<li><code>git checkout –</code> — checks out files from the given branch into the working directory.</li>
+<li><code>git merge</code> — merges the given branch into the current branch.</li>
+<li><code>git merge -abort</code> — aborts a merge that resulted in conflicts.</li>
+</ul>
+<h2 id="Merging"><a href="#Merging" class="headerlink" title="Merging"></a>Merging</h2><p>When you implemented your new feature, you checked it into the repository, for example, on your <strong>“feature” branch</strong>. When the feature is finished, you need to merge it back into the master branch. You do this by <em>checking out the master branch</em>, and use <code>git merge &lt;branch name&gt;</code>. Git then merges the changes from the given branch into the checked out branch. What Git does to achieve this is it applies all of the change sets from the feature branch onto the tip of the master branch.</p>
+<p>Depending on the type of changes in the two branches, and possible conflicts, there are <strong>three possibilities</strong> that can happen.</p>
+<ul>
+<li>Fast forward merge</li>
+<li>No-conflict merge</li>
+<li>Conflicting merge</li>
+</ul>
+<h1 id="merge-conflict"><a href="#merge-conflict" class="headerlink" title="merge conflict"></a>merge conflict</h1><h2 id="如何消除对合并时出现冲突的恐惧心理？"><a href="#如何消除对合并时出现冲突的恐惧心理？" class="headerlink" title="如何消除对合并时出现冲突的恐惧心理？"></a>如何消除对合并时出现冲突的恐惧心理？</h2><ul>
+<li>首先可以放心的是，你随时可以撤销一个合并操作，并且返回到冲突发生之前的状态。</li>
+<li>只要在命令行界面中键入 <code>git merge --abort</code> 命令，你的合并操作就会被安全的撤销。</li>
+<li>当你解决完冲突，并且在合并完成后发现一个错误，仍然还有机会来简单地撤销它。你只须键入 <code>git reset --hard</code> 命令，系统就会回滚到那个合并开始前的状态</li>
+</ul>
+<p>git status 显示 <code>unmerged paths</code>，表明存在冲突</p>
+<p>发生冲突的文件的内容</p>
+<ul>
+<li><p>Git 会非常友好地把文件中那些有问题的区域在 <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> 和 <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; other/branch/name</code> 之间标记出来。</p>
+</li>
+<li><p>第一个标记后的内容源于当前分支。在尖括号之后，Git 会告诉我们这些改动是从哪里（哪个分支）来的。然后有冲突的改动会被 <code>=======</code> 分割起来。</p>
+</li>
+<li><p>使用一个<strong>专门的合并工具</strong>可以使清理这些冲突变得更容易，你可以通过 <code>git config</code> 命令来设置这个合并工具给 Git。之后当发生合并冲突时，你可以使用 <code>git mergetool</code> 命令来调用这个工具。</p>
+</li>
+<li><p>手动处理冲突，你必须手动地将文件标记为已解决状态（通过执行命令 <code>git add &lt;filename&gt;</code>）。最终，当所有的冲突被解决后，你必须通过一个正常的提交操作来完成这个清理合并冲突的工作。</p>
+</li>
+</ul>
+<h1 id="resources"><a href="#resources" class="headerlink" title="resources"></a>resources</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.ibm.com/zh/tutorials/d-learn-workings-git/">了解 Git 的工作方式，而不仅仅是了解命令</a></li>
+<li><a target="_blank" rel="noopener" href="https://dev.to/lydiahallie/cs-visualized-useful-git-commands-37p1">CS Visualized: Useful Git Commands</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.ibm.com/technologies/web-development/tutorials/d-learn-workings-git/">Learn the workings of Git, not just the commands</a></li>
+<li><a target="_blank" rel="noopener" href="https://dev.to/unseenwizzard/learn-git-concepts-not-commands-4gjc">Learn git concepts, not commands</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/08/17/workings-of-git/" data-id="cl51yqkql00tpcoyzac1carup" data-title="The workings and concepts of Git - Reader&#39;s Digest" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-the-speed-of-darkness-muriel-rukeyser" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/16/the-speed-of-darkness-muriel-rukeyser/" class="article-date">
+  <time datetime="2020-08-16T11:15:37.000Z" itemprop="datePublished">2020-08-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/16/the-speed-of-darkness-muriel-rukeyser/">The Speed of Darkness</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>by <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Muriel_Rukeyser">Muriel Rukeyser</a></p>
+<p>I</p>
+<p>Whoever despises the clitoris despises the penis<br>Whoever despises the penis despises the cunt<br>Whoever despises the cunt despises the life of the child.</p>
+<p>Resurrection music, silence, and surf.</p>
+<p>II</p>
+<p>No longer speaking<br>Listening with the whole body<br>And with every drop of blood<br>Overtaken by silence</p>
+<p>But this same silence is become speech<br>With the speed of darkness.</p>
+<p>III</p>
+<p>Stillness during war, the lake.<br>The unmoving spruces.<br>Glints over the water.<br>Faces, voices. You are far away.<br>A tree that trembles.</p>
+<p>I am the tree that trembles and trembles.</p>
+<p>IV</p>
+<p>After the lifting of the mist<br>after the lift of the heavy rains<br>the sky stands clear<br>and the cries of the city risen in day<br>I remember the buildings are space<br>walled, to let space be used for living<br>I mind this room is space<br>this drinking glass is space<br>whose boundary of glass<br>lets me give you drink and space to drink<br>your hand, my hand being space<br>containing skies and constellations<br>your face<br>carries the reaches of air<br>I know I am space<br>my words are air.</p>
+<p>V</p>
+<p>Between between<br>the man : act exact<br>woman : in curve senses in their maze<br>frail orbits, green tries, games of stars<br>shape of the body speaking its evidence</p>
+<p>VI</p>
+<p>I look across at the real<br>vulnerable involved naked<br>devoted to the present of all I care for<br>the world of its history leading to this moment.</p>
+<p>VII</p>
+<p>Life the announcer.<br>I assure you<br>there are many ways to have a child.<br>I bastard mother<br>promise you<br>there are many ways to be born.<br>They all come forth<br>in their own grace.</p>
+<p>VIII</p>
+<p>Ends of the earth join tonight<br>with blazing stars upon their meeting.<br>These sons, these sons<br>fall burning into Asia.</p>
+<p>IX</p>
+<p>Time comes into it.<br>Say it. Say it.</p>
+<blockquote>
+<p>The universe is made of stories,<br>not of atoms.</p>
+</blockquote>
+<p>X</p>
+<p>Lying<br>blazing beside me<br>you rear beautifully and up—<br>your thinking face—<br>erotic body reaching<br>in all its colors and lights—<br>your erotic face<br>colored and lit—<br>not colored body-and-face<br>but now entire,<br>colors lights the world thinking and reaching.</p>
+<p>XI</p>
+<p>The river flows past the city.</p>
+<p>Water goes down to tomorrow<br>making its children I hear their unborn voices<br>I am working out the vocabulary of my silence.</p>
+<p>XII</p>
+<p>Big-boned man young and of my dream<br>Struggles to get the live bird out of his throat.<br>I am he am I? Dreaming?<br>I am the bird am I? I am the throat?</p>
+<p>A bird with a curved beak.<br>It could slit anything, the throat-bird.<br>Drawn up slowly. The curved blades, not large.<br>Bird emerges wet being born<br>Begins to sing.</p>
+<p>XIII</p>
+<p>My night awake<br>staring at the broad rough jewel<br>the copper roof across the way<br>thinking of the poet<br>yet unborn in this dark<br>who will be the throat of these hours.<br>No. Of those hours.<br>Who will speak these days,<br>if not I,<br>if not you?</p>
+<hr>
+<ul>
+<li>Muriel Rukeyser, “The Speed of Darkness” from The Collected Poems of Muriel Rukeyser. Copyright © 2006 by Muriel Rukeyser. Reprinted by permission of International Creative Management.</li>
+<li>Source: Out of Silence: Selected Poems (TriQuarterly Books, 1992)</li>
+</ul>
+<hr>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.poetryfoundation.org/poems/56287/the-speed-of-darkness">The Speed of Darkness</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikiquote.org/wiki/Muriel_Rukeyser">Muriel Rukeyser</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/08/16/the-speed-of-darkness-muriel-rukeyser/" data-id="cl51yqkqb00qycoyzcpmha6ka" data-title="The Speed of Darkness" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poem/" rel="tag">poem</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-leetcode-algorithms-intersection-of-two-arrays" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/12/leetcode-algorithms-intersection-of-two-arrays/" class="article-date">
+  <time datetime="2020-08-12T15:16:46.000Z" itemprop="datePublished">2020-08-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/12/leetcode-algorithms-intersection-of-two-arrays/">LeetCode - Algorithms - 349. Intersection of Two Arrays</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/intersection-of-two-arrays/">349. Intersection of Two Arrays</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="brute-force-method"><a href="#brute-force-method" class="headerlink" title="brute force method"></a>brute force method</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] intersection(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len1 = nums1.length;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> len2 = nums2.length;</span><br><span class="line"></span><br><span class="line">        Set&lt;Integer&gt; ret = <span class="keyword">new</span> HashSet&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len1; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; len2; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums1[i] == nums2[j])</span><br><span class="line">                    ret.add(nums1[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] r = <span class="keyword">new</span> <span class="keyword">int</span>[ret.size()];</span><br><span class="line">        <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Integer e : ret)</span><br><span class="line">            r[k++] = e.intValue();</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>60 / 60 test cases passed.</li>
+<li>Runtime: 8 ms, faster than 11.36% of Java online submissions for Intersection of Two Arrays.</li>
+<li>Memory Usage: 39.9 MB, less than 54.69% of Java online submissions for Intersection of Two Arrays.</li>
+</ul>
+<h2 id="retainAll-of-HashSet-in-Java-collections-framework"><a href="#retainAll-of-HashSet-in-Java-collections-framework" class="headerlink" title="retainAll of HashSet in Java collections framework"></a>retainAll of HashSet in Java collections framework</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] intersection(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2) &#123;</span><br><span class="line">        Set&lt;Integer&gt; set1 = <span class="keyword">new</span> HashSet&lt;Integer&gt;();</span><br><span class="line">        Set&lt;Integer&gt; set2 = <span class="keyword">new</span> HashSet&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums1.length; i++)</span><br><span class="line">            set1.add(nums1[i]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums2.length; i++)</span><br><span class="line">            set2.add(nums2[i]);</span><br><span class="line">        set1.retainAll(set2);</span><br><span class="line">        <span class="keyword">int</span>[] r = <span class="keyword">new</span> <span class="keyword">int</span>[set1.size()];</span><br><span class="line">        <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Integer e : set1)</span><br><span class="line">            r[k++] = e.intValue();</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>60 / 60 test cases passed.</li>
+<li>Runtime: 2 ms, faster than 99.40% of Java online submissions for Intersection of Two Arrays.</li>
+<li>Memory Usage: 39.4 MB, less than 90.00% of Java online submissions for Intersection of Two Arrays.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/08/12/leetcode-algorithms-intersection-of-two-arrays/" data-id="cl51yqkpa00gqcoyz52xtfyrz" data-title="LeetCode - Algorithms - 349. Intersection of Two Arrays" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sort/" rel="tag">Sort</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/19/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/21/">Next »</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/" rel="tag">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bit-Manipulation/" rel="tag">Bit Manipulation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/" rel="tag">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bruce-Lee/" rel="tag">Bruce Lee</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CEMC/" rel="tag">CEMC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/" rel="tag">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/" rel="tag">Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Divide-and-Conquer/" rel="tag">Divide and Conquer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFmpeg/" rel="tag">FFmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/" rel="tag">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/" rel="tag">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HackerRank/" rel="tag">HackerRank</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/" rel="tag">Hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashTable/" rel="tag">HashTable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/" rel="tag">Heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IELTS/" rel="tag">IELTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/" rel="tag">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/" rel="tag">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/" rel="tag">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lin-Yutang/" rel="tag">Lin Yutang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/" rel="tag">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marcus-Du-Sautoy/" rel="tag">Marcus Du Sautoy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathematics/" rel="tag">Mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/" rel="tag">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/" rel="tag">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programming/" rel="tag">Programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/" rel="tag">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/" rel="tag">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/" rel="tag">Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEDx/" rel="tag">TEDx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terence-Tao/" rel="tag">Terence Tao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/" rel="tag">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Topological-Sort/" rel="tag">Topological Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/" rel="tag">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/" rel="tag">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/" rel="tag">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backtracking/" rel="tag">backtracking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/" rel="tag">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bilingual/" rel="tag">bilingual</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/" rel="tag">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrency/" rel="tag">concurrency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coronavirus/" rel="tag">coronavirus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/creative-thinking/" rel="tag">creative thinking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/" rel="tag">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/" rel="tag">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/essay/" rel="tag">essay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firefox/" rel="tag">firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/geometry/" rel="tag">geometry</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/" rel="tag">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graph/" rel="tag">graph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/" rel="tag">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history-of-mathematics/" rel="tag">history of mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ide/" rel="tag">ide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/" rel="tag">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/" rel="tag">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/logic/" rel="tag">logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/" rel="tag">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/" rel="tag">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/physics/" rel="tag">physics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/popscience/" rel="tag">popscience</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programmer/" rel="tag">programmer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quantum/" rel="tag">quantum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recurrence/" rel="tag">recurrence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/song/" rel="tag">song</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/" rel="tag">stack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/" rel="tag">vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/" rel="tag">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wolfram/" rel="tag">wolfram</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" rel="tag">中文经典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E6%96%87/" rel="tag">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" rel="tag">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" rel="tag">数学史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" rel="tag">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" rel="tag">李小龙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" rel="tag">李笑来</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" rel="tag">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" rel="tag">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8B%B1%E8%AF%AD/" rel="tag">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%91%E8%A8%80/" rel="tag">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 19.44px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.22px;">Array</a> <a href="/tags/BFS/" style="font-size: 15px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.56px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15.56px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 16.11px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.44px;">DFS</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.11px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.78px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.89px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 13.89px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 11.11px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.89px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.56px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.67px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.56px;">Mathematics</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10.56px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.56px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.67px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.78px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.56px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 13.33px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 14.44px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.67px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.56px;">Topological Sort</a> <a href="/tags/Tree/" style="font-size: 11.67px;">Tree</a> <a href="/tags/Two-Pointers/" style="font-size: 15.56px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.67px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.56px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.11px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 20px;">english</a> <a href="/tags/essay/" style="font-size: 11.67px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.22px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.67px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.89px;">java</a> <a href="/tags/javascript/" style="font-size: 10.56px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.56px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.67px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.11px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 18.33px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 11.67px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 11.11px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.78px;">regex</a> <a href="/tags/song/" style="font-size: 13.33px;">song</a> <a href="/tags/sql/" style="font-size: 10.56px;">sql</a> <a href="/tags/stack/" style="font-size: 10.56px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.56px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 12.22px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10.56px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 10.56px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12.22px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 12.22px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 10.56px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/01/Canada-Billy-Collins/">Canada</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/30/An-Essay-on-Criticism-Part-3-Alexander-Pope/">An Essay on Criticism Part 3</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/29/An-Essay-on-Criticism-Part-2-Alexander-Pope/">An Essay on Criticism Part 2</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/28/An-Essay-on-Criticism-Part-1-Alexander-Pope/">An Essay on Criticism Part 1</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/24/a-question-robert-frost/">A Question</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 hezhigang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

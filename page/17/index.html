@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>A Humble Programmer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="A Humble Programmer">
+<meta property="og:url" content="https://hezhigang.github.io/page/17/index.html">
+<meta property="og:site_name" content="A Humble Programmer">
+<meta property="og:locale">
+<meta property="article:author" content="hezhigang">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="A Humble Programmer" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">A Humble Programmer</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hezhigang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-leetcode-algorithms-middle-of-the-linked-list" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/21/leetcode-algorithms-middle-of-the-linked-list/" class="article-date">
+  <time datetime="2020-10-21T21:06:50.000Z" itemprop="datePublished">2020-10-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/21/leetcode-algorithms-middle-of-the-linked-list/">LeetCode - Algorithms - 876. Middle of the Linked List</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/middle-of-the-linked-list/">876. Middle of the Linked List</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">middleNode</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        List&lt;ListNode&gt; list = <span class="keyword">new</span> ArrayList&lt;ListNode&gt;();</span><br><span class="line">        ListNode node = head;</span><br><span class="line">        <span class="keyword">while</span>(node!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            list.add(node);</span><br><span class="line">            node = node.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> n = list.size();</span><br><span class="line">        <span class="keyword">return</span> list.get(n/<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>15 / 15 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Middle of the Linked List.</li>
+<li>Memory Usage: 36.3 MB, less than 11.39% of Java online submissions for Middle of the Linked List.</li>
+</ul>
+<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">middleNode</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">        ListNode node = head;</span><br><span class="line">        <span class="keyword">while</span>(node!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            n++;</span><br><span class="line">            node = node.next;</span><br><span class="line">        &#125;</span><br><span class="line">        node = head;</span><br><span class="line">        n /= <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">while</span>(n&gt;<span class="number">0</span>) &#123;</span><br><span class="line">            node = node.next;</span><br><span class="line">            n--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>15 / 15 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Middle of the Linked List.</li>
+<li>Memory Usage: 36.5 MB, less than 11.39% of Java online submissions for Middle of the Linked List.</li>
+</ul>
+<h2 id="Two-pointers"><a href="#Two-pointers" class="headerlink" title="Two pointers"></a>Two pointers</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">middleNode</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode slowPointer = head;</span><br><span class="line">        ListNode fastPointer = head;</span><br><span class="line">        <span class="keyword">while</span> (fastPointer != <span class="keyword">null</span> &amp;&amp; fastPointer.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">            fastPointer = fastPointer.next.next;</span><br><span class="line">            slowPointer = slowPointer.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slowPointer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>15 / 15 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Middle of the Linked List.</li>
+<li>Memory Usage: 36 MB, less than 9.03% of Java online submissions for Middle of the Linked List.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/21/leetcode-algorithms-middle-of-the-linked-list/" data-id="cl51yqkpd00hocoyzgpoublk8" data-title="LeetCode - Algorithms - 876. Middle of the Linked List" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-leetcode-algorithms-remove-linked-list-elements" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/21/leetcode-algorithms-remove-linked-list-elements/" class="article-date">
+  <time datetime="2020-10-21T19:21:27.000Z" itemprop="datePublished">2020-10-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/21/leetcode-algorithms-remove-linked-list-elements/">LeetCode - Algorithms - 203. Remove Linked List Elements</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/remove-linked-list-elements/">203. Remove Linked List Elements</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">removeElements</span><span class="params">(ListNode head, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        ListNode previousNode = head;</span><br><span class="line">        <span class="keyword">if</span> (head != <span class="keyword">null</span>) &#123;</span><br><span class="line">            ListNode node = head.next;</span><br><span class="line">            <span class="keyword">while</span> (node != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (node.val == val) &#123;</span><br><span class="line">                    ListNode obsoleteNode = node;</span><br><span class="line">                    previousNode.next = node.next;</span><br><span class="line">                    obsoleteNode = <span class="keyword">null</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    previousNode = node;</span><br><span class="line">                node = node.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (head.val == val) &#123;</span><br><span class="line">            ListNode obsoleteNode = head;</span><br><span class="line">            head = head.next;</span><br><span class="line">            obsoleteNode = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>65 / 65 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 82.56% of Java online submissions for Remove Linked List Elements.</li>
+<li>Memory Usage: 40 MB, less than 10.13% of Java online submissions for Remove Linked List Elements.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/21/leetcode-algorithms-remove-linked-list-elements/" data-id="cl51yqkpi00j4coyz9q2y6pbc" data-title="LeetCode - Algorithms - 203. Remove Linked List Elements" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-english-idioms" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/21/english-idioms/" class="article-date">
+  <time datetime="2020-10-21T15:02:48.000Z" itemprop="datePublished">2020-10-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/21/english-idioms/">English-language idioms</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>English <strong>idioms</strong>, <strong>proverbs</strong>, and <strong>expressions</strong> are an important part of everyday English. Learning to use common idioms and expressions will make your English sound more native, so it’s a good idea to master some of these expressions.</p>
+<h1 id="The-most-common-English-idioms"><a href="#The-most-common-English-idioms" class="headerlink" title="The most common English idioms"></a>The most common English idioms</h1><h2 id="A-blessing-in-disguise"><a href="#A-blessing-in-disguise" class="headerlink" title="A blessing in disguise"></a>A blessing in disguise</h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning"><a href="#Meaning" class="headerlink" title="Meaning"></a>Meaning</h3><p>a good thing that seemed bad at first</p>
+<h2 id="A-dime-a-dozen"><a href="#A-dime-a-dozen" class="headerlink" title="A dime a dozen"></a><a target="_blank" rel="noopener" href="https://en.wiktionary.org/wiki/dime_a_dozen">A dime a dozen</a></h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-1"><a href="#Meaning-1" class="headerlink" title="Meaning"></a>Meaning</h3><p>(US) Anything that is common, inexpensive, and easy to get or available anywhere.</p>
+<h2 id="Beat-around-the-bush"><a href="#Beat-around-the-bush" class="headerlink" title="Beat around the bush"></a><a target="_blank" rel="noopener" href="https://en.wiktionary.org/wiki/beat_around_the_bush">Beat around the bush</a></h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-2"><a href="#Meaning-2" class="headerlink" title="Meaning"></a>Meaning</h3><ul>
+<li>To treat a topic but omit its main points, often intentionally or to delay or avoid talking about something difficult or unpleasant.</li>
+<li>Avoid saying what you mean, usually because it is uncomfortable</li>
+</ul>
+<h2 id="Better-late-than-never"><a href="#Better-late-than-never" class="headerlink" title="Better late than never"></a>Better late than never</h2><p><em>by itself</em></p>
+<h3 id="Meaning-3"><a href="#Meaning-3" class="headerlink" title="Meaning"></a>Meaning</h3><p>Better to arrive late than not to come at all</p>
+<h2 id="Bite-the-bullet"><a href="#Bite-the-bullet" class="headerlink" title="Bite the bullet"></a><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bite_the_bullet">Bite the bullet</a></h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-4"><a href="#Meaning-4" class="headerlink" title="Meaning"></a>Meaning</h3><ul>
+<li>To endure a painful or unpleasant situation that is unavoidable.</li>
+</ul>
+<h2 id="Break-a-leg"><a href="#Break-a-leg" class="headerlink" title="Break a leg"></a><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Break_a_leg">Break a leg</a></h2><p><em>by itself</em></p>
+<h3 id="Meaning-5"><a href="#Meaning-5" class="headerlink" title="Meaning"></a>Meaning</h3><ul>
+<li>A saying from the theatre that means “good luck”.</li>
+<li>a typical English idiom used in theatre to wish a performer “good luck”. </li>
+</ul>
+<h2 id="Call-it-a-day"><a href="#Call-it-a-day" class="headerlink" title="Call it a day"></a><a target="_blank" rel="noopener" href="https://en.wiktionary.org/wiki/call_it_a_day">Call it a day</a></h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-6"><a href="#Meaning-6" class="headerlink" title="Meaning"></a>Meaning</h3><ul>
+<li>To declare the end of a task.</li>
+<li>Stop working on something</li>
+</ul>
+<h2 id="Cut-somebody-some-slack"><a href="#Cut-somebody-some-slack" class="headerlink" title="Cut somebody some slack"></a>Cut somebody some slack</h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-7"><a href="#Meaning-7" class="headerlink" title="Meaning"></a>Meaning</h3><p>Don’t be so critical</p>
+<h2 id="Cutting-corners"><a href="#Cutting-corners" class="headerlink" title="Cutting corners"></a>Cutting corners</h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-8"><a href="#Meaning-8" class="headerlink" title="Meaning"></a>Meaning</h3><p>Doing something poorly in order to save time or money</p>
+<h2 id="Easy-does-it"><a href="#Easy-does-it" class="headerlink" title="Easy does it"></a>Easy does it</h2><p><em>by itself</em></p>
+<h3 id="Meaning-9"><a href="#Meaning-9" class="headerlink" title="Meaning"></a>Meaning</h3><p>Slow down</p>
+<h2 id="Get-out-of-hand"><a href="#Get-out-of-hand" class="headerlink" title="Get out of hand"></a>Get out of hand</h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-10"><a href="#Meaning-10" class="headerlink" title="Meaning"></a>Meaning</h3><p>Get out of control</p>
+<h2 id="Get-something-out-of-your-systems"><a href="#Get-something-out-of-your-systems" class="headerlink" title="Get something out of your systems"></a>Get something out of your systems</h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-11"><a href="#Meaning-11" class="headerlink" title="Meaning"></a>Meaning</h3><p>Do the thing you’ve been wanting to do so you can move on</p>
+<h2 id="Get-your-act-together"><a href="#Get-your-act-together" class="headerlink" title="Get your act together"></a>Get your act together</h2><p><em>by itself</em></p>
+<h3 id="Meaning-12"><a href="#Meaning-12" class="headerlink" title="Meaning"></a>Meaning</h3><p>Work better or leave</p>
+<h2 id="Give-someone-the-benefit-of-the-doubt"><a href="#Give-someone-the-benefit-of-the-doubt" class="headerlink" title="Give someone the benefit of the doubt"></a>Give someone the benefit of the doubt</h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-13"><a href="#Meaning-13" class="headerlink" title="Meaning"></a>Meaning</h3><p>Trust what someone says</p>
+<h2 id="Go-back-to-the-drawing-board"><a href="#Go-back-to-the-drawing-board" class="headerlink" title="Go back to the drawing board"></a>Go back to the drawing board</h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-14"><a href="#Meaning-14" class="headerlink" title="Meaning"></a>Meaning</h3><p>Start over</p>
+<h2 id="Hang-in-there"><a href="#Hang-in-there" class="headerlink" title="Hang in there"></a>Hang in there</h2><p><em>by itself</em></p>
+<h3 id="Meaning-15"><a href="#Meaning-15" class="headerlink" title="Meaning"></a>Meaning</h3><p>Don’t give up</p>
+<h2 id="Hit-the-sack-sheets-hay"><a href="#Hit-the-sack-sheets-hay" class="headerlink" title="Hit the sack/sheets/hay"></a><a target="_blank" rel="noopener" href="https://en.wiktionary.org/wiki/hit_the_sack">Hit the sack/sheets/hay</a></h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-16"><a href="#Meaning-16" class="headerlink" title="Meaning"></a>Meaning</h3><ul>
+<li>To go to bed; to go to sleep.</li>
+</ul>
+<h2 id="It’s-not-rocket-science"><a href="#It’s-not-rocket-science" class="headerlink" title="It’s not rocket science"></a>It’s not rocket science</h2><p><em>by itself</em></p>
+<h3 id="Meaning-17"><a href="#Meaning-17" class="headerlink" title="Meaning"></a>Meaning</h3><p>It’s not complicated</p>
+<h2 id="Let-someone-off-the-hook"><a href="#Let-someone-off-the-hook" class="headerlink" title="Let someone off the hook"></a>Let someone off the hook</h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-18"><a href="#Meaning-18" class="headerlink" title="Meaning"></a>Meaning</h3><p>To not hold someone responsible for something</p>
+<h2 id="Make-a-long-story-short"><a href="#Make-a-long-story-short" class="headerlink" title="Make a long story short"></a>Make a long story short</h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-19"><a href="#Meaning-19" class="headerlink" title="Meaning"></a>Meaning</h3><p>Tell something briefly</p>
+<h2 id="Miss-the-boat"><a href="#Miss-the-boat" class="headerlink" title="Miss the boat"></a>Miss the boat</h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-20"><a href="#Meaning-20" class="headerlink" title="Meaning"></a>Meaning</h3><p>It’s too late</p>
+<h2 id="No-pain-no-gain"><a href="#No-pain-no-gain" class="headerlink" title="No pain, no gain"></a>No pain, no gain</h2><p><em>by itself</em></p>
+<h3 id="Meaning-21"><a href="#Meaning-21" class="headerlink" title="Meaning"></a>Meaning</h3><p>You have to work for what you want</p>
+<h2 id="On-the-ball"><a href="#On-the-ball" class="headerlink" title="On the ball"></a>On the ball</h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-22"><a href="#Meaning-22" class="headerlink" title="Meaning"></a>Meaning</h3><p>Doing a good job</p>
+<h2 id="Pull-someone’s-leg"><a href="#Pull-someone’s-leg" class="headerlink" title="Pull someone’s leg"></a><a target="_blank" rel="noopener" href="https://en.wiktionary.org/wiki/pull_someone%27s_leg">Pull someone’s leg</a></h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-23"><a href="#Meaning-23" class="headerlink" title="Meaning"></a>Meaning</h3><ul>
+<li>To tease or joke by telling a lie.</li>
+<li>The phrase, from Scotland, originally meant to make a fool of someone, often by cheating them.</li>
+<li>To joke with someone</li>
+</ul>
+<h2 id="Pull-yourself-together"><a href="#Pull-yourself-together" class="headerlink" title="Pull yourself together"></a>Pull yourself together</h2><p><em>by itself</em></p>
+<h3 id="Meaning-24"><a href="#Meaning-24" class="headerlink" title="Meaning"></a>Meaning</h3><p>Calm down</p>
+<h2 id="So-far-so-good"><a href="#So-far-so-good" class="headerlink" title="So far so good"></a>So far so good</h2><p><em>by itself</em></p>
+<h3 id="Meaning-25"><a href="#Meaning-25" class="headerlink" title="Meaning"></a>Meaning</h3><p>Things are going well so far</p>
+<h2 id="Speak-of-the-devil"><a href="#Speak-of-the-devil" class="headerlink" title="Speak of the devil"></a><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Speak_of_the_devil">Speak of the devil</a></h2><p><em>by itself</em></p>
+<h3 id="Meaning-26"><a href="#Meaning-26" class="headerlink" title="Meaning"></a>Meaning</h3><ul>
+<li>the short form of the English-language idiom “Speak of the devil and he doth appear” (or its alternative form “speak of the devil and he shall appear”).</li>
+<li>The form “talk of the devil” is also in use in England. It is used when an object of discussion unexpectedly becomes present during the conversation.</li>
+</ul>
+<h2 id="That’s-the-last-straw"><a href="#That’s-the-last-straw" class="headerlink" title="That’s the last straw"></a>That’s <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/The_Last_Straw">the last straw</a></h2><p><em>by itself</em></p>
+<h3 id="Meaning-27"><a href="#Meaning-27" class="headerlink" title="Meaning"></a>Meaning</h3><ul>
+<li>My patience has run out</li>
+<li>The last straw is an idiom referring to the Straw that broke the camel’s back.</li>
+</ul>
+<h2 id="The-best-of-both-worlds"><a href="#The-best-of-both-worlds" class="headerlink" title="The best of both worlds"></a>The best of both worlds</h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-28"><a href="#Meaning-28" class="headerlink" title="Meaning"></a>Meaning</h3><p>An ideal situation</p>
+<h2 id="Time-flies-when-you’re-having-fun"><a href="#Time-flies-when-you’re-having-fun" class="headerlink" title="Time flies when you’re having fun"></a>Time flies when you’re having fun</h2><p><em>by itself</em></p>
+<h3 id="Meaning-29"><a href="#Meaning-29" class="headerlink" title="Meaning"></a>Meaning</h3><p>You don’t notice how long something lasts when it’s fun</p>
+<h2 id="To-get-bent-out-of-shape"><a href="#To-get-bent-out-of-shape" class="headerlink" title="To get bent out of shape"></a>To get bent out of shape</h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-30"><a href="#Meaning-30" class="headerlink" title="Meaning"></a>Meaning</h3><p>To get upset</p>
+<h2 id="To-make-matters-worse"><a href="#To-make-matters-worse" class="headerlink" title="To make matters worse"></a>To make matters worse</h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-31"><a href="#Meaning-31" class="headerlink" title="Meaning"></a>Meaning</h3><p>Make a problem worse</p>
+<h2 id="Under-the-weather"><a href="#Under-the-weather" class="headerlink" title="Under the weather"></a><a target="_blank" rel="noopener" href="https://en.wiktionary.org/wiki/under_the_weather">Under the weather</a></h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-32"><a href="#Meaning-32" class="headerlink" title="Meaning"></a>Meaning</h3><ul>
+<li>Feeling sick or poorly.</li>
+<li>From under the weather bow (“affected by bad weather; seasick”); weather bow is a nautical term referring to the side of a ship exposed to bad weather.</li>
+</ul>
+<h2 id="We’ll-cross-that-bridge-when-we-come-to-it"><a href="#We’ll-cross-that-bridge-when-we-come-to-it" class="headerlink" title="We’ll cross that bridge when we come to it"></a>We’ll cross that bridge when we come to it</h2><p><em>by itself</em></p>
+<h3 id="Meaning-33"><a href="#Meaning-33" class="headerlink" title="Meaning"></a>Meaning</h3><p>Let’s not talk about that problem right now</p>
+<h2 id="Wrap-your-head-around-something"><a href="#Wrap-your-head-around-something" class="headerlink" title="Wrap your head around something"></a>Wrap your head around something</h2><p><em>as part of a sentence</em></p>
+<h3 id="Meaning-34"><a href="#Meaning-34" class="headerlink" title="Meaning"></a>Meaning</h3><p>Understand something complicated</p>
+<h2 id="You-can-say-that-again"><a href="#You-can-say-that-again" class="headerlink" title="You can say that again"></a><a target="_blank" rel="noopener" href="https://en.wiktionary.org/wiki/you_can_say_that_again">You can say that again</a></h2><p><em>by itself</em></p>
+<h3 id="Meaning-35"><a href="#Meaning-35" class="headerlink" title="Meaning"></a>Meaning</h3><ul>
+<li>That is very true; an expression of wholehearted agreement.</li>
+<li>(idiomatic, in response to another person) That is very true.</li>
+</ul>
+<h2 id="Your-guess-is-as-good-as-mine"><a href="#Your-guess-is-as-good-as-mine" class="headerlink" title="Your guess is as good as mine"></a>Your guess is as good as mine</h2><p><em>by itself</em></p>
+<h3 id="Meaning-36"><a href="#Meaning-36" class="headerlink" title="Meaning"></a>Meaning</h3><p>I have no idea</p>
+<hr>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/English-language_idioms">English-language idioms</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ef.com/wwen/english-resources/english-idioms/">English idioms</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/21/english-idioms/" data-id="cl51yqkos00bacoyz6cdbbizu" data-title="English-language idioms" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-leetcode-algorithms-third-maximum-number" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/20/leetcode-algorithms-third-maximum-number/" class="article-date">
+  <time datetime="2020-10-20T15:57:24.000Z" itemprop="datePublished">2020-10-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/20/leetcode-algorithms-third-maximum-number/">LeetCode - Algorithms - 414. Third Maximum Number</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/third-maximum-number/">414. Third Maximum Number</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="my-solution"><a href="#my-solution" class="headerlink" title="my solution"></a>my solution</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">thirdMax</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = nums.length;</span><br><span class="line">        <span class="keyword">int</span> max = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] &gt; max)</span><br><span class="line">                max = nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> m2 = Integer.MIN_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] &lt; max &amp;&amp; nums[i] &gt; m2)</span><br><span class="line">                m2 = nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> m3 = Long.MIN_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] &lt; m2 &amp;&amp; nums[i] &gt; m3)</span><br><span class="line">                m3 = nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> m3 &gt; Long.MIN_VALUE ? <span class="keyword">new</span> Long(m3).intValue() : max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>26 / 26 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 90.82% of Java online submissions for Third Maximum Number.</li>
+<li>Memory Usage: 39.2 MB, less than 7.88% of Java online submissions for Third Maximum Number.</li>
+</ul>
+<h2 id="PriorityQueue-and-HashSet"><a href="#PriorityQueue-and-HashSet" class="headerlink" title="PriorityQueue and HashSet"></a>PriorityQueue and HashSet</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">thirdMax</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        Queue&lt;Integer&gt; q = <span class="keyword">new</span> PriorityQueue&lt;Integer&gt;();</span><br><span class="line">        Set&lt;Integer&gt; set = <span class="keyword">new</span> HashSet&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : nums) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!set.contains(i)) &#123;</span><br><span class="line">                set.add(i);</span><br><span class="line">                q.add(i);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (q.size() &gt; <span class="number">3</span>) &#123;</span><br><span class="line">                set.remove(q.poll());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (q.size() &lt; <span class="number">3</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span> (q.size() &gt; <span class="number">1</span>)</span><br><span class="line">                q.poll();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> q.peek();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>26 / 26 test cases passed.</li>
+<li>Runtime: 5 ms, faster than 21.06% of Java online submissions for Third Maximum Number.</li>
+<li>Memory Usage: 38.7 MB, less than 10.02% of Java online submissions for Third Maximum Number.</li>
+</ul>
+<h2 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">thirdMax</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        SortedSet&lt;Integer&gt; treeSet = <span class="keyword">new</span> TreeSet&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            treeSet.add(num);</span><br><span class="line">            <span class="keyword">if</span> (treeSet.size() &gt; <span class="number">3</span>)</span><br><span class="line">                treeSet.remove(treeSet.first());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> treeSet.size() &lt; <span class="number">3</span> ? treeSet.last() : treeSet.first();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>26 / 26 test cases passed.</li>
+<li>Runtime: 4 ms, faster than 39.33% of Java online submissions for Third Maximum Number.</li>
+<li>Memory Usage: 38.6 MB, less than 10.02% of Java online submissions for Third Maximum Number.</li>
+</ul>
+<h1 id="javascript"><a href="#javascript" class="headerlink" title="javascript"></a>javascript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> thirdMax = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> max=nums[<span class="number">0</span>],min=nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">1</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[i]&gt;max)</span><br><span class="line">            max = nums[i];</span><br><span class="line">        <span class="keyword">if</span> (nums[i]&lt;min)</span><br><span class="line">            min = nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> lowguard = min-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">var</span> m2 = lowguard;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[i]&lt;max &amp;&amp; nums[i]&gt;m2)</span><br><span class="line">            m2 = nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> m3 = lowguard;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[i]&lt;m2 &amp;&amp; nums[i]&gt;m3)</span><br><span class="line">            m3 = nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> m3!=lowguard?m3:max;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail-3"><a href="#Submission-Detail-3" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>26 / 26 test cases passed.</li>
+<li>Runtime: 80 ms, faster than 72.32% of JavaScript online submissions for Third Maximum Number.</li>
+<li>Memory Usage: 38.9 MB, less than 5.00% of JavaScript online submissions for Third Maximum Number.</li>
+</ul>
+<hr>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://massivealgorithms.blogspot.com/2016/10/leetcode-414-third-maximum-number.html">LeetCode 414 - Third Maximum Number</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/20/leetcode-algorithms-third-maximum-number/" data-id="cl51yqkpm00kccoyz15817fno" data-title="LeetCode - Algorithms - 414. Third Maximum Number" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-the-best-known-quantum-algorithms" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/19/the-best-known-quantum-algorithms/" class="article-date">
+  <time datetime="2020-10-19T18:34:26.000Z" itemprop="datePublished">2020-10-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/19/the-best-known-quantum-algorithms/">The best-known quantum algorithms</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Shor’s-algorithm"><a href="#Shor’s-algorithm" class="headerlink" title="Shor’s algorithm"></a>Shor’s algorithm</h1><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Shor%27s_algorithm">Shor’s algorithm</a> is a polynomial-time quantum computer algorithm for integer factorization. It was invented in 1994 by the American mathematician <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Peter_Shor">Peter Shor</a>.</p>
+<p>Shor’s algorithms runs much (almost exponentially) faster than the best-known classical algorithm for factoring, the general number field sieve.</p>
+<p>Shor’s algorithm was the first non-trivial quantum algorithm showing a potential of ‘exponential’ speed-up over classical algorithms, It captured the imagination of many researchers who took notice of quantum computing because of its promise of truly remarkable algorithmic acceleration. Therefore, to implement Shor’s algorithm is comparable to the ‘Hello, World’ of classical computing. &#40;Mark Ritter, senior manager of physical sciences at IBM&#41;</p>
+<h2 id="Peter-Shor"><a href="#Peter-Shor" class="headerlink" title="Peter Shor"></a>Peter Shor</h2><p>Shor: I’ve been writing poetry occasionally since high school, but I never considered making a career of it.</p>
+<p>If computers that you build are quantum,<br>Then spies of all factions will want ‘em.<br>Our codes will all fail,<br>And they’ll read our email,<br>Till we’ve crypto that’s quantum, and daunt ‘em.<br>&#40;by Jennifer and <a target="_blank" rel="noopener" href="http://www-math.mit.edu/~shor/">Peter Shor</a>&#41;</p>
+<p>You can see why I chose a career as a scientist rather than as a poet.&#40;Shor’s joke&#41;</p>
+<p>There are several aspects of quantum mechanics that make quantum computers more powerful than digital computers. One of these is the superposition principle, which says that a quantum system can be in more than one state at the same time. Another one of these is interference; a third is the exponentially large size of the state space of a quantum mechanical system.</p>
+<blockquote>
+<p>There are some problems that quantum computers seem to be exponentially faster than classical computers at, like factoring. There are other problems that quantum computers don’t speed up at all, like sorting. So asking “which is better, a classical computer or a quantum computer” is like asking “which is a better transportation device, a boat or a car.” It really depends on what you want to do with it.</p>
+</blockquote>
+<h1 id="Grover’s-algorithm"><a href="#Grover’s-algorithm" class="headerlink" title="Grover’s algorithm"></a>Grover’s algorithm</h1><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Grover%27s_algorithm">Grover’s algorithm</a> is a quantum algorithm for searching an unstructured database or an unordered list. It was devised by <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Lov_Grover">Lov Grover</a> in 1996.</p>
+<p>Grover’s algorithm runs quadratically faster than the best possible classical algorithm for the same task, a linear search.</p>
+<p>Unlike other quantum algorithms, which may provide exponential speedup over their classical counterparts, Grover’s algorithm provides only a quadratic speedup. However, even quadratic speedup is considerable when N is large.</p>
+<p>Grover’s algorithm demonstrate the power of quantum parallelism, in specific, making queries in parallel.</p>
+<hr>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Quantum_algorithm">Quantum algorithm</a></li>
+<li><a target="_blank" rel="noopener" href="https://blogs.scientificamerican.com/cross-check/quantum-computing-for-english-majors/">Quantum Computing for English Majors - The poet who discovered Shor’s algorithm answers questions about quantum computers and other mysteries</a></li>
+<li><a target="_blank" rel="noopener" href="https://news.mit.edu/2016/quantum-computer-end-encryption-schemes-0303">The beginning of the end for encryption schemes? - New quantum computer, based on five atoms, factors numbers in a scalable way.</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@jonathan_hui/qc-grovers-algorithm-cd81e61cf248">QC — Grover’s algorithm</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/19/the-best-known-quantum-algorithms/" data-id="cl51yqkq500pmcoyz707z5bpv" data-title="The best-known quantum algorithms" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-leetcode-algorithms-monotonic-array" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/18/leetcode-algorithms-monotonic-array/" class="article-date">
+  <time datetime="2020-10-19T02:48:44.000Z" itemprop="datePublished">2020-10-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/18/leetcode-algorithms-monotonic-array/">LeetCode - Algorithms - 896. Monotonic Array</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/monotonic-array/">896. Monotonic Array</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="One-Pass"><a href="#One-Pass" class="headerlink" title="One Pass"></a>One Pass</h2><p>© <a target="_blank" rel="noopener" href="https://leetcode.com/problems/monotonic-array/solution/">Approach 3: One Pass &#40;Simple Variant&#41;</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isMonotonic</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> increasing = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">boolean</span> decreasing = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; A.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (A[i] &gt; A[i + <span class="number">1</span>]) decreasing = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">if</span> (A[i] &lt; A[i + <span class="number">1</span>]) increasing = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> increasing || decreasing;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>366 / 366 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 100.00% of Java online submissions for Monotonic Array.</li>
+<li>Memory Usage: 47.8 MB, less than 18.59% of Java online submissions for Monotonic Array.</li>
+</ul>
+<h2 id="my-solution"><a href="#my-solution" class="headerlink" title="my solution"></a>my solution</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isMonotonic</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = A.length;</span><br><span class="line">        <span class="keyword">if</span> (N&lt;=<span class="number">2</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">int</span>[] d = <span class="keyword">new</span> <span class="keyword">int</span>[N-<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>, j=<span class="number">0</span>; i&lt;N; i++,j++) &#123;</span><br><span class="line">            d[j] = A[i]-A[i-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> min=d[<span class="number">0</span>],max=d[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;N-<span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (d[i]&lt;min) min = d[i];</span><br><span class="line">            <span class="keyword">if</span> (d[i]&gt;max) max = d[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (min&lt;=<span class="number">0</span> &amp;&amp; max&lt;=<span class="number">0</span>) || (min&gt;=<span class="number">0</span> &amp;&amp; max&gt;=<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>366 / 366 test cases passed.</li>
+<li>Runtime: 2 ms, faster than 31.40% of Java online submissions for Monotonic Array.</li>
+<li>Memory Usage: 46.9 MB, less than 18.59% of Java online submissions for Monotonic Array.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/18/leetcode-algorithms-monotonic-array/" data-id="cl51yqkpe00i1coyzh65hh6y9" data-title="LeetCode - Algorithms - 896. Monotonic Array" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-leetcode-algorithms-check-if-it-is-a-straight-line" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/17/leetcode-algorithms-check-if-it-is-a-straight-line/" class="article-date">
+  <time datetime="2020-10-18T03:05:16.000Z" itemprop="datePublished">2020-10-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/17/leetcode-algorithms-check-if-it-is-a-straight-line/">LeetCode - Algorithms - 1232. Check If It Is a Straight Line</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/check-if-it-is-a-straight-line/">1232. Check If It Is a Straight Line</a></p>
+<h2 id="similar-question"><a href="#similar-question" class="headerlink" title="similar question"></a>similar question</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/valid-boomerang/">1037. Valid Boomerang</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/max-points-on-a-line/solution/">149. Max Points on a Line</a></li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="my-solution"><a href="#my-solution" class="headerlink" title="my solution"></a>my solution</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isColine</span><span class="params">(<span class="keyword">int</span> x1, <span class="keyword">int</span> y1, <span class="keyword">int</span> x2, <span class="keyword">int</span> y2, <span class="keyword">int</span> x3, <span class="keyword">int</span> y3)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = (y3 - y2) * (x3 - x1);</span><br><span class="line">        <span class="keyword">int</span> b = (y3 - y1) * (x3 - x2);</span><br><span class="line">        <span class="keyword">return</span> a == b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkStraightLine</span><span class="params">(<span class="keyword">int</span>[][] coordinates)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = coordinates.length;</span><br><span class="line">        <span class="keyword">boolean</span> b;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N - <span class="number">2</span>; i++) &#123;</span><br><span class="line">            b = isColine(coordinates[i][<span class="number">0</span>], coordinates[i][<span class="number">1</span>], coordinates[i + <span class="number">1</span>][<span class="number">0</span>], coordinates[i + <span class="number">1</span>][<span class="number">1</span>], coordinates[i + <span class="number">2</span>][<span class="number">0</span>], coordinates[i + <span class="number">2</span>][<span class="number">1</span>]);</span><br><span class="line">            <span class="keyword">if</span> (b == <span class="keyword">false</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>79 / 79 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 22.67% of Java online submissions for Check If It Is a Straight Line.</li>
+<li>Memory Usage: 41 MB, less than 6.80% of Java online submissions for Check If It Is a Straight Line.</li>
+</ul>
+<h2 id="Computational-geometry-method"><a href="#Computational-geometry-method" class="headerlink" title="Computational geometry method"></a>Computational geometry method</h2><p>© Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.</p>
+<h3 id="keys"><a href="#keys" class="headerlink" title="keys"></a>keys</h3><ul>
+<li>Shoelace formula, also known as Gauss’s area formula</li>
+<li>vertices must listed in clockwise(or counterclockwise, increasing order of polar angle) order</li>
+<li>CCW: Given three points a, b, and c, is a→b→c a counterclockwise turn? Determinant (or cross product) gives 2x signed area of planar triangle.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkStraightLine</span><span class="params">(<span class="keyword">int</span>[][] coordinates)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = coordinates.length;</span><br><span class="line">        Point2D[] a = <span class="keyword">new</span> Point2D[N];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            a[i] = <span class="keyword">new</span> Point2D(coordinates[i][<span class="number">0</span>], coordinates[i][<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        Arrays.sort(a);</span><br><span class="line">        Arrays.sort(a, <span class="number">1</span>, N, a[<span class="number">0</span>].polarOrder());</span><br><span class="line">        <span class="keyword">int</span> A = a[N - <span class="number">1</span>].x() * a[<span class="number">0</span>].y() - a[<span class="number">0</span>].x() * a[N - <span class="number">1</span>].y();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            A += a[i].x() * a[i + <span class="number">1</span>].y() - a[i + <span class="number">1</span>].x() * a[i].y();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> A == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Point2D</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Point2D</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> x;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> y;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Point2D</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = x;</span><br><span class="line">        <span class="keyword">this</span>.y = y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">x</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">y</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">ccw</span><span class="params">(Point2D a, Point2D b, Point2D c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> area2 = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);</span><br><span class="line">        <span class="keyword">if</span> (area2 &lt; <span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (area2 &gt; <span class="number">0</span>) <span class="keyword">return</span> +<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Point2D that)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.y &lt; that.y) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.y &gt; that.y) <span class="keyword">return</span> +<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.x &lt; that.x) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.x &gt; that.x) <span class="keyword">return</span> +<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Comparator&lt;Point2D&gt; <span class="title">polarOrder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> PolarOrder();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">PolarOrder</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">Point2D</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Point2D q1, Point2D q2)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">int</span> dx1 = q1.x - x;</span><br><span class="line">            <span class="keyword">int</span> dy1 = q1.y - y;</span><br><span class="line">            <span class="keyword">int</span> dx2 = q2.x - x;</span><br><span class="line">            <span class="keyword">int</span> dy2 = q2.y - y;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (dy1 &gt;= <span class="number">0</span> &amp;&amp; dy2 &lt; <span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (dy2 &gt;= <span class="number">0</span> &amp;&amp; dy1 &lt; <span class="number">0</span>) <span class="keyword">return</span> +<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (dy1 == <span class="number">0</span> &amp;&amp; dy2 == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (dx1 &gt;= <span class="number">0</span> &amp;&amp; dx2 &lt; <span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (dx2 &gt;= <span class="number">0</span> &amp;&amp; dx1 &lt; <span class="number">0</span>) <span class="keyword">return</span> +<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">return</span> -ccw(Point2D.<span class="keyword">this</span>, q1, q2);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>79 / 79 test cases passed.</li>
+<li>Runtime: 6 ms, faster than 9.07% of Java online submissions for Check If It Is a Straight Line.</li>
+<li>Memory Usage: 38.8 MB, less than 6.80% of Java online submissions for Check If It Is a Straight Line.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/17/leetcode-algorithms-check-if-it-is-a-straight-line/" data-id="cl51yqkp400fkcoyz6ogf59y3" data-title="LeetCode - Algorithms - 1232. Check If It Is a Straight Line" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/geometry/" rel="tag">geometry</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/" rel="tag">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-leetcode-algorithms-flipping-an-image" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/16/leetcode-algorithms-flipping-an-image/" class="article-date">
+  <time datetime="2020-10-17T03:07:25.000Z" itemprop="datePublished">2020-10-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/16/leetcode-algorithms-flipping-an-image/">LeetCode - Algorithms - 832. Flipping an Image</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/flipping-an-image/">832. Flipping an Image</a></p>
+<p>similar question : <a target="_blank" rel="noopener" href="https://leetcode.com/problems/rotate-image/">48. Rotate Image</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[][] flipAndInvertImage(<span class="keyword">int</span>[][] A) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = A.length;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> M = A[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span> tmp;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;M/<span class="number">2</span>; j++) &#123;</span><br><span class="line">                tmp = A[i][j];</span><br><span class="line">                A[i][j] = A[i][N-<span class="number">1</span>-j];</span><br><span class="line">                A[i][N-<span class="number">1</span>-j] = tmp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;M; j++) &#123;</span><br><span class="line">                A[i][j] = A[i][j]==<span class="number">0</span>?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> A;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>82 / 82 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Flipping an Image.</li>
+<li>Memory Usage: 39.1 MB, less than 16.27% of Java online submissions for Flipping an Image.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/16/leetcode-algorithms-flipping-an-image/" data-id="cl51yqkp900ggcoyzgvd9foy8" data-title="LeetCode - Algorithms - 832. Flipping an Image" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-leetcode-algorithms-sort-array-by-parity" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/16/leetcode-algorithms-sort-array-by-parity/" class="article-date">
+  <time datetime="2020-10-16T17:37:47.000Z" itemprop="datePublished">2020-10-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/16/leetcode-algorithms-sort-array-by-parity/">LeetCode - Algorithms - 905. Sort Array By Parity</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>It’s easy indeed.</p>
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/sort-array-by-parity/">905. Sort Array By Parity</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Two-Pass"><a href="#Two-Pass" class="headerlink" title="Two Pass"></a>Two Pass</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArrayByParity(<span class="keyword">int</span>[] A) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = A.length;</span><br><span class="line">        <span class="keyword">int</span>[] B = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">        <span class="keyword">int</span> left=<span class="number">0</span>, right=N-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((A[i]&amp;<span class="number">1</span>)==<span class="number">0</span>) &#123;</span><br><span class="line">                B[left++]=A[i];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                B[right--]=A[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> B;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>285 / 285 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 99.47% of Java online submissions for Sort Array By Parity.</li>
+<li>Memory Usage: 40.1 MB, less than 30.13% of Java online submissions for Sort Array By Parity.</li>
+</ul>
+<h2 id="In-Place"><a href="#In-Place" class="headerlink" title="In-Place"></a>In-Place</h2><p>© <a target="_blank" rel="noopener" href="https://leetcode.com/problems/sort-array-by-parity/solution/">Solution - Approach 3: In-Place</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArrayByParity(<span class="keyword">int</span>[] A) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = A.length;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = N - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> temp;</span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((A[left] &amp; <span class="number">1</span>)==<span class="number">1</span> &amp;&amp; (A[right] &amp; <span class="number">1</span>)==<span class="number">0</span>) &#123;</span><br><span class="line">                temp = A[left];</span><br><span class="line">                A[left] = A[right];</span><br><span class="line">                A[right] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> ((A[left] &amp; <span class="number">1</span>) == <span class="number">0</span>) left++;</span><br><span class="line">            <span class="keyword">if</span> ((A[right] &amp; <span class="number">1</span>) == <span class="number">1</span>) right--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> A;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>285 / 285 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Sort Array By Parity.</li>
+<li>Memory Usage: 39.6 MB, less than 30.13% of Java online submissions for Sort Array By Parity.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/16/leetcode-algorithms-sort-array-by-parity/" data-id="cl51yqkpk00jtcoyzfd7i8zfx" data-title="LeetCode - Algorithms - 905. Sort Array By Parity" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-leetcode-algorithms-day-of-the-year" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/15/leetcode-algorithms-day-of-the-year/" class="article-date">
+  <time datetime="2020-10-15T18:20:14.000Z" itemprop="datePublished">2020-10-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/15/leetcode-algorithms-day-of-the-year/">LeetCode - Algorithms - 1154. Day of the Year</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/day-of-the-year/">1154. Day of the Year</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="my-solution"><a href="#my-solution" class="headerlink" title="my solution"></a>my solution</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">dayOfYear</span><span class="params">(String date)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> year = Integer.parseInt(date.substring(<span class="number">0</span>,<span class="number">4</span>));</span><br><span class="line">        <span class="keyword">int</span> month = Integer.parseInt(date.substring(<span class="number">5</span>,<span class="number">7</span>));</span><br><span class="line">        <span class="keyword">int</span> day = Integer.parseInt(date.substring(<span class="number">8</span>,<span class="number">10</span>));</span><br><span class="line">        <span class="keyword">int</span>[] dayOfMonth = &#123;<span class="number">31</span>, <span class="number">28</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>&#125;;</span><br><span class="line">        <span class="keyword">boolean</span> leapYear = ((year % <span class="number">4</span> == <span class="number">0</span>) &amp;&amp; (year % <span class="number">100</span> != <span class="number">0</span>)) || (year % <span class="number">400</span> == <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (leapYear)</span><br><span class="line">            dayOfMonth[<span class="number">1</span>] = <span class="number">29</span>;</span><br><span class="line">        <span class="keyword">int</span> dy = day;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; month; i++) &#123;</span><br><span class="line">            dy += dayOfMonth[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dy;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>246 / 246 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 98.63% of Java online submissions for Day of the Year.</li>
+<li>Memory Usage: 37.1 MB, less than 7.99% of Java online submissions for Day of the Year.</li>
+</ul>
+<h2 id="java8-LocalDate"><a href="#java8-LocalDate" class="headerlink" title="java8 LocalDate"></a>java8 LocalDate</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.time.LocalDate;</span><br><span class="line"><span class="keyword">import</span> java.time.format.DateTimeFormatter;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">dayOfYear</span><span class="params">(String date)</span> </span>&#123;</span><br><span class="line">        LocalDate d = LocalDate.parse(date, DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy-MM-dd&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> d.getDayOfYear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>246 / 246 test cases passed.</li>
+<li>Runtime: 16 ms, faster than 6.07% of Java online submissions for Day of the Year.</li>
+<li>Memory Usage: 38.3 MB, less than 7.64% of Java online submissions for Day of the Year.</li>
+</ul>
+<hr>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Leap_year">Leap year</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tutorialspoint.com/Java-program-to-find-if-the-given-number-is-a-leap-year">Java program to find if the given number is a leap year?</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/15/leetcode-algorithms-day-of-the-year/" data-id="cl51yqkp800g4coyzbmv20dkv" data-title="LeetCode - Algorithms - 1154. Day of the Year" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/" rel="tag">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/16/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/18/">Next »</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/" rel="tag">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bit-Manipulation/" rel="tag">Bit Manipulation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/" rel="tag">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bruce-Lee/" rel="tag">Bruce Lee</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CEMC/" rel="tag">CEMC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/" rel="tag">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/" rel="tag">Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Divide-and-Conquer/" rel="tag">Divide and Conquer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFmpeg/" rel="tag">FFmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/" rel="tag">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/" rel="tag">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HackerRank/" rel="tag">HackerRank</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/" rel="tag">Hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashTable/" rel="tag">HashTable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/" rel="tag">Heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IELTS/" rel="tag">IELTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/" rel="tag">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/" rel="tag">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/" rel="tag">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lin-Yutang/" rel="tag">Lin Yutang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/" rel="tag">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marcus-Du-Sautoy/" rel="tag">Marcus Du Sautoy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathematics/" rel="tag">Mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/" rel="tag">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/" rel="tag">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programming/" rel="tag">Programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/" rel="tag">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/" rel="tag">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/" rel="tag">Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEDx/" rel="tag">TEDx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terence-Tao/" rel="tag">Terence Tao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/" rel="tag">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Topological-Sort/" rel="tag">Topological Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/" rel="tag">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/" rel="tag">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/" rel="tag">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backtracking/" rel="tag">backtracking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/" rel="tag">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bilingual/" rel="tag">bilingual</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/" rel="tag">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrency/" rel="tag">concurrency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coronavirus/" rel="tag">coronavirus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/creative-thinking/" rel="tag">creative thinking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/" rel="tag">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/" rel="tag">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/essay/" rel="tag">essay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firefox/" rel="tag">firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/geometry/" rel="tag">geometry</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/" rel="tag">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graph/" rel="tag">graph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/" rel="tag">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history-of-mathematics/" rel="tag">history of mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ide/" rel="tag">ide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/" rel="tag">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/" rel="tag">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/logic/" rel="tag">logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/" rel="tag">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/" rel="tag">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/physics/" rel="tag">physics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/popscience/" rel="tag">popscience</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programmer/" rel="tag">programmer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quantum/" rel="tag">quantum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recurrence/" rel="tag">recurrence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/song/" rel="tag">song</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/" rel="tag">stack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/" rel="tag">vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/" rel="tag">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wolfram/" rel="tag">wolfram</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" rel="tag">中文经典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E6%96%87/" rel="tag">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" rel="tag">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" rel="tag">数学史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" rel="tag">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" rel="tag">李小龙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" rel="tag">李笑来</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" rel="tag">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" rel="tag">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8B%B1%E8%AF%AD/" rel="tag">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%91%E8%A8%80/" rel="tag">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 19.44px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.22px;">Array</a> <a href="/tags/BFS/" style="font-size: 15px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.56px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15.56px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 16.11px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.44px;">DFS</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.11px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.78px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.89px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 13.89px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 11.11px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.89px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.56px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.67px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.56px;">Mathematics</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10.56px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.56px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.67px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.78px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.56px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 13.33px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 14.44px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.67px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.56px;">Topological Sort</a> <a href="/tags/Tree/" style="font-size: 11.67px;">Tree</a> <a href="/tags/Two-Pointers/" style="font-size: 15.56px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.67px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.56px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.11px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 20px;">english</a> <a href="/tags/essay/" style="font-size: 11.67px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.22px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.67px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.89px;">java</a> <a href="/tags/javascript/" style="font-size: 10.56px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.56px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.67px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.11px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 18.33px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 11.67px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 11.11px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.78px;">regex</a> <a href="/tags/song/" style="font-size: 13.33px;">song</a> <a href="/tags/sql/" style="font-size: 10.56px;">sql</a> <a href="/tags/stack/" style="font-size: 10.56px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.56px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 12.22px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10.56px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 10.56px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12.22px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 12.22px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 10.56px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/01/Canada-Billy-Collins/">Canada</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/30/An-Essay-on-Criticism-Part-3-Alexander-Pope/">An Essay on Criticism Part 3</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/29/An-Essay-on-Criticism-Part-2-Alexander-Pope/">An Essay on Criticism Part 2</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/28/An-Essay-on-Criticism-Part-1-Alexander-Pope/">An Essay on Criticism Part 1</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/24/a-question-robert-frost/">A Question</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 hezhigang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

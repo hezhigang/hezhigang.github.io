@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>IBM developerWorks | A Humble Programmer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="算法随机数生成器使您的软件运行起来摆弄数字真正安全的软件需要精确的随机数生成器https:&#x2F;&#x2F;www.ibm.com&#x2F;developerworks&#x2F;cn&#x2F;security&#x2F;playing&#x2F;index.html javaJava 编程的动态性，第 1 部分类和类装入研究类以及 JVM 装入类时所发生的情况https:&#x2F;&#x2F;www.ibm.com&#x2F;developerworks&#x2F;cn&#x2F;java&#x2F;j-dyn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IBM developerWorks">
+<meta property="og:url" content="https://hezhigang.github.io/2018/06/10/ibm-developerworks/index.html">
+<meta property="og:site_name" content="A Humble Programmer">
+<meta property="og:description" content="算法随机数生成器使您的软件运行起来摆弄数字真正安全的软件需要精确的随机数生成器https:&#x2F;&#x2F;www.ibm.com&#x2F;developerworks&#x2F;cn&#x2F;security&#x2F;playing&#x2F;index.html javaJava 编程的动态性，第 1 部分类和类装入研究类以及 JVM 装入类时所发生的情况https:&#x2F;&#x2F;www.ibm.com&#x2F;developerworks&#x2F;cn&#x2F;java&#x2F;j-dyn">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-06-10T12:41:10.000Z">
+<meta property="article:modified_time" content="2019-08-16T16:13:28.000Z">
+<meta property="article:author" content="hezhigang">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="A Humble Programmer" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">A Humble Programmer</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hezhigang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ibm-developerworks" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/10/ibm-developerworks/" class="article-date">
+  <time datetime="2018-06-10T12:41:10.000Z" itemprop="datePublished">2018-06-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      IBM developerWorks
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="随机数生成器"><a href="#随机数生成器" class="headerlink" title="随机数生成器"></a>随机数生成器</h2><p>使您的软件运行起来<br>摆弄数字<br>真正安全的软件需要精确的随机数生成器<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/security/playing/index.html">https://www.ibm.com/developerworks/cn/security/playing/index.html</a></p>
+<h1 id="java"><a href="#java" class="headerlink" title="java"></a>java</h1><p>Java 编程的动态性，第 1 部分<br>类和类装入<br>研究类以及 JVM 装入类时所发生的情况<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-dyn0429/">https://www.ibm.com/developerworks/cn/java/j-dyn0429/</a></p>
+<p>class类文件<br>cafe babe 任何 Java 二进制类（甚至是文件系统中没有出现的类）都需要以这四个字节作为开始<br>0000 次版本 0<br>002e 主版本 46<br>001a 常量池中项的总数<br>后面是实际的常量池数据  常量池往往占到二进制类大小的一半或更多，但平均下来可能要少一些。</p>
+<p>方法的可执行代码 用 JVM 的指令形式表示该代码，一般称为 字节码<br>构成类文件可执行部分的字节码实际上是针对特定类型的计算机 ― JVM ― 的机器码<br>JVM被称为 虚拟机，因为它被设计成用软件来实现，而不是用硬件来实现。每个用于运行 Java 平台应用程序的 JVM 都是围绕该机器的实现而被构建的。<br>JVM使用堆栈体系结构，这意味着在使用指令操作数之前要先将它们装入内部堆栈。<br>早期的（第一代）JVM 基本上是虚拟机字节码的解释器。这些虚拟机实际上 的确相对简单，但存在严重的性能问题 ― 解释代码的时间总是会比执行本机代码的时间长。<br>第二代 JVM 添加了 即时（just-in-time，JIT）转换。在第一次执行 Java 字节码之前，JIT 技术将它编译成本机代码，从而对于重复执行提供了更好的性能。<br>当代 JVM 的性能甚至还要好得多，因为使用了适应性技术来监控程序的执行并有选择地优化频繁使用的代码。</p>
+<p>JAR 只是类文件的容器</p>
+<p>增加环境变量 JAVA_OPTS  -verbose  可以查看类加载过程</p>
+<p>C 和 C++ 这些编译成本机代码的语言通常在编译完源代码之后需要链接这个步骤</p>
+<p>使用 Java 语言，由编译器生成的类在被装入到 JVM 之前通常保持原状</p>
+<p>链接类不是一个独立步骤，它是在 JVM 将这些类装入到内存时所执行作业的一部分</p>
+<p>能装入独立的类集合这一灵活性是 Java 平台的一个重要特性。尽管这个特性很有用，但是它在某些情况中会产生混淆。</p>
+<p>一个令人混淆的方面是处理 JVM 类路径这样的老问题。</p>
+<p>使用多个类装入器还可能引起其它类型的混淆。身份危机（class identity crisis）</p>
+<p>JDK5.0以后不需要配classpath了，只要把path配好就行</p>
+<p>敏捷开发中高质量 Java 代码开发实践<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-agile/">https://www.ibm.com/developerworks/cn/java/j-lo-agile/</a></p>
+<p>步骤一：统一编码规范、代码样式<br>步骤二：静态代码分析<br>步骤三：单元测试<br>步骤四：持续集成（Continuous Integration）<br>步骤五：代码评审和重构（Code Review）</p>
+<p>使用原汁原味的 Java 语言<br>非 Java 原生程序员的语言流畅性<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-noaccent.html">https://www.ibm.com/developerworks/cn/java/j-noaccent.html</a></p>
+<p>Java 的惯例中 main()方法的参数名为 args，而不是 argv：public static void main(String[] args)</p>
+<p>深入探讨 Java 类加载器<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-classloader/">https://www.ibm.com/developerworks/cn/java/j-lo-classloader/</a></p>
+<p>常用 Java 静态代码分析工具的分析与比较<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-statictest-tools/">https://www.ibm.com/developerworks/cn/java/j-lo-statictest-tools/</a></p>
+<p>使用 Java 开源工具建立一个灵活的搜索引擎<br>揭示开源的力量<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-sefrmk/">https://www.ibm.com/developerworks/cn/java/j-lo-sefrmk/</a></p>
+<p>几种任务调度的 Java 实现方法与比较<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-taskschedule/index.html">https://www.ibm.com/developerworks/cn/java/j-lo-taskschedule/index.html</a></p>
+<p>用 Quartz 进行作业调度<br>Quartz API 采用多面方式在 Java 应用程序中进行任务调度<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-quartz/">https://www.ibm.com/developerworks/cn/java/j-quartz/</a></p>
+<p>在 Web 项目中应用 Apache Shiro<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-shiro/">https://www.ibm.com/developerworks/cn/java/j-lo-shiro/</a></p>
+<p>从虚拟机视角谈 Java 应用性能优化<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-jvm-perf/">https://www.ibm.com/developerworks/cn/java/j-lo-jvm-perf/</a></p>
+<p>使用 VisualVM 进行性能分析及调优<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-visualvm/">https://www.ibm.com/developerworks/cn/java/j-lo-visualvm/</a></p>
+<p>优化 Java 垃圾收集器改进系统性能<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-optimize-gc/">https://www.ibm.com/developerworks/cn/java/j-lo-optimize-gc/</a></p>
+<p>Java的内存泄漏<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/l-JavaMemoryLeak/">https://www.ibm.com/developerworks/cn/java/l-JavaMemoryLeak/</a></p>
+<p>Java 性能优化之 String 篇<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-optmizestring/">https://www.ibm.com/developerworks/cn/java/j-lo-optmizestring/</a></p>
+<p>Java Web 高性能开发，第 1 部分<br>前端的高性能<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-javawebhiperf1/">https://www.ibm.com/developerworks/cn/java/j-lo-javawebhiperf1/</a></p>
+<p>您不知道的 5 件事……<br>JVM 命令行标志<br>调优 JVM 性能和 Java 运行时<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-5things11/index.html">https://www.ibm.com/developerworks/cn/java/j-5things11/index.html</a></p>
+<p>Java.next, Common ground in Groovy, Scala, and Clojure, Part 1<br>Explore how these next-generation JVM languages handle operator overloading<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/java/library/j-jn2/index.html">https://www.ibm.com/developerworks/java/library/j-jn2/index.html</a></p>
+<p>Java.next, Common ground in Groovy, Scala, and Clojure, Part 3<br>Rethinking exceptions, expressions, and emptiness<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/java/library/j-jn4/index.html">https://www.ibm.com/developerworks/java/library/j-jn4/index.html</a></p>
+<p>使用JMeter进行性能测试<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/l-jmeter/">https://www.ibm.com/developerworks/cn/java/l-jmeter/</a></p>
+<p>使用 JMeter 完成常用的压力测试<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/opensource/os-pressiontest/">https://www.ibm.com/developerworks/cn/opensource/os-pressiontest/</a></p>
+<p>启用动态 HTTP 压缩<br>在各种 Web 服务器上通过动态压缩节省带宽<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/web/wa-httpiis/">https://www.ibm.com/developerworks/cn/web/wa-httpiis/</a></p>
+<p>最佳实践：更好的设计你的 REST API<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/web/1103_chenyan_restapi/">https://www.ibm.com/developerworks/cn/web/1103_chenyan_restapi/</a></p>
+<p>NIO 入门<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/education/java/j-nio/j-nio.html">https://www.ibm.com/developerworks/cn/education/java/j-nio/j-nio.html</a></p>
+<p>Merlin 给 Java 平台带来了非阻塞 I/O<br>新增的功能大幅降低了线程开销<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-javaio/">https://www.ibm.com/developerworks/cn/java/j-javaio/</a></p>
+<p>深入分析 Java 中的中文编码问题<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-chinesecoding/">https://www.ibm.com/developerworks/cn/java/j-lo-chinesecoding/</a></p>
+<p>Java SSL/TLS 安全通讯协议介绍<br>Java 的安全通讯<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-ssltls/">https://www.ibm.com/developerworks/cn/java/j-lo-ssltls/</a></p>
+<p>Java 安全套接字编程以及 keytool 使用最佳实践<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-socketkeytool/">https://www.ibm.com/developerworks/cn/java/j-lo-socketkeytool/</a></p>
+<p>开源规则流引擎实践<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/opensource/os-drools/index.html">https://www.ibm.com/developerworks/cn/opensource/os-drools/index.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-drools/" title="使用声明性编程方法编写程序的业务逻辑">使用 Drools 规则引擎实现业务逻辑</a></p>
+<p>如果你的业务场景中有很多复杂的业务逻辑/业务策略，而这些业务策略又经常发生变化，那么你就可以引入规则引擎技术。</p>
+<p>开发 Spring Redis 应用程序<br>使用 Redis 作为数据存储来构建基于 Spring 的应用程序<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/os-springredis/index.html">https://www.ibm.com/developerworks/cn/java/os-springredis/index.html</a></p>
+<p>Java 编程中的 OAuth 2.0 客户端，第 1 部分<br>资源所有者密码凭据授权<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/se-oauthjavapt1/index.html">https://www.ibm.com/developerworks/cn/java/se-oauthjavapt1/index.html</a></p>
+<p>Java 编程中的 OAuth 2.0 客户端，第 2 部分<br>客户端凭据授权<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/se-oauthjavapt2/index.html">https://www.ibm.com/developerworks/cn/java/se-oauthjavapt2/index.html</a></p>
+<p>Java 编程中的 OAuth 2.0 客户端，第 3 部分<br>认证码授权<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/se-oauthjavapt3/index.html">https://www.ibm.com/developerworks/cn/java/se-oauthjavapt3/index.html</a></p>
+<p>Java 开发 2.0<br>现实世界中的 Redis<br>Redis 如何在包含大量读取操作的应用程序中战胜 memcached<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-javadev2-22/">https://www.ibm.com/developerworks/cn/java/j-javadev2-22/</a></p>
+<p>全面分析 Spring 的编程式事务管理及声明式事务管理<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/education/opensource/os-cn-spring-trans/">https://www.ibm.com/developerworks/cn/education/opensource/os-cn-spring-trans/</a></p>
+<p>Spring 事务管理高级应用难点剖析<br>第 1 部分<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-spring-ts1/index.html">https://www.ibm.com/developerworks/cn/java/j-lo-spring-ts1/index.html</a></p>
+<p>Spring 事务管理高级应用难点剖析<br>第 2 部分<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-spring-ts2/">https://www.ibm.com/developerworks/cn/java/j-lo-spring-ts2/</a></p>
+<p>Spring 事务管理高级应用难点剖析<br>第 3 部分<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-spring-ts3/index.html">https://www.ibm.com/developerworks/cn/java/j-lo-spring-ts3/index.html</a></p>
+<p>使用 Spring 进行单元测试<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-springunitest/">https://www.ibm.com/developerworks/cn/java/j-lo-springunitest/</a></p>
+<p>使用 Apache JMeter 测试基于云的应用程序<br>学习使用 JMeter 进行 RESTful API 测试的有效技术和最佳实践<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/cloud/library/cl-jmeter-restful/">https://www.ibm.com/developerworks/cn/cloud/library/cl-jmeter-restful/</a></p>
+<p>让开发自动化<br>用 Eclipse 插件提高代码质量<br>在 Eclipse 中使用 5 个有用的插件来自动化代码质量分析<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-ap01117/">https://www.ibm.com/developerworks/cn/java/j-ap01117/</a></p>
+<p>常用 Java Profiling 工具的分析与比较<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-profiling/">https://www.ibm.com/developerworks/cn/java/j-lo-profiling/</a></p>
+<p>Java Web 高性能开发，第 2 部分<br>前端的高性能<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-javawebhiperf2/">https://www.ibm.com/developerworks/cn/java/j-lo-javawebhiperf2/</a></p>
+<p>在 Java 应用程序中使用 Elasticsearch<br>高性能 RESTful 搜索引擎和文档存储快速入门指南<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-use-elasticsearch-java-apps/index.html">https://www.ibm.com/developerworks/cn/java/j-use-elasticsearch-java-apps/index.html</a></p>
+<p>Java 应用性能调优实践<br>让 Java 应用运行更快：性能调优工具及实践<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-performance-tuning-practice/">https://www.ibm.com/developerworks/cn/java/j-lo-performance-tuning-practice/</a></p>
+<p>通过零拷贝实现有效数据传输<br>零拷贝，零开销<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-zerocopy/">https://www.ibm.com/developerworks/cn/java/j-zerocopy/</a></p>
+<p>Java 性能分析工具 , 第 1 部分<br>操作系统工具<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-performance-analysissy-tools/">https://www.ibm.com/developerworks/cn/java/j-lo-performance-analysissy-tools/</a></p>
+<p>Java 性能测试的四项原则<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-java-performance-testing/">https://www.ibm.com/developerworks/cn/java/j-lo-java-performance-testing/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-groovierspring1.html" title="看看 Groovy 如何增加基于 Spring 的应用程序的灵活性">Groovy 使 Spring 更出色，第 1 部分: 集成的基础知识</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-java8annotation/index.html">Java 8 Annotation 新特性在软件质量和开发效率方面的提升</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-eaed15.html">使用 Groovy 构建 DSL</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-pg02179.html">Groovy：Java 程序员的 DSL</a></p>
+<h1 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h1><p>SQL 语句性能调优<br>初级篇 —— 简单查询语句的调优<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/data/library/techarticles/dm-1002limh/index.html">https://www.ibm.com/developerworks/cn/data/library/techarticles/dm-1002limh/index.html</a></p>
+<p>SQL 在常用报表业务中的归并、转换与信息汇总中的应用技巧<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/data/library/techarticles/dm-1008yangxy/">https://www.ibm.com/developerworks/cn/data/library/techarticles/dm-1008yangxy/</a></p>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><p>Understand memory leaks in JavaScript applications<br>Detect and address memory issues<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/library/wa-jsmemory/index.html">https://www.ibm.com/developerworks/library/wa-jsmemory/index.html</a></p>
+<p>拥抱原型面向对象编程<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/web/wa-protoop/index.html">https://www.ibm.com/developerworks/cn/web/wa-protoop/index.html</a></p>
+<p>浅谈 JavaScript 编程语言的编码规范<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/web/1008_wangdd_jscodingrule/">https://www.ibm.com/developerworks/cn/web/1008_wangdd_jscodingrule/</a></p>
+<p>使用 Chrome 开发者工具进行 JavaScript 问题定位与调试<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/web/1410_wangcy_chromejs/index.html">https://www.ibm.com/developerworks/cn/web/1410_wangcy_chromejs/index.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/web/wa-ecmascript6-neward-p3/index.html" title="理解属性和继承">JavaScript 中的类</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-maven/">用 Maven 做项目构建</a></p>
+<p>POM 即 Project Object Module，项目对象模型，在 pom.xml 文件中定义了项目的基本信息、源代码、配置文件、开发者的信息和角色、问题追踪系统、组织信息、项目授权、项目的 url、以及构建项目所用的插件，依赖继承关系。</p>
+<p>Maven 本质上是一个插件框架，它的核心并不执行任何具体的构建任务，仅仅定义了抽象的生命周期，所有这些任务都交给插件来完成的。每个插件都能完成至少一个任务，每个任务即是一个功能，将这些功能应用在构建过程的不同生命周期中。这样既能保证拿来即用，又能保证 maven 本身的繁杂和冗余。</p>
+<p>可以用 <optional> 去除这种依赖的传递</p>
+<p>可以在当前的 POM 文件中使用 <exclusions> 元素声明排除依赖，exclusions 可以包含一个或者多个 exclusion 子元素，因此可以排除一个或者多个传递性依赖。</p>
+<p>Nexus是Maven仓库管理器，用来搭建一个本地仓库服务器，这样做的好处是便于管理，节省网络资源，速度快，还有一个非常有用的功能就是可以通过项目的SNAPSHOT版本管理，来进行模块间的高效依赖开发</p>
+<h2 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h2><p><a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/web/wa-ecmascript6-neward-p1/index.html" title="语法糖增强了 ECMAScript 6 中的核心功能">新 JavaScript 中的变量声明等功能</a></p>
+<h2 id="React"><a href="#React" class="headerlink" title="React"></a>React</h2><p>React：创建可维护、高性能的 UI 组件<br>使用 React JavaScript 库创建可维护的 Web UI，超越浏览器 DOM<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/web/wa-react-intro/index.html">https://www.ibm.com/developerworks/cn/web/wa-react-intro/index.html</a></p>
+<p>React 介绍及实践教程<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/web/1509_dongyue_react/">https://www.ibm.com/developerworks/cn/web/1509_dongyue_react/</a></p>
+<h3 id="redux"><a href="#redux" class="headerlink" title="redux"></a>redux</h3><p><a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/web/wa-manage-state-with-redux-p1-david-geary/index.html" title="掌握 JavaScript 应用程序的状态">Redux 简介</a></p>
+<p>状态管理是软件开发的最困难方面之一，这使得状态管理错误成为了几乎所有 bug 的源头。</p>
+<p> Redux，这是一个针对 JavaScript 应用程序的可预测的状态容器。<br> Redux 不仅有助于状态管理，还使得实现一些高级特性变得很简单，比如无限撤销/重做和实时编辑时间旅行 (live-editing time travel)。</p>
+<p>尽管 Redux 来自 React 社区，但它并不依赖于 React。</p>
+<p>Redux 是 Facebook 的 Flux 架构的一种简化实现。</p>
+<p>Flux 在本质上采用了模型-视图-控制器 (MVC) 的结构</p>
+<p>Redux 有 3 条原则：</p>
+<ul>
+<li>应用程序状态存储在单个对象中。</li>
+<li>应用程序状态不可变，只能通过描述状态更改的操作 彻底替换。</li>
+<li>缩减程序根据当前状态和某个操作来创建下一个状态。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/web/wa-manage-state-with-redux-p1-david-geary/index.html" title="掌握 JavaScript 应用程序的状态">Redux 简介</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/web/wa-manage-state-with-redux-p2-david-geary/index.html" title="应用 react-redux 绑定；实现操作创建器">结合使用 Redux 和 React</a></p>
+<h1 id="Unix"><a href="#Unix" class="headerlink" title="Unix"></a>Unix</h1><p>对话 UNIX，第 4 部分<br>UNIX 所有权和权限管理<br>共享信息<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/aix/library/au-speakingunix4/index.html">https://www.ibm.com/developerworks/cn/aix/library/au-speakingunix4/index.html</a></p>
+<p>UNIX 文件的权限位 表示了三类用户（您本人、您的一个组和其他用户）的某一种特定的权限<br>10 个字符组成的序列<br>每个字符都是一个开/关设置或位</p>
+<p>起始位表示该文件是否为目录（通常，起始位 表示该文件是否为特殊文件。如果该文件是特殊文件，起始字符 d 表示目录、l 表示符号链接，等等）。这个设置是无法改变的。</p>
+<p>接下来的三位（用蓝色表示的）分别表示您 对该文件的读、写和执行权限。您可以禁用写权限位，例如要防止删除文件。（是的，要删除一个文件，您需要写权限。）</p>
+<p>接下来的三位（用绿色表示的）表示组 对该文件的读、写和执行权限。</p>
+<p>最后的三位（用橙色表示的）表示所有其他 用户（即除了您自己以及您的组中的成员之外的所有用户）的权限。</p>
+<p>您可以使用 chmod（更改模式 change mode）命令修改相应的权限（除了目录位之外）。您可以使用 chgrp（更改组 change group）命令来修改文件所属的组。（超级用户 root 也可以使用 chown 或 change owner 命令来更改文件所有权。）</p>
+<p>find . -type f -print | sort | uniq</p>
+<p>您可以使用符号 ~（波浪符号）引用您的 home 目录。您还可以使用 $HOME 环境变量引用您的 home 目录</p>
+<p>许多程序可以从一个名为 .netrc（读做 net-r-c）的文件中读取您的凭据，该文件通常位于 ~/.netrc 目录中。</p>
+<p>Linux 新用户的基本任务<br>Linux 安装好后，下一步该做什么？<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/tutorials/l-basics/">https://www.ibm.com/developerworks/cn/linux/tutorials/l-basics/</a></p>
+<p>学习 Linux，101<br>LPIC-1 路线图<br>关于 LPIC-1 考试准备的 developerWorks 文章指南<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/l-lpic1-v3-map/">https://www.ibm.com/developerworks/cn/linux/l-lpic1-v3-map/</a></p>
+<p>学习 Linux，101<br>创建和更改硬链接和符号链接<br>为同一文件使用多个名称<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/l-lpic1-v3-104-6/">https://www.ibm.com/developerworks/cn/linux/l-lpic1-v3-104-6/</a></p>
+<p>学习 Linux，101<br>管理文件权限和所有权<br>在您的文件上设置正确的安全性<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/l-lpic1-v3-104-5/index.html">https://www.ibm.com/developerworks/cn/linux/l-lpic1-v3-104-5/index.html</a></p>
+<p>学习 Linux，101<br>RPM 和 YUM 包管理<br>添加新软件并及时更新系统<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/l-lpic1-v3-102-5/">https://www.ibm.com/developerworks/cn/linux/l-lpic1-v3-102-5/</a></p>
+<p>Bash 实例，第一部分<br>Bourne again shell (bash) 基本编程<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/shell/bash/bash-1/">https://www.ibm.com/developerworks/cn/linux/shell/bash/bash-1/</a></p>
+<p>Bash 实例，第 2 部分<br>更多的 bash 基本编程<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/shell/bash/bash-2/">https://www.ibm.com/developerworks/cn/linux/shell/bash/bash-2/</a></p>
+<p>Bash 实例，第 3 部分<br>探讨 ebuild 系统<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/shell/bash/bash-3/">https://www.ibm.com/developerworks/cn/linux/shell/bash/bash-3/</a></p>
+<p>系统管理员工具包<br>充分利用 bash<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/aix/library/au-satbash.html">https://www.ibm.com/developerworks/cn/aix/library/au-satbash.html</a></p>
+<p>LPI 102 考试准备，主题 109<br>Shell、脚本、编程和编译<br>初级管理（LPIC-1）主题 109<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/education/linux/l-lpic1109/index.html">https://www.ibm.com/developerworks/cn/education/linux/l-lpic1109/index.html</a></p>
+<p>LPI 102 考试准备，主题 109<br>Shell、脚本、编程和编译<br>初级管理（LPIC-1）主题 109<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/education/linux/l-lpic1109/index.html">https://www.ibm.com/developerworks/cn/education/linux/l-lpic1109/index.html</a></p>
+<p>Linux 编程和系统管理新手入门<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/newto/index.html">https://www.ibm.com/developerworks/cn/linux/newto/index.html</a></p>
+<p>Windows 到 Linux 之旅: 系列文章概述<br>指引开发者走向 Linux 的路线图<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/l-roadmap/index.html">https://www.ibm.com/developerworks/cn/linux/l-roadmap/index.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/l-roadmap/part4/index.html" title="密码、组和它们的映像">Windows 到 Linux 之旅: 第 4 部分. 用户管理</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/l-roadmap/part6/index.html" title="在 Linux中使用磁盘和设备">Windows 到 Linux 之旅: 第 6 部分. 使用分区和文件系统</a></p>
+<h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><p>超越 MySQL<br>对流行数据库进行分支<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/opensource/os-beyondmysql/">https://www.ibm.com/developerworks/cn/opensource/os-beyondmysql/</a></p>
+<p>LAMP 系统性能调优，第 3 部分<br>MySQL 服务器调优<br>利用服务器的几个调优技巧，让 MySQL 服务器飞速运行<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/l-tune-lamp-3.html">https://www.ibm.com/developerworks/cn/linux/l-tune-lamp-3.html</a></p>
+<h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><p>响应式 Web 设计技巧<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/web/1506_zhangqun_responsiveweb/">https://www.ibm.com/developerworks/cn/web/1506_zhangqun_responsiveweb/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/web/wa-sass">利用 Sass 改善 CSS 预处理</a></p>
+<p>Syntactically awesome stylesheets (Sass) 是一种元语言和层叠式样式表 (CSS) 预处理程序</p>
+<p>Sass 主要使用 Ruby 来实现</p>
+<h2 id="html5"><a href="#html5" class="headerlink" title="html5"></a>html5</h2><h3 id="使用-HTML-5-创建移动-Web-应用程序"><a href="#使用-HTML-5-创建移动-Web-应用程序" class="headerlink" title="使用 HTML 5 创建移动 Web 应用程序"></a>使用 HTML 5 创建移动 Web 应用程序</h3><p><a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/xml/x-html5mobile1/index.html" title="查找并跟踪位置坐标以用在各种 Web 服务中">第 1 部分: 联合使用 HTML 5、地理定位 API 和 Web 服务来创建移动混搭程序</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/xml/x-html5mobile2/index.html" title="利用标准化的本地存储提高移动应用程序的速度">第 2 部分: 使用 HTML 5 开启移动 Web 应用程序的本地存储</a></p>
+<p>localStorage API </p>
+<p><a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/xml/x-html5mobile3/index.html" title="使您的应用程序无论有无 Internet 连接都能正常工作">第 3 部分: 使用 HTML 5 支持移动 Web 应用程序离线工作</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/xml/x-html5mobile4/index.html" title="向 HTML 5 添加多线程 JavaScript 赢得胜利！">第 4 部分: 使用 Web Workers 来加速您的移动 Web 应用程序</a></p>
+<p>Web Worker 规范</p>
+<p>从 Android 2.0 开始，Android 浏览器就拥有了对 HTML 5 Web Worker 规范的全面支持。</p>
+<p><a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/xml/x-html5mobile5/index.html" title="向移动 Web 应用程序添加 Canvas、CSS3 和更多语义元素">第 5 部分: 使用 HTML 5 开发新的可视化 UI 特性</a></p>
+<p>所有基于 Webkit 的浏览器都能实现 Canvas 并极大地优化其性能。</p>
+<h1 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h1><p>ImageMagick 魔咒<br>面向用户和程序员等受众的图像处理<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/opensource/os-imagemagick/index.html">https://www.ibm.com/developerworks/cn/opensource/os-imagemagick/index.html</a></p>
+<h1 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h1><p>利用 squid 反向代理提高网站性能<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/l-cn-squid/">https://www.ibm.com/developerworks/cn/linux/l-cn-squid/</a></p>
+<p>MQ 遥测传输 (MQTT) V3.1 协议规范<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/webservices/ws-mqtt/index.html">https://www.ibm.com/developerworks/cn/webservices/ws-mqtt/index.html</a></p>
+<p>使用 Nginx 提升网站访问速度<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/web/wa-lo-nginx/">https://www.ibm.com/developerworks/cn/web/wa-lo-nginx/</a></p>
+<p>管理移动云套接字连接<br>云提供商如何管理移动应用程序与云之间的连接<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/cloud/library/cl-mobilesockconnect/">https://www.ibm.com/developerworks/cn/cloud/library/cl-mobilesockconnect/</a></p>
+<p>配置 Tomcat 和 Wireshark 来获取并解码 SSL 通信<br>调试安全通信<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/web/tutorials/wa-tomcat/">https://www.ibm.com/developerworks/cn/web/tutorials/wa-tomcat/</a></p>
+<p>使用 OpenSSL API 进行安全编程<br>创建基本的安全连接和非安全连接<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/l-openssl.html">https://www.ibm.com/developerworks/cn/linux/l-openssl.html</a></p>
+<p>利用物联网 (IoT)<br>探索 IoT 的 7 个重要概念和开始使用它的 4 个步骤<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/iot/iot-key-concepts/index.html">https://www.ibm.com/developerworks/cn/iot/iot-key-concepts/index.html</a></p>
+<p>了解 IT 即流程<br>如何自动化企业中的 IT 操作<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/websphere/techjournal/1510_brown-trs/1510_brown.html">https://www.ibm.com/developerworks/cn/websphere/techjournal/1510_brown-trs/1510_brown.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/cloud/library/using-access-tokens-secure-microservices/index.html">使用访问令牌保护微服务</a></p>
+<h1 id="量子计算"><a href="#量子计算" class="headerlink" title="量子计算"></a>量子计算</h1><p>量子计算入门<br>棘手问题的简便解法指南<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/other/quant/">https://www.ibm.com/developerworks/cn/linux/other/quant/</a></p>
+<h1 id="LLVM"><a href="#LLVM" class="headerlink" title="LLVM"></a>LLVM</h1><p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/opensource/os-createcompilerllvm1/" title="使用 LLVM 及其中间表示构建一个自定义编译器">使用 LLVM 框架创建一个工作编译器，第 1 部分</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/opensource/os-createcompilerllvm2/" title="使用 clang 预处理 C/C++ 代码">使用 LLVM 框架创建有效的编译器，第 2 部分</a></p>
+<p>LLVM 拥有自己的前端：名为 clang 的一种工具（恰如其分）。Clang 是一种功能强大的 C/C++/Objective-C 编译器，其编译速度可以媲美甚至超过 GNU Compiler Collection (GCC) 工具（参见 参考资料 中的链接，获取更多信息）。更重要的是，clang 拥有一个可修改的代码基，可以轻松实现定制扩展。</p>
+<h1 id="blockchain"><a href="#blockchain" class="headerlink" title="blockchain"></a>blockchain</h1><p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/cloud/library/cl-blockchain-basics-intro-bluemix-trs/index.html" title="了解这种改变游戏规则的技术和 IBM 对它的贡献">区块链技术基础：商业账本简介</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/cloud/library/cl-blockchain-basics-glossary-bluemix-trs/index.html" title="区块链的关键术语和无限可能的潜在应用场景">区块链技术基础：术语和用例</a></p>
+<h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/web/wa-docker-polyglot-programmers/" title="过渡到容器化的应用程序以提高编码生产力和您的开发智商">Docker：带给现代开发人员的福利</a></p>
+<p>Docker 就像是用于 DevOps 的一把瑞士军刀，这一点已得到充分证明。但 Docker 托管的应用程序容器的用途不仅是在云中部署服务器。Docker 容器还可以在许多常见的开发场景中帮助开发和显著提高生产力。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/06/10/ibm-developerworks/" data-id="cl51yqkp200f0coyzfxukhn3r" data-title="IBM developerWorks" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/10/java-tips/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Java点点
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/10/en-quotes/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">quotes</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+<script src="https://utteranc.es/client.js"
+        repo="hezhigang/hezhigang.github.io"
+        issue-term="pathname"
+        label="utterances"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/" rel="tag">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bit-Manipulation/" rel="tag">Bit Manipulation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/" rel="tag">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bruce-Lee/" rel="tag">Bruce Lee</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CEMC/" rel="tag">CEMC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/" rel="tag">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/" rel="tag">Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Divide-and-Conquer/" rel="tag">Divide and Conquer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFmpeg/" rel="tag">FFmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/" rel="tag">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/" rel="tag">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HackerRank/" rel="tag">HackerRank</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/" rel="tag">Hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashTable/" rel="tag">HashTable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/" rel="tag">Heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IELTS/" rel="tag">IELTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/" rel="tag">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/" rel="tag">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/" rel="tag">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lin-Yutang/" rel="tag">Lin Yutang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/" rel="tag">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marcus-Du-Sautoy/" rel="tag">Marcus Du Sautoy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathematics/" rel="tag">Mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/" rel="tag">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/" rel="tag">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programming/" rel="tag">Programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/" rel="tag">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/" rel="tag">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/" rel="tag">Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEDx/" rel="tag">TEDx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terence-Tao/" rel="tag">Terence Tao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/" rel="tag">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Topological-Sort/" rel="tag">Topological Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/" rel="tag">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/" rel="tag">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/" rel="tag">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backtracking/" rel="tag">backtracking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/" rel="tag">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bilingual/" rel="tag">bilingual</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/" rel="tag">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrency/" rel="tag">concurrency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coronavirus/" rel="tag">coronavirus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/creative-thinking/" rel="tag">creative thinking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/" rel="tag">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/" rel="tag">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/essay/" rel="tag">essay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firefox/" rel="tag">firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/geometry/" rel="tag">geometry</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/" rel="tag">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graph/" rel="tag">graph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/" rel="tag">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history-of-mathematics/" rel="tag">history of mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ide/" rel="tag">ide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/" rel="tag">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/" rel="tag">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/logic/" rel="tag">logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/" rel="tag">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/" rel="tag">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/physics/" rel="tag">physics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/popscience/" rel="tag">popscience</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programmer/" rel="tag">programmer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quantum/" rel="tag">quantum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recurrence/" rel="tag">recurrence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/song/" rel="tag">song</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/" rel="tag">stack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/" rel="tag">vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/" rel="tag">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wolfram/" rel="tag">wolfram</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" rel="tag">中文经典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E6%96%87/" rel="tag">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" rel="tag">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" rel="tag">数学史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" rel="tag">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" rel="tag">李小龙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" rel="tag">李笑来</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" rel="tag">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" rel="tag">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8B%B1%E8%AF%AD/" rel="tag">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%91%E8%A8%80/" rel="tag">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 19.44px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.22px;">Array</a> <a href="/tags/BFS/" style="font-size: 15px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.56px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15.56px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 16.11px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.44px;">DFS</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.11px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.78px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.89px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 13.89px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 11.11px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.89px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.56px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.67px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.56px;">Mathematics</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10.56px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.56px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.67px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.78px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.56px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 13.33px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 14.44px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.67px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.56px;">Topological Sort</a> <a href="/tags/Tree/" style="font-size: 11.67px;">Tree</a> <a href="/tags/Two-Pointers/" style="font-size: 15.56px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.67px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.56px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.11px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 20px;">english</a> <a href="/tags/essay/" style="font-size: 11.67px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.22px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.67px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.89px;">java</a> <a href="/tags/javascript/" style="font-size: 10.56px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.56px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.67px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.11px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 18.33px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 11.67px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 11.11px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.78px;">regex</a> <a href="/tags/song/" style="font-size: 13.33px;">song</a> <a href="/tags/sql/" style="font-size: 10.56px;">sql</a> <a href="/tags/stack/" style="font-size: 10.56px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.56px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 12.22px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10.56px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 10.56px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12.22px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 12.22px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 10.56px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/01/Canada-Billy-Collins/">Canada</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/30/An-Essay-on-Criticism-Part-3-Alexander-Pope/">An Essay on Criticism Part 3</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/29/An-Essay-on-Criticism-Part-2-Alexander-Pope/">An Essay on Criticism Part 2</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/28/An-Essay-on-Criticism-Part-1-Alexander-Pope/">An Essay on Criticism Part 1</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/24/a-question-robert-frost/">A Question</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 hezhigang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

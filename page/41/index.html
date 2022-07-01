@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>A Humble Programmer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="A Humble Programmer">
+<meta property="og:url" content="https://hezhigang.github.io/page/41/index.html">
+<meta property="og:site_name" content="A Humble Programmer">
+<meta property="og:locale">
+<meta property="article:author" content="hezhigang">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="A Humble Programmer" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">A Humble Programmer</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hezhigang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-mysql-points" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/29/mysql-points/" class="article-date">
+  <time datetime="2018-06-29T14:33:40.000Z" itemprop="datePublished">2018-06-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/29/mysql-points/">mysql知识点</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="limit"><a href="#limit" class="headerlink" title="limit"></a>limit</h1><p><code>LIMIT row_count</code> is equivalent to <code>LIMIT 0, row_count</code></p>
+<p><code>LIMIT &#123;[offset,] row_count</code></p>
+<p><code>limit row_count offset offset</code></p>
+<p>For compatibility with <strong>PostgreSQL</strong>, MySQL also supports the <code>LIMIT row_count OFFSET offset</code> syntax.</p>
+<p>With two arguments, the first argument specifies the offset of the first row to return, and the second specifies the maximum number of rows to return. <strong>The offset of the initial row is 0 (not 1)</strong></p>
+<h1 id="GROUP-CONCAT"><a href="#GROUP-CONCAT" class="headerlink" title="GROUP_CONCAT"></a>GROUP_CONCAT</h1><p> This function returns a string result with the concatenated non-NULL values from a group. It returns NULL if there are no non-NULL values. The full syntax is as follows:</p>
+<pre><code>GROUP_CONCAT([DISTINCT] expr [,expr ...]
+         [ORDER BY &#123;unsigned_integer | col_name | expr&#125;
+             [ASC | DESC] [,col_name ...]]
+         [SEPARATOR str_val])
+</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> student_name, </span><br><span class="line">GROUP_CONCAT(<span class="keyword">DISTINCT</span> test_score <span class="keyword">ORDER</span> <span class="keyword">BY</span> test_score <span class="keyword">DESC</span> SEPARATOR <span class="string">&#x27; &#x27;</span>) </span><br><span class="line"><span class="keyword">FROM</span> student </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> student_name;</span><br></pre></td></tr></table></figure>
+
+<h1 id="MySQL-Emulate-row-number"><a href="#MySQL-Emulate-row-number" class="headerlink" title="MySQL Emulate row_number"></a>MySQL Emulate row_number</h1><h2 id="LeetCode-SQL-Problem"><a href="#LeetCode-SQL-Problem" class="headerlink" title="LeetCode SQL Problem"></a>LeetCode SQL Problem</h2><h3 id="178-Rank-Scores"><a href="#178-Rank-Scores" class="headerlink" title="178. Rank Scores"></a>178. Rank Scores</h3><pre><code>select a.Score,b.`Rank` from Scores a,
+(
+select t.Score,(@row_number:=@row_number+1) as `Rank` from 
+(
+select distinct Score from Scores order by Score desc
+) t,(SELECT @row_number:=0) t2
+) b
+where a.Score=b.Score 
+order by a.Score desc;
+</code></pre>
+<h3 id="185-Department-Top-Three-Salaries"><a href="#185-Department-Top-Three-Salaries" class="headerlink" title="185. Department Top Three Salaries"></a>185. Department Top Three Salaries</h3><pre><code>select t.DepartmentId,t.Salary,(@num:=if(@deptId = t.DepartmentId, @num +1, if(@deptId := t.DepartmentId, 1, 1))) as row_number from 
+(
+select distinct DepartmentId,Salary from Employee
+) t 
+CROSS JOIN (select @num:=0, @deptId:=null) c  
+order by t.DepartmentId,t.Salary desc;
+</code></pre>
+<h1 id="JOIN"><a href="#JOIN" class="headerlink" title="JOIN"></a>JOIN</h1><h2 id="INNER-JOIN-vs-CROSS-JOIN"><a href="#INNER-JOIN-vs-CROSS-JOIN" class="headerlink" title="INNER JOIN vs. CROSS JOIN"></a>INNER JOIN vs. CROSS JOIN</h2><p>In MySQL, <code>JOIN</code>, <code>CROSS JOIN</code>, and <code>INNER JOIN</code> are syntactic equivalents (they can replace each other). In standard SQL, they are not equivalent. <code>INNER JOIN</code> is used with an ON clause, <code>CROSS JOIN</code> is used otherwise.</p>
+<p>In MySQL, For example:</p>
+<pre><code>SELECT * FROM t1 LEFT JOIN (t2, t3, t4)
+             ON (t2.a=t1.a AND t3.b=t1.b AND t4.c=t1.c)
+</code></pre>
+<p>is equivalent to:</p>
+<pre><code>SELECT * FROM t1 LEFT JOIN (t2 CROSS JOIN t3 CROSS JOIN t4)
+             ON (t2.a=t1.a AND t3.b=t1.b AND t4.c=t1.c)
+</code></pre>
+<h2 id="LEFT-JOIN-vs-RIGHT-JOIN"><a href="#LEFT-JOIN-vs-RIGHT-JOIN" class="headerlink" title="LEFT JOIN vs. RIGHT JOIN"></a>LEFT JOIN vs. RIGHT JOIN</h2><p>RIGHT JOIN works analogously to LEFT JOIN. To keep code portable across databases, it is recommended that you use LEFT JOIN instead of RIGHT JOIN.</p>
+<h1 id="User-Defined-Variables"><a href="#User-Defined-Variables" class="headerlink" title="User-Defined Variables"></a>User-Defined Variables</h1><p> You can store a value in a user-defined variable in one statement and then refer to it later in another statement. This enables you to pass values from one statement to another. User-defined variables are session-specific. That is, a user variable defined by one client cannot be seen or used by other clients. All variables for a given client session are automatically freed when that client exits.</p>
+<p>User variables are written as @var_name, where the variable name var_name consists of alphanumeric characters, “.”, “_”, and “$”. A user variable name can contain other characters if you quote it as a string or identifier (for example, @’my-var’, @”my-var”, or @`my-var`).</p>
+<p>User variable names are not case sensitive.</p>
+<p>One way to set a user-defined variable is by issuing a SET statement:</p>
+<p>SET @var_name = expr [, @var_name = expr] …</p>
+<p>For SET, either = or := can be used as the assignment operator.</p>
+<p><strong>You can also assign a value to a user variable in statements other than SET. In this case, the assignment operator must be := and not = because the latter is treated as the comparison operator = in non-SET statements</strong>:</p>
+<pre><code>SET @t1=1, @t2=2, @t3:=4;
+SELECT @t1, @t2, @t3, @t4 := @t1+@t2+@t3;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>@t1</th>
+<th>@t2</th>
+<th>@t3</th>
+<th>@t4 := @t1+@t2+@t3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+<td>7</td>
+</tr>
+</tbody></table>
+<pre><code>SELECT (@aa:=id) AS a, (@aa+3) AS b FROM tbl_name HAVING b=5;
+</code></pre>
+<p>The reference to b in the HAVING clause refers to an alias for an expression in the select list that uses @aa. This does not work as expected: @aa contains the value of id from the previous selected row, not from the current row.</p>
+<h1 id="Multi-Table-Deletes"><a href="#Multi-Table-Deletes" class="headerlink" title="Multi-Table Deletes"></a>Multi-Table Deletes</h1><p>You can specify multiple tables in a DELETE statement to delete rows from one or more tables depending on the condition in the WHERE clause.</p>
+<p>For the first multiple-table syntax, only matching rows from the tables listed before the FROM clause are deleted. For the second multiple-table syntax, only matching rows from the tables listed in the FROM clause (before the USING clause) are deleted. The effect is that you can delete rows from many tables at the same time and have additional tables that are used only for searching:</p>
+<pre><code>DELETE t1, t2 FROM t1 INNER JOIN t2 INNER JOIN t3
+WHERE t1.id=t2.id AND t2.id=t3.id;
+</code></pre>
+<p>Or:</p>
+<pre><code>DELETE FROM t1, t2 USING t1 INNER JOIN t2 INNER JOIN t3
+WHERE t1.id=t2.id AND t2.id=t3.id;
+</code></pre>
+<p>These statements use all three tables when searching for rows to delete, but delete matching rows only from tables t1 and t2. </p>
+<blockquote>
+<p> If you declare an alias for a table, you must use the alias when referring to the table:<br> <code>DELETE t1 FROM test AS t1, test2 WHERE ...</code></p>
+</blockquote>
+<p> Table aliases in a multiple-table DELETE should be declared only in the table_references part of the statement. Elsewhere, alias references are permitted but not alias declarations.</p>
+<p>Correct:</p>
+<pre><code>DELETE a1, a2 FROM t1 AS a1 INNER JOIN t2 AS a2
+WHERE a1.id=a2.id;
+
+DELETE FROM a1, a2 USING t1 AS a1 INNER JOIN t2 AS a2
+WHERE a1.id=a2.id;
+</code></pre>
+<p>Incorrect:</p>
+<pre><code>DELETE t1 AS a1, t2 AS a2 FROM t1 INNER JOIN t2
+WHERE a1.id=a2.id;
+
+DELETE FROM t1 AS a1, t2 AS a2 USING t1 INNER JOIN t2
+WHERE a1.id=a2.id; 
+</code></pre>
+<h1 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h1><p>The ALL and DISTINCT options specify whether duplicate rows should be returned. ALL (the default) specifies that all matching rows should be returned, including duplicates. DISTINCT specifies removal of duplicate rows from the result set. It is an error to specify both options. DISTINCTROW is a synonym for DISTINCT.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/06/29/mysql-points/" data-id="cl51yqkpu00mjcoyz9n2cekun" data-title="mysql知识点" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-db-ppt-digest-ljchen-pku" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/18/db-ppt-digest-ljchen-pku/" class="article-date">
+  <time datetime="2018-06-18T11:56:38.000Z" itemprop="datePublished">2018-06-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/18/db-ppt-digest-ljchen-pku/">数据库概论（陈立军, 北大）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="成功的七项习惯"><a href="#成功的七项习惯" class="headerlink" title="成功的七项习惯"></a>成功的七项习惯</h1><p>第一项习惯：积极主动<br>第二项习惯：一开始就想到最后的目标<br>第三项习惯：重要的事首先做<br>第四项习惯：双赢<br>第五项习惯：先了解别人，再让别人理解自己<br>第六项习惯：合作协调<br>第七项习惯：磨刀不误砍柴功</p>
+<h1 id="名言"><a href="#名言" class="headerlink" title="名言"></a>名言</h1><blockquote>
+<p>科学根源于交谈，在不同的人的合作之下，可能孕育出极为重要的科学成果。 —— 海森堡</p>
+</blockquote>
+<blockquote>
+<p>由于搭便车行为的存在，理性、自利的个人一般不会为争取集体利益作贡献 —— 奥尔森，《集体行动的逻辑》</p>
+</blockquote>
+<blockquote>
+<p>不同文化的社会中都存在一些利他主义者，一个群体或社会中如果有百分之三的利他主义者，整个社会的风气和行为规范就会出现可喜的变化</p>
+</blockquote>
+<h1 id="格言"><a href="#格言" class="headerlink" title="格言"></a>格言</h1><ul>
+<li>戴手套的猫逮不着老鼠</li>
+<li>倒塌的灯塔比暗礁更危险</li>
+<li>对青少年火一样的激情，岁月是最好的灭火器</li>
+<li>不掷色子，就永远别想得到六点</li>
+<li>统计数字就像超短裙，掩盖起来的部分才是关键</li>
+<li>老鼠夹上总会有免费蛋糕</li>
+</ul>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>Jim Gray Summary Home Page<br><a target="_blank" rel="noopener" href="http://jimgray.azurewebsites.net/">http://jimgray.azurewebsites.net/</a><br>His primary research interests are in databases and transaction processing systems – with particular focus on using computers to make scientists more productive. </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/06/18/db-ppt-digest-ljchen-pku/" data-id="cl51yqkoq00ascoyz7e0l3tfx" data-title="数据库概论（陈立军, 北大）" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-football-joke" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/17/football-joke/" class="article-date">
+  <time datetime="2018-06-17T21:21:41.000Z" itemprop="datePublished">2018-06-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/17/football-joke/">Football Joke</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bud_Wilkinson">Bud Wilkinson</a>, former football coach at the University of Oklahoma, was in Dallas for a series of lectures on physical fitness. A TV reporter interviewed him about the President’s physical fitness program and asked: “Mr Wilkinson, what would you say is the contribution of modern football to physical fitness?” The reporter expected a lengthy speech.</p>
+<p>As if he had been waiting 30 years for this question, he said, “Absolutely nothing.”</p>
+<p>The young reporter stared and squirmed and finally stuttered, “Would you care to elaborate on that?”</p>
+<p>Wilkinson said, “Certainly. __I define football as 22 men on the field who desperately need rest and 50,000 people in the stands who desperately need exercise.__”</p>
+<p>记者问俄克拉荷马大学足球教练布得·W，足球对体育锻炼有何贡献？</p>
+<p>“绝对没有”，布得立即回答。</p>
+<p>“绝对没有？”吃惊的记者问，“你能说得详细一点吗？”</p>
+<p>“当然”，布得说，“__我认为足球是二十二个需要休息的人在场上拼命地跑，而五万个需要运动的人却坐在那里看。__”</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/06/17/football-joke/" data-id="cl51yqkou00c6coyz8auhbb8n" data-title="Football Joke" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%8B%B1%E8%AF%AD/" rel="tag">英语</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-qiniu-founder-xushiwei-quotes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/16/qiniu-founder-xushiwei-quotes/" class="article-date">
+  <time datetime="2018-06-16T19:09:52.000Z" itemprop="datePublished">2018-06-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/16/qiniu-founder-xushiwei-quotes/">七牛许式伟的感言</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>我为谁提供服务的认知，比我是哪个领域的程序员（工种认知）更重要</li>
+<li>有些程序员只关心技术，而不关心业务，我认为这会制约他们的发展，所以才给了这样的忠告。只关心技术的人很快就会遇到成长的天花板。</li>
+<li>大部分人学习的时候太功利，不太重视学习基本功，比如编译原理。事实上我认为编译原理是非常非常重要的一门基础知识。某种程度上说可能是名字不够好，我个人更喜欢把这个领域叫做文本处理。</li>
+<li>没有正确的编程语言，只有合适自己的语言。选择语言需要基于你对要解决的问题域的理解而做出抉择。当然，这事也和品味有关，不同语言实际上体现的是创始人的个性。不少程序员喜欢把语言看做阵营。我个人没有这种想法，语言说白了只是个工具。</li>
+<li>学习新语言的最好办法是实践。你用它写几个程序解决你实际生产环境你遇到的问题，这比任何方式都有效。我记得我第一个C语言程序是在DOS环境下模仿实现了一个doskey，这个东西挺复杂，涉及编辑器、TSR驻留这些领域知识，一个程序写下来有好几千行。这就是我自己的学习方法。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/06/16/qiniu-founder-xushiwei-quotes/" data-id="cl51yqkpx00nacoyze0o4hj8o" data-title="七牛许式伟的感言" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-mathworld-wolfram-selected" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/13/mathworld-wolfram-selected/" class="article-date">
+  <time datetime="2018-06-14T01:46:10.000Z" itemprop="datePublished">2018-06-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/13/mathworld-wolfram-selected/">Wolfram MathWorld selected</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Recreational-Mathematics"><a href="#Recreational-Mathematics" class="headerlink" title="Recreational Mathematics"></a>Recreational Mathematics</h1><p>Beast Number<br><a target="_blank" rel="noopener" href="http://mathworld.wolfram.com/BeastNumber.html">http://mathworld.wolfram.com/BeastNumber.html</a></p>
+<p>Hardy-Ramanujan Number<br><a target="_blank" rel="noopener" href="http://mathworld.wolfram.com/Hardy-RamanujanNumber.html">http://mathworld.wolfram.com/Hardy-RamanujanNumber.html</a></p>
+<p>Tangram<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/Tangram.html">https://mathworld.wolfram.com/Tangram.html</a></p>
+<p>Magic Square<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/MagicSquare.html">https://mathworld.wolfram.com/MagicSquare.html</a></p>
+<p>Pythagorean Square Puzzle<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/PythagoreanSquarePuzzle.html">https://mathworld.wolfram.com/PythagoreanSquarePuzzle.html</a></p>
+<p>Tic-Tac-Toe<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/Tic-Tac-Toe.html">https://mathworld.wolfram.com/Tic-Tac-Toe.html</a></p>
+<p>Chess<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/Chess.html">https://mathworld.wolfram.com/Chess.html</a></p>
+<p>Go<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/Go.html">https://mathworld.wolfram.com/Go.html</a></p>
+<p>Poker<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/Poker.html">https://mathworld.wolfram.com/Poker.html</a></p>
+<p>Dice<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/Dice.html">https://mathworld.wolfram.com/Dice.html</a></p>
+<p>Bowling<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/Bowling.html">https://mathworld.wolfram.com/Bowling.html</a></p>
+<p>Icosian Game<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/IcosianGame.html">https://mathworld.wolfram.com/IcosianGame.html</a></p>
+<p>Maze<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/Maze.html">https://mathworld.wolfram.com/Maze.html</a></p>
+<p>String Figure<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/StringFigure.html">https://mathworld.wolfram.com/StringFigure.html</a></p>
+<h2 id="Illusions"><a href="#Illusions" class="headerlink" title="Illusions"></a>Illusions</h2><p>Ambihelical Hexnut<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/AmbihelicalHexnut.html">https://mathworld.wolfram.com/AmbihelicalHexnut.html</a></p>
+<p>Angle Illusions<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/AngleIllusions.html">https://mathworld.wolfram.com/AngleIllusions.html</a></p>
+<p>Benham’s Wheel<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/BenhamsWheel.html">https://mathworld.wolfram.com/BenhamsWheel.html</a></p>
+<p>Bullseye Illusion<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/BullseyeIllusion.html">https://mathworld.wolfram.com/BullseyeIllusion.html</a></p>
+<p>Café Wall Illusion<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/CafeWallIllusion.html">https://mathworld.wolfram.com/CafeWallIllusion.html</a></p>
+<p>Continuous Line Illusion<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/ContinuousLineIllusion.html">https://mathworld.wolfram.com/ContinuousLineIllusion.html</a></p>
+<p>Delboeuf Illusion<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/DelboeufIllusion.html">https://mathworld.wolfram.com/DelboeufIllusion.html</a></p>
+<p>Ehrenstein Illusion<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/EhrensteinIllusion.html">https://mathworld.wolfram.com/EhrensteinIllusion.html</a></p>
+<p>Fraser’s Spiral<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/FrasersSpiral.html">https://mathworld.wolfram.com/FrasersSpiral.html</a></p>
+<p>Freemish Crate<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/FreemishCrate.html">https://mathworld.wolfram.com/FreemishCrate.html</a></p>
+<p>Goblet Illusion<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/GobletIllusion.html">https://mathworld.wolfram.com/GobletIllusion.html</a></p>
+<p>Hering Illusion<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/HeringIllusion.html">https://mathworld.wolfram.com/HeringIllusion.html</a></p>
+<p>Illusory Contour Figures<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/IllusoryContourFigures.html">https://mathworld.wolfram.com/IllusoryContourFigures.html</a></p>
+<p>Impossible Fork<br><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/ImpossibleFork.html">https://mathworld.wolfram.com/ImpossibleFork.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/06/13/mathworld-wolfram-selected/" data-id="cl51yqkpo00l1coyzbnvs5ec6" data-title="Wolfram MathWorld selected" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/" rel="tag">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-infoq-selected" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/11/infoq-selected/" class="article-date">
+  <time datetime="2018-06-11T12:35:25.000Z" itemprop="datePublished">2018-06-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/11/infoq-selected/">InfoQ选集</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>DRYer CSS with LESS or Sass<br><a target="_blank" rel="noopener" href="https://www.infoq.com/news/2009/07/dry-css-less-yass">https://www.infoq.com/news/2009/07/dry-css-less-yass</a></p>
+<p>DSL Evolution<br><a target="_blank" rel="noopener" href="https://www.infoq.com/articles/dsl-evolution">https://www.infoq.com/articles/dsl-evolution</a></p>
+<p>Application Security With Apache Shiro<br><a target="_blank" rel="noopener" href="https://www.infoq.com/articles/apache-shiro">https://www.infoq.com/articles/apache-shiro</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/06/11/infoq-selected/" data-id="cl51yqkp100elcoyzg5bkbjn6" data-title="InfoQ选集" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/infoq/" rel="tag">infoq</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-GIS-Open-Source" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/10/GIS-Open-Source/" class="article-date">
+  <time datetime="2018-06-10T19:35:37.000Z" itemprop="datePublished">2018-06-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/10/GIS-Open-Source/">开源GIS</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h1><p>开源GIS服务器主要有map server和geo server。</p>
+<h2 id="Map-server"><a href="#Map-server" class="headerlink" title="Map server"></a>Map server</h2><p>Map server有两个版本，完全免费的那个那个版本是由明尼苏达大学开发的，全部是用C语言完成，效率很高可以媲美ARCGIS SERVER，并且支持我所知道的所有GIS数据源，但是相对来说简陋一些，并且没有内置AJAX支持。而map server的企业版本来是auto desk公司的map guide,这个版本功能很强大，而且还有IDE支持，当然IDE也有两个版本（付费的和不付费的），此外auto desk还封装了很多AJAX组建，因此这个版本可以说是真的企业级支持了。</p>
+<h2 id="GEO-SERVER"><a href="#GEO-SERVER" class="headerlink" title="GEO SERVER"></a>GEO SERVER</h2><p>而 geo server则是另外的选择了，它是基于JAVA平台做的，安装时需要JDK1.4（高版本的也不行），其功能上和map server的完全免费版类似，但是性能上次之，只是如果对跨平台要求比较高的话，可以考虑使用它。</p>
+<h1 id="Client"><a href="#Client" class="headerlink" title="Client"></a>Client</h1><h2 id="桌面GIS"><a href="#桌面GIS" class="headerlink" title="桌面GIS"></a>桌面GIS</h2><p>QGIS和GRASS是很好的桌面GIS，当然基于ECLIPSE平台的UDIG也是另外一个选择。QGIS 的最大特点在于界面很友好，熟悉ARCGIS的人都能很快的掌握QGIS的操作，另外QGIS对WMS的支持也不错。再者QGIS可以无缝集成 POSTGIS，最后QGIS几乎完全照搬了GRASS的分析功能，因此其分析功能也很强大。GRASS本是美国军方开发的GIS，开源后一直受到美国大学老师们的青睐，它可以提供很多ARCGIS能提供的分析功能（当然每一种功能可选的算法没后者多），但是GRASS的界面比较丑陋，很多功能需要手动运行命令，因此不太适合大多数人用。基于eclipse平台的UDIG是桌面GIS的又一个选择，由于它是基于eclipse平台的，运行起来比较慢一点，而且比较耗内存。与前两者相比，它的优势在于操作的简单性，而且支持很多种空间数据源，包括很多商业空间数据库，缺点主要是分析功能比较弱。不过现在 UDIG发展很迅速，也建议尝试一下。</p>
+<h2 id="OpenLayers-for-Javascript"><a href="#OpenLayers-for-Javascript" class="headerlink" title="OpenLayers for Javascript"></a>OpenLayers for Javascript</h2><p>OpenLayers 是由 MetaCarta公司开发的， 用于WebGIS客户端的JavaScript包，目前的最高版本是2.5 V，通过BSD License 发行。它实现访问地理空间数据的方法都符合行业标准，比如OpenGIS的WMS和WFS规范， OpenLayers采用纯面向对象的JavaScript方式开发，同时借用了Prototype框架和Rico库的一些组件。</p>
+<h1 id="空间数据库"><a href="#空间数据库" class="headerlink" title="空间数据库"></a>空间数据库</h1><p>开源的空间数据库主要是postgresql和mysql的空间插件，分别是postGIS和 mySpatial。由于PG对于面向对象支持的更好一些，所以postGIS在性能上和功能上都比myspatial要强一些。但是两者都有一个最重要的缺陷，就是不直接支持栅格数据。解决方案是将栅格数据存储为BLOB类型，并且对其建立四叉树索引，用以模拟商业数据库对栅格数据的存储。相对来说我更喜欢POSTGIS一些，原因有三：1，MYSQL本身不是在所有情况下免费，而PG在所有情况下都免费；2,POSTGIS性能和功能上都强于 myspatial;3,国外已经有很多基于POSTGIS的成功应用，可以降低风险。</p>
+<hr>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/opensource/os-gis/" title="针对 UNIX 和 Linux 用户的地理信息系统工具">利用开源 GIS 确定方位</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/06/10/GIS-Open-Source/" data-id="cl51yqknq000mcoyzhtwdh2wu" data-title="开源GIS" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-coder-issue" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/10/coder-issue/" class="article-date">
+  <time datetime="2018-06-10T18:51:14.000Z" itemprop="datePublished">2018-06-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/10/coder-issue/">码农话题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Algorithms + Data Structures = Programs</p>
+<p>Five Pervasive Myths About Older Software Developers<br><a target="_blank" rel="noopener" href="http://www.lessonsoffailure.com/developers/pervasive-myths-older-software-developers/">http://www.lessonsoffailure.com/developers/pervasive-myths-older-software-developers/</a></p>
+<p>Where Do The World’s Software Developers Live?<br><a target="_blank" rel="noopener" href="https://www.benfrederickson.com/github-developer-locations/">https://www.benfrederickson.com/github-developer-locations/</a></p>
+<p>Why Do Some Programming Languages Live and Others Die?<br><a target="_blank" rel="noopener" href="https://www.wired.com/2012/06/berkeley-programming-languages/">https://www.wired.com/2012/06/berkeley-programming-languages/</a></p>
+<p>Twenty Questions for Donald Knuth<br><a target="_blank" rel="noopener" href="http://www.informit.com/articles/article.aspx?p=2213858">http://www.informit.com/articles/article.aspx?p=2213858</a></p>
+<p>John Carmack discusses the art and science of software engineering<br><a target="_blank" rel="noopener" href="https://blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/">https://blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/</a></p>
+<p>It’s about social interactions between the programmers or even between yourself spread over time.</p>
+<blockquote>
+<p>软件工程实际是一门社会科学</p>
+</blockquote>
+<p>在计算机学科中，真正谈得上科学的只有算法，“优化”也只能算工程。然而，真正花在算法及其优化上的时间在编程中所占比例很小。90%程序员所做的只是将功能需求以顺序、分支这样的程序形式实现出来。在这方面，我越来越不觉得有什么客观的方法能带来更好的软件。</p>
+<p>自然科学的根本在于测量和重现，在于估计和验证。软件工程中除算法和优化外，其他与此毫无关系。相反，它们只跟程序员之间，甚至同一程序员在不同时间，自己跟自己之间的社会化交互有关。程序员总在不断犯错，这已是老生常谈的事实。问题就在于，如果一种错误的做法能以正确的语法形式输入到程序中，那它就肯定会进入我们的程序。因为这个，我本人对静态代码分析极度热衷。因为我们总在不断犯错，我宁愿使用编程语言的一个更为严格的子集，并对程序员写的代码施以更加严格的限制。</p>
+<p>最近一段时间，我开始坚持每天做一点代码复查。每天看看提交的代码，找点有启发性的问题给团队讲一讲。有些问题，例如最大限度地保持参数的常量性，相对客观，争议较少。但也有很多东西更像风格问题，虽然多年来我发现它们不断地带来麻烦，但仍有很多人说：“我没见过这样的问题，对我来说这不是问题，我也不会犯这种错误。”因此，能够找到一个实际例子来指出“这就是由它引发的问题”，真是件好事。</p>
+<p>意识到软件工程并非科学之后，我希望找到更好的方法来对付人性的弱点。然而，考虑到铁打的团队流水的开发者，想用一致的方法培训团队谈何容易。应对程序员犯错的方法肯定有好坏之分，但很难量化。而且代码会存在很长时间，将有成百上千的程序员看到一段代码，使用它并以某种方式与之交互。</p>
+<p>除了通过静态代码分析实施严格限制外，在软件API设计的层面上还有规模更大的问题，艺术的、技术的都有，我希望能在这方面找到更多可量化的方法。</p>
+<p><a target="_blank" rel="noopener" href="http://www.infoq.com/cn/articles/we-live-in-open-radical-source-era">我们正处在一个激进的后开源时代：开源的过去和未来</a></p>
+<p><a target="_blank" rel="noopener" href="https://medium.com/@nayafia/we-re-in-a-brave-new-post-open-source-world-56ef46d152a3#.dd5t81ifs" title="The history of open source and a glimpse at its future">We’re in a brave, new post open source world</a></p>
+<p>谈谈技术选型<br><a target="_blank" rel="noopener" href="http://www.infoq.com/cn/news/2017/02/Technology-selection">http://www.infoq.com/cn/news/2017/02/Technology-selection</a></p>
+<p><a target="_blank" rel="noopener" href="https://blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/">John Carmack discusses the art and science of software engineering</a></p>
+<p>What I heard instead was a hacker’s hacker talk about his recent realization that ** software engineering is actually a social science **.</p>
+<p>It’s about social interactions between the programmers or even between yourself spread over time. </p>
+<p><a target="_blank" rel="noopener" href="https://news.ycombinator.com/item?id=10212629">John Carmack discusses the art and science of software engineering (2012) (uw.edu)</a></p>
+<p><a target="_blank" rel="noopener" href="http://bellard.org/">http://bellard.org</a><br>Fabrice Bellard 法国著名的计算机程序员 <a target="_blank" rel="noopener" href="http://www.bellard.org/">http://www.bellard.org</a><br>FFMPEG, the Open Source Multimedia System. I launched this project in year 2000 and led it for several years.<br>QEMU is a generic machine emulator and virtualizer.<br>2000年，他化名Gérard Lantau，创建了FFmpeg项目。</p>
+<p>Fabrice Bellard，5年前的FFmpeg政变之夜依稀在眼前</p>
+<p>FFmpeg官网上有一个很有意思的耻辱柱(Hall of shame)，专门用来列举那些偷用了FFmpeg开源代码却违背FFmpeg遵守的开源协议，也就是说没有在软件发行中进行代码使用的声明，甚至还恬不知耻的表示自主研发。国内几乎所有的播放器和转码工具都在这个耻辱柱上，比如QQ影音、暴风影音、格式工厂等。</p>
+<p><a target="_blank" rel="noopener" href="https://ffmpeg.org/shame.html">https://ffmpeg.org/shame.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://news.ycombinator.com/item?id=790316">Hall of Shame: companies violating the ffmpeg license (GPL/LGPL) (ffmpeg.org)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blogs.gnome.org/rbultje/2008/03/31/ffmpeg-hall-of-shame/">FFmpeg Hall of Shame</a></p>
+<p><a target="_blank" rel="noopener" href="http://blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/">John Carmack discusses the art and science of software engineering</a></p>
+<p>But those don’t actually occupy that much of the total time spent programming. </p>
+<blockquote>
+<p>It’s about social interactions between the programmers or even between yourself spread over time.</p>
+</blockquote>
+<p>these are all conventions that help software engineering in the large when you’re dealing with mistakes that people make. But they’re not fundamental about what the computer’s doing.</p>
+<p>programmers are making mistakes all the time and constantly.</p>
+<p>I would like to be able to enable even more restrictive subsets of languages and restrict programmers even more because we make mistakes constantly.</p>
+<p>but a lot of people will just say, I’ve never seen that problem. That’s not a problem for me, or I don’t make those mistakes.</p>
+<p>there are clearly better and worse ways of doing things but it’s frustratingly difficult to quantify.</p>
+<p>It’s kind of fun to think that the game engines, things that we’re playing games on, have more sophisticated software than certainly the things that launch people to the moon and back</p>
+<p>I tell people that there’s a good chance that whatever you’re writing here, if it’s not extremely game specific, may well exist a decade from now and it will have hundreds of programmers, looking at the code, using it, interacting with it in some way, and that’s quite a burden.</p>
+<p><a target="_blank" rel="noopener" href="http://www.infoq.com/cn/news/2017/04/future-algorithm-code">未来属于算法，而不是代码</a></p>
+<p>编码作为新数字经济的关键技能，就像学习如何阅读一样，已经模糊了我们对算法的理解。算法正逐渐成为我们生活的组成部分，从电影推荐到新闻过滤和寻找合作伙伴。</p>
+<h1 id="github"><a href="#github" class="headerlink" title="github"></a>github</h1><p><a target="_blank" rel="noopener" href="https://medium.com/@sitapati/the-impact-github-is-having-on-your-software-career-right-now-6ce536ec0b50">The Impact GitHub is Having on Your Software Career, Right Now…</a></p>
+<p>I spent 2004–2014 working at Red Hat, the world’s largest open source software engineering company. On my very first day there, in July 2004, my boss Marty Messer said to me: “All the work you do here will be in the open. In the future you won’t have a CV — people will just Google you.”</p>
+<p>GitHub has become a singular social network that ties together issue tracking and distributed source control.</p>
+<p>GitHub is a social network where your social capital, created by your commits and contribution to the global conversation in whatever technology you are working, is yours — not tied to the company you happen to be working at temporarily.</p>
+<p>Smart people will take advantage of this — they’ll contribute patches, issues, and comments upstream to the languages and frameworks that they use on the daily in their job — TypeScript, .NET, Redux.</p>
+<p>Now that same pathway is open for everyone, into just about any technology. As the world is eaten by open source, the same dynamic is now prevalent everywhere.</p>
+<p>In a recent interview Linus Torvalds (49k followers, following 0 on GitHub), the inventor of Linux and git, put it like this:<br>“You shoot off a lot of small patches until the point where the maintainers trust you, and at that point you become more than just a guy who sends patches, you become part of the network of trust”</p>
+<p>However, if that work has been on GitHub, it’s not gone. It’s visible. It’s connected to a network of trust that is visible.</p>
+<p>It’s not your code on GitHub that counts — it’s what other people say on GitHub about your code that counts.</p>
+<p>That’s your portable reputation.</p>
+<p><a target="_blank" rel="noopener" href="http://www.infoq.com/cn/news/2017/05/Forty-years-who-programming">四五十岁之后，还在编程的程序员都有谁</a><br><a target="_blank" rel="noopener" href="https://belitsoft.com/php-development-services/top-software-developers-after-40-50-and-60">SOFTWARE DEVELOPERS AFTER 40, 50 AND 60 WHO ARE STILL CODING (PHOTO)</a><br>美国劳动力的中值年龄是42岁，而StackOverflow的一项有关年龄的调查表明，40岁之后的开发人员只占开发人员总数的13%。那么其他人到哪里去了？他们被解雇了或者上升到管理岗位了吗？软件开发对于过了40岁的人来说，是不是就意味着终结？</p>
+<p>Rob Fletcher，Netflix（Los Gatos，CA）的高级软件工程师，45岁<br>我每天都写代码。目前最喜欢的语言是Kotlin。我想学习Go语言，平常用得比较多的是Java、Scala和Groovy。我一直在学习新的东西，哪怕是很小的事情。我知道自己会是一个糟糕的管理者，所以我压根没有想往管理方向发展。<br>很多事情取决于你的态度。不要成为厌恶新技术的老技术人，也不要嘲笑那些正在使用新技术的人。在进行技术选型时，你的经验应该成为决策的基础。如果选择了老技术，那是因为它们正好适合当前的需求，而不是因为要保护你那积攒了多年却即将过时的专业知识，也不是因为害怕那些后进者带着NodeJS和Go语言来抢夺你的工作。</p>
+<p>Ebbe Kristensen，Prevas A/S（Denmark）的高级软件设计师，62岁<br>有时候，你几天甚至几周都不会学进去什么东西，而有时候几个小时学进去的东西就可以把之前“损失”的时间弥补回来。重要的是，你总是想方设法地去学习，时刻准备着，等待机会的出现。</p>
+<p>John Brothers，Make&amp;Build（Atlanta，GA）的高级软件架构师，47岁<br>我最近正在使用Node.JS开发一个项目，之前也用过Hadoop、NoSQL，开发过Android应用，也写过Go语言代码，还熟悉JQuery和Bootstrap的各种特性。<br>我也关注Java的最新动态，还有Spring、JMS、REST、JSON和JPA，以及其他相关的技术。<br>在过去的几年，我使用了IntelliJ、Eclipse、Sublime、Emacs和Vi这些开发工具，我很喜欢使用这些工具来解决各种问题。我一开始使用的是CVS，后来学习了Subversion，最近在学习git。我也有AWS相关的经验。我还是一个获得认证的Scrum Master、产品经理和开发者。</p>
+<p>Roger Whitcomb，Actian公司（Palo Alto，CA）的软件架构师和软件工程师，60岁<br>我现在要跟上Web和移动开发的速度有点吃力，但离“垂暮”还很远，尽管我已经60岁了。<br>我认为最关键的是，你要为你的雇主持续地创造价值。<br>我目前是Apache软件基金会Pivot项目的PMC主席。作为一名Java开发人员（Java相关项目的提交者），我希望Java会永生。最起码不要出现更好的语言，要我把所有的代码都移植过去……</p>
+<p>Scott Gartner，Silverback Learning Solutions（Boise，ID）的高级软件工程师，50多岁<br>我发现我的记忆力大不如前，也没办法记住大型系统的全部模型。不过，我发现我那些丰富的经验变得越来越有价值。<br>每两年我就会学习一种新的编程语言，有一些是我自己想学的，不过大部分是因为技术发展的需要（也有的是因为新工作的要求）。这样很有趣。目前我在学习数据仓库（OLAP）、ETL处理、Star Schemas和Cubes。</p>
+<p>Brian Bowman，SAS（Cary，NC）的首席软件工程师，56岁<br>我通过四项主要的计算机技能生存下来。<br>汇编语言级别的大型机系统编程。<br>基于C语言的多主机平台的可移植编程，包括桌面、中型Unix网络、小型机的后续产品（如VAX），以及大型机。<br>多层集群服务器环境，由后端的多线程C以及处于中间层满足高可用要求的Java组成，主要面向Windows服务器和Unix环境，也包括Linux。<br>基于多线程C的大规模并行网格计算，满足虚拟的无限伸缩。<br>虽然我所拥有的这些技能可以干到退休，但在未来的几年，我还会将我的专业知识领域扩展到机器学习方面。</p>
+<p>Alec Cawley，DisplayLink（Palo Alto，California）的首席软件研究员，60多岁<br>现在的世界与我的职业生涯刚开始的时候（穿孔纸带时期的Fortran）已经很不一样了，而变化仍然在持续。但反过来说，需要解决的问题总是很相似的，无非就是如何将人类的需求转成计算机可以做的事情，以及如何避免犯错、如何找出不可避免所犯下的错误。编程语言、开发环境、工具套件、API等东西只是解决问题的手段，我们只是在需要它们的时候才去学习如何使用它们。<br>我所在的嵌入式领域似乎比应用程序更加能够扛住潮流的冲刷。应用程序每几年就会有新的东西出现，有些几乎是昙花一现，有些会持续一段时间，经历巅峰，然后逝去。而嵌入式一直保持坚挺，以C语言为基础，再融合一点C++。另一方面，硬件也在持续发生变化，这让事情变得更加有趣。</p>
+<p>Victor Volkman，Proquest（Ann Arbor，MI）的高级软件工程师，54岁</p>
+<p>Kurt Guntheroth，软件工程师，50多岁<br>好的开发人员会持续学习，直到他们退休，比如Ken Thompsons和Bjarne Stroustrups。不过，我们大多数人（特别是40岁左右的）最终都会意识到，我们并不能成为行业的大神。<br>编程是一件很容易的事情。你告诉它们做什么，它们就做什么。它们是可以信赖的，也是可靠的。<br>代码可能会是难啃的骨头，它们要求对细节的重度关注和相当程度的脑力付出。<br>编程是关于创新，而不是操纵。</p>
+<p>James Grenning，软件顾问，60多岁</p>
+<p><a target="_blank" rel="noopener" href="http://www.bennorthrop.com/Essays/2016/reflections-of-an-old-programmer.php">Reflections of an “Old” Programmer</a></p>
+<p>Half of what a programmer knows will be useless in 10 years.</p>
+<p><a target="_blank" rel="noopener" href="https://www.theinquirer.net/inquirer/news/2473248/father-of-java-james-gosling-slams-cloud-vendor-lock-in" title="Beware the dangers of committing too deeply to one cloud provider, warns computer scientist">Father of Java James Gosling slams cloud vendor lock-in</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.infoq.com/cn/news/2017/06/medium-technology-stack">Medium网站的技术栈</a></p>
+<p>Medium是一个在线发布平台，最初由Twitter联合创始人Evan Williams开发。该平台于2012年启动，现在每个月有6000万独立访客。该网站部署在AWS上，使用NodeJS和Go作为应用程序和服务的开发语言，使用DynamoDB作为数据存储，并使用Amazon Redshift作为数据仓库。</p>
+<p><a target="_blank" rel="noopener" href="http://www.ybrikman.com/writing/2014/05/19/dont-learn-to-code-learn-to-think/">Don’t learn to code. Learn to think.</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.infoq.com/cn/news/2017/06/Dont-learn-code-Learn-think">学会思考，而不只是编程</a></p>
+<p>Interview with Ken Thompson<br><a target="_blank" rel="noopener" href="http://www.drdobbs.com/open-source/interview-with-ken-thompson/229502480">http://www.drdobbs.com/open-source/interview-with-ken-thompson/229502480</a></p>
+<p>Go Language</p>
+<p>It’s expanding every day and not being forced down anybody’s throat. It’s hard to adopt it to a project inside of Google because of the learning curve. It’s brand new and there aren’t good manuals for it, except what’s on the Web. And then, of course, its label of being experimental, so people are a little afraid. In spite of that, it’s growing very fast inside of Google.<br>Yes. When the three of us [Thompson, Rob Pike, and Robert Griesemer] got started, it was pure research. ** The three of us got together and decided that we hated C++. ** [laughter]<br>** It’s too complex. And going back, if we’d thought of it, we’d have done an object-oriented version of C back in the old days. **<br>Yes, but we were not evangelists of object orientation. [Returning to Go,] we started off with the idea that all three of us had to be talked into every feature in the language, so there was no extraneous garbage put into the language for any reason.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p>Java 积累了最强大的生态系统，你可以说它无所不包， 毋庸置疑，Java 早已是一艘航空母舰的巨大身躯，这足已证明它的地位与成功。但是其语言、库、框架和生态系统的复杂度，对技术人员构筑其巨大的障碍。历史沉淀下来的，让 Java 提供的选项太多，深入后就知道 Java 的学习成本比 C++ 更高，对程序员的要求比 C++ 更高，除非掉队了，还在用 7 年甚至 10 年前的 Java 技术，技术人员要非常精心地组织框架和设计，否则各种复用的结果就是堆砌出一个异常臃肿的程序，其运行时对资源的消耗有时候会让你感到恐惧，而这是太多的基于 Java 所开发的平台被广泛诟病的关键所在，重用是个双刃剑，需要量体裁衣而不是一锅端，拿捏的尺度对开发人员要求无疑是最高昂的，除非语言和标准库提供了最好最直接的选项。</p>
+<p>如今 Java 的学习成本和对开发人员的技能要求，已经远高于 C/C++ 的，也许大多数的开发人员无法驾驭 Java 这艘航空母舰。若要长期使用 Java，务必跟上 Java 的最新技术，同时在重用方面一定要拿捏好尺度，这会对人员技能提出更高要求，否则及其容易写出资源占用和运行时效率让人感到恐惧的应用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/06/10/coder-issue/" data-id="cl51yqkoo00a3coyz1gsj7xlm" data-title="码农话题" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-IT-questions" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/10/IT-questions/" class="article-date">
+  <time datetime="2018-06-10T13:38:14.000Z" itemprop="datePublished">2018-06-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/10/IT-questions/">IT公司面试题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="IBM社会招聘笔试题"><a href="#IBM社会招聘笔试题" class="headerlink" title="IBM社会招聘笔试题"></a>IBM社会招聘笔试题</h1><ol>
+<li>一个粗细均匀的长直管子，两端开口，里面有4个白球和4个黑球，球的直径、两端开口的直径等于管子的内径，现在白球和黑球的排列是wwwwbbbb，要求不取出任何一个球，使得排列变为bbwwwwbb。<br>把管子两端接起来形成一个通环，将黑球从接口挤过去两个</li>
+<li>一只蜗牛从井底爬到井口，每天白天蜗牛要睡觉，晚上才出来活动，一个晚上蜗牛可以向上爬3尺，但是白天睡觉的时候会往下滑2尺，井深10尺，问蜗牛几天可以爬出来？ 8</li>
+<li>在一个平面上画1999条直线最多能将这一平面划分成多少个部分？<br>1999001</li>
+<li>在太平洋的一个小岛上生活着土人，他们不愿意被外人打扰，一天，一个探险家到了岛上，被土人抓住，土人的祭司告诉他，你临死前还可以有一个机会留下一句话，如果这句话是真的，你将被烧死，是假的，你将被五马分尸，可怜的探险家如何才能活下来？<br>我将被五马分尸</li>
+<li>怎样种四棵树使得任意两棵树的距离相等。<br>种山上，等边三角锥</li>
+<li>27个小运动员在参加完比赛后，口渴难耐，去小店买饮料，饮料店搞促销，凭三个空瓶可以再换一瓶，他们最少买多少瓶饮料才能保证一人一瓶？<br>19</li>
+<li>有一座山，山上有座庙，只有一条路可以从山上的庙到山脚，每周一早上8点，有一个聪明的小和尚去山下化缘，周二早上8点从山脚回山上的庙里，小和尚的上下山的速度是任意的，在每个往返中，他总是能在周一和周二的同一钟点到达山路上的同一点。例如，有一次他发现星期一的8点30和星期二的8点30他都到了山路靠山脚的3/4的地方，问这是为什么？<br>那时肯定的，因为上下山只有一条路</li>
+<li>有两根不均匀分布的香，每根香烧完的时间是一个小时，你能用什么方法来确定一段15分钟的时间？<br>把第一根一头点着，同时把第二根两头都点着，在第二根燃尽的同时点燃第一根的另一头，这时开始计时，至第一根燃尽就是十五分钟</li>
+</ol>
+<h1 id="IBM面试题目"><a href="#IBM面试题目" class="headerlink" title="IBM面试题目"></a>IBM面试题目</h1><ol>
+<li><p>Describe your greatest achievement in the past 4-5 years? </p>
+</li>
+<li><p>What are your short &amp; long term career objectives? What do you think is the most ideal job for you? </p>
+</li>
+<li><p>Why do you want to join IBM? What do you think you can contribute to IBM?</p>
+</li>
+</ol>
+<h1 id="Google-中国笔试题目"><a href="#Google-中国笔试题目" class="headerlink" title="Google 中国笔试题目"></a>Google 中国笔试题目</h1><p>1．1关于IP协议那个正确<br>A IP是TCP上层协议B IP协议是应用层协议C由于两个属于同一层协议，他们之间可以直接通信DIP协议不提供可靠的通信<br>1.2 关于内存正确的是<br>A内存的存取速度不能低于cpu速度，否则会造成数据丢失<br>B程序只有在数据和代码等被调入内存后才能运行<br>C采用虚拟内存技术后程序可以在硬盘上直接运行<br>D某计算机的内存容量为16MB，那么他的地址总线为24位<br>1.3单链表中结点的结构为（data，link），若想删除结点p（不是头节点或者尾结点）的直接后继，则应执行下列哪个操作<br>A p=p-&gt;link ; p-&gt;link=p-&gt;link-&gt;linkB p-&gt;link-&gt;link=p-&gt;link;C p=p-&gt;link-&gt;link Dp-&gt;link=p-&gt;link-&gt;link<br>1.4已知x&gt;=y and y&gt;=z 为真，那么x&gt;z or y=z 值为<br>A真B假C无法确定Dx y z同为正数时为真<br>1.5某请求被随即分配到四台机器进行处理，分配到每台机器的概率A15% B20% C 30% D 35%, 处理请求的失败概率分别为5% ，4%， 3% 2%，现在请求失败，问由C造成的概率最接近A26% B28% C 30% D 32%<br>1.6假设我们用d=(a1,a2,….a5)表示无向无环图G的5个顶点的度数，下面给出的哪组值是可能的<br>A{3,4,4,3,1}B{4,2,2,1,1}C{3,3,3,2,2}D{3,4,3,2,1}<br>1.7设栈S和队列Q的初始状态为空，元素e1，e2，e3，e4，e5，e6一次压入栈S,一个元素出栈后即进入队列Q，若出队列的顺序为e2,e4,e3,e6,e5,e1则栈S的容量要求最小值为<br>A2B3C4D5<br>1.8 在堆排序算法中我们用一个数组A来模拟二叉树T，如果该A[0]存放的是T的根节点，那么A<a href="K%3E0">K</a>的父亲节点是<br>A (K-1)/2 B K/2 C(K+1)/2 D 都不对 ( via: unus.cn )<br>1.9 现有如下任务需要安排在若干机器上并行完成，每个任务都有开始时间和结束时间（开始和结束时间都包括在任务执行时间内）的要求<br>任务名称 开始时间 结束时间<br>a 1 7<br>b 8 9<br>c 2 5<br>d 7 11<br>e 3 6<br>f 7 9<br>g 10 13<br>则最少需要使用的机器数目为<br>A1B2C3D4<br>1.10 在设计一个操作系统时，哪项不是必须考虑的<br>A 设备管理模块B文件系统模块C用户管理模块D进程管理模块<br>2.1正整数序列Q中的每个元素都至少能被正整数a和b中的一个整除，现给定a和b，需要计算出Q中的前几项，例如，当a=3，b=5，N=6时，序列为3，5，6，9，10，12<br>（1）设计一个函数void generate（int a,int b,int N ,int * Q）计算Q的前几项<br>（2）设计测试数据来验证函数程序在各种输入下的正确性<br>2.2 有一个由大小写组成的字符串，现在需要对他进行修改，将其中的所有小写字母排在答谢字母的前面（大写或小写字母之间不要求保持原来次序），如有可能尽量选择时间和空间效率高的算法 c语言函数原型void proc（char *str） 也可以采用你自己熟悉的语言<br>2.3 已知一颗无向无环连通图T的所有顶点和边的信息，现需要将其转换为一棵树，要求树的深度最小，请设计一个算法找到所有满足要求的树的根结点，并分析时空复杂度（描述算法即可，无需代码）<br>1．1关于IP协议那个正确<br>A IP是TCP上层协议B IP协议是应用层协议C由于两个属于同一层协议，他们之间可以直接通信DIP协议不提供可靠的通信<br>1.2 关于内存正确的是<br>A内存的存取速度不能低于cpu速度，否则会造成数据丢失<br>B程序只有在数据和代码等被调入内存后才能运行<br>C采用虚拟内存技术后程序可以在硬盘上直接运行<br>D某计算机的内存容量为16MB，那么他的地址总线为24位<br>1.3单链表中结点的结构为（data，link），若想删除结点p（不是头节点或者尾结点）的直接后继，则应执行下列哪个操作<br>A p=p-&gt;link ; p-&gt;link=p-&gt;link-&gt;linkB p-&gt;link-&gt;link=p-&gt;link;C p=p-&gt;link-&gt;link Dp-&gt;link=p-&gt;link-&gt;link<br>1.4已知x&gt;=y and y&gt;=z 为真，那么x&gt;z or y=z 值为<br>A真B假C无法确定Dx y z同为正数时为真<br>1.5某请求被随即分配到四台机器进行处理，分配到每台机器的概率A15% B20% C 30% D 35%, 处理请求的失败概率分别为5% ，4%， 3% 2%，现在请求失败，问由C造成的概率最接近A26% B28% C 30% D 32%<br>1.6假设我们用d=(a1,a2,….a5)表示无向无环图G的5个顶点的度数，下面给出的哪组值是可能的<br>A{3,4,4,3,1}B{4,2,2,1,1}C{3,3,3,2,2}D{3,4,3,2,1}<br>1.7设栈S和队列Q的初始状态为空，元素e1，e2，e3，e4，e5，e6一次压入栈S,一个元素出栈后即进入队列Q，若出队列的顺序为e2,e4,e3,e6,e5,e1则栈S的容量要求最小值为<br>A2B3C4D5<br>1.8 在堆排序算法中我们用一个数组A来模拟二叉树T，如果该A[0]存放的是T的根节点，那么A<a href="K%3E0">K</a>的父亲节点是<br>A (K-1)/2 B K/2 C(K+1)/2 D 都不对 ( via: unus.cn )<br>1.9 现有如下任务需要安排在若干机器上并行完成，每个任务都有开始时间和结束时间（开始和结束时间都包括在任务执行时间内）的要求<br>任务名称 开始时间 结束时间<br>a 1 7<br>b 8 9<br>c 2 5<br>d 7 11<br>e 3 6<br>f 7 9<br>g 10 13<br>则最少需要使用的机器数目为<br>A1B2C3D4<br>1.10 在设计一个操作系统时，哪项不是必须考虑的<br>A 设备管理模块B文件系统模块C用户管理模块D进程管理模块<br>2.1正整数序列Q中的每个元素都至少能被正整数a和b中的一个整除，现给定a和b，需要计算出Q中的前几项，例如，当a=3，b=5，N=6时，序列为3，5，6，9，10，12<br>（1）设计一个函数void generate（int a,int b,int N ,int * Q）计算Q的前几项<br>（2）设计测试数据来验证函数程序在各种输入下的正确性<br>2.2 有一个由大小写组成的字符串，现在需要对他进行修改，将其中的所有小写字母排在答谢字母的前面（大写或小写字母之间不要求保持原来次序），如有可能尽量选择时间和空间效率高的算法 c语言函数原型void proc（char *str） 也可以采用你自己熟悉的语言<br>2.3 已知一颗无向无环连通图T的所有顶点和边的信息，现需要将其转换为一棵树，要求树的深度最小，请设计一个算法找到所有满足要求的树的根结点，并分析时空复杂度（描述算法即可，无需代码）</p>
+<h1 id="intel的笔试题"><a href="#intel的笔试题" class="headerlink" title="intel的笔试题"></a>intel的笔试题</h1><h2 id="智力题"><a href="#智力题" class="headerlink" title="智力题"></a>智力题</h2><p>1．每天中午从法国塞纳河畔的勒阿佛有一艘轮船驶往美国纽约，在同一时刻纽约也有一艘轮船驶往勒阿佛。已知横渡一次的时间是7天7夜，轮船匀速航行，在同一航线，轮船近距离可见。<br>请问今天中午从勒阿佛开出的船会遇到几艘从纽约来的船？ </p>
+<p>2．巴拿赫病故于1945年8月31日。他的出生年份恰好是他在世时某年年龄的平方，问：他是哪年出生的？ </p>
+<p>答案： </p>
+<p>设他在世时某年年龄为x，则x的平方&lt;1945，且x为自然数。其出生年份x的平方-x=x（x-1），他在世年龄1945-x（x-1）。1945的平方根=44.1，则x应为44或略小于此的数。而x=44时，x（x-1）=44×43=1892，算得其在世年龄为1945-1892=53；又x=43时，x（x-1）=43×42=1806，得其在世年龄为1945-1806=139；若x再取小，其在世年龄越大，显然不妥。故x=44，即他出生于1892年，终年53岁。 </p>
+<h2 id="笔试题目"><a href="#笔试题目" class="headerlink" title="笔试题目"></a>笔试题目</h2><p>1．设计一个重采样系统，说明如何anti-alias。 </p>
+<p>2．y1（n）=x（2n），y2（n）=x（n/2），问： </p>
+<p>如果y1为周期函数，那么x是否为周期函数？ </p>
+<p>如果x为周期函数，那么y1是否为周期函数？ </p>
+<p>如果y2为周期函数，那么x是否为周期函数？ </p>
+<p>如果x为周期函数，那么y2是否为周期函数？ </p>
+<p>3．如果模拟信号的带宽为5kHz，要用8k的采样率，怎么办。 </p>
+<p>4．某个程序在一个嵌入式系统（200M的CPU，50M的SDRAM）中已经最优化了，换到另一个系统（300M的CPU，50M的SDRAM）中运行，还需要优化吗？<br>5．x^4+a<em>x^3+x^2+c</em>x+d最少需要做几次乘法。 </p>
+<p>6．三个float:a,b,c </p>
+<p>问值： </p>
+<p>（a+b）+c==（b+a）+c </p>
+<p>（a+b）+c==（a+c）+b </p>
+<p>7．把一个链表反向填空。 </p>
+<p>8．下面哪种排序法对12354最快？ </p>
+<p>A. quick sort </p>
+<p>B. buble sort </p>
+<p>C. merge sort </p>
+<p>9．哪种结构平均来讲获取一个值最快？ </p>
+<p>A. binary tree<br>B. hash table<br>C. stack<br>10． </p>
+<p>#include<br>“stdafx.h”<br>#include &lt;iostream.h&gt;<br>struct bit<br>{ int a:3;<br>int b:2;<br>int c:3;<br>};<br>int main(int argc, char* argv[])<br>{<br>bit s;<br>char <em>c = (char</em>)&s;<br>*c = 0x99;<br>cout &lt;&lt;<br>s.a &lt;&lt;endl &lt;&lt;s.b&lt;&lt;endl&lt;&lt;s.c&lt;&lt;endl;<br>return 0;<br>} </p>
+<p>Output:?<br>11． </p>
+<p>挑bug，在linux下运行：<br>#include &lt;stdio.h&gt;<br>char<br><em>reverse(char</em> str)<br>{<br>int len=0, i=0;<br>char <em>pstr=str, <em>ptemp,<em>pd;<br>while(</em>++pstr)<br>len++;<br>pstr–;<br>//ptemp=(char</em>)malloc(len+1);<br>ptemp=(char</em>)malloc(len+1);<br>pd=ptemp;<br>while(len–){<br>*ptemp=*pstr;<br>ptemp++;<br>pstr–;<br>i++;<br>}<br>*ptemp=*pstr;<br>ptemp++;<br>*ptemp=‘\0’;<br>return pd;<br>}<br>main()<br>{<br>char string[40]= “Hello World!”;<br>char *pstr=string;<br>printf(“％s”, pstr);<br>printf(“％s”, reverse(pstr));<br>} </p>
+<h2 id="实验室笔试题"><a href="#实验室笔试题" class="headerlink" title="实验室笔试题"></a>实验室笔试题</h2><p>1．写出下列信号的奈亏斯特频率 </p>
+<p>（1）f（t）=1+cos（2000pait）+sin（4000pait）<br>（2）f（t）=sin（4000pait）/pait<br>（3）f（t）=（sin（4000pait）的平方）/pait </p>
+<p>2．有两个线程 </p>
+<p>void producer()<br>{<br>while(1)<br>{<br>GeneratePacket();<br>PutPacketIntoBuffer();<br>Signal(customer);<br>}<br>}<br>void customer()<br>{<br>while(1)<br>{<br>WaitForSignal();<br>if(PacketInBuffer&gt;10)<br>{<br>ReadAllPackets();<br>ProcessPackets();<br>}<br>}<br>}<br>（1）有没有其他方法可以提高程序的性能 </p>
+<p>（2）可不可以不使用信号之类的机制来实现上述的功能 </p>
+<p>3．优化下面的程序 </p>
+<p>（0）sum=0<br>（1）I=1<br>（2）T1=4<em>I<br>（3）T2=address(A)-4<br>（4）T3=T2[T1]<br>（5）T4=address(B)-4<br>（6）T5=4</em>I<br>（7）T6=T4[T5]<br>（8）T7=T3*T5<br>（9）sum=sum+T6<br>（10）I=I+1<br>（11）IF I&lt;20 GOTO (2) </p>
+<h1 id="101道微软IT笔试题"><a href="#101道微软IT笔试题" class="headerlink" title="101道微软IT笔试题"></a>101道微软IT笔试题</h1><h2 id="Algorithms-and-Programming"><a href="#Algorithms-and-Programming" class="headerlink" title="Algorithms and Programming"></a>Algorithms and Programming</h2><ol>
+<li>Given a rectangular (cuboidal for the puritans) cake with a rectangular piece removed (any size or orientation), how would you cut the remainder of the cake into two equal halves with one straight cut of a knife ?</li>
+<li>You’re given an array containing both positive and negative integers and required to find the sub-array with the largest sum (O(N) a la KBL). Write a routine in C for the above.</li>
+<li>Given an array of size N in which every number is between 1 and N, determine if there are any duplicates in it. You are allowed to destroy the array if you like. [ I ended up giving about 4 or 5 different solutions for this, each supposedly better than the others ].</li>
+<li>Write a routine to draw a circle (x ** 2 + y ** 2 = r ** 2) without making use of any floating point computations at all. [ This one had me stuck for quite some time and I first gave a solution that did have floating point computations ].</li>
+<li>Given only putchar (no sprintf, itoa, etc.) write a routine putlong that prints out an unsigned long in decimal. [ I gave the obvious solution of taking % 10 and / 10, which gives us the decimal value in reverse order. This requires an array since we need to print it out in the correct order. The interviewer wasn’t too pleased and asked me to give a solution which didn’t need the array ].</li>
+<li>Give a one-line C expression to test whether a number is a power of 2. [No loops allowed - it’s a simple test.]</li>
+<li>Given an array of characters which form a sentence of words, give an efficient algorithm to reverse the order of the words (not characters) in it.</li>
+<li>How many points are there on the globe where by walking one mile south, one mile east and one mile north you reach the place where you started.</li>
+<li>Give a very good method to count the number of ones in a “n” (e.g. 32) bit number.<br>ANS. Given below are simple solutions, find a solution that does it in log (n) steps.<br>Iterative<br>function iterativecount (unsigned int n)<br>begin<br>int count=0;<br>while (n)<br>begin<br>count += n &amp; 0×1 ;<br>n &gt;&gt;= 1;<br>end<br>return count;<br>end<br>Sparse Count<br>function sparsecount (unsigned int n)<br>begin<br>int count=0;<br>while (n)<br>begin<br>count++;<br>n &amp;= (n-1);<br>end<br>return count ;<br>end</li>
+<li>What are the different ways to implement a condition where the value of x can be either a 0 or a 1. Apparently the if then else solution has a jump when written out in assembly. if (x == 0) y=a else y=b There is a logical, arithmetic and a data structure solution to the above problem.</li>
+<li>Reverse a linked list.</li>
+<li>Insert in a sorted list</li>
+<li>In a X’s and 0’s game (i.e. TIC TAC TOE) if you write a program for this give a fast way to generate the moves by the computer. I mean this should be the fastest way possible.<br>The answer is that you need to store all possible configurations of the board and the move that is associated with that. Then it boils down to just accessing the right element and getting the corresponding move for it. Do some analysis and do some more optimization in storage since otherwise it becomes infeasible to get the required storage in a DOS machine.</li>
+<li>I was given two lines of assembly code which found the absolute value of a number stored in two’s complement form. I had to recognize what the code was doing. Pretty simple if you know some assembly and some fundaes on number representation.</li>
+<li>Give a fast way to multiply a number by 7.</li>
+<li>How would go about finding out where to find a book in a library. (You don’t know how exactly the books are organized beforehand).</li>
+<li>Linked list manipulation.</li>
+<li>Tradeoff between time spent in testing a product and getting into the market first.</li>
+<li>What to test for given that there isn’t enough time to test everything you want to.</li>
+<li>First some definitions for this problem: a) An ASCII character is one byte long and the most significant bit in the byte is always ‘0′. b) A Kanji character is two bytes long. The only characteristic of a Kanji character is that in its first byte the most significant bit is ‘1′.<br>Now you are given an array of a characters (both ASCII and Kanji) and, an index into the array. The index points to the start of some character. Now you need to write a function to do a backspace (i.e. delete the character before the given index).</li>
+<li>Delete an element from a doubly linked list.</li>
+<li>Write a function to find the depth of a binary tree.</li>
+<li>Given two strings S1 and S2. Delete from S2 all those characters which occur in S1 also and finally create a clean S2 with the relevant characters deleted.</li>
+<li>Assuming that locks are the only reason due to which deadlocks can occur in a system. What would be a foolproof method of avoiding deadlocks in the system.</li>
+<li>Reverse a linked list.<br>Ans: Possible answers -<br>iterative loop<br>curr-&gt;next = prev;<br>prev = curr;<br>curr = next;<br>next = curr-&gt;next<br>endloop<br>recursive reverse(ptr)<br>if (ptr-&gt;next == NULL)<br>return ptr;<br>temp = reverse(ptr-&gt;next);<br>temp-&gt;next = ptr;<br>return ptr;<br>end</li>
+<li>Write a small lexical analyzer - interviewer gave tokens. expressions like “a*b” etc.</li>
+<li>Besides communication cost, what is the other source of inefficiency in RPC? (answer : context switches, excessive buffer copying). How can you optimize the communication? (ans : communicate through shared memory on same machine, bypassing the kernel _ A Univ. of Wash. thesis)</li>
+<li>Write a routine that prints out a 2-D array in spiral order!</li>
+<li>How is the readers-writers problem solved? - using semaphores/ada .. etc.</li>
+<li>Ways of optimizing symbol table storage in compilers.</li>
+<li>A walk-through through the symbol table functions, lookup() implementation etc. - The interviewer was on the Microsoft C team.</li>
+<li>A version of the “There are three persons X Y Z, one of which always lies”.. etc..</li>
+<li>There are 3 ants at 3 corners of a triangle, they randomly start moving towards another corner.. what is the probability that they don’t collide.</li>
+<li>Write an efficient algorithm and C code to shuffle a pack of cards.. this one was a feedback process until we came up with one with no extra storage.</li>
+<li>The if (x == 0) y = 0 etc..</li>
+<li>Some more bitwise optimization at assembly level</li>
+<li>Some general questions on Lex, Yacc etc.</li>
+<li>Given an array t[100] which contains numbers between 1..99. Return the duplicated value. Try both O(n) and O(n-square).</li>
+<li>Given an array of characters. How would you reverse it. ? How would you reverse it without using indexing in the array.</li>
+<li>Given a sequence of characters. How will you convert the lower case characters to upper case characters. ( Try using bit vector - solutions given in the C lib -typec.h)</li>
+<li>Fundamentals of RPC.</li>
+<li>Given a linked list which is sorted. How will u insert in sorted way.</li>
+<li>Given a linked list How will you reverse it.</li>
+<li>Give a good data structure for having n queues ( n not fixed) in a finite memory segment. You can have some data-structure separate for each queue. Try to use at least 90% of the memory space.</li>
+<li>Do a breadth first traversal of a tree.</li>
+<li>Write code for reversing a linked list.</li>
+<li>Write, efficient code for extracting unique elements from a sorted list of array. e.g. (1, 1, 3, 3, 3, 5, 5, 5, 9, 9, 9, 9) -&gt; (1, 3, 5, 9).</li>
+<li>Given an array of integers, find the contiguous sub-array with the largest sum.<br>ANS. Can be done in O(n) time and O(1) extra space. Scan array from 1 to n. Remember the best sub-array seen so far and the best sub-array ending in i.</li>
+<li>Given an array of length N containing integers between 1 and N, determine if it contains any duplicates.<br>ANS. [Is there an O(n) time solution that uses only O(1) extra space and does not destroy the original array?]</li>
+<li>Sort an array of size n containing integers between 1 and K, given a temporary scratch integer array of size K.<br>ANS. Compute cumulative counts of integers in the auxiliary array. Now scan the original array, rotating cycles! [Can someone word this more nicely?]<br>* 51. An array of size k contains integers between 1 and n. You are given an additional scratch array of size n. Compress the original array by removing duplicates in it. What if k &lt;&lt; n?<br>ANS. Can be done in O(k) time i.e. without initializing the auxiliary array!</li>
+<li>An array of integers. The sum of the array is known not to overflow an integer. Compute the sum. What if we know that integers are in 2’s complement form?<br>ANS. If numbers are in 2’s complement, an ordinary looking loop like for(i=total=0;i&lt; n;total+=array[i++]); will do. No need to check for overflows!</li>
+<li>An array of characters. Reverse the order of words in it.<br>ANS. Write a routine to reverse a character array. Now call it for the given array and for each word in it.<br>* 54. An array of integers of size n. Generate a random permutation of the array, given a function rand_n() that returns an integer between 1 and n, both inclusive, with equal probability. What is the expected time of your algorithm?<br>ANS. “Expected time” should ring a bell. To compute a random permutation, use the standard algorithm of scanning array from n downto 1, swapping i-th element with a uniformly random element &lt;= i-th. To compute a uniformly random integer between 1 and k (k &lt; n), call rand_n() repeatedly until it returns a value in the desired range.</li>
+<li>An array of pointers to (very long) strings. Find pointers to the (lexicographically) smallest and largest strings.<br>ANS. Scan array in pairs. Remember largest-so-far and smallest-so-far. Compare the larger of the two strings in the current pair with largest-so-far to update it. And the smaller of the current pair with the smallest-so-far to update it. For a total of &lt;= 3n/2 strcmp() calls. That’s also the lower bound.</li>
+<li>Write a program to remove duplicates from a sorted array.<br>ANS. int remove_duplicates(int * p, int size)<br>{<br>int current, insert = 1;<br>for (current=1; current &lt; size; current++)<br>if (p[current] != p[insert-1])<br>{<br>p[insert] = p[current];<br>current++;<br>insert++;<br>} else<br>current++;<br>return insert;<br>}</li>
+<li>C++ ( what is virtual function ? what happens if an error occurs in constructor or destructor. Discussion on error handling, templates, unique features of C++. What is different in C++, ( compare with unix).</li>
+<li>Given a list of numbers ( fixed list) Now given any other list, how can you efficiently find out if there is any element in the second list that is an element of the first list (fixed list).</li>
+<li>Given 3 lines of assembly code : find it is doing. IT was to find absolute value.</li>
+<li>If you are on a boat and you throw out a suitcase, Will the level of water increase.</li>
+<li>Print an integer using only putchar. Try doing it without using extra storage.</li>
+<li>Write C code for (a) deleting an element from a linked list (b) traversing a linked list</li>
+<li>What are various problems unique to distributed databases</li>
+<li>Declare a void pointer ANS. void *ptr;</li>
+<li>Make the pointer aligned to a 4 byte boundary in a efficient manner ANS. Assign the pointer to a long number and the number with 11…1100 add 4 to the number</li>
+<li>What is a far pointer (in DOS)</li>
+<li>What is a balanced tree</li>
+<li>Given a linked list with the following property node2 is left child of node1, if node2 &lt; node1 else, it is the right child.<br>O P<br>|<br>|<br>O A<br>|<br>|<br>O B<br>|<br>|<br>O C<br>How do you convert the above linked list to the form without disturbing the property. Write C code for that.<br>O P<br>|<br>|<br>O B<br>/ <br>/ <br>/ <br>O ? O ?<br>determine where do A and C go</li>
+<li>Describe the file system layout in the UNIX OS<br>ANS. describe boot block, super block, inodes and data layout</li>
+<li>In UNIX, are the files allocated contiguous blocks of data<br>ANS. no, they might be fragmented<br>How is the fragmented data kept track of<br>ANS. Describe the direct blocks and indirect blocks in UNIX file system</li>
+<li>Write an efficient C code for ‘tr’ program. ‘tr’ has two command line arguments. They both are strings of same length. tr reads an input file, replaces each character in the first string with the corresponding character in the second string. eg. ‘tr abc xyz’ replaces all ‘a’s by ‘x’s, ‘b’s by ‘y’s and so on. ANS.<br>a) have an array of length 26.<br>put ‘x’ in array element corr to ‘a’<br>put ‘y’ in array element corr to ‘b’<br>put ‘z’ in array element corr to ‘c’<br>put ‘d’ in array element corr to ‘d’<br>put ‘e’ in array element corr to ‘e’<br>and so on.<br>the code<br>while (!eof)<br>{<br>c = getc();<br>putc(array[c - ‘a’]);<br>}</li>
+<li>what is disk interleaving</li>
+<li>why is disk interleaving adopted</li>
+<li>given a new disk, how do you determine which interleaving is the best a) give 1000 read operations with each kind of interleaving determine the best interleaving from the statistics</li>
+<li>draw the graph with performance on one axis and ‘n’ on another, where ‘n’ in the ‘n’ in n-way disk interleaving. (a tricky question, should be answered carefully)</li>
+<li>I was a c++ code and was asked to find out the bug in that. The bug was that he declared an object locally in a function and tried to return the pointer to that object. Since the object is local to the function, it no more exists after returning from the function. The pointer, therefore, is invalid outside.</li>
+<li>A real life problem - A square picture is cut into 16 squares and they are shuffled. Write a program to rearrange the 16 squares to get the original big square.</li>
+<li>int *a;<br>char *c;</li>
+</ol>
+<p>*(a) = 20;<br>*c = *a;<br>printf(”%c”,<em>c);<br>what is the output?<br>79. Write a program to find whether a given m/c is big-endian or little-endian!<br>80. What is a volatile variable?<br>81. What is the scope of a static function in C ?<br>82. What is the difference between “malloc” and “calloc”?<br>83. struct n { int data; struct n</em> next}node;<br>node *c,*t;<br>c-&gt;data = 10;<br>t-&gt;next = null;<br>*c = *t;<br>what is the effect of the last statement?<br>84. If you’re familiar with the ? operator x ? y : z<br>you want to implement that in a function: int cond(int x, int y, int z); using only ~, !, ^, &amp;, +, |, &lt;&lt;, &gt;&gt; no if statements, or loops or anything else, just those operators, and the function should correctly return y or z based on the value of x. You may use constants, but only 8 bit constants. You can cast all you want. You’re not supposed to use extra variables, but in the end, it won’t really matter, using vars just makes things cleaner. You should be able to reduce your solution to a single line in the end though that requires no extra vars.<br>85. You have an abstract computer, so just forget everything you know about computers, this one only does what I’m about to tell you it does. You can use as many variables as you need, there are no negative numbers, all numbers are integers. You do not know the size of the integers, they could be infinitely large, so you can’t count on truncating at any point. There are NO comparisons allowed, no if statements or anything like that. There are only four operations you can do on a variable.</p>
+<ol>
+<li>You can set a variable to 0.</li>
+<li>You can set a variable = another variable.</li>
+<li>You can increment a variable (only by 1), and it’s a post increment.</li>
+<li>You can loop. So, if you were to say loop(v1) and v1 = 10, your loop would execute 10 times, but the value in v1 wouldn’t change so the first line in the loop can change value of v1 without changing the number of times you loop.<br>You need to do 3 things.</li>
+<li>Write a function that decrements by 1.</li>
+<li>Write a function that subtracts one variable from another.</li>
+<li>Write a function that divides one variable by another.</li>
+<li>See if you can implement all 3 using at most 4 variables. Meaning, you’re not making function calls now, you’re making macros. And at most you can have 4 variables. The restriction really only applies to divide, the other 2 are easy to do with 4 vars or less. Division on the other hand is dependent on the other 2 functions, so, if subtract requires 3 variables, then divide only has 1 variable left unchanged after a call to subtract. Basically, just make your function calls to decrement and subtract so you pass your vars in by reference, and you can’t declare any new variables in a function, what you pass in is all it gets.<br>Linked lists<br>* 86. Under what circumstances can one delete an element from a singly linked list in constant time?<br>ANS. If the list is circular and there are no references to the nodes in the list from anywhere else! Just copy the contents of the next node and delete the next node. If the list is not circular, we can delete any but the last node using this idea. In that case, mark the last node as dummy!<br>* 87. Given a singly linked list, determine whether it contains a loop or not.<br>ANS. (a) Start reversing the list. If you reach the head, gotcha! there is a loop!<br>But this changes the list. So, reverse the list again.<br>(b) Maintain two pointers, initially pointing to the head. Advance one of them one node at a time. And the other one, two nodes at a time. If the latter overtakes the former at any time, there is a loop!<br>p1 = p2 = head;<br>do {<br>p1 = p1-&gt;next;<br>p2 = p2-&gt;next-&gt;next;<br>} while (p1 != p2);</li>
+</ol>
+<ol start="88">
+<li>Given a singly linked list, print out its contents in reverse order. Can you do it without using any extra space?<br>ANS. Start reversing the list. Do this again, printing the contents.</li>
+<li>Given a binary tree with nodes, print out the values in pre-order/in-order/post-order without using any extra space.</li>
+<li>Reverse a singly linked list recursively. The function prototype is node * reverse (node *) ;<br>ANS.<br>node * reverse (node * n)<br>{<br>node * m ;<br>if (! (n &amp;&amp; n -&gt; next))<br>return n ;<br>m = reverse (n -&gt; next) ;<br>n -&gt; next -&gt; next = n ;<br>n -&gt; next = NULL ;<br>return m ;<br>}</li>
+<li>Given a singly linked list, find the middle of the list.<br>HINT. Use the single and double pointer jumping. Maintain two pointers, initially pointing to the head. Advance one of them one node at a time. And the other one, two nodes at a time. When the double reaches the end, the single is in the middle. This is not asymptotically faster but seems to take less steps than going through the list twice.<br>Bit-manipulation</li>
+<li>Reverse the bits of an unsigned integer.<br>ANS.<br>#define reverse(x) <br>(x=x&gt;&gt;16|(0×0000ffff&amp;x)&lt;&lt;16, <br>x=(0xff00ff00&amp;x)&gt;&gt;8|(0×00ff00ff&amp;x)&lt;&lt;8, <br>x=(0xf0f0f0f0&amp;x)&gt;&gt;4|(0×0f0f0f0f&amp;x)&lt;&lt;4, <br>x=(0xcccccccc&amp;x)&gt;&gt;2|(0×33333333&amp;x)&lt;&lt;2, <br>x=(0xaaaaaaaa&amp;x)&gt;&gt;1|(0×55555555&amp;x)&lt;&lt;1)<br>* 93. Compute the number of ones in an unsigned integer.<br>ANS.<br>#define count_ones(x) <br>(x=(0xaaaaaaaa&amp;x)&gt;&gt;1+(0×55555555&amp;x), <br>x=(0xcccccccc&amp;x)&gt;&gt;2+(0×33333333&amp;x), <br>x=(0xf0f0f0f0&amp;x)&gt;&gt;4+(0×0f0f0f0f&amp;x), <br>x=(0xff00ff00&amp;x)&gt;&gt;8+(0×00ff00ff&amp;x), <br>x=x&gt;&gt;16+(0×0000ffff&amp;x))</li>
+<li>Compute the discrete log of an unsigned integer.<br>ANS.<br>#define discrete_log(h) <br>(h=(h&gt;&gt;1)|(h&gt;&gt;2), <br>h|=(h&gt;&gt;2), <br>h|=(h&gt;&gt;4), <br>h|=(h&gt;&gt;8), <br>h|=(h&gt;&gt;16), <br>h=(0xaaaaaaaa&amp;h)&gt;&gt;1+(0×55555555&amp;h), <br>h=(0xcccccccc&amp;h)&gt;&gt;2+(0×33333333&amp;h), <br>h=(0xf0f0f0f0&amp;h)&gt;&gt;4+(0×0f0f0f0f&amp;h), <br>h=(0xff00ff00&amp;h)&gt;&gt;8+(0×00ff00ff&amp;h), <br>h=(h&gt;&gt;16)+(0×0000ffff&amp;h))<br>If I understand it right, log2(2) =1, log2(3)=1, log2(4)=2….. But this macro does not work out log2(0) which does not exist! How do you think it should be handled?<br>* 95. How do we test most simply if an unsigned integer is a power of two?<br>ANS. #define power_of_two(x) \ ((x)&amp;&amp;(~(x&amp;(x-1))))</li>
+<li>Set the highest significant bit of an unsigned integer to zero.<br>ANS. (from Denis Zabavchik) Set the highest significant bit of an unsigned integer to zero<br>#define zero_most_significant(h) <br>(h&amp;=(h&gt;&gt;1)|(h&gt;&gt;2), <br>h|=(h&gt;&gt;2), <br>h|=(h&gt;&gt;4), <br>h|=(h&gt;&gt;8), <br>h|=(h&gt;&gt;16))</li>
+<li>Let f(k) = y where k is the y-th number in the increasing sequence of non-negative integers with the same number of ones in its binary representation as y, e.g. f(0) = 1, f(1) = 1, f(2) = 2, f(3) = 1, f(4) = 3, f(5) = 2, f(6) = 3 and so on. Given k &gt;= 0, compute f(k).<br>Others</li>
+<li>A character set has 1 and 2 byte characters. One byte characters have 0 as the first bit. You just keep accumulating the characters in a buffer. Suppose at some point the user types a backspace, how can you remove the character efficiently. (Note: You cant store the last character typed because the user can type in arbitrarily many backspaces)</li>
+<li>What is the simples way to check if the sum of two unsigned integers has resulted in an overflow.</li>
+<li>How do you represent an n-ary tree? Write a program to print the nodes of such a tree in breadth first order.</li>
+<li>Write the ‘tr’ program of UNIX. Invoked as<br>tr -str1 -str2. It reads stdin and prints it out to stdout, replacing every occurance of str1 with str2.<br>e.g. tr -abc -xyz<br>to be and not to be &lt;- input<br>to ye xnd not to ye &lt;- output</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/06/10/IT-questions/" data-id="cl51yqknt0018coyz4mqyh1kg" data-title="IT公司面试题" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-Pseudo-random" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/10/Pseudo-random/" class="article-date">
+  <time datetime="2018-06-10T13:23:41.000Z" itemprop="datePublished">2018-06-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/10/Pseudo-random/">Pseudo-random</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>古老的LCG(linear congruential generator)代表了最好的伪随机数产生器算法。主要原因是容易理解，容易实现，而且速度快。</p>
+<p>如果需要高质量的伪随机数，内存充足(约2kb)，Mersenne twister算法是个不错的选择。Mersenne twister产生随机数的质量几乎超过任何LCG。不过一般Mersenne twister的实现使用LCG产生种子。<br>Mersenne twister是Makoto Matsumoto (松本)和Takuji Nishimura (西村)于1997年开发的伪随机数产生器，基于有限二进制字段上的矩阵线性再生。可以快速产生高质量的伪随机数，修正了古老随机数产生算法的很多缺陷。 Mersenne twister这个名字来自周期长度通常取Mersenne质数这样一个事实。常见的有两个变种Mersenne Twister MT19937和Mersenne Twister MT19937-64。<br>Mersenne Twister有很多长处，例如：周期2^19937 - 1对于一般的应用来说，足够大了，序列关联比较小，能通过很多随机性测试。<br>用Mersenne twister算法实现的伪随机数版本非常多。例如boost库中的高质量快速随机数产生器就是用Mersenne twister算法原理编写的。</p>
+<p>matlab的随机函数产生的随机数都是根据伪随机数序列获取的，在v7.7以上的版本中，有如下的伪随机数产生器：<br>Mersenne twister，<br>Multiplicative congruential generator，<br>Multiplicative lagged Fibonacci generator，<br>Combined multiple recursive generator，<br>Shift-register generator summed with linear congruential generator，<br>Modified subtract with borrow generator。</p>
+<p>在Windows下如果用mt_rand()函数替代rand()函数的话效果也会好很多。这是由于mt_rand()用了Mersenne Twister(马其塞旋转)算法来产生随机数。PHP的文档还说：mt_rand() 可以产生随机数值的平均速度比 libc 提供的 rand() 快四倍。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/06/10/Pseudo-random/" data-id="cl51yqkog0079coyz7k08e8x0" data-title="Pseudo-random" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/40/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/39/">39</a><a class="page-number" href="/page/40/">40</a><span class="page-number current">41</span><a class="page-number" href="/page/42/">42</a><a class="page-number" href="/page/43/">43</a><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/42/">Next »</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/" rel="tag">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bit-Manipulation/" rel="tag">Bit Manipulation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/" rel="tag">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bruce-Lee/" rel="tag">Bruce Lee</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CEMC/" rel="tag">CEMC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/" rel="tag">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/" rel="tag">Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Divide-and-Conquer/" rel="tag">Divide and Conquer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFmpeg/" rel="tag">FFmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/" rel="tag">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/" rel="tag">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HackerRank/" rel="tag">HackerRank</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/" rel="tag">Hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashTable/" rel="tag">HashTable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/" rel="tag">Heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IELTS/" rel="tag">IELTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/" rel="tag">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/" rel="tag">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/" rel="tag">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lin-Yutang/" rel="tag">Lin Yutang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/" rel="tag">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marcus-Du-Sautoy/" rel="tag">Marcus Du Sautoy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathematics/" rel="tag">Mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/" rel="tag">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/" rel="tag">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programming/" rel="tag">Programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/" rel="tag">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/" rel="tag">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/" rel="tag">Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEDx/" rel="tag">TEDx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terence-Tao/" rel="tag">Terence Tao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/" rel="tag">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Topological-Sort/" rel="tag">Topological Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/" rel="tag">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/" rel="tag">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/" rel="tag">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backtracking/" rel="tag">backtracking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/" rel="tag">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bilingual/" rel="tag">bilingual</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/" rel="tag">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrency/" rel="tag">concurrency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coronavirus/" rel="tag">coronavirus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/creative-thinking/" rel="tag">creative thinking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/" rel="tag">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/" rel="tag">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/essay/" rel="tag">essay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firefox/" rel="tag">firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/geometry/" rel="tag">geometry</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/" rel="tag">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graph/" rel="tag">graph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/" rel="tag">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history-of-mathematics/" rel="tag">history of mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ide/" rel="tag">ide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/" rel="tag">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/" rel="tag">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/logic/" rel="tag">logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/" rel="tag">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/" rel="tag">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/physics/" rel="tag">physics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/popscience/" rel="tag">popscience</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programmer/" rel="tag">programmer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quantum/" rel="tag">quantum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recurrence/" rel="tag">recurrence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/song/" rel="tag">song</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/" rel="tag">stack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/" rel="tag">vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/" rel="tag">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wolfram/" rel="tag">wolfram</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" rel="tag">中文经典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E6%96%87/" rel="tag">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" rel="tag">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" rel="tag">数学史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" rel="tag">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" rel="tag">李小龙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" rel="tag">李笑来</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" rel="tag">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" rel="tag">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8B%B1%E8%AF%AD/" rel="tag">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%91%E8%A8%80/" rel="tag">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 19.44px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.22px;">Array</a> <a href="/tags/BFS/" style="font-size: 15px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.56px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15.56px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 16.11px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.44px;">DFS</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.11px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.78px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.89px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 13.89px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 11.11px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.89px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.56px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.67px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.56px;">Mathematics</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10.56px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.56px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.67px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.78px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.56px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 13.33px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 14.44px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.67px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.56px;">Topological Sort</a> <a href="/tags/Tree/" style="font-size: 11.67px;">Tree</a> <a href="/tags/Two-Pointers/" style="font-size: 15.56px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.67px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.56px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.11px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 20px;">english</a> <a href="/tags/essay/" style="font-size: 11.67px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.22px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.67px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.89px;">java</a> <a href="/tags/javascript/" style="font-size: 10.56px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.56px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.67px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.11px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 18.33px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 11.67px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 11.11px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.78px;">regex</a> <a href="/tags/song/" style="font-size: 13.33px;">song</a> <a href="/tags/sql/" style="font-size: 10.56px;">sql</a> <a href="/tags/stack/" style="font-size: 10.56px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.56px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 12.22px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10.56px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 10.56px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12.22px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 12.22px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 10.56px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/01/Canada-Billy-Collins/">Canada</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/30/An-Essay-on-Criticism-Part-3-Alexander-Pope/">An Essay on Criticism Part 3</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/29/An-Essay-on-Criticism-Part-2-Alexander-Pope/">An Essay on Criticism Part 2</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/28/An-Essay-on-Criticism-Part-1-Alexander-Pope/">An Essay on Criticism Part 1</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/24/a-question-robert-frost/">A Question</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 hezhigang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

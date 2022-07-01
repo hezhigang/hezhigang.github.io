@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>A Humble Programmer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="A Humble Programmer">
+<meta property="og:url" content="https://hezhigang.github.io/page/19/index.html">
+<meta property="og:site_name" content="A Humble Programmer">
+<meta property="og:locale">
+<meta property="article:author" content="hezhigang">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="A Humble Programmer" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">A Humble Programmer</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hezhigang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-leetcode-algorithms-rotate-array" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/05/leetcode-algorithms-rotate-array/" class="article-date">
+  <time datetime="2020-10-06T01:07:30.000Z" itemprop="datePublished">2020-10-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/05/leetcode-algorithms-rotate-array/">LeetCode - Algorithms - 189. Rotate Array</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/rotate-array/">189. Rotate Array</a></p>
+<h2 id="Follow-up"><a href="#Follow-up" class="headerlink" title="Follow up"></a>Follow up</h2><ul>
+<li>Try to come up as many solutions as you can, there are at least 3 different ways to solve this problem.</li>
+<li>Could you do it in-place with O(1) extra space?</li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Using-Reverse"><a href="#Using-Reverse" class="headerlink" title="Using Reverse"></a>Using Reverse</h2><p>© <a target="_blank" rel="noopener" href="https://leetcode.com/problems/rotate-array/solution/">Approach 4: Using Reverse</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = nums.length;</span><br><span class="line">        <span class="keyword">if</span> (k &gt;= N)</span><br><span class="line">            k = k % N;</span><br><span class="line">        reverse(nums, <span class="number">0</span>, N - <span class="number">1</span>);</span><br><span class="line">        reverse(nums, <span class="number">0</span>, k - <span class="number">1</span>);</span><br><span class="line">        reverse(nums, k, N - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">reverse</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> temp;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; (end - start + <span class="number">1</span>) / <span class="number">2</span>; i++) &#123;</span><br><span class="line">            temp = nums[start + i];</span><br><span class="line">            nums[start + i] = nums[end - i];</span><br><span class="line">            nums[end - i] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>35 / 35 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Rotate Array.</li>
+<li>Memory Usage: 39.4 MB, less than 97.56% of Java online submissions for Rotate Array.</li>
+</ul>
+<h2 id="brute-force"><a href="#brute-force" class="headerlink" title="brute force"></a>brute force</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> temp;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = nums.length;</span><br><span class="line">        <span class="keyword">if</span> (k &gt;= N)</span><br><span class="line">            k = k % N;</span><br><span class="line">        <span class="keyword">for</span> (; k &gt; <span class="number">0</span>; k--) &#123;</span><br><span class="line">            temp = nums[N - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = N - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">                nums[i] = nums[i - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            nums[<span class="number">0</span>] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>35 / 35 test cases passed.</li>
+<li>Runtime: 183 ms, faster than 22.49% of Java online submissions for Rotate Array.</li>
+<li>Memory Usage: 39.4 MB, less than 96.24% of Java online submissions for Rotate Array.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/05/leetcode-algorithms-rotate-array/" data-id="cl51yqkph00izcoyzevz6hujy" data-title="LeetCode - Algorithms - 189. Rotate Array" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-analysis-of-algorithms" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/05/analysis-of-algorithms/" class="article-date">
+  <time datetime="2020-10-05T13:22:19.000Z" itemprop="datePublished">2020-10-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/05/analysis-of-algorithms/">1.4 Analysis of Algorithms - digests</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>© Algorithms, 4th Edition by Robert Sedgewick and Kevin Wayne</p>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<h1 id="Types-of-analyses"><a href="#Types-of-analyses" class="headerlink" title="Types of analyses"></a>Types of analyses</h1><ul>
+<li>Best case - Lower bound on cost.</li>
+<li>Worst case - Upper bound on cost.</li>
+<li>Average case - “Expected” cost.</li>
+</ul>
+<h1 id="Order-of-growth-classifications"><a href="#Order-of-growth-classifications" class="headerlink" title="Order-of-growth classifications"></a>Order-of-growth classifications</h1><table>
+<thead>
+<tr>
+<th>order of growth</th>
+<th>name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\( 1 \)</td>
+<td>constant</td>
+</tr>
+<tr>
+<td>\( logN \)</td>
+<td>logarithmic</td>
+</tr>
+<tr>
+<td>\( N \)</td>
+<td>linear</td>
+</tr>
+<tr>
+<td>\( NlogN \)</td>
+<td>linearithmic</td>
+</tr>
+<tr>
+<td>\( N^2 \)</td>
+<td>quadratic</td>
+</tr>
+<tr>
+<td>\( N^3 \)</td>
+<td>cubic</td>
+</tr>
+<tr>
+<td>\( 2^n \)</td>
+<td>exponential</td>
+</tr>
+</tbody></table>
+<h1 id="notation"><a href="#notation" class="headerlink" title="notation"></a>notation</h1><table>
+<thead>
+<tr>
+<th>notation</th>
+<th>provides</th>
+<th>example</th>
+<th>used to</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tilde</td>
+<td>leading term</td>
+<td>\( \sim 10 N^2 \)</td>
+<td>provide approximate model</td>
+</tr>
+<tr>
+<td>Big Theta</td>
+<td>asymptotic order of growth</td>
+<td>\( \Theta(N^2) \)</td>
+<td>classify algorithms</td>
+</tr>
+<tr>
+<td>Big Oh</td>
+<td>\( \Theta(N^2) \) and smaller</td>
+<td>\( O(N^2) \)</td>
+<td>develop upper bounds</td>
+</tr>
+<tr>
+<td>Big Omega</td>
+<td>\( \Theta(N^2) \) and larger</td>
+<td>\( \Omega(N^2) \)</td>
+<td>develop lower bounds</td>
+</tr>
+</tbody></table>
+<h2 id="Tilde-notation"><a href="#Tilde-notation" class="headerlink" title="Tilde notation"></a>Tilde notation</h2><ul>
+<li>Estimate running time (or memory) as a function of input size N</li>
+<li>Ignore lower order terms</li>
+</ul>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://algs4.cs.princeton.edu/14analysis/">1.4 Analysis of Algorithms</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/05/analysis-of-algorithms/" data-id="cl51yqkol008xcoyzce0abr2q" data-title="1.4 Analysis of Algorithms - digests" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-learn-to-think-in-english" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/04/learn-to-think-in-english/" class="article-date">
+  <time datetime="2020-10-04T19:24:36.000Z" itemprop="datePublished">2020-10-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/04/learn-to-think-in-english/">Learn How To Think In English</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Stop Translating in Your Head.<br>Learn to Think in English.</p>
+</blockquote>
+<p>To be honest, it is an easy but time taking process. Although I’m not a native speaker but still I know it is pretty difficult in the beginning when we try to think in English.</p>
+<h1 id="Think-in-single-words"><a href="#Think-in-single-words" class="headerlink" title="Think in single words"></a>Think in single words</h1><h2 id="When"><a href="#When" class="headerlink" title="When"></a>When</h2><p>When your mind is clear and you’re not busy, one to two times a day.</p>
+<h2 id="How"><a href="#How" class="headerlink" title="How"></a>How</h2><p>If you’re just starting to learn English, don’t worry—it’s never too early to start thinking in English. You can begin as soon as you know even a small number of vocabulary words.</p>
+<p>Look around you. What do you see? In your head, try to name each object in your surroundings.</p>
+<p>Charles Thomas tells his students to name the things that they see around them, wherever they are.</p>
+<p> “As you continue with this, it becomes more of a habit, so things are going to pop up into your head – computer, telephone, chair, desk. Whatever it is…wherever you are.”</p>
+<p>Start with nouns and then add in verbs, he suggests.</p>
+<p>He says you can also do this at home when you wake up and before you go to sleep.</p>
+<p>“I’ve had students tell me that they label everything in their room or their apartments so that these English words, kind of, stick in their heads.”</p>
+<h1 id="Narrate-your-day-Describe-your-day"><a href="#Narrate-your-day-Describe-your-day" class="headerlink" title="Narrate your day, Describe your day"></a>Narrate your day, Describe your day</h1><h2 id="When-1"><a href="#When-1" class="headerlink" title="When"></a>When</h2><p>When your mind is clear and you’re not busy, one to two times a day.</p>
+<h2 id="How-1"><a href="#How-1" class="headerlink" title="How"></a>How</h2><p>A narrator is someone who tells or reads the story. In books, the narrator is the part without dialogue, which describes what’s happening. Many movies—especially documentaries—use narrators to explain certain parts. Now you get to pretend to be the narrator in your life, as if your life were a movie!</p>
+<p>Your daily life narration might sound something like this: “It’s morning. She wakes up and rubs her eyes, preparing to face the day. She yawns as she makes herself a cup of coffee, and wonders what she should wear today.”</p>
+<p>Thomas asks his beginning-level students to describe their day using the simple present verb form. So, they would think to themselves things like, “I put on my shirt” and “He drives the bus.”</p>
+<p>For example, you might tell yourself, “When I leave the house, I’m going to get an iced coffee. Then, I’ll take the train to class. I’m studying with Paola today. She said she booked a study room at the library for 2 p.m.”</p>
+<h1 id="Make-up-conversations-Talk-to-yourself-in-English"><a href="#Make-up-conversations-Talk-to-yourself-in-English" class="headerlink" title="Make up conversations, Talk to yourself in English"></a>Make up conversations, Talk to yourself in English</h1><p>This is a great way to practice what you might say in a real conversation.</p>
+<h2 id="When-2"><a href="#When-2" class="headerlink" title="When"></a>When</h2><p>When you’re alone and not busy, once a day.</p>
+<h2 id="How-2"><a href="#How-2" class="headerlink" title="How"></a>How</h2><p>Of course, when you speak to other people you don’t just tell them about your day. Conversations come in many different topics, so you’ll want to practice conversations as well.</p>
+<p>For example, if you’re planning to go to a restaurant soon you can practice a conversation with the waiter. Think of both the waiter’s parts and yours. Your conversation might look something like this:</p>
+<p>Waiter: “Hello, and welcome to our restaurant. Do you know what you’ll be ordering?”</p>
+<p>You: “I’m not sure yet. What do you recommend?”</p>
+<p>Waiter: “If you like seafood, our fish of the day is fantastic.”</p>
+<p>You: “Great, I’ll have that, then.”</p>
+<p>You can try the conversation in different ways, and seeing how differently it turns out each time.</p>
+<h1 id="Get-creative"><a href="#Get-creative" class="headerlink" title="Get creative"></a>Get creative</h1><h2 id="When-3"><a href="#When-3" class="headerlink" title="When"></a>When</h2><p>Every time you don’t know how to say something in English.</p>
+<h2 id="How-3"><a href="#How-3" class="headerlink" title="How"></a>How</h2><p>So you’re sitting in your car and practicing your English. That’s great! But what do you do when you can’t think of how to say a word? Instead of interrupting a conversation to pull out a dictionary app, it’s time to get creative.</p>
+<p>For example, if you’re trying to explain to someone that you lost your key, but can’t remember the word “key,” you can tell them instead that “I can’t open my door because it’s locked,” or “I can’t get into my house, I lost the thing you use to unlock the door.”</p>
+<p>Both sentences don’t use the word “key,” but they’re both clear enough to be understood.</p>
+<h1 id="Build-your-vocabulary"><a href="#Build-your-vocabulary" class="headerlink" title="Build your vocabulary"></a>Build your vocabulary</h1><h2 id="When-4"><a href="#When-4" class="headerlink" title="When"></a>When</h2><p>Every time you think in English.</p>
+<h2 id="How-4"><a href="#How-4" class="headerlink" title="How"></a>How</h2><p>You know that word you couldn’t remember earlier? (The words you don’t know, which cause you to get creative in #4.) As soon as you can, write down the “definition” in English or the word in your native language. Carry around a little book or use a note app on your phone. Every time you can’t think of a word (or don’t know a word) in English, write it down. At the end of the day, look up these words in English and write them down. This will help you fill in the gaps in your vocabulary.</p>
+<p>Now that you have a long list of new words, what can you do with them? The first step is to use them in conversations (and your thoughts). A good way to do this is by grouping the words into chunks. Choose a group of around five words every morning, and use them throughout the day. This will help you remember them in the long run.</p>
+<p>Something else you can do with your growing vocabulary list is move them to the digital world. <a target="_blank" rel="noopener" href="https://www.wordnik.com/">Wordnik</a> is a website where you can look up a word and see real examples of it being used. You can also make a list of words here. Add your new words and learn how to use them. As you internalize these new words you can move from your “vocabulary” list to a “learned words” list.</p>
+<p>The Dictionary website (and apps) also lets you add words to a list of favorites, as does the <a target="_blank" rel="noopener" href="https://www.vocabulary.com/">Vocabulary</a> website. Use these websites and lists!</p>
+<h1 id="Use-an-English-to-English-dictionary-Don’t-use-a-bilingual-dictionary"><a href="#Use-an-English-to-English-dictionary-Don’t-use-a-bilingual-dictionary" class="headerlink" title="Use an English to English dictionary, Don’t use a bilingual dictionary"></a>Use an English to English dictionary, Don’t use a bilingual dictionary</h1><h2 id="When-5"><a href="#When-5" class="headerlink" title="When"></a>When</h2><p>Every time you look up a word.</p>
+<h2 id="How-5"><a href="#How-5" class="headerlink" title="How"></a>How</h2><p>When you feel more comfortable thinking in English, make sure to do this in your daily life whenever possible. This includes looking up words in an English to English dictionary (with definitions in English). The less you translate, the easier it will become to just think and speak in English.</p>
+<h1 id="Think-in-sentences-Learn-vocabulary-in-phrases-not-single-words"><a href="#Think-in-sentences-Learn-vocabulary-in-phrases-not-single-words" class="headerlink" title="Think in sentences, Learn vocabulary in phrases, not single words"></a>Think in sentences, Learn vocabulary in phrases, not single words</h1><p>Our brains are pattern-matching machines that remember things put into context. If I can’t come up with any context examples, I check out Cambridge Advanced Learner’s Dictionary or google it.</p>
+<p>For example, if you are sitting in a park, you can tell yourself things like, “It’s such a beautiful day” and “People are playing sports with their friends.”</p>
+<p>Once this becomes easy, you can move on to more difficult sentences.</p>
+<p>Hinshaw sometimes uses this exercise to think about what he wants to say to people in Spanish.</p>
+<p>“I definitely try to say these sentences in my head or try to put the words together without thinking too much about if it’s absolutely correct.”</p>
+<h1 id="Describe-unknown-words"><a href="#Describe-unknown-words" class="headerlink" title="Describe unknown words"></a>Describe unknown words</h1><p>Another exercise that both Thomas and Hinshaw suggest is describing in your mind objects you don’t know the words for.</p>
+<p>An example would be if you couldn’t think of the word “garage,” Thomas says.</p>
+<p>“If you’re looking at your house and you see your garage, but you can’t think of the name in English, you can say, ‘The place inside where I put my car.’ Or you can say, ‘It’s next to my house. I keep things there.’”</p>
+<p>He says you can also use shorter phrases, such as “It’s similar to…” or “It’s the opposite of…”</p>
+<p>Hinshaw says doing this can help learners of any language. As a Spanish learner, he does it himself.</p>
+<h1 id="Take-notes"><a href="#Take-notes" class="headerlink" title="Take notes"></a>Take notes</h1><p>Hinshaw suggests writing down just five to 10 new words and phrases each day.</p>
+<p>Keeping a notebook, he says, helps you remember the situation that you needed that word or phrase for. This makes it easy to recall when you are in such a situation again. </p>
+<h1 id="Practice-it-daily"><a href="#Practice-it-daily" class="headerlink" title="Practice it daily"></a>Practice it daily</h1><p>Thomas says do a little every day.</p>
+<p>“So when you’re doing it every day, over and over again, little by little, that’s the key. Because, when you make things a habit, then it just pops up into your mind without thinking and then, before you know it, really, you’re thinking in English.”</p>
+<h1 id="Get-an-English-speaking-friend-or-partner"><a href="#Get-an-English-speaking-friend-or-partner" class="headerlink" title="Get an English-speaking friend or partner"></a>Get an English-speaking friend or partner</h1><h1 id="Travel"><a href="#Travel" class="headerlink" title="Travel"></a>Travel</h1><hr>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.fluentu.com/blog/english/how-to-think-in-english/">Do You Think in English? Here’s Why You Should, Plus 6 Steps That Show Exactly How to Start</a></li>
+<li><a target="_blank" rel="noopener" href="https://learningenglish.voanews.com/a/train-your-mind-to-think-in-english/5023664.html">Train Your Brain to Think in English</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.quora.com/How-can-I-start-thinking-in-English-in-my-mind">How can I start thinking in English in my mind?</a></li>
+<li><a target="_blank" rel="noopener" href="https://christinarebuffet.com/blog/learn-to-think-in-english/">Stop Translating in Your Head &amp; Learn to Think in English</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ilac.com/6-ways-to-think-in-english/">6 Ways to Think in English</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.espressoenglish.net/learn-how-to-think-in-english/">Learn How to Think in English</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/04/learn-to-think-in-english/" data-id="cl51yqkp400ffcoyz33k4h8be" data-title="Learn How To Think In English" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-inspiring-quotes-for-english-learners" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/02/inspiring-quotes-for-english-learners/" class="article-date">
+  <time datetime="2020-10-02T15:01:13.000Z" itemprop="datePublished">2020-10-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/02/inspiring-quotes-for-english-learners/">【repost】Inspiring quotes for English learners</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>© <a target="_blank" rel="noopener" href="https://www.ef.com/wwen/english-resources/english-quotes/inspiring/">Inspiring quotes for English learners</a></p>
+<p><em>These inspiring quotes will help you stay motivated to improve your English every day. It’s easy to get discouraged after a bad grade on a test or a particularly difficult lesson. It is hard to learn a new language, and more importantly, it takes time, effort, and practice. But even when the task seems hard, it’s never impossible, as these inspiring quotes will tell you. So change tactics, try something new, and keep on learning English!</em></p>
+<p>An investment in education pays the best interest. — Benjamin Franklin</p>
+<blockquote>
+<p>Anyone who stops learning is old, whether at twenty or eighty. — Henry Ford</p>
+</blockquote>
+<p>Education costs money, but then so does ignorance. — Sir Claus Moser</p>
+<p>Education is not preparation for life. Education is life itself. — John Dewey</p>
+<blockquote>
+<p>Get over the idea that only children should spend their time studying. Be a student as long as you still have something to learn, and this will mean all your life. — Henry Doherty</p>
+</blockquote>
+<p>I am always doing that which I cannot do in order that I may learn how to do it. — Pablo Picasso</p>
+<blockquote>
+<p>I am always ready to learn although I do not always like being taught. — Winston Churchill</p>
+</blockquote>
+<blockquote>
+<p>I hope that in this year to come, you make mistakes. Because if you are making mistakes, then you are making new things, trying new things, learning, living, pushing yourself, changing yourself, changing your world. — Neil Gaiman</p>
+</blockquote>
+<blockquote>
+<p>I learned the value of hard work by working hard. — Margaret Mead</p>
+</blockquote>
+<p>If the goal you’ve set for yourself has a 100 percent chance of success, then frankly you aren’t aiming high enough. — Benny Lewis</p>
+<p>If you hold a cat by the tail you learn things you cannot learn any other way. — Mark Twain</p>
+<blockquote>
+<p>If you’re determined to learn, no one can stop you. — Zig Ziglar</p>
+</blockquote>
+<p>It is good to have an end to journey toward, but it is the journey that matters in the end. — Ernest Hemingway</p>
+<blockquote>
+<p>Knowledge is of no value unless you put it into practice. — Anton Chekhov</p>
+</blockquote>
+<blockquote>
+<p>Live as if you were to die tomorrow. Learn as if you were to live forever. — Mahatma Ghandi</p>
+</blockquote>
+<p>Never discourage anyone who continually makes progress, no matter how slow. — Plato</p>
+<blockquote>
+<p>Self education is the only kind of education there is. — Isaac Asimov</p>
+</blockquote>
+<p>The noblest pleasure is the joy of understanding. — Leonardo da Vinci</p>
+<blockquote>
+<p>Theory is knowledge that doesn’t work. Practice is when everything works and you don’t know why. — Herman Hesse</p>
+</blockquote>
+<p>There are no foreign lands. It is the traveller only who is foreign. — Robert Louis Stevenson</p>
+<blockquote>
+<p>There are no secrets to success. It is the result of preparation, hard work, and learning from failure. — Colin Powell</p>
+</blockquote>
+<blockquote>
+<p>You can be discouraged by failure, or you can learn from it. So go ahead and make mistakes, make all you can. Because, remember that’s where you’ll find success - on the far side of failure. — Thomas Watson</p>
+</blockquote>
+<blockquote>
+<p>You can get help from teachers, but you’re going to have to learn a lot by yourself, sitting alone in a room. — Dr. Seuss</p>
+</blockquote>
+<blockquote>
+<p>You don’t learn to walk by following rules. You learn by doing, and by falling over. — Richard Branson</p>
+</blockquote>
+<p>You’ll never know everything about anything. — Julia Child</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/02/inspiring-quotes-for-english-learners/" data-id="cl51yqkp100eqcoyzgl0o877i" data-title="【repost】Inspiring quotes for English learners" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-side-income-ideas-for-programmers" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/01/side-income-ideas-for-programmers/" class="article-date">
+  <time datetime="2020-10-01T18:19:10.000Z" itemprop="datePublished">2020-10-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/01/side-income-ideas-for-programmers/">Side Income Ideas For Programmers</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Start-to-Freelance"><a href="#Start-to-Freelance" class="headerlink" title="Start to Freelance"></a>Start to Freelance</h1><ul>
+<li>Upwork</li>
+<li>Fiverr</li>
+</ul>
+<h1 id="Coding-Contests"><a href="#Coding-Contests" class="headerlink" title="Coding Contests"></a>Coding Contests</h1><ul>
+<li>Topcoder</li>
+<li>HackerEarth</li>
+<li>Coderbyte</li>
+<li>Project Euler</li>
+<li>CodeChef</li>
+<li>Codeforces</li>
+<li>Sphere Online Judge (SPOJ)</li>
+<li>Google Code Jam</li>
+<li>CodingBat</li>
+<li>Codility</li>
+<li>HackerRank</li>
+<li>InterviewBit</li>
+</ul>
+<h1 id="Record-and-Sell-Online-Courses"><a href="#Record-and-Sell-Online-Courses" class="headerlink" title="Record and Sell Online Courses"></a>Record and Sell Online Courses</h1><ul>
+<li>Udemy</li>
+<li>BitDegree</li>
+<li>Udacity</li>
+<li>Skillshare</li>
+</ul>
+<h1 id="YouTube-Channel"><a href="#YouTube-Channel" class="headerlink" title="YouTube Channel"></a>YouTube Channel</h1><h1 id="Start-a-Podcast"><a href="#Start-a-Podcast" class="headerlink" title="Start a Podcast"></a>Start a Podcast</h1><h1 id="Sell-an-Ebook"><a href="#Sell-an-Ebook" class="headerlink" title="Sell an Ebook"></a>Sell an Ebook</h1><ul>
+<li>Amazon Kindle Direct Publishing</li>
+</ul>
+<h1 id="Start-to-Write"><a href="#Start-to-Write" class="headerlink" title="Start to Write"></a>Start to Write</h1><ul>
+<li>Medium</li>
+</ul>
+<hr>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/better-programming/side-gigs-that-will-make-you-money-as-a-programmer-in-2020-9124760f3c8">Side Gigs That Will Make You Money as a Programmer in 2020 - An unbiased look at revenue streams every programmer can use to boost their income
+</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/better-programming/how-to-make-extra-money-as-a-programmer-144d76b76ffd">How to Make Extra Money as a Programmer - There are plenty of opportunities to expand your income beyond your day job</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.afternerd.com/blog/side-income-programmers/">8 Side Income Ideas For Programmers</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/01/side-income-ideas-for-programmers/" data-id="cl51yqkq100oecoyz6amthv11" data-title="Side Income Ideas For Programmers" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/programmer/" rel="tag">programmer</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-sonnet-73-william-shakespeare" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/30/sonnet-73-william-shakespeare/" class="article-date">
+  <time datetime="2020-09-30T15:19:16.000Z" itemprop="datePublished">2020-09-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/30/sonnet-73-william-shakespeare/">Sonnet 73</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>by <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/William_Shakespeare">William Shakespeare</a></p>
+<p>That time of year thou mayst in me behold,<br>When yellow leaves, or none, or few, do hang<br>Upon those boughs which shake against the cold,<br>Bare ruined choirs, where late the sweet birds sang;<br>In me thou seest the twilight of such day<br>As after sunset fadeth in the west,<br>Which by and by black night doth take away,<br>Death’s second self that seals up all in rest;<br>In me thou seest the glowing of such fire<br>That on the ashes of his youth doth lie,<br>As the deathbed whereon it must expire,<br>Consum’d with that which it was nourish’d by;<br>This thou perceiv’st, which makes thy love more strong,<br>To love that well, which thou must leave ere long.</p>
+<iframe src="https://open.spotify.com/embed/track/0YdUQ0aQ7HxDqTvMCiEVqN" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+<hr>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Sonnet_73">Sonnet 73</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.poetryfoundation.org/poems/45099/sonnet-73-that-time-of-year-thou-mayst-in-me-behold">Sonnet 73: That time of year thou mayst in me behold</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/09/30/sonnet-73-william-shakespeare/" data-id="cl51yqkq300p3coyz3abe7d4o" data-title="Sonnet 73" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/song/" rel="tag">song</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-leetcode-algorithms-3sum" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/29/leetcode-algorithms-3sum/" class="article-date">
+  <time datetime="2020-09-29T17:40:37.000Z" itemprop="datePublished">2020-09-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/29/leetcode-algorithms-3sum/">LeetCode - Algorithms - 15. 3Sum</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Beats me! Just post solution of other guy.</p>
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/3sum/">15. 3Sum</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="two-pointers"><a href="#two-pointers" class="headerlink" title="two pointers"></a>two pointers</h2><p>© <a target="_blank" rel="noopener" href="https://www.programcreek.com/2012/12/leetcode-3sum/">LeetCode – 3Sum - two pointers</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; threeSum(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line"></span><br><span class="line">        ArrayList&lt;List&lt;Integer&gt;&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> k = nums.length - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i - <span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (j &lt; k) &#123;</span><br><span class="line">                <span class="keyword">if</span> (k &lt; nums.length - <span class="number">1</span> &amp;&amp; nums[k] == nums[k + <span class="number">1</span>]) &#123;</span><br><span class="line">                    k--;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (nums[i] + nums[j] + nums[k] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    k--;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[i] + nums[j] + nums[k] &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                    j++;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    ArrayList&lt;Integer&gt; l = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">                    l.add(nums[i]);</span><br><span class="line">                    l.add(nums[j]);</span><br><span class="line">                    l.add(nums[k]);</span><br><span class="line">                    result.add(l);</span><br><span class="line">                    j++;</span><br><span class="line">                    k--;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>318 / 318 test cases passed.</li>
+<li>Runtime: 21 ms, faster than 65.13% of Java online submissions for 3Sum.</li>
+<li>Memory Usage: 43.1 MB, less than 88.54% of Java online submissions for 3Sum.</li>
+</ul>
+<h2 id="Quadratic-algorithm"><a href="#Quadratic-algorithm" class="headerlink" title="Quadratic algorithm"></a>Quadratic algorithm</h2><p>© <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/3SUM#Quadratic_algorithm">3SUM - Quadratic algorithm</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; threeSum(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = nums.length;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        Set&lt;List&lt;Integer&gt;&gt; set = <span class="keyword">new</span> HashSet&lt;List&lt;Integer&gt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> start, end;</span><br><span class="line">        <span class="keyword">int</span> a, b, c;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            a = nums[i];</span><br><span class="line">            start = i + <span class="number">1</span>;</span><br><span class="line">            end = N - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span> (start &lt; end) &#123;</span><br><span class="line">                b = nums[start];</span><br><span class="line">                c = nums[end];</span><br><span class="line">                <span class="keyword">if</span> (a + b + c == <span class="number">0</span>) &#123;</span><br><span class="line">                    set.add(<span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(a, b, c)));</span><br><span class="line">                    start = start + <span class="number">1</span>;</span><br><span class="line">                    end = end - <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (a + b + c &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    end = end - <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    start = start + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;&gt;(set);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>318 / 318 test cases passed.</li>
+<li>Runtime: 230 ms, faster than 27.64% of Java online submissions for 3Sum.</li>
+<li>Memory Usage: 43.5 MB, less than 64.19% of Java online submissions for 3Sum.</li>
+</ul>
+<h2 id="concise-solution"><a href="#concise-solution" class="headerlink" title="concise solution"></a>concise solution</h2><p>© Java clean solution (15 lines) <a target="_blank" rel="noopener" href="https://leetcode.com/problems/3sum/discuss/865345/Java-clean-solution-(15-lines)">https://leetcode.com/problems/3sum/discuss/865345/Java-clean-solution-(15-lines)</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; threeSum(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        HashSet&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> target = -<span class="number">1</span> * nums[i];</span><br><span class="line">            HashSet&lt;Integer&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; nums.length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (set.contains(target - nums[j]))</span><br><span class="line">                    res.add(<span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(nums[i], nums[j], target - nums[j])));</span><br><span class="line">                set.add(nums[j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;&gt;(res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>318 / 318 test cases passed.</li>
+<li>Runtime: 768 ms, faster than 6.51% of Java online submissions for 3Sum.</li>
+<li>Memory Usage: 43.4 MB, less than 73.80% of Java online submissions for 3Sum.</li>
+</ul>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/3SUM">3SUM</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/09/29/leetcode-algorithms-3sum/" data-id="cl51yqkp500fucoyzhj8b9bpi" data-title="LeetCode - Algorithms - 15. 3Sum" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-what-is-a-coronavirus-elizabeth-cox-TED-Ed" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/26/what-is-a-coronavirus-elizabeth-cox-TED-Ed/" class="article-date">
+  <time datetime="2020-09-27T02:19:42.000Z" itemprop="datePublished">2020-09-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/26/what-is-a-coronavirus-elizabeth-cox-TED-Ed/">What is a coronavirus? - Elizabeth Cox - TED-Ed - Transcript</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>For almost a decade, scientists chased the source of a deadly new virus through China’s tallest mountains and most isolated caverns. </p>
+<p>They finally found it here: in the bats of Shitou Cave. The virus in question was a coronavirus that caused an epidemic of severe acute respiratory syndrome, or SARS, in 2003. </p>
+<p>Coronaviruses are a group of viruses covered in little protein spikes that look like a crown— or “corona” in Latin. There are hundreds of known coronaviruses. Seven of them infect humans, and can cause disease. The coronavirus SARS-CoV causes SARS, MERS-CoV causes MERS, and <strong>SARS-CoV-2</strong> causes the disease <strong>COVID-19</strong>. </p>
+<p>Of the seven human coronaviruses, four cause colds, mild, highly contagious infections of the nose and throat. Two infect the lungs, and cause much more severe illnesses. <strong>The seventh, which causes COVID-19, has features of each: it spreads easily, but can severely impact the lungs</strong>. </p>
+<p>When an infected person coughs, droplets containing the virus spray out. The virus can infect a new person when the droplets enter their <strong>nose or mouth</strong>. Coronaviruses transmit best in <strong>enclosed spaces</strong>, where people are close together. Cold weather keeps their delicate casing from drying out, enabling the virus to survive for longer between hosts, while UV exposure from sunlight may damage it. These seasonal variations matter more for established viruses. But because no one is yet immune to a new virus, it has so many potential hosts that it doesn’t need ideal conditions to spread. </p>
+<p>In the body, the protein spikes embed in the host’s cells and fuse with them — enabling the virus to hijack the host cell’s machinery to replicate its own genes. </p>
+<p><strong>Coronaviruses store their genes on RNA</strong>. All viruses are either RNA viruses or DNA viruses. <strong>RNA viruses</strong> tend to be smaller, with fewer genes, meaning they infect many hosts and replicate quickly in those hosts. In general, RNA viruses don’t have a proofreading mechanism, whereas DNA viruses do. So when an RNA virus replicates, it’s much more likely to have mistakes called <strong>mutations</strong>. </p>
+<p>Many of these mutations are useless or even harmful. But some make the virus better suited for certain environments — like a new host species. Epidemics often occur when a virus jumps from animals to humans. This is true of the RNA viruses that caused the Ebola, Zika, and SARS epidemics, and the COVID-19 pandemic. Once in humans, the virus still mutates — usually not enough to create a new virus, but enough to create variations, or strains, of the original one. </p>
+<p>Coronaviruses have a few key differences from most RNA viruses. They’re some of the largest, meaning they have the most genes. That creates more opportunity for harmful mutations. To counteract this risk, coronaviruses have a unique feature: an enzyme that checks for replication errors and corrects mistakes. This makes coronaviruses much more stable, with a slower mutation rate, than other RNA viruses. </p>
+<p>While this may sound formidable, the slow mutation rate is actually a promising sign when it comes to disarming them. After an infection, our immune systems can recognize germs and destroy them more quickly if they infect us again so they don’t make us sick. But mutations can make a virus less recognizable to our immune systems — and therefore more difficult to fight off. They can also make antiviral drugs and vaccines less effective, because they’re tailored very specifically to a virus. That’s <strong>why we need a new flu vaccine every year</strong> — the influenza virus mutates so quickly that new strains pop up constantly. <strong>The slower mutation rate of coronaviruses</strong> means our immune systems, drugs, and vaccines might be able to recognize them for longer after infection, and therefore protect us better. </p>
+<p>Still, we don’t know how long our bodies remain immune to different coronaviruses. There’s never been an approved treatment or vaccine for a coronavirus. We haven’t focused on treating the ones that cause colds, and though scientists began developing treatments for SARS and MERS, the epidemics ended before those treatments completed clinical trials. </p>
+<p>As we continue to encroach on other animals’ habitats, some scientists say a new coronavirus jumping to humans is inevitable — but if we investigate these unknowns, it doesn’t have to be devastating. </p>
+<div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://embed.ted.com/talks/elizabeth_cox_what_is_a_coronavirus" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen></iframe></div></div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/09/26/what-is-a-coronavirus-elizabeth-cox-TED-Ed/" data-id="cl51yqkqf00s6coyz8ou182g6" data-title="What is a coronavirus? - Elizabeth Cox - TED-Ed - Transcript" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-extended-euclidean-algorithm-and-modular-multiplicative-inverse" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/24/extended-euclidean-algorithm-and-modular-multiplicative-inverse/" class="article-date">
+  <time datetime="2020-09-24T18:06:24.000Z" itemprop="datePublished">2020-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/24/extended-euclidean-algorithm-and-modular-multiplicative-inverse/">Extended Euclidean algorithm and Modular multiplicative inverse</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<p>The computation of the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Modular_multiplicative_inverse">modular multiplicative inverse</a> is an essential step in the derivation of key-pairs in the RSA public-key encryption method. A benefit for the computer implementation of these applications is that there exists a very fast algorithm (the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm">extended Euclidean algorithm</a>) that can be used for the calculation of modular multiplicative inverses.</p>
+<h1 id="Extended-Euclidean-algorithm"><a href="#Extended-Euclidean-algorithm" class="headerlink" title="Extended Euclidean algorithm"></a>Extended Euclidean algorithm</h1><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/B%C3%A9zout%27s_identity">Bézout’s identity</a> — Let a and b be integers with greatest common divisor d. Then, there exist integers x and y such that ax + by = d. More generally, the integers of the form ax + by are exactly the multiples of d.</p>
+<p>The integers x and y are called <strong>Bézout coefficients</strong> for (a, b); they are not unique. A pair of Bézout coefficients can be computed by the extended Euclidean algorithm.</p>
+<p>\( m’m + n’n = gcd(m, n) \)</p>
+<p>\(<br>    \begin{align*}<br>    \begin{cases} \text{if }m = 0, \text{we simply take } m’=0 \text{ and } n’=1 \text{ as } gcd(0, n)=n \\<br>    \text{Otherwise }m \neq 0, \text{we let }r=n \bmod m=n-\lfloor \frac{n}{m} \rfloor m<br>    \end{cases}<br>    \end{align*}<br>\)</p>
+<p>\( \overline{r}r + \overline{m}m = gcd(r,m) \)</p>
+<p>\( \text{ as } gcd(m, n) = gcd(r, m) \)<br>\( \overline{r}(n-\lfloor \frac{n}{m} \rfloor m) + \overline{m}m = m’m + n’n \implies \)<br>\( (\overline{m}-\lfloor \frac{n}{m} \rfloor \overline{r})m + \overline{r}n = m’m + n’n \implies \)</p>
+<p>\(<br>    \begin{align*}<br>    \begin{cases} m’ = \overline{m}-\lfloor \frac{n}{m} \rfloor \overline{r} \\<br>    n’ = \overline{r}<br>    \end{cases}<br>    \end{align*}<br>\)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExtendedEuclid</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = <span class="number">12</span>, n = <span class="number">18</span>;</span><br><span class="line">        EEResult re = extendedEuclid(m, n);</span><br><span class="line">        System.out.printf(<span class="string">&quot;%d*%d + %d*%d = %d&quot;</span>, re.a, m, re.b, n, re.d);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> EEResult <span class="title">extendedEuclid</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        EEResult re = <span class="keyword">new</span> EEResult();</span><br><span class="line">        <span class="keyword">if</span> (m==<span class="number">0</span>) &#123;</span><br><span class="line">            re.d = n;</span><br><span class="line">            re.a = <span class="number">0</span>;</span><br><span class="line">            re.b = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">return</span> re;</span><br><span class="line">        &#125;</span><br><span class="line">        re = extendedEuclid(n%m, m);</span><br><span class="line">        <span class="keyword">int</span> d = re.d;</span><br><span class="line">        <span class="keyword">int</span> a = re.b - (n/m)*re.a;</span><br><span class="line">        <span class="keyword">int</span> b = re.a;</span><br><span class="line">        re.d = d;</span><br><span class="line">        re.a = a;</span><br><span class="line">        re.b = b;</span><br><span class="line">        <span class="keyword">return</span> re;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">EEResult</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> d;</span><br><span class="line">        <span class="keyword">int</span> a;</span><br><span class="line">        <span class="keyword">int</span> b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Modular-multiplicative-inverse"><a href="#Modular-multiplicative-inverse" class="headerlink" title="Modular multiplicative inverse"></a>Modular multiplicative inverse</h1><p>Finding modular multiplicative inverses also has practical applications in the field of cryptography, i.e. public-key cryptography and the RSA Algorithm.</p>
+<p>\( \displaystyle ax\equiv b{\pmod {m}} \)</p>
+<p>\( \displaystyle x\equiv a^{-1}{\pmod {m}} \)</p>
+<p>\(<br>    \begin{align*}<br>    \begin{cases} d_1 \equiv 35^{-1}{\pmod {3}} = 2 \\<br>    d_2 \equiv 21^{-1}{\pmod {5}} = 1 \\<br>    d_3 \equiv 15^{-1}{\pmod {7}} = 1<br>    \end{cases}<br>    \end{align*}<br>\)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.math.BigInteger;</span><br><span class="line"></span><br><span class="line">BigInteger.valueOf(<span class="number">35</span>).modInverse(BigInteger.valueOf(<span class="number">3</span>));</span><br><span class="line">BigInteger.valueOf(<span class="number">21</span>).modInverse(BigInteger.valueOf(<span class="number">5</span>));</span><br><span class="line">BigInteger.valueOf(<span class="number">15</span>).modInverse(BigInteger.valueOf(<span class="number">7</span>));</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/09/24/extended-euclidean-algorithm-and-modular-multiplicative-inverse/" data-id="cl51yqkou00bwcoyz2mzp93lb" data-title="Extended Euclidean algorithm and Modular multiplicative inverse" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/" rel="tag">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-common-vocabulary-ielts-listening" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/23/common-vocabulary-ielts-listening/" class="article-date">
+  <time datetime="2020-09-24T02:30:44.000Z" itemprop="datePublished">2020-09-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/23/common-vocabulary-ielts-listening/">Build your IELTS Listening test vocabulary</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>© <a target="_blank" rel="noopener" href="https://www.ielts.com/about/news-and-articles/article-common-vocabulary-ielts-listening">Build your IELTS Listening test vocabulary</a></p>
+<h1 id="Part-1-familiar-vocabulary"><a href="#Part-1-familiar-vocabulary" class="headerlink" title="Part 1: familiar vocabulary"></a>Part 1: familiar vocabulary</h1><h2 id="1-Days-of-the-week"><a href="#1-Days-of-the-week" class="headerlink" title="1. Days of the week"></a>1. Days of the week</h2><h3 id="Sunday"><a href="#Sunday" class="headerlink" title="Sunday"></a>Sunday</h3><h3 id="Monday"><a href="#Monday" class="headerlink" title="Monday"></a>Monday</h3><h3 id="Tuesday"><a href="#Tuesday" class="headerlink" title="Tuesday"></a>Tuesday</h3><h3 id="Wednesday"><a href="#Wednesday" class="headerlink" title="Wednesday"></a>Wednesday</h3><h3 id="Thursday"><a href="#Thursday" class="headerlink" title="Thursday"></a>Thursday</h3><h3 id="Friday"><a href="#Friday" class="headerlink" title="Friday"></a>Friday</h3><h3 id="Saturday"><a href="#Saturday" class="headerlink" title="Saturday"></a>Saturday</h3><blockquote>
+<p>Quick Tip: Wednesday is commonly misspelled.</p>
+</blockquote>
+<h2 id="2-Months-and-seasons-of-the-year"><a href="#2-Months-and-seasons-of-the-year" class="headerlink" title="2. Months and seasons of the year"></a>2. Months and seasons of the year</h2><h3 id="January"><a href="#January" class="headerlink" title="January"></a>January</h3><h3 id="February"><a href="#February" class="headerlink" title="February"></a>February</h3><h3 id="March"><a href="#March" class="headerlink" title="March"></a>March</h3><h3 id="April"><a href="#April" class="headerlink" title="April"></a>April</h3><h3 id="May"><a href="#May" class="headerlink" title="May"></a>May</h3><h3 id="June"><a href="#June" class="headerlink" title="June"></a>June</h3><h3 id="July"><a href="#July" class="headerlink" title="July"></a>July</h3><h3 id="August"><a href="#August" class="headerlink" title="August"></a>August</h3><h3 id="September"><a href="#September" class="headerlink" title="September"></a>September</h3><h3 id="October"><a href="#October" class="headerlink" title="October"></a>October</h3><h3 id="November"><a href="#November" class="headerlink" title="November"></a>November</h3><h3 id="December"><a href="#December" class="headerlink" title="December"></a>December</h3><h3 id="winter"><a href="#winter" class="headerlink" title="winter"></a>winter</h3><h3 id="spring"><a href="#spring" class="headerlink" title="spring"></a>spring</h3><h3 id="autumn"><a href="#autumn" class="headerlink" title="autumn"></a>autumn</h3><h3 id="summer"><a href="#summer" class="headerlink" title="summer"></a>summer</h3><blockquote>
+<p>Quick Tip: The first ‘r’ in February is often forgotten. If you struggle with spelling, you can choose to write the date using numbers as long as these numbers are written in the correct format. E.g. ‘the 10th of February, 2020’ = 10/02/2020</p>
+</blockquote>
+<blockquote>
+<p>Quick Tip: the final ‘n’ in autumn is often forgotten as we don’t hear the silent ‘n’.</p>
+</blockquote>
+<h2 id="3-Shapes"><a href="#3-Shapes" class="headerlink" title="3. Shapes"></a>3. Shapes</h2><h3 id="circle"><a href="#circle" class="headerlink" title="circle"></a>circle</h3><h3 id="square"><a href="#square" class="headerlink" title="square"></a>square</h3><h3 id="rectangle"><a href="#rectangle" class="headerlink" title="rectangle"></a>rectangle</h3><h3 id="triangle"><a href="#triangle" class="headerlink" title="triangle"></a>triangle</h3><h3 id="cylinder"><a href="#cylinder" class="headerlink" title="cylinder"></a>cylinder</h3><h3 id="oval"><a href="#oval" class="headerlink" title="oval"></a>oval</h3><blockquote>
+<p>Quick Tip: Shapes can be used when we refer to places in a city, King George Square, so it’s important that you can spell common shapes.</p>
+</blockquote>
+<h2 id="4-Transportation"><a href="#4-Transportation" class="headerlink" title="4. Transportation"></a>4. Transportation</h2><h3 id="automobile"><a href="#automobile" class="headerlink" title="automobile"></a>automobile</h3><h3 id="truck"><a href="#truck" class="headerlink" title="truck"></a>truck</h3><h3 id="tractor"><a href="#tractor" class="headerlink" title="tractor"></a>tractor</h3><h3 id="tram"><a href="#tram" class="headerlink" title="tram"></a>tram</h3><h3 id="subway"><a href="#subway" class="headerlink" title="subway"></a>subway</h3><h3 id="airplane"><a href="#airplane" class="headerlink" title="airplane"></a>airplane</h3><h3 id="train"><a href="#train" class="headerlink" title="train"></a>train</h3><h3 id="bicycle"><a href="#bicycle" class="headerlink" title="bicycle"></a>bicycle</h3><h3 id="car"><a href="#car" class="headerlink" title="car"></a>car</h3><h3 id="pedestrian"><a href="#pedestrian" class="headerlink" title="pedestrian"></a>pedestrian</h3><h3 id="passenger"><a href="#passenger" class="headerlink" title="passenger"></a>passenger</h3><h3 id="commuter"><a href="#commuter" class="headerlink" title="commuter"></a>commuter</h3><blockquote>
+<p>Quick Tip: ‘ commuter ‘ is often misspelled, confusing it with ‘computer’!</p>
+</blockquote>
+<h2 id="5-Colours"><a href="#5-Colours" class="headerlink" title="5. Colours"></a>5. Colours</h2><h3 id="red"><a href="#red" class="headerlink" title="red"></a>red</h3><h3 id="orange"><a href="#orange" class="headerlink" title="orange"></a>orange</h3><h3 id="yellow"><a href="#yellow" class="headerlink" title="yellow"></a>yellow</h3><h3 id="green"><a href="#green" class="headerlink" title="green"></a>green</h3><h3 id="blue"><a href="#blue" class="headerlink" title="blue"></a>blue</h3><h3 id="purple"><a href="#purple" class="headerlink" title="purple"></a>purple</h3><h3 id="white"><a href="#white" class="headerlink" title="white"></a>white</h3><h3 id="black"><a href="#black" class="headerlink" title="black"></a>black</h3><h3 id="brown"><a href="#brown" class="headerlink" title="brown"></a>brown</h3><blockquote>
+<p>Quick Tip: Colour spelled with a ‘u’ is the Canadian/British spelling. In the US, it is spelled ‘color’ without a ‘u’. Both are correct and a matter of preference.</p>
+</blockquote>
+<h2 id="6-Verbs"><a href="#6-Verbs" class="headerlink" title="6. Verbs"></a>6. Verbs</h2><h3 id="suggest"><a href="#suggest" class="headerlink" title="suggest"></a>suggest</h3><h3 id="develop"><a href="#develop" class="headerlink" title="develop"></a>develop</h3><h3 id="borrow"><a href="#borrow" class="headerlink" title="borrow"></a>borrow</h3><h3 id="persuade"><a href="#persuade" class="headerlink" title="persuade"></a>persuade</h3><h3 id="discuss"><a href="#discuss" class="headerlink" title="discuss"></a>discuss</h3><h3 id="review"><a href="#review" class="headerlink" title="review"></a>review</h3><h3 id="concentrate"><a href="#concentrate" class="headerlink" title="concentrate"></a>concentrate</h3><h3 id="believe"><a href="#believe" class="headerlink" title="believe"></a>believe</h3><h3 id="crash"><a href="#crash" class="headerlink" title="crash"></a>crash</h3><blockquote>
+<p>Quick Tip: Sometimes verbs are conjugated for gender, tense, etc. The difference could give you an incorrect answer.</p>
+</blockquote>
+<h2 id="7-Adjectives"><a href="#7-Adjectives" class="headerlink" title="7. Adjectives"></a>7. Adjectives</h2><h3 id="beautiful"><a href="#beautiful" class="headerlink" title="beautiful"></a>beautiful</h3><h3 id="necessary"><a href="#necessary" class="headerlink" title="necessary"></a>necessary</h3><h3 id="fantastic"><a href="#fantastic" class="headerlink" title="fantastic"></a>fantastic</h3><h3 id="comfortable"><a href="#comfortable" class="headerlink" title="comfortable"></a>comfortable</h3><h3 id="convenient"><a href="#convenient" class="headerlink" title="convenient"></a>convenient</h3><h3 id="wonderful"><a href="#wonderful" class="headerlink" title="wonderful"></a>wonderful</h3><h3 id="terrible"><a href="#terrible" class="headerlink" title="terrible"></a>terrible</h3><h3 id="temporary"><a href="#temporary" class="headerlink" title="temporary"></a>temporary</h3><h3 id="permanent"><a href="#permanent" class="headerlink" title="permanent"></a>permanent</h3><h3 id="knowledgeable"><a href="#knowledgeable" class="headerlink" title="knowledgeable"></a>knowledgeable</h3><h3 id="exciting"><a href="#exciting" class="headerlink" title="exciting"></a>exciting</h3><h3 id="boring"><a href="#boring" class="headerlink" title="boring"></a>boring</h3><h3 id="difficult"><a href="#difficult" class="headerlink" title="difficult"></a>difficult</h3><h3 id="easy"><a href="#easy" class="headerlink" title="easy"></a>easy</h3><blockquote>
+<p>Quick Tip: Make sure that you note adjectives that have double consonants (ss/mm). It is easy to miss a letter.</p>
+</blockquote>
+<h2 id="8-Numbers-times-and-currencies-commonly-appear-in-Part-1-of-the-listening-test-Recording-the-corresponding-number-or-symbol-is-suggested-because-this-will-help-eliminate-the-possibility-of-spelling-the-word-incorrectly"><a href="#8-Numbers-times-and-currencies-commonly-appear-in-Part-1-of-the-listening-test-Recording-the-corresponding-number-or-symbol-is-suggested-because-this-will-help-eliminate-the-possibility-of-spelling-the-word-incorrectly" class="headerlink" title="8. Numbers, times, and currencies: commonly appear in Part 1 of the listening test. Recording the corresponding number or symbol is suggested because this will help eliminate the possibility of spelling the word incorrectly."></a>8. Numbers, times, and currencies: commonly appear in Part 1 of the listening test. Recording the corresponding number or symbol is suggested because this will help eliminate the possibility of spelling the word incorrectly.</h2><p>For example, thirty dollars is the same as $30 on the listening test. Also, six o’clock and 6:00 are the same as well. Finally, ten thousand and 10,000 are also both correct. Writing the number or symbol allows you to feel more confident that you have not made a spelling mistake.</p>
+<blockquote>
+<p>Quick Tip: When deciding on whether the answer is 30 or 13, listen to the stressed syllable. If it’s 13, the stress is on the second syllable ‘thir teen ‘, if it’s 30, the stress is on the first syllable ‘ thir ty’.</p>
+</blockquote>
+<blockquote>
+<p>Quick Tip: Copy the correct symbol from the Listening question to make sure you are using the correct currency. If you use ‘$’ instead of ‘£’, the answer will be incorrect.</p>
+</blockquote>
+<h1 id="Part-2-a-monologue-speech-or-talk"><a href="#Part-2-a-monologue-speech-or-talk" class="headerlink" title="Part 2: a monologue, speech or talk"></a>Part 2: a monologue, speech or talk</h1><h2 id="1-Rooms-in-buildings"><a href="#1-Rooms-in-buildings" class="headerlink" title="1. Rooms in buildings"></a>1. Rooms in buildings</h2><h3 id="kitchen"><a href="#kitchen" class="headerlink" title="kitchen"></a>kitchen</h3><h3 id="bathroom"><a href="#bathroom" class="headerlink" title="bathroom"></a>bathroom</h3><h3 id="bedroom"><a href="#bedroom" class="headerlink" title="bedroom"></a>bedroom</h3><h3 id="living-room"><a href="#living-room" class="headerlink" title="living room"></a>living room</h3><h3 id="dining-room"><a href="#dining-room" class="headerlink" title="dining room"></a>dining room</h3><h3 id="lounge"><a href="#lounge" class="headerlink" title="lounge"></a>lounge</h3><h3 id="library"><a href="#library" class="headerlink" title="library"></a>library</h3><h3 id="gymnasium-gym"><a href="#gymnasium-gym" class="headerlink" title="gymnasium (gym)"></a>gymnasium (gym)</h3><h3 id="cafeteria-cafe"><a href="#cafeteria-cafe" class="headerlink" title="cafeteria (cafe)"></a>cafeteria (cafe)</h3><h3 id="classroom"><a href="#classroom" class="headerlink" title="classroom"></a>classroom</h3><h3 id="waiting-room"><a href="#waiting-room" class="headerlink" title="waiting room"></a>waiting room</h3><h3 id="reception"><a href="#reception" class="headerlink" title="reception"></a>reception</h3><h3 id="ticket-desk"><a href="#ticket-desk" class="headerlink" title="ticket desk"></a>ticket desk</h3><h3 id="storage-room"><a href="#storage-room" class="headerlink" title="storage room"></a>storage room</h3><h3 id="theatre"><a href="#theatre" class="headerlink" title="theatre"></a>theatre</h3><h2 id="2-Place-markers"><a href="#2-Place-markers" class="headerlink" title="2. Place markers"></a>2. Place markers</h2><h3 id="street"><a href="#street" class="headerlink" title="street"></a>street</h3><h3 id="road"><a href="#road" class="headerlink" title="road"></a>road</h3><h3 id="avenue"><a href="#avenue" class="headerlink" title="avenue"></a>avenue</h3><h3 id="lane"><a href="#lane" class="headerlink" title="lane"></a>lane</h3><h3 id="drive"><a href="#drive" class="headerlink" title="drive"></a>drive</h3><h3 id="court"><a href="#court" class="headerlink" title="court"></a>court</h3><h3 id="place"><a href="#place" class="headerlink" title="place"></a>place</h3><h3 id="terrace"><a href="#terrace" class="headerlink" title="terrace"></a>terrace</h3><h3 id="way"><a href="#way" class="headerlink" title="way"></a>way</h3><p>There is some vocabulary you should be listening for, but may not have to write down when doing a map question in Part 2, which will allow you to follow the map more easily. Make sure you know where these direction words point to.</p>
+<h2 id="3-Directions-and-prepositions-of-place"><a href="#3-Directions-and-prepositions-of-place" class="headerlink" title="3. Directions and prepositions of place"></a>3. Directions and prepositions of place</h2><h3 id="north"><a href="#north" class="headerlink" title="north"></a>north</h3><h3 id="south"><a href="#south" class="headerlink" title="south"></a>south</h3><h3 id="east"><a href="#east" class="headerlink" title="east"></a>east</h3><h3 id="west"><a href="#west" class="headerlink" title="west"></a>west</h3><h3 id="up"><a href="#up" class="headerlink" title="up"></a>up</h3><h3 id="down"><a href="#down" class="headerlink" title="down"></a>down</h3><h3 id="right"><a href="#right" class="headerlink" title="right"></a>right</h3><h3 id="left"><a href="#left" class="headerlink" title="left"></a>left</h3><h3 id="straight"><a href="#straight" class="headerlink" title="straight"></a>straight</h3><h3 id="across-from"><a href="#across-from" class="headerlink" title="across from"></a>across from</h3><h3 id="between"><a href="#between" class="headerlink" title="between"></a>between</h3><h3 id="beside"><a href="#beside" class="headerlink" title="beside"></a>beside</h3><h3 id="diagonal"><a href="#diagonal" class="headerlink" title="diagonal"></a>diagonal</h3><h3 id="corner"><a href="#corner" class="headerlink" title="corner"></a>corner</h3><h3 id="opposite"><a href="#opposite" class="headerlink" title="opposite"></a>opposite</h3><h3 id="adjacent-to"><a href="#adjacent-to" class="headerlink" title="adjacent to"></a>adjacent to</h3><h3 id="near"><a href="#near" class="headerlink" title="near"></a>near</h3><h3 id="past"><a href="#past" class="headerlink" title="past"></a>past</h3><h3 id="before"><a href="#before" class="headerlink" title="before"></a>before</h3><h3 id="after"><a href="#after" class="headerlink" title="after"></a>after</h3><h2 id="4-Verbs"><a href="#4-Verbs" class="headerlink" title="4. Verbs"></a>4. Verbs</h2><h3 id="turn"><a href="#turn" class="headerlink" title="turn"></a>turn</h3><h3 id="move"><a href="#move" class="headerlink" title="move"></a>move</h3><h3 id="continue-on"><a href="#continue-on" class="headerlink" title="continue on"></a>continue on</h3><h3 id="walk"><a href="#walk" class="headerlink" title="walk"></a>walk</h3><h3 id="cross"><a href="#cross" class="headerlink" title="cross"></a>cross</h3><h3 id="pass"><a href="#pass" class="headerlink" title="pass"></a>pass</h3><h3 id="start"><a href="#start" class="headerlink" title="start"></a>start</h3><h3 id="finish"><a href="#finish" class="headerlink" title="finish"></a>finish</h3><h3 id="end"><a href="#end" class="headerlink" title="end"></a>end</h3><h3 id="stop"><a href="#stop" class="headerlink" title="stop"></a>stop</h3><h3 id="go-straight-ahead"><a href="#go-straight-ahead" class="headerlink" title="go straight ahead"></a>go straight ahead</h3><h2 id="5-Places-on-a-map"><a href="#5-Places-on-a-map" class="headerlink" title="5. Places on a map"></a>5. Places on a map</h2><h3 id="tennis-court"><a href="#tennis-court" class="headerlink" title="tennis court"></a>tennis court</h3><h3 id="river"><a href="#river" class="headerlink" title="river"></a>river</h3><h3 id="courtyard"><a href="#courtyard" class="headerlink" title="courtyard"></a>courtyard</h3><h3 id="laboratory"><a href="#laboratory" class="headerlink" title="laboratory"></a>laboratory</h3><h3 id="building"><a href="#building" class="headerlink" title="building"></a>building</h3><h3 id="bridge"><a href="#bridge" class="headerlink" title="bridge"></a>bridge</h3><h3 id="road-1"><a href="#road-1" class="headerlink" title="road"></a>road</h3><h3 id="path"><a href="#path" class="headerlink" title="path"></a>path</h3><h3 id="traffic-lights"><a href="#traffic-lights" class="headerlink" title="traffic lights"></a>traffic lights</h3><h3 id="bench"><a href="#bench" class="headerlink" title="bench"></a>bench</h3><h3 id="seat"><a href="#seat" class="headerlink" title="seat"></a>seat</h3><h3 id="table"><a href="#table" class="headerlink" title="table"></a>table</h3><h3 id="basketball-court"><a href="#basketball-court" class="headerlink" title="basketball court"></a>basketball court</h3><h3 id="running-track"><a href="#running-track" class="headerlink" title="running track"></a>running track</h3><h3 id="swimming-pool"><a href="#swimming-pool" class="headerlink" title="swimming pool"></a>swimming pool</h3><h3 id="beach"><a href="#beach" class="headerlink" title="beach"></a>beach</h3><h3 id="forest"><a href="#forest" class="headerlink" title="forest"></a>forest</h3><h3 id="garden"><a href="#garden" class="headerlink" title="garden"></a>garden</h3><h3 id="castle"><a href="#castle" class="headerlink" title="castle"></a>castle</h3><h1 id="Part-3-a-conversation-between-people"><a href="#Part-3-a-conversation-between-people" class="headerlink" title="Part 3: a conversation between people"></a>Part 3: a conversation between people</h1><h2 id="1-School-terms"><a href="#1-School-terms" class="headerlink" title="1. School terms"></a>1. School terms</h2><h3 id="presentation"><a href="#presentation" class="headerlink" title="presentation"></a>presentation</h3><h3 id="project"><a href="#project" class="headerlink" title="project"></a>project</h3><h3 id="teamwork"><a href="#teamwork" class="headerlink" title="teamwork"></a>teamwork</h3><h3 id="pairs"><a href="#pairs" class="headerlink" title="pairs"></a>pairs</h3><h3 id="organisation"><a href="#organisation" class="headerlink" title="organisation"></a>organisation</h3><h3 id="outline"><a href="#outline" class="headerlink" title="outline"></a>outline</h3><h3 id="proofreading"><a href="#proofreading" class="headerlink" title="proofreading"></a>proofreading</h3><h3 id="experiment"><a href="#experiment" class="headerlink" title="experiment"></a>experiment</h3><h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><h3 id="lecture"><a href="#lecture" class="headerlink" title="lecture"></a>lecture</h3><h3 id="tutor"><a href="#tutor" class="headerlink" title="tutor"></a>tutor</h3><h3 id="teacher"><a href="#teacher" class="headerlink" title="teacher"></a>teacher</h3><h3 id="attendance"><a href="#attendance" class="headerlink" title="attendance"></a>attendance</h3><h3 id="specialist"><a href="#specialist" class="headerlink" title="specialist"></a>specialist</h3><h3 id="knowledge"><a href="#knowledge" class="headerlink" title="knowledge"></a>knowledge</h3><h3 id="faculty"><a href="#faculty" class="headerlink" title="faculty"></a>faculty</h3><h3 id="bachelor’s"><a href="#bachelor’s" class="headerlink" title="bachelor’s"></a>bachelor’s</h3><h3 id="master’s"><a href="#master’s" class="headerlink" title="master’s"></a>master’s</h3><h3 id="schedule"><a href="#schedule" class="headerlink" title="schedule"></a>schedule</h3><h3 id="management"><a href="#management" class="headerlink" title="management"></a>management</h3><h3 id="leadership"><a href="#leadership" class="headerlink" title="leadership"></a>leadership</h3><h3 id="questionnaire"><a href="#questionnaire" class="headerlink" title="questionnaire"></a>questionnaire</h3><h3 id="statistic"><a href="#statistic" class="headerlink" title="statistic"></a>statistic</h3><h3 id="percentage"><a href="#percentage" class="headerlink" title="percentage"></a>percentage</h3><h3 id="laboratory-1"><a href="#laboratory-1" class="headerlink" title="laboratory"></a>laboratory</h3><h3 id="school"><a href="#school" class="headerlink" title="school"></a>school</h3><h3 id="university"><a href="#university" class="headerlink" title="university"></a>university</h3><h3 id="college"><a href="#college" class="headerlink" title="college"></a>college</h3><blockquote>
+<p>Quick Tip: North Americans pronounce ‘laboratory’ in three syllables: lab-bra-tory. British English speakers pronounce the same word using four syllables: lab-or-a-tory.</p>
+</blockquote>
+<h2 id="2-Subjects-in-school"><a href="#2-Subjects-in-school" class="headerlink" title="2. Subjects in school"></a>2. Subjects in school</h2><h3 id="Mathematics-Maths"><a href="#Mathematics-Maths" class="headerlink" title="Mathematics (Maths)"></a>Mathematics (Maths)</h3><h3 id="Science"><a href="#Science" class="headerlink" title="Science"></a>Science</h3><h3 id="English"><a href="#English" class="headerlink" title="English"></a>English</h3><h3 id="Physical-Education-PE"><a href="#Physical-Education-PE" class="headerlink" title="Physical Education (PE)"></a>Physical Education (PE)</h3><h3 id="Art"><a href="#Art" class="headerlink" title="Art"></a>Art</h3><h3 id="Music"><a href="#Music" class="headerlink" title="Music"></a>Music</h3><h3 id="Geography"><a href="#Geography" class="headerlink" title="Geography"></a>Geography</h3><h3 id="Biology"><a href="#Biology" class="headerlink" title="Biology"></a>Biology</h3><h3 id="Chemistry"><a href="#Chemistry" class="headerlink" title="Chemistry"></a>Chemistry</h3><h3 id="History"><a href="#History" class="headerlink" title="History"></a>History</h3><blockquote>
+<p>Quick Tip: When students study a subject at school, their school year is divided into terms or semesters. They have breaks or holidays between each term.</p>
+</blockquote>
+<h2 id="3-Subjects-in-university"><a href="#3-Subjects-in-university" class="headerlink" title="3. Subjects in university"></a>3. Subjects in university</h2><h3 id="Commerce"><a href="#Commerce" class="headerlink" title="Commerce"></a>Commerce</h3><h3 id="Science-1"><a href="#Science-1" class="headerlink" title="Science"></a>Science</h3><h3 id="Psychology"><a href="#Psychology" class="headerlink" title="Psychology"></a>Psychology</h3><h3 id="Engineering"><a href="#Engineering" class="headerlink" title="Engineering"></a>Engineering</h3><h3 id="Marketing"><a href="#Marketing" class="headerlink" title="Marketing"></a>Marketing</h3><h3 id="Sociology"><a href="#Sociology" class="headerlink" title="Sociology"></a>Sociology</h3><h3 id="Medicine"><a href="#Medicine" class="headerlink" title="Medicine"></a>Medicine</h3><h3 id="History-1"><a href="#History-1" class="headerlink" title="History"></a>History</h3><h3 id="Geography-1"><a href="#Geography-1" class="headerlink" title="Geography"></a>Geography</h3><h3 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h3><h3 id="Law"><a href="#Law" class="headerlink" title="Law"></a>Law</h3><h3 id="Philosophy"><a href="#Philosophy" class="headerlink" title="Philosophy"></a>Philosophy</h3><h3 id="Economics"><a href="#Economics" class="headerlink" title="Economics"></a>Economics</h3><h3 id="Education"><a href="#Education" class="headerlink" title="Education"></a>Education</h3><blockquote>
+<p>Quick Tip: When students study at university, their university year is divided into semesters. They usually have exam blocks at the end of each semester following by a break. They can study part-time or full-time and combine it with employment.</p>
+</blockquote>
+<h2 id="4-Examination"><a href="#4-Examination" class="headerlink" title="4. Examination"></a>4. Examination</h2><h3 id="assessment"><a href="#assessment" class="headerlink" title="assessment"></a>assessment</h3><h3 id="test"><a href="#test" class="headerlink" title="test"></a>test</h3><h3 id="revision"><a href="#revision" class="headerlink" title="revision"></a>revision</h3><h3 id="pass-1"><a href="#pass-1" class="headerlink" title="pass"></a>pass</h3><h3 id="fail"><a href="#fail" class="headerlink" title="fail"></a>fail</h3><h3 id="repeat"><a href="#repeat" class="headerlink" title="repeat"></a>repeat</h3><h3 id="supervise"><a href="#supervise" class="headerlink" title="supervise"></a>supervise</h3><h3 id="supervisor"><a href="#supervisor" class="headerlink" title="supervisor"></a>supervisor</h3><h3 id="assess"><a href="#assess" class="headerlink" title="assess"></a>assess</h3><h3 id="exam"><a href="#exam" class="headerlink" title="exam"></a>exam</h3><h3 id="results"><a href="#results" class="headerlink" title="results"></a>results</h3><h3 id="degree"><a href="#degree" class="headerlink" title="degree"></a>degree</h3><h3 id="certificate"><a href="#certificate" class="headerlink" title="certificate"></a>certificate</h3><h1 id="Part-4-a-university-lecture"><a href="#Part-4-a-university-lecture" class="headerlink" title="Part 4: a university lecture"></a>Part 4: a university lecture</h1><h2 id="1-Health"><a href="#1-Health" class="headerlink" title="1. Health"></a>1. Health</h2><h3 id="vegetarian"><a href="#vegetarian" class="headerlink" title="vegetarian"></a>vegetarian</h3><h3 id="vegan"><a href="#vegan" class="headerlink" title="vegan"></a>vegan</h3><h3 id="healthy"><a href="#healthy" class="headerlink" title="healthy"></a>healthy</h3><h3 id="unhealthy"><a href="#unhealthy" class="headerlink" title="unhealthy"></a>unhealthy</h3><h3 id="leisure"><a href="#leisure" class="headerlink" title="leisure"></a>leisure</h3><h3 id="disease"><a href="#disease" class="headerlink" title="disease"></a>disease</h3><h3 id="vitamin"><a href="#vitamin" class="headerlink" title="vitamin"></a>vitamin</h3><h3 id="protein"><a href="#protein" class="headerlink" title="protein"></a>protein</h3><h3 id="carbohydrates"><a href="#carbohydrates" class="headerlink" title="carbohydrates"></a>carbohydrates</h3><h3 id="exercise"><a href="#exercise" class="headerlink" title="exercise"></a>exercise</h3><h3 id="treatment"><a href="#treatment" class="headerlink" title="treatment"></a>treatment</h3><h3 id="obese"><a href="#obese" class="headerlink" title="obese"></a>obese</h3><h3 id="overweight"><a href="#overweight" class="headerlink" title="overweight"></a>overweight</h3><h3 id="fit"><a href="#fit" class="headerlink" title="fit"></a>fit</h3><h3 id="doctor"><a href="#doctor" class="headerlink" title="doctor"></a>doctor</h3><h3 id="check-up"><a href="#check-up" class="headerlink" title="check up"></a>check up</h3><h3 id="medicine"><a href="#medicine" class="headerlink" title="medicine"></a>medicine</h3><h3 id="vitamin-1"><a href="#vitamin-1" class="headerlink" title="vitamin"></a>vitamin</h3><h3 id="pandemic"><a href="#pandemic" class="headerlink" title="pandemic"></a>pandemic</h3><h3 id="virus"><a href="#virus" class="headerlink" title="virus"></a>virus</h3><h3 id="cure"><a href="#cure" class="headerlink" title="cure"></a>cure</h3><h3 id="vaccination"><a href="#vaccination" class="headerlink" title="vaccination"></a>vaccination</h3><h2 id="2-Animals-and-their-habitat"><a href="#2-Animals-and-their-habitat" class="headerlink" title="2. Animals and their habitat"></a>2. Animals and their habitat</h2><h3 id="mammals"><a href="#mammals" class="headerlink" title="mammals"></a>mammals</h3><h3 id="reptile"><a href="#reptile" class="headerlink" title="reptile"></a>reptile</h3><h3 id="primates"><a href="#primates" class="headerlink" title="primates"></a>primates</h3><h3 id="predators"><a href="#predators" class="headerlink" title="predators"></a>predators</h3><h3 id="prey"><a href="#prey" class="headerlink" title="prey"></a>prey</h3><h3 id="mountain"><a href="#mountain" class="headerlink" title="mountain"></a>mountain</h3><h3 id="jungle"><a href="#jungle" class="headerlink" title="jungle"></a>jungle</h3><h3 id="forest-1"><a href="#forest-1" class="headerlink" title="forest"></a>forest</h3><h3 id="island"><a href="#island" class="headerlink" title="island"></a>island</h3><h3 id="pond"><a href="#pond" class="headerlink" title="pond"></a>pond</h3><h3 id="river-1"><a href="#river-1" class="headerlink" title="river"></a>river</h3><h3 id="stream"><a href="#stream" class="headerlink" title="stream"></a>stream</h3><h3 id="zoo"><a href="#zoo" class="headerlink" title="zoo"></a>zoo</h3><h3 id="pet"><a href="#pet" class="headerlink" title="pet"></a>pet</h3><h3 id="endangered"><a href="#endangered" class="headerlink" title="endangered"></a>endangered</h3><h3 id="species"><a href="#species" class="headerlink" title="species"></a>species</h3><h3 id="ocean"><a href="#ocean" class="headerlink" title="ocean"></a>ocean</h3><h3 id="sea"><a href="#sea" class="headerlink" title="sea"></a>sea</h3><h2 id="3-Continents-and-Countries"><a href="#3-Continents-and-Countries" class="headerlink" title="3. Continents and Countries"></a>3. Continents and Countries</h2><h3 id="North-America"><a href="#North-America" class="headerlink" title="North America"></a>North America</h3><h3 id="South-America"><a href="#South-America" class="headerlink" title="South America"></a>South America</h3><h3 id="Asia"><a href="#Asia" class="headerlink" title="Asia"></a>Asia</h3><h3 id="Africa"><a href="#Africa" class="headerlink" title="Africa"></a>Africa</h3><h3 id="Europe"><a href="#Europe" class="headerlink" title="Europe"></a>Europe</h3><h3 id="Antarctica"><a href="#Antarctica" class="headerlink" title="Antarctica"></a>Antarctica</h3><h3 id="Australia"><a href="#Australia" class="headerlink" title="Australia"></a>Australia</h3><h3 id="Oceania"><a href="#Oceania" class="headerlink" title="Oceania"></a>Oceania</h3><h3 id="England"><a href="#England" class="headerlink" title="England"></a>England</h3><h3 id="Canada"><a href="#Canada" class="headerlink" title="Canada"></a>Canada</h3><h3 id="China"><a href="#China" class="headerlink" title="China"></a>China</h3><h3 id="United-Kingdom"><a href="#United-Kingdom" class="headerlink" title="United Kingdom"></a>United Kingdom</h3><h3 id="Germany"><a href="#Germany" class="headerlink" title="Germany"></a>Germany</h3><h3 id="Mexico"><a href="#Mexico" class="headerlink" title="Mexico"></a>Mexico</h3><h3 id="Switzerland"><a href="#Switzerland" class="headerlink" title="Switzerland"></a>Switzerland</h3><h2 id="4-Environment"><a href="#4-Environment" class="headerlink" title="4. Environment"></a>4. Environment</h2><h3 id="global-warming"><a href="#global-warming" class="headerlink" title="global warming"></a>global warming</h3><h3 id="disaster"><a href="#disaster" class="headerlink" title="disaster"></a>disaster</h3><h3 id="earthquake"><a href="#earthquake" class="headerlink" title="earthquake"></a>earthquake</h3><h3 id="tornado"><a href="#tornado" class="headerlink" title="tornado"></a>tornado</h3><h3 id="blizzard"><a href="#blizzard" class="headerlink" title="blizzard"></a>blizzard</h3><h3 id="hurricane"><a href="#hurricane" class="headerlink" title="hurricane"></a>hurricane</h3><h3 id="pollution"><a href="#pollution" class="headerlink" title="pollution"></a>pollution</h3><h3 id="temperature"><a href="#temperature" class="headerlink" title="temperature"></a>temperature</h3><h3 id="drought"><a href="#drought" class="headerlink" title="drought"></a>drought</h3><h3 id="flood"><a href="#flood" class="headerlink" title="flood"></a>flood</h3><h3 id="cyclone"><a href="#cyclone" class="headerlink" title="cyclone"></a>cyclone</h3><h3 id="volcanic-eruption"><a href="#volcanic-eruption" class="headerlink" title="volcanic eruption"></a>volcanic eruption</h3><h3 id="deforestation"><a href="#deforestation" class="headerlink" title="deforestation"></a>deforestation</h3><h3 id="desertification"><a href="#desertification" class="headerlink" title="desertification"></a>desertification</h3><h3 id="bush-fires"><a href="#bush-fires" class="headerlink" title="bush fires"></a>bush fires</h3><h2 id="5-Government"><a href="#5-Government" class="headerlink" title="5. Government"></a>5. Government</h2><h3 id="politics"><a href="#politics" class="headerlink" title="politics"></a>politics</h3><h3 id="leader"><a href="#leader" class="headerlink" title="leader"></a>leader</h3><h3 id="politician"><a href="#politician" class="headerlink" title="politician"></a>politician</h3><h3 id="senator"><a href="#senator" class="headerlink" title="senator"></a>senator</h3><h3 id="mayor"><a href="#mayor" class="headerlink" title="mayor"></a>mayor</h3><h3 id="laws"><a href="#laws" class="headerlink" title="laws"></a>laws</h3><h3 id="regulations"><a href="#regulations" class="headerlink" title="regulations"></a>regulations</h3><h3 id="senate"><a href="#senate" class="headerlink" title="senate"></a>senate</h3><h3 id="president"><a href="#president" class="headerlink" title="president"></a>president</h3><h3 id="society"><a href="#society" class="headerlink" title="society"></a>society</h3><h3 id="individual"><a href="#individual" class="headerlink" title="individual"></a>individual</h3><h3 id="council"><a href="#council" class="headerlink" title="council"></a>council</h3><h3 id="rules"><a href="#rules" class="headerlink" title="rules"></a>rules</h3><blockquote>
+<p>Quick Tip: The word ‘society’ is one of the most commonly misspelled words on the IELTS test.</p>
+</blockquote>
+<h2 id="6-Energy"><a href="#6-Energy" class="headerlink" title="6. Energy"></a>6. Energy</h2><h3 id="nuclear"><a href="#nuclear" class="headerlink" title="nuclear"></a>nuclear</h3><h3 id="oil"><a href="#oil" class="headerlink" title="oil"></a>oil</h3><h3 id="coal"><a href="#coal" class="headerlink" title="coal"></a>coal</h3><h3 id="hydro-electrical-power"><a href="#hydro-electrical-power" class="headerlink" title="hydro electrical power"></a>hydro electrical power</h3><h3 id="natural-gas"><a href="#natural-gas" class="headerlink" title="natural gas"></a>natural gas</h3><h3 id="solar-power"><a href="#solar-power" class="headerlink" title="solar power"></a>solar power</h3><h3 id="source"><a href="#source" class="headerlink" title="source"></a>source</h3><h3 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h3><h3 id="electricity"><a href="#electricity" class="headerlink" title="electricity"></a>electricity</h3><h3 id="dam"><a href="#dam" class="headerlink" title="dam"></a>dam</h3><h3 id="windmill"><a href="#windmill" class="headerlink" title="windmill"></a>windmill</h3><h3 id="wind-turbine"><a href="#wind-turbine" class="headerlink" title="wind turbine"></a>wind turbine</h3><h3 id="renewable"><a href="#renewable" class="headerlink" title="renewable"></a>renewable</h3><h3 id="non-renewable"><a href="#non-renewable" class="headerlink" title="non-renewable"></a>non-renewable</h3><blockquote>
+<p>Quick Tip: Remember to check your spelling of nuclear, it is often written as ‘unclear’, a simple typo that result in an incorrect answer.</p>
+</blockquote>
+<h2 id="7-General"><a href="#7-General" class="headerlink" title="7. General"></a>7. General</h2><h3 id="appointment"><a href="#appointment" class="headerlink" title="appointment"></a>appointment</h3><h3 id="cooperation"><a href="#cooperation" class="headerlink" title="cooperation"></a>cooperation</h3><h3 id="employment"><a href="#employment" class="headerlink" title="employment"></a>employment</h3><h3 id="government"><a href="#government" class="headerlink" title="government"></a>government</h3><h3 id="exhibition"><a href="#exhibition" class="headerlink" title="exhibition"></a>exhibition</h3><h3 id="occupation"><a href="#occupation" class="headerlink" title="occupation"></a>occupation</h3><h3 id="aluminum"><a href="#aluminum" class="headerlink" title="aluminum"></a>aluminum</h3><h3 id="century"><a href="#century" class="headerlink" title="century"></a>century</h3><h3 id="decade"><a href="#decade" class="headerlink" title="decade"></a>decade</h3><h3 id="millennium"><a href="#millennium" class="headerlink" title="millennium"></a>millennium</h3><h3 id="individual-1"><a href="#individual-1" class="headerlink" title="individual"></a>individual</h3><h3 id="creativity"><a href="#creativity" class="headerlink" title="creativity"></a>creativity</h3><h3 id="guarantee"><a href="#guarantee" class="headerlink" title="guarantee"></a>guarantee</h3><h3 id="satellite"><a href="#satellite" class="headerlink" title="satellite"></a>satellite</h3><h3 id="opportunity"><a href="#opportunity" class="headerlink" title="opportunity"></a>opportunity</h3><h3 id="licence"><a href="#licence" class="headerlink" title="licence"></a>licence</h3><h3 id="frequently"><a href="#frequently" class="headerlink" title="frequently"></a>frequently</h3><h3 id="calendar"><a href="#calendar" class="headerlink" title="calendar"></a>calendar</h3><h3 id="different"><a href="#different" class="headerlink" title="different"></a>different</h3><blockquote>
+<p>Quick Tip: The words ‘government’ and ‘different’ are two of the most commonly misspelled words in the IELTS test. Also, ‘aluminum’ is pronounced with four syllables in North American English: a-lu-min-num. It is pronounced with five syllables in British English: al-u-min-i-um.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/09/23/common-vocabulary-ielts-listening/" data-id="cl51yqkop00a8coyzdbb3eff6" data-title="Build your IELTS Listening test vocabulary" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IELTS/" rel="tag">IELTS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/18/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/20/">Next »</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/" rel="tag">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bit-Manipulation/" rel="tag">Bit Manipulation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/" rel="tag">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bruce-Lee/" rel="tag">Bruce Lee</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CEMC/" rel="tag">CEMC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/" rel="tag">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/" rel="tag">Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Divide-and-Conquer/" rel="tag">Divide and Conquer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFmpeg/" rel="tag">FFmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/" rel="tag">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/" rel="tag">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HackerRank/" rel="tag">HackerRank</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/" rel="tag">Hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashTable/" rel="tag">HashTable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/" rel="tag">Heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IELTS/" rel="tag">IELTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/" rel="tag">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/" rel="tag">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/" rel="tag">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lin-Yutang/" rel="tag">Lin Yutang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/" rel="tag">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marcus-Du-Sautoy/" rel="tag">Marcus Du Sautoy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathematics/" rel="tag">Mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/" rel="tag">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/" rel="tag">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programming/" rel="tag">Programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/" rel="tag">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/" rel="tag">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/" rel="tag">Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEDx/" rel="tag">TEDx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terence-Tao/" rel="tag">Terence Tao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/" rel="tag">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Topological-Sort/" rel="tag">Topological Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/" rel="tag">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/" rel="tag">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/" rel="tag">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backtracking/" rel="tag">backtracking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/" rel="tag">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bilingual/" rel="tag">bilingual</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/" rel="tag">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrency/" rel="tag">concurrency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coronavirus/" rel="tag">coronavirus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/creative-thinking/" rel="tag">creative thinking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/" rel="tag">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/" rel="tag">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/essay/" rel="tag">essay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firefox/" rel="tag">firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/geometry/" rel="tag">geometry</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/" rel="tag">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graph/" rel="tag">graph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/" rel="tag">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history-of-mathematics/" rel="tag">history of mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ide/" rel="tag">ide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/" rel="tag">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/" rel="tag">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/logic/" rel="tag">logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/" rel="tag">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/" rel="tag">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/physics/" rel="tag">physics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/popscience/" rel="tag">popscience</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programmer/" rel="tag">programmer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quantum/" rel="tag">quantum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recurrence/" rel="tag">recurrence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/song/" rel="tag">song</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/" rel="tag">stack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/" rel="tag">vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/" rel="tag">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wolfram/" rel="tag">wolfram</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" rel="tag">中文经典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E6%96%87/" rel="tag">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" rel="tag">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" rel="tag">数学史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" rel="tag">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" rel="tag">李小龙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" rel="tag">李笑来</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" rel="tag">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" rel="tag">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8B%B1%E8%AF%AD/" rel="tag">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%91%E8%A8%80/" rel="tag">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 19.44px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.22px;">Array</a> <a href="/tags/BFS/" style="font-size: 15px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.56px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15.56px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 16.11px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.44px;">DFS</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.11px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.78px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.89px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 13.89px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 11.11px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.89px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.56px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.67px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.56px;">Mathematics</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10.56px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.56px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.67px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.78px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.56px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 13.33px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 14.44px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.67px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.56px;">Topological Sort</a> <a href="/tags/Tree/" style="font-size: 11.67px;">Tree</a> <a href="/tags/Two-Pointers/" style="font-size: 15.56px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.67px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.56px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.11px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 20px;">english</a> <a href="/tags/essay/" style="font-size: 11.67px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.22px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.67px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.89px;">java</a> <a href="/tags/javascript/" style="font-size: 10.56px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.56px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.67px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.11px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 18.33px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 11.67px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 11.11px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.78px;">regex</a> <a href="/tags/song/" style="font-size: 13.33px;">song</a> <a href="/tags/sql/" style="font-size: 10.56px;">sql</a> <a href="/tags/stack/" style="font-size: 10.56px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.56px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 12.22px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10.56px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 10.56px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12.22px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 12.22px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 10.56px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/01/Canada-Billy-Collins/">Canada</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/30/An-Essay-on-Criticism-Part-3-Alexander-Pope/">An Essay on Criticism Part 3</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/29/An-Essay-on-Criticism-Part-2-Alexander-Pope/">An Essay on Criticism Part 2</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/28/An-Essay-on-Criticism-Part-1-Alexander-Pope/">An Essay on Criticism Part 1</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/24/a-question-robert-frost/">A Question</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 hezhigang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
