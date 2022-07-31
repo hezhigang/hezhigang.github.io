@@ -70,6 +70,303 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-algorithms-monotonic-array" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/18/leetcode-algorithms-monotonic-array/" class="article-date">
+  <time datetime="2020-10-19T02:48:44.000Z" itemprop="datePublished">2020-10-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/18/leetcode-algorithms-monotonic-array/">LeetCode - Algorithms - 896. Monotonic Array</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/monotonic-array/">896. Monotonic Array</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="One-Pass"><a href="#One-Pass" class="headerlink" title="One Pass"></a>One Pass</h2><p>© <a target="_blank" rel="noopener" href="https://leetcode.com/problems/monotonic-array/solution/">Approach 3: One Pass &#40;Simple Variant&#41;</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isMonotonic</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> increasing = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">boolean</span> decreasing = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; A.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (A[i] &gt; A[i + <span class="number">1</span>]) decreasing = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">if</span> (A[i] &lt; A[i + <span class="number">1</span>]) increasing = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> increasing || decreasing;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>366 / 366 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 100.00% of Java online submissions for Monotonic Array.</li>
+<li>Memory Usage: 47.8 MB, less than 18.59% of Java online submissions for Monotonic Array.</li>
+</ul>
+<h2 id="my-solution"><a href="#my-solution" class="headerlink" title="my solution"></a>my solution</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isMonotonic</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = A.length;</span><br><span class="line">        <span class="keyword">if</span> (N&lt;=<span class="number">2</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">int</span>[] d = <span class="keyword">new</span> <span class="keyword">int</span>[N-<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>, j=<span class="number">0</span>; i&lt;N; i++,j++) &#123;</span><br><span class="line">            d[j] = A[i]-A[i-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> min=d[<span class="number">0</span>],max=d[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;N-<span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (d[i]&lt;min) min = d[i];</span><br><span class="line">            <span class="keyword">if</span> (d[i]&gt;max) max = d[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (min&lt;=<span class="number">0</span> &amp;&amp; max&lt;=<span class="number">0</span>) || (min&gt;=<span class="number">0</span> &amp;&amp; max&gt;=<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>366 / 366 test cases passed.</li>
+<li>Runtime: 2 ms, faster than 31.40% of Java online submissions for Monotonic Array.</li>
+<li>Memory Usage: 46.9 MB, less than 18.59% of Java online submissions for Monotonic Array.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/18/leetcode-algorithms-monotonic-array/" data-id="cl51yqkpe00i1coyzh65hh6y9" data-title="LeetCode - Algorithms - 896. Monotonic Array" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-leetcode-algorithms-check-if-it-is-a-straight-line" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/17/leetcode-algorithms-check-if-it-is-a-straight-line/" class="article-date">
+  <time datetime="2020-10-18T03:05:16.000Z" itemprop="datePublished">2020-10-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/17/leetcode-algorithms-check-if-it-is-a-straight-line/">LeetCode - Algorithms - 1232. Check If It Is a Straight Line</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/check-if-it-is-a-straight-line/">1232. Check If It Is a Straight Line</a></p>
+<h2 id="similar-question"><a href="#similar-question" class="headerlink" title="similar question"></a>similar question</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/valid-boomerang/">1037. Valid Boomerang</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/max-points-on-a-line/solution/">149. Max Points on a Line</a></li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="my-solution"><a href="#my-solution" class="headerlink" title="my solution"></a>my solution</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isColine</span><span class="params">(<span class="keyword">int</span> x1, <span class="keyword">int</span> y1, <span class="keyword">int</span> x2, <span class="keyword">int</span> y2, <span class="keyword">int</span> x3, <span class="keyword">int</span> y3)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = (y3 - y2) * (x3 - x1);</span><br><span class="line">        <span class="keyword">int</span> b = (y3 - y1) * (x3 - x2);</span><br><span class="line">        <span class="keyword">return</span> a == b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkStraightLine</span><span class="params">(<span class="keyword">int</span>[][] coordinates)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = coordinates.length;</span><br><span class="line">        <span class="keyword">boolean</span> b;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N - <span class="number">2</span>; i++) &#123;</span><br><span class="line">            b = isColine(coordinates[i][<span class="number">0</span>], coordinates[i][<span class="number">1</span>], coordinates[i + <span class="number">1</span>][<span class="number">0</span>], coordinates[i + <span class="number">1</span>][<span class="number">1</span>], coordinates[i + <span class="number">2</span>][<span class="number">0</span>], coordinates[i + <span class="number">2</span>][<span class="number">1</span>]);</span><br><span class="line">            <span class="keyword">if</span> (b == <span class="keyword">false</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>79 / 79 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 22.67% of Java online submissions for Check If It Is a Straight Line.</li>
+<li>Memory Usage: 41 MB, less than 6.80% of Java online submissions for Check If It Is a Straight Line.</li>
+</ul>
+<h2 id="Computational-geometry-method"><a href="#Computational-geometry-method" class="headerlink" title="Computational geometry method"></a>Computational geometry method</h2><p>© Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.</p>
+<h3 id="keys"><a href="#keys" class="headerlink" title="keys"></a>keys</h3><ul>
+<li>Shoelace formula, also known as Gauss’s area formula</li>
+<li>vertices must listed in clockwise(or counterclockwise, increasing order of polar angle) order</li>
+<li>CCW: Given three points a, b, and c, is a→b→c a counterclockwise turn? Determinant (or cross product) gives 2x signed area of planar triangle.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkStraightLine</span><span class="params">(<span class="keyword">int</span>[][] coordinates)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = coordinates.length;</span><br><span class="line">        Point2D[] a = <span class="keyword">new</span> Point2D[N];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            a[i] = <span class="keyword">new</span> Point2D(coordinates[i][<span class="number">0</span>], coordinates[i][<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        Arrays.sort(a);</span><br><span class="line">        Arrays.sort(a, <span class="number">1</span>, N, a[<span class="number">0</span>].polarOrder());</span><br><span class="line">        <span class="keyword">int</span> A = a[N - <span class="number">1</span>].x() * a[<span class="number">0</span>].y() - a[<span class="number">0</span>].x() * a[N - <span class="number">1</span>].y();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            A += a[i].x() * a[i + <span class="number">1</span>].y() - a[i + <span class="number">1</span>].x() * a[i].y();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> A == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Point2D</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Point2D</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> x;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> y;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Point2D</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = x;</span><br><span class="line">        <span class="keyword">this</span>.y = y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">x</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">y</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">ccw</span><span class="params">(Point2D a, Point2D b, Point2D c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> area2 = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);</span><br><span class="line">        <span class="keyword">if</span> (area2 &lt; <span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (area2 &gt; <span class="number">0</span>) <span class="keyword">return</span> +<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Point2D that)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.y &lt; that.y) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.y &gt; that.y) <span class="keyword">return</span> +<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.x &lt; that.x) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.x &gt; that.x) <span class="keyword">return</span> +<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Comparator&lt;Point2D&gt; <span class="title">polarOrder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> PolarOrder();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">PolarOrder</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">Point2D</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Point2D q1, Point2D q2)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">int</span> dx1 = q1.x - x;</span><br><span class="line">            <span class="keyword">int</span> dy1 = q1.y - y;</span><br><span class="line">            <span class="keyword">int</span> dx2 = q2.x - x;</span><br><span class="line">            <span class="keyword">int</span> dy2 = q2.y - y;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (dy1 &gt;= <span class="number">0</span> &amp;&amp; dy2 &lt; <span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (dy2 &gt;= <span class="number">0</span> &amp;&amp; dy1 &lt; <span class="number">0</span>) <span class="keyword">return</span> +<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (dy1 == <span class="number">0</span> &amp;&amp; dy2 == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (dx1 &gt;= <span class="number">0</span> &amp;&amp; dx2 &lt; <span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (dx2 &gt;= <span class="number">0</span> &amp;&amp; dx1 &lt; <span class="number">0</span>) <span class="keyword">return</span> +<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">return</span> -ccw(Point2D.<span class="keyword">this</span>, q1, q2);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>79 / 79 test cases passed.</li>
+<li>Runtime: 6 ms, faster than 9.07% of Java online submissions for Check If It Is a Straight Line.</li>
+<li>Memory Usage: 38.8 MB, less than 6.80% of Java online submissions for Check If It Is a Straight Line.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/17/leetcode-algorithms-check-if-it-is-a-straight-line/" data-id="cl51yqkp400fkcoyz6ogf59y3" data-title="LeetCode - Algorithms - 1232. Check If It Is a Straight Line" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/geometry/" rel="tag">geometry</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/" rel="tag">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-leetcode-algorithms-flipping-an-image" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/16/leetcode-algorithms-flipping-an-image/" class="article-date">
+  <time datetime="2020-10-17T03:07:25.000Z" itemprop="datePublished">2020-10-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/16/leetcode-algorithms-flipping-an-image/">LeetCode - Algorithms - 832. Flipping an Image</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/flipping-an-image/">832. Flipping an Image</a></p>
+<p>similar question : <a target="_blank" rel="noopener" href="https://leetcode.com/problems/rotate-image/">48. Rotate Image</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[][] flipAndInvertImage(<span class="keyword">int</span>[][] A) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = A.length;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> M = A[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span> tmp;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;M/<span class="number">2</span>; j++) &#123;</span><br><span class="line">                tmp = A[i][j];</span><br><span class="line">                A[i][j] = A[i][N-<span class="number">1</span>-j];</span><br><span class="line">                A[i][N-<span class="number">1</span>-j] = tmp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;M; j++) &#123;</span><br><span class="line">                A[i][j] = A[i][j]==<span class="number">0</span>?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> A;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>82 / 82 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Flipping an Image.</li>
+<li>Memory Usage: 39.1 MB, less than 16.27% of Java online submissions for Flipping an Image.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/16/leetcode-algorithms-flipping-an-image/" data-id="cl51yqkp900ggcoyzgvd9foy8" data-title="LeetCode - Algorithms - 832. Flipping an Image" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-leetcode-algorithms-sort-array-by-parity" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/16/leetcode-algorithms-sort-array-by-parity/" class="article-date">
+  <time datetime="2020-10-16T17:37:47.000Z" itemprop="datePublished">2020-10-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/16/leetcode-algorithms-sort-array-by-parity/">LeetCode - Algorithms - 905. Sort Array By Parity</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>It’s easy indeed.</p>
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/sort-array-by-parity/">905. Sort Array By Parity</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Two-Pass"><a href="#Two-Pass" class="headerlink" title="Two Pass"></a>Two Pass</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArrayByParity(<span class="keyword">int</span>[] A) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = A.length;</span><br><span class="line">        <span class="keyword">int</span>[] B = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">        <span class="keyword">int</span> left=<span class="number">0</span>, right=N-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;N; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((A[i]&amp;<span class="number">1</span>)==<span class="number">0</span>) &#123;</span><br><span class="line">                B[left++]=A[i];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                B[right--]=A[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> B;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>285 / 285 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 99.47% of Java online submissions for Sort Array By Parity.</li>
+<li>Memory Usage: 40.1 MB, less than 30.13% of Java online submissions for Sort Array By Parity.</li>
+</ul>
+<h2 id="In-Place"><a href="#In-Place" class="headerlink" title="In-Place"></a>In-Place</h2><p>© <a target="_blank" rel="noopener" href="https://leetcode.com/problems/sort-array-by-parity/solution/">Solution - Approach 3: In-Place</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortArrayByParity(<span class="keyword">int</span>[] A) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> N = A.length;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = N - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> temp;</span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((A[left] &amp; <span class="number">1</span>)==<span class="number">1</span> &amp;&amp; (A[right] &amp; <span class="number">1</span>)==<span class="number">0</span>) &#123;</span><br><span class="line">                temp = A[left];</span><br><span class="line">                A[left] = A[right];</span><br><span class="line">                A[right] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> ((A[left] &amp; <span class="number">1</span>) == <span class="number">0</span>) left++;</span><br><span class="line">            <span class="keyword">if</span> ((A[right] &amp; <span class="number">1</span>) == <span class="number">1</span>) right--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> A;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>285 / 285 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Sort Array By Parity.</li>
+<li>Memory Usage: 39.6 MB, less than 30.13% of Java online submissions for Sort Array By Parity.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/16/leetcode-algorithms-sort-array-by-parity/" data-id="cl51yqkpk00jtcoyzfd7i8zfx" data-title="LeetCode - Algorithms - 905. Sort Array By Parity" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-leetcode-algorithms-day-of-the-year" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/15/leetcode-algorithms-day-of-the-year/" class="article-date">
+  <time datetime="2020-10-15T18:20:14.000Z" itemprop="datePublished">2020-10-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/15/leetcode-algorithms-day-of-the-year/">LeetCode - Algorithms - 1154. Day of the Year</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/day-of-the-year/">1154. Day of the Year</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="my-solution"><a href="#my-solution" class="headerlink" title="my solution"></a>my solution</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">dayOfYear</span><span class="params">(String date)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> year = Integer.parseInt(date.substring(<span class="number">0</span>,<span class="number">4</span>));</span><br><span class="line">        <span class="keyword">int</span> month = Integer.parseInt(date.substring(<span class="number">5</span>,<span class="number">7</span>));</span><br><span class="line">        <span class="keyword">int</span> day = Integer.parseInt(date.substring(<span class="number">8</span>,<span class="number">10</span>));</span><br><span class="line">        <span class="keyword">int</span>[] dayOfMonth = &#123;<span class="number">31</span>, <span class="number">28</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>&#125;;</span><br><span class="line">        <span class="keyword">boolean</span> leapYear = ((year % <span class="number">4</span> == <span class="number">0</span>) &amp;&amp; (year % <span class="number">100</span> != <span class="number">0</span>)) || (year % <span class="number">400</span> == <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (leapYear)</span><br><span class="line">            dayOfMonth[<span class="number">1</span>] = <span class="number">29</span>;</span><br><span class="line">        <span class="keyword">int</span> dy = day;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; month; i++) &#123;</span><br><span class="line">            dy += dayOfMonth[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dy;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>246 / 246 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 98.63% of Java online submissions for Day of the Year.</li>
+<li>Memory Usage: 37.1 MB, less than 7.99% of Java online submissions for Day of the Year.</li>
+</ul>
+<h2 id="java8-LocalDate"><a href="#java8-LocalDate" class="headerlink" title="java8 LocalDate"></a>java8 LocalDate</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.time.LocalDate;</span><br><span class="line"><span class="keyword">import</span> java.time.format.DateTimeFormatter;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">dayOfYear</span><span class="params">(String date)</span> </span>&#123;</span><br><span class="line">        LocalDate d = LocalDate.parse(date, DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy-MM-dd&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> d.getDayOfYear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>246 / 246 test cases passed.</li>
+<li>Runtime: 16 ms, faster than 6.07% of Java online submissions for Day of the Year.</li>
+<li>Memory Usage: 38.3 MB, less than 7.64% of Java online submissions for Day of the Year.</li>
+</ul>
+<hr>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Leap_year">Leap year</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tutorialspoint.com/Java-program-to-find-if-the-given-number-is-a-leap-year">Java program to find if the given number is a leap year?</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/10/15/leetcode-algorithms-day-of-the-year/" data-id="cl51yqkp800g4coyzbmv20dkv" data-title="LeetCode - Algorithms - 1154. Day of the Year" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/" rel="tag">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-quotes-in-career-advice-by-terence-tao" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/10/15/quotes-in-career-advice-by-terence-tao/" class="article-date">
@@ -375,441 +672,11 @@
 
 
   
-    <article id="post-the-hunt-for-a-supermassive-black-hole-andrea-ghez-tedglobal" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/08/the-hunt-for-a-supermassive-black-hole-andrea-ghez-tedglobal/" class="article-date">
-  <time datetime="2020-10-09T02:07:04.000Z" itemprop="datePublished">2020-10-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/08/the-hunt-for-a-supermassive-black-hole-andrea-ghez-tedglobal/">The hunt for a supermassive black hole - Andrea Ghez - TEDGlobal 2009 - Transcript</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>How do you observe something you can’t see? This is the basic question of somebody who’s interested in finding and studying black holes. Because black holes are objects whose pull of gravity is so intense that nothing can escape it, not even light, so you can’t see it directly. </p>
-<p>So, my story today about black holes is about one particular black hole. I’m interested in finding whether or not there is a really massive, what we like to call “supermassive” black hole at the center of our galaxy. And the reason this is interesting is that it gives us an opportunity to prove whether or not these exotic objects really exist. And second, it gives us the opportunity to understand how these supermassive black holes interact with their environment, and to understand how they affect the formation and evolution of the galaxies which they reside in. </p>
-<p>So, to begin with, we need to understand what a black hole is so we can understand the proof of a black hole. So, what is a black hole? Well, in many ways a black hole is an incredibly simple object, because there are only three characteristics that you can describe: the mass, the spin, and the charge. And I’m going to only talk about the mass. So, in that sense, it’s a very simple object. But in another sense, it’s an incredibly complicated object that we need relatively exotic physics to describe, and in some sense represents the breakdown of our physical understanding of the universe. </p>
-<p>But today, the way I want you to understand a black hole, for the proof of a black hole, is to think of it as an object whose mass is confined to zero volume. So, despite the fact that I’m going to talk to you about an object that’s supermassive, and I’m going to get to what that really means in a moment, it has no finite size. So, this is a little tricky. </p>
-<p>But fortunately there is a finite size that you can see, and that’s known as the Schwarzschild radius. And that’s named after the guy who recognized why it was such an important radius. This is a virtual radius, not reality; the black hole has no size. So why is it so important? It’s important because it tells us that any object can become a black hole. That means you, your neighbor, your cellphone, the auditorium can become a black hole if you can figure out how to compress it down to the size of the Schwarzschild radius. </p>
-<p>At that point, what’s going to happen? At that point gravity wins. Gravity wins over all other known forces. And the object is forced to continue to collapse to an infinitely small object. And then it’s a black hole. So, if I were to compress the Earth down to the size of a sugar cube, it would become a black hole, because the size of a sugar cube is its Schwarzschild radius. </p>
-<p>Now, the key here is to figure out what that Schwarzschild radius is. And it turns out that it’s actually pretty simple to figure out. It depends only on the mass of the object. Bigger objects have bigger Schwarzschild radii. Smaller objects have smaller Schwarzschild radii. So, if I were to take the sun and compress it down to the scale of the University of Oxford, it would become a black hole. </p>
-<p>So, now we know what a Schwarzschild radius is. And it’s actually quite a useful concept, because it tells us not only when a black hole will form, but it also gives us the key elements for the proof of a black hole. I only need two things. I need to understand the mass of the object I’m claiming is a black hole, and what its Schwarzschild radius is. And since the mass determines the Schwarzschild radius, there is actually only one thing I really need to know. </p>
-<p>So, my job in convincing you that there is a black hole is to show that there is some object that’s confined to within its Schwarzschild radius. And your job today is to be skeptical. Okay, so, I’m going to talk about no ordinary black hole; I’m going to talk about supermassive black holes. </p>
-<p>So, I wanted to say a few words about what an ordinary black hole is, as if there could be such a thing as an ordinary black hole. An ordinary black hole is thought to be the end state of a really massive star’s life. So, if a star starts its life off with much more mass than the mass of the Sun, it’s going to end its life by exploding and leaving behind these beautiful supernova remnants that we see here. And inside that supernova remnant is going to be a little black hole that has a mass roughly three times the mass of the Sun. On an astronomical scale that’s a very small black hole. </p>
-<p>Now, what I want to talk about are the supermassive black holes. And the supermassive black holes are thought to reside at the center of galaxies. And this beautiful picture taken with the Hubble Space Telescope shows you that galaxies come in all shapes and sizes. There are big ones. There are little ones. Almost every object in that picture there is a galaxy. And there is a very nice spiral up in the upper left. And there are a hundred billion stars in that galaxy, just to give you a sense of scale. And all the light that we see from a typical galaxy, which is the kind of galaxies that we’re seeing here, comes from the light from the stars. So, we see the galaxy because of the star light. </p>
-<p>Now, there are a few relatively exotic galaxies. I like to call these the prima donna of the galaxy world, because they are kind of show offs. And we call them active galactic nuclei. And we call them that because their nucleus, or their center, are very active. So, at the center there, that’s actually where most of the starlight comes out from. And yet, what we actually see is light that can’t be explained by the starlight. It’s way more energetic. In fact, in a few examples it’s like the ones that we’re seeing here. There are also jets emanating out from the center. Again, a source of energy that’s very difficult to explain if you just think that galaxies are composed of stars. </p>
-<p>So, what people have thought is that perhaps there are supermassive black holes which matter is falling on to. So, you can’t see the black hole itself, but you can convert the gravitational energy of the black hole into the light we see. So, there is the thought that maybe supermassive black holes exist at the center of galaxies. But it’s a kind of indirect argument. </p>
-<p>Nonetheless, it’s given rise to the notion that maybe it’s not just these prima donnas that have these supermassive black holes, but rather all galaxies might harbor these supermassive black holes at their centers. And if that’s the case – and this is an example of a normal galaxy; what we see is the star light. And if there is a supermassive black hole, what we need to assume is that it’s a black hole on a diet. Because that is the way to suppress the energetic phenomena that we see in active galactic nuclei. </p>
-<p>If we’re going to look for these stealth black holes at the center of galaxies, the best place to look is in our own galaxy, our Milky Way. And this is a wide field picture taken of the center of the Milky Way. And what we see is a line of stars. And that is because we live in a galaxy which has a flattened, disk-like structure. And we live in the middle of it, so when we look towards the center, we see this plane which defines the plane of the galaxy, or line that defines the plane of the galaxy. </p>
-<p>Now, the advantage of studying our own galaxy is it’s simply the closest example of the center of a galaxy that we’re ever going to have, because the next closest galaxy is 100 times further away. So, we can see far more detail in our galaxy than anyplace else. And as you’ll see in a moment, the ability to see detail is key to this experiment. </p>
-<p>So, how do astronomers prove that there is a lot of mass inside a small volume? Which is the job that I have to show you today. And the tool that we use is to watch the way stars orbit the black hole. Stars will orbit the black hole in the very same way that planets orbit the sun. It’s the gravitational pull that makes these things orbit. If there were no massive objects these things would go flying off, or at least go at a much slower rate because all that determines how they go around is how much mass is inside its orbit. </p>
-<p>So, this is great, because remember my job is to show there is a lot of mass inside a small volume. So, if I know how fast it goes around, I know the mass. And if I know the scale of the orbit I know the radius. So, I want to see the stars that are as close to the center of the galaxy as possible. Because I want to show there is a mass inside as small a region as possible. So, this means that I want to see a lot of detail. And that’s the reason that for this experiment we’ve used the world’s largest telescope. </p>
-<p>This is the Keck observatory. It hosts two telescopes with a mirror 10 meters, which is roughly the diameter of a tennis court. Now, this is wonderful, because the campaign promise of large telescopes is that is that the bigger the telescope, the smaller the detail that we can see. But it turns out these telescopes, or any telescope on the ground has had a little bit of a challenge living up to this campaign promise. And that is because of the atmosphere. Atmosphere is great for us; it allows us to survive here on Earth. But it’s relatively challenging for astronomers who want to look through the atmosphere to astronomical sources. </p>
-<p>So, to give you a sense of what this is like, it’s actually like looking at a pebble at the bottom of a stream. Looking at the pebble on the bottom of the stream, the stream is continuously moving and turbulent, and that makes it very difficult to see the pebble on the bottom of the stream. Very much in the same way, it’s very difficult to see astronomical sources, because of the atmosphere that’s continuously moving by. </p>
-<p>So, I’ve spent a lot of my career working on ways to correct for the atmosphere, to give us a cleaner view. And that buys us about a factor of 20. And I think all of you can agree that if you can figure out how to improve life by a factor of 20, you’ve probably improved your lifestyle by a lot, say your salary, you’d notice, or your kids, you’d notice. </p>
-<p>And this animation here shows you one example of the techniques that we use, called adaptive optics. You’re seeing an animation that goes between an example of what you would see if you don’t use this technique – in other words, just a picture that shows the stars – and the box is centered on the center of the galaxy, where we think the black hole is. So, without this technology you can’t see the stars. With this technology all of a sudden you can see it. This technology works by introducing a mirror into the telescope optics system that’s continuously changing to counteract what the atmosphere is doing to you. So, it’s kind of like very fancy eyeglasses for your telescope. </p>
-<p>Now, in the next few slides I’m just going to focus on that little square there. So, we’re only going to look at the stars inside that small square, although we’ve looked at all of them. So, I want to see how these things have moved. And over the course of this experiment, these stars have moved a tremendous amount. So, we’ve been doing this experiment for 15 years, and we see the stars go all the way around. </p>
-<p>Now, most astronomers have a favorite star, and mine today is a star that’s labeled up there, SO-2. Absolutely my favorite star in the world. And that’s because it goes around in only 15 years. And to give you a sense of how short that is, the sun takes 200 million years to go around the center of the galaxy. Stars that we knew about before, that were as close to the center of the galaxy as possible, take 500 years. And this one, this one goes around in a human lifetime. That’s kind of profound, in a way. </p>
-<p>But it’s the key to this experiment. The orbit tells me how much mass is inside a very small radius. So, next we see a picture here that shows you before this experiment the size to which we could confine the mass of the center of the galaxy. What we knew before is that there was four million times the mass of the sun inside that circle. And as you can see, there was a lot of other stuff inside that circle. You can see a lot of stars. So, there was actually lots of alternatives to the idea that there was a supermassive black hole at the center of the galaxy, because you could put a lot of stuff in there. </p>
-<p>But with this experiment, we’ve confined that same mass to a much smaller volume that’s 10,000 times smaller. And because of that, we’ve been able to show that there is a supermassive black hole there. To give you a sense of how small that size is, that’s the size of our solar system. So, we’re cramming four million times the mass of the sun into that small volume. </p>
-<p>Now, truth in advertising. Right? I have told you my job is to get it down to the Schwarzchild radius. And the truth is, I’m not quite there. But we actually have no alternative today to explaining this concentration of mass. And, in fact, it’s the best evidence we have to date for not only existence of a supermassive black hole at the center of our own galaxy, but any in our universe. So, what next? I actually think this is about as good as we’re going to do with today’s technology, so let’s move on with the problem. </p>
-<p>So, what I want to tell you, very briefly, is a few examples of the excitement of what we can do today at the center of the galaxy, now that we know that there is, or at least we believe, that there is a supermassive black hole there. And the fun phase of this experiment is, while we’ve tested some of our ideas about the consequences of a supermassive black hole being at the center of our galaxy, almost every single one has been inconsistent with what we actually see. And that’s the fun. </p>
-<p>So, let me give you the two examples. You can ask, “What do you expect for the old stars, stars that have been around the center of the galaxy for a long time, they’ve had plenty of time to interact with the black hole.” What you expect there is that old stars should be very clustered around the black hole. You should see a lot of old stars next to that black hole. </p>
-<p>Likewise, for the young stars, or in contrast, the young stars, they just should not be there. A black hole does not make a kind neighbor to a stellar nursery. To get a star to form, you need a big ball of gas and dust to collapse. And it’s a very fragile entity. And what does the big black hole do? It strips that gas cloud apart. It pulls much stronger on one side than the other and the cloud is stripped apart. In fact, we anticipated that star formation shouldn’t proceed in that environment. </p>
-<p>So, you shouldn’t see young stars. So, what do we see? Using observations that are not the ones I’ve shown you today, we can actually figure out which ones are old and which ones are young. The old ones are red. The young ones are blue. And the yellow ones, we don’t know yet. So, you can already see the surprise. There is a dearth of old stars. There is an abundance of young stars, so it’s the exact opposite of the prediction. </p>
-<p>So, this is the fun part. And in fact, today, this is what we’re trying to figure out, this mystery of how do you get – how do you resolve this contradiction. So, in fact, my graduate students are, at this very moment, today, at the telescope, in Hawaii, making observations to get us hopefully to the next stage, where we can address this question of why are there so many young stars, and so few old stars. To make further progress we really need to look at the orbits of stars that are much further away. To do that we’ll probably need much more sophisticated technology than we have today. </p>
-<p>Because, in truth, while I said we’re correcting for the Earth’s atmosphere, we actually only correct for half the errors that are introduced. We do this by shooting a laser up into the atmosphere, and what we think we can do is if we shine a few more that we can correct the rest. So this is what we hope to do in the next few years. And on a much longer time scale, what we hope to do is build even larger telescopes, because, remember, bigger is better in astronomy. </p>
-<p>So, we want to build a 30 meter telescope. And with this telescope we should be able to see stars that are even closer to the center of the galaxy. And we hope to be able to test some of Einstein’s theories of general relativity, some ideas in cosmology about how galaxies form. So, we think the future of this experiment is quite exciting. </p>
-<p>So, in conclusion, I’m going to show you an animation that basically shows you how these orbits have been moving, in three dimensions. And I hope, if nothing else, I’ve convinced you that, one, we do in fact have a supermassive black hole at the center of the galaxy. And this means that these things do exist in our universe, and we have to contend with this, we have to explain how you can get these objects in our physical world. </p>
-<p>Second, we’ve been able to look at that interaction of how supermassive black holes interact, and understand, maybe, the role in which they play in shaping what galaxies are, and how they work. </p>
-<p>And last but not least, none of this would have happened without the advent of the tremendous progress that’s been made on the technology front. And we think that this is a field that is moving incredibly fast, and holds a lot in store for the future. Thanks very much. (Applause) </p>
-<div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://embed.ted.com/talks/andrea_ghez_the_hunt_for_a_supermassive_black_hole" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen></iframe></div></div>
-
-<hr>
-<ul>
-<li>The Royal Swedish Academy of Sciences has decided to award the 2020 Nobel Prize in Physics with one half to <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Roger_Penrose">Roger Penrose</a> and the other half jointly to <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Reinhard_Genzel">Reinhard Genzel</a> and <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Andrea_M._Ghez">Andrea Ghez</a>.</li>
-<li><a target="_blank" rel="noopener" href="https://www.quantamagazine.org/physics-nobel-awarded-for-black-hole-breakthroughs-20201006/">Physics Nobel Awarded for Black Hole Breakthroughs</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/08/the-hunt-for-a-supermassive-black-hole-andrea-ghez-tedglobal/" data-id="cl51yqkq900qecoyzbv5m5lsy" data-title="The hunt for a supermassive black hole - Andrea Ghez - TEDGlobal 2009 - Transcript" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-mother-and-child-louise-gluck" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/08/mother-and-child-louise-gluck/" class="article-date">
-  <time datetime="2020-10-08T13:27:06.000Z" itemprop="datePublished">2020-10-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/08/mother-and-child-louise-gluck/">Mother and Child</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>by <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Louise_Gl%C3%BCck">Louise Elisabeth Glück</a></p>
-<p>We’re all dreamers; we don’t know who we are.</p>
-<p>Some machine made us; machine of the world, the constricting family.<br>Then back to the world, polished by soft whips.</p>
-<p>We dream; we don’t remember.</p>
-<p>Machine of the family: dark fur, forests of the mother’s body.<br>Machine of the mother: white city inside her.</p>
-<p>And before that: earth and water.<br>Moss between rocks, pieces of leaves and grass.</p>
-<p>And before, cells in a great darkness.<br>And before that, the veiled world.</p>
-<p>This is why you were born: to silence me.<br>Cells of my mother and father, it is your turn<br>to be pivotal, to be the masterpiece.</p>
-<p>I improvised; I never remembered.<br>Now it’s your turn to be driven;<br>you’re the one who demands to know:</p>
-<p>Why do I suffer? Why am I ignorant?<br>Cells in a great darkness. Some machine made us;<br>it is your turn to address it, to go back asking<br>what am I for? What am I for?</p>
-<hr>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.poetryfoundation.org/poems/49617/mother-and-child">Mother and Child</a></li>
-<li>The 2020 Nobel Prize in Literature is awarded to the American poet Louise Glück “for her unmistakable poetic voice that with austere beauty makes individual existence universal.”</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/08/mother-and-child-louise-gluck/" data-id="cl51yqkpp00l6coyz3f5dg9uw" data-title="Mother and Child" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poem/" rel="tag">poem</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-how-crispr-lets-us-edit-our-dna-jennifer-doudna-tedglobal-london" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/07/how-crispr-lets-us-edit-our-dna-jennifer-doudna-tedglobal-london/" class="article-date">
-  <time datetime="2020-10-08T02:44:31.000Z" itemprop="datePublished">2020-10-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/07/how-crispr-lets-us-edit-our-dna-jennifer-doudna-tedglobal-london/">How CRISPR lets us edit our DNA - Jennifer Doudna - TEDGlobal&gt;London - Transcript</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>A few years ago, with my colleague, Emmanuelle Charpentier, I invented a new technology for editing genomes. It’s called CRISPR-Cas9. The CRISPR technology allows scientists to make changes to the DNA in cells that could allow us to cure genetic disease. </p>
-<p>You might be interested to know that the CRISPR technology came about through a basic research project that was aimed at discovering how bacteria fight viral infections. Bacteria have to deal with viruses in their environment, and we can think about a viral infection like a ticking time bomb – a bacterium has only a few minutes to defuse the bomb before it gets destroyed. So, many bacteria have in their cells an adaptive immune system called CRISPR, that allows them to detect viral DNA and destroy it. </p>
-<p>Part of the CRISPR system is a protein called Cas9, that’s able to seek out, cut and eventually degrade viral DNA in a specific way. And it was through our research to understand the activity of this protein, Cas9, that we realized that we could harness its function as a genetic engineering technology – a way for scientists to delete or insert specific bits of DNA into cells with incredible precision – that would offer opportunities to do things that really haven’t been possible in the past. </p>
-<p>The CRISPR technology has already been used to change the DNA in the cells of mice and monkeys, other organisms as well. Chinese scientists showed recently that they could even use the CRISPR technology to change genes in human embryos. And scientists in Philadelphia showed they could use CRISPR to remove the DNA of an integrated HIV virus from infected human cells. </p>
-<p>The opportunity to do this kind of genome editing also raises various ethical issues that we have to consider, because this technology can be employed not only in adult cells, but also in the embryos of organisms, including our own species. And so, together with my colleagues, I’ve called for a global conversation about the technology that I co-invented, so that we can consider all of the ethical and societal implications of a technology like this. </p>
-<p>What I want to do now is tell you what the CRISPR technology is, what it can do, where we are today and why I think we need to take a prudent path forward in the way that we employ this technology. </p>
-<p>When viruses infect a cell, they inject their DNA. And in a bacterium, the CRISPR system allows that DNA to be plucked out of the virus, and inserted in little bits into the chromosome – the DNA of the bacterium. And these integrated bits of viral DNA get inserted at a site called CRISPR. CRISPR stands for clustered regularly interspaced short palindromic repeats. (Laughter) </p>
-<p>A big mouthful – you can see why we use the acronym CRISPR. It’s a mechanism that allows cells to record, over time, the viruses they have been exposed to. And importantly, those bits of DNA are passed on to the cells’ progeny, so cells are protected from viruses not only in one generation, but over many generations of cells. This allows the cells to keep a record of infection, and as my colleague, Blake Wiedenheft, likes to say, the CRISPR locus is effectively a genetic vaccination card in cells. Once those bits of DNA have been inserted into the bacterial chromosome, the cell then makes a little copy of a molecule called RNA, which is orange in this picture, that is an exact replicate of the viral DNA. RNA is a chemical cousin of DNA, and it allows interaction with DNA molecules that have a matching sequence. </p>
-<p>So those little bits of RNA from the CRISPR locus associate – they bind – to protein called Cas9, which is white in the picture, and form a complex that functions like a sentinel in the cell. It searches through all of the DNA in the cell, to find sites that match the sequences in the bound RNAs. And when those sites are found – as you can see here, the blue molecule is DNA – this complex associates with that DNA and allows the Cas9 cleaver to cut up the viral DNA. It makes a very precise break. So we can think of the Cas9 RNA sentinel complex like a pair of scissors that can cut DNA – it makes a double-stranded break in the DNA helix. And importantly, this complex is programmable, so it can be programmed to recognize particular DNA sequences, and make a break in the DNA at that site. </p>
-<p>As I’m going to tell you now, we recognized that that activity could be harnessed for genome engineering, to allow cells to make a very precise change to the DNA at the site where this break was introduced. That’s sort of analogous to the way that we use a word-processing program to fix a typo in a document. </p>
-<p>The reason we envisioned using the CRISPR system for genome engineering is because cells have the ability to detect broken DNA and repair it. So when a plant or an animal cell detects a double-stranded break in its DNA, it can fix that break, either by pasting together the ends of the broken DNA with a little, tiny change in the sequence of that position, or it can repair the break by integrating a new piece of DNA at the site of the cut. So if we have a way to introduce double-stranded breaks into DNA at precise places, we can trigger cells to repair those breaks, by either the disruption or incorporation of new genetic information. So if we were able to program the CRISPR technology to make a break in DNA at the position at or near a mutation causing cystic fibrosis, for example, we could trigger cells to repair that mutation. </p>
-<p>Genome engineering is actually not new, it’s been in development since the 1970s. We’ve had technologies for sequencing DNA, for copying DNA, and even for manipulating DNA. And these technologies were very promising, but the problem was that they were either inefficient, or they were difficult enough to use that most scientists had not adopted them for use in their own laboratories, or certainly for many clinical applications. So, the opportunity to take a technology like CRISPR and utilize it has appeal, because of its relative simplicity. We can think of older genome engineering technologies as similar to having to rewire your computer each time you want to run a new piece of software, whereas the CRISPR technology is like software for the genome, we can program it easily, using these little bits of RNA. </p>
-<p>So once a double-stranded break is made in DNA, we can induce repair, and thereby potentially achieve astounding things, like being able to correct mutations that cause sickle cell anemia or cause Huntington’s Disease. I actually think that the first applications of the CRISPR technology are going to happen in the blood, where it’s relatively easier to deliver this tool into cells, compared to solid tissues. </p>
-<p>Right now, a lot of the work that’s going on applies to animal models of human disease, such as mice. The technology is being used to make very precise changes that allow us to study the way that these changes in the cell’s DNA affect either a tissue or, in this case, an entire organism. </p>
-<p>Now in this example, the CRISPR technology was used to disrupt a gene by making a tiny change in the DNA in a gene that is responsible for the black coat color of these mice. Imagine that these white mice differ from their pigmented litter-mates by just a tiny change at one gene in the entire genome, and they’re otherwise completely normal. And when we sequence the DNA from these animals, we find that the change in the DNA has occurred at exactly the place where we induced it, using the CRISPR technology. </p>
-<p>Additional experiments are going on in other animals that are useful for creating models for human disease, such as monkeys. And here we find that we can use these systems to test the application of this technology in particular tissues, for example, figuring out how to deliver the CRISPR tool into cells. We also want to understand better how to control the way that DNA is repaired after it’s cut, and also to figure out how to control and limit any kind of off-target, or unintended effects of using the technology. </p>
-<p>I think that we will see clinical application of this technology, certainly in adults, within the next 10 years. I think that it’s likely that we will see clinical trials and possibly even approved therapies within that time, which is a very exciting thing to think about. And because of the excitement around this technology, there’s a lot of interest in start-up companies that have been founded to commercialize the CRISPR technology, and lots of venture capitalists that have been investing in these companies. </p>
-<p>But we have to also consider that the CRISPR technology can be used for things like enhancement. Imagine that we could try to engineer humans that have enhanced properties, such as stronger bones, or less susceptibility to cardiovascular disease or even to have properties that we would consider maybe to be desirable, like a different eye color or to be taller, things like that. “Designer humans,” if you will. Right now, the genetic information to understand what types of genes would give rise to these traits is mostly not known. But it’s important to know that the CRISPR technology gives us a tool to make such changes, once that knowledge becomes available. </p>
-<p>This raises a number of ethical questions that we have to carefully consider, and this is why I and my colleagues have called for a global pause in any clinical application of the CRISPR technology in human embryos, to give us time to really consider all of the various implications of doing so. And actually, there is an important precedent for such a pause from the 1970s, when scientists got together to call for a moratorium on the use of molecular cloning, until the safety of that technology could be tested carefully and validated. </p>
-<p>So, genome-engineered humans are not with us yet, but this is no longer science fiction. Genome-engineered animals and plants are happening right now. And this puts in front of all of us a huge responsibility, to consider carefully both the unintended consequences as well as the intended impacts of a scientific breakthrough. </p>
-<p>Thank you. </p>
-<p>(Applause) </p>
-<p>(Applause ends) </p>
-<p>Bruno Giussani: Jennifer, this is a technology with huge consequences, as you pointed out. Your attitude about asking for a pause or a moratorium or a quarantine is incredibly responsible. There are, of course, the therapeutic results of this, but then there are the un-therapeutic ones and they seem to be the ones gaining traction, particularly in the media. This is one of the latest issues of The Economist – “Editing humanity.” It’s all about genetic enhancement, it’s not about therapeutics. What kind of reactions did you get back in March from your colleagues in the science world, when you asked or suggested that we should actually pause this for a moment and think about it? </p>
-<p>Jennifer Doudna: My colleagues were actually, I think, delighted to have the opportunity to discuss this openly. It’s interesting that as I talk to people, my scientific colleagues as well as others, there’s a wide variety of viewpoints about this. So clearly it’s a topic that needs careful consideration and discussion. </p>
-<p>BG: There’s a big meeting happening in December that you and your colleagues are calling, together with the National Academy of Sciences and others, what do you hope will come out of the meeting, practically? </p>
-<p>JD: Well, I hope that we can air the views of many different individuals and stakeholders who want to think about how to use this technology responsibly. It may not be possible to come up with a consensus point of view, but I think we should at least understand what all the issues are as we go forward. </p>
-<p>BG: Now, colleagues of yours, like George Church, for example, at Harvard, they say, “Yeah, ethical issues basically are just a question of safety. We test and test and test again, in animals and in labs, and then once we feel it’s safe enough, we move on to humans.” So that’s kind of the other school of thought, that we should actually use this opportunity and really go for it. Is there a possible split happening in the science community about this? I mean, are we going to see some people holding back because they have ethical concerns, and some others just going forward because some countries under-regulate or don’t regulate at all? </p>
-<p>JD: Well, I think with any new technology, especially something like this, there are going to be a variety of viewpoints, and I think that’s perfectly understandable. I think that in the end, this technology will be used for human genome engineering, but I think to do that without careful consideration and discussion of the risks and potential complications would not be responsible. </p>
-<p>BG: There are a lot of technologies and other fields of science that are developing exponentially, pretty much like yours. I’m thinking about artificial intelligence, autonomous robots and so on. No one seems – aside from autonomous warfare robots – nobody seems to have launched a similar discussion in those fields, in calling for a moratorium. Do you think that your discussion may serve as a blueprint for other fields? </p>
-<p>JD: Well, I think it’s hard for scientists to get out of the laboratory. Speaking for myself, it’s a little bit uncomfortable to do that. But I do think that being involved in the genesis of this really puts me and my colleagues in a position of responsibility. And I would say that I certainly hope that other technologies will be considered in the same way, just as we would want to consider something that could have implications in other fields besides biology. </p>
-<p>BG: Jennifer, thanks for coming to TED. </p>
-<p>JD: Thank you. </p>
-<p>(Applause) </p>
-<div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://embed.ted.com/talks/jennifer_doudna_how_crispr_lets_us_edit_our_dna" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen></iframe></div></div>
-
-<hr>
-<p>The 2020 Nobel Prize in Chemistry has been awarded to <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Emmanuelle_Charpentier">Emmanuelle Charpentier</a> and <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Jennifer_Doudna">Jennifer A. Doudna</a> “for the development of a method for genome editing.”</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/07/how-crispr-lets-us-edit-our-dna-jennifer-doudna-tedglobal-london/" data-id="cl51yqkp100ejcoyzbppsdp4z" data-title="How CRISPR lets us edit our DNA - Jennifer Doudna - TEDGlobal&gt;London - Transcript" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-eight-stages-psychosocial-development" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/07/eight-stages-psychosocial-development/" class="article-date">
-  <time datetime="2020-10-07T17:47:22.000Z" itemprop="datePublished">2020-10-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/07/eight-stages-psychosocial-development/">Erikson&#39;s stages of psychosocial development</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>Man is by nature a social animal; an individual who is unsocial naturally and not accidentally is either beneath our notice or more than human. Society is something that precedes the individual. Anyone who either cannot lead the common life or is so self-sufficient as not to need to, and therefore does not partake of society, is either a beast or a god. – Aristotle</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>Approximate Age</th>
-<th>Virtues</th>
-<th>Psychosocial crisis</th>
-<th>Significant relationship</th>
-<th>Existential question</th>
-<th>Examples</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Infancy <br/> Under 2 years</td>
-<td><strong>Hope</strong></td>
-<td><strong>Trust</strong> <br/> &nbsp;&nbsp;&nbsp;&nbsp;vs. <br/> <em>Mistrust</em></td>
-<td>Mother</td>
-<td>Can I trust the world?</td>
-<td>Feeding, abandonment</td>
-</tr>
-<tr>
-<td>Toddlerhood <br/> 2–4 years</td>
-<td><strong>Will</strong></td>
-<td><strong>Autonomy</strong> <br/> &nbsp;&nbsp;&nbsp;&nbsp;vs. <br/> <em>Shame/Doubt</em></td>
-<td>Parents</td>
-<td>Is it okay to be me?</td>
-<td>Toilet training, clothing themselves</td>
-</tr>
-<tr>
-<td>Early childhood <br/> 5–8 years</td>
-<td><strong>Purpose</strong></td>
-<td><strong>Initiative</strong> <br/> &nbsp;&nbsp;&nbsp;&nbsp;vs. <br/> <em>Guilt</em></td>
-<td>Family</td>
-<td>Is it okay for me to do, move, and act?</td>
-<td>Exploring, using tools or making art</td>
-</tr>
-<tr>
-<td>Middle Childhood <br/> 9–12 years</td>
-<td><strong>Competence</strong></td>
-<td><strong>Industry</strong> <br/> &nbsp;&nbsp;&nbsp;&nbsp;vs. <br/> <em>Inferiority</em></td>
-<td>Neighbors, School</td>
-<td>Can I make it in the world of people and things?</td>
-<td>School, sports</td>
-</tr>
-<tr>
-<td>Adolescence <br/> 13–19 years</td>
-<td><strong>Fidelity</strong></td>
-<td><strong>Identity</strong> <br/> &nbsp;&nbsp;&nbsp;&nbsp;vs. <br/> <em>Role Confusion</em></td>
-<td>Peers, Role Model</td>
-<td>Who am I? Who can I be?</td>
-<td>Social relationships</td>
-</tr>
-<tr>
-<td>Early adulthood <br/> 20–39 years</td>
-<td><strong>Love</strong></td>
-<td><strong>Intimacy</strong> <br/> &nbsp;&nbsp;&nbsp;&nbsp;vs. <br/> <em>Isolation</em></td>
-<td>Friends, Partners</td>
-<td>Can I love?</td>
-<td>Romantic relationships</td>
-</tr>
-<tr>
-<td>Middle Adulthood <br/> 40–59 years</td>
-<td><strong>Care</strong></td>
-<td><strong>Generativity</strong> <br/> &nbsp;&nbsp;&nbsp;&nbsp;vs. <br/> <em>Stagnation</em></td>
-<td>Household, Workmates</td>
-<td>Can I make my life count?</td>
-<td>Work, parenthood</td>
-</tr>
-<tr>
-<td>Late Adulthood <br/> 60 and above</td>
-<td><strong>Wisdom</strong></td>
-<td><strong>Ego Integrity</strong> <br/> &nbsp;&nbsp;&nbsp;&nbsp;vs. <br/> <em>Despair</em></td>
-<td>Mankind, My kind</td>
-<td>Is it okay to have been me?</td>
-<td>Reflection on life</td>
-</tr>
-</tbody></table>
-<hr>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Erikson%27s_stages_of_psychosocial_development">Erikson’s stages of psychosocial development</a></li>
-<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Erik_Erikson">Erik Erikson</a> was a student of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Anna_Freud">Anna Freud</a>, the daughter of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Sigmund_Freud">Sigmund Freud</a>.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/07/eight-stages-psychosocial-development/" data-id="cl51yqkor00b0coyzahn3eto1" data-title="Erikson&#39;s stages of psychosocial development" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" rel="tag">心理学与生活</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-top-10-algorithms" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/06/top-10-algorithms/" class="article-date">
-  <time datetime="2020-10-06T21:36:13.000Z" itemprop="datePublished">2020-10-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/06/top-10-algorithms/">Top 10 Algorithms</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-<p>© <a target="_blank" rel="noopener" href="https://www.computer.org/csdl/magazine/cs/2000/01/c1022/13rRUxBJhBm">Guest Editors’ Introduction: The Top 10 Algorithms</a></p>
-<blockquote>
-<p>An algorithm is a sequence of finite computational steps that<br>transforms an input into an output. &#40;Cormen and Leiserson, 2009&#41;</p>
-</blockquote>
-<p><em>Algos</em> is the Greek word for pain. <em>Algor</em> is Latin, to be cold. Neither is the root for <em>algorithm</em>, which stems instead from al-Khwarizmi, the name of the ninth-century Arab scholar whose book <em>al-jabr wa’l muqabalah</em> devolved into today’s high school algebra textbooks. Al-Khwarizmi stressed the importance of methodical procedures for solving problems. Were he around today, he’d no doubt be impressed by the advances in his eponymous approach.</p>
-<p>Some of the very best algorithms of the computer age are highlighted in the January/February 2000 issue of <em>Computing in Science &amp; Engineering</em>, a joint publication of the American Institute of Physics and the IEEE Computer Society. Guest editors Jack Don-garra of the University of Tennessee and Oak Ridge National Laboratory and Fran-cis Sullivan of the Center for Comput-ing Sciences at the Institute for Defense Analyses put togeth-er a list they call the “<strong>Top Ten Algorithms of the Century</strong>.”</p>
-<p>“We tried to assemble the <strong>10 al-gorithms with the greatest influence on the development and practice of science and engineering in the 20th century</strong>,” Dongarra and Sullivan write. As with any top-10 list, their selections—and non-selections—are bound to be controversial, they acknowledge. When it comes to picking the algorithmic best, there seems to be no best algorithm.</p>
-<h1 id="1946-Metropolis-Algorithm-for-Monte-Carlo"><a href="#1946-Metropolis-Algorithm-for-Monte-Carlo" class="headerlink" title="1946: Metropolis Algorithm for Monte Carlo"></a>1946: Metropolis Algorithm for Monte Carlo</h1><p>John von Neumann, Stan Ulam, and Nick Metropolis, all at the Los Alamos Scientific Laboratory, cook up the Metropolis algorithm, also known as the Monte Carlo method.</p>
-<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Monte_Carlo_method">Monte Carlo methods</a> are the only practical choice for evaluating problems of high dimensions.</p>
-<h1 id="1947-Simplex-Method-for-Linear-Programming"><a href="#1947-Simplex-Method-for-Linear-Programming" class="headerlink" title="1947: Simplex Method for Linear Programming"></a>1947: Simplex Method for Linear Programming</h1><p>George Dantzig, at the RAND Corporation, creates the simplex method for linear programming.</p>
-<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Simplex_algorithm">The Simplex method</a> relies on noticing that the objective function’s maximum must occur on a corner of the space bounded by the constraints of the “feasible region.”</p>
-<h1 id="1950-Krylov-Subspace-Iteration-Methods"><a href="#1950-Krylov-Subspace-Iteration-Methods" class="headerlink" title="1950: Krylov Subspace Iteration Methods"></a>1950: Krylov Subspace Iteration Methods</h1><p>Magnus Hestenes, Eduard Stiefel, and Cornelius Lanczos, all from the Institute for Numerical Analysis at the National Bureau of Standards, initiate the development of Krylov subspace iteration methods.</p>
-<p>The importance of iterative algorithms in linear algebra stems from the simple fact that a direct approach will require \( O(N^3) \) work. The Krylov subspace <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Iterative_method">iteration methods</a> have led to a major change in how users deal with large, sparse, nonsymmetric matrix problems.</p>
-<h1 id="1951-The-Decompositional-Approach-to-Matrix-Computations"><a href="#1951-The-Decompositional-Approach-to-Matrix-Computations" class="headerlink" title="1951: The Decompositional Approach to Matrix Computations"></a>1951: The Decompositional Approach to Matrix Computations</h1><p>Alston Householder of Oak Ridge National Laboratory formalizes the decompositional approach to matrix computations.</p>
-<p>Introducing the decompositional approach to matrix computations revolutionized the field.</p>
-<h1 id="1957-The-Fortran-Optimizing-Compiler"><a href="#1957-The-Fortran-Optimizing-Compiler" class="headerlink" title="1957: The Fortran Optimizing Compiler"></a>1957: The Fortran Optimizing Compiler</h1><p>John Backus leads a team at IBM in developing the Fortran optimizing compiler.</p>
-<p>The creation of Fortran may rank as the single most important event in the history of computer programming: Finally, scientists (and others) could tell the computer what they wanted it to do, without having to descend into the netherworld of machine code. Although modest by modern compiler standards—Fortran I consisted of a mere 23,500 assembly-language instructions—the early compiler was nonetheless capable of surprisingly sophisticated computations. As Backus himself recalls in a recent history of Fortran I, II, and III, published in 1998 in the <em>IEEE Annals of the History of Computing</em>, the compiler “<strong>produced code of such efficiency that its output would startle the programmers who studied it</strong>.”</p>
-<h1 id="1959-QR-Algorithm-for-Computing-Eigenvalues"><a href="#1959-QR-Algorithm-for-Computing-Eigenvalues" class="headerlink" title="1959: QR Algorithm for Computing Eigenvalues"></a>1959: QR Algorithm for Computing Eigenvalues</h1><p>J.G.F. Francis of Ferranti Ltd., London, finds a stable method for computing eigenvalues, known as the QR algorithm.</p>
-<p>The <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/QR_algorithm">QR Algorithm</a> for computing eigenvalues of a matrix has transformed the approach to computing the spectrum of a matrix.</p>
-<h1 id="1962-Quicksort-Algorithm-for-Sorting"><a href="#1962-Quicksort-Algorithm-for-Sorting" class="headerlink" title="1962: Quicksort Algorithm for Sorting"></a>1962: Quicksort Algorithm for Sorting</h1><p>Tony Hoare of Elliott Brothers, Ltd., London, presents Quicksort.</p>
-<p>Hoare’s algorithm uses the age-old recursive strategy of divide and conquer to solve the problem.</p>
-<p>Sorting is a central problem in many areas of computing so it is no surprise to see an approach to solving the problem as one of the top 10. <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Quicksort">Quicksort</a> is one of the best practical sorting algorithm for general inputs. In addition, its complexity analysis and its structure have been a rich source of inspiration for developing general algorithm techniques for various applications.</p>
-<h1 id="1965-Fast-Fourier-Transform"><a href="#1965-Fast-Fourier-Transform" class="headerlink" title="1965: Fast Fourier Transform"></a>1965: Fast Fourier Transform</h1><p>James Cooley of the IBM T.J. Watson Research Center and John Tukey of Princeton University and AT&amp;T Bell Laboratories unveil the fast Fourier transform.</p>
-<p>Easily the most far-reaching algo-rithm in applied mathematics, the FFT revolutionized signal processing. The underlying idea goes back to Gauss (who needed to calculate orbits of asteroids), but it was the Cooley–Tukey paper that made it clear how easily Fourier transforms can be computed. Like Quicksort, the FFT relies on a divide-and-conquer strategy to reduce an ostensibly \( O(N^2) \) chore to an \( O(NlogN) \) frolic. But unlike Quick- sort, the implementation is (at first sight) nonintuitive and less than straightforward. This in itself gave computer science an impetus to investigate the inherent complexity of computational problems and algorithms.</p>
-<blockquote>
-<p>Mozart could listen to music just once and then write it<br>down from memory without any mistakes. &#40;Vernon, 1996&#41;</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Fast_Fourier_transform">FFT</a> is an algorithm “the whole family can use.” The FFT is perhaps the most ubiquitous algorithm in use today to analyze and manipulate digital or discrete data. The FFT takes the operation count for discrete Fourier transform from \( O(N^2) \) to \( O(NlogN) \).</p>
-<h1 id="1977-Integer-Relation-Detection"><a href="#1977-Integer-Relation-Detection" class="headerlink" title="1977: Integer Relation Detection"></a>1977: Integer Relation Detection</h1><p>Helaman Ferguson and Rodney Forcade of Brigham Young University advance an integer relation detection algorithm.</p>
-<p>Some recently discovered <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Integer_relation_algorithm">integer relation detection algorithms</a> have become a centerpiece of the emerging discipline of “experimental mathematics” — the use of modern computer technology as an exploratory tool in mathematical research.</p>
-<h1 id="1987-Fast-Multipole-Method"><a href="#1987-Fast-Multipole-Method" class="headerlink" title="1987: Fast Multipole Method"></a>1987: Fast Multipole Method</h1><p>Leslie Greengard and Vladimir Rokhlin of Yale University invent the fast multipole algorithm.</p>
-<p>The <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Fast_multipole_method">Fast Multipole Algorithm</a> was developed originally to calculate gravitational and electrostatic potentials. The method utilizes techniques to quickly compute and combine the pair-wise approximation in \( O(N) \) operations.</p>
-<hr>
-<ul>
-<li>The Best of the 20th Century: Editors Name Top 10 Algorithms, By Barry A. Cipra, a mathematician and writer based in Northfield, Minnesota.</li>
-<li>The Top10 Algorithms From The 20th Century, Alex Townsend, Cornell University</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2020/10/06/top-10-algorithms/" data-id="cl51yqkqf00s4coyz6p2dgbnj" data-title="Top 10 Algorithms" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/17/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/19/">Next »</a>
+    <a class="extend prev" rel="prev" href="/page/17/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/45/">45</a><a class="extend next" rel="next" href="/page/19/">Next »</a>
   </nav>
 
 </section>
@@ -823,7 +690,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/" rel="tag">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bit-Manipulation/" rel="tag">Bit Manipulation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/" rel="tag">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bruce-Lee/" rel="tag">Bruce Lee</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CEMC/" rel="tag">CEMC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/" rel="tag">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/" rel="tag">Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Divide-and-Conquer/" rel="tag">Divide and Conquer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFmpeg/" rel="tag">FFmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/" rel="tag">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/" rel="tag">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HackerRank/" rel="tag">HackerRank</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/" rel="tag">Hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashTable/" rel="tag">HashTable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/" rel="tag">Heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IELTS/" rel="tag">IELTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/" rel="tag">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/" rel="tag">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/" rel="tag">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lin-Yutang/" rel="tag">Lin Yutang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/" rel="tag">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marcus-Du-Sautoy/" rel="tag">Marcus Du Sautoy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathematics/" rel="tag">Mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/" rel="tag">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/" rel="tag">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programming/" rel="tag">Programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/" rel="tag">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/" rel="tag">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/" rel="tag">Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEDx/" rel="tag">TEDx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terence-Tao/" rel="tag">Terence Tao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/" rel="tag">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Topological-Sort/" rel="tag">Topological Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/" rel="tag">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/" rel="tag">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/" rel="tag">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backtracking/" rel="tag">backtracking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/" rel="tag">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bilingual/" rel="tag">bilingual</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/" rel="tag">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrency/" rel="tag">concurrency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coronavirus/" rel="tag">coronavirus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/creative-thinking/" rel="tag">creative thinking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/" rel="tag">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/" rel="tag">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/essay/" rel="tag">essay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firefox/" rel="tag">firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/geometry/" rel="tag">geometry</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/" rel="tag">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graph/" rel="tag">graph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/" rel="tag">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history-of-mathematics/" rel="tag">history of mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ide/" rel="tag">ide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/" rel="tag">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/" rel="tag">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/logic/" rel="tag">logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/" rel="tag">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/" rel="tag">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/physics/" rel="tag">physics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/popscience/" rel="tag">popscience</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programmer/" rel="tag">programmer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quantum/" rel="tag">quantum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recurrence/" rel="tag">recurrence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/song/" rel="tag">song</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/" rel="tag">stack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/" rel="tag">vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/" rel="tag">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wolfram/" rel="tag">wolfram</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" rel="tag">中文经典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E6%96%87/" rel="tag">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" rel="tag">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" rel="tag">数学史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" rel="tag">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" rel="tag">李小龙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" rel="tag">李笑来</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" rel="tag">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" rel="tag">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8B%B1%E8%AF%AD/" rel="tag">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%91%E8%A8%80/" rel="tag">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/" rel="tag">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bit-Manipulation/" rel="tag">Bit Manipulation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/" rel="tag">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bruce-Lee/" rel="tag">Bruce Lee</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CEMC/" rel="tag">CEMC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/" rel="tag">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/" rel="tag">Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Divide-and-Conquer/" rel="tag">Divide and Conquer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFmpeg/" rel="tag">FFmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/" rel="tag">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/" rel="tag">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HackerRank/" rel="tag">HackerRank</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/" rel="tag">Hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashTable/" rel="tag">HashTable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/" rel="tag">Heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IELTS/" rel="tag">IELTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/" rel="tag">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/" rel="tag">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/" rel="tag">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lin-Yutang/" rel="tag">Lin Yutang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/" rel="tag">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marcus-Du-Sautoy/" rel="tag">Marcus Du Sautoy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathematics/" rel="tag">Mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/" rel="tag">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/" rel="tag">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programming/" rel="tag">Programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/" rel="tag">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/" rel="tag">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/" rel="tag">Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEDx/" rel="tag">TEDx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terence-Tao/" rel="tag">Terence Tao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/" rel="tag">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Topological-Sort/" rel="tag">Topological Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/" rel="tag">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/" rel="tag">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/" rel="tag">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backtracking/" rel="tag">backtracking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/" rel="tag">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bilingual/" rel="tag">bilingual</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/" rel="tag">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrency/" rel="tag">concurrency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coronavirus/" rel="tag">coronavirus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/creative-thinking/" rel="tag">creative thinking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/" rel="tag">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/" rel="tag">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/essay/" rel="tag">essay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firefox/" rel="tag">firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/geometry/" rel="tag">geometry</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/" rel="tag">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graph/" rel="tag">graph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/" rel="tag">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history-of-mathematics/" rel="tag">history of mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ide/" rel="tag">ide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/" rel="tag">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/" rel="tag">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/logic/" rel="tag">logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/" rel="tag">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/" rel="tag">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/physics/" rel="tag">physics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/popscience/" rel="tag">popscience</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programmer/" rel="tag">programmer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quantum/" rel="tag">quantum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recurrence/" rel="tag">recurrence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/song/" rel="tag">song</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/" rel="tag">stack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/" rel="tag">vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/" rel="tag">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wolfram/" rel="tag">wolfram</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" rel="tag">中文经典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E6%96%87/" rel="tag">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" rel="tag">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" rel="tag">数学史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" rel="tag">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" rel="tag">李小龙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" rel="tag">李笑来</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" rel="tag">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" rel="tag">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8B%B1%E8%AF%AD/" rel="tag">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%91%E8%A8%80/" rel="tag">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
     </div>
   </div>
 
@@ -833,7 +700,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 19.44px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.22px;">Array</a> <a href="/tags/BFS/" style="font-size: 15px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.56px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15.56px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 16.11px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.44px;">DFS</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.11px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.78px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.89px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 13.89px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 11.11px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.89px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.56px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.67px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.56px;">Mathematics</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10.56px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.56px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.67px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.78px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.56px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 13.33px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 14.44px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.67px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.56px;">Topological Sort</a> <a href="/tags/Tree/" style="font-size: 11.67px;">Tree</a> <a href="/tags/Two-Pointers/" style="font-size: 15.56px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.67px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.56px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.11px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 20px;">english</a> <a href="/tags/essay/" style="font-size: 11.67px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.22px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.67px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.89px;">java</a> <a href="/tags/javascript/" style="font-size: 10.56px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.56px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.67px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.11px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 18.33px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 11.67px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 11.11px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.78px;">regex</a> <a href="/tags/song/" style="font-size: 13.33px;">song</a> <a href="/tags/sql/" style="font-size: 10.56px;">sql</a> <a href="/tags/stack/" style="font-size: 10.56px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.56px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 12.22px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10.56px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 10.56px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12.22px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 12.22px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 10.56px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 19.44px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.22px;">Array</a> <a href="/tags/BFS/" style="font-size: 15px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.56px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15.56px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 16.11px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.44px;">DFS</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.11px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.78px;">ELL</a> <a href="/tags/English/" style="font-size: 10px;">English</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.89px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 13.89px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 11.11px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.89px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.56px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.67px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.56px;">Mathematics</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10.56px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.56px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.67px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.78px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.56px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 13.33px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 14.44px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.67px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.56px;">Topological Sort</a> <a href="/tags/Tree/" style="font-size: 11.67px;">Tree</a> <a href="/tags/Two-Pointers/" style="font-size: 15.56px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.67px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.56px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.11px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 20px;">english</a> <a href="/tags/essay/" style="font-size: 11.67px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.22px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.67px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.89px;">java</a> <a href="/tags/javascript/" style="font-size: 10.56px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.56px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.67px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.11px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 18.33px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 11.67px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 11.11px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.78px;">regex</a> <a href="/tags/song/" style="font-size: 13.33px;">song</a> <a href="/tags/sql/" style="font-size: 10.56px;">sql</a> <a href="/tags/stack/" style="font-size: 10.56px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.56px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 12.22px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10.56px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 10.56px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12.22px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 12.22px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 10.56px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -855,23 +722,23 @@
       <ul>
         
           <li>
-            <a href="/2022/07/01/Canada-Billy-Collins/">Canada</a>
+            <a href="/2022/07/19/Little-Girl-Laura-Elizabeth-Howe-Richards/">Little Girl</a>
           </li>
         
           <li>
-            <a href="/2022/06/30/An-Essay-on-Criticism-Part-3-Alexander-Pope/">An Essay on Criticism Part 3</a>
+            <a href="/2022/07/17/recommendation-letters-for-Albert-Einstein/">Marie Curie and Henri Poincaré once wrote letters of recommendation for Albert Einstein</a>
           </li>
         
           <li>
-            <a href="/2022/06/29/An-Essay-on-Criticism-Part-2-Alexander-Pope/">An Essay on Criticism Part 2</a>
+            <a href="/2022/07/12/Quantum-hype-VSI-John-Polkinghorne/">Quantum hype</a>
           </li>
         
           <li>
-            <a href="/2022/06/28/An-Essay-on-Criticism-Part-1-Alexander-Pope/">An Essay on Criticism Part 1</a>
+            <a href="/2022/07/04/leetcode-sql-questions/">LeetCode SQL Questions</a>
           </li>
         
           <li>
-            <a href="/2022/06/24/a-question-robert-frost/">A Question</a>
+            <a href="/2022/07/02/My-English-Words-List-July-2022/">My English Words List - July - 2022</a>
           </li>
         
       </ul>

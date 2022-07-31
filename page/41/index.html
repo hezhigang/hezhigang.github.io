@@ -70,6 +70,584 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/22/LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters/" class="article-date">
+  <time datetime="2018-07-22T16:05:46.000Z" itemprop="datePublished">2018-07-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/22/LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters/">LeetCode - Algorithms - 3. Longest Substring Without Repeating Characters</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一个多月以前就开始看这个题，先是澄清了下 Substring 与 Subsequence的区别。算法是自己的短板与软肋呀，知之甚少的地方，你再思考也还是只有迷惘，只好上网搜罗，google关键字longest unique substring java搜到：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.quora.com/In-a-string-find-the-longest-substring-with-all-unique-characters">In a string find the longest substring with all unique characters?</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/9734474/find-longest-substring-without-repeating-characters">Find longest substring without repeating characters</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/length-of-the-longest-substring-without-repeating-characters/">Length of the longest substring without repeating characters</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.programcreek.com/2013/02/leetcode-longest-substring-without-repeating-characters-java/">LeetCode – Longest Substring Without Repeating Characters (Java)</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/articles/longest-substring-without-repeating-characters/">3. Longest Substring Without Repeating Characters</a></li>
+<li><a target="_blank" rel="noopener" href="https://codereview.stackexchange.com/questions/66461/finding-the-longest-unique-sub-string-in-a-string">Finding the longest unique sub-string in a string</a></li>
+<li><a target="_blank" rel="noopener" href="https://soulmachine.gitbooks.io/algorithm-essentials/java/greedy/longest-substring-without-repeating-characters.html">Longest Substring Without Repeating Characters</a></li>
+</ul>
+<p>看了还是不理解，人家的代码实现也看了，也没看明白。</p>
+<p>又 google 关键字 longest unique substring in a string，搜到 <a target="_blank" rel="noopener" href="https://javaconceptoftheday.com/find-longest-substring-without-repeating-characters-java/">How To Find Longest Substring Without Repeating Characters In Java?</a>，这个终于看懂了，用到了个LinkedHashMap数据结构来存储无重复字符的substring，从左往右扫描字符数组，一旦字符与HashMap里的字符有重复，就把循环变量i置为那个重复字符在原字符串中的位置，HashMap清空，如果字符不重复，就继续往右扫，如果HashMap的size大于最大无重复子串长度，就更新最大无重复子串长度这个int变量，直到字符串末尾为止。会者不难，难者不会，其实也就这么简单。思路是人家的，自己不过照着人家的解决方案写的，最后写下来代码倒也没几行，LeetCode运行通过了。基本理解了，但要达到了然于胸的程度，还得继续慢慢消化理解。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">int</span> maxUniqSubstrLen = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">if</span> (!s.isEmpty()) &#123;</span><br><span class="line">        	LinkedHashMap&lt;Character,Integer&gt; map = <span class="keyword">new</span> LinkedHashMap&lt;Character,Integer&gt;();</span><br><span class="line">        	<span class="keyword">int</span> len = s.length();</span><br><span class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++) &#123;</span><br><span class="line">        		<span class="keyword">char</span> ch = s.charAt(i);</span><br><span class="line">        		<span class="keyword">if</span> (!map.containsKey(ch)) &#123;</span><br><span class="line">        			map.put(ch, i);</span><br><span class="line">        		&#125;</span><br><span class="line">        		<span class="keyword">else</span> &#123;</span><br><span class="line">        			i = map.get(ch);</span><br><span class="line">        			map.clear();</span><br><span class="line">        		&#125;</span><br><span class="line">        		<span class="keyword">if</span> (map.size()&gt;maxUniqSubstrLen)</span><br><span class="line">                    maxUniqSubstrLen = map.size();</span><br><span class="line">        	&#125;    		</span><br><span class="line">    	&#125;</span><br><span class="line">        <span class="keyword">return</span> maxUniqSubstrLen;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>983 / 983 test cases passed.</li>
+<li>Your runtime beats 10.69 % of java submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/07/22/LeetCode-Algorithms-Longest-Substring-Without-Repeating-Characters/" data-id="cl51yqko00038coyz0t6e191q" data-title="LeetCode - Algorithms - 3. Longest Substring Without Repeating Characters" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-New-Concept-English" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/18/New-Concept-English/" class="article-date">
+  <time datetime="2018-07-18T11:11:37.000Z" itemprop="datePublished">2018-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/18/New-Concept-English/">新概念英语</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>新概念英语的文章非常经典，适合学生背诵，从第二册49课，the end of the dream开始，一直背到第三册结束。</li>
+<li>推荐英音版本的（即使你是想学美音），因为那个版本比较抑扬顿挫，比较利于记忆、背诵以及语感的养成。一定要模仿任何一处的语音语调，no matter how wierd or stupid it sounds。</li>
+<li>因为《新概念英语》教材的经典，其也不可避免的具有因“陈旧”所导致的种种薄弱之处。和即时的新闻和美剧电影来比，用词和题材有些过时。</li>
+<li>一来《新概念英语》本身不具备较为正规的测评系统，没有考试，以至于学生很难全面客观地检验学习效果;二来《新概念英语》的知识比较陈旧，与当代发生的新事，当前热门的话题，当下关注度高的问题稍有脱离。</li>
+<li>一定要模仿原声课文，一句一句重复模仿，直到可以把每个句子听得很透，甚至可以背下来；尤其开始不要觉的课文很熟了就脱离原声模仿，有很多同学听熟了就自己大声读，读几遍就又回到原来的口音上了。</li>
+</ul>
+<hr>
+<h1 id="Book-3-Developing-Skills"><a href="#Book-3-Developing-Skills" class="headerlink" title="Book 3: Developing Skills"></a>Book 3: Developing Skills</h1><ul>
+<li>新概念三册中大部分的叙事文章，例如第5、6、13、15、16、31、33等课，都是很好的复述素材。</li>
+<li>31课人物描写的模板、12和41课对比论证的模板、以及59课兴趣爱好的模板。</li>
+<li>31课第一段提炼出来的描述人“先否后肯”模式的模板</li>
+<li>59课最后一段列出了“收藏”这项爱好的五重好处，即：休闲娱乐、增长知识、结交好友、周游世界、建立自信。通过分析，我们发现，任何有益的爱好都不外乎这几点好处，也就是说，在描述我们爱好及其优点的时候，就可以把这几点套用上去。</li>
+<li>第1课的同位语从句、第6课的独立主格、第29课的主语从句</li>
+<li>第3， 5， 6， 7， 17， 39等十几篇课文中都为我们提供了非常漂亮地道的亮点句型</li>
+<li>对比逻辑的文章，我们可以结合12、27、29、41这几课对比模板轻松应对</li>
+<li>第17课是讲解和练习Skimming （略读） 和Scanning （查读）的经典文章。</li>
+<li>而下半册中，第51和55课是典型科技类文章的阅读</li>
+<li>第六课有两处非常明显地使用了独立结构</li>
+<li>第三课An unknown goddess: 英语思维至高无上的秘诀：英文永远是开门见山的，总是把最重要的中心先说出来。更通俗一点来讲，中文的习惯表达方式是因为所以，而英文的表达习惯一般是之所以是因为。</li>
+<li>第9课重点训练“数字”的听辨、第27课综合训练“数字、人名、地名”等细节的听辨能力，并以此为例，系统讲解听力“笔记法”</li>
+</ul>
+<hr>
+<h1 id="Book-4-Fluency-in-English"><a href="#Book-4-Fluency-in-English" class="headerlink" title="Book 4: Fluency in English"></a>Book 4: Fluency in English</h1><ul>
+<li>新概念四中的文章是编者ALEXANDER精心挑选的各个领域的散文名篇,这些文章文笔优美,说理透彻。</li>
+<li>高超的“破题”范本。以第五课《青年》（Youth）为例，作者在讨论代沟问题、为年轻人辩护时，开篇就指明了问题的根本所在：Let’s get down to fundamentals and agree that the young are after all human beings—-people just like their elders。作者接着指明两者之间的唯一差别就是：年轻人前程似锦，而老年人一切辉煌都已成过眼云烟。这样，下文的论证就有了坚实的基础。我们在写作时，可以参考这种方法，在开篇把问题的根本所在讲明白，这样下文就有话可说，而且容易让人信服。</li>
+<li>第24课《美》（beauty）：作为一个极其抽象的概念，“美”究竟是什么本来就很难写清楚，而作者在第一段就给“美”下了巧妙的定义：美总会让人想到超越我们俗世的另外一个世界。在这个框架中讨论“美”，就可以有的放矢了。</li>
+<li>数字、比较论证技巧：第2课《不要伤害蜘蛛》（spare that spider）</li>
+<li>第19课《话说梦的本质》（The stuff of dreams）、十四课《蝴蝶效应》（The Butterfly Effect） ：“以退为进”法 这种技巧适用于驳论。</li>
+<li>第31课中的“先抑后扬”法</li>
+<li>第28课的“例证——极度例证”法</li>
+<li>第5课《青年》（Youth）的修辞：两个future第一个future前用了glorious来修饰，在第二个future前则用splendid。再看下一句话：He may be conceited, ill-mannered, presumptuous, or fatuous, ……。这句话中，作者一连串用的四个形容词恰倒好处，令人叫绝。</li>
+<li>第24课中可以学到典型的排比句用法</li>
+<li>第31课中作者则巧妙地使用了倒装句式</li>
+<li>第23课中的长句很多</li>
+<li>第11课《如何安度晚年》（How to grow old）是修辞格使用的经典范例。作者在文中把人生比作河流(An individual human existence should be like a river), small at first指的是人的儿童期，rushing passionately指的是人的青年期，boulders 和waterfalls则喻指人生中的坎坷，而become merged in the sea则是指死亡。某种程度上来说，正是这绝妙的比喻使这段话成为英语散文中的经典语段。</li>
+<li>Lesson 4，属于伪科学盛行时期的产物</li>
+<li>第5课 youth 原文是Fielden Hughes 所写的”out of the air”</li>
+<li>Lesson6：The sporting spirit，乔治·奥威尔(George Orwell)</li>
+<li>Lesson14：The Butterfly Effect。 美国科普畅销书作家詹姆斯·格雷克 (James Gleick)</li>
+</ul>
+<hr>
+<h1 id="Book-2-Practice-amp-Progress"><a href="#Book-2-Practice-amp-Progress" class="headerlink" title="Book 2: Practice &amp; Progress"></a>Book 2: Practice &amp; Progress</h1><p>一至三单元主要训练学生写简单句、并列句和复合句</p>
+<hr>
+<p>请各位知友分享下自己的英语学习经验吧？ - 尤雨溪的回答 - 知乎<br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20118811/answer/14036822">https://www.zhihu.com/question/20118811/answer/14036822</a></p>
+<ol>
+<li>听说读写无障碍，文学类除外。经常有老美发现我不是native speaker的时候很惊讶。</li>
+<li>当年学的时候就是把新概念第二册起的课文听 -&gt; 读 -&gt; 背 -&gt; 说，如此循环。说这一步最关键，要求是能够理解之后像正常思考一样说出来，就像演讲一样。最好是有懂英语的人听着你说，看你说得自然不自然。做到这一步意味着要把文章的词汇、句式、行文思路全部吸收。</li>
+<li>小学6年级开始学英语。初二开始用2里面的方法，高二背完新概念第四册第二遍。之后基本没有刻意再学过。</li>
+</ol>
+<p>英语是否会成为开发工程师的发展瓶颈？ - 尤雨溪的回答 - 知乎<br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/55998388/answer/167024826">https://www.zhihu.com/question/55998388/answer/167024826</a></p>
+<p>不仅英语差会成为瓶颈，英语好还能成为优势，因为学习效率会比别人高。像我这样半路出家自学的人，只能靠英语了…</p>
+<p>上了大学还是完全不懂语法只想靠美剧或者英语书籍来的语感强行记忆，这种做法靠谱吗？ - 尤雨溪的回答 - 知乎<br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/22027426/answer/21944576">https://www.zhihu.com/question/22027426/answer/21944576</a></p>
+<p>语法也不是完全不需要。或者说，你需要做到的是借助语法去理解你看不懂的句子，而不是去记忆语法本身。理解的过程就是培养语感的过程。从这个角度来说，一些基础的语法知识，比如时态、从句啥的，是培养语感的前提条件。但是，我的看法是语法过了初学者的坎之后就不再是需要刻意去研究的东西，非英语专业尤其如此。</p>
+<p>我自己就是语感党，以前考试从来都靠语感，从来不会去记忆具体的语法规则。至于效果… 我高二托福考了673（当时满分677），上海高考 146/150，还拿了个英语比赛的一等奖，高考可以加20分的那种。高中毕业后直接来美国读本科（参加高考是为了防止签证签不出），读硕士，工作，除了本科时候 Liberal Arts 的恐怖阅读量有点累，其他时候英语上从来没有什么障碍。</p>
+<p>但是联系到题主的问题，<strong>语感的培养绝对不能只靠被动的接收，必须要靠主动的使用</strong>。只看书看剧带来的提高是非常有限的，语感只有在使用中才能提高。所以，除了看和听，还要写和说。写嘛，现在网络这么发达，多逛逛外国网站跟人交流或者辩论都可以，但务必保证发言要言之有物。之所以辩论会很有效是因为你需要很努力地思考组织语言去论证自己的正确性。说的方面，在缺少口语交流环境的情况下，背是一个机械但有效的方法。以我自己来说，实质性提高英语的主要手段是靠背新概念 + 背词汇… （参见我这个答案 <a target="_blank" rel="noopener" href="http://www.zhihu.com/question/20118811/answer/14036822">http://www.zhihu.com/question/20118811/answer/14036822</a> ）所以说到底还是没有什么捷径可走的，想提高英语总得有所付出。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/07/18/New-Concept-English/" data-id="cl51yqkof006xcoyzfls9ep8l" data-title="新概念英语" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%8B%B1%E8%AF%AD/" rel="tag">英语</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-bash-shell" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/13/bash-shell/" class="article-date">
+  <time datetime="2018-07-13T14:58:39.000Z" itemprop="datePublished">2018-07-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/13/bash-shell/">bash shell</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>BASH Programming - Introduction HOW-TO</p>
+<p>by Mike G mikkey at dynamo.com.ar</p>
+<p><a target="_blank" rel="noopener" href="http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html">http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html</a></p>
+<p>Bash scripting cheatsheet<br><a target="_blank" rel="noopener" href="https://devhints.io/bash">https://devhints.io/bash</a></p>
+<hr>
+<p>Bash scripting for beginning system administrators<br>A hands-on approach<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/aix/library/au-getstartedbash/">https://www.ibm.com/developerworks/aix/library/au-getstartedbash/</a></p>
+<p>适合系统管理新手的 bash 脚本编程<br>动手实践方法<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/aix/library/au-getstartedbash/index.html">https://www.ibm.com/developerworks/cn/aix/library/au-getstartedbash/index.html</a></p>
+<hr>
+<p>Bash by example, Part 1<br>Fundamental programming in the Bourne again shell (bash)<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/library/l-bash/index.html">https://www.ibm.com/developerworks/library/l-bash/index.html</a></p>
+<p>Bash 实例，第一部分<br>Bourne again shell (bash) 基本编程<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/shell/bash/bash-1/">https://www.ibm.com/developerworks/cn/linux/shell/bash/bash-1/</a></p>
+<hr>
+<p>Bash by example, Part 2<br>More bash programming fundamentals<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/linux/library/l-bash2/index.html">https://www.ibm.com/developerworks/linux/library/l-bash2/index.html</a></p>
+<p>Bash 实例，第 2 部分<br>更多的 bash 基本编程<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/shell/bash/bash-2/">https://www.ibm.com/developerworks/cn/linux/shell/bash/bash-2/</a></p>
+<hr>
+<p>Bash by example, Part 3<br>Exploring the ebuild system<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/library/l-bash3/index.html">https://www.ibm.com/developerworks/library/l-bash3/index.html</a></p>
+<p>Bash 实例，第 3 部分<br>探讨 ebuild 系统<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/shell/bash/bash-3/">https://www.ibm.com/developerworks/cn/linux/shell/bash/bash-3/</a></p>
+<hr>
+<p>Bash 脚本 set 命令教程<br><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2017/11/bash-set.html">http://www.ruanyifeng.com/blog/2017/11/bash-set.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/07/13/bash-shell/" data-id="cl51yqkom0097coyz9fueckhg" data-title="bash shell" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bash/" rel="tag">bash</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-Spring-Boot-React" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/10/Spring-Boot-React/" class="article-date">
+  <time datetime="2018-07-10T15:03:24.000Z" itemprop="datePublished">2018-07-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/10/Spring-Boot-React/">Spring Boot+React.js</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Bootiful Development with Spring Boot and React<br><a target="_blank" rel="noopener" href="https://developer.okta.com/blog/2017/12/06/bootiful-development-with-spring-boot-and-react">https://developer.okta.com/blog/2017/12/06/bootiful-development-with-spring-boot-and-react</a></p>
+<p>Spring Boot API with React UI<br><a target="_blank" rel="noopener" href="https://github.com/oktadeveloper/spring-boot-react-example">https://github.com/oktadeveloper/spring-boot-react-example</a></p>
+<hr>
+<p>Build a CRUD Application with React, Spring Boot, and User Authentication<br><a target="_blank" rel="noopener" href="https://stormpath.com/blog/crud-application-react-spring-boot-user-authentication">https://stormpath.com/blog/crud-application-react-spring-boot-user-authentication</a></p>
+<p>React App with Spring Boot<br><a target="_blank" rel="noopener" href="https://github.com/stormpath/stormpath-spring-boot-react-example">https://github.com/stormpath/stormpath-spring-boot-react-example</a></p>
+<hr>
+<p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a target="_blank" rel="noopener" href="https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application">https://www.djamware.com/post/5ab6397c80aca714d19d5b9c/building-spring-boot-mongodb-and-reactjs-crud-web-application</a></p>
+<p>Building Spring Boot, MongoDB and React.js CRUD Web Application<br><a target="_blank" rel="noopener" href="https://github.com/didinj/spring-boot-mongodb-react-java-crud">https://github.com/didinj/spring-boot-mongodb-react-java-crud</a></p>
+<hr>
+<p>How to Setup Spring-Boot with ReactJS and Webpack<br><a target="_blank" rel="noopener" href="https://medium.com/@benjaminliu_42474/how-to-setup-spring-boot-with-reactjs-and-webpack-9b190edeb0c8">https://medium.com/@benjaminliu_42474/how-to-setup-spring-boot-with-reactjs-and-webpack-9b190edeb0c8</a></p>
+<p>Spring Boot with ReactJS using WebPack and Yarn.<br><a target="_blank" rel="noopener" href="https://github.com/liuben10/spring-boot-react-js-example">https://github.com/liuben10/spring-boot-react-js-example</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/07/10/Spring-Boot-React/" data-id="cl51yqkoh007hcoyz5c9y7qfx" data-title="Spring Boot+React.js" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-js/" rel="tag">React.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Solve-Diary" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/30/LeetCode-Solve-Diary/" class="article-date">
+  <time datetime="2018-06-30T11:20:59.000Z" itemprop="datePublished">2018-06-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/30/LeetCode-Solve-Diary/">LeetCode解题日志</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Algorithms"><a href="#Algorithms" class="headerlink" title="Algorithms"></a>Algorithms</h1><h2 id="2-Add-Two-Numbers"><a href="#2-Add-Two-Numbers" class="headerlink" title="2. Add Two Numbers"></a>2. Add Two Numbers</h2><p>用链表模拟十进制加法运算，linked list有点犯晕，在Eclipse IDE上调试了半天才跑通了，只会瞎用框架和库的人算法方面果然是菜鸟。</p>
+<p>一开始出来的结果顺序老是逆着。在网上找了个Function to reverse the linked list，incline到自己那代码里，最后总算在LeetCode上跑过了。</p>
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">    	ListNode node1 = l1, node2 = l2;</span><br><span class="line">    	ListNode node = <span class="keyword">null</span>, tmpNode = <span class="keyword">null</span>;</span><br><span class="line">    	<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">boolean</span> b = <span class="keyword">false</span>;</span><br><span class="line">		<span class="keyword">while</span> (node1 != <span class="keyword">null</span> || node2!=<span class="keyword">null</span>) &#123;</span><br><span class="line">			node = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">			sum = (node1!=<span class="keyword">null</span>?node1.val:<span class="number">0</span>) + (node2!=<span class="keyword">null</span>?node2.val:<span class="number">0</span>);</span><br><span class="line">			<span class="keyword">if</span> (b) sum++;</span><br><span class="line">			node.val = sum&lt;<span class="number">10</span>?sum:sum%<span class="number">10</span>;</span><br><span class="line">			b = sum&gt;=<span class="number">10</span> ? <span class="keyword">true</span> : <span class="keyword">false</span>;</span><br><span class="line">			<span class="keyword">if</span> (tmpNode!=<span class="keyword">null</span>)</span><br><span class="line">				node.next = tmpNode;</span><br><span class="line">			<span class="keyword">if</span> (node1!=<span class="keyword">null</span>)</span><br><span class="line">			  node1 = node1.next;</span><br><span class="line">			<span class="keyword">if</span> (node2!=<span class="keyword">null</span>)</span><br><span class="line">			  node2 = node2.next;</span><br><span class="line">			tmpNode = node;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (b) &#123;</span><br><span class="line">			ListNode node3 = node;</span><br><span class="line">			node = <span class="keyword">new</span> ListNode(<span class="number">1</span>);</span><br><span class="line">			node.next = node3;</span><br><span class="line">		&#125;</span><br><span class="line">    	ListNode prev = <span class="keyword">null</span>;</span><br><span class="line">    	ListNode current = node;</span><br><span class="line">    	ListNode next = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">while</span> (current != <span class="keyword">null</span>) &#123;</span><br><span class="line">            next = current.next;</span><br><span class="line">            current.next = prev;</span><br><span class="line">            prev = current;</span><br><span class="line">            current = next;</span><br><span class="line">        &#125;</span><br><span class="line">        node = prev;</span><br><span class="line">        <span class="keyword">return</span> node;        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> val;</span><br><span class="line">	ListNode next;</span><br><span class="line">	ListNode(<span class="keyword">int</span> x) &#123;</span><br><span class="line">		val = x;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>1562 / 1562 test cases passed.</li>
+</ul>
+<p>写完了过上一段时间，又忘了是怎么做对的，在IDE上debug出来的代码，可能做得比较勉强。</p>
+<h2 id="1-Two-Sum"><a href="#1-Two-Sum" class="headerlink" title="1. Two Sum"></a>1. Two Sum</h2><h3 id="Java-1"><a href="#Java-1" class="headerlink" title="Java"></a>Java</h3><h4 id="Brute-Force"><a href="#Brute-Force" class="headerlink" title="Brute Force"></a>Brute Force</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] idxArr = &#123;<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++) </span><br><span class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> j=nums.length-<span class="number">1</span>;j&gt;i;j--) &#123;</span><br><span class="line">        		<span class="keyword">if</span> (nums[j]+nums[i]==target) &#123;</span><br><span class="line">        			idxArr[<span class="number">0</span>] = i;</span><br><span class="line">        			idxArr[<span class="number">1</span>] = j;</span><br><span class="line">        			<span class="keyword">return</span> idxArr;</span><br><span class="line">        		&#125;</span><br><span class="line">        	&#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> idxArr;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h5><ul>
+<li>20 / 20 test cases passed.</li>
+<li>Your runtime beats 30.47 % of java submissions.</li>
+</ul>
+<h3 id="Hash-Table"><a href="#Hash-Table" class="headerlink" title="Hash Table"></a>Hash Table</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">		<span class="keyword">int</span> a = <span class="number">0</span>, b = <span class="number">0</span>;</span><br><span class="line">		Map&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;Integer, Integer&gt;();</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">			<span class="keyword">int</span> complement = target - nums[i];</span><br><span class="line">			<span class="keyword">if</span> (map.containsKey(complement)) &#123;</span><br><span class="line">				a = i;</span><br><span class="line">				b = map.get(complement);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				map.put(nums[i], i);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;a, b&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>29 / 29 test cases passed.</li>
+<li>Runtime: 2 ms, faster than 72.04% of Java online submissions for Two Sum.</li>
+<li>Memory Usage: 39.2 MB, less than 98.23% of Java online submissions for Two Sum.</li>
+</ul>
+<hr>
+<h1 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h1><h2 id="175-Combine-Two-Tables"><a href="#175-Combine-Two-Tables" class="headerlink" title="175. Combine Two Tables"></a>175. Combine Two Tables</h2><h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> p.FirstName FirstName,p.LastName LastName,a.City City, a.State State </span><br><span class="line"><span class="keyword">from</span> Person p </span><br><span class="line"><span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> Address a <span class="keyword">on</span> p.PersonId<span class="operator">=</span>a.PersonId</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-3"><a href="#Submission-Detail-3" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>7 / 7 test cases passed.</li>
+<li>Your runtime beats 84.70 % of mysql submissions.</li>
+</ul>
+<h3 id="Transact-SQL"><a href="#Transact-SQL" class="headerlink" title="Transact-SQL"></a>Transact-SQL</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> P.firstName <span class="keyword">AS</span> <span class="string">&#x27;firstName&#x27;</span>, P.lastName <span class="keyword">AS</span> <span class="string">&#x27;lastName&#x27;</span>, A.city <span class="keyword">AS</span> <span class="string">&#x27;city&#x27;</span>, A.state <span class="keyword">AS</span> <span class="string">&#x27;state&#x27;</span> </span><br><span class="line"><span class="keyword">FROM</span> Person <span class="keyword">AS</span> P </span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> Address <span class="keyword">AS</span> A <span class="keyword">ON</span> A.personId <span class="operator">=</span> P.personId</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-4"><a href="#Submission-Detail-4" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>8 / 8 test cases passed.</li>
+<li>Your runtime beats 44.40 % of mssql submissions.</li>
+</ul>
+<h2 id="176-Second-Highest-Salary"><a href="#176-Second-Highest-Salary" class="headerlink" title="176. Second Highest Salary"></a>176. Second Highest Salary</h2><h3 id="mysql-1"><a href="#mysql-1" class="headerlink" title="mysql"></a>mysql</h3><h4 id="1"><a href="#1" class="headerlink" title="1"></a>1</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> IF(<span class="built_in">count</span>(<span class="keyword">distinct</span> Salary)<span class="operator">&gt;</span><span class="number">1</span>,<span class="built_in">min</span>(t.Salary),<span class="keyword">null</span>) SecondHighestSalary <span class="keyword">from</span> </span><br><span class="line">(<span class="keyword">select</span> Salary <span class="keyword">from</span> Employee <span class="keyword">order</span> <span class="keyword">by</span> Salary <span class="keyword">desc</span> limit <span class="number">2</span>) t</span><br></pre></td></tr></table></figure>
+
+<h5 id="Submission-Detail-5"><a href="#Submission-Detail-5" class="headerlink" title="Submission Detail"></a>Submission Detail</h5><ul>
+<li>7 / 7 test cases passed.</li>
+<li>Your runtime beats 90.90 % of mysql submissions.</li>
+</ul>
+<h4 id="2"><a href="#2" class="headerlink" title="2"></a>2</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> Salary <span class="keyword">from</span> Employee <span class="keyword">order</span> <span class="keyword">by</span> Salary <span class="keyword">desc</span> limit <span class="number">1</span>,<span class="number">1</span></span><br><span class="line">) <span class="keyword">AS</span> SecondHighestSalary</span><br></pre></td></tr></table></figure>
+
+<h5 id="Submission-Detail-6"><a href="#Submission-Detail-6" class="headerlink" title="Submission Detail"></a>Submission Detail</h5><ul>
+<li>7 / 7 test cases passed.</li>
+<li>Your runtime beats 88.73 % of mysql submissions.</li>
+</ul>
+<h3 id="Transact-SQL-1"><a href="#Transact-SQL-1" class="headerlink" title="Transact-SQL"></a>Transact-SQL</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line"><span class="keyword">CASE</span> </span><br><span class="line"><span class="keyword">WHEN</span> <span class="built_in">COUNT</span>(V.salary) <span class="operator">&gt;</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="built_in">MIN</span>(V.salary) </span><br><span class="line"><span class="keyword">ELSE</span> <span class="keyword">NULL</span> </span><br><span class="line"><span class="keyword">END</span> <span class="keyword">AS</span> <span class="string">&#x27;SecondHighestSalary&#x27;</span> <span class="keyword">FROM</span> </span><br><span class="line">(</span><br><span class="line">    <span class="keyword">SELECT</span> TOP <span class="number">2</span> SA.salary <span class="keyword">FROM</span> </span><br><span class="line">    (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> EM.salary </span><br><span class="line">    <span class="keyword">FROM</span> Employee <span class="keyword">AS</span> EM</span><br><span class="line">    ) <span class="keyword">AS</span> SA </span><br><span class="line">    <span class="keyword">ORDER</span> <span class="keyword">BY</span> SA.salary <span class="keyword">DESC</span></span><br><span class="line">) <span class="keyword">AS</span> V</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-7"><a href="#Submission-Detail-7" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>8 / 8 test cases passed.</li>
+<li>Runtime: 603 ms, faster than 85.83% of MS SQL Server online submissions for Second Highest Salary.</li>
+<li>Memory Usage: 0B, less than 100.00% of MS SQL Server online submissions for Second Highest Salary.</li>
+</ul>
+<h2 id="177-Nth-Highest-Salary"><a href="#177-Nth-Highest-Salary" class="headerlink" title="177. Nth Highest Salary"></a>177. Nth Highest Salary</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">FUNCTION</span> getNthHighestSalary(N <span class="type">INT</span>) <span class="keyword">RETURNS</span> <span class="type">INT</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">  <span class="keyword">DECLARE</span> fromRow <span class="type">INT</span>;</span><br><span class="line">  <span class="keyword">SET</span> fromRow <span class="operator">=</span> N<span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">RETURN</span> (<span class="keyword">select</span> (<span class="keyword">select</span> <span class="keyword">distinct</span> Salary <span class="keyword">from</span> Employee <span class="keyword">order</span> <span class="keyword">by</span> Salary <span class="keyword">desc</span> limit <span class="number">1</span> <span class="keyword">offset</span> fromRow));</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-8"><a href="#Submission-Detail-8" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>14 / 14 test cases passed.</li>
+<li>Your runtime beats 86.66 % of mysql submissions.</li>
+</ul>
+<h2 id="178-Rank-Scores"><a href="#178-Rank-Scores" class="headerlink" title="178. Rank Scores"></a>178. Rank Scores</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a.Score,b.`Rank` <span class="keyword">from</span> Scores a,</span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> t.Score,(<span class="variable">@row</span>_number:<span class="operator">=</span><span class="variable">@row</span>_number<span class="operator">+</span><span class="number">1</span>) <span class="keyword">as</span> `Rank` <span class="keyword">from</span> </span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> Score <span class="keyword">from</span> Scores <span class="keyword">order</span> <span class="keyword">by</span> Score <span class="keyword">desc</span></span><br><span class="line">) t,(<span class="keyword">SELECT</span> <span class="variable">@row</span>_number:<span class="operator">=</span><span class="number">0</span>) t2</span><br><span class="line">) b</span><br><span class="line"><span class="keyword">where</span> a.Score<span class="operator">=</span>b.Score </span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> a.Score <span class="keyword">desc</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-9"><a href="#Submission-Detail-9" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>10 / 10 test cases passed.</li>
+<li>Your runtime beats 98.24 % of mysql submissions.</li>
+</ul>
+<h2 id="181-Employees-Earning-More-Than-Their-Managers"><a href="#181-Employees-Earning-More-Than-Their-Managers" class="headerlink" title="181. Employees Earning More Than Their Managers"></a>181. Employees Earning More Than Their Managers</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> t.Name <span class="keyword">as</span> Employee <span class="keyword">from</span> Employee t <span class="keyword">where</span> t.Salary<span class="operator">&gt;</span>(<span class="keyword">select</span> e.Salary <span class="keyword">from</span> Employee e <span class="keyword">where</span> e.Id<span class="operator">=</span>t.ManagerId)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-10"><a href="#Submission-Detail-10" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>14 / 14 test cases passed.</li>
+<li>Your runtime beats 39.24 % of mysql submissions.</li>
+</ul>
+<h2 id="182-Duplicate-Emails"><a href="#182-Duplicate-Emails" class="headerlink" title="182. Duplicate Emails"></a>182. Duplicate Emails</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> t.Email <span class="keyword">as</span> Email <span class="keyword">from</span> </span><br><span class="line">(<span class="keyword">select</span> Email,<span class="built_in">count</span>(Email) <span class="keyword">from</span> Person <span class="keyword">group</span> <span class="keyword">by</span> Email <span class="keyword">having</span> <span class="built_in">count</span>(Email)<span class="operator">&gt;</span><span class="number">1</span>) t</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-11"><a href="#Submission-Detail-11" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>15 / 15 test cases passed.</li>
+<li>Your runtime beats 76.83 % of mysql submissions.</li>
+</ul>
+<h2 id="183-Customers-Who-Never-Order"><a href="#183-Customers-Who-Never-Order" class="headerlink" title="183. Customers Who Never Order"></a>183. Customers Who Never Order</h2><h3 id="1-1"><a href="#1-1" class="headerlink" title="1"></a>1</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> c.Name <span class="keyword">as</span> Customers <span class="keyword">from</span> Customers c <span class="keyword">where</span> c.Id <span class="keyword">not</span> <span class="keyword">in</span> </span><br><span class="line">(<span class="keyword">select</span> <span class="keyword">distinct</span> o.CustomerId <span class="keyword">from</span> Orders o)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-12"><a href="#Submission-Detail-12" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>12 / 12 test cases passed.</li>
+<li>Your runtime beats 84.65 % of mysql submissions.</li>
+</ul>
+<h3 id="2-1"><a href="#2-1" class="headerlink" title="2"></a>2</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> c.Name <span class="keyword">as</span> Customers <span class="keyword">from</span> Customers c</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> Orders o <span class="keyword">on</span> c.Id<span class="operator">=</span>o.CustomerId </span><br><span class="line"><span class="keyword">where</span> o.Id <span class="keyword">is</span> <span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-13"><a href="#Submission-Detail-13" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>12 / 12 test cases passed.</li>
+<li>Your runtime beats 83.24 % of mysql submissions</li>
+</ul>
+<h2 id="196-Delete-Duplicate-Emails"><a href="#196-Delete-Duplicate-Emails" class="headerlink" title="196. Delete Duplicate Emails"></a>196. Delete Duplicate Emails</h2><p>虽然难度标为Easy，居然也被卡住了，还以为要用临时表，google关键字 <code>mysql delete duplicate rows keep one</code>搜到<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/4685173/delete-all-duplicate-rows-except-for-one-in-mysql">Delete all Duplicate Rows except for One in MySQL? [duplicate]</a>，原来是自己未完全理解mysql的delete关于多表删除的语法。</p>
+<pre><code>DELETE [LOW_PRIORITY] [QUICK] [IGNORE]
+tbl_name[.*] [, tbl_name[.*]] ...
+FROM table_references
+[WHERE where_condition]
+</code></pre>
+<p>Or:</p>
+<pre><code>DELETE [LOW_PRIORITY] [QUICK] [IGNORE]
+FROM tbl_name[.*] [, tbl_name[.*]] ...
+USING table_references
+[WHERE where_condition]
+</code></pre>
+<p>看来这种技术问题，google+stack overflow 一点就破，自己坚持独立思考在那里死磕纯属浪费时间。</p>
+<h3 id="1-2"><a href="#1-2" class="headerlink" title="1"></a>1</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> p <span class="keyword">from</span> Person <span class="keyword">as</span> p, Person <span class="keyword">as</span> t <span class="keyword">where</span> p.Id<span class="operator">&gt;</span>t.Id <span class="keyword">and</span> p.Email<span class="operator">=</span>t.Email;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-14"><a href="#Submission-Detail-14" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>22 / 22 test cases passed.</li>
+<li>Your runtime beats 18.50 % of mysql submissions.</li>
+</ul>
+<h3 id="2-2"><a href="#2-2" class="headerlink" title="2"></a>2</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> p <span class="keyword">from</span> Person <span class="keyword">as</span> p, Person <span class="keyword">as</span> t <span class="keyword">where</span> p.Email<span class="operator">=</span>t.Email <span class="keyword">and</span> p.Id<span class="operator">&gt;</span>t.Id;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-15"><a href="#Submission-Detail-15" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>22 / 22 test cases passed.</li>
+<li>Your runtime beats 83.82 % of mysql submissions.</li>
+</ul>
+<h3 id="3"><a href="#3" class="headerlink" title="3"></a>3</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> p <span class="keyword">from</span> Person <span class="keyword">as</span> p <span class="keyword">inner</span> <span class="keyword">join</span> Person <span class="keyword">as</span> t <span class="keyword">where</span> p.Email<span class="operator">=</span>t.Email <span class="keyword">and</span> p.Id<span class="operator">&gt;</span>t.Id;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-16"><a href="#Submission-Detail-16" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>22 / 22 test cases passed.</li>
+<li>Your runtime beats 80.14 % of mysql submissions.</li>
+</ul>
+<h2 id="180-Consecutive-Numbers"><a href="#180-Consecutive-Numbers" class="headerlink" title="180. Consecutive Numbers"></a>180. Consecutive Numbers</h2><p>被卡了好几天，百思不得其解，又开始怀疑是不是select还不足以，难道要用到游标与临时表之类，再琢磨下去也是浪费时间，遇到什么问题，就去问google，尤其是这种自己不会别人会的技术问题，搜 mysql consecutive queries 定位到 <a target="_blank" rel="noopener" href="https://dba.stackexchange.com/questions/189013/mysql-query-for-3-consecutive-integers-between-records">MySQL query for 3 consecutive integers between records</a>，冥思苦想就是想不对路，一看到人家的解就恍然大悟，自己怎么会想不到这一点，看来自己的sql还是需要外部启发，没有点拨，自己就迷失在思维定势里了。</p>
+<p>不过这题有点让人犯糊涂，如果id不连续呢？那是不是还得用计算列row_num?反正题意是id连续</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> t.Num <span class="keyword">as</span> ConsecutiveNums <span class="keyword">from</span> Logs t</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">exists</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> Logs x <span class="keyword">where</span> x.Id<span class="number">-1</span><span class="operator">=</span>t.Id <span class="keyword">and</span> x.Num<span class="operator">=</span>t.Num) <span class="keyword">and</span> </span><br><span class="line"><span class="keyword">exists</span>(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> Logs x <span class="keyword">where</span> x.Id<span class="operator">+</span><span class="number">1</span><span class="operator">=</span>t.Id <span class="keyword">and</span> x.Num<span class="operator">=</span>t.Num);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-17"><a href="#Submission-Detail-17" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>21 / 21 test cases passed.</li>
+<li>Your runtime beats 50.90 % of mysql submissions.</li>
+</ul>
+<h2 id="185-Department-Top-Three-Salaries"><a href="#185-Department-Top-Three-Salaries" class="headerlink" title="185. Department Top Three Salaries"></a>185. Department Top Three Salaries</h2><p>琢磨了好几天也没思路，问题的难度标为hard，难道用select无法实现？难道要用到cursor与临时表？最后google -&gt; mysql top 3 per group在<a target="_blank" rel="noopener" href="https://stackoverflow.com/">Stack Overflow</a>找到<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/12113699/get-top-n-records-for-each-group-of-grouped-results">Get top n records for each group of grouped results</a>，思路顿开，原来还是要用到查询结果序号的计算列，T-SQL与PL/SQL都有Rank()函数，mysql可以用变量模拟实现，在<a target="_blank" rel="noopener" href="https://leetcode.com/problems/rank-scores/description/">178. Rank Scores</a>中已经用到，只是本题需要用到两个列，需要用两个@变量。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> d.Name <span class="keyword">as</span> Department,e.Name <span class="keyword">as</span> Employee,b.Salary <span class="keyword">as</span> Salary <span class="keyword">from</span> </span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> a.DepartmentId,a.Salary <span class="keyword">from</span> </span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> t.DepartmentId,t.Salary,(<span class="variable">@num</span>:<span class="operator">=</span>if(<span class="variable">@deptId</span> <span class="operator">=</span> t.DepartmentId, <span class="variable">@num</span> <span class="operator">+</span><span class="number">1</span>, if(<span class="variable">@deptId</span> :<span class="operator">=</span> t.DepartmentId, <span class="number">1</span>, <span class="number">1</span>))) <span class="keyword">as</span> row_number <span class="keyword">from</span> </span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> DepartmentId,Salary <span class="keyword">from</span> Employee</span><br><span class="line">) t </span><br><span class="line"><span class="keyword">CROSS</span> <span class="keyword">JOIN</span> (<span class="keyword">select</span> <span class="variable">@num</span>:<span class="operator">=</span><span class="number">0</span>, <span class="variable">@deptId</span>:<span class="operator">=</span><span class="keyword">null</span>) c  </span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> t.DepartmentId,t.Salary <span class="keyword">desc</span></span><br><span class="line">) a </span><br><span class="line"><span class="keyword">where</span> a.row_number<span class="operator">&lt;=</span><span class="number">3</span></span><br><span class="line">) b </span><br><span class="line"><span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> Employee e <span class="keyword">using</span>(DepartmentId,Salary) </span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> Department d <span class="keyword">on</span> e.DepartmentId<span class="operator">=</span>d.Id </span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> b.DepartmentId,b.Salary <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-18"><a href="#Submission-Detail-18" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>20 / 20 test cases passed.</li>
+<li>Your runtime beats 98.70 % of mysql submissions.</li>
+</ul>
+<h2 id="184-Department-Highest-Salary"><a href="#184-Department-Highest-Salary" class="headerlink" title="184. Department Highest Salary"></a>184. Department Highest Salary</h2><p>也蒙了几天，group by得到部门max salary是显然的，怎么得到员工姓名？发现用部门id与salary同时作为join的条件就ok了，用using连接从句显得更自然。</p>
+<h3 id="1-3"><a href="#1-3" class="headerlink" title="1"></a>1</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> d.Name <span class="keyword">as</span> Department,e.Name <span class="keyword">as</span> Employee,t.Salary <span class="keyword">from</span> Department d </span><br><span class="line"><span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> (<span class="keyword">select</span> DepartmentId,<span class="built_in">Max</span>(Salary) <span class="keyword">as</span> Salary <span class="keyword">from</span> Employee <span class="keyword">group</span> <span class="keyword">by</span> DepartmentId) t <span class="keyword">on</span> t.DepartmentId<span class="operator">=</span>d.Id </span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> Employee e <span class="keyword">on</span> t.Salary<span class="operator">=</span>e.Salary <span class="keyword">and</span> t.DepartmentId<span class="operator">=</span>e.DepartmentId </span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> t.Salary <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-19"><a href="#Submission-Detail-19" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>15 / 15 test cases passed.</li>
+<li>Your runtime beats 77.87 % of mysql submissions.</li>
+</ul>
+<h3 id="2-3"><a href="#2-3" class="headerlink" title="2"></a>2</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> d.Name <span class="keyword">as</span> Department,e.Name <span class="keyword">as</span> Employee,t.Salary <span class="keyword">from</span> Department d </span><br><span class="line"><span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> (<span class="keyword">select</span> DepartmentId,<span class="built_in">Max</span>(Salary) <span class="keyword">as</span> Salary <span class="keyword">from</span> Employee <span class="keyword">group</span> <span class="keyword">by</span> DepartmentId) t <span class="keyword">on</span> d.Id<span class="operator">=</span>t.DepartmentId </span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> Employee e <span class="keyword">on</span> e.DepartmentId<span class="operator">=</span>t.DepartmentId <span class="keyword">and</span> e.Salary<span class="operator">=</span>t.Salary </span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> t.Salary <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-20"><a href="#Submission-Detail-20" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>15 / 15 test cases passed.</li>
+<li>Your runtime beats 87.87 % of mysql submissions.</li>
+</ul>
+<h3 id="3-1"><a href="#3-1" class="headerlink" title="3"></a>3</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> d.Name <span class="keyword">as</span> Department,e.Name <span class="keyword">as</span> Employee,t.Salary <span class="keyword">from</span> Department d </span><br><span class="line"><span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> (<span class="keyword">select</span> DepartmentId,<span class="built_in">Max</span>(Salary) <span class="keyword">as</span> Salary <span class="keyword">from</span> Employee <span class="keyword">group</span> <span class="keyword">by</span> DepartmentId) t <span class="keyword">on</span> d.Id<span class="operator">=</span>t.DepartmentId </span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> Employee e <span class="keyword">using</span>(DepartmentId,Salary) </span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> t.Salary <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-21"><a href="#Submission-Detail-21" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>15 / 15 test cases passed.</li>
+<li>Your runtime beats 91.84 % of mysql submissions.</li>
+</ul>
+<h2 id="197-Rising-Temperature"><a href="#197-Rising-Temperature" class="headerlink" title="197. Rising Temperature"></a>197. Rising Temperature</h2><p>这题果然Easy, 不过自己还是在mysql手册里查了下函数DATEDIFF(expr1,expr2)，不用google就ok了，在LeetCode第一次就通过了，此题的问题结构好像跟 180. Consecutive Numbers 类似。</p>
+<p>想到人家刷LeetCode都是光用脑子调代码直接在网页上Run，而自己离不开IDE与数据库运行环境，人家那叫刷题，自己只是在做题。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> w.Id <span class="keyword">from</span> Weather w, Weather t <span class="keyword">where</span> datediff(w.RecordDate,t.RecordDate)<span class="operator">=</span><span class="number">1</span> <span class="keyword">and</span> w.Temperature<span class="operator">&gt;</span>t.Temperature;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-22"><a href="#Submission-Detail-22" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>14 / 14 test cases passed.</li>
+<li>Your runtime beats 90.59 % of mysql submissions.</li>
+</ul>
+<h2 id="262-Trips-and-Users"><a href="#262-Trips-and-Users" class="headerlink" title="262. Trips and Users"></a>262. Trips and Users</h2><p>这题又耗了两天，一开始没看懂题意，虽然不能迅速做不出，倒也没怎么被卡住，不过免不了又要在纸上比划一下，还有在mysql上一遍遍执行验证想法，也没啥可以google的，提交Leetcode第一遍就通过了，没想到。自己对left outer join与right outer join的理解似乎有误，这两者是有区别的，自己之前似乎以为这两者是对称的。</p>
+<h3 id="1-4"><a href="#1-4" class="headerlink" title="1"></a>1</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> b.Request_at <span class="keyword">as</span> <span class="keyword">Day</span>,round(IFNull(a.cancel_num,<span class="number">0</span>)<span class="operator">/</span>b.total_num,<span class="number">2</span>) <span class="keyword">as</span> `Cancellation Rate` <span class="keyword">from</span> </span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> t.Request_at,<span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">as</span> cancel_num <span class="keyword">from</span> Trips t </span><br><span class="line"><span class="keyword">where</span> t.Client_Id <span class="keyword">in</span> (<span class="keyword">select</span> Users_Id <span class="keyword">from</span> Users <span class="keyword">where</span> Role<span class="operator">=</span><span class="string">&#x27;client&#x27;</span> <span class="keyword">and</span> Banned<span class="operator">=</span><span class="string">&#x27;No&#x27;</span>) <span class="keyword">and</span> </span><br><span class="line">t.Driver_Id <span class="keyword">in</span> (<span class="keyword">select</span> Users_Id <span class="keyword">from</span> Users <span class="keyword">where</span> Role<span class="operator">=</span><span class="string">&#x27;driver&#x27;</span> <span class="keyword">and</span> Banned<span class="operator">=</span><span class="string">&#x27;No&#x27;</span>) <span class="keyword">and</span> </span><br><span class="line">t.Status <span class="keyword">in</span> (<span class="string">&#x27;cancelled_by_driver&#x27;</span>,<span class="string">&#x27;cancelled_by_client&#x27;</span>) <span class="keyword">and</span> t.Request_at <span class="keyword">between</span> <span class="type">DATE</span> <span class="string">&#x27;2013-10-01&#x27;</span> <span class="keyword">and</span> <span class="type">DATE</span> <span class="string">&#x27;2013-10-03&#x27;</span> </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> t.Request_at</span><br><span class="line">) a <span class="keyword">right</span> <span class="keyword">outer</span> <span class="keyword">join</span> </span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> t.Request_at,<span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">as</span> total_num <span class="keyword">from</span> Trips t </span><br><span class="line"><span class="keyword">where</span> t.Client_Id <span class="keyword">in</span> (<span class="keyword">select</span> Users_Id <span class="keyword">from</span> Users <span class="keyword">where</span> Role<span class="operator">=</span><span class="string">&#x27;client&#x27;</span> <span class="keyword">and</span> Banned<span class="operator">=</span><span class="string">&#x27;No&#x27;</span>) <span class="keyword">and</span> </span><br><span class="line">t.Driver_Id <span class="keyword">in</span> (<span class="keyword">select</span> Users_Id <span class="keyword">from</span> Users <span class="keyword">where</span> Role<span class="operator">=</span><span class="string">&#x27;driver&#x27;</span> <span class="keyword">and</span> Banned<span class="operator">=</span><span class="string">&#x27;No&#x27;</span>) <span class="keyword">and</span> t.Request_at <span class="keyword">between</span> <span class="type">DATE</span> <span class="string">&#x27;2013-10-01&#x27;</span> <span class="keyword">and</span> <span class="type">DATE</span> <span class="string">&#x27;2013-10-03&#x27;</span>  </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> t.Request_at</span><br><span class="line">) b <span class="keyword">on</span> b.Request_at<span class="operator">=</span>a.Request_at;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-23"><a href="#Submission-Detail-23" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>9 / 9 test cases passed.</li>
+<li>Your runtime beats 82.92 % of mysql submissions.</li>
+</ul>
+<h3 id="2-4"><a href="#2-4" class="headerlink" title="2"></a>2</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a.Request_at <span class="keyword">as</span> <span class="keyword">Day</span>,round(IFNull(b.cancel_num,<span class="number">0</span>)<span class="operator">/</span>a.total_num,<span class="number">2</span>) <span class="keyword">as</span> `Cancellation Rate` <span class="keyword">from</span> </span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> t.Request_at,<span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">as</span> total_num <span class="keyword">from</span> Trips t </span><br><span class="line"><span class="keyword">where</span> t.Client_Id <span class="keyword">in</span> (<span class="keyword">select</span> Users_Id <span class="keyword">from</span> Users <span class="keyword">where</span> Role<span class="operator">=</span><span class="string">&#x27;client&#x27;</span> <span class="keyword">and</span> Banned<span class="operator">=</span><span class="string">&#x27;No&#x27;</span>) <span class="keyword">and</span> </span><br><span class="line">t.Driver_Id <span class="keyword">in</span> (<span class="keyword">select</span> Users_Id <span class="keyword">from</span> Users <span class="keyword">where</span> Role<span class="operator">=</span><span class="string">&#x27;driver&#x27;</span> <span class="keyword">and</span> Banned<span class="operator">=</span><span class="string">&#x27;No&#x27;</span>) <span class="keyword">and</span> t.Request_at <span class="keyword">between</span> <span class="type">DATE</span> <span class="string">&#x27;2013-10-01&#x27;</span> <span class="keyword">and</span> <span class="type">DATE</span> <span class="string">&#x27;2013-10-03&#x27;</span>  </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> t.Request_at</span><br><span class="line">) a <span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> </span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> t.Request_at,<span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">as</span> cancel_num <span class="keyword">from</span> Trips t </span><br><span class="line"><span class="keyword">where</span> t.Client_Id <span class="keyword">in</span> (<span class="keyword">select</span> Users_Id <span class="keyword">from</span> Users <span class="keyword">where</span> Role<span class="operator">=</span><span class="string">&#x27;client&#x27;</span> <span class="keyword">and</span> Banned<span class="operator">=</span><span class="string">&#x27;No&#x27;</span>) <span class="keyword">and</span> </span><br><span class="line">t.Driver_Id <span class="keyword">in</span> (<span class="keyword">select</span> Users_Id <span class="keyword">from</span> Users <span class="keyword">where</span> Role<span class="operator">=</span><span class="string">&#x27;driver&#x27;</span> <span class="keyword">and</span> Banned<span class="operator">=</span><span class="string">&#x27;No&#x27;</span>) <span class="keyword">and</span> </span><br><span class="line">t.Status <span class="keyword">in</span> (<span class="string">&#x27;cancelled_by_driver&#x27;</span>,<span class="string">&#x27;cancelled_by_client&#x27;</span>) <span class="keyword">and</span> t.Request_at <span class="keyword">between</span> <span class="type">DATE</span> <span class="string">&#x27;2013-10-01&#x27;</span> <span class="keyword">and</span> <span class="type">DATE</span> <span class="string">&#x27;2013-10-03&#x27;</span> </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> t.Request_at</span><br><span class="line">) b <span class="keyword">on</span> b.Request_at<span class="operator">=</span>a.Request_at;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-24"><a href="#Submission-Detail-24" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>9 / 9 test cases passed.</li>
+<li>Your runtime beats 61.34 % of mysql submissions.</li>
+</ul>
+<h2 id="595-Big-Countries"><a href="#595-Big-Countries" class="headerlink" title="595. Big Countries"></a>595. Big Countries</h2><p>这题确实Easy，or条件或用据说性能更好的 union (Set operations)</p>
+<h3 id="1-5"><a href="#1-5" class="headerlink" title="1"></a>1</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name,population,area <span class="keyword">from</span> World <span class="keyword">where</span> area<span class="operator">&gt;</span><span class="number">3000000</span> <span class="keyword">or</span> population<span class="operator">&gt;</span><span class="number">25000000</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-25"><a href="#Submission-Detail-25" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>4 / 4 test cases passed.</li>
+</ul>
+<h3 id="2-5"><a href="#2-5" class="headerlink" title="2"></a>2</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name,population,area <span class="keyword">from</span> World <span class="keyword">where</span> area<span class="operator">&gt;</span><span class="number">3000000</span> </span><br><span class="line"><span class="keyword">union</span> </span><br><span class="line"><span class="keyword">select</span> name,population,area <span class="keyword">from</span> World <span class="keyword">where</span> population<span class="operator">&gt;</span><span class="number">25000000</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-26"><a href="#Submission-Detail-26" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>4 / 4 test cases passed.</li>
+</ul>
+<h2 id="596-Classes-More-Than-5-Students"><a href="#596-Classes-More-Than-5-Students" class="headerlink" title="596. Classes More Than 5 Students"></a>596. Classes More Than 5 Students</h2><p>这题也Easy，group by + having子句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> t.`class` <span class="keyword">as</span> `class` <span class="keyword">from</span> </span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> `class`,<span class="built_in">count</span>(<span class="keyword">distinct</span> student) <span class="keyword">as</span> n <span class="keyword">from</span> courses <span class="keyword">group</span> <span class="keyword">by</span> `class` <span class="keyword">having</span> n<span class="operator">&gt;=</span><span class="number">5</span></span><br><span class="line">) t;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-27"><a href="#Submission-Detail-27" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>9 / 9 test cases passed.</li>
+</ul>
+<h2 id="601-Human-Traffic-of-Stadium"><a href="#601-Human-Traffic-of-Stadium" class="headerlink" title="601. Human Traffic of Stadium"></a>601. Human Traffic of Stadium</h2><p>这题又被卡了好几天，google也没搜到什么直接的线索，PL/SQL与T-SQL有分析函数ROW_NUMBER(), RANK(), and DENSE_RANK()，还以为需要mysql模拟这种功能。</p>
+<p>卡在这一步里</p>
+<pre><code>select s.* from stadium s where s.people&gt;=100 
+and exists(select 1 from stadium t2 where t2.people&gt;=100 and t2.`date`=DATE_SUB(s.`date`,INTERVAL 1 DAY)) 
+and exists(select 1 from stadium t3 where t3.people&gt;=100 and t3.`date`=DATE_ADD(s.`date`,INTERVAL 1 DAY));
+</code></pre>
+<p>最后发现用 join + union就好了，显示执行效率不高，可能还有更好的写法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> x.<span class="operator">*</span> <span class="keyword">from</span> </span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> a.<span class="operator">*</span> <span class="keyword">from</span> </span><br><span class="line">(<span class="keyword">select</span> s.<span class="operator">*</span> <span class="keyword">from</span> stadium s <span class="keyword">where</span> s.people<span class="operator">&gt;=</span><span class="number">100</span>) a,</span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> s.<span class="operator">*</span> <span class="keyword">from</span> stadium s <span class="keyword">where</span> s.people<span class="operator">&gt;=</span><span class="number">100</span> </span><br><span class="line"><span class="keyword">and</span> <span class="keyword">exists</span>(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> stadium t2 <span class="keyword">where</span> t2.people<span class="operator">&gt;=</span><span class="number">100</span> <span class="keyword">and</span> t2.id<span class="operator">=</span>s.id<span class="number">-1</span>) </span><br><span class="line"><span class="keyword">and</span> <span class="keyword">exists</span>(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> stadium t3 <span class="keyword">where</span> t3.people<span class="operator">&gt;=</span><span class="number">100</span> <span class="keyword">and</span> t3.id<span class="operator">=</span>s.id<span class="operator">+</span><span class="number">1</span>)</span><br><span class="line">) b </span><br><span class="line"><span class="keyword">where</span> a.id<span class="operator">=</span>b.id<span class="number">-1</span>  </span><br><span class="line"></span><br><span class="line"><span class="keyword">union</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> s.<span class="operator">*</span> <span class="keyword">from</span> stadium s <span class="keyword">where</span> s.people<span class="operator">&gt;=</span><span class="number">100</span> </span><br><span class="line"><span class="keyword">and</span> <span class="keyword">exists</span>(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> stadium t2 <span class="keyword">where</span> t2.people<span class="operator">&gt;=</span><span class="number">100</span> <span class="keyword">and</span> t2.id<span class="operator">=</span>s.id<span class="number">-1</span>) </span><br><span class="line"><span class="keyword">and</span> <span class="keyword">exists</span>(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> stadium t3 <span class="keyword">where</span> t3.people<span class="operator">&gt;=</span><span class="number">100</span> <span class="keyword">and</span> t3.id<span class="operator">=</span>s.id<span class="operator">+</span><span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">union</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> c.<span class="operator">*</span> <span class="keyword">from</span> </span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> s.<span class="operator">*</span> <span class="keyword">from</span> stadium s <span class="keyword">where</span> s.people<span class="operator">&gt;=</span><span class="number">100</span> </span><br><span class="line"><span class="keyword">and</span> <span class="keyword">exists</span>(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> stadium t2 <span class="keyword">where</span> t2.people<span class="operator">&gt;=</span><span class="number">100</span> <span class="keyword">and</span> t2.id<span class="operator">=</span>s.id<span class="number">-1</span>) </span><br><span class="line"><span class="keyword">and</span> <span class="keyword">exists</span>(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> stadium t3 <span class="keyword">where</span> t3.people<span class="operator">&gt;=</span><span class="number">100</span> <span class="keyword">and</span> t3.id<span class="operator">=</span>s.id<span class="operator">+</span><span class="number">1</span>)</span><br><span class="line">) b,</span><br><span class="line">(<span class="keyword">select</span> s.<span class="operator">*</span> <span class="keyword">from</span> stadium s <span class="keyword">where</span> s.people<span class="operator">&gt;=</span><span class="number">100</span>) c</span><br><span class="line"><span class="keyword">where</span> c.id<span class="operator">=</span>b.id<span class="operator">+</span><span class="number">1</span></span><br><span class="line">) x <span class="keyword">order</span> <span class="keyword">by</span> x.id;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-28"><a href="#Submission-Detail-28" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>14 / 14 test cases passed.</li>
+<li>Your runtime beats 57.13 % of mysql submissions.</li>
+</ul>
+<h2 id="620-Not-Boring-Movies"><a href="#620-Not-Boring-Movies" class="headerlink" title="620. Not Boring Movies"></a>620. Not Boring Movies</h2><p>这题确实Easy， 可以不假思索地写出SQL，但执行效率还是不够高，而且也查了下MOD函数与mod运算符。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> cinema <span class="keyword">where</span> id<span class="operator">%</span><span class="number">2</span><span class="operator">=</span><span class="number">1</span> <span class="keyword">and</span> description <span class="keyword">not</span> <span class="keyword">like</span> <span class="string">&#x27;%boring%&#x27;</span> <span class="keyword">order</span> <span class="keyword">by</span> rating <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-29"><a href="#Submission-Detail-29" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>8 / 8 test cases passed.</li>
+<li>Your runtime beats 72.39 % of mysql submissions.</li>
+</ul>
+<h3 id="Submission-Detail-30"><a href="#Submission-Detail-30" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><h2 id="626-Exchange-Seats"><a href="#626-Exchange-Seats" class="headerlink" title="626. Exchange Seats"></a>626. Exchange Seats</h2><p>这题确实Medium，不难，但也不是很简单就能写出，inner join 与 outer join 进行union，执行效率还是不算高。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> </span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> t1.id,t2.student <span class="keyword">from</span> </span><br><span class="line">(<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> seat <span class="keyword">where</span> id<span class="operator">%</span><span class="number">2</span><span class="operator">=</span><span class="number">1</span>) t1 <span class="keyword">join</span> </span><br><span class="line">(<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> seat <span class="keyword">where</span> id<span class="operator">%</span><span class="number">2</span><span class="operator">=</span><span class="number">0</span>) t2 <span class="keyword">on</span> t1.id<span class="operator">=</span>t2.id<span class="number">-1</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">union</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> IFNULL(t2.id,t1.id) <span class="keyword">as</span> id,t1.student <span class="keyword">from</span> </span><br><span class="line">(<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> seat <span class="keyword">where</span> id<span class="operator">%</span><span class="number">2</span><span class="operator">=</span><span class="number">1</span>) t1 <span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> </span><br><span class="line">(<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> seat <span class="keyword">where</span> id<span class="operator">%</span><span class="number">2</span><span class="operator">=</span><span class="number">0</span>) t2 <span class="keyword">on</span> t1.id<span class="operator">=</span>t2.id<span class="number">-1</span></span><br><span class="line">) t <span class="keyword">order</span> <span class="keyword">by</span> id;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-31"><a href="#Submission-Detail-31" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>12 / 12 test cases passed.</li>
+<li>Your runtime beats 58.11 % of mysql submissions.</li>
+</ul>
+<h2 id="627-Swap-Salary"><a href="#627-Swap-Salary" class="headerlink" title="627. Swap Salary"></a>627. Swap Salary</h2><p>算是Easy吧，不过还是看了下mysql的update语法，用IF()函数或者 case 都可以。</p>
+<h3 id="1-6"><a href="#1-6" class="headerlink" title="1"></a>1</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update salary <span class="keyword">set</span> sex<span class="operator">=</span>IF(sex<span class="operator">=</span><span class="string">&#x27;m&#x27;</span>,<span class="string">&#x27;f&#x27;</span>,<span class="string">&#x27;m&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-32"><a href="#Submission-Detail-32" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>8 / 8 test cases passed.</li>
+<li>Your runtime beats 53.28 % of mysql submissions.</li>
+</ul>
+<h3 id="2-6"><a href="#2-6" class="headerlink" title="2"></a>2</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update salary <span class="keyword">set</span> sex<span class="operator">=</span><span class="keyword">case</span> sex <span class="keyword">when</span> <span class="string">&#x27;m&#x27;</span> <span class="keyword">then</span> <span class="string">&#x27;f&#x27;</span> <span class="keyword">when</span> <span class="string">&#x27;f&#x27;</span> <span class="keyword">then</span> <span class="string">&#x27;m&#x27;</span> <span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-33"><a href="#Submission-Detail-33" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>8 / 8 test cases passed.</li>
+<li>Your runtime beats 49.22 % of mysql submissions.</li>
+</ul>
+<hr>
+<h1 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h1><h2 id="195-Tenth-Line"><a href="#195-Tenth-Line" class="headerlink" title="195. Tenth Line"></a>195. Tenth Line</h2><p>自己对linux shell果然是一无所知，连这个Easy的题也需要google 搜 linux sh read nth line，到 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6022384/bash-tool-to-get-nth-line-from-a-file">Bash tool to get nth line from a file</a>，原来有个sed命令可以很简单地实现读第n行，此题存在一题多解，需要举一反三</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line">sed &#x27;10q;d&#x27; &#x27;file.txt&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-34"><a href="#Submission-Detail-34" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>7 / 7 test cases passed.</li>
+</ul>
+<h2 id="193-Valid-Phone-Numbers"><a href="#193-Valid-Phone-Numbers" class="headerlink" title="193. Valid Phone Numbers"></a>193. Valid Phone Numbers</h2><p>linux shell的题自己本来就不懂，只能从头学起，想也没用，不如google，<code>linux shell regex phone number</code>，直接出来个原题的答案，<a target="_blank" rel="noopener" href="https://helloacm.com/regex-coding-exercise-valid-phone-numbers/">Regex Coding Exercise – Valid Phone Numbers</a>，一个要点是正则表达式，一个要点是Linux的grep命令，学习了。这篇文章里说用 <strong>awk</strong> 或 <strong>sed</strong> 也行。题目要求用1行shell解决，也搜到个 <a target="_blank" rel="noopener" href="http://jiangtao.me/valid-phone-numbers-with-shell-script.html">Valid Phone Numbers with shell script</a> 是用shell 的while及if语句来实现。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line">grep -P &quot;^((\([0-9]&#123;3&#125;\) )|([0-9]&#123;3&#125;\-))[0-9]&#123;3&#125;\-[0-9]&#123;4&#125;$&quot; file.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-35"><a href="#Submission-Detail-35" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>26 / 26 test cases passed.</li>
+</ul>
+<h2 id="192-Word-Frequency"><a href="#192-Word-Frequency" class="headerlink" title="192. Word Frequency"></a>192. Word Frequency</h2><p>这题标为medium，linux shell自己本来就不了解，又有点难度，独立思考不过是浪费时间，不如看看相关专题博客，google关键字linux shell word frequency，搜到 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10552803/how-to-create-a-frequency-list-of-every-word-in-a-file">How to create a frequency list of every word in a file?</a>，参考里面的左试右试总是不太对，又搜到个答案大全 <a target="_blank" rel="noopener" href="https://helloacm.com/shell-coding-exercise-word-frequency/">Shell Coding Exercise – Word Frequency</a>，人家高手一题多解给出N种异曲同工的方法，用了很多linux的内置功能命令比如cat, tr, awk, sed, sort,grep, uniq，自己也看不大懂，又参考评论里的解释改了下，原来是要sort两次，第二次逆序sort，终于运行通过，但效率不高。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -r &#x27;s/\s+/\n/g&#x27; words.txt | grep -v &quot;^$&quot; | sort | uniq -c | sort -r | awk &#x27;&#123;print $2&quot; &quot;$1&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-36"><a href="#Submission-Detail-36" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>14 / 14 test cases passed.</li>
+</ul>
+<h2 id="194-Transpose-File"><a href="#194-Transpose-File" class="headerlink" title="194. Transpose File"></a>194. Transpose File</h2><p>google关键字shell command transpose，搜到 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1729824/an-efficient-way-to-transpose-a-file-in-bash">An efficient way to transpose a file in Bash</a> ，原来是要用awk写一小段程序，还没看懂，只有慢慢消息理解了。</p>
+<p><a target="_blank" rel="noopener" href="http://www.thelinuxrain.com/articles/transposing-rows-and-columns-3-methods">Transposing rows and columns: 3 methods</a> 则提到</p>
+<ul>
+<li>Transposing rows and columns is indeed easy if you have the GNU <strong>datamash</strong> utility on your system. </li>
+<li>The mighty text-processing program <strong>AWK</strong> can also do transposing. </li>
+</ul>
+<p>对高手来说，方法多得很，殊途同归，条条道路通罗马。</p>
+<p>自己的linux shell要学的东西比sql要多得多，sql好歹工作当中经常用，linux shell用得少就处处是问题，形式上先过上一遍，还得慢慢消化理解。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">awk &#x27;</span><br><span class="line">&#123; </span><br><span class="line">    for (i=1; i&lt;=NF; i++)  &#123;</span><br><span class="line">        a[NR,i] = $i</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">NF&gt;</span><span class="bash">p &#123; p = NF &#125;</span></span><br><span class="line">END &#123;    </span><br><span class="line">    for(j=1; j&lt;=p; j++) &#123;</span><br><span class="line">        str=a[1,j]</span><br><span class="line">        for(i=2; i&lt;=NR; i++)&#123;</span><br><span class="line">            str=str&quot; &quot;a[i,j];</span><br><span class="line">        &#125;</span><br><span class="line">        print str</span><br><span class="line">    &#125;</span><br><span class="line">&#125;&#x27; file.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-37"><a href="#Submission-Detail-37" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>17 / 17 test cases passed.</li>
+<li>Your runtime beats 11.53 % of bash submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/06/30/LeetCode-Solve-Diary/" data-id="cl51yqkof006qcoyzdbayatro" data-title="LeetCode解题日志" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-mysql-points" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/06/29/mysql-points/" class="article-date">
@@ -436,464 +1014,11 @@ WHERE a1.id=a2.id;
 
 
   
-    <article id="post-infoq-selected" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/11/infoq-selected/" class="article-date">
-  <time datetime="2018-06-11T12:35:25.000Z" itemprop="datePublished">2018-06-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/11/infoq-selected/">InfoQ选集</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>DRYer CSS with LESS or Sass<br><a target="_blank" rel="noopener" href="https://www.infoq.com/news/2009/07/dry-css-less-yass">https://www.infoq.com/news/2009/07/dry-css-less-yass</a></p>
-<p>DSL Evolution<br><a target="_blank" rel="noopener" href="https://www.infoq.com/articles/dsl-evolution">https://www.infoq.com/articles/dsl-evolution</a></p>
-<p>Application Security With Apache Shiro<br><a target="_blank" rel="noopener" href="https://www.infoq.com/articles/apache-shiro">https://www.infoq.com/articles/apache-shiro</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/11/infoq-selected/" data-id="cl51yqkp100elcoyzg5bkbjn6" data-title="InfoQ选集" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/infoq/" rel="tag">infoq</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-GIS-Open-Source" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/10/GIS-Open-Source/" class="article-date">
-  <time datetime="2018-06-10T19:35:37.000Z" itemprop="datePublished">2018-06-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/10/GIS-Open-Source/">开源GIS</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h1><p>开源GIS服务器主要有map server和geo server。</p>
-<h2 id="Map-server"><a href="#Map-server" class="headerlink" title="Map server"></a>Map server</h2><p>Map server有两个版本，完全免费的那个那个版本是由明尼苏达大学开发的，全部是用C语言完成，效率很高可以媲美ARCGIS SERVER，并且支持我所知道的所有GIS数据源，但是相对来说简陋一些，并且没有内置AJAX支持。而map server的企业版本来是auto desk公司的map guide,这个版本功能很强大，而且还有IDE支持，当然IDE也有两个版本（付费的和不付费的），此外auto desk还封装了很多AJAX组建，因此这个版本可以说是真的企业级支持了。</p>
-<h2 id="GEO-SERVER"><a href="#GEO-SERVER" class="headerlink" title="GEO SERVER"></a>GEO SERVER</h2><p>而 geo server则是另外的选择了，它是基于JAVA平台做的，安装时需要JDK1.4（高版本的也不行），其功能上和map server的完全免费版类似，但是性能上次之，只是如果对跨平台要求比较高的话，可以考虑使用它。</p>
-<h1 id="Client"><a href="#Client" class="headerlink" title="Client"></a>Client</h1><h2 id="桌面GIS"><a href="#桌面GIS" class="headerlink" title="桌面GIS"></a>桌面GIS</h2><p>QGIS和GRASS是很好的桌面GIS，当然基于ECLIPSE平台的UDIG也是另外一个选择。QGIS 的最大特点在于界面很友好，熟悉ARCGIS的人都能很快的掌握QGIS的操作，另外QGIS对WMS的支持也不错。再者QGIS可以无缝集成 POSTGIS，最后QGIS几乎完全照搬了GRASS的分析功能，因此其分析功能也很强大。GRASS本是美国军方开发的GIS，开源后一直受到美国大学老师们的青睐，它可以提供很多ARCGIS能提供的分析功能（当然每一种功能可选的算法没后者多），但是GRASS的界面比较丑陋，很多功能需要手动运行命令，因此不太适合大多数人用。基于eclipse平台的UDIG是桌面GIS的又一个选择，由于它是基于eclipse平台的，运行起来比较慢一点，而且比较耗内存。与前两者相比，它的优势在于操作的简单性，而且支持很多种空间数据源，包括很多商业空间数据库，缺点主要是分析功能比较弱。不过现在 UDIG发展很迅速，也建议尝试一下。</p>
-<h2 id="OpenLayers-for-Javascript"><a href="#OpenLayers-for-Javascript" class="headerlink" title="OpenLayers for Javascript"></a>OpenLayers for Javascript</h2><p>OpenLayers 是由 MetaCarta公司开发的， 用于WebGIS客户端的JavaScript包，目前的最高版本是2.5 V，通过BSD License 发行。它实现访问地理空间数据的方法都符合行业标准，比如OpenGIS的WMS和WFS规范， OpenLayers采用纯面向对象的JavaScript方式开发，同时借用了Prototype框架和Rico库的一些组件。</p>
-<h1 id="空间数据库"><a href="#空间数据库" class="headerlink" title="空间数据库"></a>空间数据库</h1><p>开源的空间数据库主要是postgresql和mysql的空间插件，分别是postGIS和 mySpatial。由于PG对于面向对象支持的更好一些，所以postGIS在性能上和功能上都比myspatial要强一些。但是两者都有一个最重要的缺陷，就是不直接支持栅格数据。解决方案是将栅格数据存储为BLOB类型，并且对其建立四叉树索引，用以模拟商业数据库对栅格数据的存储。相对来说我更喜欢POSTGIS一些，原因有三：1，MYSQL本身不是在所有情况下免费，而PG在所有情况下都免费；2,POSTGIS性能和功能上都强于 myspatial;3,国外已经有很多基于POSTGIS的成功应用，可以降低风险。</p>
-<hr>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/opensource/os-gis/" title="针对 UNIX 和 Linux 用户的地理信息系统工具">利用开源 GIS 确定方位</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/10/GIS-Open-Source/" data-id="cl51yqknq000mcoyzhtwdh2wu" data-title="开源GIS" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-coder-issue" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/10/coder-issue/" class="article-date">
-  <time datetime="2018-06-10T18:51:14.000Z" itemprop="datePublished">2018-06-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/10/coder-issue/">码农话题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Algorithms + Data Structures = Programs</p>
-<p>Five Pervasive Myths About Older Software Developers<br><a target="_blank" rel="noopener" href="http://www.lessonsoffailure.com/developers/pervasive-myths-older-software-developers/">http://www.lessonsoffailure.com/developers/pervasive-myths-older-software-developers/</a></p>
-<p>Where Do The World’s Software Developers Live?<br><a target="_blank" rel="noopener" href="https://www.benfrederickson.com/github-developer-locations/">https://www.benfrederickson.com/github-developer-locations/</a></p>
-<p>Why Do Some Programming Languages Live and Others Die?<br><a target="_blank" rel="noopener" href="https://www.wired.com/2012/06/berkeley-programming-languages/">https://www.wired.com/2012/06/berkeley-programming-languages/</a></p>
-<p>Twenty Questions for Donald Knuth<br><a target="_blank" rel="noopener" href="http://www.informit.com/articles/article.aspx?p=2213858">http://www.informit.com/articles/article.aspx?p=2213858</a></p>
-<p>John Carmack discusses the art and science of software engineering<br><a target="_blank" rel="noopener" href="https://blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/">https://blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/</a></p>
-<p>It’s about social interactions between the programmers or even between yourself spread over time.</p>
-<blockquote>
-<p>软件工程实际是一门社会科学</p>
-</blockquote>
-<p>在计算机学科中，真正谈得上科学的只有算法，“优化”也只能算工程。然而，真正花在算法及其优化上的时间在编程中所占比例很小。90%程序员所做的只是将功能需求以顺序、分支这样的程序形式实现出来。在这方面，我越来越不觉得有什么客观的方法能带来更好的软件。</p>
-<p>自然科学的根本在于测量和重现，在于估计和验证。软件工程中除算法和优化外，其他与此毫无关系。相反，它们只跟程序员之间，甚至同一程序员在不同时间，自己跟自己之间的社会化交互有关。程序员总在不断犯错，这已是老生常谈的事实。问题就在于，如果一种错误的做法能以正确的语法形式输入到程序中，那它就肯定会进入我们的程序。因为这个，我本人对静态代码分析极度热衷。因为我们总在不断犯错，我宁愿使用编程语言的一个更为严格的子集，并对程序员写的代码施以更加严格的限制。</p>
-<p>最近一段时间，我开始坚持每天做一点代码复查。每天看看提交的代码，找点有启发性的问题给团队讲一讲。有些问题，例如最大限度地保持参数的常量性，相对客观，争议较少。但也有很多东西更像风格问题，虽然多年来我发现它们不断地带来麻烦，但仍有很多人说：“我没见过这样的问题，对我来说这不是问题，我也不会犯这种错误。”因此，能够找到一个实际例子来指出“这就是由它引发的问题”，真是件好事。</p>
-<p>意识到软件工程并非科学之后，我希望找到更好的方法来对付人性的弱点。然而，考虑到铁打的团队流水的开发者，想用一致的方法培训团队谈何容易。应对程序员犯错的方法肯定有好坏之分，但很难量化。而且代码会存在很长时间，将有成百上千的程序员看到一段代码，使用它并以某种方式与之交互。</p>
-<p>除了通过静态代码分析实施严格限制外，在软件API设计的层面上还有规模更大的问题，艺术的、技术的都有，我希望能在这方面找到更多可量化的方法。</p>
-<p><a target="_blank" rel="noopener" href="http://www.infoq.com/cn/articles/we-live-in-open-radical-source-era">我们正处在一个激进的后开源时代：开源的过去和未来</a></p>
-<p><a target="_blank" rel="noopener" href="https://medium.com/@nayafia/we-re-in-a-brave-new-post-open-source-world-56ef46d152a3#.dd5t81ifs" title="The history of open source and a glimpse at its future">We’re in a brave, new post open source world</a></p>
-<p>谈谈技术选型<br><a target="_blank" rel="noopener" href="http://www.infoq.com/cn/news/2017/02/Technology-selection">http://www.infoq.com/cn/news/2017/02/Technology-selection</a></p>
-<p><a target="_blank" rel="noopener" href="https://blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/">John Carmack discusses the art and science of software engineering</a></p>
-<p>What I heard instead was a hacker’s hacker talk about his recent realization that ** software engineering is actually a social science **.</p>
-<p>It’s about social interactions between the programmers or even between yourself spread over time. </p>
-<p><a target="_blank" rel="noopener" href="https://news.ycombinator.com/item?id=10212629">John Carmack discusses the art and science of software engineering (2012) (uw.edu)</a></p>
-<p><a target="_blank" rel="noopener" href="http://bellard.org/">http://bellard.org</a><br>Fabrice Bellard 法国著名的计算机程序员 <a target="_blank" rel="noopener" href="http://www.bellard.org/">http://www.bellard.org</a><br>FFMPEG, the Open Source Multimedia System. I launched this project in year 2000 and led it for several years.<br>QEMU is a generic machine emulator and virtualizer.<br>2000年，他化名Gérard Lantau，创建了FFmpeg项目。</p>
-<p>Fabrice Bellard，5年前的FFmpeg政变之夜依稀在眼前</p>
-<p>FFmpeg官网上有一个很有意思的耻辱柱(Hall of shame)，专门用来列举那些偷用了FFmpeg开源代码却违背FFmpeg遵守的开源协议，也就是说没有在软件发行中进行代码使用的声明，甚至还恬不知耻的表示自主研发。国内几乎所有的播放器和转码工具都在这个耻辱柱上，比如QQ影音、暴风影音、格式工厂等。</p>
-<p><a target="_blank" rel="noopener" href="https://ffmpeg.org/shame.html">https://ffmpeg.org/shame.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://news.ycombinator.com/item?id=790316">Hall of Shame: companies violating the ffmpeg license (GPL/LGPL) (ffmpeg.org)</a></p>
-<p><a target="_blank" rel="noopener" href="https://blogs.gnome.org/rbultje/2008/03/31/ffmpeg-hall-of-shame/">FFmpeg Hall of Shame</a></p>
-<p><a target="_blank" rel="noopener" href="http://blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/">John Carmack discusses the art and science of software engineering</a></p>
-<p>But those don’t actually occupy that much of the total time spent programming. </p>
-<blockquote>
-<p>It’s about social interactions between the programmers or even between yourself spread over time.</p>
-</blockquote>
-<p>these are all conventions that help software engineering in the large when you’re dealing with mistakes that people make. But they’re not fundamental about what the computer’s doing.</p>
-<p>programmers are making mistakes all the time and constantly.</p>
-<p>I would like to be able to enable even more restrictive subsets of languages and restrict programmers even more because we make mistakes constantly.</p>
-<p>but a lot of people will just say, I’ve never seen that problem. That’s not a problem for me, or I don’t make those mistakes.</p>
-<p>there are clearly better and worse ways of doing things but it’s frustratingly difficult to quantify.</p>
-<p>It’s kind of fun to think that the game engines, things that we’re playing games on, have more sophisticated software than certainly the things that launch people to the moon and back</p>
-<p>I tell people that there’s a good chance that whatever you’re writing here, if it’s not extremely game specific, may well exist a decade from now and it will have hundreds of programmers, looking at the code, using it, interacting with it in some way, and that’s quite a burden.</p>
-<p><a target="_blank" rel="noopener" href="http://www.infoq.com/cn/news/2017/04/future-algorithm-code">未来属于算法，而不是代码</a></p>
-<p>编码作为新数字经济的关键技能，就像学习如何阅读一样，已经模糊了我们对算法的理解。算法正逐渐成为我们生活的组成部分，从电影推荐到新闻过滤和寻找合作伙伴。</p>
-<h1 id="github"><a href="#github" class="headerlink" title="github"></a>github</h1><p><a target="_blank" rel="noopener" href="https://medium.com/@sitapati/the-impact-github-is-having-on-your-software-career-right-now-6ce536ec0b50">The Impact GitHub is Having on Your Software Career, Right Now…</a></p>
-<p>I spent 2004–2014 working at Red Hat, the world’s largest open source software engineering company. On my very first day there, in July 2004, my boss Marty Messer said to me: “All the work you do here will be in the open. In the future you won’t have a CV — people will just Google you.”</p>
-<p>GitHub has become a singular social network that ties together issue tracking and distributed source control.</p>
-<p>GitHub is a social network where your social capital, created by your commits and contribution to the global conversation in whatever technology you are working, is yours — not tied to the company you happen to be working at temporarily.</p>
-<p>Smart people will take advantage of this — they’ll contribute patches, issues, and comments upstream to the languages and frameworks that they use on the daily in their job — TypeScript, .NET, Redux.</p>
-<p>Now that same pathway is open for everyone, into just about any technology. As the world is eaten by open source, the same dynamic is now prevalent everywhere.</p>
-<p>In a recent interview Linus Torvalds (49k followers, following 0 on GitHub), the inventor of Linux and git, put it like this:<br>“You shoot off a lot of small patches until the point where the maintainers trust you, and at that point you become more than just a guy who sends patches, you become part of the network of trust”</p>
-<p>However, if that work has been on GitHub, it’s not gone. It’s visible. It’s connected to a network of trust that is visible.</p>
-<p>It’s not your code on GitHub that counts — it’s what other people say on GitHub about your code that counts.</p>
-<p>That’s your portable reputation.</p>
-<p><a target="_blank" rel="noopener" href="http://www.infoq.com/cn/news/2017/05/Forty-years-who-programming">四五十岁之后，还在编程的程序员都有谁</a><br><a target="_blank" rel="noopener" href="https://belitsoft.com/php-development-services/top-software-developers-after-40-50-and-60">SOFTWARE DEVELOPERS AFTER 40, 50 AND 60 WHO ARE STILL CODING (PHOTO)</a><br>美国劳动力的中值年龄是42岁，而StackOverflow的一项有关年龄的调查表明，40岁之后的开发人员只占开发人员总数的13%。那么其他人到哪里去了？他们被解雇了或者上升到管理岗位了吗？软件开发对于过了40岁的人来说，是不是就意味着终结？</p>
-<p>Rob Fletcher，Netflix（Los Gatos，CA）的高级软件工程师，45岁<br>我每天都写代码。目前最喜欢的语言是Kotlin。我想学习Go语言，平常用得比较多的是Java、Scala和Groovy。我一直在学习新的东西，哪怕是很小的事情。我知道自己会是一个糟糕的管理者，所以我压根没有想往管理方向发展。<br>很多事情取决于你的态度。不要成为厌恶新技术的老技术人，也不要嘲笑那些正在使用新技术的人。在进行技术选型时，你的经验应该成为决策的基础。如果选择了老技术，那是因为它们正好适合当前的需求，而不是因为要保护你那积攒了多年却即将过时的专业知识，也不是因为害怕那些后进者带着NodeJS和Go语言来抢夺你的工作。</p>
-<p>Ebbe Kristensen，Prevas A/S（Denmark）的高级软件设计师，62岁<br>有时候，你几天甚至几周都不会学进去什么东西，而有时候几个小时学进去的东西就可以把之前“损失”的时间弥补回来。重要的是，你总是想方设法地去学习，时刻准备着，等待机会的出现。</p>
-<p>John Brothers，Make&amp;Build（Atlanta，GA）的高级软件架构师，47岁<br>我最近正在使用Node.JS开发一个项目，之前也用过Hadoop、NoSQL，开发过Android应用，也写过Go语言代码，还熟悉JQuery和Bootstrap的各种特性。<br>我也关注Java的最新动态，还有Spring、JMS、REST、JSON和JPA，以及其他相关的技术。<br>在过去的几年，我使用了IntelliJ、Eclipse、Sublime、Emacs和Vi这些开发工具，我很喜欢使用这些工具来解决各种问题。我一开始使用的是CVS，后来学习了Subversion，最近在学习git。我也有AWS相关的经验。我还是一个获得认证的Scrum Master、产品经理和开发者。</p>
-<p>Roger Whitcomb，Actian公司（Palo Alto，CA）的软件架构师和软件工程师，60岁<br>我现在要跟上Web和移动开发的速度有点吃力，但离“垂暮”还很远，尽管我已经60岁了。<br>我认为最关键的是，你要为你的雇主持续地创造价值。<br>我目前是Apache软件基金会Pivot项目的PMC主席。作为一名Java开发人员（Java相关项目的提交者），我希望Java会永生。最起码不要出现更好的语言，要我把所有的代码都移植过去……</p>
-<p>Scott Gartner，Silverback Learning Solutions（Boise，ID）的高级软件工程师，50多岁<br>我发现我的记忆力大不如前，也没办法记住大型系统的全部模型。不过，我发现我那些丰富的经验变得越来越有价值。<br>每两年我就会学习一种新的编程语言，有一些是我自己想学的，不过大部分是因为技术发展的需要（也有的是因为新工作的要求）。这样很有趣。目前我在学习数据仓库（OLAP）、ETL处理、Star Schemas和Cubes。</p>
-<p>Brian Bowman，SAS（Cary，NC）的首席软件工程师，56岁<br>我通过四项主要的计算机技能生存下来。<br>汇编语言级别的大型机系统编程。<br>基于C语言的多主机平台的可移植编程，包括桌面、中型Unix网络、小型机的后续产品（如VAX），以及大型机。<br>多层集群服务器环境，由后端的多线程C以及处于中间层满足高可用要求的Java组成，主要面向Windows服务器和Unix环境，也包括Linux。<br>基于多线程C的大规模并行网格计算，满足虚拟的无限伸缩。<br>虽然我所拥有的这些技能可以干到退休，但在未来的几年，我还会将我的专业知识领域扩展到机器学习方面。</p>
-<p>Alec Cawley，DisplayLink（Palo Alto，California）的首席软件研究员，60多岁<br>现在的世界与我的职业生涯刚开始的时候（穿孔纸带时期的Fortran）已经很不一样了，而变化仍然在持续。但反过来说，需要解决的问题总是很相似的，无非就是如何将人类的需求转成计算机可以做的事情，以及如何避免犯错、如何找出不可避免所犯下的错误。编程语言、开发环境、工具套件、API等东西只是解决问题的手段，我们只是在需要它们的时候才去学习如何使用它们。<br>我所在的嵌入式领域似乎比应用程序更加能够扛住潮流的冲刷。应用程序每几年就会有新的东西出现，有些几乎是昙花一现，有些会持续一段时间，经历巅峰，然后逝去。而嵌入式一直保持坚挺，以C语言为基础，再融合一点C++。另一方面，硬件也在持续发生变化，这让事情变得更加有趣。</p>
-<p>Victor Volkman，Proquest（Ann Arbor，MI）的高级软件工程师，54岁</p>
-<p>Kurt Guntheroth，软件工程师，50多岁<br>好的开发人员会持续学习，直到他们退休，比如Ken Thompsons和Bjarne Stroustrups。不过，我们大多数人（特别是40岁左右的）最终都会意识到，我们并不能成为行业的大神。<br>编程是一件很容易的事情。你告诉它们做什么，它们就做什么。它们是可以信赖的，也是可靠的。<br>代码可能会是难啃的骨头，它们要求对细节的重度关注和相当程度的脑力付出。<br>编程是关于创新，而不是操纵。</p>
-<p>James Grenning，软件顾问，60多岁</p>
-<p><a target="_blank" rel="noopener" href="http://www.bennorthrop.com/Essays/2016/reflections-of-an-old-programmer.php">Reflections of an “Old” Programmer</a></p>
-<p>Half of what a programmer knows will be useless in 10 years.</p>
-<p><a target="_blank" rel="noopener" href="https://www.theinquirer.net/inquirer/news/2473248/father-of-java-james-gosling-slams-cloud-vendor-lock-in" title="Beware the dangers of committing too deeply to one cloud provider, warns computer scientist">Father of Java James Gosling slams cloud vendor lock-in</a></p>
-<p><a target="_blank" rel="noopener" href="http://www.infoq.com/cn/news/2017/06/medium-technology-stack">Medium网站的技术栈</a></p>
-<p>Medium是一个在线发布平台，最初由Twitter联合创始人Evan Williams开发。该平台于2012年启动，现在每个月有6000万独立访客。该网站部署在AWS上，使用NodeJS和Go作为应用程序和服务的开发语言，使用DynamoDB作为数据存储，并使用Amazon Redshift作为数据仓库。</p>
-<p><a target="_blank" rel="noopener" href="http://www.ybrikman.com/writing/2014/05/19/dont-learn-to-code-learn-to-think/">Don’t learn to code. Learn to think.</a></p>
-<p><a target="_blank" rel="noopener" href="http://www.infoq.com/cn/news/2017/06/Dont-learn-code-Learn-think">学会思考，而不只是编程</a></p>
-<p>Interview with Ken Thompson<br><a target="_blank" rel="noopener" href="http://www.drdobbs.com/open-source/interview-with-ken-thompson/229502480">http://www.drdobbs.com/open-source/interview-with-ken-thompson/229502480</a></p>
-<p>Go Language</p>
-<p>It’s expanding every day and not being forced down anybody’s throat. It’s hard to adopt it to a project inside of Google because of the learning curve. It’s brand new and there aren’t good manuals for it, except what’s on the Web. And then, of course, its label of being experimental, so people are a little afraid. In spite of that, it’s growing very fast inside of Google.<br>Yes. When the three of us [Thompson, Rob Pike, and Robert Griesemer] got started, it was pure research. ** The three of us got together and decided that we hated C++. ** [laughter]<br>** It’s too complex. And going back, if we’d thought of it, we’d have done an object-oriented version of C back in the old days. **<br>Yes, but we were not evangelists of object orientation. [Returning to Go,] we started off with the idea that all three of us had to be talked into every feature in the language, so there was no extraneous garbage put into the language for any reason.</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p>Java 积累了最强大的生态系统，你可以说它无所不包， 毋庸置疑，Java 早已是一艘航空母舰的巨大身躯，这足已证明它的地位与成功。但是其语言、库、框架和生态系统的复杂度，对技术人员构筑其巨大的障碍。历史沉淀下来的，让 Java 提供的选项太多，深入后就知道 Java 的学习成本比 C++ 更高，对程序员的要求比 C++ 更高，除非掉队了，还在用 7 年甚至 10 年前的 Java 技术，技术人员要非常精心地组织框架和设计，否则各种复用的结果就是堆砌出一个异常臃肿的程序，其运行时对资源的消耗有时候会让你感到恐惧，而这是太多的基于 Java 所开发的平台被广泛诟病的关键所在，重用是个双刃剑，需要量体裁衣而不是一锅端，拿捏的尺度对开发人员要求无疑是最高昂的，除非语言和标准库提供了最好最直接的选项。</p>
-<p>如今 Java 的学习成本和对开发人员的技能要求，已经远高于 C/C++ 的，也许大多数的开发人员无法驾驭 Java 这艘航空母舰。若要长期使用 Java，务必跟上 Java 的最新技术，同时在重用方面一定要拿捏好尺度，这会对人员技能提出更高要求，否则及其容易写出资源占用和运行时效率让人感到恐惧的应用。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/10/coder-issue/" data-id="cl51yqkoo00a3coyz1gsj7xlm" data-title="码农话题" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-IT-questions" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/10/IT-questions/" class="article-date">
-  <time datetime="2018-06-10T13:38:14.000Z" itemprop="datePublished">2018-06-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/10/IT-questions/">IT公司面试题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="IBM社会招聘笔试题"><a href="#IBM社会招聘笔试题" class="headerlink" title="IBM社会招聘笔试题"></a>IBM社会招聘笔试题</h1><ol>
-<li>一个粗细均匀的长直管子，两端开口，里面有4个白球和4个黑球，球的直径、两端开口的直径等于管子的内径，现在白球和黑球的排列是wwwwbbbb，要求不取出任何一个球，使得排列变为bbwwwwbb。<br>把管子两端接起来形成一个通环，将黑球从接口挤过去两个</li>
-<li>一只蜗牛从井底爬到井口，每天白天蜗牛要睡觉，晚上才出来活动，一个晚上蜗牛可以向上爬3尺，但是白天睡觉的时候会往下滑2尺，井深10尺，问蜗牛几天可以爬出来？ 8</li>
-<li>在一个平面上画1999条直线最多能将这一平面划分成多少个部分？<br>1999001</li>
-<li>在太平洋的一个小岛上生活着土人，他们不愿意被外人打扰，一天，一个探险家到了岛上，被土人抓住，土人的祭司告诉他，你临死前还可以有一个机会留下一句话，如果这句话是真的，你将被烧死，是假的，你将被五马分尸，可怜的探险家如何才能活下来？<br>我将被五马分尸</li>
-<li>怎样种四棵树使得任意两棵树的距离相等。<br>种山上，等边三角锥</li>
-<li>27个小运动员在参加完比赛后，口渴难耐，去小店买饮料，饮料店搞促销，凭三个空瓶可以再换一瓶，他们最少买多少瓶饮料才能保证一人一瓶？<br>19</li>
-<li>有一座山，山上有座庙，只有一条路可以从山上的庙到山脚，每周一早上8点，有一个聪明的小和尚去山下化缘，周二早上8点从山脚回山上的庙里，小和尚的上下山的速度是任意的，在每个往返中，他总是能在周一和周二的同一钟点到达山路上的同一点。例如，有一次他发现星期一的8点30和星期二的8点30他都到了山路靠山脚的3/4的地方，问这是为什么？<br>那时肯定的，因为上下山只有一条路</li>
-<li>有两根不均匀分布的香，每根香烧完的时间是一个小时，你能用什么方法来确定一段15分钟的时间？<br>把第一根一头点着，同时把第二根两头都点着，在第二根燃尽的同时点燃第一根的另一头，这时开始计时，至第一根燃尽就是十五分钟</li>
-</ol>
-<h1 id="IBM面试题目"><a href="#IBM面试题目" class="headerlink" title="IBM面试题目"></a>IBM面试题目</h1><ol>
-<li><p>Describe your greatest achievement in the past 4-5 years? </p>
-</li>
-<li><p>What are your short &amp; long term career objectives? What do you think is the most ideal job for you? </p>
-</li>
-<li><p>Why do you want to join IBM? What do you think you can contribute to IBM?</p>
-</li>
-</ol>
-<h1 id="Google-中国笔试题目"><a href="#Google-中国笔试题目" class="headerlink" title="Google 中国笔试题目"></a>Google 中国笔试题目</h1><p>1．1关于IP协议那个正确<br>A IP是TCP上层协议B IP协议是应用层协议C由于两个属于同一层协议，他们之间可以直接通信DIP协议不提供可靠的通信<br>1.2 关于内存正确的是<br>A内存的存取速度不能低于cpu速度，否则会造成数据丢失<br>B程序只有在数据和代码等被调入内存后才能运行<br>C采用虚拟内存技术后程序可以在硬盘上直接运行<br>D某计算机的内存容量为16MB，那么他的地址总线为24位<br>1.3单链表中结点的结构为（data，link），若想删除结点p（不是头节点或者尾结点）的直接后继，则应执行下列哪个操作<br>A p=p-&gt;link ; p-&gt;link=p-&gt;link-&gt;linkB p-&gt;link-&gt;link=p-&gt;link;C p=p-&gt;link-&gt;link Dp-&gt;link=p-&gt;link-&gt;link<br>1.4已知x&gt;=y and y&gt;=z 为真，那么x&gt;z or y=z 值为<br>A真B假C无法确定Dx y z同为正数时为真<br>1.5某请求被随即分配到四台机器进行处理，分配到每台机器的概率A15% B20% C 30% D 35%, 处理请求的失败概率分别为5% ，4%， 3% 2%，现在请求失败，问由C造成的概率最接近A26% B28% C 30% D 32%<br>1.6假设我们用d=(a1,a2,….a5)表示无向无环图G的5个顶点的度数，下面给出的哪组值是可能的<br>A{3,4,4,3,1}B{4,2,2,1,1}C{3,3,3,2,2}D{3,4,3,2,1}<br>1.7设栈S和队列Q的初始状态为空，元素e1，e2，e3，e4，e5，e6一次压入栈S,一个元素出栈后即进入队列Q，若出队列的顺序为e2,e4,e3,e6,e5,e1则栈S的容量要求最小值为<br>A2B3C4D5<br>1.8 在堆排序算法中我们用一个数组A来模拟二叉树T，如果该A[0]存放的是T的根节点，那么A<a href="K%3E0">K</a>的父亲节点是<br>A (K-1)/2 B K/2 C(K+1)/2 D 都不对 ( via: unus.cn )<br>1.9 现有如下任务需要安排在若干机器上并行完成，每个任务都有开始时间和结束时间（开始和结束时间都包括在任务执行时间内）的要求<br>任务名称 开始时间 结束时间<br>a 1 7<br>b 8 9<br>c 2 5<br>d 7 11<br>e 3 6<br>f 7 9<br>g 10 13<br>则最少需要使用的机器数目为<br>A1B2C3D4<br>1.10 在设计一个操作系统时，哪项不是必须考虑的<br>A 设备管理模块B文件系统模块C用户管理模块D进程管理模块<br>2.1正整数序列Q中的每个元素都至少能被正整数a和b中的一个整除，现给定a和b，需要计算出Q中的前几项，例如，当a=3，b=5，N=6时，序列为3，5，6，9，10，12<br>（1）设计一个函数void generate（int a,int b,int N ,int * Q）计算Q的前几项<br>（2）设计测试数据来验证函数程序在各种输入下的正确性<br>2.2 有一个由大小写组成的字符串，现在需要对他进行修改，将其中的所有小写字母排在答谢字母的前面（大写或小写字母之间不要求保持原来次序），如有可能尽量选择时间和空间效率高的算法 c语言函数原型void proc（char *str） 也可以采用你自己熟悉的语言<br>2.3 已知一颗无向无环连通图T的所有顶点和边的信息，现需要将其转换为一棵树，要求树的深度最小，请设计一个算法找到所有满足要求的树的根结点，并分析时空复杂度（描述算法即可，无需代码）<br>1．1关于IP协议那个正确<br>A IP是TCP上层协议B IP协议是应用层协议C由于两个属于同一层协议，他们之间可以直接通信DIP协议不提供可靠的通信<br>1.2 关于内存正确的是<br>A内存的存取速度不能低于cpu速度，否则会造成数据丢失<br>B程序只有在数据和代码等被调入内存后才能运行<br>C采用虚拟内存技术后程序可以在硬盘上直接运行<br>D某计算机的内存容量为16MB，那么他的地址总线为24位<br>1.3单链表中结点的结构为（data，link），若想删除结点p（不是头节点或者尾结点）的直接后继，则应执行下列哪个操作<br>A p=p-&gt;link ; p-&gt;link=p-&gt;link-&gt;linkB p-&gt;link-&gt;link=p-&gt;link;C p=p-&gt;link-&gt;link Dp-&gt;link=p-&gt;link-&gt;link<br>1.4已知x&gt;=y and y&gt;=z 为真，那么x&gt;z or y=z 值为<br>A真B假C无法确定Dx y z同为正数时为真<br>1.5某请求被随即分配到四台机器进行处理，分配到每台机器的概率A15% B20% C 30% D 35%, 处理请求的失败概率分别为5% ，4%， 3% 2%，现在请求失败，问由C造成的概率最接近A26% B28% C 30% D 32%<br>1.6假设我们用d=(a1,a2,….a5)表示无向无环图G的5个顶点的度数，下面给出的哪组值是可能的<br>A{3,4,4,3,1}B{4,2,2,1,1}C{3,3,3,2,2}D{3,4,3,2,1}<br>1.7设栈S和队列Q的初始状态为空，元素e1，e2，e3，e4，e5，e6一次压入栈S,一个元素出栈后即进入队列Q，若出队列的顺序为e2,e4,e3,e6,e5,e1则栈S的容量要求最小值为<br>A2B3C4D5<br>1.8 在堆排序算法中我们用一个数组A来模拟二叉树T，如果该A[0]存放的是T的根节点，那么A<a href="K%3E0">K</a>的父亲节点是<br>A (K-1)/2 B K/2 C(K+1)/2 D 都不对 ( via: unus.cn )<br>1.9 现有如下任务需要安排在若干机器上并行完成，每个任务都有开始时间和结束时间（开始和结束时间都包括在任务执行时间内）的要求<br>任务名称 开始时间 结束时间<br>a 1 7<br>b 8 9<br>c 2 5<br>d 7 11<br>e 3 6<br>f 7 9<br>g 10 13<br>则最少需要使用的机器数目为<br>A1B2C3D4<br>1.10 在设计一个操作系统时，哪项不是必须考虑的<br>A 设备管理模块B文件系统模块C用户管理模块D进程管理模块<br>2.1正整数序列Q中的每个元素都至少能被正整数a和b中的一个整除，现给定a和b，需要计算出Q中的前几项，例如，当a=3，b=5，N=6时，序列为3，5，6，9，10，12<br>（1）设计一个函数void generate（int a,int b,int N ,int * Q）计算Q的前几项<br>（2）设计测试数据来验证函数程序在各种输入下的正确性<br>2.2 有一个由大小写组成的字符串，现在需要对他进行修改，将其中的所有小写字母排在答谢字母的前面（大写或小写字母之间不要求保持原来次序），如有可能尽量选择时间和空间效率高的算法 c语言函数原型void proc（char *str） 也可以采用你自己熟悉的语言<br>2.3 已知一颗无向无环连通图T的所有顶点和边的信息，现需要将其转换为一棵树，要求树的深度最小，请设计一个算法找到所有满足要求的树的根结点，并分析时空复杂度（描述算法即可，无需代码）</p>
-<h1 id="intel的笔试题"><a href="#intel的笔试题" class="headerlink" title="intel的笔试题"></a>intel的笔试题</h1><h2 id="智力题"><a href="#智力题" class="headerlink" title="智力题"></a>智力题</h2><p>1．每天中午从法国塞纳河畔的勒阿佛有一艘轮船驶往美国纽约，在同一时刻纽约也有一艘轮船驶往勒阿佛。已知横渡一次的时间是7天7夜，轮船匀速航行，在同一航线，轮船近距离可见。<br>请问今天中午从勒阿佛开出的船会遇到几艘从纽约来的船？ </p>
-<p>2．巴拿赫病故于1945年8月31日。他的出生年份恰好是他在世时某年年龄的平方，问：他是哪年出生的？ </p>
-<p>答案： </p>
-<p>设他在世时某年年龄为x，则x的平方&lt;1945，且x为自然数。其出生年份x的平方-x=x（x-1），他在世年龄1945-x（x-1）。1945的平方根=44.1，则x应为44或略小于此的数。而x=44时，x（x-1）=44×43=1892，算得其在世年龄为1945-1892=53；又x=43时，x（x-1）=43×42=1806，得其在世年龄为1945-1806=139；若x再取小，其在世年龄越大，显然不妥。故x=44，即他出生于1892年，终年53岁。 </p>
-<h2 id="笔试题目"><a href="#笔试题目" class="headerlink" title="笔试题目"></a>笔试题目</h2><p>1．设计一个重采样系统，说明如何anti-alias。 </p>
-<p>2．y1（n）=x（2n），y2（n）=x（n/2），问： </p>
-<p>如果y1为周期函数，那么x是否为周期函数？ </p>
-<p>如果x为周期函数，那么y1是否为周期函数？ </p>
-<p>如果y2为周期函数，那么x是否为周期函数？ </p>
-<p>如果x为周期函数，那么y2是否为周期函数？ </p>
-<p>3．如果模拟信号的带宽为5kHz，要用8k的采样率，怎么办。 </p>
-<p>4．某个程序在一个嵌入式系统（200M的CPU，50M的SDRAM）中已经最优化了，换到另一个系统（300M的CPU，50M的SDRAM）中运行，还需要优化吗？<br>5．x^4+a<em>x^3+x^2+c</em>x+d最少需要做几次乘法。 </p>
-<p>6．三个float:a,b,c </p>
-<p>问值： </p>
-<p>（a+b）+c==（b+a）+c </p>
-<p>（a+b）+c==（a+c）+b </p>
-<p>7．把一个链表反向填空。 </p>
-<p>8．下面哪种排序法对12354最快？ </p>
-<p>A. quick sort </p>
-<p>B. buble sort </p>
-<p>C. merge sort </p>
-<p>9．哪种结构平均来讲获取一个值最快？ </p>
-<p>A. binary tree<br>B. hash table<br>C. stack<br>10． </p>
-<p>#include<br>“stdafx.h”<br>#include &lt;iostream.h&gt;<br>struct bit<br>{ int a:3;<br>int b:2;<br>int c:3;<br>};<br>int main(int argc, char* argv[])<br>{<br>bit s;<br>char <em>c = (char</em>)&s;<br>*c = 0x99;<br>cout &lt;&lt;<br>s.a &lt;&lt;endl &lt;&lt;s.b&lt;&lt;endl&lt;&lt;s.c&lt;&lt;endl;<br>return 0;<br>} </p>
-<p>Output:?<br>11． </p>
-<p>挑bug，在linux下运行：<br>#include &lt;stdio.h&gt;<br>char<br><em>reverse(char</em> str)<br>{<br>int len=0, i=0;<br>char <em>pstr=str, <em>ptemp,<em>pd;<br>while(</em>++pstr)<br>len++;<br>pstr–;<br>//ptemp=(char</em>)malloc(len+1);<br>ptemp=(char</em>)malloc(len+1);<br>pd=ptemp;<br>while(len–){<br>*ptemp=*pstr;<br>ptemp++;<br>pstr–;<br>i++;<br>}<br>*ptemp=*pstr;<br>ptemp++;<br>*ptemp=‘\0’;<br>return pd;<br>}<br>main()<br>{<br>char string[40]= “Hello World!”;<br>char *pstr=string;<br>printf(“％s”, pstr);<br>printf(“％s”, reverse(pstr));<br>} </p>
-<h2 id="实验室笔试题"><a href="#实验室笔试题" class="headerlink" title="实验室笔试题"></a>实验室笔试题</h2><p>1．写出下列信号的奈亏斯特频率 </p>
-<p>（1）f（t）=1+cos（2000pait）+sin（4000pait）<br>（2）f（t）=sin（4000pait）/pait<br>（3）f（t）=（sin（4000pait）的平方）/pait </p>
-<p>2．有两个线程 </p>
-<p>void producer()<br>{<br>while(1)<br>{<br>GeneratePacket();<br>PutPacketIntoBuffer();<br>Signal(customer);<br>}<br>}<br>void customer()<br>{<br>while(1)<br>{<br>WaitForSignal();<br>if(PacketInBuffer&gt;10)<br>{<br>ReadAllPackets();<br>ProcessPackets();<br>}<br>}<br>}<br>（1）有没有其他方法可以提高程序的性能 </p>
-<p>（2）可不可以不使用信号之类的机制来实现上述的功能 </p>
-<p>3．优化下面的程序 </p>
-<p>（0）sum=0<br>（1）I=1<br>（2）T1=4<em>I<br>（3）T2=address(A)-4<br>（4）T3=T2[T1]<br>（5）T4=address(B)-4<br>（6）T5=4</em>I<br>（7）T6=T4[T5]<br>（8）T7=T3*T5<br>（9）sum=sum+T6<br>（10）I=I+1<br>（11）IF I&lt;20 GOTO (2) </p>
-<h1 id="101道微软IT笔试题"><a href="#101道微软IT笔试题" class="headerlink" title="101道微软IT笔试题"></a>101道微软IT笔试题</h1><h2 id="Algorithms-and-Programming"><a href="#Algorithms-and-Programming" class="headerlink" title="Algorithms and Programming"></a>Algorithms and Programming</h2><ol>
-<li>Given a rectangular (cuboidal for the puritans) cake with a rectangular piece removed (any size or orientation), how would you cut the remainder of the cake into two equal halves with one straight cut of a knife ?</li>
-<li>You’re given an array containing both positive and negative integers and required to find the sub-array with the largest sum (O(N) a la KBL). Write a routine in C for the above.</li>
-<li>Given an array of size N in which every number is between 1 and N, determine if there are any duplicates in it. You are allowed to destroy the array if you like. [ I ended up giving about 4 or 5 different solutions for this, each supposedly better than the others ].</li>
-<li>Write a routine to draw a circle (x ** 2 + y ** 2 = r ** 2) without making use of any floating point computations at all. [ This one had me stuck for quite some time and I first gave a solution that did have floating point computations ].</li>
-<li>Given only putchar (no sprintf, itoa, etc.) write a routine putlong that prints out an unsigned long in decimal. [ I gave the obvious solution of taking % 10 and / 10, which gives us the decimal value in reverse order. This requires an array since we need to print it out in the correct order. The interviewer wasn’t too pleased and asked me to give a solution which didn’t need the array ].</li>
-<li>Give a one-line C expression to test whether a number is a power of 2. [No loops allowed - it’s a simple test.]</li>
-<li>Given an array of characters which form a sentence of words, give an efficient algorithm to reverse the order of the words (not characters) in it.</li>
-<li>How many points are there on the globe where by walking one mile south, one mile east and one mile north you reach the place where you started.</li>
-<li>Give a very good method to count the number of ones in a “n” (e.g. 32) bit number.<br>ANS. Given below are simple solutions, find a solution that does it in log (n) steps.<br>Iterative<br>function iterativecount (unsigned int n)<br>begin<br>int count=0;<br>while (n)<br>begin<br>count += n &amp; 0×1 ;<br>n &gt;&gt;= 1;<br>end<br>return count;<br>end<br>Sparse Count<br>function sparsecount (unsigned int n)<br>begin<br>int count=0;<br>while (n)<br>begin<br>count++;<br>n &amp;= (n-1);<br>end<br>return count ;<br>end</li>
-<li>What are the different ways to implement a condition where the value of x can be either a 0 or a 1. Apparently the if then else solution has a jump when written out in assembly. if (x == 0) y=a else y=b There is a logical, arithmetic and a data structure solution to the above problem.</li>
-<li>Reverse a linked list.</li>
-<li>Insert in a sorted list</li>
-<li>In a X’s and 0’s game (i.e. TIC TAC TOE) if you write a program for this give a fast way to generate the moves by the computer. I mean this should be the fastest way possible.<br>The answer is that you need to store all possible configurations of the board and the move that is associated with that. Then it boils down to just accessing the right element and getting the corresponding move for it. Do some analysis and do some more optimization in storage since otherwise it becomes infeasible to get the required storage in a DOS machine.</li>
-<li>I was given two lines of assembly code which found the absolute value of a number stored in two’s complement form. I had to recognize what the code was doing. Pretty simple if you know some assembly and some fundaes on number representation.</li>
-<li>Give a fast way to multiply a number by 7.</li>
-<li>How would go about finding out where to find a book in a library. (You don’t know how exactly the books are organized beforehand).</li>
-<li>Linked list manipulation.</li>
-<li>Tradeoff between time spent in testing a product and getting into the market first.</li>
-<li>What to test for given that there isn’t enough time to test everything you want to.</li>
-<li>First some definitions for this problem: a) An ASCII character is one byte long and the most significant bit in the byte is always ‘0′. b) A Kanji character is two bytes long. The only characteristic of a Kanji character is that in its first byte the most significant bit is ‘1′.<br>Now you are given an array of a characters (both ASCII and Kanji) and, an index into the array. The index points to the start of some character. Now you need to write a function to do a backspace (i.e. delete the character before the given index).</li>
-<li>Delete an element from a doubly linked list.</li>
-<li>Write a function to find the depth of a binary tree.</li>
-<li>Given two strings S1 and S2. Delete from S2 all those characters which occur in S1 also and finally create a clean S2 with the relevant characters deleted.</li>
-<li>Assuming that locks are the only reason due to which deadlocks can occur in a system. What would be a foolproof method of avoiding deadlocks in the system.</li>
-<li>Reverse a linked list.<br>Ans: Possible answers -<br>iterative loop<br>curr-&gt;next = prev;<br>prev = curr;<br>curr = next;<br>next = curr-&gt;next<br>endloop<br>recursive reverse(ptr)<br>if (ptr-&gt;next == NULL)<br>return ptr;<br>temp = reverse(ptr-&gt;next);<br>temp-&gt;next = ptr;<br>return ptr;<br>end</li>
-<li>Write a small lexical analyzer - interviewer gave tokens. expressions like “a*b” etc.</li>
-<li>Besides communication cost, what is the other source of inefficiency in RPC? (answer : context switches, excessive buffer copying). How can you optimize the communication? (ans : communicate through shared memory on same machine, bypassing the kernel _ A Univ. of Wash. thesis)</li>
-<li>Write a routine that prints out a 2-D array in spiral order!</li>
-<li>How is the readers-writers problem solved? - using semaphores/ada .. etc.</li>
-<li>Ways of optimizing symbol table storage in compilers.</li>
-<li>A walk-through through the symbol table functions, lookup() implementation etc. - The interviewer was on the Microsoft C team.</li>
-<li>A version of the “There are three persons X Y Z, one of which always lies”.. etc..</li>
-<li>There are 3 ants at 3 corners of a triangle, they randomly start moving towards another corner.. what is the probability that they don’t collide.</li>
-<li>Write an efficient algorithm and C code to shuffle a pack of cards.. this one was a feedback process until we came up with one with no extra storage.</li>
-<li>The if (x == 0) y = 0 etc..</li>
-<li>Some more bitwise optimization at assembly level</li>
-<li>Some general questions on Lex, Yacc etc.</li>
-<li>Given an array t[100] which contains numbers between 1..99. Return the duplicated value. Try both O(n) and O(n-square).</li>
-<li>Given an array of characters. How would you reverse it. ? How would you reverse it without using indexing in the array.</li>
-<li>Given a sequence of characters. How will you convert the lower case characters to upper case characters. ( Try using bit vector - solutions given in the C lib -typec.h)</li>
-<li>Fundamentals of RPC.</li>
-<li>Given a linked list which is sorted. How will u insert in sorted way.</li>
-<li>Given a linked list How will you reverse it.</li>
-<li>Give a good data structure for having n queues ( n not fixed) in a finite memory segment. You can have some data-structure separate for each queue. Try to use at least 90% of the memory space.</li>
-<li>Do a breadth first traversal of a tree.</li>
-<li>Write code for reversing a linked list.</li>
-<li>Write, efficient code for extracting unique elements from a sorted list of array. e.g. (1, 1, 3, 3, 3, 5, 5, 5, 9, 9, 9, 9) -&gt; (1, 3, 5, 9).</li>
-<li>Given an array of integers, find the contiguous sub-array with the largest sum.<br>ANS. Can be done in O(n) time and O(1) extra space. Scan array from 1 to n. Remember the best sub-array seen so far and the best sub-array ending in i.</li>
-<li>Given an array of length N containing integers between 1 and N, determine if it contains any duplicates.<br>ANS. [Is there an O(n) time solution that uses only O(1) extra space and does not destroy the original array?]</li>
-<li>Sort an array of size n containing integers between 1 and K, given a temporary scratch integer array of size K.<br>ANS. Compute cumulative counts of integers in the auxiliary array. Now scan the original array, rotating cycles! [Can someone word this more nicely?]<br>* 51. An array of size k contains integers between 1 and n. You are given an additional scratch array of size n. Compress the original array by removing duplicates in it. What if k &lt;&lt; n?<br>ANS. Can be done in O(k) time i.e. without initializing the auxiliary array!</li>
-<li>An array of integers. The sum of the array is known not to overflow an integer. Compute the sum. What if we know that integers are in 2’s complement form?<br>ANS. If numbers are in 2’s complement, an ordinary looking loop like for(i=total=0;i&lt; n;total+=array[i++]); will do. No need to check for overflows!</li>
-<li>An array of characters. Reverse the order of words in it.<br>ANS. Write a routine to reverse a character array. Now call it for the given array and for each word in it.<br>* 54. An array of integers of size n. Generate a random permutation of the array, given a function rand_n() that returns an integer between 1 and n, both inclusive, with equal probability. What is the expected time of your algorithm?<br>ANS. “Expected time” should ring a bell. To compute a random permutation, use the standard algorithm of scanning array from n downto 1, swapping i-th element with a uniformly random element &lt;= i-th. To compute a uniformly random integer between 1 and k (k &lt; n), call rand_n() repeatedly until it returns a value in the desired range.</li>
-<li>An array of pointers to (very long) strings. Find pointers to the (lexicographically) smallest and largest strings.<br>ANS. Scan array in pairs. Remember largest-so-far and smallest-so-far. Compare the larger of the two strings in the current pair with largest-so-far to update it. And the smaller of the current pair with the smallest-so-far to update it. For a total of &lt;= 3n/2 strcmp() calls. That’s also the lower bound.</li>
-<li>Write a program to remove duplicates from a sorted array.<br>ANS. int remove_duplicates(int * p, int size)<br>{<br>int current, insert = 1;<br>for (current=1; current &lt; size; current++)<br>if (p[current] != p[insert-1])<br>{<br>p[insert] = p[current];<br>current++;<br>insert++;<br>} else<br>current++;<br>return insert;<br>}</li>
-<li>C++ ( what is virtual function ? what happens if an error occurs in constructor or destructor. Discussion on error handling, templates, unique features of C++. What is different in C++, ( compare with unix).</li>
-<li>Given a list of numbers ( fixed list) Now given any other list, how can you efficiently find out if there is any element in the second list that is an element of the first list (fixed list).</li>
-<li>Given 3 lines of assembly code : find it is doing. IT was to find absolute value.</li>
-<li>If you are on a boat and you throw out a suitcase, Will the level of water increase.</li>
-<li>Print an integer using only putchar. Try doing it without using extra storage.</li>
-<li>Write C code for (a) deleting an element from a linked list (b) traversing a linked list</li>
-<li>What are various problems unique to distributed databases</li>
-<li>Declare a void pointer ANS. void *ptr;</li>
-<li>Make the pointer aligned to a 4 byte boundary in a efficient manner ANS. Assign the pointer to a long number and the number with 11…1100 add 4 to the number</li>
-<li>What is a far pointer (in DOS)</li>
-<li>What is a balanced tree</li>
-<li>Given a linked list with the following property node2 is left child of node1, if node2 &lt; node1 else, it is the right child.<br>O P<br>|<br>|<br>O A<br>|<br>|<br>O B<br>|<br>|<br>O C<br>How do you convert the above linked list to the form without disturbing the property. Write C code for that.<br>O P<br>|<br>|<br>O B<br>/ <br>/ <br>/ <br>O ? O ?<br>determine where do A and C go</li>
-<li>Describe the file system layout in the UNIX OS<br>ANS. describe boot block, super block, inodes and data layout</li>
-<li>In UNIX, are the files allocated contiguous blocks of data<br>ANS. no, they might be fragmented<br>How is the fragmented data kept track of<br>ANS. Describe the direct blocks and indirect blocks in UNIX file system</li>
-<li>Write an efficient C code for ‘tr’ program. ‘tr’ has two command line arguments. They both are strings of same length. tr reads an input file, replaces each character in the first string with the corresponding character in the second string. eg. ‘tr abc xyz’ replaces all ‘a’s by ‘x’s, ‘b’s by ‘y’s and so on. ANS.<br>a) have an array of length 26.<br>put ‘x’ in array element corr to ‘a’<br>put ‘y’ in array element corr to ‘b’<br>put ‘z’ in array element corr to ‘c’<br>put ‘d’ in array element corr to ‘d’<br>put ‘e’ in array element corr to ‘e’<br>and so on.<br>the code<br>while (!eof)<br>{<br>c = getc();<br>putc(array[c - ‘a’]);<br>}</li>
-<li>what is disk interleaving</li>
-<li>why is disk interleaving adopted</li>
-<li>given a new disk, how do you determine which interleaving is the best a) give 1000 read operations with each kind of interleaving determine the best interleaving from the statistics</li>
-<li>draw the graph with performance on one axis and ‘n’ on another, where ‘n’ in the ‘n’ in n-way disk interleaving. (a tricky question, should be answered carefully)</li>
-<li>I was a c++ code and was asked to find out the bug in that. The bug was that he declared an object locally in a function and tried to return the pointer to that object. Since the object is local to the function, it no more exists after returning from the function. The pointer, therefore, is invalid outside.</li>
-<li>A real life problem - A square picture is cut into 16 squares and they are shuffled. Write a program to rearrange the 16 squares to get the original big square.</li>
-<li>int *a;<br>char *c;</li>
-</ol>
-<p>*(a) = 20;<br>*c = *a;<br>printf(”%c”,<em>c);<br>what is the output?<br>79. Write a program to find whether a given m/c is big-endian or little-endian!<br>80. What is a volatile variable?<br>81. What is the scope of a static function in C ?<br>82. What is the difference between “malloc” and “calloc”?<br>83. struct n { int data; struct n</em> next}node;<br>node *c,*t;<br>c-&gt;data = 10;<br>t-&gt;next = null;<br>*c = *t;<br>what is the effect of the last statement?<br>84. If you’re familiar with the ? operator x ? y : z<br>you want to implement that in a function: int cond(int x, int y, int z); using only ~, !, ^, &amp;, +, |, &lt;&lt;, &gt;&gt; no if statements, or loops or anything else, just those operators, and the function should correctly return y or z based on the value of x. You may use constants, but only 8 bit constants. You can cast all you want. You’re not supposed to use extra variables, but in the end, it won’t really matter, using vars just makes things cleaner. You should be able to reduce your solution to a single line in the end though that requires no extra vars.<br>85. You have an abstract computer, so just forget everything you know about computers, this one only does what I’m about to tell you it does. You can use as many variables as you need, there are no negative numbers, all numbers are integers. You do not know the size of the integers, they could be infinitely large, so you can’t count on truncating at any point. There are NO comparisons allowed, no if statements or anything like that. There are only four operations you can do on a variable.</p>
-<ol>
-<li>You can set a variable to 0.</li>
-<li>You can set a variable = another variable.</li>
-<li>You can increment a variable (only by 1), and it’s a post increment.</li>
-<li>You can loop. So, if you were to say loop(v1) and v1 = 10, your loop would execute 10 times, but the value in v1 wouldn’t change so the first line in the loop can change value of v1 without changing the number of times you loop.<br>You need to do 3 things.</li>
-<li>Write a function that decrements by 1.</li>
-<li>Write a function that subtracts one variable from another.</li>
-<li>Write a function that divides one variable by another.</li>
-<li>See if you can implement all 3 using at most 4 variables. Meaning, you’re not making function calls now, you’re making macros. And at most you can have 4 variables. The restriction really only applies to divide, the other 2 are easy to do with 4 vars or less. Division on the other hand is dependent on the other 2 functions, so, if subtract requires 3 variables, then divide only has 1 variable left unchanged after a call to subtract. Basically, just make your function calls to decrement and subtract so you pass your vars in by reference, and you can’t declare any new variables in a function, what you pass in is all it gets.<br>Linked lists<br>* 86. Under what circumstances can one delete an element from a singly linked list in constant time?<br>ANS. If the list is circular and there are no references to the nodes in the list from anywhere else! Just copy the contents of the next node and delete the next node. If the list is not circular, we can delete any but the last node using this idea. In that case, mark the last node as dummy!<br>* 87. Given a singly linked list, determine whether it contains a loop or not.<br>ANS. (a) Start reversing the list. If you reach the head, gotcha! there is a loop!<br>But this changes the list. So, reverse the list again.<br>(b) Maintain two pointers, initially pointing to the head. Advance one of them one node at a time. And the other one, two nodes at a time. If the latter overtakes the former at any time, there is a loop!<br>p1 = p2 = head;<br>do {<br>p1 = p1-&gt;next;<br>p2 = p2-&gt;next-&gt;next;<br>} while (p1 != p2);</li>
-</ol>
-<ol start="88">
-<li>Given a singly linked list, print out its contents in reverse order. Can you do it without using any extra space?<br>ANS. Start reversing the list. Do this again, printing the contents.</li>
-<li>Given a binary tree with nodes, print out the values in pre-order/in-order/post-order without using any extra space.</li>
-<li>Reverse a singly linked list recursively. The function prototype is node * reverse (node *) ;<br>ANS.<br>node * reverse (node * n)<br>{<br>node * m ;<br>if (! (n &amp;&amp; n -&gt; next))<br>return n ;<br>m = reverse (n -&gt; next) ;<br>n -&gt; next -&gt; next = n ;<br>n -&gt; next = NULL ;<br>return m ;<br>}</li>
-<li>Given a singly linked list, find the middle of the list.<br>HINT. Use the single and double pointer jumping. Maintain two pointers, initially pointing to the head. Advance one of them one node at a time. And the other one, two nodes at a time. When the double reaches the end, the single is in the middle. This is not asymptotically faster but seems to take less steps than going through the list twice.<br>Bit-manipulation</li>
-<li>Reverse the bits of an unsigned integer.<br>ANS.<br>#define reverse(x) <br>(x=x&gt;&gt;16|(0×0000ffff&amp;x)&lt;&lt;16, <br>x=(0xff00ff00&amp;x)&gt;&gt;8|(0×00ff00ff&amp;x)&lt;&lt;8, <br>x=(0xf0f0f0f0&amp;x)&gt;&gt;4|(0×0f0f0f0f&amp;x)&lt;&lt;4, <br>x=(0xcccccccc&amp;x)&gt;&gt;2|(0×33333333&amp;x)&lt;&lt;2, <br>x=(0xaaaaaaaa&amp;x)&gt;&gt;1|(0×55555555&amp;x)&lt;&lt;1)<br>* 93. Compute the number of ones in an unsigned integer.<br>ANS.<br>#define count_ones(x) <br>(x=(0xaaaaaaaa&amp;x)&gt;&gt;1+(0×55555555&amp;x), <br>x=(0xcccccccc&amp;x)&gt;&gt;2+(0×33333333&amp;x), <br>x=(0xf0f0f0f0&amp;x)&gt;&gt;4+(0×0f0f0f0f&amp;x), <br>x=(0xff00ff00&amp;x)&gt;&gt;8+(0×00ff00ff&amp;x), <br>x=x&gt;&gt;16+(0×0000ffff&amp;x))</li>
-<li>Compute the discrete log of an unsigned integer.<br>ANS.<br>#define discrete_log(h) <br>(h=(h&gt;&gt;1)|(h&gt;&gt;2), <br>h|=(h&gt;&gt;2), <br>h|=(h&gt;&gt;4), <br>h|=(h&gt;&gt;8), <br>h|=(h&gt;&gt;16), <br>h=(0xaaaaaaaa&amp;h)&gt;&gt;1+(0×55555555&amp;h), <br>h=(0xcccccccc&amp;h)&gt;&gt;2+(0×33333333&amp;h), <br>h=(0xf0f0f0f0&amp;h)&gt;&gt;4+(0×0f0f0f0f&amp;h), <br>h=(0xff00ff00&amp;h)&gt;&gt;8+(0×00ff00ff&amp;h), <br>h=(h&gt;&gt;16)+(0×0000ffff&amp;h))<br>If I understand it right, log2(2) =1, log2(3)=1, log2(4)=2….. But this macro does not work out log2(0) which does not exist! How do you think it should be handled?<br>* 95. How do we test most simply if an unsigned integer is a power of two?<br>ANS. #define power_of_two(x) \ ((x)&amp;&amp;(~(x&amp;(x-1))))</li>
-<li>Set the highest significant bit of an unsigned integer to zero.<br>ANS. (from Denis Zabavchik) Set the highest significant bit of an unsigned integer to zero<br>#define zero_most_significant(h) <br>(h&amp;=(h&gt;&gt;1)|(h&gt;&gt;2), <br>h|=(h&gt;&gt;2), <br>h|=(h&gt;&gt;4), <br>h|=(h&gt;&gt;8), <br>h|=(h&gt;&gt;16))</li>
-<li>Let f(k) = y where k is the y-th number in the increasing sequence of non-negative integers with the same number of ones in its binary representation as y, e.g. f(0) = 1, f(1) = 1, f(2) = 2, f(3) = 1, f(4) = 3, f(5) = 2, f(6) = 3 and so on. Given k &gt;= 0, compute f(k).<br>Others</li>
-<li>A character set has 1 and 2 byte characters. One byte characters have 0 as the first bit. You just keep accumulating the characters in a buffer. Suppose at some point the user types a backspace, how can you remove the character efficiently. (Note: You cant store the last character typed because the user can type in arbitrarily many backspaces)</li>
-<li>What is the simples way to check if the sum of two unsigned integers has resulted in an overflow.</li>
-<li>How do you represent an n-ary tree? Write a program to print the nodes of such a tree in breadth first order.</li>
-<li>Write the ‘tr’ program of UNIX. Invoked as<br>tr -str1 -str2. It reads stdin and prints it out to stdout, replacing every occurance of str1 with str2.<br>e.g. tr -abc -xyz<br>to be and not to be &lt;- input<br>to ye xnd not to ye &lt;- output</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/10/IT-questions/" data-id="cl51yqknt0018coyz4mqyh1kg" data-title="IT公司面试题" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-Pseudo-random" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/10/Pseudo-random/" class="article-date">
-  <time datetime="2018-06-10T13:23:41.000Z" itemprop="datePublished">2018-06-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/10/Pseudo-random/">Pseudo-random</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>古老的LCG(linear congruential generator)代表了最好的伪随机数产生器算法。主要原因是容易理解，容易实现，而且速度快。</p>
-<p>如果需要高质量的伪随机数，内存充足(约2kb)，Mersenne twister算法是个不错的选择。Mersenne twister产生随机数的质量几乎超过任何LCG。不过一般Mersenne twister的实现使用LCG产生种子。<br>Mersenne twister是Makoto Matsumoto (松本)和Takuji Nishimura (西村)于1997年开发的伪随机数产生器，基于有限二进制字段上的矩阵线性再生。可以快速产生高质量的伪随机数，修正了古老随机数产生算法的很多缺陷。 Mersenne twister这个名字来自周期长度通常取Mersenne质数这样一个事实。常见的有两个变种Mersenne Twister MT19937和Mersenne Twister MT19937-64。<br>Mersenne Twister有很多长处，例如：周期2^19937 - 1对于一般的应用来说，足够大了，序列关联比较小，能通过很多随机性测试。<br>用Mersenne twister算法实现的伪随机数版本非常多。例如boost库中的高质量快速随机数产生器就是用Mersenne twister算法原理编写的。</p>
-<p>matlab的随机函数产生的随机数都是根据伪随机数序列获取的，在v7.7以上的版本中，有如下的伪随机数产生器：<br>Mersenne twister，<br>Multiplicative congruential generator，<br>Multiplicative lagged Fibonacci generator，<br>Combined multiple recursive generator，<br>Shift-register generator summed with linear congruential generator，<br>Modified subtract with borrow generator。</p>
-<p>在Windows下如果用mt_rand()函数替代rand()函数的话效果也会好很多。这是由于mt_rand()用了Mersenne Twister(马其塞旋转)算法来产生随机数。PHP的文档还说：mt_rand() 可以产生随机数值的平均速度比 libc 提供的 rand() 快四倍。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/06/10/Pseudo-random/" data-id="cl51yqkog0079coyz7k08e8x0" data-title="Pseudo-random" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/40/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/39/">39</a><a class="page-number" href="/page/40/">40</a><span class="page-number current">41</span><a class="page-number" href="/page/42/">42</a><a class="page-number" href="/page/43/">43</a><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/42/">Next »</a>
+    <a class="extend prev" rel="prev" href="/page/40/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/39/">39</a><a class="page-number" href="/page/40/">40</a><span class="page-number current">41</span><a class="page-number" href="/page/42/">42</a><a class="page-number" href="/page/43/">43</a><span class="space">&hellip;</span><a class="page-number" href="/page/45/">45</a><a class="extend next" rel="next" href="/page/42/">Next »</a>
   </nav>
 
 </section>
@@ -907,7 +1032,7 @@ WHERE a1.id=a2.id;
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/" rel="tag">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bit-Manipulation/" rel="tag">Bit Manipulation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/" rel="tag">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bruce-Lee/" rel="tag">Bruce Lee</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CEMC/" rel="tag">CEMC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/" rel="tag">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/" rel="tag">Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Divide-and-Conquer/" rel="tag">Divide and Conquer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFmpeg/" rel="tag">FFmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/" rel="tag">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/" rel="tag">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HackerRank/" rel="tag">HackerRank</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/" rel="tag">Hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashTable/" rel="tag">HashTable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/" rel="tag">Heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IELTS/" rel="tag">IELTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/" rel="tag">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/" rel="tag">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/" rel="tag">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lin-Yutang/" rel="tag">Lin Yutang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/" rel="tag">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marcus-Du-Sautoy/" rel="tag">Marcus Du Sautoy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathematics/" rel="tag">Mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/" rel="tag">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/" rel="tag">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programming/" rel="tag">Programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/" rel="tag">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/" rel="tag">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/" rel="tag">Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEDx/" rel="tag">TEDx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terence-Tao/" rel="tag">Terence Tao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/" rel="tag">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Topological-Sort/" rel="tag">Topological Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/" rel="tag">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/" rel="tag">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/" rel="tag">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backtracking/" rel="tag">backtracking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/" rel="tag">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bilingual/" rel="tag">bilingual</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/" rel="tag">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrency/" rel="tag">concurrency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coronavirus/" rel="tag">coronavirus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/creative-thinking/" rel="tag">creative thinking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/" rel="tag">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/" rel="tag">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/essay/" rel="tag">essay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firefox/" rel="tag">firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/geometry/" rel="tag">geometry</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/" rel="tag">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graph/" rel="tag">graph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/" rel="tag">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history-of-mathematics/" rel="tag">history of mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ide/" rel="tag">ide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/" rel="tag">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/" rel="tag">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/logic/" rel="tag">logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/" rel="tag">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/" rel="tag">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/physics/" rel="tag">physics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/popscience/" rel="tag">popscience</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programmer/" rel="tag">programmer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quantum/" rel="tag">quantum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recurrence/" rel="tag">recurrence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/song/" rel="tag">song</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/" rel="tag">stack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/" rel="tag">vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/" rel="tag">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wolfram/" rel="tag">wolfram</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" rel="tag">中文经典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E6%96%87/" rel="tag">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" rel="tag">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" rel="tag">数学史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" rel="tag">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" rel="tag">李小龙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" rel="tag">李笑来</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" rel="tag">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" rel="tag">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8B%B1%E8%AF%AD/" rel="tag">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%91%E8%A8%80/" rel="tag">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/" rel="tag">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bit-Manipulation/" rel="tag">Bit Manipulation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/" rel="tag">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bruce-Lee/" rel="tag">Bruce Lee</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CEMC/" rel="tag">CEMC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/" rel="tag">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/" rel="tag">Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Divide-and-Conquer/" rel="tag">Divide and Conquer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFmpeg/" rel="tag">FFmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/" rel="tag">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/" rel="tag">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HackerRank/" rel="tag">HackerRank</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/" rel="tag">Hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashTable/" rel="tag">HashTable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/" rel="tag">Heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IELTS/" rel="tag">IELTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/" rel="tag">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/" rel="tag">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/" rel="tag">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lin-Yutang/" rel="tag">Lin Yutang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/" rel="tag">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marcus-Du-Sautoy/" rel="tag">Marcus Du Sautoy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathematics/" rel="tag">Mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/" rel="tag">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/" rel="tag">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programming/" rel="tag">Programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/" rel="tag">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/" rel="tag">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/" rel="tag">Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEDx/" rel="tag">TEDx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terence-Tao/" rel="tag">Terence Tao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/" rel="tag">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Topological-Sort/" rel="tag">Topological Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/" rel="tag">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/" rel="tag">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/" rel="tag">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backtracking/" rel="tag">backtracking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/" rel="tag">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bilingual/" rel="tag">bilingual</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/" rel="tag">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrency/" rel="tag">concurrency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coronavirus/" rel="tag">coronavirus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/creative-thinking/" rel="tag">creative thinking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/" rel="tag">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/" rel="tag">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/essay/" rel="tag">essay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firefox/" rel="tag">firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/geometry/" rel="tag">geometry</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/" rel="tag">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graph/" rel="tag">graph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/" rel="tag">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history-of-mathematics/" rel="tag">history of mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ide/" rel="tag">ide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/" rel="tag">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/" rel="tag">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/logic/" rel="tag">logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/" rel="tag">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/" rel="tag">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/physics/" rel="tag">physics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/popscience/" rel="tag">popscience</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programmer/" rel="tag">programmer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quantum/" rel="tag">quantum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recurrence/" rel="tag">recurrence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/song/" rel="tag">song</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/" rel="tag">stack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/" rel="tag">vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/" rel="tag">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wolfram/" rel="tag">wolfram</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" rel="tag">中文经典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E6%96%87/" rel="tag">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" rel="tag">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" rel="tag">数学史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" rel="tag">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" rel="tag">李小龙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" rel="tag">李笑来</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" rel="tag">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" rel="tag">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8B%B1%E8%AF%AD/" rel="tag">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%91%E8%A8%80/" rel="tag">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
     </div>
   </div>
 
@@ -917,7 +1042,7 @@ WHERE a1.id=a2.id;
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 19.44px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.22px;">Array</a> <a href="/tags/BFS/" style="font-size: 15px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.56px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15.56px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 16.11px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.44px;">DFS</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.11px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.78px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.89px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 13.89px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 11.11px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.89px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.56px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.67px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.56px;">Mathematics</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10.56px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.56px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.67px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.78px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.56px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 13.33px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 14.44px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.67px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.56px;">Topological Sort</a> <a href="/tags/Tree/" style="font-size: 11.67px;">Tree</a> <a href="/tags/Two-Pointers/" style="font-size: 15.56px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.67px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.56px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.11px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 20px;">english</a> <a href="/tags/essay/" style="font-size: 11.67px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.22px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.67px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.89px;">java</a> <a href="/tags/javascript/" style="font-size: 10.56px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.56px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.67px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.11px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 18.33px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 11.67px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 11.11px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.78px;">regex</a> <a href="/tags/song/" style="font-size: 13.33px;">song</a> <a href="/tags/sql/" style="font-size: 10.56px;">sql</a> <a href="/tags/stack/" style="font-size: 10.56px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.56px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 12.22px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10.56px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 10.56px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12.22px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 12.22px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 10.56px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 19.44px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.22px;">Array</a> <a href="/tags/BFS/" style="font-size: 15px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.56px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15.56px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 16.11px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.44px;">DFS</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.11px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.78px;">ELL</a> <a href="/tags/English/" style="font-size: 10px;">English</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.89px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 13.89px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 11.11px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.89px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.56px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.67px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.56px;">Mathematics</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10.56px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.56px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.67px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.78px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.56px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 13.33px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 14.44px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.67px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.56px;">Topological Sort</a> <a href="/tags/Tree/" style="font-size: 11.67px;">Tree</a> <a href="/tags/Two-Pointers/" style="font-size: 15.56px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.67px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.56px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.11px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 20px;">english</a> <a href="/tags/essay/" style="font-size: 11.67px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.22px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.67px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.89px;">java</a> <a href="/tags/javascript/" style="font-size: 10.56px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.56px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.67px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.11px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 18.33px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 11.67px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 11.11px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.78px;">regex</a> <a href="/tags/song/" style="font-size: 13.33px;">song</a> <a href="/tags/sql/" style="font-size: 10.56px;">sql</a> <a href="/tags/stack/" style="font-size: 10.56px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.56px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 12.22px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10.56px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 10.56px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12.22px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 12.22px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 10.56px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -939,23 +1064,23 @@ WHERE a1.id=a2.id;
       <ul>
         
           <li>
-            <a href="/2022/07/01/Canada-Billy-Collins/">Canada</a>
+            <a href="/2022/07/19/Little-Girl-Laura-Elizabeth-Howe-Richards/">Little Girl</a>
           </li>
         
           <li>
-            <a href="/2022/06/30/An-Essay-on-Criticism-Part-3-Alexander-Pope/">An Essay on Criticism Part 3</a>
+            <a href="/2022/07/17/recommendation-letters-for-Albert-Einstein/">Marie Curie and Henri Poincaré once wrote letters of recommendation for Albert Einstein</a>
           </li>
         
           <li>
-            <a href="/2022/06/29/An-Essay-on-Criticism-Part-2-Alexander-Pope/">An Essay on Criticism Part 2</a>
+            <a href="/2022/07/12/Quantum-hype-VSI-John-Polkinghorne/">Quantum hype</a>
           </li>
         
           <li>
-            <a href="/2022/06/28/An-Essay-on-Criticism-Part-1-Alexander-Pope/">An Essay on Criticism Part 1</a>
+            <a href="/2022/07/04/leetcode-sql-questions/">LeetCode SQL Questions</a>
           </li>
         
           <li>
-            <a href="/2022/06/24/a-question-robert-frost/">A Question</a>
+            <a href="/2022/07/02/My-English-Words-List-July-2022/">My English Words List - July - 2022</a>
           </li>
         
       </ul>

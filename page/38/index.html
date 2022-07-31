@@ -70,6 +70,449 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Maven" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/22/Maven/" class="article-date">
+  <time datetime="2018-10-23T02:48:02.000Z" itemprop="datePublished">2018-10-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/22/Maven/">Maven</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="POM"><a href="#POM" class="headerlink" title="POM"></a>POM</h1><p>Project Object Model（项目对象模型）</p>
+<h2 id="坐标"><a href="#坐标" class="headerlink" title="坐标"></a>坐标</h2><p>在 POM 中，groupId, artifactId, packaging, version 叫作 maven 坐标，它能唯一的确定一个项目。有了 maven 坐标，我们就可以用它来指定我们的项目所依赖的其他项目，插件，或者父项目。一般 maven 坐标写成如下的格式：</p>
+<pre><code>    groupId:artifactId:packaging:version
+</code></pre>
+<ul>
+<li>groupId 定义了项目属于哪个组，这有助于在大的范围上区别项目</li>
+<li>artifactId 定义了这个项目在组中唯一的 ID</li>
+<li>version 指明当前项目的版本</li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>name 是一个用户友好的项目名称</li>
+<li>modelVersion 指定 POM 模型的版本</li>
+<li>packaging 指定了项目发布时的打包类型</li>
+</ul>
+<h1 id="Maven项目结构"><a href="#Maven项目结构" class="headerlink" title="Maven项目结构"></a>Maven项目结构</h1><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>${basedir}</td>
+<td>存放 pom.xml和所有的子目录</td>
+</tr>
+<tr>
+<td>${basedir}/src/main/java</td>
+<td>项目的 java源代码</td>
+</tr>
+<tr>
+<td>${basedir}/src/main/resources</td>
+<td>项目的资源，比如说 property文件</td>
+</tr>
+<tr>
+<td>${basedir}/src/test/java</td>
+<td>项目的测试类，比如说 JUnit代码</td>
+</tr>
+<tr>
+<td>${basedir}/src/test/resources</td>
+<td>测试使用的资源</td>
+</tr>
+</tbody></table>
+<ul>
+<li>编译后 的 classes 会放在 ${basedir}/target/classes 下面</li>
+<li>JAR 文件会放在 ${basedir}/target 下面（默认情况下会产生 JAR 文件）</li>
+</ul>
+<h1 id="Maven-插件"><a href="#Maven-插件" class="headerlink" title="Maven 插件"></a>Maven 插件</h1><p>mvn 本身不会做太多的事情，它不知道怎么样编译或者怎么样打包。它把构建的任务交给插件去做。插件定义了常用的构建逻辑，能够被重复利用。这样做的好处是，一旦插件有了更新，那么所有的 maven 用户都能得到更新。</p>
+<h1 id="Maven-生命周期"><a href="#Maven-生命周期" class="headerlink" title="Maven 生命周期"></a>Maven 生命周期</h1><p>生命周期指项目的构建过程，它包含了一系列的有序的阶段 (phase)，而一个阶段就是构建过程中的一个步骤。</p>
+<p>maven 能支持不同的生命周期，但是最常用的是默认的Maven生命周期 (default Maven lifecycle )。如果你没有对它进行任何的插件配置或者定制的话，那么上面的命令 mvn package 会依次执行默认生命周期中直到包括 package 阶段前的所有阶段的插件目标：</p>
+<ol>
+<li>process-resources 阶段：resources:resources</li>
+<li>compile 阶段：compiler:compile</li>
+<li>process-classes 阶段：(默认无目标)</li>
+<li>process-test-resources 阶段：resources:testResources</li>
+<li>test-compile 阶段：compiler:testCompile</li>
+<li>test 阶段：surefire:test</li>
+<li>prepare-package 阶段：(默认无目标)</li>
+<li>package 阶段：jar:jar</li>
+</ol>
+<h1 id="dependencies"><a href="#dependencies" class="headerlink" title="dependencies"></a>dependencies</h1><ul>
+<li>在 POM 中，依赖关系是在 dependencies 部分中定义的。</li>
+<li>maven 提供了传递依赖的特性，所谓传递依赖是指 maven 会检查被依赖的 jar 文件，把它的依赖关系纳入最终解决的依赖关系链中。</li>
+<li>在 POM 的 dependencies 部分中，scope 决定了依赖关系的适用范围。<ul>
+<li>我们还可以指定 scope 为 provided，意思是 JDK 或者容器会提供所需的jar文件。</li>
+<li>scope 的默认值是 compile，即任何时候都会被包含在 classpath 中，在打包的时候也会被包括进去。</li>
+</ul>
+</li>
+</ul>
+<h1 id="Maven-库"><a href="#Maven-库" class="headerlink" title="Maven 库"></a>Maven 库</h1><h2 id="远程库"><a href="#远程库" class="headerlink" title="远程库"></a>远程库</h2><p>maven 默认的远程库(<a target="_blank" rel="noopener" href="http://repo1.maven.org/maven2">http://repo1.maven.org/maven2</a>)</p>
+<h2 id="本地库"><a href="#本地库" class="headerlink" title="本地库"></a>本地库</h2><p>本地库是指 maven 下载了插件或者 jar 文件后存放在本地机器上的拷贝。在 Linux 上，它的位置在 ~/.m2/repository，在 Windows XP 上，在 C:\Documents and Settings\username.m2\repository ，在 Windows 7 上，在 C:\Users\username.m2\repository。</p>
+<p>当 maven 查找需要的 jar 文件时，它会先在本地库中寻找，只有在找不到的情况下，才会去远程库中找。</p>
+<h1 id="mvn"><a href="#mvn" class="headerlink" title="mvn"></a>mvn</h1><ul>
+<li>mvn install -DskipTests</li>
+<li>mvn clean install : executes the clean build life cycle and the install build phase in the default build life cycle.</li>
+<li>mvn install:install-file -Dfile=xxx.jar -DgroupId=xxx -DartifactId=xxx -Dversion=xxx -Dpackaging=jar</li>
+</ul>
+<h2 id="common"><a href="#common" class="headerlink" title="common"></a>common</h2><ul>
+<li>mvn clean : Clears the target directory into which Maven normally builds your project.</li>
+<li>mvn package : Builds the project and packages the resulting JAR file into the target directory.</li>
+<li>mvn package -Dmaven.test.skip=true : Builds the project and packages the resulting JAR file into the target directory - without running the unit tests during the build.</li>
+<li>mvn install : Builds the project described by your Maven POM file and installs the resulting artifact (JAR) into your local Maven repository</li>
+</ul>
+<h1 id="build-phase-command"><a href="#build-phase-command" class="headerlink" title="build phase command"></a>build phase command</h1><ul>
+<li>mvn pre-clean</li>
+<li>mvn compile</li>
+<li>mvn package</li>
+</ul>
+<h1 id="build-phases"><a href="#build-phases" class="headerlink" title="build phases"></a>build phases</h1><p>The most commonly used build phases in the default build life cycle are:</p>
+<table>
+<thead>
+<tr>
+<th>Build Phase</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>validate</td>
+<td>Validates that the project is correct and all necessary information is available. This also makes sure the dependencies are downloaded.</td>
+</tr>
+<tr>
+<td>compile</td>
+<td>Compiles the source code of the project.</td>
+</tr>
+<tr>
+<td>test</td>
+<td>Runs the tests against the compiled source code using a suitable unit testing framework. These tests should not require the code be packaged or deployed.</td>
+</tr>
+<tr>
+<td>package</td>
+<td>Packs the compiled code in its distributable format, such as a JAR.</td>
+</tr>
+<tr>
+<td>install</td>
+<td>Install the package into the local repository, for use as a dependency in other projects locally.</td>
+</tr>
+<tr>
+<td>deploy</td>
+<td>Copies the final package to the remote repository for sharing with other developers and projects.</td>
+</tr>
+</tbody></table>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/maven/" title="This guide walks you through using Maven to build a simple Java project.">Building Java Projects with Maven</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.oracle.com/technetwork/cn/community/java/apache-maven-getting-started-1-406235-zhs.html">Apache Maven 入门篇 ( 上 )</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.oracle.com/technetwork/cn/community/java/apache-maven-getting-started-2-405568-zhs.html">Apache Maven 入门篇(下)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-maven/">用 Maven 做项目构建</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/opensource/os-maven/index.html?mhq=maven&mhsrc=ibmsearch_a" title="充分使用这些工具">在 Eclipse 中利用 Maven</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.ibm.com/articles/j-5things16/" title="Tips for mastering modern Maven plugins">Apache Maven plugins</a></li>
+<li><a target="_blank" rel="noopener" href="https://maven.apache.org/">Apache Maven</a></li>
+<li><a target="_blank" rel="noopener" href="https://mvnrepository.com/">MvnRepository</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/22/Maven/" data-id="cl51yqkog0070coyzfv089chx" data-title="Maven" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/" rel="tag">maven</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Valid-Parentheses" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" class="article-date">
+  <time datetime="2018-10-17T21:38:34.000Z" itemprop="datePublished">2018-10-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/">LeetCode - Algorithms - 20. Valid Parentheses</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Difficulty:Easy的题，在面试现场，面对黑板，我毫无头绪没有任何思路，考官已经提示自己你想想有什么数据结构可以利用，自己还是没想通。</p>
+<blockquote>
+<p>This is a problem that’s good to use a stack.</p>
+</blockquote>
+<p>回来上网找线索，主要参考了这个<a target="_blank" rel="noopener" href="https://cheonhyangzhang.wordpress.com/2015/09/14/20-leetcode-java-valid-parentheses-easy/">20 LeetCode Java: Valid Parentheses – Easy</a>，此题的关键确实就是数据结构，要用Stack（栈），其实在做表达式解析那两道题<a target="_blank" rel="noopener" href="https://leetcode.com/problems/basic-calculator-ii/description/">227. Basic Calculator II</a>、<a target="_blank" rel="noopener" href="https://leetcode.com/problems/basic-calculator/description/">224. Basic Calculator</a>时已经碰到过，自己也做了题，但还是没理解透，遇到新问题又傻眼了。</p>
+<p>代码是人家的，天下程序一大抄！！！但不理解的话，代码不会内化于你。看来自己做LeetCode算法题凑数没用，理解不深，做完了又忘了。看来做完了还得温故知新加深理解。</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValid</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    	HashMap&lt;Character, Character&gt; pair = <span class="keyword">new</span> HashMap&lt;Character, Character&gt;();</span><br><span class="line">        pair.put(<span class="string">&#x27;)&#x27;</span>,<span class="string">&#x27;(&#x27;</span>);</span><br><span class="line">        pair.put(<span class="string">&#x27;&#125;&#x27;</span>,<span class="string">&#x27;&#123;&#x27;</span>);</span><br><span class="line">        pair.put(<span class="string">&#x27;]&#x27;</span>,<span class="string">&#x27;[&#x27;</span>);    	</span><br><span class="line">        Stack&lt;Character&gt; stk = <span class="keyword">new</span> Stack&lt;Character&gt;();</span><br><span class="line">        <span class="keyword">char</span> c = <span class="string">&#x27;\u0000&#x27;</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.length();i++) &#123;</span><br><span class="line">        	c = s.charAt(i);</span><br><span class="line">        	<span class="keyword">switch</span>(c) &#123;</span><br><span class="line">        	<span class="keyword">case</span> <span class="string">&#x27;&#123;&#x27;</span>:</span><br><span class="line">        	<span class="keyword">case</span> <span class="string">&#x27;[&#x27;</span>:</span><br><span class="line">        	<span class="keyword">case</span> <span class="string">&#x27;(&#x27;</span>:</span><br><span class="line">        		stk.push(c);</span><br><span class="line">        		<span class="keyword">break</span>;</span><br><span class="line">        	<span class="keyword">default</span>:</span><br><span class="line">        		<span class="keyword">if</span> (stk.isEmpty() || pair.get(c)!=stk.pop())</span><br><span class="line">        			<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (stk.isEmpty())</span><br><span class="line">        	<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>76 / 76 test cases passed.</li>
+<li>Runtime: 5 ms</li>
+<li>Your runtime beats 98.09 % of java submissions.</li>
+</ul>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">s</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;boolean&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> isValid = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> pair = &#123;<span class="string">&#x27;\&#125;&#x27;</span>:<span class="string">&#x27;\&#123;&#x27;</span>,<span class="string">&#x27;\]&#x27;</span>:<span class="string">&#x27;\[&#x27;</span>,<span class="string">&#x27;)&#x27;</span>:<span class="string">&#x27;(&#x27;</span>&#125;;</span><br><span class="line">	<span class="keyword">var</span> stk = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">	<span class="keyword">var</span> c = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;s.length;i++) &#123;</span><br><span class="line">		c = s[i];</span><br><span class="line">		<span class="keyword">switch</span>(c) &#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&#x27;&#123;&#x27;</span>:</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&#x27;[&#x27;</span>:</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&#x27;(&#x27;</span>:</span><br><span class="line">			stk.push(c);</span><br><span class="line">		    <span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			<span class="keyword">if</span> (stk.length==<span class="number">0</span> || pair[c]!=stk.pop()) &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (stk.length==<span class="number">0</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>76 / 76 test cases passed.</li>
+<li>Runtime: 52 ms</li>
+<li>Your runtime beats 100.00 % of javascript submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/17/LeetCode-Algorithms-Valid-Parentheses/" data-id="cl51yqkob0057coyz4wtw1c4q" data-title="LeetCode - Algorithms - 20. Valid Parentheses" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stack/" rel="tag">stack</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-database-and-mysql-knowledge-points" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/16/database-and-mysql-knowledge-points/" class="article-date">
+  <time datetime="2018-10-16T15:16:04.000Z" itemprop="datePublished">2018-10-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/16/database-and-mysql-knowledge-points/">Knowlege points of database especially mysql</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h1><p>The best way to improve the performance of <strong>SELECT operations</strong> is to create indexes on one or more of the columns that are tested in the query.<br>Indexes are used to find rows with specific column values quickly. Without an index, MySQL must begin with the first row and then read through the entire table to find the relevant rows. The larger the table, the more this costs. If the table has an index for the columns in question, MySQL can quickly determine the position to seek to in the middle of the data file without having to look at all the data. If a table has 1,000 rows, this is at least 100 times faster than reading sequentially. </p>
+<h2 id="Select"><a href="#Select" class="headerlink" title="Select"></a>Select</h2><h3 id="表扫描（table-scan）"><a href="#表扫描（table-scan）" class="headerlink" title="表扫描（table scan）"></a>表扫描（table scan）</h3><ul>
+<li>在表扫描中，每一个表中的文件块都会被顺序扫描，而且每一个记录都会被测试，看它是否会满足条件</li>
+<li>表扫描是在没有索引的情况下进行的</li>
+</ul>
+<h3 id="索引扫描（index-scan）"><a href="#索引扫描（index-scan）" class="headerlink" title="索引扫描（index scan）"></a>索引扫描（index scan）</h3><ul>
+<li>使用索引的扫描算法称之为索引扫描</li>
+<li>当有索引的时候，选择运算就会执行索引扫描</li>
+</ul>
+<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><h2 id="Truncate-diff-Delete"><a href="#Truncate-diff-Delete" class="headerlink" title="Truncate diff Delete"></a>Truncate diff Delete</h2><p>TRUNCATE TABLE empties a table completely. It requires the DROP privilege.</p>
+<p>Logically, TRUNCATE TABLE is similar to a DELETE statement that deletes all rows, or a sequence of DROP TABLE and CREATE TABLE statements. To achieve high performance, it bypasses the DML method of deleting data. Thus, <strong>it cannot be rolled back, it does not cause ON DELETE triggers to fire, and it cannot be performed for InnoDB tables with parent-child foreign key relationships.</strong></p>
+<p>Although TRUNCATE TABLE is similar to DELETE, <strong>it is classified as a DDL statement rather than a DML statement.</strong></p>
+<ul>
+<li>Any AUTO_INCREMENT value is reset to its start value. This is true even for MyISAM and InnoDB, which normally do not reuse sequence values.</li>
+<li>When used with partitioned tables, TRUNCATE TABLE preserves the partitioning; that is, the data and index files are dropped and re-created, while the partition definitions (.par) file is unaffected.</li>
+<li>The TRUNCATE TABLE statement does not invoke ON DELETE triggers. </li>
+</ul>
+<h3 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://dba.stackexchange.com/questions/128843/truncate-doesnt-run-on-delete-trigger-true-or-false/128850">“TRUNCATE doesn’t run ON DELETE trigger” true or false</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/35295644/truncate-doesnt-run-on-delete-trigger">TRUNCATE doesn’t run ON DELETE trigger?</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.quora.com/What-is-the-main-difference-between-Truncate-Delete-and-Drop-in-a-database">What is the main difference between Truncate, Delete and Drop in a database?</a></li>
+</ul>
+<h2 id="Partitioning"><a href="#Partitioning" class="headerlink" title="Partitioning"></a>Partitioning</h2><p>MySQL 5.6 Community binaries provided by Oracle include partitioning support.</p>
+<pre><code>SELECT PLUGIN_NAME as Name, PLUGIN_VERSION as Version, PLUGIN_STATUS as Status FROM INFORMATION_SCHEMA.PLUGINS WHERE PLUGIN_TYPE=&#39;STORAGE ENGINE&#39;;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Version</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>partition</td>
+<td>1.0</td>
+<td>ACTIVE</td>
+</tr>
+</tbody></table>
+<h2 id="Sharding"><a href="#Sharding" class="headerlink" title="Sharding"></a>Sharding</h2><ul>
+<li>分片、分库分表（Sharding）</li>
+<li>以 MySQL 为例，分库分表从阶段应该拆分为分表、分库，一般来说是先进行分表，分表的原动力在于  MySQL 单表性能问题</li>
+<li>是由于业务的不可控，所以大家往往采取比较保守的策略，这就是分表的原因。</li>
+<li>分库主要由于 MySQL 容量上，MySQL 的写入是很昂贵的操作。目前有一些云 RDS 通过计算与存储分离、log is database 的理念来很大程度解决了写入扩大的问题，但在这之前，更为普遍的解决方案就是把一个集群拆分成 N 个集群，即分库分表（sharding）。为了规避热点问题，绝大多数采用的方法就是 hash 切分，也有极少的范围、或者基于 Mapping 的查询切分。</li>
+<li>既然做了分表，那数据的分发、路由就需要进行处理，自下而上分为三层，分别 DB 层、中间层、应用层。DB 层实现，简单来说就是把路由信息加入到某个 Metedata 节点，同时加上一些诸如读写分离、HA 整合成一个 DB 服务或者产品，但这种方案实现复杂度非常高，有的逐步演变成了一种新的数据库，更为常见的是在中间层实现，而中间层又根据偏向 DB 还是偏向应用分为 DB proxy 和 JDBC proxy。</li>
+<li>DB proxy高度依赖网络组件，它需要诸如 LVS/F5 等 VIP 来实现流量的负载均衡，如果跨 IDC，还依赖诸如 DNS 进行IDC 分发。同时部分 DBproxy 对 Prepare 这类操作支持不友好，所以它的问题概括来说：<ul>
+<li>链路过长，每层都会增加响应时间</li>
+<li>网络单点，并且往往是整个公司层面的单点</li>
+<li>部分产品对Prepare 应用不友好，需要绑定 connection 信息</li>
+</ul>
+</li>
+<li>   JDBC proxy最大的问题是违背了 DB 透明的原则，它需要对不同的语言编写 Driver，概括来说：    - 语言限制，总会遭到一批 RD 同学的吐槽 “世界上最好的语言竟然不支持！”    - 接入繁琐    - DB 不透明</li>
+</ul>
+<h3 id="ref-1"><a href="#ref-1" class="headerlink" title="ref"></a>ref</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://dzone.com/articles/challenges-of-sharding-mysql">Challenges of Sharding MySQL</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@Pinterest_Engineering/sharding-pinterest-how-we-scaled-our-mysql-fleet-3f341e96ca6f">Sharding Pinterest: How we scaled our MySQL fleet</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/5541421/mysql-sharding-approaches">MySQL sharding approaches?</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mysql.com/cn/products/cluster/scalability.html">MySQL NDB Cluster: Scalability</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6ebafabfddae">MySQL Sharding详解</a></li>
+<li><a target="_blank" rel="noopener" href="https://dbaplus.cn/news-11-1854-1.html">方案虽好，成本先行：数据库Sharding+Proxy实践解析</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/16/database-and-mysql-knowledge-points/" data-id="cl51yqkoq00alcoyzc2of7ska" data-title="Knowlege points of database especially mysql" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/database/" rel="tag">database</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" class="article-date">
+  <time datetime="2018-10-15T06:21:42.000Z" itemprop="datePublished">2018-10-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/">LeetCode - Algorithms - 106. Construct Binary Tree from Inorder and Postorder Traversal</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这题跟<a target="_blank" rel="noopener" href="https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/">105. Construct Binary Tree from Preorder and Inorder Traversal</a>是一个系列，代码抄袭了<a target="_blank" rel="noopener" href="https://www.programcreek.com/2013/01/construct-binary-tree-from-inorder-and-postorder-traversal/">Construct Binary Tree from Inorder and Postorder Traversal</a>，二叉树的算法应该说不难理解。</p>
+<blockquote>
+<p>From the post-order array, we know that last element is the root. We can find the root in in-order array. Then we can identify the left and right sub-trees of the root from in-order array. Using the length of left sub-tree, we can identify left and right sub-trees in post-order array. Recursively, we can build up the tree.</p>
+</blockquote>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">buildTree</span><span class="params">(<span class="keyword">int</span>[] inorder, <span class="keyword">int</span>[] postorder)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">int</span> inStart=<span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> inEnd=inorder.length-<span class="number">1</span>;</span><br><span class="line">    	<span class="keyword">int</span> postStart=<span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> postEnd=postorder.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> buildTree(inorder,inStart,inEnd,postorder,postStart,postEnd);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">buildTree</span><span class="params">(<span class="keyword">int</span>[] inorder, <span class="keyword">int</span> inStart, <span class="keyword">int</span> inEnd, <span class="keyword">int</span>[] postorder, <span class="keyword">int</span> postStart, <span class="keyword">int</span> postEnd)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (inStart&gt;inEnd || postStart&gt;postEnd)</span><br><span class="line">    		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">int</span> rtVal = postorder[postEnd];</span><br><span class="line">    	TreeNode rt = <span class="keyword">new</span> TreeNode(rtVal);</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">int</span> k=<span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=inEnd;i++) &#123;</span><br><span class="line">    		<span class="keyword">if</span> (inorder[i]==rtVal) &#123;</span><br><span class="line">    			k=i;</span><br><span class="line">    			<span class="keyword">break</span>;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">    	rt.left = buildTree(inorder,inStart,k-<span class="number">1</span>,postorder, postStart, postStart+k-inStart-<span class="number">1</span>);</span><br><span class="line">    	rt.right = buildTree(inorder,k+<span class="number">1</span>,inEnd,postorder,postStart+k-inStart,postEnd-<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">return</span> rt;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>203 / 203 test cases passed.</li>
+<li>Runtime: 18 ms</li>
+<li>Your runtime beats 25.95 % of java submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/15/LeetCode-Algorithms-Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal/" data-id="cl51yqknw0026coyz3egi4mwj" data-title="LeetCode - Algorithms - 106. Construct Binary Tree from Inorder and Postorder Traversal" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" class="article-date">
+  <time datetime="2018-10-15T02:40:39.000Z" itemprop="datePublished">2018-10-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/">LeetCode - Algorithms - 105. Construct Binary Tree from Preorder and Inorder Traversal</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>二叉树自己能理解一二，不算难。自己也观察出来了从Preorder里知道根结点，再在Inorder里划分左右子树，如此不断递归二分。代码抄袭了这个的：<br><a target="_blank" rel="noopener" href="https://www.programcreek.com/2014/06/leetcode-construct-binary-tree-from-preorder-and-inorder-traversal-java/">LeetCode – Construct Binary Tree from Preorder and Inorder Traversal (Java)</a></p>
+<blockquote>
+<p>From the pre-order array, we know that first element is the root. We can find the root in in-order array. Then we can identify the left and right sub-trees of the root from in-order array. Using the length of left sub-tree, we can identify left and right sub-trees in pre-order array. Recursively, we can build up the tree.</p>
+</blockquote>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">buildTree</span><span class="params">(<span class="keyword">int</span>[] preorder, <span class="keyword">int</span>[] inorder)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">int</span> preStart=<span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> preEnd=preorder.length-<span class="number">1</span>;</span><br><span class="line">    	<span class="keyword">int</span> inStart = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">int</span> inEnd = inorder.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> buildTree(preorder,preStart,preEnd,inorder,inStart,inEnd);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">buildTree</span><span class="params">(<span class="keyword">int</span>[] preorder, <span class="keyword">int</span> preStart,<span class="keyword">int</span> preEnd, <span class="keyword">int</span>[] inorder, <span class="keyword">int</span> inStart, <span class="keyword">int</span> inEnd)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (preStart&gt;preEnd || inStart&gt;inEnd)</span><br><span class="line">    	  <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">int</span> val = preorder[preStart];</span><br><span class="line">    	TreeNode rt = <span class="keyword">new</span> TreeNode(val);</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">int</span> k=<span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=inEnd;i++) &#123;</span><br><span class="line">    		<span class="keyword">if</span> (inorder[i]==val) &#123;</span><br><span class="line">    			k=i;</span><br><span class="line">    			<span class="keyword">break</span>;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">    	rt.left = buildTree(preorder, preStart+<span class="number">1</span>, preStart+(k-inStart),inorder,inStart,k-<span class="number">1</span>);</span><br><span class="line">    	rt.right = buildTree(preorder, preStart+(k-inStart)+<span class="number">1</span>, preEnd, inorder, k+<span class="number">1</span>, inEnd);</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">return</span> rt;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>203 / 203 test cases passed.</li>
+<li>Runtime: 13 ms</li>
+<li>Your runtime beats 55.29 % of java submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/14/LeetCode-Algorithms-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal/" data-id="cl51yqknx002bcoyzhxyx1i92" data-title="LeetCode - Algorithms - 105. Construct Binary Tree from Preorder and Inorder Traversal" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-LeetCode-Algorithms-Coin-Change-2" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/09/27/LeetCode-Algorithms-Coin-Change-2/" class="article-date">
@@ -394,319 +837,11 @@
 
 
   
-    <article id="post-LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" class="article-date">
-  <time datetime="2018-09-09T19:33:12.000Z" itemprop="datePublished">2018-09-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/">LeetCode - Algorithms - 121. Best Time to Buy and Sell Stock</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>虽然难度标为Easy，但自己居然提交了好几次才通过了，而且是因为犯了逻辑错误。最后用个二重循环，倒也简单，但性能不好，不知道高效算法是如何做的？</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (prices==<span class="keyword">null</span> || prices.length==<span class="number">0</span>)</span><br><span class="line">    		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;prices.length-<span class="number">1</span>;i++) &#123;</span><br><span class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> j=prices.length-<span class="number">1</span>;j&gt;i;j--) &#123;</span><br><span class="line">        		<span class="keyword">if</span> (prices[j]-prices[i]&gt;r) &#123;</span><br><span class="line">        			r = prices[j]-prices[i];</span><br><span class="line">        		&#125;</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>200 / 200 test cases passed.</li>
-<li>Your runtime beats 4.30 % of java submissions.</li>
-</ul>
-<p>在网上人家的一个O(n)时间复杂度的算法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span> (prices==<span class="keyword">null</span> || prices.length&lt;=<span class="number">1</span>)</span><br><span class="line">    		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> minPrice = prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;prices.length;i++) &#123;</span><br><span class="line">        	r = Math.max(r, prices[i]-minPrice);</span><br><span class="line">        	minPrice = Math.min(minPrice, prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>200 / 200 test cases passed.</li>
-<li>Your runtime beats 32.88 % of java submissions.</li>
-</ul>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><h2 id="O-n2"><a href="#O-n2" class="headerlink" title="O(n2)"></a>O(n<sup>2</sup>)</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">prices</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span>(<span class="params">prices</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (prices==<span class="literal">null</span> || prices.length==<span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> r=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> x = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;prices.length-<span class="number">1</span>;i++) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> j=prices.length-<span class="number">1</span>;j&gt;i;j--) &#123;</span><br><span class="line">			x = prices[j]-prices[i];</span><br><span class="line">			<span class="keyword">if</span> (x&gt;r)</span><br><span class="line">				r = x;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> r;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>200 / 200 test cases passed.</li>
-<li>Your runtime beats 7.71 % of javascript submissions.</li>
-</ul>
-<h2 id="O-n"><a href="#O-n" class="headerlink" title="O(n)"></a>O(n)</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">prices</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span>(<span class="params">prices</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (prices==<span class="literal">null</span> || prices.length&lt;=<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> r=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> minPrice = prices[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">1</span>;i&lt;prices.length;i++) &#123;</span><br><span class="line">		r = <span class="built_in">Math</span>.max(r,prices[i]-minPrice);</span><br><span class="line">		minPrice = <span class="built_in">Math</span>.min(minPrice,prices[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> r;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Submission-Detail-3"><a href="#Submission-Detail-3" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>200 / 200 test cases passed.</li>
-<li>Your runtime beats 84.89 % of javascript submissions.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/09/LeetCode-Algorithms-Best-Time-to-Buy-and-Sell-Stock/" data-id="cl51yqknv001rcoyz2x2s4qae" data-title="LeetCode - Algorithms - 121. Best Time to Buy and Sell Stock" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-sites-for-learn-english" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/05/sites-for-learn-english/" class="article-date">
-  <time datetime="2018-09-05T22:28:42.000Z" itemprop="datePublished">2018-09-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/05/sites-for-learn-english/">英语学习相关网站</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="听力"><a href="#听力" class="headerlink" title="听力"></a>听力</h1><p>Voice of America - Learn American English with VOA Learning English<br><a target="_blank" rel="noopener" href="https://learningenglish.voanews.com/">https://learningenglish.voanews.com/</a></p>
-<p>BBC Learning English | Pronunciation Tips<br><a target="_blank" rel="noopener" href="http://www.bbc.co.uk/worldservice/learningenglish/grammar/pron/">http://www.bbc.co.uk/worldservice/learningenglish/grammar/pron/</a></p>
-<p>60-Second Science<br><a target="_blank" rel="noopener" href="https://www.scientificamerican.com/podcast/60-second-science/">https://www.scientificamerican.com/podcast/60-second-science/</a></p>
-<p>Videos &amp; Podcasts - Scientific American<br><a target="_blank" rel="noopener" href="https://www.scientificamerican.com/multimedia/">https://www.scientificamerican.com/multimedia/</a></p>
-<p>TED Radio Hour<br><a target="_blank" rel="noopener" href="https://www.npr.org/programs/ted-radio-hour">https://www.npr.org/programs/ted-radio-hour</a></p>
-<p>BBC - World Service - Home<br><a target="_blank" rel="noopener" href="https://www.bbc.co.uk/worldserviceradio">https://www.bbc.co.uk/worldserviceradio</a></p>
-<p>Learning English - 6 Minute English<br><a target="_blank" rel="noopener" href="http://www.bbc.co.uk/worldservice/learningenglish/general/sixminute/">http://www.bbc.co.uk/worldservice/learningenglish/general/sixminute/</a></p>
-<h1 id="词典"><a href="#词典" class="headerlink" title="词典"></a>词典</h1><p>Dictionary by Merriam-Webster: America’s most-trusted online dictionary<br><a target="_blank" rel="noopener" href="https://www.merriam-webster.com/">https://www.merriam-webster.com/</a></p>
-<p>Collins Dictionary<br><a target="_blank" rel="noopener" href="https://www.collinsdictionary.com/">https://www.collinsdictionary.com/</a></p>
-<p>Dictionary.com<br><a target="_blank" rel="noopener" href="https://www.dictionary.com/">https://www.dictionary.com/</a></p>
-<h1 id="报刊"><a href="#报刊" class="headerlink" title="报刊"></a>报刊</h1><p><a target="_blank" rel="noopener" href="https://medium.com/">https://medium.com/</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.theatlantic.com/">https://www.theatlantic.com/</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.newyorker.com/">https://www.newyorker.com/</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.npr.org/">https://www.npr.org/</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.economist.com/">https://www.economist.com/</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.bloomberg.com/businessweek">https://www.bloomberg.com/businessweek</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.bloomberg.com/canada">https://www.bloomberg.com/canada</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.theguardian.com/observer">https://www.theguardian.com/observer</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.theguardian.com/international">https://www.theguardian.com/international</a></p>
-<p><a target="_blank" rel="noopener" href="http://www.bbc.com/">http://www.bbc.com/</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.telegraph.co.uk/">https://www.telegraph.co.uk/</a></p>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>A Free Online Talking Dictionary of English Pronunciation<br><a target="_blank" rel="noopener" href="https://www.howjsay.com/">https://www.howjsay.com/</a></p>
-<p>UsingEnglish.com was established in 2002 and is a general English language site specialising in English as a Second Language (ESL).<br><a target="_blank" rel="noopener" href="https://www.usingenglish.com/">https://www.usingenglish.com/</a></p>
-<p>Discovery Canada<br><a target="_blank" rel="noopener" href="https://www.discovery.ca/Home">https://www.discovery.ca/Home</a></p>
-<p>English Language &amp; Usage Stack Exchange is a question and answer site for linguists, etymologists, and serious English language enthusiasts.<br><a target="_blank" rel="noopener" href="https://english.stackexchange.com/">https://english.stackexchange.com/</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/sites-for-learn-english/" data-id="cl51yqkq100ogcoyz98zha69n" data-title="英语学习相关网站" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/" rel="tag">english</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Pascal-Triangle-II" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" class="article-date">
-  <time datetime="2018-09-05T14:58:59.000Z" itemprop="datePublished">2018-09-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/">LeetCode - Algorithms - 119. Pascal&#39;s Triangle II</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/pascals-triangle/description/">118. Pascal’s Triangle</a> 的变脸题，用递归的方式实现了，还没想通如何用动态规划的方式实现。</p>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">getRow</span><span class="params">(<span class="keyword">int</span> rowIndex)</span> </span>&#123;</span><br><span class="line">    	List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">    	<span class="keyword">if</span> (rowIndex==<span class="number">0</span>) &#123;</span><br><span class="line">    		list.add(<span class="number">1</span>);</span><br><span class="line">    		<span class="keyword">return</span> list;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">if</span> (rowIndex==<span class="number">1</span>) &#123;</span><br><span class="line">    		list.add(<span class="number">1</span>);</span><br><span class="line">    		list.add(<span class="number">1</span>);</span><br><span class="line">    		<span class="keyword">return</span> list;</span><br><span class="line">    	&#125;    	</span><br><span class="line">    	<span class="keyword">if</span> (rowIndex&gt;=<span class="number">2</span>) &#123;</span><br><span class="line">    		List&lt;Integer&gt; row_pre = getRow(rowIndex-<span class="number">1</span>);</span><br><span class="line">    		list.add(<span class="number">1</span>);</span><br><span class="line">    		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;rowIndex;i++) &#123;</span><br><span class="line">    			list.add(row_pre.get(i)+row_pre.get(i-<span class="number">1</span>));</span><br><span class="line">    		&#125;</span><br><span class="line">    		list.add(<span class="number">1</span>);</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">return</span> list;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>34 / 34 test cases passed.</li>
-<li>Your runtime beats 89.30 % of java submissions.</li>
-</ul>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">rowIndex</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number[]&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> getRow = <span class="function"><span class="keyword">function</span>(<span class="params">rowIndex</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (rowIndex==<span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> [<span class="number">1</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (rowIndex==<span class="number">1</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> [<span class="number">1</span>,<span class="number">1</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> arr = [];</span><br><span class="line">	<span class="keyword">if</span> (rowIndex&gt;=<span class="number">2</span>) &#123;</span><br><span class="line">		arr.push(<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">var</span> preRow = getRow(rowIndex-<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">1</span>;i&lt;rowIndex;i++)</span><br><span class="line">			arr.push(preRow[i]+preRow[i-<span class="number">1</span>]);</span><br><span class="line">		arr.push(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> arr;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>34 / 34 test cases passed.</li>
-<li>Your runtime beats 93.58 % of javascript submissions.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/05/LeetCode-Algorithms-Pascal-Triangle-II/" data-id="cl51yqko2003ycoyz3xktejk4" data-title="LeetCode - Algorithms - 119. Pascal&#39;s Triangle II" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-LeetCode-Algorithms-Pascal-Triangle" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" class="article-date">
-  <time datetime="2018-09-03T02:51:52.000Z" itemprop="datePublished">2018-09-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/">LeetCode - Algorithms - 118. Pascal&#39;s Triangle</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>不难，不过写递归过程还是犯了些错误。 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Pascal%27s_triangle">Pascal’s triangle</a> 挺有名的，Binomial Coefficients好像是很重要的组合数学概念。</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/pascals-triangle/description/">118. Pascal’s Triangle</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.lintcode.com/problem/yang-hui-triangle/description">768. Yang Hui Triangle</a></li>
-</ul>
-<div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe width="854" height="480" src="https://www.youtube.com/embed/0iMtlus-afo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>
-
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; generate(<span class="keyword">int</span> numRows) &#123;</span><br><span class="line">	List&lt;List&lt;Integer&gt;&gt; list = <span class="keyword">new</span> ArrayList&lt;List&lt;Integer&gt;&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (numRows==<span class="number">1</span>) &#123;</span><br><span class="line">    	List&lt;Integer&gt; list0 = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">    	list0.add(<span class="number">1</span>);</span><br><span class="line">    	list.add(list0);</span><br><span class="line">    	<span class="keyword">return</span> list;    		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (numRows==<span class="number">2</span>) &#123;</span><br><span class="line">    	List&lt;Integer&gt; list0 = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">    	list0.add(<span class="number">1</span>);</span><br><span class="line">    	list.add(list0);    		</span><br><span class="line">    	List&lt;Integer&gt; list1 = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">    	list1.add(<span class="number">1</span>);</span><br><span class="line">    	list1.add(<span class="number">1</span>);</span><br><span class="line">    	list.add(list1);</span><br><span class="line">    	<span class="keyword">return</span> list;    		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (numRows&gt;=<span class="number">3</span>) &#123;</span><br><span class="line">    	List&lt;List&lt;Integer&gt;&gt; list_= generate(numRows-<span class="number">1</span>);</span><br><span class="line">    	List&lt;Integer&gt; list_pre = list_.get(numRows-<span class="number">2</span>);</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;list_.size();i++)</span><br><span class="line">    		list.add(list_.get(i));</span><br><span class="line">    	List&lt;Integer&gt; list_curr = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">    	list_curr.add(<span class="number">1</span>);</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;numRows-<span class="number">1</span>;i++) &#123;</span><br><span class="line">    		list_curr.add(list_pre.get(i)+list_pre.get(i-<span class="number">1</span>));</span><br><span class="line">    	&#125;</span><br><span class="line">    	list_curr.add(<span class="number">1</span>);</span><br><span class="line">    	list.add(list_curr);</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>15 / 15 test cases passed.</li>
-<li>Your runtime beats 100.00 % of java submissions.</li>
-</ul>
-<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">numRows</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number[][]&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> generate = <span class="function"><span class="keyword">function</span>(<span class="params">numRows</span>) </span>&#123;</span><br><span class="line">	  <span class="keyword">if</span> (numRows==<span class="number">1</span>) &#123;</span><br><span class="line">		  <span class="keyword">return</span> [[<span class="number">1</span>]];</span><br><span class="line">	  &#125;</span><br><span class="line">	  <span class="keyword">if</span> (numRows==<span class="number">2</span>) &#123;</span><br><span class="line">		  <span class="keyword">return</span> [[<span class="number">1</span>],[<span class="number">1</span>,<span class="number">1</span>]];</span><br><span class="line">	  &#125;</span><br><span class="line">	  <span class="keyword">var</span> arr = [];</span><br><span class="line">	  <span class="keyword">if</span> (numRows&gt;=<span class="number">3</span>) &#123;</span><br><span class="line">		  <span class="keyword">var</span> arr_ = generate(numRows-<span class="number">1</span>);</span><br><span class="line">		  <span class="keyword">var</span> line_pre = arr_[numRows-<span class="number">2</span>];</span><br><span class="line">		  <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;arr_.length;i++)</span><br><span class="line">			  arr.push(arr_[i]);</span><br><span class="line">		  <span class="keyword">var</span> line_curr = [<span class="number">1</span>];</span><br><span class="line">		  <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;numRows-<span class="number">1</span>;i++) &#123;</span><br><span class="line">			  line_curr.push(line_pre[i]+line_pre[i-<span class="number">1</span>]);</span><br><span class="line">		  &#125;</span><br><span class="line">		  line_curr.push(<span class="number">1</span>);</span><br><span class="line">		  arr.push(line_curr);</span><br><span class="line">	  &#125;</span><br><span class="line">	  <span class="keyword">return</span> arr;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
-<li>15 / 15 test cases passed.</li>
-<li>Your runtime beats 90.59 % of javascript submissions.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/02/LeetCode-Algorithms-Pascal-Triangle/" data-id="cl51yqko2003tcoyz0r1qbbyo" data-title="LeetCode - Algorithms - 118. Pascal&#39;s Triangle" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-Better-than-the-Four-Colour-Theorem-William-Tutte" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" class="article-date">
-  <time datetime="2018-09-02T03:07:28.000Z" itemprop="datePublished">2018-09-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/">Better than the Four Colour Theorem - Jim Geelen - mathNEWS - VOLUME 135 • ISSUE 3 - October 20, 2017</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <script id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-</script>
-
-<p>There is a limpid journal of mathematics in University of waterloo named <a target="_blank" rel="noopener" href="http://mathnews.uwaterloo.ca/">mathNEWS</a>, this essay was selected from that little journal. In University of Waterloo’s campus, there is a street named <a target="_blank" rel="noopener" href="https://uwaterloo.ca/stories/mathematics-professor-and-wartime-code-breaker-honoured">William Tutte way</a> near Davis Centre Library.</p>
-<hr>
-<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/W._T._Tutte">William Tutte</a> spent enormous effort trying to solve the Four Colour Problem. Even after the computer-aided proof of Appel and Haken in 1976, Tutte continued working toward finding a <strong>short, human-readable</strong>, proof.</p>
-<p>Tutte never did succeed, but he came close to achieving his goal on several occasions. For example, Tutte had significant insights into Tait’s Conjecture that three-connected cubic planar graphs are Hamiltonia n, which Tait had already shown to imply the Four Colour Conjecture. Unfortunately, instead of leading him to a proof, <strong>Tutte’s insights led him to discover a 46-vertex counter-example to Tait’s conjecture</strong>. Not long after that, Tutte proved that all four-connected planar graphs are Hamiltonian. While this is agonizingly close to Tait’s Conjecture, it does not have any immediate applications to colouring.</p>
-<p>Following those attempts, Tutte tried various algebraic approaches; one of these involved the chromatic polynomial of a graph. For a graph G and non-negative integer k, let \( \lambda_G(k) \) denote the number of colourings of G with colours 1, …, k. It is not at all obvious from this definition, but \( \lambda_G \) is a polynomial, which allows us to define it at values other than the positive integers.</p>
-<p>The Four Colour Conjecture states that \( \lambda_G(4) &gt; 0 \) whenever G is planar. If \( 0 \leq k_1 \leq k_2 \) are integers, then any \( k_1 \)-colouring is a \( k_2 \)-colouring, and hence \( \lambda_G(k_2) \geq \lambda_G(k_1) \). This property does not extend to non-negative real numbers, but it is conjectured that for each real number \( x \geq 4 \), we have \( \lambda_G(x) &gt; 0 \) whenever G is planar. Tutte proved the following amazing result which superficially looks stronger than the Four Colour Theorem; in this result \( \tau \) is the golden ratio, so \( \tau+2=\frac{5+\sqrt{5}}{2} \approx 3.618 \).</p>
-<p><strong>The 3.618 Colour Theorem.</strong> For each <em>planar graph</em> G, we have<br>\( \lambda_G(\tau+2) &gt; 0 \).</p>
-<p>This year Gordon Royle proved that, if \( x &lt; 4 \) is a real number such that \( \lambda_G(x) &gt; 0 \) for each planar graph G, then \( x = \tau+2 \). Wow!</p>
-<p>How on earth, you may ask, did Tutte come upon his result? It turns out that he came across the idea to try \( \tau+2 \) by empirical evidence. That evidence takes the form of eight large binders that are stored in the C&amp;O library on the sixth floor of the MC building. Each of these binders contains, at a guess, around 500 pages. The pages alternate between a beautiful hand-drawn picture of a planar graph and a computer print out of the roots of its chromatic polynomial. Tutte enlisted the help of Ruth Bari and Dick Wick Hall to systematically generate the graphs and the help of Gerry Berman, founder of the C&amp;O Department, to compute the chromatic roots. Nevertheless, it beggars belief to consider the work that Tutte put into drawing each of the graphs by hand and then trawling through these volumes for any patterns that might provide in-roads to the elusive Four Colour Conjecture. In the end he made do with only 3.618 colours.</p>
-<p>This article is in memory of <a target="_blank" rel="noopener" href="https://uwaterloo.ca/magazine/spring-2015/features/keeping-secrets">William T. Tutte</a>, in this the centennial year of his birth. Among other honours, Tutte was a founding member of the C&amp;O Department, a legendary World War II code breaker, and a hugely influential combinatorialist.</p>
-<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Jim_Geelen">Jim Geelen</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hezhigang.github.io/2018/09/01/Better-than-the-Four-Colour-Theorem-William-Tutte/" data-id="cl51yqkno0008coyzbfdveg78" data-title="Better than the Four Colour Theorem - Jim Geelen - mathNEWS - VOLUME 135 • ISSUE 3 - October 20, 2017" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UW/" rel="tag">UW</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mathNEWS/" rel="tag">mathNEWS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/37/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="page-number" href="/page/37/">37</a><span class="page-number current">38</span><a class="page-number" href="/page/39/">39</a><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/39/">Next »</a>
+    <a class="extend prev" rel="prev" href="/page/37/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="page-number" href="/page/37/">37</a><span class="page-number current">38</span><a class="page-number" href="/page/39/">39</a><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/45/">45</a><a class="extend next" rel="next" href="/page/39/">Next »</a>
   </nav>
 
 </section>
@@ -720,7 +855,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/" rel="tag">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bit-Manipulation/" rel="tag">Bit Manipulation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/" rel="tag">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bruce-Lee/" rel="tag">Bruce Lee</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CEMC/" rel="tag">CEMC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/" rel="tag">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/" rel="tag">Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Divide-and-Conquer/" rel="tag">Divide and Conquer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFmpeg/" rel="tag">FFmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/" rel="tag">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/" rel="tag">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HackerRank/" rel="tag">HackerRank</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/" rel="tag">Hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashTable/" rel="tag">HashTable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/" rel="tag">Heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IELTS/" rel="tag">IELTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/" rel="tag">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/" rel="tag">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/" rel="tag">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lin-Yutang/" rel="tag">Lin Yutang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/" rel="tag">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marcus-Du-Sautoy/" rel="tag">Marcus Du Sautoy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathematics/" rel="tag">Mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/" rel="tag">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/" rel="tag">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programming/" rel="tag">Programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/" rel="tag">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/" rel="tag">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/" rel="tag">Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEDx/" rel="tag">TEDx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terence-Tao/" rel="tag">Terence Tao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/" rel="tag">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Topological-Sort/" rel="tag">Topological Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/" rel="tag">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/" rel="tag">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/" rel="tag">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backtracking/" rel="tag">backtracking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/" rel="tag">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bilingual/" rel="tag">bilingual</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/" rel="tag">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrency/" rel="tag">concurrency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coronavirus/" rel="tag">coronavirus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/creative-thinking/" rel="tag">creative thinking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/" rel="tag">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/" rel="tag">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/essay/" rel="tag">essay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firefox/" rel="tag">firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/geometry/" rel="tag">geometry</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/" rel="tag">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graph/" rel="tag">graph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/" rel="tag">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history-of-mathematics/" rel="tag">history of mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ide/" rel="tag">ide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/" rel="tag">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/" rel="tag">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/logic/" rel="tag">logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/" rel="tag">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/" rel="tag">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/physics/" rel="tag">physics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/popscience/" rel="tag">popscience</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programmer/" rel="tag">programmer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quantum/" rel="tag">quantum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recurrence/" rel="tag">recurrence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/song/" rel="tag">song</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/" rel="tag">stack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/" rel="tag">vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/" rel="tag">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wolfram/" rel="tag">wolfram</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" rel="tag">中文经典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E6%96%87/" rel="tag">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" rel="tag">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" rel="tag">数学史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" rel="tag">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" rel="tag">李小龙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" rel="tag">李笑来</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" rel="tag">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" rel="tag">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8B%B1%E8%AF%AD/" rel="tag">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%91%E8%A8%80/" rel="tag">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/" rel="tag">BFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bill-Blair/" rel="tag">Bill Blair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bit-Manipulation/" rel="tag">Bit Manipulation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BitCoin/" rel="tag">BitCoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bruce-Lee/" rel="tag">Bruce Lee</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CEMC/" rel="tag">CEMC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-learning/" rel="tag">Deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/" rel="tag">Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Divide-and-Conquer/" rel="tag">Divide and Conquer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFmpeg/" rel="tag">FFmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSL/" rel="tag">GSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google/" rel="tag">Google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HackerRank/" rel="tag">HackerRank</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/" rel="tag">Hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashTable/" rel="tag">HashTable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/" rel="tag">Heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/" rel="tag">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IELTS/" rel="tag">IELTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/" rel="tag">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/" rel="tag">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joel/" rel="tag">Joel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lin-Yutang/" rel="tag">Lin Yutang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MILLENNIUM-PROBLEMS/" rel="tag">MILLENNIUM PROBLEMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Marcus-Du-Sautoy/" rel="tag">Marcus Du Sautoy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathematics/" rel="tag">Mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-vs-NP/" rel="tag">P vs NP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/" rel="tag">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programming/" rel="tag">Programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/" rel="tag">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-js/" rel="tag">React.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/" rel="tag">Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEDx/" rel="tag">TEDx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terence-Tao/" rel="tag">Terence Tao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/" rel="tag">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Topological-Sort/" rel="tag">Topological Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UW/" rel="tag">UW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/YAML/" rel="tag">YAML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arxiv/" rel="tag">arxiv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backtracking/" rel="tag">backtracking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/" rel="tag">bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bilingual/" rel="tag">bilingual</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/" rel="tag">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrency/" rel="tag">concurrency</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coronavirus/" rel="tag">coronavirus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/creative-thinking/" rel="tag">creative thinking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/" rel="tag">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/email/" rel="tag">email</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/english/" rel="tag">english</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/essay/" rel="tag">essay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firefox/" rel="tag">firefox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/geometry/" rel="tag">geometry</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/" rel="tag">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graph/" rel="tag">graph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/" rel="tag">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history-of-mathematics/" rel="tag">history of mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ide/" rel="tag">ide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/infoq/" rel="tag">infoq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/" rel="tag">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/logic/" rel="tag">logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathNEWS/" rel="tag">mathNEWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathematics/" rel="tag">mathematics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/physics/" rel="tag">physics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/popscience/" rel="tag">popscience</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/programmer/" rel="tag">programmer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quantum/" rel="tag">quantum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recurrence/" rel="tag">recurrence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/song/" rel="tag">song</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/" rel="tag">stack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/" rel="tag">vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/" rel="tag">wechat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wolfram/" rel="tag">wolfram</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" rel="tag">中文经典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E6%96%87/" rel="tag">古文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" rel="tag">心理学与生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" rel="tag">数学史</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" rel="tag">无线网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" rel="tag">李小龙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" rel="tag">李笑来</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" rel="tag">林语堂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" rel="tag">王小波</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8B%B1%E8%AF%AD/" rel="tag">英语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%91%E8%A8%80/" rel="tag">译言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
     </div>
   </div>
 
@@ -730,7 +865,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 19.44px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.22px;">Array</a> <a href="/tags/BFS/" style="font-size: 15px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.56px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15.56px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 16.11px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.44px;">DFS</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.11px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.78px;">ELL</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.89px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 13.89px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 11.11px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.89px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.56px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.67px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.56px;">Mathematics</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10.56px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.56px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.67px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.78px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.56px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 13.33px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 14.44px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.67px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.56px;">Topological Sort</a> <a href="/tags/Tree/" style="font-size: 11.67px;">Tree</a> <a href="/tags/Two-Pointers/" style="font-size: 15.56px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.67px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.56px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.11px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 20px;">english</a> <a href="/tags/essay/" style="font-size: 11.67px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.22px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.67px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.89px;">java</a> <a href="/tags/javascript/" style="font-size: 10.56px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.56px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.67px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.11px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 18.33px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 11.67px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 11.11px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.78px;">regex</a> <a href="/tags/song/" style="font-size: 13.33px;">song</a> <a href="/tags/sql/" style="font-size: 10.56px;">sql</a> <a href="/tags/stack/" style="font-size: 10.56px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.56px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 12.22px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10.56px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 10.56px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12.22px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 12.22px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 10.56px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Algorithms/" style="font-size: 19.44px;">Algorithms</a> <a href="/tags/Array/" style="font-size: 17.22px;">Array</a> <a href="/tags/BFS/" style="font-size: 15px;">BFS</a> <a href="/tags/Bill-Blair/" style="font-size: 10.56px;">Bill Blair</a> <a href="/tags/Binary-Search/" style="font-size: 15.56px;">Binary Search</a> <a href="/tags/Bit-Manipulation/" style="font-size: 16.11px;">Bit Manipulation</a> <a href="/tags/BitCoin/" style="font-size: 10px;">BitCoin</a> <a href="/tags/Bruce-Lee/" style="font-size: 10px;">Bruce Lee</a> <a href="/tags/CEMC/" style="font-size: 10px;">CEMC</a> <a href="/tags/DFS/" style="font-size: 14.44px;">DFS</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/Deep-learning/" style="font-size: 10px;">Deep learning</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Divide-and-Conquer/" style="font-size: 11.11px;">Divide and Conquer</a> <a href="/tags/ELL/" style="font-size: 17.78px;">ELL</a> <a href="/tags/English/" style="font-size: 10px;">English</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/GSL/" style="font-size: 10px;">GSL</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Greedy/" style="font-size: 10px;">Greedy</a> <a href="/tags/HackerRank/" style="font-size: 13.89px;">HackerRank</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/Hash-Table/" style="font-size: 13.89px;">Hash Table</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Heap/" style="font-size: 11.11px;">Heap</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IELTS/" style="font-size: 10px;">IELTS</a> <a href="/tags/JWT/" style="font-size: 10px;">JWT</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Joel/" style="font-size: 10px;">Joel</a> <a href="/tags/LeetCode/" style="font-size: 18.89px;">LeetCode</a> <a href="/tags/Lin-Yutang/" style="font-size: 10px;">Lin Yutang</a> <a href="/tags/Linked-List/" style="font-size: 15.56px;">Linked List</a> <a href="/tags/MILLENNIUM-PROBLEMS/" style="font-size: 10px;">MILLENNIUM PROBLEMS</a> <a href="/tags/Marcus-Du-Sautoy/" style="font-size: 11.67px;">Marcus Du Sautoy</a> <a href="/tags/Mathematics/" style="font-size: 10.56px;">Mathematics</a> <a href="/tags/Matrix/" style="font-size: 10px;">Matrix</a> <a href="/tags/P-vs-NP/" style="font-size: 10px;">P vs NP</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Programming/" style="font-size: 10.56px;">Programming</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/React-js/" style="font-size: 10.56px;">React.js</a> <a href="/tags/Recursion/" style="font-size: 11.67px;">Recursion</a> <a href="/tags/Rust/" style="font-size: 10px;">Rust</a> <a href="/tags/Sort/" style="font-size: 12.78px;">Sort</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/Spring-Boot/" style="font-size: 10.56px;">Spring Boot</a> <a href="/tags/String/" style="font-size: 13.33px;">String</a> <a href="/tags/TED/" style="font-size: 16.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 14.44px;">TED-Ed</a> <a href="/tags/TEDx/" style="font-size: 10px;">TEDx</a> <a href="/tags/Terence-Tao/" style="font-size: 10px;">Terence Tao</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.67px;">The Story of Maths</a> <a href="/tags/Topological-Sort/" style="font-size: 10.56px;">Topological Sort</a> <a href="/tags/Tree/" style="font-size: 11.67px;">Tree</a> <a href="/tags/Two-Pointers/" style="font-size: 15.56px;">Two Pointers</a> <a href="/tags/UW/" style="font-size: 10px;">UW</a> <a href="/tags/Union-Find/" style="font-size: 11.67px;">Union Find</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/arxiv/" style="font-size: 10px;">arxiv</a> <a href="/tags/backtracking/" style="font-size: 10.56px;">backtracking</a> <a href="/tags/bash/" style="font-size: 10px;">bash</a> <a href="/tags/bilingual/" style="font-size: 10px;">bilingual</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/concurrency/" style="font-size: 10px;">concurrency</a> <a href="/tags/coronavirus/" style="font-size: 11.11px;">coronavirus</a> <a href="/tags/creative-thinking/" style="font-size: 10px;">creative thinking</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/english/" style="font-size: 20px;">english</a> <a href="/tags/essay/" style="font-size: 11.67px;">essay</a> <a href="/tags/firefox/" style="font-size: 10px;">firefox</a> <a href="/tags/geometry/" style="font-size: 10px;">geometry</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/graph/" style="font-size: 12.22px;">graph</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/history-of-mathematics/" style="font-size: 11.67px;">history of mathematics</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/infoq/" style="font-size: 10px;">infoq</a> <a href="/tags/java/" style="font-size: 13.89px;">java</a> <a href="/tags/javascript/" style="font-size: 10.56px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10.56px;">linux</a> <a href="/tags/logic/" style="font-size: 10px;">logic</a> <a href="/tags/math/" style="font-size: 16.67px;">math</a> <a href="/tags/mathNEWS/" style="font-size: 10px;">mathNEWS</a> <a href="/tags/mathematics/" style="font-size: 10px;">mathematics</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 11.11px;">mysql</a> <a href="/tags/physics/" style="font-size: 10px;">physics</a> <a href="/tags/poem/" style="font-size: 18.33px;">poem</a> <a href="/tags/popscience/" style="font-size: 10px;">popscience</a> <a href="/tags/programmer/" style="font-size: 11.67px;">programmer</a> <a href="/tags/quantum/" style="font-size: 10px;">quantum</a> <a href="/tags/recurrence/" style="font-size: 11.11px;">recurrence</a> <a href="/tags/regex/" style="font-size: 12.78px;">regex</a> <a href="/tags/song/" style="font-size: 13.33px;">song</a> <a href="/tags/sql/" style="font-size: 10.56px;">sql</a> <a href="/tags/stack/" style="font-size: 10.56px;">stack</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/web/" style="font-size: 10.56px;">web</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/wolfram/" style="font-size: 10px;">wolfram</a> <a href="/tags/%E4%B8%AD%E6%96%87%E7%BB%8F%E5%85%B8/" style="font-size: 10px;">中文经典</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%8F%A4%E6%96%87/" style="font-size: 12.22px;">古文</a> <a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E4%B8%8E%E7%94%9F%E6%B4%BB/" style="font-size: 10.56px;">心理学与生活</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%8F%B2/" style="font-size: 10px;">数学史</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">无线网络</a> <a href="/tags/%E6%9D%8E%E5%B0%8F%E9%BE%99/" style="font-size: 10px;">李小龙</a> <a href="/tags/%E6%9D%8E%E7%AC%91%E6%9D%A5/" style="font-size: 10px;">李笑来</a> <a href="/tags/%E6%9E%97%E8%AF%AD%E5%A0%82/" style="font-size: 10.56px;">林语堂</a> <a href="/tags/%E7%8E%8B%E5%B0%8F%E6%B3%A2/" style="font-size: 10px;">王小波</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12.22px;">算法</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E8%8B%B1%E8%AF%AD/" style="font-size: 12.22px;">英语</a> <a href="/tags/%E8%AF%91%E8%A8%80/" style="font-size: 10.56px;">译言</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a>
     </div>
   </div>
 
@@ -752,23 +887,23 @@
       <ul>
         
           <li>
-            <a href="/2022/07/01/Canada-Billy-Collins/">Canada</a>
+            <a href="/2022/07/19/Little-Girl-Laura-Elizabeth-Howe-Richards/">Little Girl</a>
           </li>
         
           <li>
-            <a href="/2022/06/30/An-Essay-on-Criticism-Part-3-Alexander-Pope/">An Essay on Criticism Part 3</a>
+            <a href="/2022/07/17/recommendation-letters-for-Albert-Einstein/">Marie Curie and Henri Poincaré once wrote letters of recommendation for Albert Einstein</a>
           </li>
         
           <li>
-            <a href="/2022/06/29/An-Essay-on-Criticism-Part-2-Alexander-Pope/">An Essay on Criticism Part 2</a>
+            <a href="/2022/07/12/Quantum-hype-VSI-John-Polkinghorne/">Quantum hype</a>
           </li>
         
           <li>
-            <a href="/2022/06/28/An-Essay-on-Criticism-Part-1-Alexander-Pope/">An Essay on Criticism Part 1</a>
+            <a href="/2022/07/04/leetcode-sql-questions/">LeetCode SQL Questions</a>
           </li>
         
           <li>
-            <a href="/2022/06/24/a-question-robert-frost/">A Question</a>
+            <a href="/2022/07/02/My-English-Words-List-July-2022/">My English Words List - July - 2022</a>
           </li>
         
       </ul>
