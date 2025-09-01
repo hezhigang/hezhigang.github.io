@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Shortest path in a binary maze | Stay Hungry. Stay Foolish.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Problem Given a maze in the form of the binary rectangular matrix. We need to find the shortest path between a given source cell to a destination cell. The path can only be constructed out of cells ha">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shortest path in a binary maze">
+<meta property="og:url" content="https://hezhigang.github.io/2020/01/30/shortest-path-in-a-binary-maze/index.html">
+<meta property="og:site_name" content="Stay Hungry. Stay Foolish.">
+<meta property="og:description" content="Problem Given a maze in the form of the binary rectangular matrix. We need to find the shortest path between a given source cell to a destination cell. The path can only be constructed out of cells ha">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-01-30T20:31:01.000Z">
+<meta property="article:modified_time" content="2025-02-28T18:39:26.057Z">
+<meta property="article:author" content="hezhigang">
+<meta property="article:tag" content="Algorithms">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Stay Hungry. Stay Foolish." type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Stay Hungry. Stay Foolish.</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hezhigang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-shortest-path-in-a-binary-maze" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/30/shortest-path-in-a-binary-maze/" class="article-date">
+  <time datetime="2020-01-30T20:31:01.000Z" itemprop="datePublished">2020-01-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Shortest path in a binary maze
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><blockquote>
+<p>Given a maze in the form of the binary rectangular matrix. We need to find the shortest path between a given source cell to a destination cell. The path can only be constructed out of cells having value 1 and at any given moment, we can only move one step in one of the four directions.</p>
+</blockquote>
+<h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h1><blockquote>
+<p><strong>Single-source shortest paths.</strong> Given a graph and a source vertex s, support queries of the form Is there a path from s to a given target vertex v? If so, find a shortest such path (one with a minimal number of edges). The classical method for accomplishing this task, called breadth-first search.<br>  – Algorithms 4th Edition, Robert Sedgewick and Kevin Wayne, Princeton University</p>
+</blockquote>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.alg.graph.bfs;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeeAlgorithm</span> &#123;</span><br><span class="line">	<span class="comment">// move direction</span></span><br><span class="line">	<span class="keyword">final</span> <span class="keyword">static</span> <span class="type">int</span> d[][] = &#123;</span><br><span class="line">			&#123;<span class="number">0</span>,<span class="number">1</span>&#125;,  <span class="comment">//right</span></span><br><span class="line">			&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,  <span class="comment">//down</span></span><br><span class="line">			&#123;<span class="number">0</span>,-<span class="number">1</span>&#125;, <span class="comment">//left</span></span><br><span class="line">			&#123;-<span class="number">1</span>,<span class="number">0</span>&#125;  <span class="comment">//up</span></span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">bfs</span><span class="params">(<span class="type">int</span>[][] maze, Point src, Point dest)</span> &#123;</span><br><span class="line">		<span class="type">int</span> <span class="variable">minDist</span> <span class="operator">=</span> Integer.MAX_VALUE;</span><br><span class="line"></span><br><span class="line">	    <span class="keyword">if</span> (maze[src.x][src.y] != <span class="number">1</span> || maze[dest.x][dest.y] != <span class="number">1</span>)</span><br><span class="line">	    	<span class="keyword">return</span> minDist;</span><br><span class="line"></span><br><span class="line">		<span class="type">int</span> <span class="variable">h</span> <span class="operator">=</span> maze.length;</span><br><span class="line">		<span class="type">int</span> <span class="variable">w</span> <span class="operator">=</span> maze[<span class="number">0</span>].length;</span><br><span class="line">		<span class="type">boolean</span>[][] visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[h][w];</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; h; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; w; j++) &#123;</span><br><span class="line">				visited[i][j] = <span class="literal">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		Queue&lt;Node&gt; q = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">		<span class="type">Node</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Node</span>(src, <span class="number">0</span>);</span><br><span class="line">		q.add(s);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">while</span> (!q.isEmpty()) &#123;</span><br><span class="line">			<span class="type">Node</span> <span class="variable">curr</span> <span class="operator">=</span> q.poll();</span><br><span class="line">			<span class="type">Point</span> <span class="variable">pt</span> <span class="operator">=</span> curr.pt;</span><br><span class="line">			<span class="keyword">if</span> (pt.x == dest.x &amp;&amp; pt.y == dest.y)</span><br><span class="line">				<span class="keyword">return</span> curr.dist;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">				<span class="type">int</span> <span class="variable">row</span> <span class="operator">=</span> pt.x + d[i][<span class="number">0</span>];</span><br><span class="line">				<span class="type">int</span> <span class="variable">col</span> <span class="operator">=</span> pt.y + d[i][<span class="number">1</span>];</span><br><span class="line">				<span class="keyword">if</span> (isValid(maze, visited, h, w, row, col)) &#123;</span><br><span class="line">					visited[row][col] = <span class="literal">true</span>;</span><br><span class="line">					<span class="type">Node</span> <span class="variable">adjCell</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Node</span>(<span class="keyword">new</span> <span class="title class_">Point</span>(row, col), curr.dist + <span class="number">1</span>);</span><br><span class="line">					q.add(adjCell);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> minDist;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(<span class="type">int</span>[][] maze, <span class="type">boolean</span>[][] visited, <span class="type">int</span> width, <span class="type">int</span> height, <span class="type">int</span> row, <span class="type">int</span> col)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> (row &gt;= <span class="number">0</span>) &amp;&amp; (row &lt; width) &amp;&amp; (col &gt;= <span class="number">0</span>) &amp;&amp; (col &lt; height) &amp;&amp; maze[row][col] == <span class="number">1</span> &amp;&amp; !visited[row][col];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">int</span>[][] maze = &#123;</span><br><span class="line">				&#123; <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span> &#125;,</span><br><span class="line">				&#123; <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span> &#125;,</span><br><span class="line">				&#123; <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span> &#125;,</span><br><span class="line">				&#123; <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span> &#125;,</span><br><span class="line">				&#123; <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span> &#125;,</span><br><span class="line">				&#123; <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span> &#125;,</span><br><span class="line">				&#123; <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span> &#125;,</span><br><span class="line">				&#123; <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span> &#125;,</span><br><span class="line">				&#123; <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span> &#125;,</span><br><span class="line">				&#123; <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span> &#125;</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		<span class="type">int</span> <span class="variable">h</span> <span class="operator">=</span> maze.length;</span><br><span class="line">		<span class="type">int</span> <span class="variable">w</span> <span class="operator">=</span> maze[<span class="number">0</span>].length;</span><br><span class="line">		System.out.printf(<span class="string">&quot;%d*%d\n&quot;</span>, h, w);</span><br><span class="line"></span><br><span class="line">		<span class="type">Point</span> <span class="variable">source</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Point</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">		<span class="type">Point</span> <span class="variable">dest</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Point</span>(<span class="number">7</span>, <span class="number">5</span>);</span><br><span class="line">		<span class="type">int</span> <span class="variable">dist</span> <span class="operator">=</span> bfs(maze, source, dest);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (dist != Integer.MAX_VALUE)</span><br><span class="line">			System.out.printf(<span class="string">&quot;The shortest path from (%d,%d) to (%d,%d) has length %d\n&quot;</span>, source.x, source.y, dest.x,</span><br><span class="line">					dest.y, dist);</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			System.out.printf(<span class="string">&quot;Shortest path from (%d,%d) to (%d,%d) doesn&#x27;t exist\n&quot;</span>, source.x, source.y, dest.x,</span><br><span class="line">					dest.y);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">		<span class="type">int</span> x;</span><br><span class="line">		<span class="type">int</span> y;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="title function_">Point</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> &#123;</span><br><span class="line">			<span class="built_in">this</span>.x = x;</span><br><span class="line">			<span class="built_in">this</span>.y = y;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">		Point pt;</span><br><span class="line">		<span class="type">int</span> dist;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="title function_">Node</span><span class="params">(Point pt, <span class="type">int</span> dist)</span> &#123;</span><br><span class="line">			<span class="built_in">this</span>.pt = pt;</span><br><span class="line">			<span class="built_in">this</span>.dist = dist;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Point</span>(<span class="params">x, y</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">x</span> = x;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">y</span> = y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Node</span>(<span class="params">pt,dist</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">pt</span> = pt;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">dist</span> = dist;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> d = [</span><br><span class="line">  &#123;<span class="attr">x</span>: <span class="number">0</span>, <span class="attr">y</span>: <span class="number">1</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">x</span>: <span class="number">1</span>, <span class="attr">y</span>: <span class="number">0</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">x</span>: <span class="number">0</span>, <span class="attr">y</span>: -<span class="number">1</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">x</span>: -<span class="number">1</span>, <span class="attr">y</span>: <span class="number">0</span>&#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bfs</span>(<span class="params">maze, src, dest</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> minDist = -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (maze[src.<span class="property">x</span>][src.<span class="property">y</span>] != <span class="number">1</span> || maze[dest.<span class="property">x</span>][dest.<span class="property">y</span>] != <span class="number">1</span>)</span><br><span class="line">      <span class="keyword">return</span> minDist;</span><br><span class="line">  <span class="keyword">var</span> h = maze.<span class="property">length</span>;</span><br><span class="line">  <span class="keyword">var</span> w = maze[<span class="number">0</span>].<span class="property">length</span>;</span><br><span class="line">  visited = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; h; i++) &#123;</span><br><span class="line">    visited.<span class="title function_">push</span>([]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; w; j++) &#123;</span><br><span class="line">      visited[i].<span class="title function_">push</span>(<span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> queue = [];</span><br><span class="line">  <span class="keyword">var</span> s = <span class="keyword">new</span> <span class="title class_">Node</span>(src, <span class="number">0</span>);</span><br><span class="line">  queue.<span class="title function_">push</span>(s);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (queue.<span class="property">length</span>&gt;<span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> curr = queue.<span class="title function_">pop</span>();</span><br><span class="line">    <span class="keyword">var</span> pt = curr.<span class="property">pt</span>;</span><br><span class="line">    <span class="keyword">if</span> (pt.<span class="property">x</span> == dest.<span class="property">x</span> &amp;&amp; pt.<span class="property">y</span> == dest.<span class="property">y</span>)</span><br><span class="line">      <span class="keyword">return</span> curr.<span class="property">dist</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">      <span class="keyword">var</span> row = pt.<span class="property">x</span> + d[i].<span class="property">x</span>;</span><br><span class="line">      <span class="keyword">var</span> col = pt.<span class="property">y</span> + d[i].<span class="property">y</span>;</span><br><span class="line">      <span class="keyword">if</span> (<span class="title function_">isValid</span>(maze, visited, h, w, row, col)) &#123;</span><br><span class="line">        visited[row][col] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">var</span> adjCell = <span class="keyword">new</span> <span class="title class_">Node</span>(<span class="keyword">new</span> <span class="title class_">Point</span>(row, col), curr.<span class="property">dist</span> + <span class="number">1</span>);</span><br><span class="line">        queue.<span class="title function_">push</span>(adjCell);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> minDist;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">isValid</span>(<span class="params">maze, visited, width, height, row, col</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (row &gt;= <span class="number">0</span>) &amp;&amp; (row &lt; width) &amp;&amp; (col &gt;= <span class="number">0</span>) &amp;&amp; (col &lt; height) &amp;&amp; maze[row][col] == <span class="number">1</span> &amp;&amp; !visited[row][col];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> maze = [</span><br><span class="line">    [ <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span> ],</span><br><span class="line">    [ <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span> ],</span><br><span class="line">    [ <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span> ],</span><br><span class="line">    [ <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span> ],</span><br><span class="line">    [ <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span> ],</span><br><span class="line">    [ <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span> ],</span><br><span class="line">    [ <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span> ],</span><br><span class="line">    [ <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span> ],</span><br><span class="line">    [ <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span> ],</span><br><span class="line">    [ <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span> ]</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> source = <span class="keyword">new</span> <span class="title class_">Point</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">var</span> dest = <span class="keyword">new</span> <span class="title class_">Point</span>(<span class="number">7</span>, <span class="number">5</span>);</span><br><span class="line"><span class="keyword">var</span> dist = <span class="title function_">bfs</span>(maze, source, dest);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (dist != -<span class="number">1</span>)</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`The shortest path from (<span class="subst">$&#123;source.x&#125;</span>, <span class="subst">$&#123;source.y&#125;</span>) to (<span class="subst">$&#123;dest.x&#125;</span>, <span class="subst">$&#123;dest.y&#125;</span>) has length <span class="subst">$&#123;dist&#125;</span>\n`</span>);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Shortest path from <span class="subst">$&#123;(source.x, source.y)&#125;</span> to <span class="subst">$&#123;(dest.x, dest.y)&#125;</span> does not exist`</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Maze_runner">Maze runner</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Lee_algorithm">Lee algorithm</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.techiedelight.com/lee-algorithm-shortest-path-in-a-maze/">Shortest path in a Maze | Lee algorithm</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/shortest-path-in-a-binary-maze/">Shortest path in a Binary Maze</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/01/30/shortest-path-in-a-binary-maze/" data-id="cmf1gcadb00rn85yzhwdl04a8" data-title="Shortest path in a binary maze" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/02/02/what-you-eat-matters-hope/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          H.O.P.E. What You Eat Matters (2018) – Full Transcript
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/27/nth-root/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">The principal nth root of a positive real number</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+<script src="https://utteranc.es/client.js"
+        repo="hezhigang/hezhigang.github.io"
+        issue-term="pathname"
+        label="utterances"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PhraseList/" rel="tag">PhraseList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/" rel="tag">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WordList/" rel="tag">WordList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miscellaneous/" rel="tag">miscellaneous</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%B6%E4%BB%96/" rel="tag">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E5%85%B8%E6%96%87%E5%AD%A6/" rel="tag">古典文学</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithms/" style="font-size: 12.67px;">Algorithms</a> <a href="/tags/ELL/" style="font-size: 19.33px;">ELL</a> <a href="/tags/English/" style="font-size: 18px;">English</a> <a href="/tags/LeetCode/" style="font-size: 20px;">LeetCode</a> <a href="/tags/PhraseList/" style="font-size: 14.67px;">PhraseList</a> <a href="/tags/TED/" style="font-size: 16px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 13.33px;">TED-Ed</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.33px;">The Story of Maths</a> <a href="/tags/WordList/" style="font-size: 17.33px;">WordList</a> <a href="/tags/git/" style="font-size: 10.67px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/math/" style="font-size: 14px;">math</a> <a href="/tags/miscellaneous/" style="font-size: 16.67px;">miscellaneous</a> <a href="/tags/poem/" style="font-size: 18.67px;">poem</a> <a href="/tags/%E5%85%B6%E4%BB%96/" style="font-size: 15.33px;">其他</a> <a href="/tags/%E5%8F%A4%E5%85%B8%E6%96%87%E5%AD%A6/" style="font-size: 12px;">古典文学</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">August 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">July 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">June 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/08/26/Education-without-books-Julius-Lips/">Education</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/08/My-English-Phrases-List-Aug-2025/">My English Phrases List - August - 2025</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/01/My-English-Words-List-Aug-2025/">My English Words List - August - 2025</a>
+          </li>
+        
+          <li>
+            <a href="/2025/07/30/esl-notes-1/">ESL Notes - 1</a>
+          </li>
+        
+          <li>
+            <a href="/2025/07/18/quotes-1/">Quotes</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 hezhigang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

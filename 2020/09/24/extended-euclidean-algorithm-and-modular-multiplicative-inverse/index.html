@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Extended Euclidean algorithm and Modular multiplicative inverse | Stay Hungry. Stay Foolish.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="The computation of the modular multiplicative inverse is an essential step in the derivation of key-pairs in the RSA public-key encryption method. A benefit for the computer implementation of these">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Extended Euclidean algorithm and Modular multiplicative inverse">
+<meta property="og:url" content="https://hezhigang.github.io/2020/09/24/extended-euclidean-algorithm-and-modular-multiplicative-inverse/index.html">
+<meta property="og:site_name" content="Stay Hungry. Stay Foolish.">
+<meta property="og:description" content="The computation of the modular multiplicative inverse is an essential step in the derivation of key-pairs in the RSA public-key encryption method. A benefit for the computer implementation of these">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-09-24T18:06:24.000Z">
+<meta property="article:modified_time" content="2020-09-25T03:22:19.000Z">
+<meta property="article:author" content="hezhigang">
+<meta property="article:tag" content="math">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Stay Hungry. Stay Foolish." type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Stay Hungry. Stay Foolish.</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hezhigang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-extended-euclidean-algorithm-and-modular-multiplicative-inverse" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/24/extended-euclidean-algorithm-and-modular-multiplicative-inverse/" class="article-date">
+  <time datetime="2020-09-24T18:06:24.000Z" itemprop="datePublished">2020-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Extended Euclidean algorithm and Modular multiplicative inverse
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<p>The computation of the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Modular_multiplicative_inverse">modular multiplicative inverse</a> is an essential step in the derivation of key-pairs in the RSA public-key encryption method. A benefit for the computer implementation of these applications is that there exists a very fast algorithm (the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm">extended Euclidean algorithm</a>) that can be used for the calculation of modular multiplicative inverses.</p>
+<h1 id="Extended-Euclidean-algorithm"><a href="#Extended-Euclidean-algorithm" class="headerlink" title="Extended Euclidean algorithm"></a>Extended Euclidean algorithm</h1><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/B%C3%A9zout%27s_identity">Bézout’s identity</a> — Let a and b be integers with greatest common divisor d. Then, there exist integers x and y such that ax + by &#x3D; d. More generally, the integers of the form ax + by are exactly the multiples of d.</p>
+<p>The integers x and y are called <strong>Bézout coefficients</strong> for (a, b); they are not unique. A pair of Bézout coefficients can be computed by the extended Euclidean algorithm.</p>
+<p>\( m’m + n’n &#x3D; gcd(m, n) \)</p>
+<p>\(<br>    \begin{align*}<br>    \begin{cases} \text{if }m &#x3D; 0, \text{we simply take } m’&#x3D;0 \text{ and } n’&#x3D;1 \text{ as } gcd(0, n)&#x3D;n \\<br>    \text{Otherwise }m \neq 0, \text{we let }r&#x3D;n \bmod m&#x3D;n-\lfloor \frac{n}{m} \rfloor m<br>    \end{cases}<br>    \end{align*}<br>\)</p>
+<p>\( \overline{r}r + \overline{m}m &#x3D; gcd(r,m) \)</p>
+<p>\( \text{ as } gcd(m, n) &#x3D; gcd(r, m) \)<br>\( \overline{r}(n-\lfloor \frac{n}{m} \rfloor m) + \overline{m}m &#x3D; m’m + n’n \implies \)<br>\( (\overline{m}-\lfloor \frac{n}{m} \rfloor \overline{r})m + \overline{r}n &#x3D; m’m + n’n \implies \)</p>
+<p>\(<br>    \begin{align*}<br>    \begin{cases} m’ &#x3D; \overline{m}-\lfloor \frac{n}{m} \rfloor \overline{r} \\<br>    n’ &#x3D; \overline{r}<br>    \end{cases}<br>    \end{align*}<br>\)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExtendedEuclid</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> <span class="number">12</span>, n = <span class="number">18</span>;</span><br><span class="line">        <span class="type">EEResult</span> <span class="variable">re</span> <span class="operator">=</span> extendedEuclid(m, n);</span><br><span class="line">        System.out.printf(<span class="string">&quot;%d*%d + %d*%d = %d&quot;</span>, re.a, m, re.b, n, re.d);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> EEResult <span class="title function_">extendedEuclid</span><span class="params">(<span class="type">int</span> m, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">EEResult</span> <span class="variable">re</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">EEResult</span>();</span><br><span class="line">        <span class="keyword">if</span> (m==<span class="number">0</span>) &#123;</span><br><span class="line">            re.d = n;</span><br><span class="line">            re.a = <span class="number">0</span>;</span><br><span class="line">            re.b = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">return</span> re;</span><br><span class="line">        &#125;</span><br><span class="line">        re = extendedEuclid(n%m, m);</span><br><span class="line">        <span class="type">int</span> <span class="variable">d</span> <span class="operator">=</span> re.d;</span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> re.b - (n/m)*re.a;</span><br><span class="line">        <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> re.a;</span><br><span class="line">        re.d = d;</span><br><span class="line">        re.a = a;</span><br><span class="line">        re.b = b;</span><br><span class="line">        <span class="keyword">return</span> re;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">EEResult</span> &#123;</span><br><span class="line">        <span class="type">int</span> d;</span><br><span class="line">        <span class="type">int</span> a;</span><br><span class="line">        <span class="type">int</span> b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Modular-multiplicative-inverse"><a href="#Modular-multiplicative-inverse" class="headerlink" title="Modular multiplicative inverse"></a>Modular multiplicative inverse</h1><p>Finding modular multiplicative inverses also has practical applications in the field of cryptography, i.e. public-key cryptography and the RSA Algorithm.</p>
+<p>\( \displaystyle ax\equiv b{\pmod {m}} \)</p>
+<p>\( \displaystyle x\equiv a^{-1}{\pmod {m}} \)</p>
+<p>\(<br>    \begin{align*}<br>    \begin{cases} d_1 \equiv 35^{-1}{\pmod {3}} &#x3D; 2 \\<br>    d_2 \equiv 21^{-1}{\pmod {5}} &#x3D; 1 \\<br>    d_3 \equiv 15^{-1}{\pmod {7}} &#x3D; 1<br>    \end{cases}<br>    \end{align*}<br>\)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.math.BigInteger;</span><br><span class="line"></span><br><span class="line">BigInteger.valueOf(<span class="number">35</span>).modInverse(BigInteger.valueOf(<span class="number">3</span>));</span><br><span class="line">BigInteger.valueOf(<span class="number">21</span>).modInverse(BigInteger.valueOf(<span class="number">5</span>));</span><br><span class="line">BigInteger.valueOf(<span class="number">15</span>).modInverse(BigInteger.valueOf(<span class="number">7</span>));</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/09/24/extended-euclidean-algorithm-and-modular-multiplicative-inverse/" data-id="cmf1gcac500fs85yzccbmgtgh" data-title="Extended Euclidean algorithm and Modular multiplicative inverse" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/" rel="tag">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/09/26/what-is-a-coronavirus-elizabeth-cox-TED-Ed/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          What is a coronavirus? - Elizabeth Cox - TED-Ed - Transcript
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/09/23/common-vocabulary-ielts-listening/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Build your IELTS Listening test vocabulary</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+<script src="https://utteranc.es/client.js"
+        repo="hezhigang/hezhigang.github.io"
+        issue-term="pathname"
+        label="utterances"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PhraseList/" rel="tag">PhraseList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/" rel="tag">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WordList/" rel="tag">WordList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miscellaneous/" rel="tag">miscellaneous</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%B6%E4%BB%96/" rel="tag">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E5%85%B8%E6%96%87%E5%AD%A6/" rel="tag">古典文学</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithms/" style="font-size: 12.67px;">Algorithms</a> <a href="/tags/ELL/" style="font-size: 19.33px;">ELL</a> <a href="/tags/English/" style="font-size: 18px;">English</a> <a href="/tags/LeetCode/" style="font-size: 20px;">LeetCode</a> <a href="/tags/PhraseList/" style="font-size: 14.67px;">PhraseList</a> <a href="/tags/TED/" style="font-size: 16px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 13.33px;">TED-Ed</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.33px;">The Story of Maths</a> <a href="/tags/WordList/" style="font-size: 17.33px;">WordList</a> <a href="/tags/git/" style="font-size: 10.67px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/math/" style="font-size: 14px;">math</a> <a href="/tags/miscellaneous/" style="font-size: 16.67px;">miscellaneous</a> <a href="/tags/poem/" style="font-size: 18.67px;">poem</a> <a href="/tags/%E5%85%B6%E4%BB%96/" style="font-size: 15.33px;">其他</a> <a href="/tags/%E5%8F%A4%E5%85%B8%E6%96%87%E5%AD%A6/" style="font-size: 12px;">古典文学</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">August 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">July 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">June 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/08/26/Education-without-books-Julius-Lips/">Education</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/08/My-English-Phrases-List-Aug-2025/">My English Phrases List - August - 2025</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/01/My-English-Words-List-Aug-2025/">My English Words List - August - 2025</a>
+          </li>
+        
+          <li>
+            <a href="/2025/07/30/esl-notes-1/">ESL Notes - 1</a>
+          </li>
+        
+          <li>
+            <a href="/2025/07/18/quotes-1/">Quotes</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 hezhigang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

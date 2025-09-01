@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Stay Hungry. Stay Foolish.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Stay Hungry. Stay Foolish.">
+<meta property="og:url" content="https://hezhigang.github.io/page/50/index.html">
+<meta property="og:site_name" content="Stay Hungry. Stay Foolish.">
+<meta property="og:locale">
+<meta property="article:author" content="hezhigang">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Stay Hungry. Stay Foolish." type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Stay Hungry. Stay Foolish.</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hezhigang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-LeetCode-Algorithms-Binary-Tree-Preorder-Traversal" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/02/LeetCode-Algorithms-Binary-Tree-Preorder-Traversal/" class="article-date">
+  <time datetime="2018-11-03T01:09:29.000Z" itemprop="datePublished">2018-11-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/02/LeetCode-Algorithms-Binary-Tree-Preorder-Traversal/">LeetCode - Algorithms - 144. Binary Tree Preorder Traversal</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>2007年学习数据结构曾经把北大《数据结构与算法》(张铭、赵海燕、王腾蛟)教材书上的c++实现翻译为Java语言，现在拿来在LeetCode上跑跑，不是很理解。</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">preorderTraversal</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    	List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Integer&gt;();</span><br><span class="line">		<span class="keyword">if</span> (root!=<span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="type">TreeNode</span> <span class="variable">ptr</span> <span class="operator">=</span> root;</span><br><span class="line">			Stack&lt;TreeNode&gt; stk = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;TreeNode&gt;();</span><br><span class="line">			<span class="keyword">while</span>(!stk.isEmpty() || ptr != <span class="literal">null</span>) &#123;</span><br><span class="line">				<span class="keyword">if</span> (ptr!=<span class="literal">null</span>) &#123;</span><br><span class="line">					list.add(ptr.val);</span><br><span class="line">					stk.push(ptr);</span><br><span class="line">					ptr = ptr.left;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> &#123;</span><br><span class="line">					ptr = (TreeNode) stk.peek();</span><br><span class="line">					ptr = ptr.right;</span><br><span class="line">					stk.pop();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;			</span><br><span class="line">		&#125;    	</span><br><span class="line">    	<span class="keyword">return</span> list;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>68 &#x2F; 68 test cases passed.</li>
+<li>Runtime: 1 ms</li>
+<li>Your runtime beats 61.91 % of java submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/11/02/LeetCode-Algorithms-Binary-Tree-Preorder-Traversal/" data-id="cmf1gcab3002v85yzargfeh91" data-title="LeetCode - Algorithms - 144. Binary Tree Preorder Traversal" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Binary-Tree-Level-Order-Traversal" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/01/LeetCode-Algorithms-Binary-Tree-Level-Order-Traversal/" class="article-date">
+  <time datetime="2018-11-02T02:16:03.000Z" itemprop="datePublished">2018-11-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/01/LeetCode-Algorithms-Binary-Tree-Level-Order-Traversal/">LeetCode - Algorithms - 102. Binary Tree Level Order Traversal</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Although its performance is not good, solution of <a target="_blank" rel="noopener" href="https://medium.com/algorithm-problems/binary-tree-level-order-traversal-19f13e260ae5">Binary Tree Level Order Traversal</a> is clear.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">levelOrder</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    	List&lt;List&lt;Integer&gt;&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;List&lt;Integer&gt;&gt;();</span><br><span class="line">    	<span class="keyword">if</span> (root==<span class="literal">null</span>) <span class="keyword">return</span> result;</span><br><span class="line">    	Map&lt;Integer,List&lt;Integer&gt;&gt; map = <span class="keyword">new</span> <span class="title class_">TreeMap</span>&lt;Integer,List&lt;Integer&gt;&gt;();</span><br><span class="line">		updateMap(root,<span class="number">0</span>,map);</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">for</span>(Map.Entry&lt;Integer, List&lt;Integer&gt;&gt; entry : map.entrySet()) &#123;</span><br><span class="line">    		result.add(entry.getValue());</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">return</span> result;        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">updateMap</span><span class="params">(TreeNode root, <span class="type">int</span> level, Map&lt;Integer,List&lt;Integer&gt;&gt; map)</span> &#123;</span><br><span class="line">    	<span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    	++level;</span><br><span class="line">    	<span class="keyword">if</span> (map.containsKey(level)) &#123;</span><br><span class="line">    		map.get(level).add(root.val);</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">else</span> &#123;</span><br><span class="line">    		List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Integer&gt;();</span><br><span class="line">    		list.add(root.val);</span><br><span class="line">    		map.put(level, list);</span><br><span class="line">    	&#125;</span><br><span class="line">    	updateMap(root.left,level,map);</span><br><span class="line">    	updateMap(root.right,level,map);</span><br><span class="line">    	<span class="keyword">return</span>;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>34 &#x2F; 34 test cases passed.</li>
+<li>Runtime: 6 ms</li>
+<li>Your runtime beats 3.09 % of java submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/11/01/LeetCode-Algorithms-Binary-Tree-Level-Order-Traversal/" data-id="cmf1gcab2002s85yzfev7fb5r" data-title="LeetCode - Algorithms - 102. Binary Tree Level Order Traversal" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Binary-Tree-Inorder-Traversal" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/" class="article-date">
+  <time datetime="2018-11-01T00:54:58.000Z" itemprop="datePublished">2018-10-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/">LeetCode - Algorithms - 94. Binary Tree Inorder Traversal</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>2007年学习数据结构曾经用Java实现过，虽然还是知其然而不知其所以然，北大那本《数据结构与算法》(张铭、赵海燕、王腾蛟)教材上是用C++实现的。</p>
+<h1 id="非递归深度优先周游二叉树"><a href="#非递归深度优先周游二叉树" class="headerlink" title="非递归深度优先周游二叉树"></a>非递归深度优先周游二叉树</h1><ul>
+<li>栈是实现递归的最常用的结构</li>
+<li>深度优先二叉树周游是递归定义的</li>
+<li>利用一个栈来记下尚待周游的结点或子树，以备以后访问。</li>
+</ul>
+<h2 id="非递归中序周游二叉树"><a href="#非递归中序周游二叉树" class="headerlink" title="非递归中序周游二叉树"></a>非递归中序周游二叉树</h2><ul>
+<li>遇到一个结点，就把它推入栈中，并去周游它的左子树</li>
+<li>周游完左子树后，从栈顶托出这个结点并访问之，然后按照它的右链接指示的地址再去周游该结点的右子树。</li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">inorderTraversal</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    	List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Integer&gt;();</span><br><span class="line">		<span class="keyword">if</span> (root!=<span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="type">TreeNode</span> <span class="variable">ptr</span> <span class="operator">=</span> root;</span><br><span class="line">			Stack&lt;TreeNode&gt; stk = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;TreeNode&gt;();</span><br><span class="line">			<span class="keyword">while</span>(!stk.isEmpty() || ptr != <span class="literal">null</span>) &#123;</span><br><span class="line">				<span class="keyword">if</span> (ptr!=<span class="literal">null</span>) &#123;</span><br><span class="line">					stk.push(ptr);</span><br><span class="line">					ptr = ptr.left;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> &#123;</span><br><span class="line">					ptr = (TreeNode) stk.peek();</span><br><span class="line">					list.add(ptr.val);</span><br><span class="line">					ptr = ptr.right;</span><br><span class="line">					stk.pop();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;			</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> list;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>68 &#x2F; 68 test cases passed.</li>
+<li>Runtime: 1 ms</li>
+<li>Your runtime beats 60.69 % of java submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/31/LeetCode-Algorithms-Binary-Tree-Inorder-Traversal/" data-id="cmf1gcab1002d85yz9bbq5po3" data-title="LeetCode - Algorithms - 94. Binary Tree Inorder Traversal" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Divide-Two-Integers" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/" class="article-date">
+  <time datetime="2018-10-30T19:11:47.000Z" itemprop="datePublished">2018-10-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/">LeetCode - Algorithms - 29. Divide Two Integers</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://www.programcreek.com/2014/05/leetcode-divide-two-integers-java/">LeetCode – Divide Two Integers (Java)</a> is the right answer, tested.</p>
+<blockquote>
+<p>This problem can be solved based on the fact that any number can be converted to the format of the following, Power series of 2:</p>
+</blockquote>
+<pre><code>num=a_0*2^0+a_1*2^1+a_2*2^2+...+a_n*2^n
+</code></pre>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">divide</span><span class="params">(<span class="type">int</span> dividend, <span class="type">int</span> divisor)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (divisor == <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">return</span> Integer.MAX_VALUE;</span><br><span class="line">		<span class="keyword">if</span> (divisor == -<span class="number">1</span> &amp;&amp; dividend == Integer.MIN_VALUE)</span><br><span class="line">			<span class="keyword">return</span> Integer.MAX_VALUE;</span><br><span class="line"></span><br><span class="line">    	<span class="type">boolean</span> <span class="variable">sign</span> <span class="operator">=</span> ((<span class="keyword">new</span> <span class="title class_">Long</span>(dividend)&gt;<span class="number">0</span>) &amp;&amp; (<span class="keyword">new</span> <span class="title class_">Long</span>(divisor)&gt;<span class="number">0</span>)) || ((<span class="keyword">new</span> <span class="title class_">Long</span>(dividend)&lt;<span class="number">0</span>) &amp;&amp; (<span class="keyword">new</span> <span class="title class_">Long</span>(divisor)&lt;<span class="number">0</span>)) ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    	<span class="type">long</span> <span class="variable">dividend_abs</span> <span class="operator">=</span> Math.abs(<span class="keyword">new</span> <span class="title class_">Long</span>(dividend));</span><br><span class="line">    	<span class="type">long</span> <span class="variable">divisor_abs</span> <span class="operator">=</span> Math.abs(<span class="keyword">new</span> <span class="title class_">Long</span>(divisor));</span><br><span class="line"></span><br><span class="line">    	<span class="type">long</span> <span class="variable">quotient</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span> (dividend_abs &gt;= divisor_abs) &#123;</span><br><span class="line">			<span class="comment">// calculate number of left shifts</span></span><br><span class="line">			<span class="type">int</span> <span class="variable">numShift</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">while</span> (dividend_abs &gt;= (divisor_abs &lt;&lt; numShift)) &#123;</span><br><span class="line">				numShift++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// dividend minus the largest shifted divisor</span></span><br><span class="line">			quotient += <span class="number">1</span> &lt;&lt; (numShift - <span class="number">1</span>);</span><br><span class="line">			dividend_abs -= (divisor_abs &lt;&lt; (numShift - <span class="number">1</span>));</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">return</span> sign?<span class="keyword">new</span> <span class="title class_">Long</span>(quotient).intValue():-<span class="keyword">new</span> <span class="title class_">Long</span>(quotient).intValue();       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>989 &#x2F; 989 test cases passed.</li>
+<li>Runtime: 31 ms</li>
+<li>Your runtime beats 30.12 % of java submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/30/LeetCode-Algorithms-Divide-Two-Integers/" data-id="cmf1gcab5003p85yzg5qeb6rf" data-title="LeetCode - Algorithms - 29. Divide Two Integers" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Min-Stack" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/30/LeetCode-Algorithms-Min-Stack/" class="article-date">
+  <time datetime="2018-10-30T14:42:08.000Z" itemprop="datePublished">2018-10-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/30/LeetCode-Algorithms-Min-Stack/">LeetCode - Algorithms - 155. Min Stack</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>The solution of two stack is clear for me.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MinStack</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> Stack&lt;Integer&gt; stack;</span><br><span class="line">	<span class="keyword">private</span> Stack&lt;Integer&gt; minStack;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** initialize your data structure here. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MinStack</span><span class="params">()</span> &#123;</span><br><span class="line">    	stack = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;Integer&gt;();</span><br><span class="line">    	minStack = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;Integer&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    	stack.push(x);</span><br><span class="line">    	<span class="keyword">if</span> (minStack.isEmpty() || minStack.peek()&gt;=x)</span><br><span class="line">    		minStack.push(x);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pop</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> stack.pop();</span><br><span class="line">        <span class="keyword">if</span> (x==minStack.peek())</span><br><span class="line">        	minStack.pop();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">top</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> stack.peek();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getMin</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> minStack.peek();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your MinStack object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * MinStack obj = new MinStack();</span></span><br><span class="line"><span class="comment"> * obj.push(x);</span></span><br><span class="line"><span class="comment"> * obj.pop();</span></span><br><span class="line"><span class="comment"> * int param_3 = obj.top();</span></span><br><span class="line"><span class="comment"> * int param_4 = obj.getMin();</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>18 &#x2F; 18 test cases passed.</li>
+<li>Runtime: 64 ms</li>
+<li>Your runtime beats 96.51 % of java submissions.</li>
+</ul>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * initialize your data structure here.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> <span class="title class_">MinStack</span> = <span class="keyword">function</span>(<span class="params">stk,minStk</span>) &#123;</span><br><span class="line">	<span class="variable language_">this</span>.<span class="property">stk</span> = [];</span><br><span class="line">	<span class="variable language_">this</span>.<span class="property">minStk</span> = [];    </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">number</span>&#125; <span class="variable">x</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">void</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="title class_">MinStack</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">push</span> = <span class="keyword">function</span>(<span class="params">x</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">stk</span>.<span class="title function_">push</span>(x);</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">minStk</span>.<span class="property">length</span>==<span class="number">0</span> || <span class="variable language_">this</span>.<span class="property">minStk</span>[<span class="variable language_">this</span>.<span class="property">minStk</span>.<span class="property">length</span>-<span class="number">1</span>]&gt;=x)</span><br><span class="line">    	<span class="variable language_">this</span>.<span class="property">minStk</span>.<span class="title function_">push</span>(x);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">void</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="title class_">MinStack</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">pop</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> x = <span class="variable language_">this</span>.<span class="property">stk</span>.<span class="title function_">pop</span>();</span><br><span class="line">    <span class="keyword">if</span> (x==<span class="variable language_">this</span>.<span class="property">minStk</span>[<span class="variable language_">this</span>.<span class="property">minStk</span>.<span class="property">length</span>-<span class="number">1</span>])</span><br><span class="line">    	<span class="variable language_">this</span>.<span class="property">minStk</span>.<span class="title function_">pop</span>();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">number</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="title class_">MinStack</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">top</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">stk</span>[<span class="variable language_">this</span>.<span class="property">stk</span>.<span class="property">length</span>-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">number</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="title class_">MinStack</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getMin</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">minStk</span>[<span class="variable language_">this</span>.<span class="property">minStk</span>.<span class="property">length</span>-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your MinStack object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * var obj = Object.create(MinStack).createNew()</span></span><br><span class="line"><span class="comment"> * obj.push(x)</span></span><br><span class="line"><span class="comment"> * obj.pop()</span></span><br><span class="line"><span class="comment"> * var param_3 = obj.top()</span></span><br><span class="line"><span class="comment"> * var param_4 = obj.getMin()</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>18 &#x2F; 18 test cases passed.</li>
+<li>Runtime: 68 ms</li>
+<li>Your runtime beats 100.00 % of javascript submissions.</li>
+</ul>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/grandyang/p/4091064.html">Min Stack 最小栈</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/30/LeetCode-Algorithms-Min-Stack/" data-id="cmf1gcab7004e85yz0fxifycr" data-title="LeetCode - Algorithms - 155. Min Stack" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Reverse-Bits" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/29/LeetCode-Algorithms-Reverse-Bits/" class="article-date">
+  <time datetime="2018-10-29T19:20:27.000Z" itemprop="datePublished">2018-10-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/29/LeetCode-Algorithms-Reverse-Bits/">LeetCode - Algorithms - 190. Reverse Bits</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Simple as it labled, The problem is puzzled for it has problem with unsigned integer, and neith Java nor JavaScript has unsigned type. I’d like to pass it for some time. The code copied from Web passed in LeetCode, but it output wrong result for some input number.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p>solution from <a target="_blank" rel="noopener" href="https://www.cnblogs.com/yrbbest/p/4491661.html">190. Reverse Bits</a></p>
+<blockquote>
+<p>There is no unsigned integer type. If you need to work with unsigned values originating outside your program, they must be stored in a larger signed type. For example, unsigned bytes produced by an analog-to-digital converter, can be read into variables of type short. — THE Java™ Programming Language, Fourth Edition, By Ken Arnold, James Gosling, David Holmes</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="comment">// you need treat n as an unsigned value</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">reverseBits</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">		<span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">31</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">			<span class="keyword">if</span> (((n &gt;&gt; i) &amp; <span class="number">1</span>) == <span class="number">1</span>) &#123;</span><br><span class="line">				res += (<span class="number">1</span> &lt;&lt; (<span class="number">31</span> - i));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> res;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>600 &#x2F; 600 test cases passed.</li>
+<li>Runtime: 1 ms</li>
+<li>Your runtime beats 100.00 % of java submissions.</li>
+</ul>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><p>solution from <a target="_blank" rel="noopener" href="https://blog.csdn.net/u014328357/article/details/52382112">190. Reverse Bits – JavaScript 代码</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">number</span>&#125; <span class="variable">n</span> - a positive integer</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">number</span>&#125; - a positive integer</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> reverseBits = <span class="keyword">function</span>(<span class="params">n</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> result = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; ++i) &#123;</span><br><span class="line">        result |= (n &gt;&gt; i &amp; <span class="number">0x1</span>) &lt;&lt; (<span class="number">31</span> - i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result &gt;&gt;&gt; <span class="number">0</span>;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>600 &#x2F; 600 test cases passed.</li>
+<li>Runtime: 88 ms</li>
+<li>Your runtime beats 12.00 % of javascript submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/29/LeetCode-Algorithms-Reverse-Bits/" data-id="cmf1gcab9004w85yz9dhb42sw" data-title="LeetCode - Algorithms - 190. Reverse Bits" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-Bitwise-and-Bit-Shift" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/27/Bitwise-and-Bit-Shift/" class="article-date">
+  <time datetime="2018-10-27T23:26:24.000Z" itemprop="datePublished">2018-10-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/27/Bitwise-and-Bit-Shift/">Bitwise and Bit Shift</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Java-Bitwise-and-Bit-Shift-Operators"><a href="#Java-Bitwise-and-Bit-Shift-Operators" class="headerlink" title="Java Bitwise and Bit Shift Operators"></a>Java Bitwise and Bit Shift Operators</h1><table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>|</td>
+<td>Bitwise OR</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>Bitwise AND</td>
+</tr>
+<tr>
+<td>~</td>
+<td>Bitwise Complement</td>
+</tr>
+<tr>
+<td>^</td>
+<td>Bitwise XOR</td>
+</tr>
+<tr>
+<td>&lt;&lt;</td>
+<td>Left Shift</td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>Right Shift</td>
+</tr>
+<tr>
+<td>&gt;&gt;&gt;</td>
+<td>Unsigned Right Shift</td>
+</tr>
+</tbody></table>
+<h1 id="example"><a href="#example" class="headerlink" title="example"></a>example</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><pre><code>System.out.printf(&quot;%d*%d=%d&quot;, 2,8,2&lt;&lt;3);
+</code></pre>
+<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><pre><code>System.out.printf(&quot;%d/2=%d&quot;,11,11&gt;&gt;1);
+</code></pre>
+<h2 id="3"><a href="#3" class="headerlink" title="3"></a>3</h2><pre><code>public static boolean isOddNum(int n) &#123;
+    return (n &amp; 1)==1;
+&#125;
+</code></pre>
+<h2 id="4"><a href="#4" class="headerlink" title="4"></a>4</h2><pre><code>public static int powerofTwo(int n) &#123;
+    return 2&lt;&lt;(n-1);
+&#125;	
+</code></pre>
+<h2 id="5"><a href="#5" class="headerlink" title="5"></a>5</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * how to multiply two arbitrary integers a and b (a greater than b) </span></span><br><span class="line"><span class="comment"> * using only bitshifts and addition</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> a</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> b</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">multiply</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">	<span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (b!=<span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">if</span> ((b &amp; <span class="number">1</span>)!=<span class="number">0</span>)</span><br><span class="line">			c+=a;</span><br><span class="line">		a &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">		b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6"><a href="#6" class="headerlink" title="6"></a>6</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * how to calculate a sum of two integers a and b </span></span><br><span class="line"><span class="comment"> * using bitwise operators and zero-testing</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> a</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> b</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">sum</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">	<span class="type">int</span> c=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(a!=<span class="number">0</span>) &#123;</span><br><span class="line">		c = b &amp; a;</span><br><span class="line">		b = b ^ a;</span><br><span class="line">		c &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">		a = c;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="JavaScript-Bitwise-Operators"><a href="#JavaScript-Bitwise-Operators" class="headerlink" title="JavaScript Bitwise Operators"></a>JavaScript Bitwise Operators</h1><table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&amp;</td>
+<td>AND</td>
+<td>Sets each bit to 1 if both bits are 1</td>
+</tr>
+<tr>
+<td>|</td>
+<td>OR</td>
+<td>Sets each bit to 1 if one of two bits is 1</td>
+</tr>
+<tr>
+<td>^</td>
+<td>XOR</td>
+<td>Sets each bit to 1 if only one of two bits is 1</td>
+</tr>
+<tr>
+<td>~</td>
+<td>NOT</td>
+<td>Inverts all the bits</td>
+</tr>
+<tr>
+<td>&lt;&lt;</td>
+<td>Zero fill left</td>
+<td>shift	Shifts left by pushing zeros in from the right and let the leftmost bits fall off</td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>Signed right shift</td>
+<td>Shifts right by pushing copies of the leftmost bit in from the left, and let the rightmost bits fall off</td>
+</tr>
+<tr>
+<td>&gt;&gt;&gt;</td>
+<td>Zero fill right</td>
+<td>shift	Shifts right by pushing zeros in from the left, and let the rightmost bits fall off</td>
+</tr>
+</tbody></table>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/op3.html">Bitwise and Bit Shift Operators</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.programiz.com/java-programming/bitwise-operators">Java Bitwise and Bit Shift Operators</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators">Bitwise operators</a></li>
+<li><a target="_blank" rel="noopener" href="https://msdn.microsoft.com/en-us/library/336xbhcz.aspx">Left Shift and Right Shift Operators</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3schools.com/js/js_bitwise.asp">JavaScript Bitwise Operations</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bitwise_operation">Bitwise operation</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/27/Bitwise-and-Bit-Shift/" data-id="cmf1gcaau000k85yz02f70l2t" data-title="Bitwise and Bit Shift" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/miscellaneous/" rel="tag">miscellaneous</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Reverse-Linked-List" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/26/LeetCode-Algorithms-Reverse-Linked-List/" class="article-date">
+  <time datetime="2018-10-26T20:11:16.000Z" itemprop="datePublished">2018-10-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/26/LeetCode-Algorithms-Reverse-Linked-List/">LeetCode - Algorithms - 206. Reverse Linked List</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/reverse-linked-list/">206. Reverse Linked List</a></p>
+<h2 id="Follow-up"><a href="#Follow-up" class="headerlink" title="Follow up"></a>Follow up</h2><p>A linked list can be reversed either iteratively or recursively. Could you implement both?</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="iteratively"><a href="#iteratively" class="headerlink" title="iteratively"></a>iteratively</h2><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>© <a target="_blank" rel="noopener" href="https://www.programcreek.com/2014/05/leetcode-reverse-linked-list-java/">LeetCode – Reverse Linked List (Java) - Java Solution 1 - Iterative</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">reverseList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (head == <span class="literal">null</span> || head.next == <span class="literal">null</span>)</span><br><span class="line">			<span class="keyword">return</span> head;</span><br><span class="line"></span><br><span class="line">		<span class="type">ListNode</span> <span class="variable">p1</span> <span class="operator">=</span> head;</span><br><span class="line">		<span class="type">ListNode</span> <span class="variable">p2</span> <span class="operator">=</span> p1.next;</span><br><span class="line"></span><br><span class="line">		head.next = <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">while</span> (p1 != <span class="literal">null</span> &amp;&amp; p2 != <span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="type">ListNode</span> <span class="variable">t</span> <span class="operator">=</span> p2.next;</span><br><span class="line">			p2.next = p1;</span><br><span class="line">			p1 = p2;</span><br><span class="line">			p2 = t;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> p1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>27 &#x2F; 27 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Reverse Linked List.</li>
+<li>Memory Usage: 39 MB, less than 22.36% of Java online submissions for Reverse Linked List.</li>
+</ul>
+<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">reverseList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    	<span class="type">ListNode</span> <span class="variable">prev</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    	<span class="type">ListNode</span> <span class="variable">current</span> <span class="operator">=</span> head;</span><br><span class="line">    	<span class="type">ListNode</span> <span class="variable">next</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    	<span class="keyword">while</span>(current!=<span class="literal">null</span>) &#123;</span><br><span class="line">    		next = current.next;</span><br><span class="line">    		current.next = prev;</span><br><span class="line">    		prev = current;</span><br><span class="line">    		current = next;</span><br><span class="line">    	&#125;</span><br><span class="line">    	head = prev;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>27 &#x2F; 27 test cases passed.</li>
+<li>Runtime: 0 ms</li>
+<li>Your runtime beats 100.00 % of java submissions.</li>
+</ul>
+<h2 id="recursively"><a href="#recursively" class="headerlink" title="recursively"></a>recursively</h2><h3 id="1-1"><a href="#1-1" class="headerlink" title="1"></a>1</h3><p>© <a target="_blank" rel="noopener" href="https://www.programcreek.com/2014/05/leetcode-reverse-linked-list-java/">LeetCode – Reverse Linked List (Java) - Java Solution 2 - Recursive</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">reverseList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (head == <span class="literal">null</span> || head.next == <span class="literal">null</span>)</span><br><span class="line">			<span class="keyword">return</span> head;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//get second node</span></span><br><span class="line">		<span class="type">ListNode</span> <span class="variable">second</span> <span class="operator">=</span> head.next;</span><br><span class="line">		<span class="comment">//set first&#x27;s next to be null</span></span><br><span class="line">		head.next = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">		<span class="type">ListNode</span> <span class="variable">rest</span> <span class="operator">=</span> reverseList(second);</span><br><span class="line">		second.next = head;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> rest;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>27 &#x2F; 27 test cases passed.</li>
+<li>Runtime: 0 ms, faster than 100.00% of Java online submissions for Reverse Linked List.</li>
+<li>Memory Usage: 39.2 MB, less than 22.97% of Java online submissions for Reverse Linked List.</li>
+</ul>
+<h3 id="2-1"><a href="#2-1" class="headerlink" title="2"></a>2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">reverseList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    	<span class="keyword">if</span> (head==<span class="literal">null</span> || head.next==<span class="literal">null</span>)</span><br><span class="line">    		<span class="keyword">return</span> head;</span><br><span class="line">    	<span class="type">ListNode</span> <span class="variable">p</span> <span class="operator">=</span> reverseList(head.next);</span><br><span class="line">    	head.next.next=head;</span><br><span class="line">    	head.next=<span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-3"><a href="#Submission-Detail-3" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>27 &#x2F; 27 test cases passed.</li>
+<li>Runtime: 1 ms</li>
+<li>Your runtime beats 6.80 % of java submissions.</li>
+</ul>
+<h2 id="Tail-Recursive"><a href="#Tail-Recursive" class="headerlink" title="Tail Recursive"></a>Tail Recursive</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">reverseUtil</span><span class="params">(ListNode curr, ListNode prev)</span> &#123;</span><br><span class="line">    	<span class="type">ListNode</span> <span class="variable">head</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    	<span class="keyword">if</span> (curr.next==<span class="literal">null</span>) &#123;</span><br><span class="line">    		head = curr;</span><br><span class="line">    		curr.next=prev;</span><br><span class="line">    		<span class="keyword">return</span> head;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">    	<span class="type">ListNode</span> <span class="variable">next1</span> <span class="operator">=</span> curr.next;</span><br><span class="line">    	curr.next=prev;</span><br><span class="line">    	head = reverseUtil(next1,curr);</span><br><span class="line">    	<span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">reverseList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (head!=<span class="literal">null</span>)</span><br><span class="line">          <span class="keyword">return</span> reverseUtil(head,<span class="literal">null</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-4"><a href="#Submission-Detail-4" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>27 &#x2F; 27 test cases passed.</li>
+<li>Runtime: 0 ms</li>
+<li>Your runtime beats 100.00 % of java submissions.</li>
+</ul>
+<hr>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.programcreek.com/2014/05/leetcode-reverse-linked-list-java/">LeetCode – Reverse Linked List (Java)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/reverse-a-linked-list/">Reverse a linked list</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.topjavatutorial.com/java/java-programs/reverse-linked-list-using-recursion-in-java/">Reverse Linked List using recursion in java</a>: it helps to recursive method</li>
+<li><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/java-program-for-reverse-a-linked-list/">Java Program for Reverse a linked list</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/26/LeetCode-Algorithms-Reverse-Linked-List/" data-id="cmf1gcabc006085yzbss65nw5" data-title="LeetCode - Algorithms - 206. Reverse Linked List" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-First-Unique-Character-in-a-String" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/24/LeetCode-Algorithms-First-Unique-Character-in-a-String/" class="article-date">
+  <time datetime="2018-10-24T16:13:23.000Z" itemprop="datePublished">2018-10-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/24/LeetCode-Algorithms-First-Unique-Character-in-a-String/">LeetCode - Algorithms - 387. First Unique Character in a String</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>虽然是Easy的题，自己却想不出来，最后只好参考了这个 <a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/given-a-string-find-its-first-non-repeating-character/">Given a string, find its first non-repeating character</a> 的思路，倒也很容易看明白，一点就破的题。</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">firstUniqChar</span><span class="params">(String s)</span> &#123;</span><br><span class="line">    	Map&lt;Character,Integer&gt; count = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Character,Integer&gt;();</span><br><span class="line">    	<span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> <span class="string">&#x27;\u0000&#x27;</span>;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;s.length();i++) &#123;</span><br><span class="line">    		c = s.charAt(i);</span><br><span class="line">    		<span class="keyword">if</span> (count.containsKey(c)) &#123;</span><br><span class="line">    			count.put(c, count.get(c)+<span class="number">1</span>);</span><br><span class="line">    		&#125;</span><br><span class="line">    		<span class="keyword">else</span> &#123;</span><br><span class="line">    			count.put(c, <span class="number">1</span>);</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;s.length();i++) &#123;</span><br><span class="line">        	<span class="keyword">if</span> (count.get(s.charAt(i))==<span class="number">1</span>) &#123;</span><br><span class="line">        		r = i;</span><br><span class="line">        		<span class="keyword">break</span>;</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>104 &#x2F; 104 test cases passed.</li>
+<li>Runtime: 61 ms</li>
+<li>Your runtime beats 25.39 % of java submissions.</li>
+</ul>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">string</span>&#125; <span class="variable">s</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">number</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> firstUniqChar = <span class="keyword">function</span>(<span class="params">s</span>) &#123;</span><br><span class="line">	<span class="keyword">var</span> count = &#123;&#125;;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;s.<span class="property">length</span>;i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">typeof</span> count[s[i]]!=<span class="string">&quot;undefined&quot;</span> &amp;&amp; count[s[i]]!=<span class="literal">null</span>) &#123;</span><br><span class="line">			count[s[i]]++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			count[s[i]]=<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> r=-<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;s.<span class="property">length</span>;i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (count[s[i]]==<span class="number">1</span>) &#123;</span><br><span class="line">			r=i;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> r;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>104 &#x2F; 104 test cases passed.</li>
+<li>Runtime: 108 ms</li>
+<li>Your runtime beats 37.23 % of javascript submissions.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/24/LeetCode-Algorithms-First-Unique-Character-in-a-String/" data-id="cmf1gcab5003h85yz0cgz5h02" data-title="LeetCode - Algorithms - 387. First Unique Character in a String" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-Maven" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/22/Maven/" class="article-date">
+  <time datetime="2018-10-23T02:48:02.000Z" itemprop="datePublished">2018-10-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/22/Maven/">Maven</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="POM"><a href="#POM" class="headerlink" title="POM"></a>POM</h1><p>Project Object Model（项目对象模型）</p>
+<h2 id="坐标"><a href="#坐标" class="headerlink" title="坐标"></a>坐标</h2><p>在 POM 中，groupId, artifactId, packaging, version 叫作 maven 坐标，它能唯一的确定一个项目。有了 maven 坐标，我们就可以用它来指定我们的项目所依赖的其他项目，插件，或者父项目。一般 maven 坐标写成如下的格式：</p>
+<pre><code>    groupId:artifactId:packaging:version
+</code></pre>
+<ul>
+<li>groupId 定义了项目属于哪个组，这有助于在大的范围上区别项目</li>
+<li>artifactId 定义了这个项目在组中唯一的 ID</li>
+<li>version 指明当前项目的版本</li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>name 是一个用户友好的项目名称</li>
+<li>modelVersion 指定 POM 模型的版本</li>
+<li>packaging 指定了项目发布时的打包类型</li>
+</ul>
+<h1 id="Maven项目结构"><a href="#Maven项目结构" class="headerlink" title="Maven项目结构"></a>Maven项目结构</h1><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>${basedir}</td>
+<td>存放 pom.xml和所有的子目录</td>
+</tr>
+<tr>
+<td>${basedir}&#x2F;src&#x2F;main&#x2F;java</td>
+<td>项目的 java源代码</td>
+</tr>
+<tr>
+<td>${basedir}&#x2F;src&#x2F;main&#x2F;resources</td>
+<td>项目的资源，比如说 property文件</td>
+</tr>
+<tr>
+<td>${basedir}&#x2F;src&#x2F;test&#x2F;java</td>
+<td>项目的测试类，比如说 JUnit代码</td>
+</tr>
+<tr>
+<td>${basedir}&#x2F;src&#x2F;test&#x2F;resources</td>
+<td>测试使用的资源</td>
+</tr>
+</tbody></table>
+<ul>
+<li>编译后 的 classes 会放在 ${basedir}&#x2F;target&#x2F;classes 下面</li>
+<li>JAR 文件会放在 ${basedir}&#x2F;target 下面（默认情况下会产生 JAR 文件）</li>
+</ul>
+<h1 id="Maven-插件"><a href="#Maven-插件" class="headerlink" title="Maven 插件"></a>Maven 插件</h1><p>mvn 本身不会做太多的事情，它不知道怎么样编译或者怎么样打包。它把构建的任务交给插件去做。插件定义了常用的构建逻辑，能够被重复利用。这样做的好处是，一旦插件有了更新，那么所有的 maven 用户都能得到更新。</p>
+<h1 id="Maven-生命周期"><a href="#Maven-生命周期" class="headerlink" title="Maven 生命周期"></a>Maven 生命周期</h1><p>生命周期指项目的构建过程，它包含了一系列的有序的阶段 (phase)，而一个阶段就是构建过程中的一个步骤。</p>
+<p>maven 能支持不同的生命周期，但是最常用的是默认的Maven生命周期 (default Maven lifecycle )。如果你没有对它进行任何的插件配置或者定制的话，那么上面的命令 mvn package 会依次执行默认生命周期中直到包括 package 阶段前的所有阶段的插件目标：</p>
+<ol>
+<li>process-resources 阶段：resources:resources</li>
+<li>compile 阶段：compiler:compile</li>
+<li>process-classes 阶段：(默认无目标)</li>
+<li>process-test-resources 阶段：resources:testResources</li>
+<li>test-compile 阶段：compiler:testCompile</li>
+<li>test 阶段：surefire:test</li>
+<li>prepare-package 阶段：(默认无目标)</li>
+<li>package 阶段：jar:jar</li>
+</ol>
+<h1 id="dependencies"><a href="#dependencies" class="headerlink" title="dependencies"></a>dependencies</h1><ul>
+<li>在 POM 中，依赖关系是在 dependencies 部分中定义的。</li>
+<li>maven 提供了传递依赖的特性，所谓传递依赖是指 maven 会检查被依赖的 jar 文件，把它的依赖关系纳入最终解决的依赖关系链中。</li>
+<li>在 POM 的 dependencies 部分中，scope 决定了依赖关系的适用范围。<ul>
+<li>我们还可以指定 scope 为 provided，意思是 JDK 或者容器会提供所需的jar文件。</li>
+<li>scope 的默认值是 compile，即任何时候都会被包含在 classpath 中，在打包的时候也会被包括进去。</li>
+</ul>
+</li>
+</ul>
+<h1 id="Maven-库"><a href="#Maven-库" class="headerlink" title="Maven 库"></a>Maven 库</h1><h2 id="远程库"><a href="#远程库" class="headerlink" title="远程库"></a>远程库</h2><p>maven 默认的远程库(<a target="_blank" rel="noopener" href="http://repo1.maven.org/maven2">http://repo1.maven.org/maven2</a>)</p>
+<h2 id="本地库"><a href="#本地库" class="headerlink" title="本地库"></a>本地库</h2><p>本地库是指 maven 下载了插件或者 jar 文件后存放在本地机器上的拷贝。在 Linux 上，它的位置在 ~&#x2F;.m2&#x2F;repository，在 Windows XP 上，在 C:\Documents and Settings\username.m2\repository ，在 Windows 7 上，在 C:\Users\username.m2\repository。</p>
+<p>当 maven 查找需要的 jar 文件时，它会先在本地库中寻找，只有在找不到的情况下，才会去远程库中找。</p>
+<h1 id="mvn"><a href="#mvn" class="headerlink" title="mvn"></a>mvn</h1><ul>
+<li>mvn install -DskipTests</li>
+<li>mvn clean install : executes the clean build life cycle and the install build phase in the default build life cycle.</li>
+<li>mvn install:install-file -Dfile&#x3D;xxx.jar -DgroupId&#x3D;xxx -DartifactId&#x3D;xxx -Dversion&#x3D;xxx -Dpackaging&#x3D;jar</li>
+</ul>
+<h2 id="common"><a href="#common" class="headerlink" title="common"></a>common</h2><ul>
+<li>mvn clean : Clears the target directory into which Maven normally builds your project.</li>
+<li>mvn package : Builds the project and packages the resulting JAR file into the target directory.</li>
+<li>mvn package -Dmaven.test.skip&#x3D;true : Builds the project and packages the resulting JAR file into the target directory - without running the unit tests during the build.</li>
+<li>mvn install : Builds the project described by your Maven POM file and installs the resulting artifact (JAR) into your local Maven repository</li>
+</ul>
+<h1 id="build-phase-command"><a href="#build-phase-command" class="headerlink" title="build phase command"></a>build phase command</h1><ul>
+<li>mvn pre-clean</li>
+<li>mvn compile</li>
+<li>mvn package</li>
+</ul>
+<h1 id="build-phases"><a href="#build-phases" class="headerlink" title="build phases"></a>build phases</h1><p>The most commonly used build phases in the default build life cycle are:</p>
+<table>
+<thead>
+<tr>
+<th>Build Phase</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>validate</td>
+<td>Validates that the project is correct and all necessary information is available. This also makes sure the dependencies are downloaded.</td>
+</tr>
+<tr>
+<td>compile</td>
+<td>Compiles the source code of the project.</td>
+</tr>
+<tr>
+<td>test</td>
+<td>Runs the tests against the compiled source code using a suitable unit testing framework. These tests should not require the code be packaged or deployed.</td>
+</tr>
+<tr>
+<td>package</td>
+<td>Packs the compiled code in its distributable format, such as a JAR.</td>
+</tr>
+<tr>
+<td>install</td>
+<td>Install the package into the local repository, for use as a dependency in other projects locally.</td>
+</tr>
+<tr>
+<td>deploy</td>
+<td>Copies the final package to the remote repository for sharing with other developers and projects.</td>
+</tr>
+</tbody></table>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/maven/" title="This guide walks you through using Maven to build a simple Java project.">Building Java Projects with Maven</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.oracle.com/technetwork/cn/community/java/apache-maven-getting-started-1-406235-zhs.html">Apache Maven 入门篇 ( 上 )</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.oracle.com/technetwork/cn/community/java/apache-maven-getting-started-2-405568-zhs.html">Apache Maven 入门篇(下)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-maven/">用 Maven 做项目构建</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/opensource/os-maven/index.html?mhq=maven&mhsrc=ibmsearch_a" title="充分使用这些工具">在 Eclipse 中利用 Maven</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.ibm.com/articles/j-5things16/" title="Tips for mastering modern Maven plugins">Apache Maven plugins</a></li>
+<li><a target="_blank" rel="noopener" href="https://maven.apache.org/">Apache Maven</a></li>
+<li><a target="_blank" rel="noopener" href="https://mvnrepository.com/">MvnRepository</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2018/10/22/Maven/" data-id="cmf1gcabf007685yzdi058bfe" data-title="Maven" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%B6%E4%BB%96/" rel="tag">其他</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/49/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="page-number" href="/page/49/">49</a><span class="page-number current">50</span><a class="page-number" href="/page/51/">51</a><a class="page-number" href="/page/52/">52</a><span class="space">&hellip;</span><a class="page-number" href="/page/58/">58</a><a class="extend next" rel="next" href="/page/51/">Next »</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PhraseList/" rel="tag">PhraseList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/" rel="tag">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WordList/" rel="tag">WordList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miscellaneous/" rel="tag">miscellaneous</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%B6%E4%BB%96/" rel="tag">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E5%85%B8%E6%96%87%E5%AD%A6/" rel="tag">古典文学</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithms/" style="font-size: 12.67px;">Algorithms</a> <a href="/tags/ELL/" style="font-size: 19.33px;">ELL</a> <a href="/tags/English/" style="font-size: 18px;">English</a> <a href="/tags/LeetCode/" style="font-size: 20px;">LeetCode</a> <a href="/tags/PhraseList/" style="font-size: 14.67px;">PhraseList</a> <a href="/tags/TED/" style="font-size: 16px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 13.33px;">TED-Ed</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.33px;">The Story of Maths</a> <a href="/tags/WordList/" style="font-size: 17.33px;">WordList</a> <a href="/tags/git/" style="font-size: 10.67px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/math/" style="font-size: 14px;">math</a> <a href="/tags/miscellaneous/" style="font-size: 16.67px;">miscellaneous</a> <a href="/tags/poem/" style="font-size: 18.67px;">poem</a> <a href="/tags/%E5%85%B6%E4%BB%96/" style="font-size: 15.33px;">其他</a> <a href="/tags/%E5%8F%A4%E5%85%B8%E6%96%87%E5%AD%A6/" style="font-size: 12px;">古典文学</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">August 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">July 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">June 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/08/26/Education-without-books-Julius-Lips/">Education</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/08/My-English-Phrases-List-Aug-2025/">My English Phrases List - August - 2025</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/01/My-English-Words-List-Aug-2025/">My English Words List - August - 2025</a>
+          </li>
+        
+          <li>
+            <a href="/2025/07/30/esl-notes-1/">ESL Notes - 1</a>
+          </li>
+        
+          <li>
+            <a href="/2025/07/18/quotes-1/">Quotes</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 hezhigang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

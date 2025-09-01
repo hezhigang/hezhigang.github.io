@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Stay Hungry. Stay Foolish.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Stay Hungry. Stay Foolish.">
+<meta property="og:url" content="https://hezhigang.github.io/page/44/index.html">
+<meta property="og:site_name" content="Stay Hungry. Stay Foolish.">
+<meta property="og:locale">
+<meta property="article:author" content="hezhigang">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Stay Hungry. Stay Foolish." type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Stay Hungry. Stay Foolish.</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hezhigang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-binary-matrix-01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/21/binary-matrix-01/" class="article-date">
+  <time datetime="2020-02-21T05:05:53.000Z" itemprop="datePublished">2020-02-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/21/binary-matrix-01/">LeetCode - Algorithms - 542. 01 Matrix</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/01-matrix/">542. 01 Matrix</a></p>
+<p>Given a matrix consists of 0 and 1, find the distance of the nearest 0 for each cell.</p>
+<p>The distance between two adjacent cells is 1.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">int</span> d[][] = &#123;</span><br><span class="line">            &#123;<span class="number">0</span>,<span class="number">1</span>&#125;,</span><br><span class="line">            &#123;<span class="number">1</span>,<span class="number">0</span>&#125;,</span><br><span class="line">            &#123;<span class="number">0</span>,-<span class="number">1</span>&#125;,</span><br><span class="line">            &#123;-<span class="number">1</span>,<span class="number">0</span>&#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[][] updateMatrix(<span class="type">int</span>[][] matrix) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">h</span> <span class="operator">=</span> matrix.length;</span><br><span class="line">        <span class="type">int</span> <span class="variable">w</span> <span class="operator">=</span> matrix[<span class="number">0</span>].length;</span><br><span class="line">        <span class="type">int</span>[][] dist = <span class="keyword">new</span> <span class="title class_">int</span>[h][w];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;h;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;w;j++) &#123;</span><br><span class="line">                dist[i][j]=Integer.MAX_VALUE;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Queue&lt;<span class="type">int</span>[]&gt; queue = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;<span class="type">int</span>[]&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;h;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;w;j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j]==<span class="number">0</span>) &#123;</span><br><span class="line">                    dist[i][j]=<span class="number">0</span>;</span><br><span class="line">                    queue.add(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;i,j&#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="type">int</span>[] curr = queue.poll();</span><br><span class="line">            <span class="type">int</span> <span class="variable">row</span> <span class="operator">=</span> curr[<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">col</span> <span class="operator">=</span> curr[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> row + d[i][<span class="number">0</span>];</span><br><span class="line">                <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> col + d[i][<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (isValid(matrix, h, w, x, y)) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (dist[x][y]&gt;dist[row][col]+<span class="number">1</span>) &#123;</span><br><span class="line">                        dist[x][y] = dist[row][col]+<span class="number">1</span>;</span><br><span class="line">                        queue.add(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;x,y&#125;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dist;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(<span class="type">int</span>[][] grid, <span class="type">int</span> width, <span class="type">int</span> height, <span class="type">int</span> row, <span class="type">int</span> col)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (row &gt;= <span class="number">0</span>) &amp;&amp; (row &lt; width) &amp;&amp; (col &gt;= <span class="number">0</span>) &amp;&amp; (col &lt; height);</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>48 &#x2F; 48 test cases passed.</li>
+<li>Runtime: 14 ms, faster than 64.69% of Java online submissions for 01 Matrix.</li>
+<li>Memory Usage: 44 MB, less than 100.00% of Java online submissions for 01 Matrix.</li>
+</ul>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/01-matrix/solution/">Approach 2 Using BFS</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/02/21/binary-matrix-01/" data-id="cmf1gcabz00do85yzeqso109u" data-title="LeetCode - Algorithms - 542. 01 Matrix" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-intellij-idea-cheat-sheet" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/20/intellij-idea-cheat-sheet/" class="article-date">
+  <time datetime="2020-02-20T16:51:43.000Z" itemprop="datePublished">2020-02-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/20/intellij-idea-cheat-sheet/">IntelliJ IDEA Cheat Sheet</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Shortcuts"><a href="#Shortcuts" class="headerlink" title="Shortcuts"></a>Shortcuts</h1><h2 id="Double-Shift"><a href="#Double-Shift" class="headerlink" title="Double Shift"></a>Double Shift</h2><p>Search Everywhere</p>
+<p>Find anything related to IntelliJ IDEA or your project and open it, execute it, or jump to it.</p>
+<h2 id="Ctrl-E"><a href="#Ctrl-E" class="headerlink" title="Ctrl+E"></a>Ctrl+E</h2><p>View recent files, Recent files popup</p>
+<p>Select a recently opened file from the list.</p>
+<h2 id="Alt-1"><a href="#Alt-1" class="headerlink" title="Alt + 1"></a>Alt + 1</h2><p>Project window</p>
+<h2 id="Esc"><a href="#Esc" class="headerlink" title="Esc"></a>Esc</h2><p>focus on editor</p>
+<h2 id="Alt-Enter"><a href="#Alt-Enter" class="headerlink" title="Alt + Enter"></a>Alt + Enter</h2><p>Show intention actions and quick-fixes</p>
+<h2 id="Alt-F1"><a href="#Alt-F1" class="headerlink" title="Alt+F1"></a>Alt+F1</h2><p>locate the current file in the project structure</p>
+<h2 id="F2"><a href="#F2" class="headerlink" title="F2"></a>F2</h2><p>Next highlighted error</p>
+<h2 id="Ctrl-B"><a href="#Ctrl-B" class="headerlink" title="Ctrl + B"></a>Ctrl + B</h2><p>go to declaration</p>
+<h2 id="Alt-F7"><a href="#Alt-F7" class="headerlink" title="Alt + F7"></a>Alt + F7</h2><p>find usages</p>
+<h2 id="Tap-Ctrl-Twice"><a href="#Tap-Ctrl-Twice" class="headerlink" title="Tap Ctrl Twice"></a>Tap Ctrl Twice</h2><p>Run anything</p>
+<h2 id="Ctrl-W-x2F-Shift-Ctrl-W"><a href="#Ctrl-W-x2F-Shift-Ctrl-W" class="headerlink" title="Ctrl + W &#x2F; Shift + Ctrl + W"></a>Ctrl + W &#x2F; Shift + Ctrl + W</h2><p>Extend &#x2F; Shrink Selection</p>
+<h2 id="Shift-Ctrl-Enter"><a href="#Shift-Ctrl-Enter" class="headerlink" title="Shift + Ctrl + Enter"></a>Shift + Ctrl + Enter</h2><p>Complete current statement</p>
+<h2 id="Shift-Ctrl-Alt-T"><a href="#Shift-Ctrl-Alt-T" class="headerlink" title="Shift + Ctrl + Alt + T"></a>Shift + Ctrl + Alt + T</h2><p>Refactor</p>
+<h2 id="Shift-Ctrl-A"><a href="#Shift-Ctrl-A" class="headerlink" title="Shift + Ctrl + A"></a>Shift + Ctrl + A</h2><p>Find Action</p>
+<h2 id="Ctrl-Shift-F"><a href="#Ctrl-Shift-F" class="headerlink" title="Ctrl+Shift+F"></a>Ctrl+Shift+F</h2><p>Find the search string in a project, Find in path</p>
+<h2 id="Add-Delete-and-Move-Lines"><a href="#Add-Delete-and-Move-Lines" class="headerlink" title="Add, Delete, and Move Lines"></a>Add, Delete, and Move Lines</h2><h3 id="Ctrl-Y"><a href="#Ctrl-Y" class="headerlink" title="Ctrl+Y"></a>Ctrl+Y</h3><p>To delete the current line</p>
+<h3 id="Ctrl-Mouse-Wheel"><a href="#Ctrl-Mouse-Wheel" class="headerlink" title="Ctrl + Mouse Wheel"></a>Ctrl + Mouse Wheel</h3><p>zoom text content</p>
+<h2 id="Reformat-and-rearrange-code"><a href="#Reformat-and-rearrange-code" class="headerlink" title="Reformat and rearrange code"></a>Reformat and rearrange code</h2><h3 id="Ctrl-Alt-L"><a href="#Ctrl-Alt-L" class="headerlink" title="Ctrl+Alt+L"></a>Ctrl+Alt+L</h3><p>Reformat a code fragment in a file</p>
+<h2 id="Generating-code"><a href="#Generating-code" class="headerlink" title="Generating code"></a>Generating code</h2><h3 id="Alt-Insert"><a href="#Alt-Insert" class="headerlink" title="Alt+Insert"></a>Alt+Insert</h3><p>Generate getters and setters for a class</p>
+<h2 id="find-and-locate"><a href="#find-and-locate" class="headerlink" title="find and locate"></a>find and locate</h2><h3 id="Ctrl-Shift-M"><a href="#Ctrl-Shift-M" class="headerlink" title="Ctrl + Shift + M"></a>Ctrl + Shift + M</h3><p>Ctrl + [, Ctrl + ] also worked</p>
+<p>move Caret to matching brace, Move Caret to Code Block Start&#x2F;End</p>
+<h2 id="Alt-Enter-1"><a href="#Alt-Enter-1" class="headerlink" title="Alt+Enter"></a>Alt+Enter</h2><p>Auto import suggestion</p>
+<h2 id="Ctrl-G"><a href="#Ctrl-G" class="headerlink" title="Ctrl + G"></a>Ctrl + G</h2><p>Go to Line</p>
+<h2 id="Ctrl-Shift-Up-x2F-Down"><a href="#Ctrl-Shift-Up-x2F-Down" class="headerlink" title="Ctrl + Shift + Up &#x2F; Down"></a>Ctrl + Shift + Up &#x2F; Down</h2><p>Move Lines</p>
+<h1 id="Ctrl-Shift-F10"><a href="#Ctrl-Shift-F10" class="headerlink" title="Ctrl + Shift + F10"></a>Ctrl + Shift + F10</h1><p>Run</p>
+<h1 id="preference"><a href="#preference" class="headerlink" title="preference"></a>preference</h1><h2 id="Change-the-UI-theme"><a href="#Change-the-UI-theme" class="headerlink" title="Change the UI theme"></a>Change the UI theme</h2><p>Settings&#x2F;Preferences | Appearance &amp; Behavior | Appearance</p>
+<h3 id="Theme-list"><a href="#Theme-list" class="headerlink" title="Theme list"></a>Theme list</h3><ul>
+<li>Darcula: Default dark theme</li>
+<li>Light: More traditional light theme</li>
+<li>High contrast: Theme designed for users with color vision deficiency</li>
+</ul>
+<h1 id="Export-x2F-import-project-structure"><a href="#Export-x2F-import-project-structure" class="headerlink" title="Export&#x2F;import project structure"></a>Export&#x2F;import project structure</h1><ul>
+<li>*.iml (module description files)</li>
+<li>.idea folder</li>
+</ul>
+<h2 id="Module-dependencies"><a href="#Module-dependencies" class="headerlink" title="Module dependencies"></a>Module dependencies</h2><h3 id="dependency-scope"><a href="#dependency-scope" class="headerlink" title="dependency scope"></a>dependency scope</h3><ul>
+<li><strong>Compile</strong>: required to build, test, and run a project (the default scope).</li>
+<li>Test: required to compile and run unit tests.</li>
+<li><strong>Runtime</strong>: included in the classpath for your sources and test sources but only at the run phase.</li>
+<li><strong>Provided</strong>: used for building and testing a project.</li>
+</ul>
+<h1 id="clear-the-caches-in-Intellij-IDEA"><a href="#clear-the-caches-in-Intellij-IDEA" class="headerlink" title="clear the caches in Intellij IDEA"></a>clear the caches in Intellij IDEA</h1><p>file menu, <code>Clear Caches and Restart</code>, select option to restart</p>
+<h1 id="Debugger"><a href="#Debugger" class="headerlink" title="Debugger"></a>Debugger</h1><h2 id="Step-over-F8"><a href="#Step-over-F8" class="headerlink" title="Step over F8"></a>Step over F8</h2><h2 id="Step-into-F7"><a href="#Step-into-F7" class="headerlink" title="Step into F7"></a>Step into F7</h2><h2 id="Resume-program-F9"><a href="#Resume-program-F9" class="headerlink" title="Resume program F9"></a>Resume program F9</h2><h2 id="Run-to-cursor-Alt-F9"><a href="#Run-to-cursor-Alt-F9" class="headerlink" title="Run to cursor Alt + F9"></a>Run to cursor Alt + F9</h2><h2 id="Drop-Frame"><a href="#Drop-Frame" class="headerlink" title="Drop Frame"></a>Drop Frame</h2><h1 id="others"><a href="#others" class="headerlink" title="others"></a>others</h1><h2 id="Console-output-encoding"><a href="#Console-output-encoding" class="headerlink" title="Console output encoding"></a>Console output encoding</h2><p>On the Help menu, click Edit Custom VM Options.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-Dfile.encoding=UTF-8</span><br><span class="line">-Dconsole.encoding=UTF-8</span><br></pre></td></tr></table></figure>
+
+<h1 id="HTTP-client"><a href="#HTTP-client" class="headerlink" title="HTTP client"></a>HTTP client</h1><h2 id="cookies"><a href="#cookies" class="headerlink" title="cookies"></a>cookies</h2><p><code>http-client.cookies</code> file under the <code>.idea/httpRequests/</code> directory</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/02/20/intellij-idea-cheat-sheet/" data-id="cmf1gcace00il85yzazg7av0s" data-title="IntelliJ IDEA Cheat Sheet" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/miscellaneous/" rel="tag">miscellaneous</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Employee-Importance" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/19/LeetCode-Algorithms-Employee-Importance/" class="article-date">
+  <time datetime="2020-02-19T19:11:27.000Z" itemprop="datePublished">2020-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/19/LeetCode-Algorithms-Employee-Importance/">LeetCode - Algorithms - 690. Employee Importance</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/employee-importance/">690. Employee Importance</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h2><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">// Employee info</span></span><br><span class="line"><span class="comment">class Employee &#123;</span></span><br><span class="line"><span class="comment">    // It&#x27;s the unique id of each node;</span></span><br><span class="line"><span class="comment">    // unique id of this employee</span></span><br><span class="line"><span class="comment">    public int id;</span></span><br><span class="line"><span class="comment">    // the importance value of this employee</span></span><br><span class="line"><span class="comment">    public int importance;</span></span><br><span class="line"><span class="comment">    // the id of direct subordinates</span></span><br><span class="line"><span class="comment">    public List&lt;Integer&gt; subordinates;</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getImportance</span><span class="params">(List&lt;Employee&gt; employees, <span class="type">int</span> id)</span> &#123;</span><br><span class="line">		<span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">		<span class="type">boolean</span>[] visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[employees.size()];</span><br><span class="line">		Queue&lt;Integer&gt; queue = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;Integer&gt;();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;employees.size(); i++) &#123;</span><br><span class="line">			<span class="type">Employee</span> <span class="variable">e</span> <span class="operator">=</span> employees.get(i);</span><br><span class="line">			<span class="keyword">if</span> (e.id==id) &#123;</span><br><span class="line">				<span class="keyword">for</span>(Integer subId:e.subordinates)</span><br><span class="line">					queue.add(subId);</span><br><span class="line">				r+=e.importance;</span><br><span class="line">				visited[i]=<span class="literal">true</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">currId</span> <span class="operator">=</span> queue.poll();</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;employees.size(); i++) &#123;</span><br><span class="line">				<span class="keyword">if</span> (!visited[i]) &#123;</span><br><span class="line">					<span class="type">Employee</span> <span class="variable">e</span> <span class="operator">=</span> employees.get(i);</span><br><span class="line">					<span class="keyword">if</span> (e.id==currId) &#123;</span><br><span class="line">						<span class="keyword">for</span>(Integer subId:e.subordinates)</span><br><span class="line">							queue.add(subId);</span><br><span class="line">						r+=e.importance;</span><br><span class="line">						visited[i]=<span class="literal">true</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> r;       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>108 &#x2F; 108 test cases passed.</li>
+<li>Runtime: 14 ms, faster than 12.95% of Java online submissions for Employee Importance.</li>
+<li>Memory Usage: 42.6 MB, less than 100.00% of Java online submissions for Employee Importance.</li>
+</ul>
+<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">// Employee info</span></span><br><span class="line"><span class="comment">class Employee &#123;</span></span><br><span class="line"><span class="comment">    // It&#x27;s the unique id of each node;</span></span><br><span class="line"><span class="comment">    // unique id of this employee</span></span><br><span class="line"><span class="comment">    public int id;</span></span><br><span class="line"><span class="comment">    // the importance value of this employee</span></span><br><span class="line"><span class="comment">    public int importance;</span></span><br><span class="line"><span class="comment">    // the id of direct subordinates</span></span><br><span class="line"><span class="comment">    public List&lt;Integer&gt; subordinates;</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getImportance</span><span class="params">(List&lt;Employee&gt; employees, <span class="type">int</span> id)</span> &#123;</span><br><span class="line">		<span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">		Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Integer, Integer&gt;();</span><br><span class="line">		<span class="type">boolean</span>[] visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[employees.size()];</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;employees.size(); i++) &#123;</span><br><span class="line">			map.put(employees.get(i).id, i);</span><br><span class="line">			visited[i] = <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		Queue&lt;Integer&gt; queue = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;Integer&gt;();</span><br><span class="line"></span><br><span class="line">		<span class="type">int</span> <span class="variable">idx</span> <span class="operator">=</span> map.get(id);</span><br><span class="line">		<span class="type">Employee</span> <span class="variable">e</span> <span class="operator">=</span> employees.get( idx );</span><br><span class="line">		<span class="keyword">for</span>(Integer subId:e.subordinates)</span><br><span class="line">			queue.add(subId);</span><br><span class="line">		r+=e.importance;</span><br><span class="line">		visited[idx]=<span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">currId</span> <span class="operator">=</span> queue.poll();</span><br><span class="line">			idx = map.get(currId);</span><br><span class="line">			<span class="keyword">if</span> (!visited[idx]) &#123;</span><br><span class="line">				e = employees.get(idx);</span><br><span class="line">				<span class="keyword">for</span> (Integer subId : e.subordinates)</span><br><span class="line">					queue.add(subId);</span><br><span class="line">				r += e.importance;</span><br><span class="line">				visited[idx] = <span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>108 &#x2F; 108 test cases passed.</li>
+<li>Runtime: 5 ms, faster than 54.03% of Java online submissions for Employee Importance.</li>
+<li>Memory Usage: 40.8 MB, less than 100.00% of Java online submissions for Employee Importance.</li>
+</ul>
+<h2 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">// Employee info</span></span><br><span class="line"><span class="comment">class Employee &#123;</span></span><br><span class="line"><span class="comment">    // It&#x27;s the unique id of each node;</span></span><br><span class="line"><span class="comment">    // unique id of this employee</span></span><br><span class="line"><span class="comment">    public int id;</span></span><br><span class="line"><span class="comment">    // the importance value of this employee</span></span><br><span class="line"><span class="comment">    public int importance;</span></span><br><span class="line"><span class="comment">    // the id of direct subordinates</span></span><br><span class="line"><span class="comment">    public List&lt;Integer&gt; subordinates;</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getImportance</span><span class="params">(List&lt;Employee&gt; employees, <span class="type">int</span> id)</span> &#123;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Integer, Integer&gt;();</span><br><span class="line">		<span class="type">boolean</span>[] visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[employees.size()];</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;employees.size(); i++) &#123;</span><br><span class="line">			map.put(employees.get(i).id, i);</span><br><span class="line">			visited[i] = <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="type">int</span> <span class="variable">idx</span> <span class="operator">=</span> map.get(id);</span><br><span class="line">		<span class="type">Employee</span> <span class="variable">e</span> <span class="operator">=</span> employees.get( idx );</span><br><span class="line">		<span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> e.importance;</span><br><span class="line">		visited[idx]=<span class="literal">true</span>;</span><br><span class="line">		r += dfs(employees, e, map, visited);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> r;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">dfs</span><span class="params">(List&lt;Employee&gt; employees, Employee employee, Map&lt;Integer,Integer&gt; map, <span class="type">boolean</span>[] visited)</span> &#123;</span><br><span class="line">		<span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(Integer subId:employee.subordinates) &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">idx</span> <span class="operator">=</span> map.get(subId);</span><br><span class="line">			<span class="keyword">if</span> (!visited[idx]) &#123;</span><br><span class="line">				<span class="type">Employee</span> <span class="variable">e</span> <span class="operator">=</span> employees.get(idx);</span><br><span class="line">				r += e.importance;</span><br><span class="line">				visited[idx]=<span class="literal">true</span>;</span><br><span class="line">				r += dfs(employees, e, map, visited);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> r;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>108 &#x2F; 108 test cases passed.</li>
+<li>Runtime: 4 ms, faster than 99.82% of Java online submissions for Employee Importance.</li>
+<li>Memory Usage: 40.9 MB, less than 100.00% of Java online submissions for Employee Importance.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/02/19/LeetCode-Algorithms-Employee-Importance/" data-id="cmf1gcab4003c85yzcies0r5h" data-title="LeetCode - Algorithms - 690. Employee Importance" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Rotting-Oranges" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/18/LeetCode-Algorithms-Rotting-Oranges/" class="article-date">
+  <time datetime="2020-02-19T03:50:44.000Z" itemprop="datePublished">2020-02-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/18/LeetCode-Algorithms-Rotting-Oranges/">LeetCode - Algorithms - 994. Rotting Oranges</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/rotting-oranges/">994. Rotting Oranges</a></p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">int</span> d[][] = &#123;</span><br><span class="line">        &#123;<span class="number">0</span>,<span class="number">1</span>&#125;,</span><br><span class="line">        &#123;<span class="number">1</span>,<span class="number">0</span>&#125;,</span><br><span class="line">        &#123;<span class="number">0</span>,-<span class="number">1</span>&#125;,</span><br><span class="line">        &#123;-<span class="number">1</span>,<span class="number">0</span>&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(<span class="type">int</span>[][] grid, <span class="type">int</span> width, <span class="type">int</span> height, <span class="type">int</span> row, <span class="type">int</span> col)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> (row &gt;= <span class="number">0</span>) &amp;&amp; (row &lt; width) &amp;&amp; (col &gt;= <span class="number">0</span>) &amp;&amp; (col &lt; height) &amp;&amp; grid[row][col]==<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">orangesRotting</span><span class="params">(<span class="type">int</span>[][] grid)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">h</span> <span class="operator">=</span> grid.length;</span><br><span class="line">        <span class="type">int</span> <span class="variable">w</span> <span class="operator">=</span> grid[<span class="number">0</span>].length;</span><br><span class="line"></span><br><span class="line">        Queue&lt;Node&gt; queue = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;Node&gt;();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; h; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; w; j++) &#123;</span><br><span class="line">            	<span class="keyword">if</span> (grid[i][j] == <span class="number">2</span>) &#123;</span><br><span class="line">            		queue.add(<span class="keyword">new</span> <span class="title class_">Node</span>(<span class="keyword">new</span> <span class="title class_">Point</span>(i,j),<span class="number">0</span>));</span><br><span class="line">            	&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="type">int</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="type">Node</span> <span class="variable">curr</span> <span class="operator">=</span> queue.poll();</span><br><span class="line">            <span class="type">int</span> <span class="variable">row</span> <span class="operator">=</span> curr.pt.x;</span><br><span class="line">            <span class="type">int</span> <span class="variable">col</span> <span class="operator">=</span> curr.pt.y;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">				<span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> row + d[i][<span class="number">0</span>];</span><br><span class="line">				<span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> col + d[i][<span class="number">1</span>];</span><br><span class="line">				<span class="keyword">if</span> (isValid(grid, h, w, x, y)) &#123;</span><br><span class="line">					grid[x][y] = <span class="number">2</span>;</span><br><span class="line">					queue.add(<span class="keyword">new</span> <span class="title class_">Node</span>(<span class="keyword">new</span> <span class="title class_">Point</span>(x, y), curr.dist + <span class="number">1</span>));</span><br><span class="line">					ans = curr.dist + <span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; h; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; w; j++) &#123;</span><br><span class="line">				<span class="keyword">if</span> (grid[i][j] == <span class="number">1</span>) &#123;</span><br><span class="line">					<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">        <span class="keyword">return</span> ans;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">	<span class="keyword">class</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">		<span class="type">int</span> x;</span><br><span class="line">		<span class="type">int</span> y;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="title function_">Point</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> &#123;</span><br><span class="line">			<span class="built_in">this</span>.x = x;</span><br><span class="line">			<span class="built_in">this</span>.y = y;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">class</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">		Point pt;</span><br><span class="line">		<span class="type">int</span> dist;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="title function_">Node</span><span class="params">(Point pt, <span class="type">int</span> dist)</span> &#123;</span><br><span class="line">			<span class="built_in">this</span>.pt = pt;</span><br><span class="line">			<span class="built_in">this</span>.dist = dist;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>303 &#x2F; 303 test cases passed.</li>
+<li>Runtime: 2 ms, faster than 91.42% of Java online submissions for Rotting Oranges.</li>
+<li>Memory Usage: 38.4 MB, less than 81.25% of Java online submissions for Rotting Oranges.</li>
+</ul>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/articles/rotting-oranges/">LeetCode Articles - 994. Rotting Oranges</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/02/18/LeetCode-Algorithms-Rotting-Oranges/" data-id="cmf1gcaba005685yz0dr35k9a" data-title="LeetCode - Algorithms - 994. Rotting Oranges" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-josephus-problem" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/12/josephus-problem/" class="article-date">
+  <time datetime="2020-02-13T01:20:47.000Z" itemprop="datePublished">2020-02-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/12/josephus-problem/">Josephus problem</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Concrete mathematics is Eulerian mathematics.<br>           – <em>Concrete Mathematics</em>, Ronald L. Graham &amp; Donald E. Knuth &amp; Oren Patashnik</p>
+</blockquote>
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p>Josephus problem is a math puzzle with a grim description: n prisoners are standing on a circle, sequentially numbered from 0 to n-1.<br>An executioner walks along the circle, starting from prisoner 0, removing every kth prisoner and killing him.<br>As the process goes on, the circle becomes smaller and smaller, until only one prisoner remains, who is then freed.</p>
+<div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe width="854" height="480" src="https://www.youtube.com/embed/uCsD3ZGzMgE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>
+
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="recurrence"><a href="#recurrence" class="headerlink" title="recurrence"></a>recurrence</h2><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">josephus</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (n == <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">return</span> (josephus(n - <span class="number">1</span>, k) + k - <span class="number">1</span>) % n + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">execute</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k)</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">killIdx</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    ArrayList&lt;Integer&gt; prisoners = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Integer&gt;(n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; n;i++)&#123;</span><br><span class="line">        prisoners.add(i);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">&quot;Prisoners executed in order:&quot;</span>);</span><br><span class="line">    <span class="keyword">while</span>(prisoners.size() &gt; <span class="number">1</span>)&#123;</span><br><span class="line">        killIdx = (killIdx + k - <span class="number">1</span>) % prisoners.size();</span><br><span class="line">        System.out.print(prisoners.get(killIdx) + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        prisoners.remove(killIdx);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">    <span class="keyword">return</span> prisoners.get(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="circular-linked-list"><a href="#circular-linked-list" class="headerlink" title="circular linked list"></a>circular linked list</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="type">int</span> data;</span><br><span class="line">  <span class="keyword">public</span> Node next;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">Node</span><span class="params">(<span class="type">int</span> data)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.data = data;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">getJosephusPosition</span><span class="params">(<span class="type">int</span> m, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">  <span class="type">Node</span> <span class="variable">head</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Node</span>(<span class="number">1</span>);</span><br><span class="line">  <span class="type">Node</span> <span class="variable">prev</span> <span class="operator">=</span> head;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    prev.next = <span class="keyword">new</span> <span class="title class_">Node</span>(i);</span><br><span class="line">    prev = prev.next;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  prev.next = head;</span><br><span class="line"></span><br><span class="line">  <span class="type">Node</span> <span class="variable">ptr1</span> <span class="operator">=</span> head, ptr2 = head;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (ptr1.next != ptr1) &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (count != m) &#123;</span><br><span class="line">      ptr2 = ptr1;</span><br><span class="line">      ptr1 = ptr1.next;</span><br><span class="line">      count++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ptr2.next = ptr1.next;</span><br><span class="line">    ptr1 = ptr2.next;</span><br><span class="line">  &#125;</span><br><span class="line">  System.out.printf(<span class="string">&quot;Last person left standing (Josephus Position) is %d \n&quot;</span>, ptr1.data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://rosettacode.org/wiki/Josephus_problem">Josephus problem</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Josephus_problem">Josephus problem</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/josephus-problem-set-1-a-on-solution/">Josephus problem</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/josephus-circle-using-circular-linked-list/">Josephus Circle using circular linked list</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/02/12/josephus-problem/" data-id="cmf1gcace00it85yz3nmi366k" data-title="Josephus problem" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-what-you-eat-matters-hope" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/02/what-you-eat-matters-hope/" class="article-date">
+  <time datetime="2020-02-02T12:24:03.000Z" itemprop="datePublished">2020-02-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/02/what-you-eat-matters-hope/">H.O.P.E. What You Eat Matters (2018) – Full Transcript</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>from © <a target="_blank" rel="noopener" href="https://scrapsfromtheloft.com/2019/03/04/hope-what-you-eat-matters-2018-transcript/">H.O.P.E. What You Eat Matters (2018) – Full Transcript</a></p>
+</blockquote>
+<hr>
+<p>“This important film highlights the choices we must make to help protect this planet and all its inhabitants.”<br>Paul McCartney</p>
+<p>Dr. Jane Goodall, Primatologist, UN Messenger of Peace | GB: I think the most important message that I have, is to remember that you, and I’m speaking to you, watching this film, you make a difference! You as an individual make a difference… What you do each day actually is effecting what’s going on in the world each day. So your life matters, you matter and use your life wisely.</p>
+<blockquote>
+<p>FME Media presents<br>a film by<br>Nina Messinger</p>
+</blockquote>
+<blockquote>
+<p>H.O.P.E. What You Eat Matters</p>
+</blockquote>
+<p>“Let thy food be thy medicine and thy medicine be thy food.<br>Hippocrates</p>
+<p>The Western diet, unfortunately, is associated with the development of some pretty serious diseases.</p>
+<p>Heart disease, cancer, diabetes, obesity – it’s like a tsunami!</p>
+<p>[Narrator] Cardiovascular diseases are the number one cause of death. Around the globe more than 17 million people die of a heart attack or stroke – per year. The number of cancer cases is rising dramatically. One out of every four men and one out of every five women die of cancer.<br>Diabetes has also become an epidemic. And already one out of two Europeans and Americans is overweight.</p>
+<p>Dr. Caldwell B. Esselstyn, Surgeon, Researcher and Clinician | USA: The interesting thing is that all experts would agree that the cause of this tsunami really is our lifestyle. And the fascinating thing is that the major driving force within that lifestyle creating these illnesses is our dependence on animal nutrition.</p>
+<p>Prof. Dr. T. Colin Campbell, Nutritional Biochemist | USA: And I think this idea needs to be conveyed to people that there is a strong association between the Western diet high in animal foods, processed foods, protein, fat and so forth – and diseases. People have to know that that really is true.</p>
+<p>[Narrator] Never before have we been so well informed about nutrition, in theory. In practice, in everyday life, we succumb to mindless cravings. We devour instant meals, gobble cafeteria fare, and stuff our faces with fast food. And practically always contained in these products: meat!</p>
+<p>Dr. Rüdiger Dahlke, Physician and Psychotherapist | Austria: Before, meat was rich people’s food, and average citizens never got it. Later, just once a week – Sunday roast. And now we can afford to all live kings and princes. Financially, at least. Healthwise we cannot afford it.</p>
+<p>[Narrator] Despite all warnings, we are eating more and more meat: There is no day without meat, no feast without meat, no break without meat; it’s a normal part of our diets because it’s tradition, it’s cheap – and because it tastes good.</p>
+<p>Sharon Kintz, Former Cardiac Patient | USA: My diet for 65 years was the SAD diet the Standard American Diet. I ate meat and chicken and fish and fowl and lots of butter… and anything that tasted good.</p>
+<p>[Narrator] In 2010, at the age of 66, Sharon Kintz started to think about her eating habits – as the result of a dramatic event.</p>
+<p>Kintz: At that time I already had been diagnosed with high blood pressure, so I was aware of that, but having a heart attack was a complete surprise to me. The only symptoms that I had, leading up to that, was heaviness in my arms, pain in my jaw and I would be tired, more tired than usual.</p>
+<p>[Narrator] This health nightmare put Sharon Kintz in the intensive care unit.</p>
+<p>Kintz: During the heart catheterization it was determined that I had a 100% blockage in one artery and 65% in one and 75% in the other. So, there actually was very little options open for me other than open heart surgery.</p>
+<p>[Narrator] Caldwell B. Esselstyn is an expert in the field of heart disease, a world-renowned surgeon and researcher, and one of “the Best Doctors” in the United States. Today the 82-year-old directs the cardiovascular prevention and reversal program at the Cleveland Clinic Wellness Institute in Ohio. Back in the 1980s Dr. Esselstyn had already begun questioning the methods for treating heart disease. They only combated the symptoms, but didn’t get rid of the cause. Intensive research led him to the conclusion: Our cardiovascular diseases are caused by our eating habits!</p>
+<p>Esselstyn: When we look at the cause of heart disease let’s not be confused and blame it on genes, or just blame it on somebody’s age, or blame it on the luck of the draw. Heart disease is a food born illness! And we now know that every time certain foods will pass your lips you will further endanger, and injure, the endothelial cell capacity to make nitric oxide.</p>
+<p>[Narrator] Endothelial cells are crucial to our blood vessels and heart. They line our blood vessels and produce protective nitric oxide. And Nitric oxide has these marvelous functions of keeping your blood flowing smoothly, it is the strongest vasodilator in the body. It also protects you from getting hypertension because it keeps your artery wall from getting stiff, inflamed or thickened. Most importantly, a plentiful, normal amount of nitric oxide will prevent you from ever developing blockages or plaque.</p>
+<p>[Narrator] Scientists know that cardiovascular disease starts with progressive damage to the endothelial cells. This is precisely where our diets come in … The excessive consumption of animal-based or processed foods damages our endothelial cells. Regular consumption of these products increasingly diminishes the protective nitric oxide supply in our blood vessels. This leads to inflammation and a hardening and narrowing of the blood vessels. These can have life-threatening consequences, like heart attack or stroke, or cause arteriosclerosis. Years of research and personal experience have provided Dr. Esselstyn with conclusive evidence that a plant-based diet can not only prevent the progression of heart disease but can also reverse its effects.</p>
+<p>[Narrator] Esselstyn has successfully treated hundreds of patients with his program. It consists of a low-fat, purely plant-based diet.</p>
+<p>Esselstyn: When you are willing to take the time and have the patients understand the science behind this and they really realize that they have caused these disease by the foods that they have eaten, they suddenly realize that you are empowering them as this locus of control to halt their disease. They don’t have to depend on their cardiologist, or an operation, or a drug that may have significant side effects. They are being empowered to do this themselves.</p>
+<p>[Narrator] With Dr. Esselstyn’s help Sharon Kintz, too, completely restructured her diet – doing away with all animal products. She turned down the heart surgery recommended to her by her doctors. Sharon Kintz decided to use food as medicine.</p>
+<p>Kintz: I was on it for four weeks and the pain went away in my arms and the pain went away in my jaws and I had much more energy. So I took Dr. Esselstyn’s program very seriously.</p>
+<p>[Narrator] When Sharon Kintz was first diagnosed, she could hardly walk anymore. Nearly two years after her treatment with Dr.Esselstyn she is physically fit again. And she has fulfilled one of her dreams: In 2012, at the age of 68, she successfully took part in a half marathon – for the first time in her life.</p>
+<p>Kintz: I know people are cramped for time, but your talking about your health and you want to live a long healthy life et être en mesure de contribuer à quelque chose and be able to contribute something then you have to take care about your body and in order to do that you have to – in my opinion – eat plant-based.</p>
+<p>[Narrator] We also consume too much milk. And the availability of dairy products continues to grow. But do these products actually agree with us? After all nearly 75% of the world’s population and 20% of Europeans are lactose intolerant, in other words: unable to properly digest dairy products. Dairy products contain no complex carbohydrates or roughage and very few vitamins. Instead they are full of saturated fat, cholesterol, and animal protein.</p>
+<p>Esselstyn: When we are young and growing up everybody wants to try to feed people dairy products and make sure you have milk every day. The science really now is at a point where that cannot be sustained. There is ample evidence from wonderful investigators like T. Colin Campbell who clearly showed that casein, which is the major protein in milk, is really one of the strongest promoters of cancer.</p>
+<p>[Narrator] T. Colin Campbell is a world-renowned nutritional scientist. In a series of experiments he was able to prove that animal proteins – casein in particular – promote all stages of cancer growth. In experiments, rats were given carcinogenic substances. Afterwards, half were fed a 5% casein-enriched diet; and the other half 20%. 20% roughly corresponds to the amount consumed in Western diets.<br>With a 5% casein-enriched diet the animals did not develop cancer. With a 20% casein-enriched diet, however, cancer growth was stimulated significantly. Professor Campbell went a step further: Every three weeks he altered the rat’s diet.</p>
+<p>Prof. T. Colin Campbell, Nutritional Biochemist | USA: So the next thing we did: we did some studies to start out with animals here and then let the cancer start to grow with the 20% casein, and then we switched to the 5%, it went off. We gave the 20% back again, it came back again. We put it on 5% it came off. So we could turn on and turn off cancer development just by switching the amount of casein they consumed.</p>
+<p>[Narrator] Ces résultats sont également soutenus These findings are also supported by evidence with humans.</p>
+<p>Esselstyn: We also know that all the saturated fat, and the casein in dairy, helps to accelerate and promote heart disease. Then we have this whole problem of fractures in the elderly. So, here we have this problem of increasing cancer, increasing heart disease and increasing fractures. Not a good thing, dairy really should be out.</p>
+<p>Prof. Dr. Claus Leitzmann, Nutritionist and Biochemist | Germany: There is much debate that without milk we don’t get enough calcium. Calcium is important for bone stability, it is supposed to prevent osteoporosis. But tests on people who consume absolutely no milk or dairy products show that the osteoporosis incidence is much lower than with us.</p>
+<p>Campbell: Dairy also has, and there is good evidence for this, has some allergenic properties. It tends to be associated with allergies, either directly associated or enhancing allergies coming from another source. And so we see things like, in the case of teenage boys, they get this acne sometimes, skin problem. A lot of that is due to their consumption of diary, stop dairy and this goes away. Dairy is associated with migraine headaches, I know a lot of people who have these migraine headaches, and it is kind of an allergy kind of thing. As is acne, that’s kind of an allergy kind of thing. You stop that and it goes away, and it is very fast. And I used to say that with great reluctance because I was raised on a dairy farm, I grew up milking cows, and then when I went away to do my doctorate and dissertation I did my dissertation on the idea of promoting more milk consumption. So I’m not saying these rather negative things about dairy for any ideological reason or any personal reasons, I’m saying it in reference to the evidence, the data. That’s what it shows.”</p>
+<p>[Narrator] The excessive consumption of animal products such as meat, fish, dairy products, and eggs puts a strain on our bodies. That was also what Frankfurt-based physician Lothar Wendt found in his research.</p>
+<p>Prof. Dr. Thomas Wendt, Cardiologist | Germany: In 1949 my father Lothar Wendt first formulated the concept of “Protein Storage Diseases”, which we have continued to develop since then. And the core thesis is this: Too much animal protein in one’s diet causes illness.</p>
+<p>[Narrator] T.Colin Campbell arrived at the same conclusion. He has been at the cutting edge of nutritional research for more than 40 years, and in the 80s and 90s he directed the “China-Cornell-Oxford-Project”, better known as the “China Study”. This is the most comprehensive nutrition study in the history of biomedical research to date. It confirmed Campbell’s theory.</p>
+<p>Campbell: We tend to want to consume protein, which means we want to consume meat, because that supposedly makes us strong and makes us healthy. That’s been an old story for a long time. But in reality, as we put more and more protein, or meat, into our diet we see these diseases start to appear.</p>
+<p>[Narrator] The China Study – as well as numerous other studies – demonstrates one thing above all: The higher the consumption of animal products, the greater the frequency of heart disease, cancer, diabetes, and countless other chronic diseases. Even small amounts of animal products can have a significant negative effect on our health.</p>
+<p>The 53-year-old electrical engineer Arthur Soteros also became a victim of his diet. Excessive amounts of meat, fish, and dairy products. The consequences caught up with him.</p>
+<p>Arthur Soteros, Former Cardiac Patient | USA: My first health issues started about 20 something years ago when I was about 30-32 years of age. I was diagnosed with type 2 diabetes. That about 10 years later propagated into heart disease. My first encounter with heart disease was at 42 and what I exhibited was heart burn which turned out to be a blockage. I went to the emergency room and found out it was a blockage and I required intervention and a stent, that was my first encounter.</p>
+<p>[Narrator] A stent is an implant designed to hold a vessel open. Arthur Soteros needed to have five such stents implanted. He repeatedly suffered from chest pain and a narrowing of his blood vessels. Finally, he needed double coronary bypass surgery.</p>
+<p>Soteros: So I was sure that after doing the bypass surgery I would be free and clear from any heart issues for up to 10 years. That happened not to be the case with me. Ça n’a pas été le cas pour moi. About a year into that I developed angina again and what turned out then to be the vein graft they had used in my bypass surgery had now blocked, which then required another stent and a few months later another stent until the frequency of those stents became just 2 weeks apart.</p>
+<p>[Narrator] The quickly returning vessel occlusions baffled the doctors. Soteros left the hospital without hope.</p>
+<p>Soteros: I wept and I cried like a baby, because I wasn’t ready to die and I cried out to God for some options. I think God saved my life. It was God’s mercy and grace that actually gave me options and set my path straight and pointed me in the direction of plant-based.</p>
+<p>[Narrator] Through a member of his church community Arthur Soteros learned about Dr. Esselstyn and his nutrition-based therapy. He consulted the doctor and with his help restructured his entire diet.</p>
+<p>Soteros: Within 30-40 days from that point of the angina that I was experiencing and the facial numbness that I experienced during my heart disease, it was gone. It was then by following this diet of going plant based – within about 5 months from that point on – when I was doing a follow up with my cardiologist and family physician who had been monitoring my diabetes said that my diabetes was gone. And then I followed up in October of 2010 with my optometrist – the prescription glasses that I was wearing – they looked at me and said: “why was I wearing these things?” All I needed was just reading glasses. So then with the reversal of my diabetes my eyesight got better.</p>
+<p>[Narrator] Arthur Soteros’ heart condition has disappeared. His blood test results are normal and he has been able to markedly reduce his medication. And he also lost 20 kilograms of excess body weight.</p>
+<p>Soteros: I feel better now at age 53 than I did at age 30.</p>
+<p>Campbell: Through the years I’ve had lots of students, lots of colleagues and plenty of money to do all kinds of research. And I found out that what I believed early was wrong: that a diet high in animal based foods is a problem; That a diet that is high in processed foods is a problem. In many different ways. The only solution is a whole food, plant-based diet! It’s that clear! And when people use that, they not only prevent future disease, they actually are able to cure existing disease in people who have a disease.</p>
+<p>Ralf Brosius, Former Cancer Patient | Germany: In December 2006 I was diagnosed with lung cancer in the last stage. It had metastasized and spread to my lymph nodes. The tumor was removed and so were my lymph nodes. I was advised to start chemotherapy. I turned it down. Instead, I consulted a doctor who favors healing by plant-based means. I followed his advice and today I am free of cancer because I have given up eating animal products and I prefer plant products. But not just that, primarily pesticide-free, natural plants, vegetables, fruit, and other foods, which haven’t been heated and in this way I receive a maximum of nutrients. That is, in my opinion, why I am free of cancer today. –</p>
+<p>Campbell: My wife Karen was diagnosed with a serious kind of cancer, stage 3 melanoma. She refused to take the chemotherapy and she refused to have the surgery. Then she really got strict about her diet. Now it’s about 9 years later and she has no problem.</p>
+<p>Plant-based foods are so beneficial because they contain certain substances not found in animal products. For example dietary fibers or phytochemicals. As the name suggests, these substances are synthesized by plants, and today we know that particularly the phytochemicals have a very favorable effect on our health.</p>
+<p>[Narrator] Plant-based foods give us sufficient protein and healthy fats; they are rich in complex carbohydrates and antioxidants as well as certain vitamins, trace elements, and enzymes. Plant-based foods contain what humans need for a healthy diet.</p>
+<p>Dr. Ernst Walter Henrich, Physician and Nutrition Expert | Switzerland: The problem in general is: with products that are detrimental to our health, for example meat, milk, and eggs, a lot of money is being earned. And of course these companies and corporations want to make a profit. And they want to sell as many products as possible. On the other hand there are no interest groups whose agenda is to keep people healthy. Who is financially interested in keeping people healthy? No one. The medical industry earns money by treating patients. Sick people are the only ones the medical industry can make money on. The pharmaceutical industry just makes money on sick people too.</p>
+<p>Campbell: We have a big, big industry that obviously supports the livestock industry and the egg industry and the dairy industry. It’s just a huge, huge industry. And unfortunately they have infiltrated the academic community. They’ve also infiltrated the government. And I know both because I’m in academia, that’s been my entire life. I see what they do, maybe they bring some money to have some research done. Also, in the policy area, I spent about 20 years on national policy development. I was on expert panels for the government. We were doing things, we have committees. Unfortunately, the industry is so powerful that they in many cases are controlling who is going to be on the committees. They have too much money for the politicians.”</p>
+<p>Henrich: All of this may be legal, but it’s not fair to the consumer.</p>
+<p>Dr. Will Tuttle, Bestselling Author, Musician | USA: I was actually raised eating the typical diet and when I was about 22 years old I became a vegetarian. About 5 years later, when I was 27, I went to a completely plant based diet. That’s been 33 years now, I’m 60 years old, and it has been terrific. I feel great, I have a lot of energy and it’s not just me. People that I know that are a long time on a plant based diet are doing great as well.</p>
+<p>Esselstyn: The seismic revolution in health is just not ever going to occur from inventing another pill or drug. It’s not gonna come from inventing another procedure… or another operation. But the seismic revolution in health can come about when those of us in the healing profession are able to share with the public what is the lifestyle that is protecting them of the common and killing diseases. And the way we do that is to show them about plant-based-nutrition.</p>
+<p>“Earth provides enough to satisfy every man’s needs, but not every man’s greed.”<br>Mahatma Gandhi</p>
+<p>Karl Ludwig Schweisfurth, Formerly Europe’s Biggest Meat Producer | Germany: More and more people are devouring more and more animals because more and more people can afford meat, and in 20 years there will be so many people and so many animals on the planet Earth that there won’t be enough food. Then we’ll eat the planet bare.</p>
+<p>[Narrator] The worldwide human population will rise to 9 billion by the year 2050. The global livestock population will double to 50 billion. It’s going to get crowded.</p>
+<p>Schweisfurth: It has all been published in the Global Agriculture Report. That our current form of agriculture is destroying our means of subsistence, destroying the soil, exploiting the planet. We simply eat too much meat!</p>
+<p>[Narrator] The growing consumption of meat accelerates climate change and species extinction; it damages the soil, water, and air – and it spurs global starvation! Appetizing, vacuum packaged portions of meat suggest none of this.</p>
+<p>Dr. Vandana Shiva, Physicist, Alternative Nobel Laureate | India: Most of the grain that is being grown on the planet is not growing for food for human beings.</p>
+<p>Tuttle: We are growing plenty of food to feed everyone. The problem is we are feeding most of that grain and the legumes like soybeans to animals while people are starving.</p>
+<p>[Narrator] Worldwide, 1.8 billion people are starving. Every 6 seconds a child dies of malnutrition, that’s nearly 15,000 children a day! A sign of poverty – not for the poor, but for the rich!</p>
+<p>Shiva: Only 2% of the soya in the United States is eaten by humans. About 70% goes for animal feed, about 28% is going for biofuel, diesel made from soybean. So it’s meat in the hunger of profits, not the hunger of people. Corn, about 10% of the corn in the world is been eaten by humans, most of it is going to torture animals, I don’t say feed animals because animals did not want to be fed with grain. It doesn’t suit their digestive systems. So we are talking about a system that is creating hunger on the planet in the name of feeding people.</p>
+<p>[Narrator] Currently, one out of every three seeds of grain harvested in the world is used as animal feed. However, industrial nations can no longer produce these huge amounts of fodder themselves. Thus Europe already imports three quarters of its animal feed, including 35 million tons of soybeans alone – mainly from South America.<br>The land used for growing this feed does not consist of empty fields but valuable rain forests forced to yield to the monocultures of the agricultural corporations.</p>
+<p>Goodall: One of the really shocking things about this desire of more and more people to eat more and more meat and to eat it more and more cheaply, is the awful effect that it is having on the environment: whole forests cleared to graze livestock or to grow grain to feed livestock. It’s having a shocking effect on the environment.</p>
+<p>[Narrator] Because of this practice, over the past two decades roughly 20% of the worldwide largest rain forests in the Amazon Basin have been destroyed forever. Globally, deforestation irreversibly destroys an area the size of a soccer field every two seconds.<br>And this although tropical rain forests are among the Earth’s most valuable treasures. Nowhere else is there such a rich diversity of species. Moreover, these forests stabilize the world’s climate as enormous reservoirs of carbon dioxide. That makes them more valuable than meat!</p>
+<p>Martin Hofstetter, Agricultural Expert for Greenpeace | Germany: There are statistics on the climate impact of meat. For example for 1 kg of beef roughly 12&#x2F;13 kg of CO2 are produced. Converted to kilometers: In an economy car I can drive about 100 km, that corresponds to 1 kg of beef. Poultry and pork are about the same. About 50 km correspond to 1 kg of pork or poultry. With vegetables you end up with 600g, that’s only a few km. There is a huge damage to the climate caused by livestock farming or the impact of my meat consumption. To help the climate I should, of course, drive less, but I should also eat less meat.</p>
+<p>[Narrator] Among the side effects of the meat and dairy industry is the production of methane gas. It is primarily generated in the stomachs of ruminants like cattle. Experts estimate that methane is 25 times more detrimental to the climate than CO2. An even greater concern than methane is nitrous oxide, which is nearly 300 times more harmful to the climate than CO2. It is released through the use of synthetic fertilizers. These and many other factors make animal agriculture a “catalyst” for climate change. There are increased reports of a new drought of the century, or a new flood of the century, a new storm of the century, or the progressive melting of the glaciers and the poles. Intensive animal farming doesn’t just stink to high heaven, the excrement produced is also polluting our soil! For each kilogram of meat produced, roughly six kilograms of slurry are generated. Among other things, slurry releases ammonia, which poisons the surrounding air and causes long-term damage to the soil. Not only that, slurry and its nitrates also threaten our drinking water … of which we need inordinate amounts to make animal products: … For one kilogram of eggs 3,300 liters are needed … … for one kilogram of chicken meat: 3,900 liters … … for one kilogram of pork: 4,800 liters … … for one kilogram of cheese: a whopping 5,000 liters… … and an all-time high of 15,500 liters are needed to produce one kilogram of beef! Plant production has a much better track record: Cultivating one kilogram of grain requires 1,300 liters of water … a farmer needs just 900 liters for a kilogram of potatoes … … and a kilogram of apples barely requires 700 liters of precious water.</p>
+<p>Shiva: This entire meat-industry has today become a scandal on the planet. It should not exist in the form in which it exists. To force everyone into destroying the earth’s resources is a crime against the earth and it’s a crime against our bodies, because our bodies weren’t designed for this kind of diet. All together this is a recipe for a biological disaster, for biodiversity disaster, water disaster, climate disaster, health disaster.</p>
+<p>Schweisfurth: This form of agriculture we have created for ourselves, basically over the past 50 years, cannot be maintained in this form. It can’t go well. Everyone with a mind to think, eyes to see and ears to hear knows this. And you wonder: Why isn’t anything changing?</p>
+<p>Shiva: We were made to believe that meat-based-diets are superior to plant-based-diets, a lie that is been exposed by medical experts again and again and again. So what do we need to do? We need to bring diversity back into our farms, we need to bring harmony back into our farms. We have to celebrate diversity, we have to work with farmers, we have to know our farmers. We have to start realizing food is what keeps the world going, food is the energy of the world! And we have to know exactly where, in that chain, we entered, so that we don’t do more harm, we reduce the harm. And in the process we celebrate: “Food is life and life is food.”</p>
+<p>[Narrator] Through its way of life the Langerhorst family in Upper Austria exemplifies the practice of farming without monocultures and intensive animal husbandry. It has been running a vegan organic farm with mixed cultivation and permaculture for more than 40 years. The family grows vegetables, fruit, berries, and nuts and avoids animal-based and chemical fertilizers, using green manure, plant-based compost, rock flour, mulch, and wood ash.</p>
+<p>Plant-based agriculture has shown us that we can live very well from a small rather than a big farm. We only cultivate 3,5 hectares but as full-time farmers, and we are very grateful that this is possible and viable.</p>
+<p>If you want to eat in an eco-friendly way, you should stick to plant-based food and choose local, seasonal, and organic products. That’s how it works.</p>
+<p>[Narrator] Nature shows us how to solve our problems: our personal problems and the ones that involve the whole world. We just need to take action!</p>
+<p>If we look at the chances according to human possibilities, human intelligence, human longing for good decent food – I think the chances are extremely high that we could all live on a good healthy, organic, plant-based diet.</p>
+<p>“Until he extends his circle of compassion to all living things, man will not himself find peace.”<br>– Albert Schweitzer</p>
+<p>[Narrator] We love the notion of romantic rural life. Happy animals in a healthy environment, well provided for by Mother Nature. It is really quite tempting to get this meat on your plate. But let’s face reality! – In the old days a farmer had 10 head of livestock, today they have hundreds or thousands. That means there is no longer a connection to the animal, it really is nothing but a commodity.</p>
+<p>[Narrator] Meat is less expensive today than ever before, a cheap product. About 98% comes from factory farms, where conditions are beyond imagination. Rarely in the past has the term “industry” smacked of a contempt for life as it does today. – In the intensive animal farming industry animals are no longer seen as individuals, but as mere production goods, like tin cans, spare car parts, or as just things to be used with the aim of achieving the highest economic profit possible.</p>
+<p>[Narrator] Chickens are by nature social, curious, and intelligent animals. But in the merciless factory farm their lives are reduced to – short and joyless – agony. Chicks hatch not in the maternal nest but in the incubator. As soon as they can stand, they are sorted, vaccinated, packed up, and sent to enormous feedlots. In these animal prisons they reach slaughtering weight in record time, never seeing daylight and under extremely crowded conditions. The normal life expectancy of a chicken is up to 20 years. Broilers only live up to 42 days. During this brief lifespan they must gain roughly 2 kilograms – no organism can withstand such brutally rapid growth. – The birds gain weight so quickly, that their skeletons cannot develop fast enough and the chickens as well as the turkeys end up lying flat on their breasts because their legs can no longer support the increasing weight.</p>
+<p>[Narrator] Some animals don’t survive this abnormal growth. They can’t drag themselves to the feed and water troughs. Others die of breeding-induced cardiovascular diseases, they succumb to stress or fall victim to cannibalism. All these are facts we are often not aware of when eating meat and which the meat lobby is glad to keep concealed. This is a mother sow. This highly intelligent and extremely sensitive animal spends most of its life in crates – in cages hardly any larger than themselves. Instead of straw, they lie on bare concrete. – Movement is so restricted in the so-called cages that they can only move 20 to 30 cm forwards and 30 to 40 cm backwards. They can lie down, but they can’t turn around. The sows in modern intensive pig farming are not in “hog heaven”, that’s for sure.</p>
+<p>[Narrator] In nature mother sows build big, soft nests for their offspring. In factory farms, however, this isn’t possible. The sows farrow in “gestation crates”. Confined, they are neither able to protect nor care for their young. Not long after birth, the piglets’ tails are docked as a precaution against cannibalism. In addition, male piglets are castrated by ripping out their testicles. Everything without pain relief because an object’s pain doesn’t matter! Many animals are born weak, handicapped, or sick. It is not “economical” to keep them alive. Their fate – an undignified and cold death. In the agonizing lack of space the immobilized mother sows sometimes crush their own offspring. At the age of three weeks the piglets are separated from their mother. What follows now: rearing and fattening. Although pigs can live up to 25 years, they are slaughtered as children – a mere 6 months old. They spend their brief lives in cramped quarters. EU norms require a minimum area of just 0.75 square meters for a porker of up to 110 kilograms. As many as 10% of the animals do not survive these conditions. In spite of this, only a few people are willing to do without a pork chop or a schnitzel. And cattle fare no better. Many animals spend their lives in narrow stalls. The lucky ones in open pens; many, however, vegetate in tether stalls. One step forward, one step backward. That is all the freedom of movement they have. A life expectancy of 30 years? That’s something industrial age cattle can only dream of.</p>
+<p>These days there are huge, huge herds, and they continue to grow. Nobody notices anymore if a cow is sick, usually only the milk robot does, it detects that the milk output has gone down, or the other machine notices that the feed wasn’t eaten up. And that’s the only way it is even registered that one or more animals are sick.</p>
+<p>[Narrator] Infections are one of the biggest problems in factory farms. The crowded conditions promote the rapid spread of bacteria. Overbreeding, a lack of hygiene, and ignoring natural needs put a huge burden on the health of the animals. The only antidote the industrial meat producer knows is the massive administering of drugs. Up to three quarters of all antibiotics end up in factory farms! – The system of factory farming is so sick that it needs antibiotics. If you took away the antibiotics, masses of animals would get sick and die. So the whole system is in itself completely sick.</p>
+<p>[Narrator] The routine and improper use of antibiotics in factory farms presents a big health risk – not just for the animals because more and more bacteria strains are becoming resistant, which renders antibiotics ineffective. If these antibody-resistant bacteria ‘ infect humans, we get sick too. But often medication no longer works.</p>
+<p>[Narrator] Globally, more than 700,000 people die from infections because the bacteria they have consumed has become resistant to antibiotics. But the animals are not only affected physically. Industrial farming harms them on all levels. – Since the beginning of mankind cruelty to animals has never been as prevalent as it is in our days. That applies to quantity as well as intensity.</p>
+<p>Having once seen pigs in one of these intensive farms, I was so shocked. It’s unbelievable to me that people could treat animals as though they are just things without feelings. And so many people say to me, but they are being bred to eat, so it’s okay. But it’s not okay.</p>
+<p>There is a lot of animal abuse in research, in education, in circuses, in rodeos, in zoos, but factory farming is the worst. If you summed up all the pain that we cause animals from industrial food preparation is far greater than all of the pain in any other venue combined. So it’s really the worst. It brings out the worst in human beings and it makes animals suffer greatly. They not only suffer their own pain, they also feel the pain of the other animals at these horrible factory farms.</p>
+<p>[Narrator] Not only our meat consumption promotes the suffering of animals but also our growing demand for milk. Cows are forced to achieve higher and higher outputs: In the 60s a cow produced an annual average of 1,500 liters of milk, today that amount has risen to 10,000 and more!</p>
+<p>I’ve quite a few vegetarian friends who consume dairy products and they believe this false idea that dairy products are a benign animal product, that there is no harm connected to milk because they figure: “Once a cow starts giving milk, she just gives milk.” And they don’t realize that cows can’t give adequate amount of milk for production unless they are pregnant. And cows have the same gestation period as humans – 9 months. They are pregnant 9 month and give birth. And within 24 hours max. 72 hours they take the calf away from the cow, because you need the milk for production. You know, it’s a terrible business, I mean there is more suffering in a glass of milk than you can find in just about anything. The calves will ball and ball and ball, the cows will just look for them.</p>
+<p>[Narrator] Cows will often mourn their children for days or weeks. – They do miss their calves and the calves miss their mothers. It’s really a heartbreaking thing to watch.</p>
+<p>[Narrator] In factory farms calves are being born constantly. But they serve no “useful” purpose – and are soon put to different “use”. – Let’s say a cow is alive for 4 years – she will have 4 calves. Just genetic roulette: 2 are going to be male and 2 are going to be female… the 2 males have no use to the dairy industry, they will go to auction within a day, to two or three days after birth, you’ll only need 1 female to replace the mum, so 3 out of 4 calves go to slaughter… right after they’re born.</p>
+<p>We know in our bones that harming mothers who are just giving birth to babies and nursing those babies and nurturing those babies is something that is against our own compassion and kindness. And so when we are eating animal foods, eating dairy products, that’s exactly what we are doing: we are paying people to impregnate animals, steal their babies, steal their milk and then kill them.</p>
+<p>I always say to people, especially women: Imagine that you was pregnant, you got your breasts ready to give milk and somebody took your baby away and then another animal came and took your milk. For human beings it’s almost impossible to imagine, but that’s what many animals go through. Some people think goat’s milk is better than cow’s milk… well the goat is also a living thing, the goat also produce milk not for the human consumption, but for the consumption of a little baby goat. And that’s who the milk should go to.</p>
+<p>People wonder whether animals, including farm animals, have emotional lives. And the science tells us that they do. If people read and understand what Charles Darwin had to say about evolution, he said that the differences among species are shades of grey, not black and white. So if we have something, then they have it too, they being other animals. So the science tells us that many animals, including farm animals, have very rich and deep emotional lives.</p>
+<p>The main thing is, these farm animals, when you know them as individuals, they are just wonderful, I mean there is nothing like hearing the whicker of a horse, when you come and he is pleased to see you. And the cows chewing the cud and the sweet breath that they have out in the field. The pigs, well pigs are as intelligent as dogs, and more intelligent than most. When I was a little girl, I used to want to have a little troupe of pigs and train them and go to a circus. Well, now I know a circus is a bad, but when I was a little girl – pigs are amazing, just incredible.</p>
+<p>People want to think that cows are stupid, that they are dumb, that they are slow and all they do is eat grass. No, they have community, they have social structures, they babysit for each other, they mourn the loss of loved ones. They are a community just like any human community. They only look different, that’s all. We don’t speak their language, that’s the only difference. – We know for example that chickens display empathy, they feel the pain of other chickens. We know that cows and pigs are very smart, they miss one another, they love to be around with friends. Cows and pigs are extremely intelligent, they can learn very complex tasks. So, I like to say that the animals who we eat are very smart and they are very emotional. They are not “what” we eat. So, if there is an animal on a plate or at the end of a fork, it’s “who’s for dinner?”, not “what’s for dinner?”. Because when we use “who”, we are referring to an animal who has a very strong inner life and subjective life. So for example when pigs and cows and dogs and cats and wolves play, it’s very clear that they enjoy themselves and they are feeling happiness, they are feeling very gleeful, they are feeling a lot of pleasure.</p>
+<p>Animals are fellow creatures, animals are living beings with feelings. They can show you when they are doing well. I can tell by looking at them, and I say: “Look children, animals can laugh when they are happy. And animals can show their sorrow when we treat them badly.” No animal gets onto the truck voluntarily. In the entire time I was a butcher it never happened. So we always drove the livestock by force out of the shed, by force onto the truck. Then we took it to the slaughterer or the butcher shop, and you have to imagine: Those are trucks with these days up to 100 head in the most cramped conditions. A stress situation, fear situation. You can tell, either the animals start to tremble or their eyes are so plain frightened.</p>
+<p>Cattle prods, electroshock devices, clubs; pigs are dragged away by their ears, bulls are kicked in the balls to make them go, cows are kicked in their udders, the nose ring with bulls – if they’ve got one – with heavy bulls they twist it and turn the nose around almost 180 degrees to make them go. And all that involves pain, it is not without pain. Intense pain.</p>
+<p>You can’t do it any other way, it’s simply not possible. You can’t think you’ve got countless animals and you’re going to persuade them nicely to get on the truck or up to the slaughtering bench. It doesn’t work. It’s always brutal. It’s always brutal!</p>
+<p>[Narrator] Everyone is aware that animals have to die if we want to eat meat. But very few want to know what (actually) takes place in a slaughterhouse. Slaughterhouses have their reasons for not welcoming visitors. In large industrial slaughterhouses pigs are often stunned by machine. An electric shock triggers a kind of epileptic attack. This leads to unconsciousness. In smaller operations stunning by electric current is generally done by hand before the animals are suspended from a conveyor and their throats slashed.</p>
+<p>Pig slaughtering in itself is so difficult even for people because the animals scream. They scream interminably. I used to say, it was as if little children were screaming. Why do children scream? They’re scared. With animals, it’s no different. In large meat factories gas chambers are standard practice. The pigs are herded into a gondola and lowered into a chamber where they are gassed with a mixture of carbon dioxide and air, leaving them unconscious.</p>
+<p>CO2 stunning is a relatively cheap procedure. The advantage is, as with other gas-stunning methods, that several animals can be stunned at once, you don’t have to tear the group apart. The clear disadvantage of CO2 stunning, however, is that the animals do experience suffocation over a fairly long period of 15 to 20 seconds. They have a clear sense of not being able to breathe. The animals often reach upward, you hear them screaming.</p>
+<p>[Narrator] Once they have been stunned, the pig’s throats must be quickly and properly slashed, otherwise the animals wake up and land in the cauldron of boiling water fully conscious. This is no uncommon occurrence since the whole process takes place so quickly. – As for the problem of slaughtering speed, one must note that at a rate of 750 pigs per hour the person sticking the pigs, the so-called sticker, has pretty much exactly 5 seconds to jab this knife into the animal’s neck. In that time he has to grab the pig, pull it into position by a foreleg, he has to take the knife out of the holder, and by then the 5 seconds are almost up. That means he has no chance to correct a badly placed stab, if he thinks he didn’t sever the major vessels or he missed some major vessels. That means, it’s definitely a problem in terms of bleeding effectiveness.</p>
+<p>I’ve often seen how animals weren’t stunned properly. Pigs fleeing the vat of boiling water or jumping, trying to get out, where the slaughterer went over and used an iron rod to clobber it again. That is actually routine, it’s absolutely normal.</p>
+<p>[Narrator] All pigs can meet this fate – animals from organic farms are no exception! Once it is cut into pieces, the animal has finally endured all the agony the industry has to offer. Chickens are processed fully automatically and at a high speed: On average 10,000 animals per hour can be stunned, killed, cleaned, and cut into parts in a modern slaughterhouse. Europe’s largest poultry slaughterhouse is in Germany. It can handle up to 27,000 animals an hour. That’s 432,000 chickens a day! The slaughter of cattle starts with a captive bolt stunner, which has been standard procedure for decades. The animals are driven along a chute into a narrow box. Not every animal goes to its death willingly.</p>
+<p>In this stunning trap animals are shot with a so-called captive bolt gun. A bolt penetrates the skull and partially destroys the brain. The animals usually collapse immediately and are unconscious within fractions of a second. Problems can arise when the shot misses its mark, when the stunner isn’t placed properly, or the animal moves its head at the last moment, these are so-called missed shots, the animals are only slightly stunned or not at all. In terms of animal welfare this is critical because the second shot, which is inevitable, usually doesn’t work either because the skull is already open so now the intracranial pressure of the first shot cannot be reproduced, and I really can have difficulty effectively stunning the animal.</p>
+<p>Why must humanity, the consumer, be shielded from the slaughterhouses? If it really is so right, then why? Cheese dairies don’t make you look away. Demonstration bakeries are common today too. But there isn’t a single demonstration slaughterhouse in the country. The onlookers would probably keel over by the score. Because it’s so brutal. Because it’s just plain violence. With cattle the rate of mis-stunning can be up to 9%, with pigs as high as 12,5%. Eventually you reach your limit. You either continue or stop. We had to slaughter calves, and the calf already balked at the door. I was supposed to shoot it and then a tear rolled out of its eye, and I fired the bolt gun in the air, said that was it, went to my boss, handed him the bolt gun, and told him I was done. He should send me my papers.</p>
+<p>I was nothing more than the contract killer, the mercenary for all the people who wanted to eat meat. I took money and in exchange I killed the animal. And when I realized that, I quit. Worldwide 65 billion animals are slaughtered annually. That makes more than 2,000 animals per second.</p>
+<p>[Narrator] Humans are creatures with many contradictions. What is especially paradoxical is our relationship to animals. We can adore a pet, and at the same time we let other animals be killed without the slightest compassion. Dr. Melanie Joy calls this phenomenon “carnism”. – Carnism teaches us to place animals in categories in our minds. Some animals we love – dogs and cats are our companions, our family members, our friends for instance – other animals we eat. Carnism teaches us to see animals as objects. So we learn to refer to the turkey on our plate as “something” rather than “someone”. And carnism teaches us to see animals as abstractions, as lacking any individuality or personality of their own. And instead simply as abstract members of a group about which we’ve made generalized assumptions. A pig is a pig, and all pigs are the same. Carnism, says Dr. Joy, is a belief system intended to prevent us from recognizing the violence and cruelty of the system behind eating animals. We suppress and deny, we ignore our head and our heart when it comes to animals that we classify as edible. – Choosing one animal to eat and one animal to be a pet is just like – people call it speciesism – it is a kind of racism, it’s a kind of favoritism and it’s a kind of just following a particular culture. Now, what we have to do is to build a culture and traditions based upon compassion.</p>
+<p>The highest form of living, the highest value, is compassion. And when there is compassion, we maximize well-being. After all, the word wealth comes from wellbeing. It did not mean money in the hands of a few, it meant well-being shared across life’s spectrum.</p>
+<p>I think once we admit that we humans are not the only beings with personality, minds and feelings, once we realize that we are part of the animal kingdom, then it becomes quiet as important how we treat animals, all animals, as how we treat each other. And so only when we show respect, consideration and concern for other living beings, can we imagine a world that’s more peaceful than the one today.</p>
+<p>We are at a threshold where across the world people are seeking the liberation of life, from this strangle hold of objectification, the view that the earth is dead matter, and our beings are just objects. We have to rise in subject-hood, of an interconnected subject-hood, where no life is less important than any other life. And human beings are definitely not the emperors over the rest of life. We are just one strand in that web of life.</p>
+<p>I think the reason that so many people don’t change their behaviour is, because they feel what’s the use? I’m just one person. So what I do actually can’t make any difference. Nor would it make any difference if it was just one. But more and more people are coming to understand what the problems are and what they ought to be doing. – Never ever think that one person can’t make a difference. We tend to focus our energies on looking for leaders, say like Martin Luther King or Mahatma Gandhi, but they were just one person. They didn’t set out in life to be a leader and they were very humble people. It’s just that circumstances in history drew them to the front. But if we are looking for leaders, all we have to do is to go home and look in the mirror. Because each one of us can make a difference. And we do. It’s just making a conscious decision that we are going to make a difference in our lives. We are not on this planet for a long time, so we need to do what we can in the time we have got to make a difference. To me it was always important to emphasize that we, as adults, are all role models. We have no control over this function. We can’t say: I don’t want to be a role model. Instead, we are taken as role models, whether by children, by relatives, by colleagues or friends. And I believe that the fact that we are taken as role models should motivate us to behave as such.</p>
+<p>Every one of us can make a difference, every one of us eats at least two to three times a day. And every act of conscious eating, of knowing what the consequences of what you are eating are, knowing what you are eating, is an act of changing the world. – I think the most important message that I have, is to remember that you, and I’m speaking to you, watching this film, you make a difference! You as an individual make a difference… What you do each day actually is effecting what’s going on in the world each day. So your life matters, you matter and use your life wisely.</p>
+<div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://www.youtube.com/embed/pDg7tlEJD64" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/02/02/what-you-eat-matters-hope/" data-id="cmf1gcads00vp85yzda1t631a" data-title="H.O.P.E. What You Eat Matters (2018) – Full Transcript" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/English/" rel="tag">English</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-shortest-path-in-a-binary-maze" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/30/shortest-path-in-a-binary-maze/" class="article-date">
+  <time datetime="2020-01-30T20:31:01.000Z" itemprop="datePublished">2020-01-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/30/shortest-path-in-a-binary-maze/">Shortest path in a binary maze</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><blockquote>
+<p>Given a maze in the form of the binary rectangular matrix. We need to find the shortest path between a given source cell to a destination cell. The path can only be constructed out of cells having value 1 and at any given moment, we can only move one step in one of the four directions.</p>
+</blockquote>
+<h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h1><blockquote>
+<p><strong>Single-source shortest paths.</strong> Given a graph and a source vertex s, support queries of the form Is there a path from s to a given target vertex v? If so, find a shortest such path (one with a minimal number of edges). The classical method for accomplishing this task, called breadth-first search.<br>  – Algorithms 4th Edition, Robert Sedgewick and Kevin Wayne, Princeton University</p>
+</blockquote>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.alg.graph.bfs;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeeAlgorithm</span> &#123;</span><br><span class="line">	<span class="comment">// move direction</span></span><br><span class="line">	<span class="keyword">final</span> <span class="keyword">static</span> <span class="type">int</span> d[][] = &#123;</span><br><span class="line">			&#123;<span class="number">0</span>,<span class="number">1</span>&#125;,  <span class="comment">//right</span></span><br><span class="line">			&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,  <span class="comment">//down</span></span><br><span class="line">			&#123;<span class="number">0</span>,-<span class="number">1</span>&#125;, <span class="comment">//left</span></span><br><span class="line">			&#123;-<span class="number">1</span>,<span class="number">0</span>&#125;  <span class="comment">//up</span></span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">bfs</span><span class="params">(<span class="type">int</span>[][] maze, Point src, Point dest)</span> &#123;</span><br><span class="line">		<span class="type">int</span> <span class="variable">minDist</span> <span class="operator">=</span> Integer.MAX_VALUE;</span><br><span class="line"></span><br><span class="line">	    <span class="keyword">if</span> (maze[src.x][src.y] != <span class="number">1</span> || maze[dest.x][dest.y] != <span class="number">1</span>)</span><br><span class="line">	    	<span class="keyword">return</span> minDist;</span><br><span class="line"></span><br><span class="line">		<span class="type">int</span> <span class="variable">h</span> <span class="operator">=</span> maze.length;</span><br><span class="line">		<span class="type">int</span> <span class="variable">w</span> <span class="operator">=</span> maze[<span class="number">0</span>].length;</span><br><span class="line">		<span class="type">boolean</span>[][] visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[h][w];</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; h; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; w; j++) &#123;</span><br><span class="line">				visited[i][j] = <span class="literal">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		Queue&lt;Node&gt; q = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">		<span class="type">Node</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Node</span>(src, <span class="number">0</span>);</span><br><span class="line">		q.add(s);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">while</span> (!q.isEmpty()) &#123;</span><br><span class="line">			<span class="type">Node</span> <span class="variable">curr</span> <span class="operator">=</span> q.poll();</span><br><span class="line">			<span class="type">Point</span> <span class="variable">pt</span> <span class="operator">=</span> curr.pt;</span><br><span class="line">			<span class="keyword">if</span> (pt.x == dest.x &amp;&amp; pt.y == dest.y)</span><br><span class="line">				<span class="keyword">return</span> curr.dist;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">				<span class="type">int</span> <span class="variable">row</span> <span class="operator">=</span> pt.x + d[i][<span class="number">0</span>];</span><br><span class="line">				<span class="type">int</span> <span class="variable">col</span> <span class="operator">=</span> pt.y + d[i][<span class="number">1</span>];</span><br><span class="line">				<span class="keyword">if</span> (isValid(maze, visited, h, w, row, col)) &#123;</span><br><span class="line">					visited[row][col] = <span class="literal">true</span>;</span><br><span class="line">					<span class="type">Node</span> <span class="variable">adjCell</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Node</span>(<span class="keyword">new</span> <span class="title class_">Point</span>(row, col), curr.dist + <span class="number">1</span>);</span><br><span class="line">					q.add(adjCell);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> minDist;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(<span class="type">int</span>[][] maze, <span class="type">boolean</span>[][] visited, <span class="type">int</span> width, <span class="type">int</span> height, <span class="type">int</span> row, <span class="type">int</span> col)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> (row &gt;= <span class="number">0</span>) &amp;&amp; (row &lt; width) &amp;&amp; (col &gt;= <span class="number">0</span>) &amp;&amp; (col &lt; height) &amp;&amp; maze[row][col] == <span class="number">1</span> &amp;&amp; !visited[row][col];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">int</span>[][] maze = &#123;</span><br><span class="line">				&#123; <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span> &#125;,</span><br><span class="line">				&#123; <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span> &#125;,</span><br><span class="line">				&#123; <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span> &#125;,</span><br><span class="line">				&#123; <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span> &#125;,</span><br><span class="line">				&#123; <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span> &#125;,</span><br><span class="line">				&#123; <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span> &#125;,</span><br><span class="line">				&#123; <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span> &#125;,</span><br><span class="line">				&#123; <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span> &#125;,</span><br><span class="line">				&#123; <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span> &#125;,</span><br><span class="line">				&#123; <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span> &#125;</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		<span class="type">int</span> <span class="variable">h</span> <span class="operator">=</span> maze.length;</span><br><span class="line">		<span class="type">int</span> <span class="variable">w</span> <span class="operator">=</span> maze[<span class="number">0</span>].length;</span><br><span class="line">		System.out.printf(<span class="string">&quot;%d*%d\n&quot;</span>, h, w);</span><br><span class="line"></span><br><span class="line">		<span class="type">Point</span> <span class="variable">source</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Point</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">		<span class="type">Point</span> <span class="variable">dest</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Point</span>(<span class="number">7</span>, <span class="number">5</span>);</span><br><span class="line">		<span class="type">int</span> <span class="variable">dist</span> <span class="operator">=</span> bfs(maze, source, dest);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (dist != Integer.MAX_VALUE)</span><br><span class="line">			System.out.printf(<span class="string">&quot;The shortest path from (%d,%d) to (%d,%d) has length %d\n&quot;</span>, source.x, source.y, dest.x,</span><br><span class="line">					dest.y, dist);</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			System.out.printf(<span class="string">&quot;Shortest path from (%d,%d) to (%d,%d) doesn&#x27;t exist\n&quot;</span>, source.x, source.y, dest.x,</span><br><span class="line">					dest.y);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">		<span class="type">int</span> x;</span><br><span class="line">		<span class="type">int</span> y;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="title function_">Point</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> &#123;</span><br><span class="line">			<span class="built_in">this</span>.x = x;</span><br><span class="line">			<span class="built_in">this</span>.y = y;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">		Point pt;</span><br><span class="line">		<span class="type">int</span> dist;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="title function_">Node</span><span class="params">(Point pt, <span class="type">int</span> dist)</span> &#123;</span><br><span class="line">			<span class="built_in">this</span>.pt = pt;</span><br><span class="line">			<span class="built_in">this</span>.dist = dist;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Point</span>(<span class="params">x, y</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">x</span> = x;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">y</span> = y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Node</span>(<span class="params">pt,dist</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">pt</span> = pt;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">dist</span> = dist;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> d = [</span><br><span class="line">  &#123;<span class="attr">x</span>: <span class="number">0</span>, <span class="attr">y</span>: <span class="number">1</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">x</span>: <span class="number">1</span>, <span class="attr">y</span>: <span class="number">0</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">x</span>: <span class="number">0</span>, <span class="attr">y</span>: -<span class="number">1</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">x</span>: -<span class="number">1</span>, <span class="attr">y</span>: <span class="number">0</span>&#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bfs</span>(<span class="params">maze, src, dest</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> minDist = -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (maze[src.<span class="property">x</span>][src.<span class="property">y</span>] != <span class="number">1</span> || maze[dest.<span class="property">x</span>][dest.<span class="property">y</span>] != <span class="number">1</span>)</span><br><span class="line">      <span class="keyword">return</span> minDist;</span><br><span class="line">  <span class="keyword">var</span> h = maze.<span class="property">length</span>;</span><br><span class="line">  <span class="keyword">var</span> w = maze[<span class="number">0</span>].<span class="property">length</span>;</span><br><span class="line">  visited = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; h; i++) &#123;</span><br><span class="line">    visited.<span class="title function_">push</span>([]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; w; j++) &#123;</span><br><span class="line">      visited[i].<span class="title function_">push</span>(<span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> queue = [];</span><br><span class="line">  <span class="keyword">var</span> s = <span class="keyword">new</span> <span class="title class_">Node</span>(src, <span class="number">0</span>);</span><br><span class="line">  queue.<span class="title function_">push</span>(s);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (queue.<span class="property">length</span>&gt;<span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> curr = queue.<span class="title function_">pop</span>();</span><br><span class="line">    <span class="keyword">var</span> pt = curr.<span class="property">pt</span>;</span><br><span class="line">    <span class="keyword">if</span> (pt.<span class="property">x</span> == dest.<span class="property">x</span> &amp;&amp; pt.<span class="property">y</span> == dest.<span class="property">y</span>)</span><br><span class="line">      <span class="keyword">return</span> curr.<span class="property">dist</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">      <span class="keyword">var</span> row = pt.<span class="property">x</span> + d[i].<span class="property">x</span>;</span><br><span class="line">      <span class="keyword">var</span> col = pt.<span class="property">y</span> + d[i].<span class="property">y</span>;</span><br><span class="line">      <span class="keyword">if</span> (<span class="title function_">isValid</span>(maze, visited, h, w, row, col)) &#123;</span><br><span class="line">        visited[row][col] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">var</span> adjCell = <span class="keyword">new</span> <span class="title class_">Node</span>(<span class="keyword">new</span> <span class="title class_">Point</span>(row, col), curr.<span class="property">dist</span> + <span class="number">1</span>);</span><br><span class="line">        queue.<span class="title function_">push</span>(adjCell);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> minDist;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">isValid</span>(<span class="params">maze, visited, width, height, row, col</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (row &gt;= <span class="number">0</span>) &amp;&amp; (row &lt; width) &amp;&amp; (col &gt;= <span class="number">0</span>) &amp;&amp; (col &lt; height) &amp;&amp; maze[row][col] == <span class="number">1</span> &amp;&amp; !visited[row][col];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> maze = [</span><br><span class="line">    [ <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span> ],</span><br><span class="line">    [ <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span> ],</span><br><span class="line">    [ <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span> ],</span><br><span class="line">    [ <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span> ],</span><br><span class="line">    [ <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span> ],</span><br><span class="line">    [ <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span> ],</span><br><span class="line">    [ <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span> ],</span><br><span class="line">    [ <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span> ],</span><br><span class="line">    [ <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span> ],</span><br><span class="line">    [ <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span> ]</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> source = <span class="keyword">new</span> <span class="title class_">Point</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">var</span> dest = <span class="keyword">new</span> <span class="title class_">Point</span>(<span class="number">7</span>, <span class="number">5</span>);</span><br><span class="line"><span class="keyword">var</span> dist = <span class="title function_">bfs</span>(maze, source, dest);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (dist != -<span class="number">1</span>)</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`The shortest path from (<span class="subst">$&#123;source.x&#125;</span>, <span class="subst">$&#123;source.y&#125;</span>) to (<span class="subst">$&#123;dest.x&#125;</span>, <span class="subst">$&#123;dest.y&#125;</span>) has length <span class="subst">$&#123;dist&#125;</span>\n`</span>);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Shortest path from <span class="subst">$&#123;(source.x, source.y)&#125;</span> to <span class="subst">$&#123;(dest.x, dest.y)&#125;</span> does not exist`</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Maze_runner">Maze runner</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Lee_algorithm">Lee algorithm</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.techiedelight.com/lee-algorithm-shortest-path-in-a-maze/">Shortest path in a Maze | Lee algorithm</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/shortest-path-in-a-binary-maze/">Shortest path in a Binary Maze</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/01/30/shortest-path-in-a-binary-maze/" data-id="cmf1gcadb00rn85yzhwdl04a8" data-title="Shortest path in a binary maze" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-nth-root" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/27/nth-root/" class="article-date">
+  <time datetime="2020-01-27T20:48:27.000Z" itemprop="datePublished">2020-01-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/27/nth-root/">The principal nth root of a positive real number</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="java"><a href="#java" class="headerlink" title="java"></a>java</h1><h2 id="Newton’s-method"><a href="#Newton’s-method" class="headerlink" title="Newton’s method"></a>Newton’s method</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">double</span> <span class="title function_">nthroot</span><span class="params">(<span class="type">int</span> n, <span class="type">double</span> A)</span> &#123;</span><br><span class="line">  <span class="type">double</span> <span class="variable">r</span> <span class="operator">=</span> nthroot(n, A, <span class="number">.001</span>);</span><br><span class="line">  <span class="keyword">return</span> BigDecimal.valueOf(r).setScale(<span class="number">3</span>, RoundingMode.HALF_DOWN).doubleValue();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">double</span> <span class="title function_">nthroot</span><span class="params">(<span class="type">int</span> n, <span class="type">double</span> A, <span class="type">double</span> p)</span> &#123;</span><br><span class="line">  <span class="keyword">if</span>(A &lt; <span class="number">0</span>) &#123;</span><br><span class="line">    System.err.println(<span class="string">&quot;A &lt; 0&quot;</span>);<span class="comment">// we handle only real positive numbers</span></span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span>(A == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="type">double</span> <span class="variable">x_prev</span> <span class="operator">=</span> A;</span><br><span class="line">  <span class="type">double</span> <span class="variable">x</span> <span class="operator">=</span> A / n;  <span class="comment">// starting &quot;guessed&quot; value...</span></span><br><span class="line">  <span class="keyword">while</span>(Math.abs(x - x_prev) &gt; p) &#123;</span><br><span class="line">    x_prev = x;</span><br><span class="line">    x = ((n - <span class="number">1.0</span>) * x + A / Math.pow(x, n - <span class="number">1.0</span>)) / n;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Binary-search-strategy"><a href="#Binary-search-strategy" class="headerlink" title="Binary search strategy"></a>Binary search strategy</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">double</span> <span class="title function_">root</span><span class="params">(<span class="type">double</span> x, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">  <span class="type">double</span> <span class="variable">lower</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">  <span class="type">double</span> <span class="variable">upper</span> <span class="operator">=</span> x;</span><br><span class="line">  <span class="type">double</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">  <span class="type">double</span> <span class="variable">temp</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (upper - lower &gt;= <span class="number">0.001</span>) &#123;</span><br><span class="line">    r = (upper + lower) / <span class="number">2</span>;</span><br><span class="line">    temp = Math.pow(r, n);</span><br><span class="line">    <span class="keyword">if</span> (temp &gt; x) &#123;</span><br><span class="line">      upper = r;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      lower = r;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> BigDecimal.valueOf(r).setScale(<span class="number">3</span>, RoundingMode.HALF_DOWN).doubleValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Nth_root_algorithm">nth root algorithm</a></li>
+<li><a target="_blank" rel="noopener" href="https://rosettacode.org/wiki/Nth_root">Nth root</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/01/27/nth-root/" data-id="cmf1gcad500pt85yzc8xw50k8" data-title="The principal nth root of a positive real number" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/24/do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye/" class="article-date">
+  <time datetime="2020-01-25T04:43:48.000Z" itemprop="datePublished">2020-01-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/24/do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye/">Do not stand at my grave and weep</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>by <a target="_blank" rel="noopener" href="https://getlitanthology.org/poets/293/">Mary Elizabeth Frye</a></p>
+<blockquote>
+<p>Do not stand at my grave and weep,<br>I am not there; I do not sleep.<br>I am a thousand winds that blow,<br>I am the diamond glints on snow,<br>I am the sun on ripened grain,<br>I am the gentle autumn rain.<br>When you awaken in the morning’s hush<br>I am the swift uplifting rush<br>Of quiet birds in circling flight.<br>I am the soft star-shine at night.<br>Do not stand at my grave and cry,<br>I am not there; I did not die.</p>
+</blockquote>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Do_Not_Stand_at_My_Grave_and_Weep">Do Not Stand at My Grave and Weep</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/01/24/do-not-stand-at-my-grave-and-weep-Mary-Elizabeth-Frye/" data-id="cmf1gcac200em85yz6wwnc1ch" data-title="Do not stand at my grave and weep" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poem/" rel="tag">poem</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-no-man-is-an-island-John-Donne" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/24/no-man-is-an-island-John-Donne/" class="article-date">
+  <time datetime="2020-01-25T04:28:49.000Z" itemprop="datePublished">2020-01-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/24/no-man-is-an-island-John-Donne/">No man is an island</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>by <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/John_Donne">John Donne</a></p>
+<blockquote>
+<p>No man is an island,<br>entire of itself;<br>every man is a piece of the continent,<br>a part of the main.<br>If a clod be washed away by the sea,<br>Europe is the less,<br>as well as if a promontory were.<br>as well as if a manor of thy friend’s<br>or of thine own were.<br>Any man’s death diminishes me,<br>because I am involved in mankind;<br>and therefore never send to know for whom the bell tolls;<br>it tolls for thee.</p>
+</blockquote>
+<iframe src="https://open.spotify.com/embed-podcast/episode/2XwDGxhR6fojwCAzt8Oyb3" width="100%" height="232" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+<hr>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Devotions_upon_Emergent_Occasions">Devotions upon Emergent Occasions</a></p>
+<h2 id="Donne’s-original-spelling-and-punctuation"><a href="#Donne’s-original-spelling-and-punctuation" class="headerlink" title="Donne’s original spelling and punctuation"></a>Donne’s original spelling and punctuation</h2><blockquote>
+<p>No man is an Iland, intire of it selfe; every man is a peece of the Continent, a part of the maine; if a Clod bee washed away by the Sea, Europe is the lesse, as well as if a Promontorie were, as well as if a Mannor of thy friends or of thine owne were; any mans death diminishes me, because I am involved in Mankinde; And therefore never send to know for whom the bell tolls; It tolls for thee.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2020/01/24/no-man-is-an-island-John-Donne/" data-id="cmf1gcad400pr85yz44oyf662" data-title="No man is an island" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poem/" rel="tag">poem</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/43/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><a class="page-number" href="/page/43/">43</a><span class="page-number current">44</span><a class="page-number" href="/page/45/">45</a><a class="page-number" href="/page/46/">46</a><span class="space">&hellip;</span><a class="page-number" href="/page/58/">58</a><a class="extend next" rel="next" href="/page/45/">Next »</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PhraseList/" rel="tag">PhraseList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/" rel="tag">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WordList/" rel="tag">WordList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miscellaneous/" rel="tag">miscellaneous</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%B6%E4%BB%96/" rel="tag">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E5%85%B8%E6%96%87%E5%AD%A6/" rel="tag">古典文学</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithms/" style="font-size: 12.67px;">Algorithms</a> <a href="/tags/ELL/" style="font-size: 19.33px;">ELL</a> <a href="/tags/English/" style="font-size: 18px;">English</a> <a href="/tags/LeetCode/" style="font-size: 20px;">LeetCode</a> <a href="/tags/PhraseList/" style="font-size: 14.67px;">PhraseList</a> <a href="/tags/TED/" style="font-size: 16px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 13.33px;">TED-Ed</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.33px;">The Story of Maths</a> <a href="/tags/WordList/" style="font-size: 17.33px;">WordList</a> <a href="/tags/git/" style="font-size: 10.67px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/math/" style="font-size: 14px;">math</a> <a href="/tags/miscellaneous/" style="font-size: 16.67px;">miscellaneous</a> <a href="/tags/poem/" style="font-size: 18.67px;">poem</a> <a href="/tags/%E5%85%B6%E4%BB%96/" style="font-size: 15.33px;">其他</a> <a href="/tags/%E5%8F%A4%E5%85%B8%E6%96%87%E5%AD%A6/" style="font-size: 12px;">古典文学</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">August 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">July 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">June 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/08/26/Education-without-books-Julius-Lips/">Education</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/08/My-English-Phrases-List-Aug-2025/">My English Phrases List - August - 2025</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/01/My-English-Words-List-Aug-2025/">My English Words List - August - 2025</a>
+          </li>
+        
+          <li>
+            <a href="/2025/07/30/esl-notes-1/">ESL Notes - 1</a>
+          </li>
+        
+          <li>
+            <a href="/2025/07/18/quotes-1/">Quotes</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 hezhigang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
