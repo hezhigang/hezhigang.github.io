@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Gain time, gain life.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Gain time, gain life.">
+<meta property="og:url" content="https://hezhigang.github.io/page/48/index.html">
+<meta property="og:site_name" content="Gain time, gain life.">
+<meta property="og:locale">
+<meta property="article:author" content="hezhigang">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Gain time, gain life." type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Gain time, gain life.</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hezhigang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-LeetCode-Algorithms-Number-of-Islands" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/31/LeetCode-Algorithms-Number-of-Islands/" class="article-date">
+  <time datetime="2019-12-31T19:52:19.000Z" itemprop="datePublished">2019-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/31/LeetCode-Algorithms-Number-of-Islands/">LeetCode - Algorithms - 200. Number of Islands</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Whenever possible, steal code.<br>  Keep it simple, stupid.<br>       – <em>Programming Pearls</em>, Jon Bentley.</p>
+</blockquote>
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/number-of-islands/">200. Number of Islands</a></p>
+<blockquote>
+<p>Given a 2d grid map of ‘1’s (land) and ‘0’s (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.</p>
+</blockquote>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h2><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">numIslands</span><span class="params">(<span class="type">char</span>[][] grid)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">h</span> <span class="operator">=</span> grid.length;</span><br><span class="line">        <span class="keyword">if</span> (h == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">w</span> <span class="operator">=</span> grid[<span class="number">0</span>].length;</span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">boolean</span>[][] visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[h][w];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; h; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; w; j++) &#123;</span><br><span class="line">                visited[i][j] = <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Queue&lt;Integer[]&gt; queue = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; h; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; w; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!visited[i][j] &amp;&amp; grid[i][j] == <span class="string">&#x27;1&#x27;</span>) &#123;</span><br><span class="line">                    queue.add(<span class="keyword">new</span> <span class="title class_">Integer</span>[]&#123;i,j&#125;);</span><br><span class="line">                    BFS(queue, grid, visited);</span><br><span class="line">                    r++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">return</span> r;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">BFS</span><span class="params">(Queue&lt;Integer[]&gt; queue, <span class="type">char</span>[][] islandGrid, <span class="type">boolean</span>[][] visited)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">H</span> <span class="operator">=</span> islandGrid.length;</span><br><span class="line">        <span class="type">int</span> <span class="variable">L</span> <span class="operator">=</span> islandGrid[<span class="number">0</span>].length;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (queue.isEmpty() == <span class="literal">false</span>) &#123;</span><br><span class="line"></span><br><span class="line">            Integer[] x = queue.remove();</span><br><span class="line">            <span class="type">int</span> <span class="variable">row</span> <span class="operator">=</span> x[<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">col</span> <span class="operator">=</span> x[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(row&lt;<span class="number">0</span> || col&lt;<span class="number">0</span> || row&gt;=H || col&gt;=L || visited[row][col] || islandGrid[row][col]!=<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">            visited[row][col]=<span class="literal">true</span>;</span><br><span class="line">            queue.add(<span class="keyword">new</span> <span class="title class_">Integer</span>[]&#123;row, (col-<span class="number">1</span>)&#125;);</span><br><span class="line">            queue.add(<span class="keyword">new</span> <span class="title class_">Integer</span>[]&#123;row, (col+<span class="number">1</span>)&#125;);</span><br><span class="line">            queue.add(<span class="keyword">new</span> <span class="title class_">Integer</span>[]&#123;(row-<span class="number">1</span>), col&#125;);</span><br><span class="line">            queue.add(<span class="keyword">new</span> <span class="title class_">Integer</span>[]&#123;(row+<span class="number">1</span>), col&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>47 &#x2F; 47 test cases passed.</li>
+<li>Runtime: 10 ms, faster than 5.88% of Java online submissions for Number of Islands.</li>
+<li>Memory Usage: 41.6 MB, less than 55.82% of Java online submissions for Number of Islands.</li>
+</ul>
+<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">int</span> d[][] = &#123;</span><br><span class="line">			&#123;<span class="number">0</span>,<span class="number">1</span>&#125;,</span><br><span class="line">			&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,</span><br><span class="line">			&#123;<span class="number">0</span>,-<span class="number">1</span>&#125;,</span><br><span class="line">			&#123;-<span class="number">1</span>,<span class="number">0</span>&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">numIslands</span><span class="params">(<span class="type">char</span>[][] grid)</span> &#123;       </span><br><span class="line">        <span class="type">int</span> <span class="variable">h</span> <span class="operator">=</span> grid.length;</span><br><span class="line">        <span class="keyword">if</span> (h == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">w</span> <span class="operator">=</span> grid[<span class="number">0</span>].length;</span><br><span class="line">        </span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">boolean</span>[][] visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[h][w];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; h; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; w; j++) &#123;</span><br><span class="line">                visited[i][j] = <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Queue&lt;Point&gt; queue = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; h; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; w; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!visited[i][j] &amp;&amp; grid[i][j] == <span class="string">&#x27;1&#x27;</span>) &#123;</span><br><span class="line">                    queue.add(<span class="keyword">new</span> <span class="title class_">Point</span>(i,j));</span><br><span class="line">                    bfs(queue, grid, visited);</span><br><span class="line">                    r++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    	<span class="keyword">return</span> r;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">bfs</span><span class="params">(Queue&lt;Point&gt; queue, <span class="type">char</span>[][] islandGrid, <span class="type">boolean</span>[][] visited)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">h</span> <span class="operator">=</span> islandGrid.length;</span><br><span class="line">        <span class="type">int</span> <span class="variable">w</span> <span class="operator">=</span> islandGrid[<span class="number">0</span>].length;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (queue.isEmpty() == <span class="literal">false</span>) &#123;</span><br><span class="line">        	<span class="type">Point</span> <span class="variable">curr</span> <span class="operator">=</span> queue.poll();</span><br><span class="line">            <span class="type">int</span> <span class="variable">row</span> <span class="operator">=</span> curr.x;</span><br><span class="line">            <span class="type">int</span> <span class="variable">col</span> <span class="operator">=</span>  curr.y;</span><br><span class="line">            <span class="keyword">if</span> (isValid(islandGrid, visited, h, w, row, col)) &#123;</span><br><span class="line">                visited[row][col]=<span class="literal">true</span>;</span><br><span class="line">				<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">					<span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> curr.x + d[i][<span class="number">0</span>];</span><br><span class="line">					<span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> curr.y + d[i][<span class="number">1</span>];</span><br><span class="line">					queue.add(<span class="keyword">new</span> <span class="title class_">Point</span>(x, y));</span><br><span class="line">				&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">	<span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(<span class="type">char</span>[][] grid, <span class="type">boolean</span>[][] visited, <span class="type">int</span> width, <span class="type">int</span> height, <span class="type">int</span> row, <span class="type">int</span> col)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> (row &gt;= <span class="number">0</span>) &amp;&amp; (row &lt; width) &amp;&amp; (col &gt;= <span class="number">0</span>) &amp;&amp; (col &lt; height) &amp;&amp; grid[row][col] == <span class="string">&#x27;1&#x27;</span> &amp;&amp; !visited[row][col];</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">		<span class="type">int</span> x;</span><br><span class="line">		<span class="type">int</span> y;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="title function_">Point</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> &#123;</span><br><span class="line">			<span class="built_in">this</span>.x = x;</span><br><span class="line">			<span class="built_in">this</span>.y = y;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h4><ul>
+<li>47 &#x2F; 47 test cases passed.</li>
+<li>Runtime: 5 ms, faster than 15.24% of Java online submissions for Number of Islands.</li>
+<li>Memory Usage: 42.3 MB, less than 17.21% of Java online submissions for Number of Islands.</li>
+</ul>
+<h2 id="union–find"><a href="#union–find" class="headerlink" title="union–find"></a>union–find</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">int</span> d[][] = &#123;</span><br><span class="line">			&#123;<span class="number">0</span>,<span class="number">1</span>&#125;,</span><br><span class="line">			&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,</span><br><span class="line">			&#123;<span class="number">0</span>,-<span class="number">1</span>&#125;,</span><br><span class="line">			&#123;-<span class="number">1</span>,<span class="number">0</span>&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">numIslands</span><span class="params">(<span class="type">char</span>[][] grid)</span> &#123;       </span><br><span class="line">		<span class="type">int</span> <span class="variable">h</span> <span class="operator">=</span> grid.length;</span><br><span class="line">		<span class="keyword">if</span> (h == <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="type">int</span> <span class="variable">w</span> <span class="operator">=</span> grid[<span class="number">0</span>].length;</span><br><span class="line"></span><br><span class="line">		<span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		List&lt;Point&gt; ptlist = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Point&gt;();</span><br><span class="line">		Map&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, Integer&gt;();</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; h; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; w; j++) &#123;</span><br><span class="line">				<span class="keyword">if</span> (grid[i][j] == <span class="string">&#x27;1&#x27;</span>) &#123;</span><br><span class="line">					<span class="type">Point</span> <span class="variable">pt</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Point</span>(i,j);</span><br><span class="line">					ptlist.add(pt);</span><br><span class="line">					map.put(i+<span class="string">&quot;,&quot;</span>+j, N++);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="type">UF</span> <span class="variable">uf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UF</span>(N);</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">			<span class="type">Point</span> <span class="variable">curr</span> <span class="operator">=</span> ptlist.get(i);</span><br><span class="line">			<span class="type">int</span> <span class="variable">row</span> <span class="operator">=</span> curr.x;</span><br><span class="line">			<span class="type">int</span> <span class="variable">col</span> <span class="operator">=</span> curr.y;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">0</span>; k &lt; <span class="number">4</span>; k++) &#123;</span><br><span class="line">				<span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> row + d[k][<span class="number">0</span>];</span><br><span class="line">				<span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> col + d[k][<span class="number">1</span>];</span><br><span class="line">				<span class="keyword">if</span> (isValid(grid, h, w, x, y)) &#123;</span><br><span class="line">					uf.union(i, map.get(x + <span class="string">&quot;,&quot;</span> + y));</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> uf.count();        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">	<span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(<span class="type">char</span>[][] grid, <span class="type">int</span> width, <span class="type">int</span> height, <span class="type">int</span> row, <span class="type">int</span> col)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> (row &gt;= <span class="number">0</span>) &amp;&amp; (row &lt; width) &amp;&amp; (col &gt;= <span class="number">0</span>) &amp;&amp; (col &lt; height) &amp;&amp; grid[row][col] == <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">		<span class="type">int</span> x;</span><br><span class="line">		<span class="type">int</span> y;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">public</span> <span class="title function_">Point</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> &#123;</span><br><span class="line">			<span class="built_in">this</span>.x = x;</span><br><span class="line">			<span class="built_in">this</span>.y = y;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UF</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] parent;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">byte</span>[] rank;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> count;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">UF</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>();</span><br><span class="line">        count = n;</span><br><span class="line">        parent = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        rank = <span class="keyword">new</span> <span class="title class_">byte</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">            rank[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">find</span><span class="params">(<span class="type">int</span> p)</span> &#123;</span><br><span class="line">        validate(p);</span><br><span class="line">        <span class="keyword">while</span> (p != parent[p]) &#123;</span><br><span class="line">            parent[p] = parent[parent[p]];</span><br><span class="line">            p = parent[p];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">count</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">union</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> q)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">rootP</span> <span class="operator">=</span> find(p);</span><br><span class="line">        <span class="type">int</span> <span class="variable">rootQ</span> <span class="operator">=</span> find(q);</span><br><span class="line">        <span class="keyword">if</span> (rootP == rootQ) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>      (rank[rootP] &lt; rank[rootQ]) parent[rootP] = rootQ;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (rank[rootP] &gt; rank[rootQ]) parent[rootQ] = rootP;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            parent[rootQ] = rootP;</span><br><span class="line">            rank[rootP]++;</span><br><span class="line">        &#125;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">validate</span><span class="params">(<span class="type">int</span> p)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> parent.length;</span><br><span class="line">        <span class="keyword">if</span> (p &lt; <span class="number">0</span> || p &gt;= n) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;index &quot;</span> + p + <span class="string">&quot; is not between 0 and &quot;</span> + (n-<span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail-2"><a href="#Submission-Detail-2" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>47 &#x2F; 47 test cases passed.</li>
+<li>Runtime: 28 ms, faster than 5.05% of Java online submissions for Number of Islands.</li>
+<li>Memory Usage: 45.3 MB, less than 5.12% of Java online submissions for Number of Islands.</li>
+</ul>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://algorithms.tutorialhorizon.com/number-of-islands-using-bfs/">Number of Islands using BFS</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/12/31/LeetCode-Algorithms-Number-of-Islands/" data-id="cmm6622hh0048thyzc7oj6wmc" data-title="LeetCode - Algorithms - 200. Number of Islands" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-the-majesty-of-light-from-pagan-to-christian-lin-yutang" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/24/the-majesty-of-light-from-pagan-to-christian-lin-yutang/" class="article-date">
+  <time datetime="2019-12-25T00:48:23.000Z" itemprop="datePublished">2019-12-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/24/the-majesty-of-light-from-pagan-to-christian-lin-yutang/">Chapter 8 - The Majesty of Light - From Pagan to Christian - Lin Yutang</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>The world of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Jesus">Jesus</a> is the world of sunlight by comparison with that of all the sages and philosophers and the schoolmen of any country. Like the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Jungfrau">Jungfrau</a> which stands above the glaciers in the world of snow and seems to touch heaven itself, Jesus’ teachings have that immediacy and clarity and simplicity which puts to shame all other efforts of men’s minds to know God or to inquire after God.</p>
+<p>Whence came this <a target="_blank" rel="noopener" href="https://www.merriam-webster.com/dictionary/dazzling">dazzling</a> light of Jesus, which put Him in a special category by Himself among all teachers of men? Whence came the “prepossessing” power of Jesus, as <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Ralph_Waldo_Emerson">Emerson</a> called it?</p>
+<p>Quite apart from the content of Jesus’ teachings, I think the light and the power (dazzling light always has power) of Jesus came from the <strong><a target="_blank" rel="noopener" href="https://www.merriam-webster.com/dictionary/manner">manner</a></strong> and <strong>the voice of His teaching</strong> and from <strong>His personal example</strong>. Jesus spoke as no teacher of men ever spoke. Jesus never expounded His faith, never reasoned it out. He spoke with the simplicity and certainty of clear knowledge.</p>
+<p>Thus it is that the world of Jesus contains both that power, and something else — the absolute clarity of light, without the self-limitation of Confucius, the intellectual analysis of Buddha, or the mysticism of Chuangtse. Where others reasoned, Jesus taught, and where others taught, Jesus commanded. <strong>He spoke out of the fullness of the knowledge and love of God</strong>. Jesus communicated the feeling of the immediate knowledge and love of God, and further, immediately and without qualification, equated that love of God with obeying His commandment, which is <strong>to love one another</strong>. If all great truths are simple, we stand here in the presence of a simple truth which contains the germ of the principle for all human development, and is sufficient.</p>
+<p><strong><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Laozi">Laotse</a> and Jesus are brothers in spirit</strong>. Jesus said, “I am <a target="_blank" rel="noopener" href="https://www.merriam-webster.com/dictionary/meek">meek</a> and lowly,” and Laotse said, “Hold on to <a target="_blank" rel="noopener" href="https://www.merriam-webster.com/dictionary/meekness">meekness</a> and the lowly position.”</p>
+<p>Jesus has no <a target="_blank" rel="noopener" href="https://www.merriam-webster.com/dictionary/dogma">dogmas</a>, no <a target="_blank" rel="noopener" href="https://www.merriam-webster.com/dictionary/creed">creeds</a>, no <a target="_blank" rel="noopener" href="https://www.merriam-webster.com/dictionary/rite">rites</a>, and no <a target="_blank" rel="noopener" href="https://www.merriam-webster.com/dictionary/ritual">rituals</a>. Jesus taught a principle, or rather two principles in one: that <strong>the kingdom of God is within you</strong>, and, almost in the same breath, that <strong>the meek and the humble shall inherit the earth</strong>. The first teaches the inner freedom of man’s spirit; the second, the worthiness of the “least of these my brethren.” In other words, <em>the humblest man is free in spirit, and the humblest man shall win</em>. These are the spiritual principles behind all freedom and all democracy.</p>
+<blockquote>
+<p>This <a target="_blank" rel="noopener" href="https://www.merriam-webster.com/dictionary/sublime">sublime</a> person, who each day still presides over the destiny of the world, we may call <a target="_blank" rel="noopener" href="https://www.merriam-webster.com/dictionary/divine">divine</a>, not in the sense that Jesus has absorbed all the divine, or has been adequate to it (to employ an expression of the schoolmen), but in the sense that Jesus is the one who has caused his fellow-men <strong>to make the greatest step toward the divine</strong>. <em>Mankind in its totality offers an assemblage of low beings, selfish, and superior to the animal only in that its selfishness is more reflective</em>. From the midst of this uniform mediocrity, there are pillars that rise toward the sky, and bear witness to a nobler destiny. Jesus is the highest of these pillars which show to man whence he comes, and whither he ought to tend. In him was condensed all that is good and elevated in our nature. . . .</p>
+</blockquote>
+<blockquote>
+<p>But whatever may be the unexpected phenomena of the future, Jesus will not be surpassed. His worship will constantly renew its youth, the tale of his life will cause ceaseless tears, his sufferings will soften the best hearts; all the ages will proclaim that, among the sons of men, there is none born who is greater than Jesus.<br>                                        – <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Ernest_Renan">Renan</a></p>
+</blockquote>
+<p>Who but a Frenchman with the delicacy and depth of the French could express it so well and so eloquently?</p>
+<p>In actual fact, Christianity in China never made converts by <a target="_blank" rel="noopener" href="https://www.merriam-webster.com/dictionary/doctrine">doctrines</a>, but it did make converts whenever a Chinese came into personal contact with a Christian personality who followed the Christian teachings; namely, those few words “<strong>Love ye one another.</strong>“</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Christians">Christians</a> breed Christians, but Christian theology does not.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/12/24/the-majesty-of-light-from-pagan-to-christian-lin-yutang/" data-id="cmm6622jz00usthyzhb2fbk6u" data-title="Chapter 8 - The Majesty of Light - From Pagan to Christian - Lin Yutang" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/English/" rel="tag">English</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-maxim" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/17/maxim/" class="article-date">
+  <time datetime="2019-12-17T22:16:49.000Z" itemprop="datePublished">2019-12-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/17/maxim/">Maxim（至理名言）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>事实上我们全都是些集体性人物，不管我们愿意把自己摆在什么位置，严格地说，可以看成我们所特有的东西是微乎其微的，就像我们个人是微乎其微的一样。我们全都要从前辈或同辈那里学习东西，就连最大的天才，如果单凭他所特有的内在的自我去对付一切，他也绝不会有多大成就。我们的发展要归功于广大世界千丝万缕的影响，从这些影响中，我们吸收我们能吸收的和对我们有用的那一部分。（歌德）</p>
+</blockquote>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Mendelssohn_plays_to_Goethe%2C_1830.jpg/440px-Mendelssohn_plays_to_Goethe%2C_1830.jpg" alt="Mendelssohn plays to Goethe, 1830: painting by Moritz Oppenheim, 1864"></p>
+<blockquote>
+<p>But, in fact, we are all collective beings, let us place ourselves as we may. For how little have we, and are we, that we can strictly call our own property? We must all receive and learn both from those who were before us, and from those who are with us. Even the greatest genius would not go far if he tried to own everything to his own internal self.</p>
+</blockquote>
+<blockquote>
+<p>I by no means owe my works to my own wisdom alone, but to a thousand things and persons around me, who provided me with material. There were fools and sages, minds enlightened and narrow, childhood, youth, and mature age - all told me what they felt, what they thought, how they lived and worked, and what experiences they had gained; and I had nothing further to do than to put out my hand and reap what others had sown for me.</p>
+</blockquote>
+<blockquote>
+<p>— <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Johann_Wolfgang_von_Goethe">Johann Wolfgang von Goethe</a>, Goethe’s Works</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>任何个人要想突然做出惊人的发现，这是不符合事物发展的规律的。科学是一步一个脚印地向前发展，每个人都要依赖前人的工作。当你听说一个突然的，意想不到的发现 —— 仿佛晴天霹雳时，你永远可以确信，它总是由一个人对另一个人的影响所导致的，正是因为有这种相互影响才使科学的进展存在着巨大的可能性。科学并不依赖于某一个人的思想，而是依赖于千万人的集体智慧，千万人思考着同一个问题，每一个人尽他自己的一份力量，知识的大厦就是这样建造起来的。（卢瑟福）</p>
+</blockquote>
+<p><img src="https://upload.wikimedia.org/wikipedia/en/1/1b/New_Zealand_one_hundred-dollar_banknote%2C_Series_7.jpg" alt="Ernest Rutherford"></p>
+<blockquote>
+<p>It is not in the nature of things for any one man to make a sudden violent discovery; science goes step by step, and every man depends on the work of his predecessors. When you hear of a sudden unexpected discovery—a bolt from the blue, as it were—you can always be sure that it has grown up by the influence of one man on another, and it is this mutual influence which makes the enormous possibility of scientific advance. Scientists are not dependent on the ideas of a single man, but on the combined wisdom of thousands of men, all thinking of the same problem, and each doing his little bit to add to the great structure of knowledge which is gradually being erected.<br>                                            — <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Ernest_Rutherford">Ernest Rutherford</a></p>
+</blockquote>
+<hr>
+<blockquote>
+<p>我曾经为知识领域添瓦加砖，也曾帮别人添枝加叶；这些东西的价值，比起身后留下某种纪念物的大数学家或任何其他大大小小的艺术家们创造的价值，只是程度上有所不同，性质上并无差异。(哈代)</p>
+</blockquote>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Ghhardy%4072.jpg" alt="Hardy, c. 1927"></p>
+<blockquote>
+<p>The case for my life, then, or for that of any one else who has been a mathematician in the same sense which I have been one, is this: that I have added something to knowledge, and helped others to add more; and that these somethings have a value which differs in degree only, and not in kind, from that of the creations of the great mathematicians, or of any of the other artists, great or small, who have left some kind of memorial behind them.<br>– A Mathematician’s Apology, <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/G._H._Hardy">G. H. Hardy</a></p>
+</blockquote>
+<hr>
+<blockquote>
+<p>我认为，科学领域不存在可以遵循认识论路标抵达真理的哲学捷径。不，我们科学家仿佛在黑暗的丛林里摸索行进，只能通过不断尝试与犯错来发现蜿蜒曲折的正确道路，在探索未知的迷茫途中独辟蹊径。迷宫一样的岔路口没有现成的路标，而是我们的先行者自己探索方向并树立路标，为后人指引方向。（马克斯・玻恩）</p>
+</blockquote>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Max_Born_young.jpg" alt="Max Born"></p>
+<blockquote>
+<p>I believe there is no philosophical high-road in science, with epistemological signposts. No, we are in a jungle and find our way by trial and error, building our road behind us as we proceed. We do not find signposts at crossroads, but our own scouts erect them, to help the rest.<br>– Experiment and Theory in Physics, <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Max_Born">Max Born</a></p>
+</blockquote>
+<hr>
+<blockquote>
+<p>每个人都是混账、坏蛋，只有耶稣基督除外。爱因斯坦也是个坏蛋，因为在原子弹被引爆之后，他并没有离开美国，尽管他曾极力反对使用原子弹。<br>最终，通过事物之间的普遍联系，一个人会以这样或那样的方式，在深浅不等的程度上与世界上发生的所有事物都扯上干系。如果一个人可以对任何一个事件施加任何影响，那么他就要为此承担责任。（亚历山德罗夫）</p>
+</blockquote>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Aleksandr_Danilovich_Aleksandrov.jpg" alt="A. D. Aleksandrov in 1954"></p>
+<blockquote>
+<p>Everyone is a bastard, everyone is bad, with the possible exception of Jesus Christ. Einstein is bad too, because he did not leave America after the nuclear bomb was detonated over his objections.In the end, through the general interconnectedness of events, a person becomes, in some way or another, to a greater or lesser extent, party to everything that happens in the world, and if he can exert any influence whatsoever on any event, then he becomes responsible for it.<br>– <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Aleksandr_Aleksandrov_%28mathematician%29">Aleksandr Danilovich Aleksandrov</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/12/17/maxim/" data-id="cmm6622jb00pathyzaayuevls" data-title="Maxim（至理名言）" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/English/" rel="tag">English</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%B6%E4%BB%96/" rel="tag">其他</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-how-Terence-Tao-learn-javascript-and-gamify-logic" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/27/how-Terence-Tao-learn-javascript-and-gamify-logic/" class="article-date">
+  <time datetime="2019-11-27T16:28:20.000Z" itemprop="datePublished">2019-11-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/27/how-Terence-Tao-learn-javascript-and-gamify-logic/">How Terence Tao learn Javascript and gamify logic</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://teorth.github.io/QED/">QED - an interactive textbook</a></p>
+<hr>
+<p><img src="https://www.math.ucla.edu/~tao/images/image1.jpg" alt="Terence Tao"></p>
+<p><a target="_blank" rel="noopener" href="https://terrytao.wordpress.com/">Terence Tao</a> is a starlike mathematician of our time. He is also a geek mathematician.</p>
+<hr>
+<p>Repository for the QED interactive text and possible extensions<br><a target="_blank" rel="noopener" href="https://github.com/teorth/QED">https://github.com/teorth/QED</a></p>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://terrytao.wordpress.com/2018/07/28/gamifying-propositional-logic-qed-an-interactive-textbook/">Gamifying propositional logic: QED, an interactive textbook</a></p>
+<blockquote>
+<p>It took a while for me to come up with a workable game-like graphical interface for all of this, but I finally managed to set one up, now using Javascript instead of Scratch (which would be hopelessly inadequate for this task); indeed, part of the motivation of this project was to finally learn how to program in Javascript, which turned out to be not as formidable as I had feared (certainly having experience with other C-like languages like C++, Java, or lua, as well as some prior knowledge of HTML, was very helpful).</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://terrytao.wordpress.com/2018/08/18/qed-version-2-0-an-interactive-text-in-first-order-logic/">QED version 2.0: an interactive text in first-order logic</a></p>
+<blockquote>
+<p>I feel though that there could be more that could be done with this sort of framework (e.g., improved GUI, modification to other logics, developing the ability to write one’s own texts and libraries, exploring mathematical theories such as Peano arithmetic, etc.).  But writing this text (particularly the first-order logic sections) has brought me close to the limit of my programming ability, as the number of bugs introduced with each new feature implemented has begun to grow at an alarming rate.  I would like to repackage the code so that it can be re-used by more adept programmers for further possible applications, though I have never done something like this before and would appreciate advice on how to do so.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/11/27/how-Terence-Tao-learn-javascript-and-gamify-logic/" data-id="cmm6622io00ifthyz56ak8tr5" data-title="How Terence Tao learn Javascript and gamify logic" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/miscellaneous/" rel="tag">miscellaneous</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Course-Schedule-II" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/25/LeetCode-Algorithms-Course-Schedule-II/" class="article-date">
+  <time datetime="2019-11-26T04:24:16.000Z" itemprop="datePublished">2019-11-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/25/LeetCode-Algorithms-Course-Schedule-II/">LeetCode - Algorithms - 210. Course Schedule II</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>only when I combined two man’s solutions did it pass on Leetcode.</p>
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/course-schedule-ii/">210. Course Schedule II</a></p>
+<p>topological sort of DAG.</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] findOrder(<span class="type">int</span> numCourses, <span class="type">int</span>[][] prerequisites) &#123;</span><br><span class="line">        <span class="type">int</span>[] tp = <span class="keyword">new</span> <span class="title class_">int</span>[numCourses];</span><br><span class="line"></span><br><span class="line">    	List&lt;Edge&gt; edges = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Edge&gt;();</span><br><span class="line">    	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;prerequisites.length; i++) &#123;</span><br><span class="line">    		edges.add(<span class="keyword">new</span> <span class="title class_">Edge</span>(prerequisites[i][<span class="number">0</span>],prerequisites[i][<span class="number">1</span>]));</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="type">Graph</span> <span class="variable">graph</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Graph</span>(edges, numCourses);</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">if</span> (!isDAG(graph, numCourses))</span><br><span class="line">    			<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;&#125;;</span><br><span class="line"></span><br><span class="line">    	List&lt;Integer&gt; tplist = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Integer&gt;();</span><br><span class="line">		Stack&lt;Integer&gt; stack = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;Integer&gt;();</span><br><span class="line"></span><br><span class="line">		<span class="type">boolean</span> visited[] = <span class="keyword">new</span> <span class="title class_">boolean</span>[numCourses];</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; numCourses; i++)</span><br><span class="line">			visited[i] = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; numCourses; i++)</span><br><span class="line">			<span class="keyword">if</span> (visited[i] == <span class="literal">false</span>)</span><br><span class="line">				topologicalSortUtil(i, visited, stack, graph);</span><br><span class="line">		<span class="keyword">while</span> (stack.empty() == <span class="literal">false</span>)</span><br><span class="line">			tplist.add( stack.pop() );</span><br><span class="line"></span><br><span class="line">		Collections.reverse(tplist);</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;tplist.size();i++)</span><br><span class="line">			tp[i] = tplist.get(i);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> tp;       </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">topologicalSortUtil</span><span class="params">(<span class="type">int</span> v, <span class="type">boolean</span> visited[], Stack&lt;Integer&gt; stack, Graph graph)</span> &#123;</span><br><span class="line">		visited[v] = <span class="literal">true</span>;</span><br><span class="line">		Integer i;</span><br><span class="line">		Iterator&lt;Integer&gt; it = graph.adjList.get(v).iterator();</span><br><span class="line">		<span class="keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line">			i = it.next();</span><br><span class="line">			<span class="keyword">if</span> (!visited[i])</span><br><span class="line">				topologicalSortUtil(i, visited, stack, graph);</span><br><span class="line">		&#125;</span><br><span class="line">		stack.push(<span class="keyword">new</span> <span class="title class_">Integer</span>(v));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isDAG</span><span class="params">(Graph graph, <span class="type">int</span> N)</span> &#123;</span><br><span class="line">		<span class="type">boolean</span>[] discovered = <span class="keyword">new</span> <span class="title class_">boolean</span>[N];</span><br><span class="line"></span><br><span class="line">		<span class="type">int</span>[] departure = <span class="keyword">new</span> <span class="title class_">int</span>[N];</span><br><span class="line"></span><br><span class="line">		<span class="type">int</span> <span class="variable">time</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">			<span class="keyword">if</span> (discovered[i] == <span class="literal">false</span>)</span><br><span class="line">				time = DFS(graph, i, discovered, departure, time);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">u</span> <span class="operator">=</span> <span class="number">0</span>; u &lt; N; u++) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> v : graph.adjList.get(u)) &#123;</span><br><span class="line">				<span class="keyword">if</span> (departure[u] &lt;= departure[v])</span><br><span class="line">					<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">DFS</span><span class="params">(Graph graph, <span class="type">int</span> v, <span class="type">boolean</span>[] discovered, <span class="type">int</span>[] departure, <span class="type">int</span> time)</span> &#123;</span><br><span class="line">		discovered[v] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> u : graph.adjList.get(v)) &#123;</span><br><span class="line">			<span class="keyword">if</span> (!discovered[u])</span><br><span class="line">				time = DFS(graph, u, discovered, departure, time);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		departure[v] = time++;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> time;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Edge</span> &#123;</span><br><span class="line">	<span class="type">int</span> source, dest;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Edge</span><span class="params">(<span class="type">int</span> source, <span class="type">int</span> dest)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.source = source;</span><br><span class="line">		<span class="built_in">this</span>.dest = dest;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Graph</span> &#123;</span><br><span class="line">	List&lt;List&lt;Integer&gt;&gt; adjList = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">	Graph(List&lt;Edge&gt; edges, <span class="type">int</span> N) &#123;</span><br><span class="line">		adjList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(N);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">			adjList.add(i, <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;());</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (Edge edge : edges) &#123;</span><br><span class="line">			adjList.get(edge.source).add(edge.dest);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>44 &#x2F; 44 test cases passed.</li>
+<li>Runtime: 9 ms, faster than 37.80% of Java online submissions for Course Schedule II.</li>
+<li>Memory Usage: 39.7 MB, less than 98.78% of Java online submissions for Course Schedule II.</li>
+</ul>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/topological-sorting/">Topological Sorting</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.techiedelight.com/check-given-digraph-dag-directed-acyclic-graph-not/">Check if given digraph is a DAG or not</a></li>
+<li><a target="_blank" rel="noopener" href="https://people.ok.ubc.ca/ylucet/DS/TopoSortDFS.html">Topological Sort by DFS</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.techiedelight.com/topological-sorting-dag/">Topological Sort Algorithm for DAG using DFS</a> it is not right, bug in it!</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/11/25/LeetCode-Algorithms-Course-Schedule-II/" data-id="cmm6622he003ethyzc0bm2yup" data-title="LeetCode - Algorithms - 210. Course Schedule II" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Course-Schedule" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/21/LeetCode-Algorithms-Course-Schedule/" class="article-date">
+  <time datetime="2019-11-22T02:52:37.000Z" itemprop="datePublished">2019-11-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/21/LeetCode-Algorithms-Course-Schedule/">LeetCode - Algorithms - 207. Course Schedule</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>my exercises is to find solutions which can help me to understand these puzzle algorithms.</p>
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/course-schedule/">207. Course Schedule</a></p>
+<p>scheduling problem with precedence constraints.</p>
+<h2 id="key"><a href="#key" class="headerlink" title="key"></a>key</h2><ul>
+<li>DAG: a digraph with no directed cycles.</li>
+<li>A digraph has a topological order if and only if it is a DAG.</li>
+<li>Is a given digraph a DAG ?</li>
+<li>Depth-first search</li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canFinish</span><span class="params">(<span class="type">int</span> numCourses, <span class="type">int</span>[][] prerequisites)</span> &#123;</span><br><span class="line">    	List&lt;Edge&gt; edges = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Edge&gt;();</span><br><span class="line">    	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;prerequisites.length; i++) &#123;</span><br><span class="line">    		edges.add(<span class="keyword">new</span> <span class="title class_">Edge</span>(prerequisites[i][<span class="number">0</span>],prerequisites[i][<span class="number">1</span>]));</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="type">Graph</span> <span class="variable">graph</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Graph</span>(edges, numCourses);</span><br><span class="line">        <span class="keyword">return</span> isDAG(graph, numCourses);        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">isDAG</span><span class="params">(Graph graph, <span class="type">int</span> N)</span> &#123;</span><br><span class="line">  		<span class="type">boolean</span>[] discovered = <span class="keyword">new</span> <span class="title class_">boolean</span>[N];</span><br><span class="line"></span><br><span class="line">  		<span class="type">int</span>[] departure = <span class="keyword">new</span> <span class="title class_">int</span>[N];</span><br><span class="line"></span><br><span class="line">  		<span class="type">int</span> <span class="variable">time</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">  			<span class="keyword">if</span> (discovered[i] == <span class="literal">false</span>)</span><br><span class="line">  				time = DFS(graph, i, discovered, departure, time);</span><br><span class="line"></span><br><span class="line">  		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">u</span> <span class="operator">=</span> <span class="number">0</span>; u &lt; N; u++) &#123;</span><br><span class="line">  			<span class="keyword">for</span> (<span class="type">int</span> v : graph.adjList.get(u)) &#123;</span><br><span class="line">  				<span class="keyword">if</span> (departure[u] &lt;= departure[v])</span><br><span class="line">  					<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  			&#125;</span><br><span class="line">  		&#125;</span><br><span class="line">  		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">DFS</span><span class="params">(Graph graph, <span class="type">int</span> v, <span class="type">boolean</span>[] discovered, <span class="type">int</span>[] departure, <span class="type">int</span> time)</span> &#123;</span><br><span class="line">		discovered[v] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> u : graph.adjList.get(v)) &#123;</span><br><span class="line">			<span class="keyword">if</span> (!discovered[u])</span><br><span class="line">				time = DFS(graph, u, discovered, departure, time);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		departure[v] = time++;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> time;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Edge</span> &#123;</span><br><span class="line">	<span class="type">int</span> source, dest;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Edge</span><span class="params">(<span class="type">int</span> source, <span class="type">int</span> dest)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.source = source;</span><br><span class="line">		<span class="built_in">this</span>.dest = dest;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Graph</span> &#123;</span><br><span class="line">	List&lt;List&lt;Integer&gt;&gt; adjList = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">	Graph(List&lt;Edge&gt; edges, <span class="type">int</span> N) &#123;</span><br><span class="line">		adjList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(N);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">			adjList.add(i, <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;());</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (Edge edge : edges) &#123;</span><br><span class="line">			adjList.get(edge.source).add(edge.dest);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>42 &#x2F; 42 test cases passed.</li>
+<li>Runtime: 5 ms, faster than 69.31% of Java online submissions for Course Schedule.</li>
+<li>Memory Usage: 44.6 MB, less than 94.62% of Java online submissions for Course Schedule.</li>
+</ul>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.techiedelight.com/check-given-digraph-dag-directed-acyclic-graph-not/">Check if given digraph is a DAG or not</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.khanacademy.org/computing/computer-science/algorithms/graph-representation/a/representing-graphs">Representing graphs</a></li>
+<li><a target="_blank" rel="noopener" href="https://algs4.cs.princeton.edu/42digraph/">4.2 Directed Graphs</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/11/21/LeetCode-Algorithms-Course-Schedule/" data-id="cmm6622he003athyz5co4h1wk" data-title="LeetCode - Algorithms - 207. Course Schedule" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Combinations" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/20/LeetCode-Algorithms-Combinations/" class="article-date">
+  <time datetime="2019-11-20T21:14:08.000Z" itemprop="datePublished">2019-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/20/LeetCode-Algorithms-Combinations/">LeetCode - Algorithms - 77. Combinations</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>just run code of others.</p>
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/combinations/">77. Combinations</a></p>
+<blockquote>
+<p>Given two integers n and k, return all possible combinations of k numbers out of 1 … n.</p>
+</blockquote>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="Iterative-Algorithm"><a href="#Iterative-Algorithm" class="headerlink" title="Iterative Algorithm"></a>Iterative Algorithm</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">combine</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">		List&lt;List&lt;Integer&gt;&gt; combinations = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;List&lt;Integer&gt;&gt;();</span><br><span class="line"></span><br><span class="line">		<span class="type">int</span>[] combination = <span class="keyword">new</span> <span class="title class_">int</span>[k];</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; k; i++) &#123;</span><br><span class="line">			combination[i] = i;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">while</span> (combination[k - <span class="number">1</span>] &lt; n) &#123;</span><br><span class="line">			List&lt;Integer&gt; comblist = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Integer&gt;();</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;combination.length; i++) &#123;</span><br><span class="line">				comblist.add(combination[i]+<span class="number">1</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			combinations.add(comblist);</span><br><span class="line">			<span class="type">int</span> <span class="variable">t</span> <span class="operator">=</span> k - <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">while</span> (t != <span class="number">0</span> &amp;&amp; combination[t] == n - k + t) &#123;</span><br><span class="line">				t--;</span><br><span class="line">			&#125;</span><br><span class="line">			combination[t]++;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> t + <span class="number">1</span>; i &lt; k; i++) &#123;</span><br><span class="line">				combination[i] = combination[i - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> combinations;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>27 &#x2F; 27 test cases passed.</li>
+<li>Runtime: 3 ms, faster than 88.15% of Java online submissions for Combinations.</li>
+<li>Memory Usage: 39.7 MB, less than 80.43% of Java online submissions for Combinations.</li>
+</ul>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.baeldung.com/java-combinations-algorithm">Generate Combinations in Java</a></li>
+<li><a target="_blank" rel="noopener" href="https://rosettacode.org/wiki/Combinations">Combinations</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/11/20/LeetCode-Algorithms-Combinations/" data-id="cmm6622hd0031thyz9o725p9f" data-title="LeetCode - Algorithms - 77. Combinations" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Permutations" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/19/LeetCode-Algorithms-Permutations/" class="article-date">
+  <time datetime="2019-11-20T03:09:20.000Z" itemprop="datePublished">2019-11-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/19/LeetCode-Algorithms-Permutations/">LeetCode - Algorithms - 46. Permutations</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>just verify code of other peer.</p>
+<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/permutations/">46. Permutations</a></p>
+<blockquote>
+<p>Given a collection of distinct integers, return all possible permutations.</p>
+</blockquote>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="BASIC-ALGORITHM-1-REMOVE"><a href="#BASIC-ALGORITHM-1-REMOVE" class="headerlink" title="BASIC ALGORITHM 1: REMOVE"></a>BASIC ALGORITHM 1: REMOVE</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">permute</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    	List&lt;List&lt;Integer&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;List&lt;Integer&gt;&gt;();</span><br><span class="line">    	permutation_remove(nums,nums.length,list);</span><br><span class="line">    	<span class="keyword">return</span> list;        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	  <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">permutation_remove</span><span class="params">(<span class="type">int</span>[] a, <span class="type">int</span> n, List&lt;List&lt;Integer&gt;&gt; list)</span> &#123;</span><br><span class="line">  		<span class="keyword">if</span> (n == <span class="number">1</span>) &#123;</span><br><span class="line">  			List&lt;Integer&gt; x = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Integer&gt;();</span><br><span class="line">  			<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;a.length;i++)</span><br><span class="line">  				x.add(<span class="keyword">new</span> <span class="title class_">Integer</span>(a[i]));</span><br><span class="line">  			list.add(x);</span><br><span class="line">  			<span class="keyword">return</span>;</span><br><span class="line">  		&#125;</span><br><span class="line">  		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">  			swap(a, i, n - <span class="number">1</span>);</span><br><span class="line">  			permutation_remove(a, n - <span class="number">1</span>, list);</span><br><span class="line">  			swap(a, i, n - <span class="number">1</span>);</span><br><span class="line">  		&#125;</span><br><span class="line">	 &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">swap</span><span class="params">(<span class="type">int</span>[] a, <span class="type">int</span> i, <span class="type">int</span> j)</span> &#123;</span><br><span class="line">		<span class="type">int</span> <span class="variable">t</span> <span class="operator">=</span> a[i];</span><br><span class="line">		a[i] = a[j];</span><br><span class="line">		a[j] = t;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>25 &#x2F; 25 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 97.52% of Java online submissions for Permutations.</li>
+<li>Memory Usage: 38 MB, less than 82.98% of Java online submissions for Permutations.</li>
+</ul>
+<h2 id="HEAP’S-ALGORITHM"><a href="#HEAP’S-ALGORITHM" class="headerlink" title="HEAP’S ALGORITHM"></a>HEAP’S ALGORITHM</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">permute</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    	List&lt;List&lt;Integer&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;List&lt;Integer&gt;&gt;();</span><br><span class="line">    	permutation_heaps(nums,nums.length,list);</span><br><span class="line">    	<span class="keyword">return</span> list;        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">permutation_heaps</span><span class="params">(<span class="type">int</span>[] a, <span class="type">int</span> n, List&lt;List&lt;Integer&gt;&gt; list)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (n == <span class="number">1</span>) &#123;</span><br><span class="line">			List&lt;Integer&gt; x = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Integer&gt;();</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;a.length;i++)</span><br><span class="line">				x.add(<span class="keyword">new</span> <span class="title class_">Integer</span>(a[i]));</span><br><span class="line">			list.add(x);</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; (n - <span class="number">1</span>); i++) &#123;</span><br><span class="line">			permutation_heaps(a, n - <span class="number">1</span>, list);</span><br><span class="line">			<span class="keyword">if</span> (n % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">				swap(a, n - <span class="number">1</span>, i);</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				swap(a, n - <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		permutation_heaps(a, n - <span class="number">1</span>, list);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">swap</span><span class="params">(<span class="type">int</span>[] a, <span class="type">int</span> i, <span class="type">int</span> j)</span> &#123;</span><br><span class="line">		<span class="type">int</span> <span class="variable">t</span> <span class="operator">=</span> a[i];</span><br><span class="line">		a[i] = a[j];</span><br><span class="line">		a[j] = t;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h3><ul>
+<li>25 &#x2F; 25 test cases passed.</li>
+<li>Runtime: 1 ms, faster than 97.52% of Java online submissions for Permutations.</li>
+<li>Memory Usage: 36.3 MB, less than 98.58% of Java online submissions for Permutations.</li>
+</ul>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.topcoder.com/generating-permutations/">GENERATING PERMUTATIONS</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Backtracking">Backtracking</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/11/19/LeetCode-Algorithms-Permutations/" data-id="cmm6622hi004othyzcznd6ogj" data-title="LeetCode - Algorithms - 46. Permutations" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-LeetCode-Algorithms-Group-Anagrams" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/14/LeetCode-Algorithms-Group-Anagrams/" class="article-date">
+  <time datetime="2019-11-15T03:10:34.000Z" itemprop="datePublished">2019-11-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/14/LeetCode-Algorithms-Group-Anagrams/">LeetCode - Algorithms - 49. Group Anagrams</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/group-anagrams/">49. Group Anagrams</a></p>
+<blockquote>
+<p>Given an array of strings, group anagrams together.</p>
+</blockquote>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><h2 id="solution-by-Joan-Indiana-Lyness"><a href="#solution-by-Joan-Indiana-Lyness" class="headerlink" title="solution by Joan Indiana Lyness"></a>solution by Joan Indiana Lyness</h2><p><a target="_blank" rel="noopener" href="https://medium.com/javascript-in-plain-english/algorithms-101-group-anagrams-in-javascript-b3e3c10d211e">Algorithms 101: Group Anagrams in JavaScript</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">string[]</span>&#125; <span class="variable">strs</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">string[][]</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> groupAnagrams = <span class="keyword">function</span>(<span class="params">strs</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> m = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;strs.<span class="property">length</span>;i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> s = strs[i];</span><br><span class="line">        <span class="keyword">var</span> c = s.<span class="title function_">split</span>(<span class="string">&quot;&quot;</span>).<span class="title function_">sort</span>();</span><br><span class="line">        m[c]?m[c].<span class="title function_">push</span>(s):m[c]=[s];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> r = [];</span><br><span class="line">    <span class="keyword">var</span> keys = <span class="title class_">Object</span>.<span class="title function_">keys</span>(m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> k=<span class="number">0</span>; k&lt;keys.<span class="property">length</span>; k++) &#123;</span><br><span class="line">        r.<span class="title function_">push</span>( m[keys[k]] );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Submission-Detail"><a href="#Submission-Detail" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>101 &#x2F; 101 test cases passed.</li>
+<li>Runtime: 144 ms, faster than 32.01% of JavaScript online submissions for Group Anagrams.</li>
+<li>Memory Usage: 45.6 MB, less than 34.78% of JavaScript online submissions for Group Anagrams.</li>
+</ul>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="translation-from-solution-of-Joan-Indiana-Lyness"><a href="#translation-from-solution-of-Joan-Indiana-Lyness" class="headerlink" title="translation from solution of Joan Indiana Lyness"></a>translation from solution of Joan Indiana Lyness</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;String&gt;&gt; <span class="title function_">groupAnagrams</span><span class="params">(String[] strs)</span> &#123;</span><br><span class="line">		List&lt;List&lt;String&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;List&lt;String&gt;&gt;();</span><br><span class="line">		Map&lt;String, List&lt;String&gt;&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, List&lt;String&gt;&gt;();</span><br><span class="line">		String s;</span><br><span class="line">		<span class="type">char</span>[] c;</span><br><span class="line">		String key;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; strs.length; i++) &#123;</span><br><span class="line">			s = strs[i];</span><br><span class="line">			c = s.toCharArray();</span><br><span class="line">			Arrays.sort(c);</span><br><span class="line">			key = <span class="keyword">new</span> <span class="title class_">String</span>(c);</span><br><span class="line">			<span class="keyword">if</span> (map.containsKey(key)) &#123;</span><br><span class="line">				map.get(key).add(s);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				List&lt;String&gt; glist = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">				glist.add(s);</span><br><span class="line">				map.put(key, glist);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		list.addAll(map.values());</span><br><span class="line">		<span class="keyword">return</span> list;      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Submission-Detail-1"><a href="#Submission-Detail-1" class="headerlink" title="Submission Detail"></a>Submission Detail</h2><ul>
+<li>101 &#x2F; 101 test cases passed.</li>
+<li>Runtime: 9 ms, faster than 83.05% of Java online submissions for Group Anagrams.</li>
+<li>Memory Usage: 40.8 MB, less than 96.49% of Java online submissions for Group Anagrams.</li>
+</ul>
+<h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/30199304/sorting-characters-alphabetically-in-a-string">Sorting characters alphabetically in a String</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/11/14/LeetCode-Algorithms-Group-Anagrams/" data-id="cmm6622hg003qthyz3bis8tp7" data-title="LeetCode - Algorithms - 49. Group Anagrams" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-interesting-titles-in-memory-of-scientists" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/02/interesting-titles-in-memory-of-scientists/" class="article-date">
+  <time datetime="2019-11-03T03:38:47.000Z" itemprop="datePublished">2019-11-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/02/interesting-titles-in-memory-of-scientists/">Interesting titles in memory of scientists</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Science is the most revolutionary force in the world.<br>                                          – George Sarton</p>
+</blockquote>
+<h1 id="Canada-Waterloo-Mathematics-Contests"><a href="#Canada-Waterloo-Mathematics-Contests" class="headerlink" title="Canada Waterloo Mathematics Contests"></a>Canada Waterloo Mathematics Contests</h1><p><a target="_blank" rel="noopener" href="https://www.cemc.uwaterloo.ca/contests/contests.html">https://www.cemc.uwaterloo.ca/contests/contests.html</a></p>
+<h2 id="Gauss-Mathematics-Contests"><a href="#Gauss-Mathematics-Contests" class="headerlink" title="Gauss Mathematics Contests"></a>Gauss Mathematics Contests</h2><p>The Gauss Contests are an opportunity for students to have fun and to develop their mathematical problem solving ability.</p>
+<h3 id="Audience"><a href="#Audience" class="headerlink" title="Audience"></a>Audience</h3><p>All students in Grades 7 and 8 and interested students from lower grades.</p>
+<h2 id="Pascal-Cayley-and-Fermat-Mathematics-Contests"><a href="#Pascal-Cayley-and-Fermat-Mathematics-Contests" class="headerlink" title="Pascal, Cayley and Fermat Mathematics Contests"></a>Pascal, Cayley and Fermat Mathematics Contests</h2><p>The Pascal, Cayley and Fermat Contests are an opportunity for students to have fun and to develop their mathematical problem solving ability.</p>
+<h3 id="Audience-1"><a href="#Audience-1" class="headerlink" title="Audience"></a>Audience</h3><ul>
+<li>Students in Grade 9 or below are eligible to write the Pascal Contest.</li>
+<li>Students in Grade 10 or below are eligible to write the Cayley Contest.</li>
+<li>Students in Grade 11 or below are eligible to write the Fermat Contest.</li>
+</ul>
+<h2 id="Fryer-Galois-and-Hypatia-Mathematics-Contests"><a href="#Fryer-Galois-and-Hypatia-Mathematics-Contests" class="headerlink" title="Fryer, Galois and Hypatia Mathematics Contests"></a>Fryer, Galois and Hypatia Mathematics Contests</h2><p>The Fryer, Galois and Hypatia Math Contests are an opportunity for students to write a full-solution contest. They are fun way to develop mathematical problem solving skills through a written mathematical activity.</p>
+<h3 id="Audience-2"><a href="#Audience-2" class="headerlink" title="Audience"></a>Audience</h3><ul>
+<li>Students in Grade 9 or below are eligible to write the Fryer Contest.</li>
+<li>Students in Grade 10 or below are eligible to write the Galois Contest.</li>
+<li>Students in Grade 11 or below are eligible to write the Hypatia Contest.</li>
+</ul>
+<h2 id="Euclid-Mathematics-Contest"><a href="#Euclid-Mathematics-Contest" class="headerlink" title="Euclid Mathematics Contest"></a>Euclid Mathematics Contest</h2><p>The Euclid Mathematics Contest is an opportunity for students to have fun and to develop their mathematical problem solving ability.</p>
+<h3 id="Audience-3"><a href="#Audience-3" class="headerlink" title="Audience"></a>Audience</h3><p>Students in their final year of secondary school or CÉGEP students and motivated students in lower grades.</p>
+<h1 id="FFmpeg-Releases"><a href="#FFmpeg-Releases" class="headerlink" title="FFmpeg Releases"></a>FFmpeg Releases</h1><p>FFmpeg is the leading multimedia framework originally developed by <a target="_blank" rel="noopener" href="https://bellard.org/">Fabrice Bellard</a>.</p>
+<p><a target="_blank" rel="noopener" href="https://www.ffmpeg.org/download.html#releases">https://www.ffmpeg.org/download.html#releases</a></p>
+<ul>
+<li>FFmpeg 4.2.1 “Ada”</li>
+<li>FFmpeg 4.1.4 “al-Khwarizmi”</li>
+<li>FFmpeg 4.0.4 “Wu”</li>
+<li>FFmpeg 3.4.6 “Cantor”</li>
+<li>FFmpeg 3.3.9 “Hilbert”</li>
+<li>FFmpeg 3.2.14 “Hypatia”</li>
+<li>FFmpeg 2.8.15 “Feynman”</li>
+<li>FFmpeg 3.1.11 “Laplace”</li>
+<li>FFmpeg 3.0.12 “Einstein”</li>
+<li>FFmpeg 2.7.7 “Nash”</li>
+<li>FFmpeg 2.6.9 “Grothendieck”</li>
+<li>FFmpeg 2.5.11 “Bohr”</li>
+<li>FFmpeg 2.4.14 “Fresnel”</li>
+<li>FFmpeg 2.3.6 “Mandelbrot”</li>
+<li>FFmpeg 2.2.16 “Muybridge”</li>
+<li>FFmpeg 2.1.8 “Fourier”</li>
+<li>FFmpeg 2.0.7 “Nameless”</li>
+<li>FFmpeg 1.2.12 “Magic”</li>
+<li>FFmpeg 1.1.16 “Fire Flower”</li>
+<li>FFmpeg 1.0.10 “Angel”</li>
+<li>FFmpeg 0.11.5 “Happiness”</li>
+<li>FFmpeg 0.10.16 “Freedom”</li>
+<li>FFmpeg 0.9.4 “Harmony”</li>
+<li>FFmpeg 0.8.15 “Love”</li>
+<li>FFmpeg 0.7.17 “Peace”</li>
+<li>FFmpeg 0.6.7 “Works with HTML5”</li>
+<li>FFmpeg 0.5.15 “half-way to world domination A.K.A. the belligerent blue bike shed”</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hezhigang.github.io/2019/11/02/interesting-titles-in-memory-of-scientists/" data-id="cmm6622is00jmthyz5ulgf4nh" data-title="Interesting titles in memory of scientists" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/miscellaneous/" rel="tag">miscellaneous</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/47/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/">46</a><a class="page-number" href="/page/47/">47</a><span class="page-number current">48</span><a class="page-number" href="/page/49/">49</a><a class="page-number" href="/page/50/">50</a><span class="space">&hellip;</span><a class="page-number" href="/page/60/">60</a><a class="extend next" rel="next" href="/page/49/">Next »</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/" rel="tag">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELL/" rel="tag">ELL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PhraseList/" rel="tag">PhraseList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED/" rel="tag">TED</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TED-Ed/" rel="tag">TED-Ed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Story-of-Maths/" rel="tag">The Story of Maths</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WordList/" rel="tag">WordList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miscellaneous/" rel="tag">miscellaneous</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%B6%E4%BB%96/" rel="tag">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%A4%E5%85%B8%E6%96%87%E5%AD%A6/" rel="tag">古典文学</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithms/" style="font-size: 12.67px;">Algorithms</a> <a href="/tags/ELL/" style="font-size: 19.33px;">ELL</a> <a href="/tags/English/" style="font-size: 18px;">English</a> <a href="/tags/LeetCode/" style="font-size: 20px;">LeetCode</a> <a href="/tags/PhraseList/" style="font-size: 15.33px;">PhraseList</a> <a href="/tags/TED/" style="font-size: 14.67px;">TED</a> <a href="/tags/TED-Ed/" style="font-size: 13.33px;">TED-Ed</a> <a href="/tags/The-Story-of-Maths/" style="font-size: 11.33px;">The Story of Maths</a> <a href="/tags/WordList/" style="font-size: 17.33px;">WordList</a> <a href="/tags/git/" style="font-size: 10.67px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/math/" style="font-size: 14px;">math</a> <a href="/tags/miscellaneous/" style="font-size: 16.67px;">miscellaneous</a> <a href="/tags/poem/" style="font-size: 18.67px;">poem</a> <a href="/tags/%E5%85%B6%E4%BB%96/" style="font-size: 16px;">其他</a> <a href="/tags/%E5%8F%A4%E5%85%B8%E6%96%87%E5%AD%A6/" style="font-size: 12px;">古典文学</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">February 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">November 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">October 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">September 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">August 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">July 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">June 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/02/23/arika-okrent-why-is-english-so-confusing-ted-ed/">Why is English so confusing? - Arika Okrent</a>
+          </li>
+        
+          <li>
+            <a href="/2026/02/19/machines-and-spirit-lin-yutang/">机器与精神</a>
+          </li>
+        
+          <li>
+            <a href="/2026/02/12/100-great-problems-of-elementary-mathematics/">100 great problems of elementary mathematics</a>
+          </li>
+        
+          <li>
+            <a href="/2026/02/02/My-English-Phrases-List-Feb-2026/">My English Phrases List - February - 2026</a>
+          </li>
+        
+          <li>
+            <a href="/2026/02/01/My-English-Words-List-Feb-2026/">My English Words List - February - 2026</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 hezhigang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
